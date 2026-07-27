@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.35.4';
+const APP_VERSION='1.35.5';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{}};
@@ -44,7 +44,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.35.4').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.35.5').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -57,7 +57,7 @@ async function init(){
 }}
 async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
 async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
-function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const explained=findExplanationForVerse(n)?' explained-verse':'';return `${headings}<span class="verse${h}${saved}${explained}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span> `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
+function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n),explained=exp?' has-explanation':'';return `${headings}<span class="verse${h}${saved}${explained}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span> `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
 function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/\n{3,}/g,'\n\n').trim()}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatBibleText(s){return escapeHtml(limpiarTextoBiblico(s)).replace(/\n/g,'<br>')}
@@ -76,7 +76,7 @@ function updateSelection(){
     if(favoriteBtn){favoriteBtn.innerHTML='<span>🔖</span>Guardar';favoriteBtn.dataset.mode='save'}
   }
 }
-reader.addEventListener('click',e=>{const v=e.target.closest('.verse');if(!v)return;const n=Number(v.dataset.v);if(!Number.isFinite(n))return;state.selected.has(n)?state.selected.delete(n):state.selected.add(n);updateSelection()});
+reader.addEventListener('click',e=>{const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}const v=e.target.closest('.verse');if(!v)return;const n=+v.dataset.v;state.selected.has(n)?state.selected.delete(n):state.selected.add(n);updateSelection()});
 // El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
 document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
 $$('.action').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
