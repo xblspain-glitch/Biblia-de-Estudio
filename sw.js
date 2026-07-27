@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.6';
-const CORE=['./','./index.html','./styles.css?v=1.6','./app.js?v=1.6','./manifest.webmanifest?v=1.6','./icon.svg','./index.json?v=1.6','./titulos.json?v=1.6'];
+const CACHE='biblia-estudio-v1.7';
+const CORE=['./','./index.html','./styles.css?v=1.7','./app.js?v=1.7','./manifest.webmanifest?v=1.7','./icon.svg','./index.json?v=1.7','./titulos.json?v=1.7'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
