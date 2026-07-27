@@ -15,6 +15,7 @@
       <button id="bookTitle" class="book-title">Génesis</button>
       <button id="chapterTitle" class="chapter-title">1</button>
     </div>
+    <button id="readingPointBtn" class="icon-btn reading-point-btn" aria-label="Guardar punto de lectura" title="Punto de lectura">🔖</button>
     <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
     <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
   </header>
@@ -91,7 +92,7 @@
   <dialog id="searchDialog" class="sheet-dialog search-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Buscar en la Biblia</h2>
-    <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra o frase"><button id="runSearch" type="button">Buscar</button></div>
+    <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra, frase o referencia"><button id="runSearch" type="button">Buscar</button></div>
     <div id="searchResults" class="search-results"></div>
   </dialog>
 
@@ -100,6 +101,8 @@
     <h2>Ajustes</h2>
     <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="18" max="34" value="24"></label>
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
+    <button id="continueReading" type="button" class="wide-btn">Todavía no hay punto de lectura</button>
+    <button id="clearReadingPoint" type="button" class="wide-btn secondary-btn">Eliminar punto de lectura</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
   </dialog>
