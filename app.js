@@ -1,8 +1,8 @@
 const DATA='./';
-const APP_VERSION='1.25';
+const APP_VERSION='1.27';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
-const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}')};
+const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{}};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
 
@@ -42,10 +42,10 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.26').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.27').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());fixDoubleShiftedImportedTitles();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -53,7 +53,8 @@ async function init(){
     if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});
   }).catch(()=>{});
 }}
-async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
+async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
+async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
 function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}${saved}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
 function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/\n{3,}/g,'\n\n').trim()}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -150,7 +151,7 @@ function renderBooks(filter='all'){
         if(!versesGrid.dataset.loaded){
           versesGrid.innerHTML='<span class="loading-verses">Cargando…</span>';
           try{
-            const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());
+            const data=await getBookChapters(b);
             const count=(data[chapter-1]||[]).length;
             versesGrid.innerHTML='';
             for(let verse=1;verse<=count;verse++){
@@ -208,7 +209,7 @@ $('#searchBtn').onclick=openSearchDialog;$('#searchInput').addEventListener('key
 function normalizeText(x){return x.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()}
 function parseReference(raw){const q=normalizeText(raw).replace(/\./g,'');const m=q.match(/^(.+?)\s+(\d+)(?:\s*:\s*(\d+)(?:\s*-\s*(\d+))?)?$/);if(!m)return null;const bookName=m[1].trim();const aliases={salmo:'salmos',cantar:'cantares',apocalipsis:'apocalipsis',revelacion:'apocalipsis','san mateo':'mateo','san marcos':'marcos','san lucas':'lucas','san juan':'juan'};const wanted=aliases[bookName]||bookName;const bi=state.books.findIndex(b=>{const names=[b.key,b.shortTitle,b.title,b.abbr,displayBook(b)].map(normalizeText);return names.includes(wanted)||names.some(n=>n.replace(/^libro (de|del|de los) /,'')===wanted)});if(bi<0)return null;const c=+m[2],v=m[3]?+m[3]:null,endv=m[4]?+m[4]:v,b=state.books[bi];if(c<1||c>b.chapters)return null;return{bi,c,v,endv,ref:v?`${displayBook(b)} ${c}:${v}${endv>v?'-'+endv:''}`:`${displayBook(b)} ${c}`}}
 async function openSearchResult(r){state.bookIndex=r.bi;state.chapter=r.c;$('#searchDialog').close();showReader();await loadChapter();if(r.v)setTimeout(()=>{for(let n=r.v;n<=Math.min(r.endv||r.v,state.verses.length);n++)state.selected.add(n);updateSelection();$(`.verse[data-v="${r.v}"]`)?.scrollIntoView({block:'center'})},100)}
-async function runSearch(){const raw=$('#searchInput').value.trim();if(raw.length<2)return toast('Escribe al menos 2 caracteres');const box=$('#searchResults');const direct=parseReference(raw);if(direct){box.innerHTML=`<div class="search-result reference-result"><strong>${escapeHtml(direct.ref)}</strong><span>Abrir esta referencia</span></div>`;box.querySelector('.search-result').onclick=()=>openSearchResult(direct);return}const q=normalizeText(raw);box.innerHTML='<p>Buscando en toda la Biblia…</p>';let results=[];for(let bi=0;bi<state.books.length&&results.length<100;bi++){const b=state.books[bi],chapters=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());for(let ci=0;ci<chapters.length&&results.length<100;ci++)for(let vi=0;vi<chapters[ci].length&&results.length<100;vi++)if(normalizeText(limpiarTextoBiblico(chapters[ci][vi])).includes(q))results.push({bi,c:ci+1,v:vi+1,endv:vi+1,t:limpiarTextoBiblico(chapters[ci][vi]),ref:`${displayBook(b)} ${ci+1}:${vi+1}`})}box.innerHTML=results.length?results.map((r,i)=>`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t)}</div>`).join(''):'<p>Sin resultados.</p>';$$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]))}
+async function runSearch(){const raw=$('#searchInput').value.trim();if(raw.length<2)return toast('Escribe al menos 2 caracteres');const box=$('#searchResults');const direct=parseReference(raw);if(direct){box.innerHTML=`<div class="search-result reference-result"><strong>${escapeHtml(direct.ref)}</strong><span>Abrir esta referencia</span></div>`;box.querySelector('.search-result').onclick=()=>openSearchResult(direct);return}const q=normalizeText(raw);box.innerHTML='<p>Buscando en toda la Biblia…</p>';let results=[];for(let bi=0;bi<state.books.length&&results.length<100;bi++){const b=state.books[bi],chapters=await getBookChapters(b);for(let ci=0;ci<chapters.length&&results.length<100;ci++)for(let vi=0;vi<chapters[ci].length&&results.length<100;vi++)if(normalizeText(limpiarTextoBiblico(chapters[ci][vi])).includes(q))results.push({bi,c:ci+1,v:vi+1,endv:vi+1,t:limpiarTextoBiblico(chapters[ci][vi]),ref:`${displayBook(b)} ${ci+1}:${vi+1}`})}box.innerHTML=results.length?results.map((r,i)=>`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t)}</div>`).join(''):'<p>Sin resultados.</p>';$$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]))}
 $('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();$('#fontSize').oninput=e=>{document.documentElement.style.setProperty('--font-size',e.target.value+'px');localStorage.setItem('fontSize',e.target.value)};const fs=localStorage.getItem('fontSize');if(fs){$('#fontSize').value=fs;document.documentElement.style.setProperty('--font-size',fs+'px')}
 let wakeLock=null;$('#keepAwake').onchange=async e=>{try{if(e.target.checked&&'wakeLock'in navigator)wakeLock=await navigator.wakeLock.request('screen');else await wakeLock?.release()}catch{e.target.checked=false;toast('No disponible en este dispositivo')}};
 $('#showFavorites').onclick=()=>showCollection('Versículos guardados',Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text})));$('#showExplanations').onclick=()=>showCollection('Mis explicaciones',Object.entries(state.explanations).sort((a,b)=>b[1].updated-a[1].updated).map(([k,v])=>({k,ref:v.ref,text:v.text,exp:true})));function showCollection(title,items){$('#settingsDialog').close();$('#searchDialog h2').textContent=title;$('#searchDialog .search-row').style.display='none';$('#searchResults').innerHTML=items.length?items.map((x,i)=>`<div class="list-card" data-i="${i}"><strong>${x.ref}</strong><p>${formatBibleText(x.text)}</p></div>`).join(''):'<p>Todavía no hay elementos.</p>';$('#searchDialog').showModal();$$('.list-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];if(x.exp){$('#searchDialog').close();openViewExplanation(x.k)}else navigateKey(x.k)})}
@@ -327,62 +328,72 @@ function mergeTitles(base,extra){
   return out;
 }
 const USFM_KEYS=['genesis','exodo','levitico','numeros','deuteronomio','josue','jueces','rut','1_samuel','2_samuel','1_reyes','2_reyes','1_cronicas','2_cronicas','esdras','nehemias','ester','job','salmos','proverbios','eclesiastes','cantares','isaias','jeremias','lamentaciones','ezequiel','daniel','oseas','joel','amos','abdias','jonas','miqueas','nahum','habacuc','sofonias','hageo','zacarias','malaquias','mateo','marcos','lucas','juan','hechos','romanos','1_corintios','2_corintios','galatas','efesios','filipenses','colosenses','1_tesalonicenses','2_tesalonicenses','1_timoteo','2_timoteo','tito','filemon','hebreos','santiago','1_pedro','2_pedro','1_juan','2_juan','3_juan','judas','apocalipsis'];
-async function importarTodosLosTitulos(){
-  const btn=$('#importTitles');
-  if(btn){btn.disabled=true;btn.textContent='Descargando títulos…'}
-  toast('Descargando todos los títulos. Puede tardar un poco');
-  try{
-    const urls=[
-      'https://cdn.jsdelivr.net/gh/mrk214/bible-data-es-spa@main/data/es___spa___spa/RVR1960_vid_149.json',
-      'https://raw.githubusercontent.com/mrk214/bible-data-es-spa/main/data/es___spa___spa/RVR1960_vid_149.json'
-    ];
-    let data=null,lastError=null;
-    for(const url of urls){
-      try{
-        const res=await fetch(url,{cache:'no-store'});
-        if(!res.ok)throw new Error(`HTTP ${res.status}`);
-        data=await res.json();
-        break;
-      }catch(error){lastError=error}
-    }
-    if(!data)throw lastError||new Error('No se pudo descargar la fuente de títulos');
-    const result={};
-    (data.books||[]).forEach((book,bookIndex)=>{
-      const key=USFM_KEYS[bookIndex];if(!key)return;
-      (book.chapters||[]).forEach((chapter,chapterIndex)=>{
-        const found=[];const items=chapter.items||[];
-        for(let i=0;i<items.length;i++){
-          const item=items[i]||{};
-          if(!['section1','section2','heading1','heading2'].includes(item.type))continue;
-          const titulo=(item.lines||[]).join(' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
-          if(!titulo)continue;
-          let verse=Number((item.verse_numbers||[])[0]||0);
-          if(!verse){for(let j=i+1;j<items.length;j++){const n=Number((items[j]?.verse_numbers||[])[0]||0);if(n){verse=n;break}}}
-          if(!verse)verse=1;
-          found.push({versiculo:verse,titulo});
+function openBibleDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open('biblia-estudio-db',2);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains('data'))db.createObjectStore('data')};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function loadInstalledBible(){try{const db=await openBibleDb();return await new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('externalBible');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)})}catch(e){console.warn('No se pudo abrir la Biblia instalada',e);return null}}
+async function saveInstalledBible(value){const db=await openBibleDb();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'externalBible');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function plainText(lines){return limpiarTextoBiblico((lines||[]).join('\n').replace(/<[^>]+>/g,''))}
+function transformAndAuditSource(data){
+  if(!data||!Array.isArray(data.books)||data.books.length!==66)throw new Error('La fuente no contiene exactamente 66 libros');
+  const result={version:'RVR1960_vid_149',installedAt:Date.now(),books:{},titles:{},stats:{books:66,chapters:0,verses:0,titles:0,multiVerseItems:0}};
+  data.books.forEach((book,bi)=>{
+    const meta=state.books[bi];if(!meta)throw new Error(`Libro inesperado en posición ${bi+1}`);
+    if(!Array.isArray(book.chapters)||book.chapters.length!==meta.chapters)throw new Error(`${meta.shortTitle}: capítulos esperados ${meta.chapters}, encontrados ${book.chapters?.length||0}`);
+    const outChapters=[];let bookVerses=0;
+    book.chapters.forEach((chapter,ci)=>{
+      result.stats.chapters++;
+      const verseMap=new Map();const foundTitles=[];const items=Array.isArray(chapter.items)?chapter.items:[];
+      for(let i=0;i<items.length;i++){
+        const item=items[i]||{};const nums=(item.verse_numbers||[]).map(Number).filter(n=>n>0);
+        if(['section1','section2','heading1','heading2'].includes(item.type)){
+          const title=plainText(item.lines);if(!title)continue;
+          let v=nums[0]||0;
+          if(!v){for(let j=i+1;j<items.length&&!v;j++)v=Number((items[j]?.verse_numbers||[])[0]||0)}
+          foundTitles.push({versiculo:v||1,titulo:title});result.stats.titles++;
+        }else if(item.type==='verse'){
+          const text=plainText(item.lines);if(nums.length>1)result.stats.multiVerseItems++;
+          nums.forEach(n=>{if(verseMap.has(n))throw new Error(`${meta.shortTitle} ${ci+1}:${n} duplicado`);verseMap.set(n,text)});
         }
-        if(found.length&&chapterIndex+2<=(book.chapters||[]).length){result[key]=result[key]||{};result[key][String(chapterIndex+2)]=found}
-      });
+      }
+      const max=Math.max(0,...verseMap.keys());const arr=[];
+      for(let v=1;v<=max;v++){if(!verseMap.has(v))throw new Error(`${meta.shortTitle} ${ci+1}:${v} falta en la fuente`);arr.push(verseMap.get(v))}
+      if(!arr.length)throw new Error(`${meta.shortTitle} ${ci+1} no contiene versículos`);
+      outChapters.push(arr);bookVerses+=arr.length;result.stats.verses+=arr.length;
+      if(foundTitles.length){result.titles[meta.key]=result.titles[meta.key]||{};result.titles[meta.key][String(ci+1)]=foundTitles}
     });
-    state.importedTitles=result;localStorage.setItem('importedTitles',JSON.stringify(result));state.titles=mergeTitles(state.titles,result);render();
-    const count=Object.values(result).reduce((a,c)=>a+Object.values(c).reduce((x,y)=>x+y.length,0),0);
-    toast(`${count} títulos añadidos y guardados`);
-    if(btn){btn.disabled=false;btn.textContent='Títulos completos instalados'};const s=$('#titlesStatus');if(s)s.textContent=`${count} títulos instalados y disponibles sin conexión`;localStorage.setItem('titlesPromptDone','1');
-  }catch(error){console.error(error);toast('No se pudieron descargar los títulos');if(btn){btn.disabled=false;btn.textContent='Reintentar instalación de títulos'};const s=$('#titlesStatus');if(s)s.textContent='No se pudieron descargar. Comprueba la conexión y vuelve a intentarlo.'}
+    if(bookVerses!==meta.verses)throw new Error(`${meta.shortTitle}: versículos esperados ${meta.verses}, encontrados ${bookVerses}`);
+    result.books[meta.key]=outChapters;
+  });
+  if(result.stats.chapters!==1189)throw new Error(`Capítulos encontrados: ${result.stats.chapters}; esperados: 1189`);
+  if(result.stats.verses!==31104)throw new Error(`Versículos encontrados: ${result.stats.verses}; esperados: 31104`);
+  return result;
+}
+async function importarTodosLosTitulos(){
+  const btn=$('#importTitles');if(btn){btn.disabled=true;btn.textContent='Auditando e instalando…'}
+  const status=$('#titlesStatus');if(status)status.textContent='Descargando la fuente completa y comprobando 66 libros, 1.189 capítulos y 31.104 versículos…';
+  toast('Auditando la Biblia completa. Puede tardar un poco');
+  try{
+    const urls=['https://cdn.jsdelivr.net/gh/mrk214/bible-data-es-spa@main/data/es___spa___spa/RVR1960_vid_149.json','https://mrk214.github.io/snapshots/es___spa___spa/RVR1960_vid_149.json','https://raw.githubusercontent.com/mrk214/bible-data-es-spa/main/data/es___spa___spa/RVR1960_vid_149.json'];
+    let data=null,lastError=null;
+    for(const url of urls){try{const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);data=await res.json();break}catch(error){lastError=error}}
+    if(!data)throw lastError||new Error('No se pudo descargar la fuente');
+    const audited=transformAndAuditSource(data);
+    await saveInstalledBible(audited);
+    state.externalBible=audited;state.importedTitles={};localStorage.removeItem('importedTitles');
+    ['titlesChapterOffsetV125','titlesDoubleShiftFixedV126','titlesPromptDone'].forEach(k=>localStorage.removeItem(k));
+    state.titles=mergeTitles(state.baseTitles,audited.titles);
+    await loadChapter();renderBooks();
+    if(btn){btn.disabled=false;btn.textContent='Biblia completa auditada e instalada'}
+    if(status)status.textContent=`Instalada: ${audited.stats.books} libros · ${audited.stats.chapters.toLocaleString('es-ES')} capítulos · ${audited.stats.verses.toLocaleString('es-ES')} versículos · ${audited.stats.titles.toLocaleString('es-ES')} títulos.`;
+    localStorage.setItem('fullBibleInstalledV127','1');toast('Biblia completa y títulos instalados correctamente');
+  }catch(error){console.error(error);if(btn){btn.disabled=false;btn.textContent='Reintentar auditoría e instalación'}if(status)status.textContent=`No se instaló: ${error.message}`;toast('La auditoría no se superó; no se cambió tu Biblia')}
 }
 $('#importTitles')?.addEventListener('click',importarTodosLosTitulos);
 function actualizarEstadoTitulos(){
-  const count=Object.values(state.importedTitles||{}).reduce((a,c)=>a+Object.values(c||{}).reduce((x,y)=>x+(y||[]).length,0),0);
-  const btn=$('#importTitles'),status=$('#titlesStatus');
-  if(count>0){if(btn)btn.textContent='Títulos completos instalados';if(status)status.textContent=`${count} títulos instalados y disponibles sin conexión`}
+  const btn=$('#importTitles'),status=$('#titlesStatus');if(state.externalBible){if(btn)btn.textContent='Biblia completa auditada e instalada';if(status)status.textContent=`Instalada: ${state.externalBible.stats.books} libros · ${state.externalBible.stats.chapters.toLocaleString('es-ES')} capítulos · ${state.externalBible.stats.verses.toLocaleString('es-ES')} versículos · ${state.externalBible.stats.titles.toLocaleString('es-ES')} títulos.`}
 }
 setTimeout(()=>{
   actualizarEstadoTitulos();
-  const hasTitles=Object.keys(state.importedTitles||{}).length>0;
-  if(!hasTitles&&!localStorage.getItem('titlesPromptDone')){
-    localStorage.setItem('titlesPromptDone','1');
-    if(confirm('¿Deseas instalar ahora todos los títulos y subtítulos de la Biblia? Solo se descargarán una vez y después funcionarán sin conexión.')) importarTodosLosTitulos();
-  }
+  const installed=Boolean(state.externalBible);if(!installed&&!localStorage.getItem('fullBiblePromptV127')){localStorage.setItem('fullBiblePromptV127','1');if(confirm('¿Deseas auditar e instalar la Biblia RVR1960 completa con todos sus títulos? Se comprobarán los 66 libros, 1.189 capítulos y 31.104 versículos antes de sustituir la fuente actual.'))importarTodosLosTitulos()}
 },1200);
 $$('dialog form[method=dialog]').forEach(f=>f.addEventListener('submit',()=>{}));function toast(t){const x=$('#toast');x.textContent=t;x.classList.remove('hidden');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.add('hidden'),1900)}
 
