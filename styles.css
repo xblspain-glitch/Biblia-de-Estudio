@@ -143,7 +143,7 @@ html,body{overscroll-behavior-y:auto}
 @media(max-width:430px){.audit-counters-4{grid-template-columns:repeat(2,1fr)}}
 
 
-/* V1.33 · Entrar, copia integral y cierre gestual del panel de libros */
+/* V1.34 · Panel de libros con apertura y cierre gestual */
 .home-card-enter{background:linear-gradient(145deg,#f7f4ff 0%,#e5ddff 48%,#cfc0f4 100%);border-color:#9273c6}
 .settings-section-title{margin:18px 2px 4px;color:#e8ddff;font-family:system-ui;font-weight:800;font-size:17px}
 .backup-export{background:linear-gradient(180deg,#e7f5ff,#bddff4);border:2px solid #609ec4;color:#15232d;font-weight:800}
@@ -151,3 +151,7 @@ html,body{overscroll-behavior-y:auto}
 .backup-help{margin:8px 5px 2px;color:#bfc3ce;font-family:system-ui;font-size:13px;line-height:1.4;text-align:center}
 .drawer{transition:transform .22s ease;will-change:transform;touch-action:pan-y}
 .drawer.closing{transform:translateX(-105%)}
+
+/* V1.34: el panel sigue el dedo sin animación durante el gesto. */
+.drawer.dragging{transition:none!important}
+.backdrop{transition:opacity .18s ease}

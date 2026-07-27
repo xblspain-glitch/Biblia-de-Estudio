@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.33';
+const APP_VERSION='1.34';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{}};
@@ -44,7 +44,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.33').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.34').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -205,11 +205,100 @@ function renderBooks(filter='all'){
   });
 }
 $('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing')},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
-(function activarCierreDeslizandoLibros(){
-  const drawer=$('#drawer');let startX=0,startY=0,tracking=false;
-  drawer.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;tracking=true},{passive:true});
-  drawer.addEventListener('touchmove',e=>{if(!tracking)return;const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>20){tracking=false;return}if(dx<0){drawer.style.transform=`translateX(${Math.max(-drawer.offsetWidth,dx)}px)`}},{passive:true});
-  drawer.addEventListener('touchend',e=>{if(!tracking){drawer.style.transform='';return}tracking=false;const endX=e.changedTouches[0]?.clientX??startX;const dx=endX-startX;drawer.style.transform='';if(dx<-70)closeDrawer()},{passive:true});
+(function activarGestosPanelLibros(){
+  const drawer=$('#drawer');
+  const backdrop=$('#drawerBackdrop');
+  const EDGE=30;
+  const THRESHOLD=72;
+  let startX=0,startY=0,trackingClose=false,trackingOpen=false,horizontal=false;
+
+  function resetDrag(){
+    drawer.classList.remove('dragging');
+    drawer.style.transform='';
+    backdrop.style.opacity='';
+    trackingClose=trackingOpen=horizontal=false;
+  }
+
+  // Cerrar: arrastrar el panel abierto hacia la izquierda.
+  drawer.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1||drawer.classList.contains('hidden'))return;
+    startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+    trackingClose=true;horizontal=false;
+  },{passive:true});
+  drawer.addEventListener('touchmove',e=>{
+    if(!trackingClose)return;
+    const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;
+    if(!horizontal){
+      if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>12){trackingClose=false;return}
+      if(Math.abs(dx)>10)horizontal=true;
+    }
+    if(horizontal&&dx<0){
+      e.preventDefault();
+      drawer.classList.add('dragging');
+      const x=Math.max(-drawer.offsetWidth,dx);
+      drawer.style.transform=`translateX(${x}px)`;
+      backdrop.style.opacity=String(Math.max(0,1-Math.abs(x)/drawer.offsetWidth));
+    }
+  },{passive:false});
+  drawer.addEventListener('touchend',e=>{
+    if(!trackingClose){resetDrag();return}
+    const dx=(e.changedTouches[0]?.clientX??startX)-startX;
+    resetDrag();
+    if(horizontal&&dx<-THRESHOLD)closeDrawer();
+  },{passive:true});
+  drawer.addEventListener('touchcancel',resetDrag,{passive:true});
+
+  // Abrir: comenzar en el borde izquierdo y deslizar hacia la derecha.
+  window.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1||!drawer.classList.contains('hidden'))return;
+    if(document.querySelector('dialog[open]'))return;
+    const t=e.touches[0];
+    if(t.clientX>EDGE)return;
+    startX=t.clientX;startY=t.clientY;
+    trackingOpen=true;horizontal=false;
+  },{passive:true});
+  window.addEventListener('touchmove',e=>{
+    if(!trackingOpen)return;
+    const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;
+    if(!horizontal){
+      if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>12){trackingOpen=false;return}
+      if(dx>10){
+        horizontal=true;
+        drawer.classList.remove('hidden','closing');
+        drawer.classList.add('dragging');
+        backdrop.classList.remove('hidden');
+      }
+    }
+    if(horizontal){
+      e.preventDefault();
+      const width=drawer.offsetWidth||window.innerWidth*.9;
+      const progress=Math.max(0,Math.min(1,dx/width));
+      drawer.style.transform=`translateX(${(-1+progress)*100}%)`;
+      backdrop.style.opacity=String(progress);
+    }
+  },{passive:false});
+  window.addEventListener('touchend',e=>{
+    if(!trackingOpen)return;
+    const dx=(e.changedTouches[0]?.clientX??startX)-startX;
+    const shouldOpen=horizontal&&dx>THRESHOLD;
+    resetDrag();
+    if(shouldOpen){
+      drawer.classList.remove('hidden','closing');
+      drawer.classList.add('is-open');
+      backdrop.classList.remove('hidden');
+    }else{
+      drawer.classList.remove('is-open');
+      drawer.classList.add('hidden');
+      backdrop.classList.add('hidden');
+    }
+  },{passive:true});
+  window.addEventListener('touchcancel',()=>{
+    if(!trackingOpen)return;
+    resetDrag();
+    drawer.classList.remove('is-open');
+    drawer.classList.add('hidden');
+    backdrop.classList.add('hidden');
+  },{passive:true});
 })();
 $$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
 $('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
