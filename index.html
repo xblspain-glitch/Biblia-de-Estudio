@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.34">
+  <link rel="stylesheet" href="styles.css?v=1.35">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -21,26 +21,23 @@
     </div>
     <div class="home-actions">
       <button id="homeContinue" class="home-card home-card-continue" type="button">
-        <span class="home-icon">▶</span>
+        <span class="home-icon"><img src="icon-seguir.jpg?v=1.35" alt=""></span>
         <span><strong>Seguir leyendo</strong><small id="homeContinueRef">Todavía no hay un punto guardado</small></span>
       </button>
-      <button id="homeEnter" class="home-card home-card-enter" type="button">
-        <span class="home-icon">📖</span>
-        <span><strong>Entrar</strong><small>Abre directamente la última lectura disponible</small></span>
-      </button>
       <button id="homeBooks" class="home-card home-card-books" type="button">
-        <span class="home-icon">☰</span>
+        <span class="home-icon"><img src="icon-libros.jpg?v=1.35" alt=""></span>
         <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
       </button>
       <button id="homeSearch" class="home-card home-card-search" type="button">
-        <span class="home-icon">⌕</span>
+        <span class="home-icon"><img src="icon-buscar.jpg?v=1.35" alt=""></span>
         <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
       </button>
       <button id="homeSaved" class="home-card home-card-saved" type="button">
-        <span class="home-icon">🔖</span>
+        <span class="home-icon"><img src="icon-guardados.jpg?v=1.35" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
       </button>
     </div>
+    <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
   </section>
 
   <div id="readerScreen" class="reader-screen hidden">
@@ -179,6 +176,6 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.34"></script>
+  <script src="app.js?v=1.35"></script>
 </body>
 </html>
