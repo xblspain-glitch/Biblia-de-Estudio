@@ -157,8 +157,9 @@ html,body{overscroll-behavior-y:auto}
 .backdrop{transition:opacity .18s ease}
 
 /* V1.35: iconos proporcionados por el usuario y botón Entrar compacto */
-.home-icon{overflow:hidden;padding:0}
-.home-icon img{display:block;width:100%;height:100%;object-fit:cover;border-radius:14px}
+.home-icon{overflow:hidden;padding:0;width:64px;height:64px}
+.home-card{grid-template-columns:64px 1fr}
+.home-icon img{display:block;width:112%;height:112%;object-fit:cover;border-radius:14px;transform:scale(1.12)}
 .home-enter-small{display:block;align-self:center;margin:22px auto 0;border:1.5px solid #a987d7;border-radius:999px;background:linear-gradient(145deg,#fbf8ff 0%,#eadfff 52%,#d6c3f5 100%);color:#2c2436;padding:10px 28px;font:700 16px system-ui;box-shadow:inset 0 2px 0 rgba(255,255,255,.9),0 5px 12px rgba(0,0,0,.18);cursor:pointer}
 .home-enter-small:active{transform:scale(.97)}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
