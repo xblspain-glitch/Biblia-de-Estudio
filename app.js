@@ -42,10 +42,10 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.25').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.26').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());migrateImportedTitlesOneChapterForward();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());fixDoubleShiftedImportedTitles();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -294,22 +294,24 @@ $('#addReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stop
 $('#continueReading').onclick=()=>goToReadingPoint();
 $('#clearReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('El punto cambia al guardar otro versículo')});
 
-function migrateImportedTitlesOneChapterForward(){
-  if(localStorage.getItem('titlesChapterOffsetV125')==='1')return;
-  const shifted={};
-  for(const [bookKey,chapters] of Object.entries(state.importedTitles||{})){
-    const book=state.books.find(b=>b.key===bookKey);
-    const maxChapters=Number(book?.chapters||book?.chapterCount||0);
-    for(const [chapter,items] of Object.entries(chapters||{})){
-      const target=Number(chapter)+1;
-      if(maxChapters&&target>maxChapters)continue;
-      shifted[bookKey]=shifted[bookKey]||{};
-      shifted[bookKey][String(target)]=[...(shifted[bookKey][String(target)]||[]),...(items||[])];
+function fixDoubleShiftedImportedTitles(){
+  if(localStorage.getItem('titlesDoubleShiftFixedV126')==='1')return;
+  // La V1.25 desplazó una segunda vez los títulos ya instalados.
+  // Los devolvemos exactamente un capítulo, sin tocar los títulos manuales.
+  if(localStorage.getItem('titlesChapterOffsetV125')==='1'){
+    const corrected={};
+    for(const [bookKey,chapters] of Object.entries(state.importedTitles||{})){
+      for(const [chapter,items] of Object.entries(chapters||{})){
+        const target=Number(chapter)-1;
+        if(target<1)continue;
+        corrected[bookKey]=corrected[bookKey]||{};
+        corrected[bookKey][String(target)]=[...(corrected[bookKey][String(target)]||[]),...(items||[])];
+      }
     }
+    state.importedTitles=corrected;
+    localStorage.setItem('importedTitles',JSON.stringify(corrected));
   }
-  state.importedTitles=shifted;
-  localStorage.setItem('importedTitles',JSON.stringify(shifted));
-  localStorage.setItem('titlesChapterOffsetV125','1');
+  localStorage.setItem('titlesDoubleShiftFixedV126','1');
 }
 
 function mergeTitles(base,extra){
