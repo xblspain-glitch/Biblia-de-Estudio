@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.23';
+const APP_VERSION='1.25';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}')};
@@ -42,10 +42,10 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.23').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.25').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());migrateImportedTitlesOneChapterForward();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -293,6 +293,25 @@ $('#readingPointBtn').onclick=()=>{renderSavedDialog();$('#savedDialog').showMod
 $('#addReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('Guarda un versículo para usarlo como punto de lectura')});
 $('#continueReading').onclick=()=>goToReadingPoint();
 $('#clearReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('El punto cambia al guardar otro versículo')});
+
+function migrateImportedTitlesOneChapterForward(){
+  if(localStorage.getItem('titlesChapterOffsetV125')==='1')return;
+  const shifted={};
+  for(const [bookKey,chapters] of Object.entries(state.importedTitles||{})){
+    const book=state.books.find(b=>b.key===bookKey);
+    const maxChapters=Number(book?.chapters||book?.chapterCount||0);
+    for(const [chapter,items] of Object.entries(chapters||{})){
+      const target=Number(chapter)+1;
+      if(maxChapters&&target>maxChapters)continue;
+      shifted[bookKey]=shifted[bookKey]||{};
+      shifted[bookKey][String(target)]=[...(shifted[bookKey][String(target)]||[]),...(items||[])];
+    }
+  }
+  state.importedTitles=shifted;
+  localStorage.setItem('importedTitles',JSON.stringify(shifted));
+  localStorage.setItem('titlesChapterOffsetV125','1');
+}
+
 function mergeTitles(base,extra){
   const out=JSON.parse(JSON.stringify(base||{}));
   for(const [book,chapters] of Object.entries(extra||{})){
@@ -340,7 +359,7 @@ async function importarTodosLosTitulos(){
           if(!verse)verse=1;
           found.push({versiculo:verse,titulo});
         }
-        if(found.length){result[key]=result[key]||{};result[key][String(chapterIndex+1)]=found}
+        if(found.length&&chapterIndex+2<=(book.chapters||[]).length){result[key]=result[key]||{};result[key][String(chapterIndex+2)]=found}
       });
     });
     state.importedTitles=result;localStorage.setItem('importedTitles',JSON.stringify(result));state.titles=mergeTitles(state.titles,result);render();
