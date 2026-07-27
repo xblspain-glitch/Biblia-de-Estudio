@@ -208,3 +208,19 @@ html,body{overscroll-behavior-y:auto}
 .dictionary-live-help{padding:14px 10px 24px;text-align:center;opacity:.72;font-size:.92rem}
 
 .selection-bar.dragging{transition:none!important}
+
+
+/* V1.40 · Pestaña siempre visible y compacta */
+.selection-bar{top:78px;bottom:76px;width:min(82vw,310px)}
+.actions-panel-toggle{
+  left:-36px;top:42%;width:36px;height:48px;
+  border-radius:14px 0 0 14px;font-size:28px;
+  opacity:.94;
+}
+.selection-bar.open .actions-panel-toggle::after{font-size:28px}
+.action:disabled{opacity:.38;filter:grayscale(.35);cursor:not-allowed}
+.selection-reference{font-size:14px;color:#d6d7db}
+@media(max-width:420px){
+  .selection-bar{width:min(84vw,300px);top:72px}
+  .actions-panel-toggle{left:-34px;width:34px;height:46px;top:40%}
+}
