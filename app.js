@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.3';
+const APP_VERSION='1.5';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoint:JSON.parse(localStorage.getItem('readingPoint')||'null')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -16,7 +16,7 @@ async function init(){state.books=await fetch(freshUrl('index.json'),{cache:'no-
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`).then(reg=>reg.update()).catch(()=>{});
 }}
 async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
-function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',fav=state.favorites[k]?'<span class="favorite-marker">◆</span>':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}${fav}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
+function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',fav=state.favorites[k]?'<span class="favorite-marker">◆</span>':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}${fav}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
 function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/\n{3,}/g,'\n\n').trim()}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatBibleText(s){return escapeHtml(limpiarTextoBiblico(s)).replace(/\n/g,'<br>')}
@@ -34,7 +34,54 @@ $('#deleteExplanation').onclick=()=>{if(confirm('¿Eliminar esta explicación?')
 function openViewExplanation(k){const x=state.explanations[k];if(!x)return;$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;$('#viewExplanationText').textContent=x.text;$('#viewExplanationDialog').showModal()}
 $('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
 $('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
-function renderBooks(filter='all'){const list=$('#booksList');list.innerHTML='';state.books.filter(b=>filter==='all'||b.testament===filter).forEach((b)=>{const real=state.books.indexOf(b);const btn=document.createElement('button');btn.className='book-item';btn.innerHTML=`${displayBook(b)}<small>${b.chapters} capítulos · ${b.category}</small>`;btn.onclick=async()=>{state.bookIndex=real;state.chapter=1;closeDrawer();await loadChapter()};list.append(btn)})}
+function renderBooks(filter='all'){
+  const list=$('#booksList');
+  list.innerHTML='';
+  const filtered=state.books.filter(b=>filter==='all'||b.testament===filter);
+  filtered.forEach(b=>{
+    const real=state.books.indexOf(b);
+    const wrap=document.createElement('section');
+    wrap.className='book-entry';
+
+    const btn=document.createElement('button');
+    btn.className='book-item';
+    btn.setAttribute('aria-expanded','false');
+    btn.innerHTML=`<span>${escapeHtml(displayBook(b))}</span><small>${b.chapters} capítulos · ${escapeHtml(b.category)}</small><span class="book-chevron">⌄</span>`;
+
+    const grid=document.createElement('div');
+    grid.className='book-chapters hidden';
+    grid.setAttribute('aria-label',`Capítulos de ${displayBook(b)}`);
+    for(let chapter=1;chapter<=b.chapters;chapter++){
+      const chapterBtn=document.createElement('button');
+      chapterBtn.type='button';
+      chapterBtn.textContent=chapter;
+      if(real===state.bookIndex&&chapter===state.chapter)chapterBtn.classList.add('current');
+      chapterBtn.onclick=async event=>{
+        event.stopPropagation();
+        state.bookIndex=real;
+        state.chapter=chapter;
+        closeDrawer();
+        await loadChapter();
+        window.scrollTo({top:0,behavior:'instant'});
+      };
+      grid.append(chapterBtn);
+    }
+
+    btn.onclick=()=>{
+      const opening=grid.classList.contains('hidden');
+      $$('.book-chapters').forEach(x=>x.classList.add('hidden'));
+      $$('.book-item').forEach(x=>x.setAttribute('aria-expanded','false'));
+      if(opening){
+        grid.classList.remove('hidden');
+        btn.setAttribute('aria-expanded','true');
+        setTimeout(()=>wrap.scrollIntoView({block:'nearest',behavior:'smooth'}),30);
+      }
+    };
+
+    wrap.append(btn,grid);
+    list.append(wrap);
+  });
+}
 $('#booksBtn').onclick=()=>{$('#drawer').classList.remove('hidden');$('#drawerBackdrop').classList.remove('hidden')};function closeDrawer(){$('#drawer').classList.add('hidden');$('#drawerBackdrop').classList.add('hidden')}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
 $('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
 $('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;await loadChapter();scrollTo(0,0)}
@@ -49,9 +96,36 @@ $('#showFavorites').onclick=()=>showCollection('Versículos guardados',Object.en
 async function navigateKey(k){const [bookKey,c,v]=k.split(':');state.bookIndex=state.books.findIndex(b=>b.key===bookKey);state.chapter=+c;$('#searchDialog').close();await loadChapter();setTimeout(()=>{state.selected.add(+v);updateSelection();$(`.verse[data-v="${v}"]`)?.scrollIntoView({block:'center'})},80)}
 function currentVisibleVerse(){const verses=$$('.verse');let best=1,bestDistance=Infinity;for(const el of verses){const r=el.getBoundingClientRect();const d=Math.abs(r.top-100);if(r.bottom>72&&d<bestDistance){bestDistance=d;best=+el.dataset.v}}return best}
 function setReadingPoint(showToast=true){const b=state.books[state.bookIndex],v=currentVisibleVerse();state.readingPoint={bookKey:b.key,chapter:state.chapter,verse:v,ref:`${displayBook(b)} ${state.chapter}:${v}`,updated:Date.now()};save();if(showToast)toast(`Punto de lectura: ${state.readingPoint.ref}`)}
-function updateReadingPointUI(){const btn=$('#readingPointBtn'),continueBtn=$('#continueReading');if(btn)btn.classList.toggle('has-point',!!state.readingPoint);if(continueBtn){continueBtn.textContent=state.readingPoint?`Continuar: ${state.readingPoint.ref}`:'Todavía no hay punto de lectura';continueBtn.disabled=!state.readingPoint}}
-async function goToReadingPoint(){const p=state.readingPoint;if(!p)return toast('Todavía no hay punto de lectura');const bi=state.books.findIndex(b=>b.key===p.bookKey);if(bi<0)return;state.bookIndex=bi;state.chapter=p.chapter;$('#settingsDialog').close();await loadChapter();setTimeout(()=>$(`.verse[data-v="${p.verse}"]`)?.scrollIntoView({block:'center'}),100)}
-$('#readingPointBtn').onclick=()=>setReadingPoint();$('#continueReading').onclick=goToReadingPoint;$('#clearReadingPoint').onclick=()=>{if(!state.readingPoint)return;state.readingPoint=null;localStorage.removeItem('readingPoint');updateReadingPointUI();toast('Punto de lectura eliminado')};
+function updateReadingPointUI(){
+  const btn=$('#readingPointBtn'),continueBtn=$('#continueReading');
+  if(btn)btn.classList.toggle('has-point',!!state.readingPoint);
+  if(continueBtn){continueBtn.textContent=state.readingPoint?`Continuar: ${state.readingPoint.ref}`:'Todavía no hay punto de lectura';continueBtn.disabled=!state.readingPoint}
+  const savedText=$('#savedReadingPointText'),go=$('#goSavedReadingPoint'),del=$('#deleteSavedReadingPoint');
+  if(savedText)savedText.textContent=state.readingPoint?state.readingPoint.ref:'Todavía no hay punto de lectura';
+  if(go)go.disabled=!state.readingPoint;
+  if(del)del.disabled=!state.readingPoint;
+}
+async function goToReadingPoint(){
+  const p=state.readingPoint;if(!p)return toast('Todavía no hay punto de lectura');
+  const bi=state.books.findIndex(b=>b.key===p.bookKey);if(bi<0)return;
+  state.bookIndex=bi;state.chapter=p.chapter;
+  $('#settingsDialog')?.close();$('#savedDialog')?.close();
+  await loadChapter();
+  setTimeout(()=>{const el=$(`.verse[data-v="${p.verse}"]`);el?.scrollIntoView({block:'center'});el?.classList.add('reading-target');setTimeout(()=>el?.classList.remove('reading-target'),1800)},100)
+}
+function renderSavedDialog(){
+  updateReadingPointUI();
+  const items=Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text}));
+  const box=$('#savedVersesList');
+  box.innerHTML=items.length?items.map((x,i)=>`<button class="saved-verse-card" data-i="${i}"><strong>${escapeHtml(x.ref)}</strong><span>${formatBibleText(x.text)}</span></button>`).join(''):'<p class="empty-saved">Todavía no hay versículos guardados.</p>';
+  $$('.saved-verse-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];$('#savedDialog').close();navigateKey(x.k)});
+}
+$('#readingPointBtn').onclick=()=>{renderSavedDialog();$('#savedDialog').showModal()};
+$('#goSavedReadingPoint').onclick=goToReadingPoint;
+$('#updateSavedReadingPoint').onclick=()=>{setReadingPoint();renderSavedDialog()};
+$('#deleteSavedReadingPoint').onclick=()=>{if(!state.readingPoint)return;if(confirm('¿Eliminar el punto de lectura?')){state.readingPoint=null;localStorage.removeItem('readingPoint');updateReadingPointUI();renderSavedDialog();toast('Punto de lectura eliminado')}};
+$('#continueReading').onclick=goToReadingPoint;
+$('#clearReadingPoint').onclick=()=>{if(!state.readingPoint)return;state.readingPoint=null;localStorage.removeItem('readingPoint');updateReadingPointUI();toast('Punto de lectura eliminado')};
 let readingTimer;window.addEventListener('scroll',()=>{clearTimeout(readingTimer);readingTimer=setTimeout(()=>setReadingPoint(false),700)},{passive:true});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')setReadingPoint(false)});
 $$('dialog form[method=dialog]').forEach(f=>f.addEventListener('submit',()=>{}));function toast(t){const x=$('#toast');x.textContent=t;x.classList.remove('hidden');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.add('hidden'),1900)}
 
