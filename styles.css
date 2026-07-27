@@ -71,3 +71,22 @@ html,body{overscroll-behavior-y:auto}
 .home-card .home-icon{background:rgba(255,255,255,.48);border:1px solid currentColor;color:#30343a}
 .home-card strong{color:#25262a}.home-card small{color:#53565d}
 .home-card:hover{filter:brightness(1.025)}
+
+/* V1.12 · botones pastel brillantes inspirados en la app principal */
+.home-card{
+  overflow:hidden;
+  border-width:3px;
+  box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 5px rgba(0,0,0,.06);
+}
+.home-card::before{
+  content:"";position:absolute;left:5%;right:5%;top:5px;height:42%;border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.12));
+  pointer-events:none;
+}
+.home-card-continue{background:linear-gradient(145deg,#f6fbff 0%,#dceeff 48%,#bcdcff 100%);border-color:#69a5db}
+.home-card-books{background:linear-gradient(145deg,#fbf7ff 0%,#eadcff 48%,#d5bdf4 100%);border-color:#a274ce}
+.home-card-search{background:linear-gradient(145deg,#f5fff9 0%,#dff5e5 48%,#c3e9ce 100%);border-color:#72ad78}
+.home-card-saved{background:linear-gradient(145deg,#fffaf3 0%,#ffe8ce 48%,#f6c995 100%);border-color:#d49349}
+.home-card .home-icon{position:relative;z-index:1;background:rgba(255,255,255,.56);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 5px rgba(0,0,0,.08)}
+.home-card span:last-child{position:relative;z-index:1}
+.home-card:hover{filter:brightness(1.02) saturate(1.03)}
