@@ -1,8 +1,8 @@
 const DATA='./';
-const APP_VERSION='1.20';
+const APP_VERSION='1.23';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
-const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[]};
+const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
 
@@ -31,7 +31,7 @@ function openSearchDialog(){
   $('#searchDialog').showModal();
 }
 
-function save(){localStorage.setItem('highlights',JSON.stringify(state.highlights));localStorage.setItem('favorites',JSON.stringify(state.favorites));localStorage.setItem('explanations',JSON.stringify(state.explanations));localStorage.setItem('last',JSON.stringify({bookIndex:state.bookIndex,chapter:state.chapter}));localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));updateReadingPointUI();}
+function save(){localStorage.setItem('highlights',JSON.stringify(state.highlights));localStorage.setItem('favorites',JSON.stringify(state.favorites));localStorage.setItem('explanations',JSON.stringify(state.explanations));localStorage.setItem('last',JSON.stringify({bookIndex:state.bookIndex,chapter:state.chapter}));localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.setItem('importedTitles',JSON.stringify(state.importedTitles||{}));updateReadingPointUI();}
 function key(v){return `${state.books[state.bookIndex].key}:${state.chapter}:${v}`}
 function rangeKey(nums=[...state.selected]){return `${state.books[state.bookIndex].key}:${state.chapter}:${nums.sort((a,b)=>a-b).join(',')}`}
 function displayBook(book){const map={mateo:'San Mateo',marcos:'San Marcos',lucas:'San Lucas',juan:'San Juan'};return map[book.key]||book.shortTitle}
@@ -42,10 +42,10 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.20').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.23').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.titles,state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -87,7 +87,7 @@ async function action(a){
     for(const n of nums){
       const k=key(n);
       if(allSaved)delete state.favorites[k];
-      else state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`};
+      else state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`,savedAt:Date.now()};
     }
     save();
     render();
@@ -231,18 +231,24 @@ function addReadingPoint(showToast=true){
   if(showToast)toast(`Marca puesta: ${point.ref}`);
   return point;
 }
-function latestReadingPoint(){return state.readingPoints[0]||null}
+function latestSavedPoint(){
+  const entries=Object.entries(state.favorites||{});
+  if(!entries.length)return null;
+  const [k,v]=entries.sort((a,b)=>(Number(b[1]?.savedAt)||0)-(Number(a[1]?.savedAt)||0))[0];
+  const [bookKey,chapter,verse]=k.split(':');
+  return{bookKey,chapter:Number(chapter),verse:Number(verse),ref:v.ref,savedAt:Number(v.savedAt)||0};
+}
 function updateReadingPointUI(){
-  const latest=latestReadingPoint();
+  const latest=latestSavedPoint();
   const btn=$('#readingPointBtn'),continueBtn=$('#continueReading');
-  if(btn)btn.classList.toggle('has-point',state.readingPoints.length>0);
-  if(continueBtn){continueBtn.textContent=latest?`Continuar: ${latest.ref}`:'Todavía no hay marcas de lectura';continueBtn.disabled=!latest}
+  if(btn)btn.classList.toggle('has-point',Boolean(latest));
+  if(continueBtn){continueBtn.textContent=latest?`Continuar: ${latest.ref}`:'Todavía no hay un punto guardado';continueBtn.disabled=!latest}
   const homeRef=$('#homeContinueRef'),homeContinue=$('#homeContinue');
-  if(homeRef)homeRef.textContent=latest?latest.ref:'Todavía no hay marcas de lectura';
+  if(homeRef)homeRef.textContent=latest?latest.ref:'Todavía no hay un punto guardado';
   if(homeContinue)homeContinue.disabled=!latest;
 }
-async function goToReadingPoint(point=latestReadingPoint()){
-  if(!point)return toast('Todavía no hay marcas de lectura');
+async function goToReadingPoint(point=latestSavedPoint()){
+  if(!point)return toast('Todavía no hay un punto guardado');
   const bi=state.books.findIndex(b=>b.key===point.bookKey);if(bi<0)return;
   state.bookIndex=bi;state.chapter=point.chapter;
   $('#settingsDialog')?.close();$('#savedDialog')?.close();
@@ -252,7 +258,7 @@ async function goToReadingPoint(point=latestReadingPoint()){
 function renderSavedDialog(){
   updateReadingPointUI();
   const marksBox=$('#readingMarksList');
-  marksBox.innerHTML=state.readingPoints.length?state.readingPoints.map((p)=>`<div class="reading-mark-card" data-mark-id="${escapeHtml(String(p.id))}"><button type="button" class="reading-mark-go"><strong>${escapeHtml(p.ref)}</strong><span>Ir a esta marca</span></button><button type="button" class="reading-mark-delete" aria-label="Quitar marca">Quitar</button></div>`).join(''):'<p class="empty-saved">Todavía no hay marcas de lectura.</p>';
+  if(marksBox)marksBox.innerHTML='<p class="empty-saved">El último versículo guardado es el punto de lectura.</p>';
   const items=Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text}));
   const box=$('#savedVersesList');
   box.innerHTML=items.length?items.map((x,i)=>`<button class="saved-verse-card" data-i="${i}"><strong>${escapeHtml(x.ref)}</strong><span>${formatBibleText(x.text)}</span></button>`).join(''):'<p class="empty-saved">Todavía no hay versículos guardados.</p>';
@@ -284,9 +290,79 @@ function wireHomeActions(){
 }
 wireHomeActions();
 $('#readingPointBtn').onclick=()=>{renderSavedDialog();$('#savedDialog').showModal()};
-$('#addReadingPoint').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();addReadingPoint(true)});
+$('#addReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('Guarda un versículo para usarlo como punto de lectura')});
 $('#continueReading').onclick=()=>goToReadingPoint();
-$('#clearReadingPoint').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();if(!state.readingPoints.length)return toast('No hay marcas que quitar');state.readingPoints=[];localStorage.removeItem('readingPoint');save();renderSavedDialog();toast('Todas las marcas se han quitado')});
+$('#clearReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('El punto cambia al guardar otro versículo')});
+function mergeTitles(base,extra){
+  const out=JSON.parse(JSON.stringify(base||{}));
+  for(const [book,chapters] of Object.entries(extra||{})){
+    out[book]=out[book]||{};
+    for(const [chapter,items] of Object.entries(chapters||{})){
+      const merged=[...(out[book][chapter]||[]),...(items||[])];
+      const seen=new Set();
+      out[book][chapter]=merged.filter(x=>{const id=`${x.versiculo}|${x.titulo}`;if(seen.has(id))return false;seen.add(id);return true}).sort((a,b)=>a.versiculo-b.versiculo);
+    }
+  }
+  return out;
+}
+const USFM_KEYS=['genesis','exodo','levitico','numeros','deuteronomio','josue','jueces','rut','1_samuel','2_samuel','1_reyes','2_reyes','1_cronicas','2_cronicas','esdras','nehemias','ester','job','salmos','proverbios','eclesiastes','cantares','isaias','jeremias','lamentaciones','ezequiel','daniel','oseas','joel','amos','abdias','jonas','miqueas','nahum','habacuc','sofonias','hageo','zacarias','malaquias','mateo','marcos','lucas','juan','hechos','romanos','1_corintios','2_corintios','galatas','efesios','filipenses','colosenses','1_tesalonicenses','2_tesalonicenses','1_timoteo','2_timoteo','tito','filemon','hebreos','santiago','1_pedro','2_pedro','1_juan','2_juan','3_juan','judas','apocalipsis'];
+async function importarTodosLosTitulos(){
+  const btn=$('#importTitles');
+  if(btn){btn.disabled=true;btn.textContent='Descargando títulos…'}
+  toast('Descargando todos los títulos. Puede tardar un poco');
+  try{
+    const urls=[
+      'https://cdn.jsdelivr.net/gh/mrk214/bible-data-es-spa@main/data/es___spa___spa/RVR1960_vid_149.json',
+      'https://raw.githubusercontent.com/mrk214/bible-data-es-spa/main/data/es___spa___spa/RVR1960_vid_149.json'
+    ];
+    let data=null,lastError=null;
+    for(const url of urls){
+      try{
+        const res=await fetch(url,{cache:'no-store'});
+        if(!res.ok)throw new Error(`HTTP ${res.status}`);
+        data=await res.json();
+        break;
+      }catch(error){lastError=error}
+    }
+    if(!data)throw lastError||new Error('No se pudo descargar la fuente de títulos');
+    const result={};
+    (data.books||[]).forEach((book,bookIndex)=>{
+      const key=USFM_KEYS[bookIndex];if(!key)return;
+      (book.chapters||[]).forEach((chapter,chapterIndex)=>{
+        const found=[];const items=chapter.items||[];
+        for(let i=0;i<items.length;i++){
+          const item=items[i]||{};
+          if(!['section1','section2','heading1','heading2'].includes(item.type))continue;
+          const titulo=(item.lines||[]).join(' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+          if(!titulo)continue;
+          let verse=Number((item.verse_numbers||[])[0]||0);
+          if(!verse){for(let j=i+1;j<items.length;j++){const n=Number((items[j]?.verse_numbers||[])[0]||0);if(n){verse=n;break}}}
+          if(!verse)verse=1;
+          found.push({versiculo:verse,titulo});
+        }
+        if(found.length){result[key]=result[key]||{};result[key][String(chapterIndex+1)]=found}
+      });
+    });
+    state.importedTitles=result;localStorage.setItem('importedTitles',JSON.stringify(result));state.titles=mergeTitles(state.titles,result);render();
+    const count=Object.values(result).reduce((a,c)=>a+Object.values(c).reduce((x,y)=>x+y.length,0),0);
+    toast(`${count} títulos añadidos y guardados`);
+    if(btn){btn.disabled=false;btn.textContent='Títulos completos instalados'};const s=$('#titlesStatus');if(s)s.textContent=`${count} títulos instalados y disponibles sin conexión`;localStorage.setItem('titlesPromptDone','1');
+  }catch(error){console.error(error);toast('No se pudieron descargar los títulos');if(btn){btn.disabled=false;btn.textContent='Reintentar instalación de títulos'};const s=$('#titlesStatus');if(s)s.textContent='No se pudieron descargar. Comprueba la conexión y vuelve a intentarlo.'}
+}
+$('#importTitles')?.addEventListener('click',importarTodosLosTitulos);
+function actualizarEstadoTitulos(){
+  const count=Object.values(state.importedTitles||{}).reduce((a,c)=>a+Object.values(c||{}).reduce((x,y)=>x+(y||[]).length,0),0);
+  const btn=$('#importTitles'),status=$('#titlesStatus');
+  if(count>0){if(btn)btn.textContent='Títulos completos instalados';if(status)status.textContent=`${count} títulos instalados y disponibles sin conexión`}
+}
+setTimeout(()=>{
+  actualizarEstadoTitulos();
+  const hasTitles=Object.keys(state.importedTitles||{}).length>0;
+  if(!hasTitles&&!localStorage.getItem('titlesPromptDone')){
+    localStorage.setItem('titlesPromptDone','1');
+    if(confirm('¿Deseas instalar ahora todos los títulos y subtítulos de la Biblia? Solo se descargarán una vez y después funcionarán sin conexión.')) importarTodosLosTitulos();
+  }
+},1200);
 $$('dialog form[method=dialog]').forEach(f=>f.addEventListener('submit',()=>{}));function toast(t){const x=$('#toast');x.textContent=t;x.classList.remove('hidden');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.add('hidden'),1900)}
 
 async function actualizarAplicacion(){

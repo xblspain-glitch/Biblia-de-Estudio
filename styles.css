@@ -132,3 +132,5 @@ html,body{overscroll-behavior-y:auto}
   :root{--font-size:27px}
   .reader{line-height:1.8;padding-left:26px;padding-right:26px}
 }
+
+.titles-status{margin:8px 4px 0;color:#bfc3ce;font-size:.9rem;line-height:1.35;text-align:center}.wide-btn.primary{background:linear-gradient(180deg,#e7dcff,#cdb8f6);border:2px solid #8d6cc7;color:#20172f;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
