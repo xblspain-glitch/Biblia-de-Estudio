@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.9';
+const APP_VERSION='1.11';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoint:JSON.parse(localStorage.getItem('readingPoint')||'null')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -36,10 +36,18 @@ function rangeKey(nums=[...state.selected]){return `${state.books[state.bookInde
 function displayBook(book){const map={mateo:'San Mateo',marcos:'San Marcos',lucas:'San Lucas',juan:'San Juan'};return map[book.key]||book.shortTitle}
 function formatNums(nums){nums=[...new Set(nums)].sort((a,b)=>a-b);if(!nums.length)return'';let out=[],start=nums[0],prev=nums[0];for(let i=1;i<=nums.length;i++){const n=nums[i];if(n===prev+1){prev=n;continue}out.push(start===prev?`${start}`:`${start}-${prev}`);start=prev=n}return out.join(', ')}
 function currentReference(nums=[...state.selected],upper=false){const b=displayBook(state.books[state.bookIndex]);const r=`${b} ${state.chapter}:${formatNums(nums)}`;return upper?r.toUpperCase():r}
-async function init(){state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+async function init(){
+  // Limpieza única de las cachés antiguas de esta aplicación. No afecta a localStorage.
+  if('caches' in window){
+    try{
+      const cacheNames=await caches.keys();
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.11').map(name=>caches.delete(name)));
+    }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
+  }
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   let reloading=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloading){reloading=true;location.reload()}});
-  navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`).then(reg=>reg.update()).catch(()=>{});
+  navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{await reg.update();if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});}).catch(()=>{});
 }}
 async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
 function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',fav=state.favorites[k]?'<span class="favorite-marker">◆</span>':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}${fav}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
@@ -118,6 +126,7 @@ function renderBooks(filter='all'){
                 state.bookIndex=real;
                 state.chapter=chapter;
                 closeDrawer();
+                showReader();
                 await loadChapter();
                 setTimeout(()=>{
                   const el=$(`.verse[data-v="${verse}"]`);

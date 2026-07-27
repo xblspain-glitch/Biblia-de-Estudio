@@ -61,3 +61,13 @@ html,body{overscroll-behavior-y:auto}
 .home-card strong{color:#fff}.home-card small{color:rgba(255,255,255,.82)}
 .home-card:disabled{opacity:.58;filter:saturate(.65);cursor:default}
 @media(min-width:620px){.home-screen{padding-left:20px;padding-right:20px}.home-hero{margin-bottom:24px}}
+
+/* V1.10: botones pastel claros con borde del mismo tono */
+.home-card{color:#202126;box-shadow:0 7px 18px rgba(0,0,0,.18);border-width:2px}
+.home-card-continue{background:linear-gradient(135deg,#e8f4ff 0%,#cfe8ff 55%,#bbdcfb 100%);border-color:#4f91c8}
+.home-card-books{background:linear-gradient(135deg,#f2eaff 0%,#e2d2fa 55%,#d3baf3 100%);border-color:#8d62bd}
+.home-card-search{background:linear-gradient(135deg,#e5fbf6 0%,#ccefe7 55%,#b7e2d8 100%);border-color:#4f9e8d}
+.home-card-saved{background:linear-gradient(135deg,#fff2e3 0%,#f7dec4 55%,#edc9a5 100%);border-color:#b77a43}
+.home-card .home-icon{background:rgba(255,255,255,.48);border:1px solid currentColor;color:#30343a}
+.home-card strong{color:#25262a}.home-card small{color:#53565d}
+.home-card:hover{filter:brightness(1.025)}

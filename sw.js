@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.9';
-const CORE=['./','./index.html','./styles.css?v=1.9','./app.js?v=1.9','./manifest.webmanifest?v=1.9','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./index.json?v=1.9','./titulos.json?v=1.9'];
+const CACHE='biblia-estudio-v1.11';
+const CORE=['./','./index.html','./styles.css?v=1.11','./app.js?v=1.11','./manifest.webmanifest?v=1.11','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./index.json?v=1.11','./titulos.json?v=1.11'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
@@ -9,6 +9,10 @@ self.addEventListener('activate',event=>{
     caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))),
     self.clients.claim()
   ]));
+});
+
+self.addEventListener('message',event=>{
+  if(event.data?.type==='SKIP_WAITING')self.skipWaiting();
 });
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
