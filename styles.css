@@ -246,3 +246,31 @@ html,body{overscroll-behavior-y:auto}
   }
   .selection-bar.open .actions-panel-toggle::after{font-size:19px}
 }
+
+
+/* V1.44 — modo blanco de lectura */
+.theme-toggle-btn{font-size:24px!important}
+body.light-mode{--bg:#f7f3e9;--text:#171512;background:#f7f3e9;color:#171512}
+body.light-mode .reader-screen{background:#f7f3e9;color:#171512}
+body.light-mode .topbar{background:rgba(250,247,239,.98);border-bottom-color:#d6d0c3}
+body.light-mode .icon-btn,body.light-mode .book-title{color:#171512}
+body.light-mode .chapter-title{background:#e4ded2;color:#171512}
+body.light-mode .chapter-nav{background:#f2eee5;border-top-color:#d6d0c3;color:#171512}
+body.light-mode .chapter-nav button{background:#ded8cd;color:#171512}
+body.light-mode .verse-number{color:#777168}
+body.light-mode .reader-book-title,body.light-mode .chapter-number{color:#27231e}
+body.light-mode .selection-bar{background:#f4f0e7;border-color:#d3cdc1;color:#171512}
+body.light-mode .actions-panel-inner{background:rgba(247,243,235,.98)!important;color:#171512!important}
+body.light-mode .action{background:linear-gradient(180deg,#fff,#e8e2d7)!important;color:#171512!important;border-color:#d3cdc1!important}
+body.light-mode .actions-panel-toggle{background:#e8e3da!important;color:#171512!important;border-color:#c8c1b5!important}
+body.light-mode .sheet-dialog{background:#fbf8f1;color:#171512;border-color:#cfc8bb}
+body.light-mode .dialog-close{color:#171512}
+body.light-mode .search-row input,body.light-mode .explanation-dialog textarea{background:#fff;color:#171512;border-color:#cfc8bb}
+body.light-mode .explanation-content{background:#eee9df;color:#171512}
+body.light-mode .list-card p{color:#3e3932}
+body.light-mode .drawer{background:#fbf8f1;color:#171512}
+body.light-mode .drawer-head{background:#fbf8f1;border-color:#d6d0c3}
+body.light-mode .drawer-head button,body.light-mode .book-item{color:#171512}
+body.light-mode .book-item{border-color:#ddd6ca}
+body.light-mode .drawer-tabs button{background:#e7e1d6;color:#322e28}
+body.light-mode .saved-verse{background:linear-gradient(180deg,rgba(245,205,73,.25),rgba(225,184,50,.12))}

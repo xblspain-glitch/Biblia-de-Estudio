@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.43.0">
+  <link rel="stylesheet" href="styles.css?v=1.44.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -22,7 +22,7 @@
     <div class="home-actions">
       <button id="homeContinue" class="home-card home-card-continue" type="button">
         <span class="home-icon"><img src="icon-seguir.jpg?v=1.35.2" alt=""></span>
-        <span><strong>Seguir leyendo</strong><small id="homeContinueRef">Todavía no hay un punto guardado</small></span>
+        <span><strong>Punto de libro</strong><small id="homeContinueRef">Todavía no hay un punto de libro guardado</small></span>
       </button>
       <button id="homeBooks" class="home-card home-card-books" type="button">
         <span class="home-icon"><img src="icon-libros.jpg?v=1.35.2" alt=""></span>
@@ -47,7 +47,7 @@
       <button id="bookTitle" class="book-title">Génesis</button>
       <button id="chapterTitle" class="chapter-title">1</button>
     </div>
-    <button id="readingPointBtn" class="icon-btn reading-point-btn" aria-label="Abrir guardados" title="Guardados y punto de lectura">🔖</button>
+    <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">☀️</button>
     <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
     <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
   </header>
@@ -159,8 +159,8 @@
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Guardados</h2>
     <section class="reading-point-card">
-      <div class="saved-section-title">Punto de lectura</div>
-      <p class="empty-saved">El último versículo que guardes será el punto de «Seguir leyendo».</p>
+      <div class="saved-section-title">Punto de libro</div>
+      <p class="empty-saved">El último versículo que guardes será el punto de libro.</p>
       <div id="readingMarksList" class="reading-marks-list"></div>
     </section>
     <section>
@@ -174,7 +174,7 @@
     <h2>Ajustes</h2>
     <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="13" max="34" value="24"></label>
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
-    <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto guardado</button>
+    <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto de libro guardado</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
     <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico (433)</button>
@@ -202,7 +202,7 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="dictionary-data.js?v=1.43.0"></script>
-  <script src="app.js?v=1.43.0"></script>
+  <script src="dictionary-data.js?v=1.44.0"></script>
+  <script src="app.js?v=1.44.0"></script>
 </body>
 </html>
