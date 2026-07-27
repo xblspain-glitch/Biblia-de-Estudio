@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.13';
+const APP_VERSION='1.14';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoint:JSON.parse(localStorage.getItem('readingPoint')||'null')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -41,7 +41,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.13').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.14').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -251,9 +251,16 @@ async function actualizarAplicacion(){
 (function activarDeslizarParaActualizar(){
   const indicator=$('#pullRefresh');
   let startY=0,pulling=false,distance=0;
-  const atTop=()=>window.scrollY<=0 && !document.querySelector('dialog[open]');
+  const puedeActualizar=e=>{
+    const target=e?.target;
+    const enMenu=target instanceof Element && target.closest('#drawer, dialog, .backdrop');
+    const drawerCerrado=$('#drawer')?.classList.contains('hidden');
+    const pantallaValida=!$('#homeScreen')?.classList.contains('hidden') || !$('#readerScreen')?.classList.contains('hidden');
+    return window.scrollY<=0 && drawerCerrado && !document.querySelector('dialog[open]') && pantallaValida && !enMenu;
+  };
   window.addEventListener('touchstart',e=>{
-    if(e.touches.length===1&&atTop()){startY=e.touches[0].clientY;pulling=true;distance=0}
+    if(e.touches.length===1&&puedeActualizar(e)){startY=e.touches[0].clientY;pulling=true;distance=0}
+    else{pulling=false;distance=0}
   },{passive:true});
   window.addEventListener('touchmove',e=>{
     if(!pulling)return;

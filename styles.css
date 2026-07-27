@@ -93,3 +93,5 @@ html,body{overscroll-behavior-y:auto}
 
 /* V1.13 · estabilidad del listado de libros */
 .drawer{overscroll-behavior:contain;scroll-behavior:auto;overflow-anchor:auto}.drawer.is-open{scrollbar-gutter:stable}
+
+/* V1.14 · el gesto de actualización queda desactivado dentro de menús y diálogos */
