@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.31">
+  <link rel="stylesheet" href="styles.css?v=1.32">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -151,6 +151,11 @@
     <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto guardado</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
+    <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
+    <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
+    <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
+    <p id="titleHash" class="audit-hash hidden"></p>
+    <button id="exportTitles" type="button" class="wide-btn hidden">Exportar títulos JSON</button>
     <button id="importTitles" type="button" class="wide-btn primary">Auditar Biblia instalada</button>
     <p id="titlesStatus" class="titles-status">Comprueba los archivos de la Biblia que ya están en la aplicación. No sustituye ni descarga otra Biblia.</p>
     <div class="audit-counters audit-counters-4" aria-label="Resultado de la auditoría">
@@ -165,6 +170,6 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.31"></script>
+  <script src="app.js?v=1.32"></script>
 </body>
 </html>
