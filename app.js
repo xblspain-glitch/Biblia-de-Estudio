@@ -1,8 +1,8 @@
 const DATA='./';
-const APP_VERSION='1.35.5';
+const APP_VERSION='1.36.0';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
-const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{}};
+const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{},dictionaryBase:[],dictionaryCustom:JSON.parse(localStorage.getItem('dictionaryCustom')||'[]'),dictionaryEdits:JSON.parse(localStorage.getItem('dictionaryEdits')||'{}'),dictionaryDeleted:JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
 
@@ -33,7 +33,7 @@ function openSearchDialog(){
   $('#searchDialog').showModal();
 }
 
-function save(){localStorage.setItem('highlights',JSON.stringify(state.highlights));localStorage.setItem('favorites',JSON.stringify(state.favorites));localStorage.setItem('explanations',JSON.stringify(state.explanations));localStorage.setItem('last',JSON.stringify({bookIndex:state.bookIndex,chapter:state.chapter}));localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.setItem('importedTitles',JSON.stringify(state.importedTitles||{}));updateReadingPointUI();}
+function save(){localStorage.setItem('highlights',JSON.stringify(state.highlights));localStorage.setItem('favorites',JSON.stringify(state.favorites));localStorage.setItem('explanations',JSON.stringify(state.explanations));localStorage.setItem('last',JSON.stringify({bookIndex:state.bookIndex,chapter:state.chapter}));localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.setItem('importedTitles',JSON.stringify(state.importedTitles||{}));localStorage.setItem('dictionaryCustom',JSON.stringify(state.dictionaryCustom||[]));localStorage.setItem('dictionaryEdits',JSON.stringify(state.dictionaryEdits||{}));localStorage.setItem('dictionaryDeleted',JSON.stringify(state.dictionaryDeleted||[]));updateReadingPointUI();}
 function key(v){return `${state.books[state.bookIndex].key}:${state.chapter}:${v}`}
 function rangeKey(nums=[...state.selected]){return `${state.books[state.bookIndex].key}:${state.chapter}:${nums.sort((a,b)=>a-b).join(',')}`}
 function displayBook(book){const map={mateo:'San Mateo',marcos:'San Marcos',lucas:'San Lucas',juan:'San Juan'};return map[book.key]||book.shortTitle}
@@ -44,10 +44,10 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.35.5').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.36.0').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.dictionaryBase=await fetch(freshUrl('biblical-dictionary.json'),{cache:'no-store'}).then(r=>r.json()).then(x=>x.entries||[]).catch(()=>[]);state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -57,7 +57,7 @@ async function init(){
 }}
 async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
 async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
-function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n),explained=exp?' has-explanation':'';return `${headings}<span class="verse${h}${saved}${explained}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span> `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
+function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}${saved}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
 function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/\n{3,}/g,'\n\n').trim()}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatBibleText(s){return escapeHtml(limpiarTextoBiblico(s)).replace(/\n/g,'<br>')}
@@ -99,6 +99,7 @@ async function action(a){
     toast(allSaved?'Guardado quitado':'Versículo guardado');
   }
   if(a==='explain')openEditExplanation(rangeKey(),currentReference())
+  if(a==='dictionary')openDictionary()
 }
 async function copyVerses(){const nums=[...state.selected].sort((a,b)=>a-b);const body=nums.map(n=>`[${n}] ${limpiarTextoBiblico(state.verses[n-1])}`).join('\n');const text=`${currentReference(nums,true)} RVR1960\n${body}`;await navigator.clipboard.writeText(text);toast('Versículos copiados')}
 $$('#highlightDialog [data-color]').forEach(b=>b.addEventListener('click',()=>{for(const n of state.selected){const k=key(n);b.dataset.color==='none'?delete state.highlights[k]:state.highlights[k]=b.dataset.color}save();$('#highlightDialog').close();render();toast('Subrayado actualizado')}));
@@ -437,16 +438,71 @@ function mergeTitles(base,extra){
 }
 
 
+
+function normalizeDictionaryText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}
+function getDictionaryEntries(){
+  const deleted=new Set(state.dictionaryDeleted||[]), edits=state.dictionaryEdits||{};
+  const base=(state.dictionaryBase||[]).filter(x=>!deleted.has(x.id)).map(x=>({...x,...(edits[x.id]||{}),builtin:true}));
+  const custom=(state.dictionaryCustom||[]).filter(x=>!deleted.has(x.id)).map(x=>({...x,builtin:false}));
+  return [...base,...custom].sort((a,b)=>String(a.termino).localeCompare(String(b.termino),'es',{sensitivity:'base'}));
+}
+function renderDictionary(query=''){
+  const q=normalizeDictionaryText(query), all=getDictionaryEntries();
+  const filtered=q?all.filter(x=>normalizeDictionaryText(`${x.termino} ${x.explicacion} ${x.categoria}`).includes(q)):all;
+  $('#dictionaryCount').textContent=`${all.length.toLocaleString('es-ES')} entradas`;
+  $('#dictionaryResults').innerHTML=filtered.length?filtered.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')}</small><p>${escapeHtml(x.explicacion)}</p></button>`).join(''):'<p class="empty-saved">No se encontraron resultados.</p>';
+  $$('.dictionary-card').forEach(card=>card.addEventListener('click',()=>openDictionaryEditor(card.dataset.id)));
+}
+function openDictionary(){
+  state.selected.clear();updateSelection();
+  $('#dictionarySearch').value='';renderDictionary();$('#dictionaryDialog').showModal();
+  setTimeout(()=>$('#dictionarySearch').focus(),80);
+}
+function openDictionaryEditor(id=''){
+  const entry=getDictionaryEntries().find(x=>x.id===id);
+  $('#dictionaryEntryId').value=entry?.id||'';
+  $('#dictionaryTerm').value=entry?.termino||'';
+  $('#dictionaryCategory').value=entry?.categoria||'';
+  $('#dictionaryExplanation').value=entry?.explicacion||'';
+  $('#dictionaryEditTitle').textContent=entry?'Editar palabra':'Añadir palabra';
+  $('#deleteDictionaryEntry').style.display=entry?'inline-block':'none';
+  $('#dictionaryEditDialog').showModal();
+}
+$('#runDictionarySearch')?.addEventListener('click',()=>renderDictionary($('#dictionarySearch').value));
+$('#dictionarySearch')?.addEventListener('input',e=>renderDictionary(e.target.value));
+$('#dictionarySearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();renderDictionary(e.target.value)}});
+$('#addDictionaryEntry')?.addEventListener('click',()=>openDictionaryEditor());
+$('#openDictionarySettings')?.addEventListener('click',()=>{$('#settingsDialog').close();openDictionary()});
+$('#saveDictionaryEntry')?.addEventListener('click',()=>{
+  const id=$('#dictionaryEntryId').value, termino=$('#dictionaryTerm').value.trim(), categoria=$('#dictionaryCategory').value.trim(), explicacion=$('#dictionaryExplanation').value.trim();
+  if(!termino||!explicacion){toast('Escribe la palabra y su explicación');return}
+  if(id){
+    const customIndex=(state.dictionaryCustom||[]).findIndex(x=>x.id===id);
+    if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],termino,categoria,explicacion,updatedAt:Date.now()};
+    else state.dictionaryEdits[id]={termino,categoria,explicacion,updatedAt:Date.now()};
+  }else{
+    const newId=`custom-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+    state.dictionaryCustom.push({id:newId,termino,categoria,explicacion,builtin:false,createdAt:Date.now(),updatedAt:Date.now()});
+  }
+  save();$('#dictionaryEditDialog').close();renderDictionary($('#dictionarySearch').value);toast(id?'Entrada actualizada':'Entrada añadida');
+});
+$('#deleteDictionaryEntry')?.addEventListener('click',()=>{
+  const id=$('#dictionaryEntryId').value;if(!id||!confirm('¿Eliminar esta entrada del diccionario?'))return;
+  const customIndex=(state.dictionaryCustom||[]).findIndex(x=>x.id===id);
+  if(customIndex>=0)state.dictionaryCustom.splice(customIndex,1);else{if(!state.dictionaryDeleted.includes(id))state.dictionaryDeleted.push(id);delete state.dictionaryEdits[id]}
+  save();$('#dictionaryEditDialog').close();renderDictionary($('#dictionarySearch').value);toast('Entrada eliminada');
+});
+
 const BACKUP_KEYS=[
   'highlights','favorites','explanations','last','readingPoints','readingPoint','importedTitles','fontSize',
-  'lastLocalBibleAudit','verifiedTitleLayerAudit','titlesChapterOffsetV125','titlesDoubleShiftFixedV126'
+  'lastLocalBibleAudit','verifiedTitleLayerAudit','titlesChapterOffsetV125','titlesDoubleShiftFixedV126','dictionaryCustom','dictionaryEdits','dictionaryDeleted'
 ];
 function buildCompleteBackup(){
   const data={};
   for(const key of BACKUP_KEYS){const value=localStorage.getItem(key);if(value!==null)data[key]=value}
   return{
     app:'Mi Biblia de Estudio',schema:1,appVersion:APP_VERSION,createdAt:new Date().toISOString(),
-    summary:{savedVerses:Object.keys(state.favorites||{}).length,highlights:Object.keys(state.highlights||{}).length,explanations:Object.keys(state.explanations||{}).length,titles:countTitleLayer(state.importedTitles||{})},
+    summary:{savedVerses:Object.keys(state.favorites||{}).length,highlights:Object.keys(state.highlights||{}).length,explanations:Object.keys(state.explanations||{}).length,titles:countTitleLayer(state.importedTitles||{}),dictionary:getDictionaryEntries().length,dictionaryCustom:(state.dictionaryCustom||[]).length,dictionaryEdited:Object.keys(state.dictionaryEdits||{}).length,dictionaryDeleted:(state.dictionaryDeleted||[]).length},
     localStorage:data
   };
 }

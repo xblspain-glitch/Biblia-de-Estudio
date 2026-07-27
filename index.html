@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.35.5">
+  <link rel="stylesheet" href="styles.css?v=1.36.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -21,19 +21,19 @@
     </div>
     <div class="home-actions">
       <button id="homeContinue" class="home-card home-card-continue" type="button">
-        <span class="home-icon"><img src="icon-seguir.jpg?v=1.35.5" alt=""></span>
+        <span class="home-icon"><img src="icon-seguir.jpg?v=1.35.2" alt=""></span>
         <span><strong>Seguir leyendo</strong><small id="homeContinueRef">Todavía no hay un punto guardado</small></span>
       </button>
       <button id="homeBooks" class="home-card home-card-books" type="button">
-        <span class="home-icon"><img src="icon-libros.jpg?v=1.35.5" alt=""></span>
+        <span class="home-icon"><img src="icon-libros.jpg?v=1.35.2" alt=""></span>
         <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
       </button>
       <button id="homeSearch" class="home-card home-card-search" type="button">
-        <span class="home-icon"><img src="icon-buscar.jpg?v=1.35.5" alt=""></span>
+        <span class="home-icon"><img src="icon-buscar.jpg?v=1.35.2" alt=""></span>
         <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
       </button>
       <button id="homeSaved" class="home-card home-card-saved" type="button">
-        <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.5" alt=""></span>
+        <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.2" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
       </button>
     </div>
@@ -66,6 +66,7 @@
       <button class="action" data-action="highlight"><span>🖍️</span>Subrayar</button>
       <button class="action" data-action="favorite"><span>🔖</span>Guardar</button>
       <button class="action" data-action="explain"><span>📝</span>Explicación</button>
+      <button class="action" data-action="dictionary"><span>📜</span>Diccionario</button>
       <button class="action" data-action="copy"><span>⧉</span>Copiar</button>
       <button class="action" data-action="clear"><span>✕</span>Quitar</button>
     </div>
@@ -131,6 +132,26 @@
   </dialog>
 
 
+  <dialog id="dictionaryDialog" class="sheet-dialog dictionary-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas</p></div><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div>
+    <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Buscar palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
+    <div id="dictionaryResults" class="dictionary-results"></div>
+  </dialog>
+
+  <dialog id="dictionaryEditDialog" class="sheet-dialog dictionary-edit-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="dictionaryEditTitle">Añadir palabra</h2>
+    <input id="dictionaryEntryId" type="hidden">
+    <label>Palabra<input id="dictionaryTerm" type="text" autocomplete="off"></label>
+    <label>Categoría<input id="dictionaryCategory" type="text" autocomplete="off"></label>
+    <label>Explicación<textarea id="dictionaryExplanation" placeholder="Escribe el significado..."></textarea></label>
+    <div class="modal-actions">
+      <button id="deleteDictionaryEntry" type="button" class="danger">Eliminar</button>
+      <button id="saveDictionaryEntry" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
   <dialog id="savedDialog" class="sheet-dialog saved-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Guardados</h2>
@@ -153,6 +174,7 @@
     <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto guardado</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
+    <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico (433)</button>
     <div class="settings-section-title">Copia de seguridad</div>
     <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
     <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
@@ -177,6 +199,6 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.35.5"></script>
+  <script src="app.js?v=1.36.0"></script>
 </body>
 </html>
