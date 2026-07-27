@@ -42,7 +42,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.27').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.28').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -332,14 +332,22 @@ function openBibleDb(){return new Promise((resolve,reject)=>{const req=indexedDB
 async function loadInstalledBible(){try{const db=await openBibleDb();return await new Promise((resolve,reject)=>{const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get('externalBible');req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error)})}catch(e){console.warn('No se pudo abrir la Biblia instalada',e);return null}}
 async function saveInstalledBible(value){const db=await openBibleDb();return new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'externalBible');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
 function plainText(lines){return limpiarTextoBiblico((lines||[]).join('\n').replace(/<[^>]+>/g,''))}
+function chapterHasVerses(chapter){
+  const items=Array.isArray(chapter?.items)?chapter.items:[];
+  return items.some(item=>item?.type==='verse'&&Array.isArray(item.verse_numbers)&&item.verse_numbers.some(n=>Number(n)>0));
+}
 function transformAndAuditSource(data){
   if(!data||!Array.isArray(data.books)||data.books.length!==66)throw new Error('La fuente no contiene exactamente 66 libros');
-  const result={version:'RVR1960_vid_149',installedAt:Date.now(),books:{},titles:{},stats:{books:66,chapters:0,verses:0,titles:0,multiVerseItems:0}};
+  const result={version:'RVR1960_vid_149',installedAt:Date.now(),books:{},titles:{},stats:{books:66,chapters:0,verses:0,titles:0,multiVerseItems:0,introductionsRemoved:0,correctedBooks:[]}};
   data.books.forEach((book,bi)=>{
     const meta=state.books[bi];if(!meta)throw new Error(`Libro inesperado en posición ${bi+1}`);
-    if(!Array.isArray(book.chapters)||book.chapters.length!==meta.chapters)throw new Error(`${meta.shortTitle}: capítulos esperados ${meta.chapters}, encontrados ${book.chapters?.length||0}`);
+    const originalChapters=Array.isArray(book.chapters)?book.chapters:[];
+    const realChapters=originalChapters.filter(chapter=>chapterHasVerses(chapter));
+    const removed=originalChapters.length-realChapters.length;
+    if(removed>0){result.stats.introductionsRemoved+=removed;result.stats.correctedBooks.push(`${meta.shortTitle}: ${removed}`)}
+    if(realChapters.length!==meta.chapters)throw new Error(`${meta.shortTitle}: capítulos bíblicos esperados ${meta.chapters}, encontrados ${realChapters.length} después de ignorar ${removed} introducción${removed===1?'':'es'}`);
     const outChapters=[];let bookVerses=0;
-    book.chapters.forEach((chapter,ci)=>{
+    realChapters.forEach((chapter,ci)=>{
       result.stats.chapters++;
       const verseMap=new Map();const foundTitles=[];const items=Array.isArray(chapter.items)?chapter.items:[];
       for(let i=0;i<items.length;i++){
@@ -363,10 +371,17 @@ function transformAndAuditSource(data){
     if(bookVerses!==meta.verses)throw new Error(`${meta.shortTitle}: versículos esperados ${meta.verses}, encontrados ${bookVerses}`);
     result.books[meta.key]=outChapters;
   });
-  if(result.stats.chapters!==1189)throw new Error(`Capítulos encontrados: ${result.stats.chapters}; esperados: 1189`);
-  if(result.stats.verses!==31104)throw new Error(`Versículos encontrados: ${result.stats.verses}; esperados: 31104`);
+  if(result.stats.chapters!==1189)throw new Error(`Capítulos encontrados: ${result.stats.chapters}; esperados: 1.189`);
+  if(result.stats.verses!==31104)throw new Error(`Versículos encontrados: ${result.stats.verses}; esperados: 31.104`);
   return result;
 }
+function updateBibleCounters(stats){
+  const verses=$('#auditVerseCount'),titles=$('#auditTitleCount'),intro=$('#auditIntroCount');
+  if(verses)verses.textContent=Number(stats?.verses||0).toLocaleString('es-ES');
+  if(titles)titles.textContent=Number(stats?.titles||0).toLocaleString('es-ES');
+  if(intro)intro.textContent=Number(stats?.introductionsRemoved||0).toLocaleString('es-ES');
+}
+
 async function importarTodosLosTitulos(){
   const btn=$('#importTitles');if(btn){btn.disabled=true;btn.textContent='Auditando e instalando…'}
   const status=$('#titlesStatus');if(status)status.textContent='Descargando la fuente completa y comprobando 66 libros, 1.189 capítulos y 31.104 versículos…';
@@ -383,17 +398,17 @@ async function importarTodosLosTitulos(){
     state.titles=mergeTitles(state.baseTitles,audited.titles);
     await loadChapter();renderBooks();
     if(btn){btn.disabled=false;btn.textContent='Biblia completa auditada e instalada'}
-    if(status)status.textContent=`Instalada: ${audited.stats.books} libros · ${audited.stats.chapters.toLocaleString('es-ES')} capítulos · ${audited.stats.verses.toLocaleString('es-ES')} versículos · ${audited.stats.titles.toLocaleString('es-ES')} títulos.`;
-    localStorage.setItem('fullBibleInstalledV127','1');toast('Biblia completa y títulos instalados correctamente');
+    if(status)status.textContent=`Instalada correctamente: ${audited.stats.books} libros · ${audited.stats.chapters.toLocaleString('es-ES')} capítulos. Introducciones ignoradas: ${audited.stats.introductionsRemoved.toLocaleString('es-ES')}.`;updateBibleCounters(audited.stats);
+    localStorage.setItem('fullBibleInstalledV128','1');toast('Biblia completa y títulos instalados correctamente');
   }catch(error){console.error(error);if(btn){btn.disabled=false;btn.textContent='Reintentar auditoría e instalación'}if(status)status.textContent=`No se instaló: ${error.message}`;toast('La auditoría no se superó; no se cambió tu Biblia')}
 }
 $('#importTitles')?.addEventListener('click',importarTodosLosTitulos);
 function actualizarEstadoTitulos(){
-  const btn=$('#importTitles'),status=$('#titlesStatus');if(state.externalBible){if(btn)btn.textContent='Biblia completa auditada e instalada';if(status)status.textContent=`Instalada: ${state.externalBible.stats.books} libros · ${state.externalBible.stats.chapters.toLocaleString('es-ES')} capítulos · ${state.externalBible.stats.verses.toLocaleString('es-ES')} versículos · ${state.externalBible.stats.titles.toLocaleString('es-ES')} títulos.`}
+  const btn=$('#importTitles'),status=$('#titlesStatus');if(state.externalBible){if(btn)btn.textContent='Biblia completa auditada e instalada';if(status)status.textContent=`Instalada correctamente: ${state.externalBible.stats.books} libros · ${state.externalBible.stats.chapters.toLocaleString('es-ES')} capítulos. Introducciones ignoradas: ${(state.externalBible.stats.introductionsRemoved||0).toLocaleString('es-ES')}.`;updateBibleCounters(state.externalBible.stats)}
 }
 setTimeout(()=>{
   actualizarEstadoTitulos();
-  const installed=Boolean(state.externalBible);if(!installed&&!localStorage.getItem('fullBiblePromptV127')){localStorage.setItem('fullBiblePromptV127','1');if(confirm('¿Deseas auditar e instalar la Biblia RVR1960 completa con todos sus títulos? Se comprobarán los 66 libros, 1.189 capítulos y 31.104 versículos antes de sustituir la fuente actual.'))importarTodosLosTitulos()}
+  const installed=Boolean(state.externalBible);if(!installed&&!localStorage.getItem('fullBiblePromptV128')){localStorage.setItem('fullBiblePromptV128','1');if(confirm('¿Deseas auditar e instalar la Biblia RVR1960 completa con todos sus títulos? Se comprobarán los 66 libros, 1.189 capítulos y 31.104 versículos antes de sustituir la fuente actual.'))importarTodosLosTitulos()}
 },1200);
 $$('dialog form[method=dialog]').forEach(f=>f.addEventListener('submit',()=>{}));function toast(t){const x=$('#toast');x.textContent=t;x.classList.remove('hidden');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.add('hidden'),1900)}
 

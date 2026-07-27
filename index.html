@@ -153,9 +153,14 @@
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
     <button id="importTitles" type="button" class="wide-btn primary">Auditar e instalar Biblia completa con títulos</button>
     <p id="titlesStatus" class="titles-status">Se conservará la Biblia actual hasta que la nueva fuente supere toda la auditoría.</p>
+    <div class="audit-counters" aria-label="Contadores de la Biblia instalada">
+      <div><strong id="auditVerseCount">0</strong><span>Versículos</span></div>
+      <div><strong id="auditTitleCount">0</strong><span>Títulos</span></div>
+      <div><strong id="auditIntroCount">0</strong><span>Introducciones ignoradas</span></div>
+    </div>
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.27"></script>
+  <script src="app.js?v=1.28"></script>
 </body>
 </html>
