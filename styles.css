@@ -23,3 +23,17 @@ html,body{overscroll-behavior-y:auto}
 .book-chapters button.current{background:#f2f2f2;color:#111}
 .book-chapters button:active{transform:scale(.96)}
 @media(min-width:600px){.book-chapters{grid-template-columns:repeat(7,minmax(0,1fr))}}
+
+
+/* V1.6: capítulos desplegables con selector de versículos */
+.book-chapters-wrap{background:#202228;padding:4px 14px 16px}
+.book-chapters{padding:0;background:transparent}
+.chapter-block{display:contents}
+.chapter-choice{min-height:48px;border:0;border-radius:12px;background:#34363c;color:#fff;font-family:system-ui;font-size:17px;font-weight:700}
+.chapter-choice.current{background:#f2f2f2;color:#111}
+.chapter-choice.open{outline:2px solid #9ed8f6;background:#40444d}
+.book-verses{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:12px 0 8px;border-top:1px solid #3a3d44;border-bottom:1px solid #3a3d44;margin:2px 0 8px}
+.book-verses button{min-height:44px;border:0;border-radius:10px;background:#2b2e34;color:#fff;font-family:system-ui;font-size:16px;font-weight:700}
+.book-verses button:active{transform:scale(.95);background:#f2f2f2;color:#111}
+.loading-verses{grid-column:1/-1;color:#aaa;padding:8px 2px;font-family:system-ui}
+@media(min-width:600px){.book-verses{grid-template-columns:repeat(7,minmax(0,1fr))}}

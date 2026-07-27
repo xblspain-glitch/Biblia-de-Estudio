@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.5';
+const APP_VERSION='1.6';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoint:JSON.parse(localStorage.getItem('readingPoint')||'null')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -48,37 +48,83 @@ function renderBooks(filter='all'){
     btn.setAttribute('aria-expanded','false');
     btn.innerHTML=`<span>${escapeHtml(displayBook(b))}</span><small>${b.chapters} capítulos · ${escapeHtml(b.category)}</small><span class="book-chevron">⌄</span>`;
 
+    const chaptersWrap=document.createElement('div');
+    chaptersWrap.className='book-chapters-wrap hidden';
     const grid=document.createElement('div');
-    grid.className='book-chapters hidden';
+    grid.className='book-chapters';
     grid.setAttribute('aria-label',`Capítulos de ${displayBook(b)}`);
+    chaptersWrap.append(grid);
+
     for(let chapter=1;chapter<=b.chapters;chapter++){
+      const chapterBlock=document.createElement('div');
+      chapterBlock.className='chapter-block';
       const chapterBtn=document.createElement('button');
       chapterBtn.type='button';
+      chapterBtn.className='chapter-choice';
       chapterBtn.textContent=chapter;
       if(real===state.bookIndex&&chapter===state.chapter)chapterBtn.classList.add('current');
+
+      const versesGrid=document.createElement('div');
+      versesGrid.className='book-verses hidden';
+      versesGrid.setAttribute('aria-label',`Versículos de ${displayBook(b)} ${chapter}`);
+
       chapterBtn.onclick=async event=>{
         event.stopPropagation();
-        state.bookIndex=real;
-        state.chapter=chapter;
-        closeDrawer();
-        await loadChapter();
-        window.scrollTo({top:0,behavior:'instant'});
+        const opening=versesGrid.classList.contains('hidden');
+        chaptersWrap.querySelectorAll('.book-verses').forEach(x=>x.classList.add('hidden'));
+        chaptersWrap.querySelectorAll('.chapter-choice').forEach(x=>x.classList.remove('open'));
+        if(!opening)return;
+        chapterBtn.classList.add('open');
+        if(!versesGrid.dataset.loaded){
+          versesGrid.innerHTML='<span class="loading-verses">Cargando…</span>';
+          try{
+            const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());
+            const count=(data[chapter-1]||[]).length;
+            versesGrid.innerHTML='';
+            for(let verse=1;verse<=count;verse++){
+              const verseBtn=document.createElement('button');
+              verseBtn.type='button';
+              verseBtn.textContent=verse;
+              verseBtn.onclick=async ev=>{
+                ev.stopPropagation();
+                state.bookIndex=real;
+                state.chapter=chapter;
+                closeDrawer();
+                await loadChapter();
+                setTimeout(()=>{
+                  const el=$(`.verse[data-v="${verse}"]`);
+                  el?.scrollIntoView({block:'center',behavior:'smooth'});
+                  el?.classList.add('reading-target');
+                  setTimeout(()=>el?.classList.remove('reading-target'),2200);
+                },120);
+              };
+              versesGrid.append(verseBtn);
+            }
+            versesGrid.dataset.loaded='true';
+          }catch{
+            versesGrid.innerHTML='<span class="loading-verses">No se pudieron cargar los versículos.</span>';
+          }
+        }
+        versesGrid.classList.remove('hidden');
+        setTimeout(()=>chapterBlock.scrollIntoView({block:'nearest',behavior:'smooth'}),40);
       };
-      grid.append(chapterBtn);
+
+      chapterBlock.append(chapterBtn,versesGrid);
+      grid.append(chapterBlock);
     }
 
     btn.onclick=()=>{
-      const opening=grid.classList.contains('hidden');
-      $$('.book-chapters').forEach(x=>x.classList.add('hidden'));
+      const opening=chaptersWrap.classList.contains('hidden');
+      $$('.book-chapters-wrap').forEach(x=>x.classList.add('hidden'));
       $$('.book-item').forEach(x=>x.setAttribute('aria-expanded','false'));
       if(opening){
-        grid.classList.remove('hidden');
+        chaptersWrap.classList.remove('hidden');
         btn.setAttribute('aria-expanded','true');
         setTimeout(()=>wrap.scrollIntoView({block:'nearest',behavior:'smooth'}),30);
       }
     };
 
-    wrap.append(btn,grid);
+    wrap.append(btn,chaptersWrap);
     list.append(wrap);
   });
 }
