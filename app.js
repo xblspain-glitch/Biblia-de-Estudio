@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.32';
+const APP_VERSION='1.33';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{}};
@@ -20,7 +20,9 @@ function showReader(){
   scrollTo(0,0);
 }
 function openBooksDrawer(){
-  $('#drawer').classList.remove('hidden');
+  const drawer=$('#drawer');
+  drawer.classList.remove('hidden','closing');
+  drawer.classList.add('is-open');
   $('#drawerBackdrop').classList.remove('hidden');
 }
 function openSearchDialog(){
@@ -42,7 +44,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.32').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.33').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -202,7 +204,14 @@ function renderBooks(filter='all'){
     list.append(wrap);
   });
 }
-$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){$('#drawer').classList.add('hidden');$('#drawerBackdrop').classList.add('hidden')}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
+$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing')},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
+(function activarCierreDeslizandoLibros(){
+  const drawer=$('#drawer');let startX=0,startY=0,tracking=false;
+  drawer.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;tracking=true},{passive:true});
+  drawer.addEventListener('touchmove',e=>{if(!tracking)return;const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>20){tracking=false;return}if(dx<0){drawer.style.transform=`translateX(${Math.max(-drawer.offsetWidth,dx)}px)`}},{passive:true});
+  drawer.addEventListener('touchend',e=>{if(!tracking){drawer.style.transform='';return}tracking=false;const endX=e.changedTouches[0]?.clientX??startX;const dx=endX-startX;drawer.style.transform='';if(dx<-70)closeDrawer()},{passive:true});
+})();
+$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
 $('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
 $('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;showReader();await loadChapter();scrollTo(0,0)}
 $('#searchBtn').onclick=openSearchDialog;$('#searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});$('#runSearch').onclick=runSearch;
@@ -285,6 +294,7 @@ $('#readingMarksList').addEventListener('click',ev=>{
 
 function wireHomeActions(){
   $('#homeContinue')?.addEventListener('click',()=>goToReadingPoint());
+  $('#homeEnter')?.addEventListener('click',async()=>{showReader();await loadChapter();});
   $('#homeBooks')?.addEventListener('click',()=>{renderBooks();openBooksDrawer()});
   $('#homeSearch')?.addEventListener('click',openSearchDialog);
   $('#homeSaved')?.addEventListener('click',()=>{renderSavedDialog();$('#savedDialog').showModal()});
@@ -327,6 +337,46 @@ function mergeTitles(base,extra){
   }
   return out;
 }
+
+
+const BACKUP_KEYS=[
+  'highlights','favorites','explanations','last','readingPoints','readingPoint','importedTitles','fontSize',
+  'lastLocalBibleAudit','verifiedTitleLayerAudit','titlesChapterOffsetV125','titlesDoubleShiftFixedV126'
+];
+function buildCompleteBackup(){
+  const data={};
+  for(const key of BACKUP_KEYS){const value=localStorage.getItem(key);if(value!==null)data[key]=value}
+  return{
+    app:'Mi Biblia de Estudio',schema:1,appVersion:APP_VERSION,createdAt:new Date().toISOString(),
+    summary:{savedVerses:Object.keys(state.favorites||{}).length,highlights:Object.keys(state.highlights||{}).length,explanations:Object.keys(state.explanations||{}).length,titles:countTitleLayer(state.importedTitles||{})},
+    localStorage:data
+  };
+}
+function downloadJsonFile(name,value){
+  const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)
+}
+$('#exportBackup')?.addEventListener('click',()=>{
+  const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+  downloadJsonFile(`Biblia_de_Estudio_backup_${stamp}.json`,buildCompleteBackup());
+  toast('Copia de seguridad exportada');
+});
+$('#importBackup')?.addEventListener('click',()=>$('#backupFileInput')?.click());
+$('#backupFileInput')?.addEventListener('change',async e=>{
+  const file=e.target.files?.[0];e.target.value='';if(!file)return;
+  try{
+    const backup=JSON.parse(await file.text());
+    if(backup?.app!=='Mi Biblia de Estudio'||!backup.localStorage||typeof backup.localStorage!=='object')throw new Error('El archivo no es una copia válida de esta aplicación');
+    const count=Object.keys(backup.localStorage).length;
+    if(!confirm(`Se restaurarán ${count} grupos de datos y se reemplazarán los datos actuales. ¿Continuar?`))return;
+    for(const key of BACKUP_KEYS)localStorage.removeItem(key);
+    for(const [key,value] of Object.entries(backup.localStorage)){
+      if(BACKUP_KEYS.includes(key)&&typeof value==='string')localStorage.setItem(key,value);
+    }
+    toast('Copia restaurada. Reiniciando…');
+    setTimeout(()=>location.reload(),700);
+  }catch(error){console.error(error);toast(error.message||'No se pudo importar la copia')}
+});
 
 const TITLE_SOURCE_URLS=[
   'https://cdn.jsdelivr.net/gh/mrk214/bible-data-es-spa@main/data/es___spa___spa/RVR1960_vid_149.json',
