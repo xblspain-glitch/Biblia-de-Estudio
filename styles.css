@@ -224,3 +224,25 @@ html,body{overscroll-behavior-y:auto}
   .selection-bar{width:min(84vw,300px);top:72px}
   .actions-panel-toggle{left:-34px;width:34px;height:46px;top:40%}
 }
+
+/* V1.41 · Tirador lateral ultracompacto */
+.actions-panel-toggle{
+  left:-20px;
+  width:20px;
+  height:38px;
+  border-radius:10px 0 0 10px;
+  padding:0;
+  font-size:20px;
+  opacity:.88;
+}
+.selection-bar.open .actions-panel-toggle::after{font-size:20px}
+@media(max-width:420px){
+  .actions-panel-toggle{
+    left:-18px;
+    width:18px;
+    height:36px;
+    border-radius:9px 0 0 9px;
+    font-size:19px;
+  }
+  .selection-bar.open .actions-panel-toggle::after{font-size:19px}
+}
