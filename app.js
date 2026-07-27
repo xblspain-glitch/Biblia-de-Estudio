@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.36.0';
+const APP_VERSION='1.37.0';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{},dictionaryBase:[],dictionaryCustom:JSON.parse(localStorage.getItem('dictionaryCustom')||'[]'),dictionaryEdits:JSON.parse(localStorage.getItem('dictionaryEdits')||'{}'),dictionaryDeleted:JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]')};
@@ -44,7 +44,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.36.0').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.37.0').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.dictionaryBase=await fetch(freshUrl('biblical-dictionary.json'),{cache:'no-store'}).then(r=>r.json()).then(x=>x.entries||[]).catch(()=>[]);state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -65,17 +65,29 @@ function findExplanationForVerse(n){const prefix=`${state.books[state.bookIndex]
 function updateSelection(){
   $$('.verse').forEach(el=>el.classList.toggle('selected',state.selected.has(+el.dataset.v)));
   const favoriteBtn=document.querySelector('.action[data-action="favorite"]');
+  const toggle=$('#actionsPanelToggle');
   if(state.selected.size){
+    const firstOpen=selectionBar.classList.contains('hidden');
     selectionBar.classList.remove('hidden');
+    if(firstOpen)selectionBar.classList.add('open');
+    if(toggle)toggle.setAttribute('aria-expanded',selectionBar.classList.contains('open')?'true':'false');
     $('#selectionReference').textContent=currentReference();
     const nums=[...state.selected];
     const allSaved=nums.every(n=>Boolean(state.favorites[key(n)]));
     if(favoriteBtn){favoriteBtn.innerHTML=`<span>🔖</span>${allSaved?'Quitar':'Guardar'}`;favoriteBtn.dataset.mode=allSaved?'remove':'save'}
   }else{
+    selectionBar.classList.remove('open');
     selectionBar.classList.add('hidden');
+    if(toggle)toggle.setAttribute('aria-expanded','false');
     if(favoriteBtn){favoriteBtn.innerHTML='<span>🔖</span>Guardar';favoriteBtn.dataset.mode='save'}
   }
 }
+const actionsPanelToggle=$('#actionsPanelToggle');
+if(actionsPanelToggle)actionsPanelToggle.addEventListener('click',e=>{
+  e.stopPropagation();
+  const open=selectionBar.classList.toggle('open');
+  actionsPanelToggle.setAttribute('aria-expanded',open?'true':'false');
+});
 reader.addEventListener('click',e=>{const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}const v=e.target.closest('.verse');if(!v)return;const n=+v.dataset.v;state.selected.has(n)?state.selected.delete(n):state.selected.add(n);updateSelection()});
 // El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
 document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);

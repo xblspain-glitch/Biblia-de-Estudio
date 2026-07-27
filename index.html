@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.36.0">
+  <link rel="stylesheet" href="styles.css?v=1.37.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -60,15 +60,18 @@
     <button id="nextChapter" aria-label="Capítulo siguiente">›</button>
   </nav>
 
-  <section id="selectionBar" class="selection-bar hidden">
-    <div class="selection-reference" id="selectionReference"></div>
-    <div class="actions-scroll">
-      <button class="action" data-action="highlight"><span>🖍️</span>Subrayar</button>
-      <button class="action" data-action="favorite"><span>🔖</span>Guardar</button>
-      <button class="action" data-action="explain"><span>📝</span>Explicación</button>
-      <button class="action" data-action="dictionary"><span>📜</span>Diccionario</button>
-      <button class="action" data-action="copy"><span>⧉</span>Copiar</button>
-      <button class="action" data-action="clear"><span>✕</span>Quitar</button>
+  <section id="selectionBar" class="selection-bar hidden" aria-label="Acciones del versículo">
+    <button id="actionsPanelToggle" class="actions-panel-toggle" type="button" aria-label="Mostrar u ocultar acciones" aria-expanded="false">‹</button>
+    <div class="actions-panel-inner">
+      <div class="selection-reference" id="selectionReference"></div>
+      <div class="actions-scroll">
+        <button class="action" data-action="highlight"><span>🖍️</span>Subrayar</button>
+        <button class="action" data-action="favorite"><span>🔖</span>Guardar</button>
+        <button class="action" data-action="explain"><span>📝</span>Explicación</button>
+        <button class="action" data-action="dictionary"><span>📜</span>Diccionario</button>
+        <button class="action" data-action="copy"><span>⧉</span>Copiar</button>
+        <button class="action" data-action="clear"><span>✕</span>Quitar</button>
+      </div>
     </div>
   </section>
   </div>
@@ -199,6 +202,6 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.36.0"></script>
+  <script src="app.js?v=1.37.0"></script>
 </body>
 </html>
