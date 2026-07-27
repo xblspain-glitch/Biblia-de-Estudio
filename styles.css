@@ -276,7 +276,7 @@ body.light-mode .drawer-tabs button{background:#e7e1d6;color:#322e28}
 body.light-mode .saved-verse{background:linear-gradient(180deg,rgba(245,205,73,.25),rgba(225,184,50,.12))}
 
 
-/* V1.47 · botones ilustrados del panel lateral */
+/* V1.48 · botones ilustrados del panel lateral */
 .action.image-action{
   display:block;
   width:100%;
@@ -309,7 +309,7 @@ body.light-mode .action.image-action{background:transparent!important;border:0!i
   .actions-scroll{gap:8px}
   .action.image-action{border-radius:13px}
 }
-\n\n/* V1.47 · integración compacta y uniforme de botones ilustrados */
+\n\n/* V1.48 · integración compacta y uniforme de botones ilustrados */
 .selection-bar{overflow:visible}
 .actions-panel-inner{display:flex;flex-direction:column;min-height:0;padding:14px 12px 16px}
 .selection-reference{flex:0 0 auto;margin-bottom:8px;padding-bottom:9px}
