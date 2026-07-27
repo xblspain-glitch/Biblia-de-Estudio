@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f12">
+  <title>Biblia de Estudio</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="booksBtn" class="icon-btn" aria-label="Libros">☰</button>
+    <div class="title-wrap">
+      <button id="bookTitle" class="book-title">Génesis</button>
+      <button id="chapterTitle" class="chapter-title">1</button>
+    </div>
+    <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
+    <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
+  </header>
+
+  <main id="reader" class="reader" aria-live="polite"></main>
+
+  <nav class="chapter-nav">
+    <button id="prevChapter" aria-label="Capítulo anterior">‹</button>
+    <span id="chapterIndicator">Génesis 1</span>
+    <button id="nextChapter" aria-label="Capítulo siguiente">›</button>
+  </nav>
+
+  <section id="selectionBar" class="selection-bar hidden">
+    <div class="selection-reference" id="selectionReference"></div>
+    <div class="actions-scroll">
+      <button class="action" data-action="highlight"><span>🖍️</span>Subrayar</button>
+      <button class="action" data-action="favorite"><span>🔖</span>Guardar</button>
+      <button class="action" data-action="explain"><span>📝</span>Explicación</button>
+      <button class="action" data-action="copy"><span>⧉</span>Copiar</button>
+      <button class="action" data-action="clear"><span>✕</span>Quitar</button>
+    </div>
+  </section>
+
+  <div id="drawerBackdrop" class="backdrop hidden"></div>
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-head"><h2>Libros</h2><button id="closeDrawer">✕</button></div>
+    <div class="drawer-tabs"><button class="active" data-testament="all">Todos</button><button data-testament="A.T.">Antiguo</button><button data-testament="N.T.">Nuevo</button></div>
+    <div id="booksList" class="books-list"></div>
+  </aside>
+
+  <dialog id="chapterDialog" class="sheet-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="chapterDialogTitle">Capítulos</h2>
+    <div id="chaptersGrid" class="chapters-grid"></div>
+  </dialog>
+
+  <dialog id="explanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="explanationRef" class="modal-ref"></div>
+    <textarea id="explanationText" placeholder="Escribe o pega aquí tu explicación..."></textarea>
+    <div class="modal-actions">
+      <button id="pasteExplanation" type="button">Pegar</button>
+      <button id="deleteExplanation" type="button" class="danger">Eliminar</button>
+      <button id="saveExplanation" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
+  <dialog id="viewExplanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="viewExplanationRef" class="modal-ref"></div>
+    <div id="viewExplanationText" class="explanation-content"></div>
+    <div class="modal-actions">
+      <button id="copyExplanation" type="button">Copiar</button>
+      <button id="editExplanation" type="button" class="primary">Editar</button>
+    </div>
+  </dialog>
+
+  <dialog id="highlightDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Subrayar</h2>
+    <div class="color-grid">
+      <button data-color="yellow" aria-label="Amarillo"></button>
+      <button data-color="green" aria-label="Verde"></button>
+      <button data-color="blue" aria-label="Azul"></button>
+      <button data-color="pink" aria-label="Rosa"></button>
+      <button data-color="orange" aria-label="Naranja"></button>
+      <button data-color="purple" aria-label="Morado"></button>
+      <button data-color="none" class="remove-highlight">Sin color</button>
+    </div>
+  </dialog>
+
+  <dialog id="searchDialog" class="sheet-dialog search-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Buscar en la Biblia</h2>
+    <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra o frase"><button id="runSearch" type="button">Buscar</button></div>
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+  <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Ajustes</h2>
+    <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="18" max="34" value="24"></label>
+    <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
+    <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
+    <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
