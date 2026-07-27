@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.37.0">
+  <link rel="stylesheet" href="styles.css?v=1.38.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -137,8 +137,8 @@
 
   <dialog id="dictionaryDialog" class="sheet-dialog dictionary-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
-    <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas</p></div><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div>
-    <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Buscar palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
+    <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas · escribe para filtrar</p></div><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div>
+    <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Escribe una palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
     <div id="dictionaryResults" class="dictionary-results"></div>
   </dialog>
 
@@ -202,6 +202,7 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.37.0"></script>
+  <script src="dictionary-data.js?v=1.38.0"></script>
+  <script src="app.js?v=1.38.0"></script>
 </body>
 </html>

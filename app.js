@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='1.37.0';
+const APP_VERSION='1.38.0';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{},dictionaryBase:[],dictionaryCustom:JSON.parse(localStorage.getItem('dictionaryCustom')||'[]'),dictionaryEdits:JSON.parse(localStorage.getItem('dictionaryEdits')||'{}'),dictionaryDeleted:JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]')};
@@ -44,10 +44,21 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.37.0').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.38.0').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.dictionaryBase=await fetch(freshUrl('biblical-dictionary.json'),{cache:'no-store'}).then(r=>r.json()).then(x=>x.entries||[]).catch(()=>[]);state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
+  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());
+  // Las 433 entradas quedan incluidas en la propia aplicación para que el diccionario
+  // funcione incluso si el navegador bloquea o conserva una copia antigua del JSON.
+  state.dictionaryBase=Array.isArray(window.BIBLICAL_DICTIONARY_DATA)?window.BIBLICAL_DICTIONARY_DATA:[];
+  try{
+    const dictionaryResponse=await fetch(freshUrl('biblical-dictionary.json'),{cache:'no-store'});
+    if(dictionaryResponse.ok){
+      const dictionaryJson=await dictionaryResponse.json();
+      if(Array.isArray(dictionaryJson.entries)&&dictionaryJson.entries.length)state.dictionaryBase=dictionaryJson.entries;
+    }
+  }catch(error){console.warn('Se usa el diccionario integrado',error)}
+  state.externalBible=await loadInstalledBible();const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.baseTitles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));state.titles=mergeTitles(state.baseTitles,state.externalBible?.titles||state.importedTitles);const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   // La actualización del service worker se aplica sin recargar la pantalla.
   // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
@@ -461,8 +472,13 @@ function getDictionaryEntries(){
 function renderDictionary(query=''){
   const q=normalizeDictionaryText(query), all=getDictionaryEntries();
   const filtered=q?all.filter(x=>normalizeDictionaryText(`${x.termino} ${x.explicacion} ${x.categoria}`).includes(q)):all;
-  $('#dictionaryCount').textContent=`${all.length.toLocaleString('es-ES')} entradas`;
-  $('#dictionaryResults').innerHTML=filtered.length?filtered.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')}</small><p>${escapeHtml(x.explicacion)}</p></button>`).join(''):'<p class="empty-saved">No se encontraron resultados.</p>';
+  const visible=q?filtered:filtered.slice(0,80);
+  $('#dictionaryCount').textContent=q
+    ?`${filtered.length.toLocaleString('es-ES')} coincidencia${filtered.length===1?'':'s'} de ${all.length.toLocaleString('es-ES')} entradas`
+    :`${all.length.toLocaleString('es-ES')} entradas · escribe para filtrar`;
+  $('#dictionaryResults').innerHTML=visible.length
+    ?visible.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')}</small><p>${escapeHtml(x.explicacion)}</p></button>`).join('')+(q?'':'<p class="dictionary-live-help">Escribe en el buscador y las coincidencias aparecerán al instante.</p>')
+    :'<p class="empty-saved">No se encontraron coincidencias.</p>';
   $$('.dictionary-card').forEach(card=>card.addEventListener('click',()=>openDictionaryEditor(card.dataset.id)));
 }
 function openDictionary(){
