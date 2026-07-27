@@ -1,0 +1,21 @@
+AUDITORÍA BIBLIA DE ESTUDIO — V1.15
+
+Resultado estructural
+- Libros bíblicos: 66
+- Capítulos: 1189
+- Versículos: 31104
+- Capítulos vacíos: 0
+- Versículos vacíos: 0
+- Restos /n, \n visibles o caracteres dañados: 0
+
+Incidencia encontrada y corregida
+- Génesis 33 contenía 19 elementos en lugar de 20.
+- Génesis 33:11 estaba cortado y unido incorrectamente con el comienzo del versículo 12.
+- Se restauraron Génesis 33:11 y Génesis 33:12 por separado.
+- Se corrigió la numeración y el contenido de Génesis 33:13-20.
+
+Conclusión
+La estructura contiene los 66 libros y los 1.189 capítulos. Tras la corrección, hay 31.104 elementos de versículo en los JSON. Esta cifra incluye la versificación propia de esta edición, como 3 Juan 1:15. No se detectaron libros, capítulos ni versículos vacíos ni restos visibles de /n.
+
+Nota de alcance
+La auditoría verificó estructura, cantidades, vacíos, caracteres defectuosos y la anomalía concreta hallada en Génesis 33. Una comparación palabra por palabra de los 31.104 elementos con una edición oficial licenciada requeriría acceso autorizado a esa fuente.
