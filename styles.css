@@ -95,3 +95,22 @@ html,body{overscroll-behavior-y:auto}
 .drawer{overscroll-behavior:contain;scroll-behavior:auto;overflow-anchor:auto}.drawer.is-open{scrollbar-gutter:stable}
 
 /* V1.14 · el gesto de actualización queda desactivado dentro de menús y diálogos */
+/* V1.16: marcas múltiples y explicación ampliada */
+.explanation-dialog{width:min(97vw,820px);max-height:94vh;padding:26px}
+.explanation-dialog textarea{min-height:52vh;max-height:68vh;font-size:18px;line-height:1.55}
+.explanation-content{max-height:70vh;min-height:38vh;font-size:18px;line-height:1.6}
+.add-reading-point{margin:0 0 14px;background:#9fd8f2!important;color:#111!important;font-weight:800}
+.reading-marks-list{display:flex;flex-direction:column;gap:10px}
+.reading-mark-card{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:stretch}
+.reading-mark-go{border:1px solid #3c414a;border-radius:14px;background:#252830;color:#fff;text-align:left;padding:13px 15px}
+.reading-mark-go strong{display:block;color:#b8e3f7;font-size:18px;margin-bottom:3px}
+.reading-mark-go span{color:#b9bcc4;font-size:14px}
+.reading-mark-delete{border:1px solid #663f45;border-radius:14px;background:#332328;color:#ffaaaa;font-size:20px}
+@media(max-width:420px){.explanation-dialog{width:96vw;padding:20px 16px}.explanation-dialog textarea{min-height:58vh}.modal-actions{flex-wrap:wrap}.modal-actions button{flex:1}}
+
+/* V1.17: explicación más amplia y marcas fiables */
+.explanation-dialog{width:min(96vw,760px);max-width:760px;}
+.explanation-dialog .dialog-body{max-height:88vh;}
+#explanationText{min-height:52vh;max-height:65vh;font-size:18px;line-height:1.55;resize:vertical;}
+.reading-mark-card{grid-template-columns:minmax(0,1fr) 92px;}
+.reading-mark-delete{font-size:15px;font-weight:700;padding:0 10px;}

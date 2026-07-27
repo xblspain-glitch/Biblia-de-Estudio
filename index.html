@@ -133,13 +133,9 @@
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Guardados</h2>
     <section class="reading-point-card">
-      <div class="saved-section-title">Punto de lectura</div>
-      <div id="savedReadingPointText" class="saved-reading-ref">Todavía no hay punto de lectura</div>
-      <div class="saved-actions">
-        <button id="goSavedReadingPoint" type="button" class="primary">Continuar lectura</button>
-        <button id="updateSavedReadingPoint" type="button">Guardar aquí</button>
-        <button id="deleteSavedReadingPoint" type="button" class="danger">Eliminar</button>
-      </div>
+      <div class="saved-section-title">Marcas de lectura</div>
+      <button id="addReadingPoint" type="button" class="wide-btn primary add-reading-point">＋ Poner una marca aquí</button>
+      <div id="readingMarksList" class="reading-marks-list"></div>
     </section>
     <section>
       <div class="saved-section-title">Versículos guardados</div>
@@ -152,8 +148,8 @@
     <h2>Ajustes</h2>
     <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="18" max="34" value="24"></label>
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
-    <button id="continueReading" type="button" class="wide-btn">Todavía no hay punto de lectura</button>
-    <button id="clearReadingPoint" type="button" class="wide-btn secondary-btn">Eliminar punto de lectura</button>
+    <button id="continueReading" type="button" class="wide-btn">Todavía no hay marcas de lectura</button>
+    <button id="clearReadingPoint" type="button" class="wide-btn secondary-btn">Eliminar todas las marcas de lectura</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
   </dialog>
