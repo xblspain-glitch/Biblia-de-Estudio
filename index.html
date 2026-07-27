@@ -7,7 +7,7 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.23">
+  <link rel="stylesheet" href="styles.css?v=1.31">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -151,16 +151,20 @@
     <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto guardado</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
-    <button id="importTitles" type="button" class="wide-btn primary">Auditar e instalar Biblia completa con títulos</button>
-    <p id="titlesStatus" class="titles-status">Se conservará la Biblia actual hasta que la nueva fuente supere toda la auditoría.</p>
-    <div class="audit-counters" aria-label="Contadores de la Biblia instalada">
+    <button id="importTitles" type="button" class="wide-btn primary">Auditar Biblia instalada</button>
+    <p id="titlesStatus" class="titles-status">Comprueba los archivos de la Biblia que ya están en la aplicación. No sustituye ni descarga otra Biblia.</p>
+    <div class="audit-counters audit-counters-4" aria-label="Resultado de la auditoría">
+      <div><strong id="auditBookCount">0</strong><span>Libros</span></div>
+      <div><strong id="auditChapterCount">0</strong><span>Capítulos</span></div>
       <div><strong id="auditVerseCount">0</strong><span>Versículos</span></div>
       <div><strong id="auditTitleCount">0</strong><span>Títulos</span></div>
-      <div><strong id="auditIntroCount">0</strong><span>Introducciones ignoradas</span></div>
     </div>
+    <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
+    <p id="auditHash" class="audit-hash hidden"></p>
+    <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="app.js?v=1.29"></script>
+  <script src="app.js?v=1.31"></script>
 </body>
 </html>
