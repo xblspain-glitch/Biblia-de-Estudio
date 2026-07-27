@@ -1,5 +1,29 @@
-const CACHE='biblia-estudio-v1.2';
-const CORE=["./index.html", "./styles.css", "./manifest.webmanifest", "./app.js", "./esdras.json", "./efesios.json", "./juan.json", "./hechos.json", "./habacuc.json", "./romanos.json", "./eclesiastes.json", "./nahum.json", "./apocalipsis.json", "./ezequiel.json", "./1_samuel.json", "./1_corintios.json", "./1_pedro.json", "./deuteronomio.json", "./1_cronicas.json", "./proverbios.json", "./colosenses.json", "./exodo.json", "./job.json", "./galatas.json", "./judas.json", "./santiago.json", "./jonas.json", "./genesis.json", "./filemon.json", "./jeremias.json", "./2_reyes.json", "./2_pedro.json", "./index.json", "./numeros.json", "./jueces.json", "./tito.json", "./joel.json", "./1_juan.json", "./miqueas.json", "./1_tesalonicenses.json", "./rut.json", "./filipenses.json", "./2_tesalonicenses.json", "./abdias.json", "./mateo.json", "./sofonias.json", "./marcos.json", "./2_timoteo.json", "./2_juan.json", "./hebreos.json", "./2_cronicas.json", "./3_juan.json", "./isaias.json", "./1_timoteo.json", "./nehemias.json", "./ester.json", "./amos.json", "./josue.json", "./zacarias.json", "./salmos.json", "./malaquias.json", "./daniel.json", "./_index.json", "./cantares.json", "./2_samuel.json", "./levitico.json", "./2_corintios.json", "./hageo.json", "./lamentaciones.json", "./lucas.json", "./oseas.json", "./1_reyes.json", "./icon.svg", "./titulos.json"];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE))));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
-self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(x=>{const y=x.clone();caches.open(CACHE).then(c=>c.put(e.request,y));return x}))));
+const CACHE='biblia-estudio-v1.3';
+const CORE=['./','./index.html','./styles.css?v=1.3','./app.js?v=1.3','./manifest.webmanifest?v=1.3','./icon.svg','./index.json?v=1.3','./titulos.json?v=1.3'];
+self.addEventListener('install',event=>{
+  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
+});
+self.addEventListener('activate',event=>{
+  event.waitUntil(Promise.all([
+    caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))),
+    self.clients.claim()
+  ]));
+});
+self.addEventListener('fetch',event=>{
+  if(event.request.method!=='GET')return;
+  const url=new URL(event.request.url);
+  if(url.origin!==location.origin)return;
+  event.respondWith((async()=>{
+    try{
+      const response=await fetch(event.request,{cache:'no-store'});
+      if(response&&response.ok){
+        const cache=await caches.open(CACHE);
+        cache.put(event.request,response.clone());
+      }
+      return response;
+    }catch(_){
+      return (await caches.match(event.request)) || (await caches.match('./index.html'));
+    }
+  })());
+});
