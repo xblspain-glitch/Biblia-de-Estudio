@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.44.0';
-const CORE=['./','./index.html','./styles.css?v=1.44.0','./app.js?v=1.44.0','./manifest.webmanifest?v=1.44.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.44.0','./titulos.json?v=1.44.0','./biblical-dictionary.json?v=1.44.0','./dictionary-data.js?v=1.44.0'];
+const CACHE='biblia-estudio-v1.45.0';
+const CORE=['./','./index.html','./styles.css?v=1.45.0','./app.js?v=1.45.0','./manifest.webmanifest?v=1.45.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.45.0','./titulos.json?v=1.45.0','./biblical-dictionary.json?v=1.45.0','./dictionary-data.js?v=1.45.0'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
