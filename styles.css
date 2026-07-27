@@ -163,3 +163,10 @@ html,body{overscroll-behavior-y:auto}
 .home-enter-small{display:block;align-self:center;margin:22px auto 0;border:1.5px solid #a987d7;border-radius:999px;background:linear-gradient(145deg,#fbf8ff 0%,#eadfff 52%,#d6c3f5 100%);color:#2c2436;padding:10px 28px;font:700 16px system-ui;box-shadow:inset 0 2px 0 rgba(255,255,255,.9),0 5px 12px rgba(0,0,0,.18);cursor:pointer}
 .home-enter-small:active{transform:scale(.97)}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
+
+/* V1.35.3: las explicaciones se indican mediante color, sin icono */
+.explain-marker{display:none!important}
+.verse.explained-verse{background:linear-gradient(180deg,rgba(210,183,245,.20),rgba(166,112,225,.14));box-shadow:inset 0 -2px 0 rgba(184,126,235,.92);border-radius:5px}
+.verse.explained-verse.selected{background:rgba(114,189,235,.28);outline:1px solid rgba(134,201,238,.78);box-shadow:inset 0 -3px 0 rgba(184,126,235,1),0 0 0 1px rgba(184,126,235,.22)}
+.verse.saved-verse.explained-verse{box-shadow:inset 0 -2px 0 rgba(184,126,235,.95),inset 0 -5px 0 rgba(232,200,95,.72)}
+.verse.saved-verse.explained-verse.selected{box-shadow:inset 0 -3px 0 rgba(184,126,235,1),inset 0 -6px 0 rgba(232,200,95,.9),0 0 0 1px rgba(134,201,238,.7)}
