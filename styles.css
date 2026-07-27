@@ -274,3 +274,38 @@ body.light-mode .drawer-head button,body.light-mode .book-item{color:#171512}
 body.light-mode .book-item{border-color:#ddd6ca}
 body.light-mode .drawer-tabs button{background:#e7e1d6;color:#322e28}
 body.light-mode .saved-verse{background:linear-gradient(180deg,rgba(245,205,73,.25),rgba(225,184,50,.12))}
+
+
+/* V1.46 · botones ilustrados del panel lateral */
+.action.image-action{
+  display:block;
+  width:100%;
+  min-width:0;
+  min-height:0;
+  height:auto;
+  padding:0;
+  border:0;
+  border-radius:15px;
+  overflow:hidden;
+  background:transparent;
+  box-shadow:0 5px 14px rgba(0,0,0,.34);
+  line-height:0;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.action.image-action img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:4/1;
+  object-fit:cover;
+  pointer-events:none;
+}
+.action.image-action:active{transform:scale(.985);filter:brightness(.92)}
+.action.image-action:focus-visible{outline:2px solid #f0cf72;outline-offset:2px}
+.action.image-action:disabled{opacity:.36;filter:grayscale(.55);cursor:not-allowed}
+body.light-mode .action.image-action{background:transparent!important;border:0!important;color:inherit!important}
+@media(max-width:420px){
+  .actions-scroll{gap:8px}
+  .action.image-action{border-radius:13px}
+}
