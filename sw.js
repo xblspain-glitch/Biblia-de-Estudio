@@ -1,4 +1,4 @@
-const CACHE='biblia-estudio-v1.21';
+const CACHE='biblia-estudio-v1.22';
 const CORE=['./','./index.html','./styles.css?v=1.20','./app.js?v=1.20','./manifest.webmanifest?v=1.20','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./index.json?v=1.20','./titulos.json?v=1.20'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
