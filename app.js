@@ -1,7 +1,8 @@
 const DATA='./';
-const APP_VERSION='1.16';
+const APP_VERSION='1.20';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
-const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:JSON.parse(localStorage.getItem('readingPoints')||'[]')};
+const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
+const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[]};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
 
@@ -41,7 +42,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.16').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.20').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');if(oldPoint&&!state.readingPoints.length){state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));localStorage.removeItem('readingPoint')}state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
@@ -53,17 +54,49 @@ async function init(){
   }).catch(()=>{});
 }}
 async function loadChapter(){state.selected.clear();const b=state.books[state.bookIndex];const data=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
-function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',fav=state.favorites[k]?'<span class="favorite-marker">◆</span>':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}${fav}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
+function render(){const b=state.books[state.bookIndex];$('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;const chapterTitles=(state.titles[b.key]?.[String(state.chapter)]||[]).reduce((m,x)=>((m[x.versiculo]||(m[x.versiculo]=[])).push(x.titulo),m),{});reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><div class="chapter-number">${state.chapter}</div>`+state.verses.map((t,i)=>{const n=i+1,k=key(n),h=state.highlights[k]?` highlight-${state.highlights[k]}`:'',saved=state.favorites[k]?' saved-verse':'';const headings=(chapterTitles[n]||[]).map(x=>`<h3 class="section-title">${escapeHtml(x)}</h3>`).join('');const exp=findExplanationForVerse(n);const marker=exp?`<button class="explain-marker" data-exp="${exp.key}" aria-label="Ver explicación">i</button>`:'';return `${headings}<span class="verse${h}${saved}" data-v="${n}"><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span>${marker} `}).join('');updateSelection();updateReadingPointUI();reader.scrollTop=0}
 function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/\n{3,}/g,'\n\n').trim()}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatBibleText(s){return escapeHtml(limpiarTextoBiblico(s)).replace(/\n/g,'<br>')}
 function findExplanationForVerse(n){const prefix=`${state.books[state.bookIndex].key}:${state.chapter}:`;for(const [k,v] of Object.entries(state.explanations)){if(k.startsWith(prefix)){const nums=k.split(':')[2].split(',').map(Number);if(nums.includes(n))return{key:k,...v}}}return null}
-function updateSelection(){$$('.verse').forEach(el=>el.classList.toggle('selected',state.selected.has(+el.dataset.v)));if(state.selected.size){selectionBar.classList.remove('hidden');$('#selectionReference').textContent=currentReference()}else selectionBar.classList.add('hidden')}
+function updateSelection(){
+  $$('.verse').forEach(el=>el.classList.toggle('selected',state.selected.has(+el.dataset.v)));
+  const favoriteBtn=document.querySelector('.action[data-action="favorite"]');
+  if(state.selected.size){
+    selectionBar.classList.remove('hidden');
+    $('#selectionReference').textContent=currentReference();
+    const nums=[...state.selected];
+    const allSaved=nums.every(n=>Boolean(state.favorites[key(n)]));
+    if(favoriteBtn){favoriteBtn.innerHTML=`<span>🔖</span>${allSaved?'Quitar':'Guardar'}`;favoriteBtn.dataset.mode=allSaved?'remove':'save'}
+  }else{
+    selectionBar.classList.add('hidden');
+    if(favoriteBtn){favoriteBtn.innerHTML='<span>🔖</span>Guardar';favoriteBtn.dataset.mode='save'}
+  }
+}
 reader.addEventListener('click',e=>{const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}const v=e.target.closest('.verse');if(!v)return;const n=+v.dataset.v;state.selected.has(n)?state.selected.delete(n):state.selected.add(n);updateSelection()});
 // El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
 document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
 $$('.action').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
-async function action(a){if(a==='clear'){state.selected.clear();updateSelection()}if(a==='copy')copyVerses();if(a==='highlight')$('#highlightDialog').showModal();if(a==='favorite'){for(const n of state.selected){const k=key(n);state.favorites[k]?delete state.favorites[k]:state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`}}save();render();toast('Guardado actualizado')}if(a==='explain')openEditExplanation(rangeKey(),currentReference())}
+async function action(a){
+  if(a==='clear'){state.selected.clear();updateSelection()}
+  if(a==='copy')copyVerses();
+  if(a==='highlight')$('#highlightDialog').showModal();
+  if(a==='favorite'){
+    const nums=[...state.selected];
+    const allSaved=nums.length>0&&nums.every(n=>Boolean(state.favorites[key(n)]));
+    for(const n of nums){
+      const k=key(n);
+      if(allSaved)delete state.favorites[k];
+      else state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`};
+    }
+    save();
+    render();
+    state.selected=new Set(nums);
+    updateSelection();
+    toast(allSaved?'Guardado quitado':'Versículo guardado');
+  }
+  if(a==='explain')openEditExplanation(rangeKey(),currentReference())
+}
 async function copyVerses(){const nums=[...state.selected].sort((a,b)=>a-b);const body=nums.map(n=>`[${n}] ${limpiarTextoBiblico(state.verses[n-1])}`).join('\n');const text=`${currentReference(nums,true)} RVR1960\n${body}`;await navigator.clipboard.writeText(text);toast('Versículos copiados')}
 $$('#highlightDialog [data-color]').forEach(b=>b.addEventListener('click',()=>{for(const n of state.selected){const k=key(n);b.dataset.color==='none'?delete state.highlights[k]:state.highlights[k]=b.dataset.color}save();$('#highlightDialog').close();render();toast('Subrayado actualizado')}));
 function openEditExplanation(k,ref){const old=state.explanations[k];$('#explanationDialog').dataset.key=k;$('#explanationRef').textContent=ref;$('#explanationText').value=old?.text||'';$('#deleteExplanation').style.display=old?'inline-block':'none';$('#explanationDialog').showModal()}
@@ -182,13 +215,20 @@ $('#showFavorites').onclick=()=>showCollection('Versículos guardados',Object.en
 async function navigateKey(k){const [bookKey,c,v]=k.split(':');state.bookIndex=state.books.findIndex(b=>b.key===bookKey);state.chapter=+c;$('#searchDialog').close();showReader();await loadChapter();setTimeout(()=>{state.selected.add(+v);updateSelection();$(`.verse[data-v="${v}"]`)?.scrollIntoView({block:'center'})},80)}
 function currentVisibleVerse(){const verses=$$('.verse');let best=1,bestDistance=Infinity;for(const el of verses){const r=el.getBoundingClientRect();const d=Math.abs(r.top-100);if(r.bottom>72&&d<bestDistance){bestDistance=d;best=+el.dataset.v}}return best}
 function addReadingPoint(showToast=true){
-  const b=state.books[state.bookIndex],v=currentVisibleVerse();
-  const point={id:Date.now(),bookKey:b.key,chapter:state.chapter,verse:v,ref:`${displayBook(b)} ${state.chapter}:${v}`,updated:Date.now()};
-  const duplicate=state.readingPoints.find(p=>p.bookKey===point.bookKey&&p.chapter===point.chapter&&p.verse===point.verse);
-  if(duplicate){duplicate.updated=Date.now();state.readingPoints=state.readingPoints.filter(p=>p!==duplicate);state.readingPoints.unshift(duplicate)}
-  else state.readingPoints.unshift(point);
+  const b=state.books[state.bookIndex];
+  const selected=[...state.selected].sort((a,b)=>a-b);
+  const v=selected[0]||currentVisibleVerse();
+  const existing=state.readingPoints.find(p=>p.bookKey===b.key&&Number(p.chapter)===Number(state.chapter)&&Number(p.verse)===Number(v));
+  if(existing){
+    if(showToast)toast(`Esta marca ya existe: ${existing.ref}`);
+    return existing;
+  }
+  const now=Date.now();
+  const point={id:`${now}-${Math.random().toString(36).slice(2)}`,bookKey:b.key,chapter:Number(state.chapter),verse:Number(v),ref:`${displayBook(b)} ${state.chapter}:${v}`,updated:now};
+  state.readingPoints.unshift(point);
   save();
-  if(showToast)toast(`Marca añadida: ${point.ref}`);
+  renderSavedDialog();
+  if(showToast)toast(`Marca puesta: ${point.ref}`);
   return point;
 }
 function latestReadingPoint(){return state.readingPoints[0]||null}
@@ -212,14 +252,30 @@ async function goToReadingPoint(point=latestReadingPoint()){
 function renderSavedDialog(){
   updateReadingPointUI();
   const marksBox=$('#readingMarksList');
-  marksBox.innerHTML=state.readingPoints.length?state.readingPoints.map((p)=>`<div class="reading-mark-card"><button type="button" class="reading-mark-go" data-id="${p.id}"><strong>${escapeHtml(p.ref)}</strong><span>Ir a esta marca</span></button><button type="button" class="reading-mark-delete" data-id="${p.id}" aria-label="Quitar marca">Quitar</button></div>`).join(''):'<p class="empty-saved">Todavía no hay marcas de lectura.</p>';
-  $$('.reading-mark-go').forEach(el=>el.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();const point=state.readingPoints.find(p=>String(p.id)===el.dataset.id);if(point)goToReadingPoint(point)});
-  $$('.reading-mark-delete').forEach(el=>el.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();const id=el.dataset.id;const before=state.readingPoints.length;state.readingPoints=state.readingPoints.filter(p=>String(p.id)!==id);if(state.readingPoints.length!==before){save();renderSavedDialog();toast('Marca quitada')}});
+  marksBox.innerHTML=state.readingPoints.length?state.readingPoints.map((p)=>`<div class="reading-mark-card" data-mark-id="${escapeHtml(String(p.id))}"><button type="button" class="reading-mark-go"><strong>${escapeHtml(p.ref)}</strong><span>Ir a esta marca</span></button><button type="button" class="reading-mark-delete" aria-label="Quitar marca">Quitar</button></div>`).join(''):'<p class="empty-saved">Todavía no hay marcas de lectura.</p>';
   const items=Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text}));
   const box=$('#savedVersesList');
   box.innerHTML=items.length?items.map((x,i)=>`<button class="saved-verse-card" data-i="${i}"><strong>${escapeHtml(x.ref)}</strong><span>${formatBibleText(x.text)}</span></button>`).join(''):'<p class="empty-saved">Todavía no hay versículos guardados.</p>';
   $$('.saved-verse-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];$('#savedDialog').close();navigateKey(x.k)});
 }
+
+$('#readingMarksList').addEventListener('click',ev=>{
+  const card=ev.target.closest('.reading-mark-card');
+  if(!card)return;
+  ev.preventDefault();
+  ev.stopPropagation();
+  const id=card.dataset.markId;
+  const point=state.readingPoints.find(p=>String(p.id)===String(id));
+  if(ev.target.closest('.reading-mark-delete')){
+    state.readingPoints=state.readingPoints.filter(p=>String(p.id)!==String(id));
+    save();
+    renderSavedDialog();
+    toast('Marca quitada');
+    return;
+  }
+  if(ev.target.closest('.reading-mark-go')&&point)goToReadingPoint(point);
+});
+
 function wireHomeActions(){
   $('#homeContinue')?.addEventListener('click',()=>goToReadingPoint());
   $('#homeBooks')?.addEventListener('click',()=>{renderBooks();openBooksDrawer()});
@@ -228,9 +284,9 @@ function wireHomeActions(){
 }
 wireHomeActions();
 $('#readingPointBtn').onclick=()=>{renderSavedDialog();$('#savedDialog').showModal()};
-$('#addReadingPoint').onclick=()=>{addReadingPoint();renderSavedDialog()};
+$('#addReadingPoint').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();addReadingPoint(true)});
 $('#continueReading').onclick=()=>goToReadingPoint();
-$('#clearReadingPoint').onclick=(ev)=>{ev.preventDefault();if(!state.readingPoints.length)return;state.readingPoints=[];localStorage.removeItem('readingPoint');save();renderSavedDialog();toast('Todas las marcas se han quitado')};
+$('#clearReadingPoint').addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();if(!state.readingPoints.length)return toast('No hay marcas que quitar');state.readingPoints=[];localStorage.removeItem('readingPoint');save();renderSavedDialog();toast('Todas las marcas se han quitado')});
 $$('dialog form[method=dialog]').forEach(f=>f.addEventListener('submit',()=>{}));function toast(t){const x=$('#toast');x.textContent=t;x.classList.remove('hidden');clearTimeout(window._tt);window._tt=setTimeout(()=>x.classList.add('hidden'),1900)}
 
 async function actualizarAplicacion(){

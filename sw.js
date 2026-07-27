@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.17';
-const CORE=['./','./index.html','./styles.css?v=1.16','./app.js?v=1.16','./manifest.webmanifest?v=1.16','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./index.json?v=1.16','./titulos.json?v=1.16'];
+const CACHE='biblia-estudio-v1.21';
+const CORE=['./','./index.html','./styles.css?v=1.20','./app.js?v=1.20','./manifest.webmanifest?v=1.20','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./index.json?v=1.20','./titulos.json?v=1.20'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
