@@ -1,16 +1,42 @@
 const DATA='./';
-const APP_VERSION='1.6';
+const APP_VERSION='1.9';
 const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoint:JSON.parse(localStorage.getItem('readingPoint')||'null')};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
+
+function showHome(){
+  $('#homeScreen').classList.remove('hidden');
+  $('#readerScreen').classList.add('hidden');
+  state.selected.clear();
+  updateSelection();
+  updateReadingPointUI();
+  scrollTo(0,0);
+}
+function showReader(){
+  $('#homeScreen').classList.add('hidden');
+  $('#readerScreen').classList.remove('hidden');
+  scrollTo(0,0);
+}
+function openBooksDrawer(){
+  $('#drawer').classList.remove('hidden');
+  $('#drawerBackdrop').classList.remove('hidden');
+}
+function openSearchDialog(){
+  $('#searchDialog h2').textContent='Buscar en la Biblia';
+  $('#searchDialog .search-row').style.display='flex';
+  $('#searchResults').innerHTML='<p class="search-help">Busca palabras o una referencia, por ejemplo: Juan 3:16, 1 Corintios 6 o Romanos 8:28-30.</p>';
+  $('#searchInput').value='';
+  $('#searchDialog').showModal();
+}
+
 function save(){localStorage.setItem('highlights',JSON.stringify(state.highlights));localStorage.setItem('favorites',JSON.stringify(state.favorites));localStorage.setItem('explanations',JSON.stringify(state.explanations));localStorage.setItem('last',JSON.stringify({bookIndex:state.bookIndex,chapter:state.chapter}));if(state.readingPoint)localStorage.setItem('readingPoint',JSON.stringify(state.readingPoint));updateReadingPointUI();}
 function key(v){return `${state.books[state.bookIndex].key}:${state.chapter}:${v}`}
 function rangeKey(nums=[...state.selected]){return `${state.books[state.bookIndex].key}:${state.chapter}:${nums.sort((a,b)=>a-b).join(',')}`}
 function displayBook(book){const map={mateo:'San Mateo',marcos:'San Marcos',lucas:'San Lucas',juan:'San Juan'};return map[book.key]||book.shortTitle}
 function formatNums(nums){nums=[...new Set(nums)].sort((a,b)=>a-b);if(!nums.length)return'';let out=[],start=nums[0],prev=nums[0];for(let i=1;i<=nums.length;i++){const n=nums[i];if(n===prev+1){prev=n;continue}out.push(start===prev?`${start}`:`${start}-${prev}`);start=prev=n}return out.join(', ')}
 function currentReference(nums=[...state.selected],upper=false){const b=displayBook(state.books[state.bookIndex]);const r=`${b} ${state.chapter}:${formatNums(nums)}`;return upper?r.toUpperCase():r}
-async function init(){state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();if('serviceWorker'in navigator){
+async function init(){state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());state.titles=await fetch(freshUrl('titulos.json'),{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));const last=JSON.parse(localStorage.getItem('last')||'null');if(last){state.bookIndex=Math.min(last.bookIndex,state.books.length-1);state.chapter=last.chapter}await loadChapter();renderBooks();showHome();if('serviceWorker'in navigator){
   let reloading=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloading){reloading=true;location.reload()}});
   navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`).then(reg=>reg.update()).catch(()=>{});
@@ -23,6 +49,8 @@ function formatBibleText(s){return escapeHtml(limpiarTextoBiblico(s)).replace(/\
 function findExplanationForVerse(n){const prefix=`${state.books[state.bookIndex].key}:${state.chapter}:`;for(const [k,v] of Object.entries(state.explanations)){if(k.startsWith(prefix)){const nums=k.split(':')[2].split(',').map(Number);if(nums.includes(n))return{key:k,...v}}}return null}
 function updateSelection(){$$('.verse').forEach(el=>el.classList.toggle('selected',state.selected.has(+el.dataset.v)));if(state.selected.size){selectionBar.classList.remove('hidden');$('#selectionReference').textContent=currentReference()}else selectionBar.classList.add('hidden')}
 reader.addEventListener('click',e=>{const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}const v=e.target.closest('.verse');if(!v)return;const n=+v.dataset.v;state.selected.has(n)?state.selected.delete(n):state.selected.add(n);updateSelection()});
+// El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
+document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
 $$('.action').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
 async function action(a){if(a==='clear'){state.selected.clear();updateSelection()}if(a==='copy')copyVerses();if(a==='highlight')$('#highlightDialog').showModal();if(a==='favorite'){for(const n of state.selected){const k=key(n);state.favorites[k]?delete state.favorites[k]:state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`}}save();render();toast('Guardado actualizado')}if(a==='explain')openEditExplanation(rangeKey(),currentReference())}
 async function copyVerses(){const nums=[...state.selected].sort((a,b)=>a-b);const body=nums.map(n=>`[${n}] ${limpiarTextoBiblico(state.verses[n-1])}`).join('\n');const text=`${currentReference(nums,true)} RVR1960\n${body}`;await navigator.clipboard.writeText(text);toast('Versículos copiados')}
@@ -94,8 +122,8 @@ function renderBooks(filter='all'){
                 setTimeout(()=>{
                   const el=$(`.verse[data-v="${verse}"]`);
                   el?.scrollIntoView({block:'center',behavior:'smooth'});
+                  document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));
                   el?.classList.add('reading-target');
-                  setTimeout(()=>el?.classList.remove('reading-target'),2200);
                 },120);
               };
               versesGrid.append(verseBtn);
@@ -128,18 +156,18 @@ function renderBooks(filter='all'){
     list.append(wrap);
   });
 }
-$('#booksBtn').onclick=()=>{$('#drawer').classList.remove('hidden');$('#drawerBackdrop').classList.remove('hidden')};function closeDrawer(){$('#drawer').classList.add('hidden');$('#drawerBackdrop').classList.add('hidden')}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
-$('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
-$('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;await loadChapter();scrollTo(0,0)}
-$('#searchBtn').onclick=()=>{$('#searchDialog h2').textContent='Buscar en la Biblia';$('#searchDialog .search-row').style.display='flex';$('#searchResults').innerHTML='<p class="search-help">Busca palabras o una referencia, por ejemplo: Juan 3:16, 1 Corintios 6 o Romanos 8:28-30.</p>';$('#searchInput').value='';$('#searchDialog').showModal();};$('#searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});$('#runSearch').onclick=runSearch;
+$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){$('#drawer').classList.add('hidden');$('#drawerBackdrop').classList.add('hidden')}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
+$('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
+$('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;showReader();await loadChapter();scrollTo(0,0)}
+$('#searchBtn').onclick=openSearchDialog;$('#searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});$('#runSearch').onclick=runSearch;
 function normalizeText(x){return x.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()}
 function parseReference(raw){const q=normalizeText(raw).replace(/\./g,'');const m=q.match(/^(.+?)\s+(\d+)(?:\s*:\s*(\d+)(?:\s*-\s*(\d+))?)?$/);if(!m)return null;const bookName=m[1].trim();const aliases={salmo:'salmos',cantar:'cantares',apocalipsis:'apocalipsis',revelacion:'apocalipsis','san mateo':'mateo','san marcos':'marcos','san lucas':'lucas','san juan':'juan'};const wanted=aliases[bookName]||bookName;const bi=state.books.findIndex(b=>{const names=[b.key,b.shortTitle,b.title,b.abbr,displayBook(b)].map(normalizeText);return names.includes(wanted)||names.some(n=>n.replace(/^libro (de|del|de los) /,'')===wanted)});if(bi<0)return null;const c=+m[2],v=m[3]?+m[3]:null,endv=m[4]?+m[4]:v,b=state.books[bi];if(c<1||c>b.chapters)return null;return{bi,c,v,endv,ref:v?`${displayBook(b)} ${c}:${v}${endv>v?'-'+endv:''}`:`${displayBook(b)} ${c}`}}
-async function openSearchResult(r){state.bookIndex=r.bi;state.chapter=r.c;$('#searchDialog').close();await loadChapter();if(r.v)setTimeout(()=>{for(let n=r.v;n<=Math.min(r.endv||r.v,state.verses.length);n++)state.selected.add(n);updateSelection();$(`.verse[data-v="${r.v}"]`)?.scrollIntoView({block:'center'})},100)}
+async function openSearchResult(r){state.bookIndex=r.bi;state.chapter=r.c;$('#searchDialog').close();showReader();await loadChapter();if(r.v)setTimeout(()=>{for(let n=r.v;n<=Math.min(r.endv||r.v,state.verses.length);n++)state.selected.add(n);updateSelection();$(`.verse[data-v="${r.v}"]`)?.scrollIntoView({block:'center'})},100)}
 async function runSearch(){const raw=$('#searchInput').value.trim();if(raw.length<2)return toast('Escribe al menos 2 caracteres');const box=$('#searchResults');const direct=parseReference(raw);if(direct){box.innerHTML=`<div class="search-result reference-result"><strong>${escapeHtml(direct.ref)}</strong><span>Abrir esta referencia</span></div>`;box.querySelector('.search-result').onclick=()=>openSearchResult(direct);return}const q=normalizeText(raw);box.innerHTML='<p>Buscando en toda la Biblia…</p>';let results=[];for(let bi=0;bi<state.books.length&&results.length<100;bi++){const b=state.books[bi],chapters=await fetch(freshUrl(b.key+'.json'),{cache:'no-store'}).then(r=>r.json());for(let ci=0;ci<chapters.length&&results.length<100;ci++)for(let vi=0;vi<chapters[ci].length&&results.length<100;vi++)if(normalizeText(limpiarTextoBiblico(chapters[ci][vi])).includes(q))results.push({bi,c:ci+1,v:vi+1,endv:vi+1,t:limpiarTextoBiblico(chapters[ci][vi]),ref:`${displayBook(b)} ${ci+1}:${vi+1}`})}box.innerHTML=results.length?results.map((r,i)=>`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t)}</div>`).join(''):'<p>Sin resultados.</p>';$$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]))}
 $('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();$('#fontSize').oninput=e=>{document.documentElement.style.setProperty('--font-size',e.target.value+'px');localStorage.setItem('fontSize',e.target.value)};const fs=localStorage.getItem('fontSize');if(fs){$('#fontSize').value=fs;document.documentElement.style.setProperty('--font-size',fs+'px')}
 let wakeLock=null;$('#keepAwake').onchange=async e=>{try{if(e.target.checked&&'wakeLock'in navigator)wakeLock=await navigator.wakeLock.request('screen');else await wakeLock?.release()}catch{e.target.checked=false;toast('No disponible en este dispositivo')}};
 $('#showFavorites').onclick=()=>showCollection('Versículos guardados',Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text})));$('#showExplanations').onclick=()=>showCollection('Mis explicaciones',Object.entries(state.explanations).sort((a,b)=>b[1].updated-a[1].updated).map(([k,v])=>({k,ref:v.ref,text:v.text,exp:true})));function showCollection(title,items){$('#settingsDialog').close();$('#searchDialog h2').textContent=title;$('#searchDialog .search-row').style.display='none';$('#searchResults').innerHTML=items.length?items.map((x,i)=>`<div class="list-card" data-i="${i}"><strong>${x.ref}</strong><p>${formatBibleText(x.text)}</p></div>`).join(''):'<p>Todavía no hay elementos.</p>';$('#searchDialog').showModal();$$('.list-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];if(x.exp){$('#searchDialog').close();openViewExplanation(x.k)}else navigateKey(x.k)})}
-async function navigateKey(k){const [bookKey,c,v]=k.split(':');state.bookIndex=state.books.findIndex(b=>b.key===bookKey);state.chapter=+c;$('#searchDialog').close();await loadChapter();setTimeout(()=>{state.selected.add(+v);updateSelection();$(`.verse[data-v="${v}"]`)?.scrollIntoView({block:'center'})},80)}
+async function navigateKey(k){const [bookKey,c,v]=k.split(':');state.bookIndex=state.books.findIndex(b=>b.key===bookKey);state.chapter=+c;$('#searchDialog').close();showReader();await loadChapter();setTimeout(()=>{state.selected.add(+v);updateSelection();$(`.verse[data-v="${v}"]`)?.scrollIntoView({block:'center'})},80)}
 function currentVisibleVerse(){const verses=$$('.verse');let best=1,bestDistance=Infinity;for(const el of verses){const r=el.getBoundingClientRect();const d=Math.abs(r.top-100);if(r.bottom>72&&d<bestDistance){bestDistance=d;best=+el.dataset.v}}return best}
 function setReadingPoint(showToast=true){const b=state.books[state.bookIndex],v=currentVisibleVerse();state.readingPoint={bookKey:b.key,chapter:state.chapter,verse:v,ref:`${displayBook(b)} ${state.chapter}:${v}`,updated:Date.now()};save();if(showToast)toast(`Punto de lectura: ${state.readingPoint.ref}`)}
 function updateReadingPointUI(){
@@ -150,14 +178,18 @@ function updateReadingPointUI(){
   if(savedText)savedText.textContent=state.readingPoint?state.readingPoint.ref:'Todavía no hay punto de lectura';
   if(go)go.disabled=!state.readingPoint;
   if(del)del.disabled=!state.readingPoint;
+  const homeRef=$('#homeContinueRef'),homeContinue=$('#homeContinue');
+  if(homeRef)homeRef.textContent=state.readingPoint?state.readingPoint.ref:'Todavía no hay punto de lectura';
+  if(homeContinue)homeContinue.disabled=!state.readingPoint;
 }
 async function goToReadingPoint(){
   const p=state.readingPoint;if(!p)return toast('Todavía no hay punto de lectura');
   const bi=state.books.findIndex(b=>b.key===p.bookKey);if(bi<0)return;
   state.bookIndex=bi;state.chapter=p.chapter;
   $('#settingsDialog')?.close();$('#savedDialog')?.close();
+  showReader();
   await loadChapter();
-  setTimeout(()=>{const el=$(`.verse[data-v="${p.verse}"]`);el?.scrollIntoView({block:'center'});el?.classList.add('reading-target');setTimeout(()=>el?.classList.remove('reading-target'),1800)},100)
+  setTimeout(()=>{const el=$(`.verse[data-v="${p.verse}"]`);el?.scrollIntoView({block:'center'});document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));el?.classList.add('reading-target')},100)
 }
 function renderSavedDialog(){
   updateReadingPointUI();
@@ -166,6 +198,18 @@ function renderSavedDialog(){
   box.innerHTML=items.length?items.map((x,i)=>`<button class="saved-verse-card" data-i="${i}"><strong>${escapeHtml(x.ref)}</strong><span>${formatBibleText(x.text)}</span></button>`).join(''):'<p class="empty-saved">Todavía no hay versículos guardados.</p>';
   $$('.saved-verse-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];$('#savedDialog').close();navigateKey(x.k)});
 }
+
+function wireHomeActions(){
+  const continueButton=$('#homeContinue');
+  const booksButton=$('#homeBooks');
+  const searchButton=$('#homeSearch');
+  const savedButton=$('#homeSaved');
+  continueButton?.addEventListener('click',goToReadingPoint);
+  booksButton?.addEventListener('click',()=>{renderBooks();openBooksDrawer()});
+  searchButton?.addEventListener('click',openSearchDialog);
+  savedButton?.addEventListener('click',()=>{renderSavedDialog();$('#savedDialog').showModal()});
+}
+wireHomeActions();
 $('#readingPointBtn').onclick=()=>{renderSavedDialog();$('#savedDialog').showModal()};
 $('#goSavedReadingPoint').onclick=goToReadingPoint;
 $('#updateSavedReadingPoint').onclick=()=>{setReadingPoint();renderSavedDialog()};
