@@ -641,3 +641,10 @@ body:not(.light-mode) .daily-verse-reference{color:#f4d77d}
 body:not(.light-mode) .daily-verse-actions button{background:#24252a;color:#f5f0e4;border-color:#6c624a}
 body:not(.light-mode) .daily-verse-actions .primary{background:linear-gradient(145deg,#8d6e22,#b68b2b);color:#fff9df;border-color:#d6ad42}
 @media(max-width:420px){.home-card{min-height:72px;padding:9px 13px;grid-template-columns:54px 1fr}.home-icon{width:54px;height:54px}.home-card strong{font-size:19px}.home-card small{font-size:12.5px}.daily-verse-actions{grid-template-columns:1fr}.daily-verse-actions button{min-height:42px}}
+
+/* V1.64 · Selección inteligente del Versículo del día */
+.daily-verse-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.daily-verse-number{font-size:12px;font-weight:800;color:#76530d;opacity:.9}
+.daily-verse-reflection{margin:17px 0 0;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(132,87,5,.2);font-size:14px;line-height:1.45;color:#5e481e}
+body:not(.light-mode) .daily-verse-number{color:#f3d77e}
+body:not(.light-mode) .daily-verse-reflection{background:rgba(255,255,255,.07);border-color:rgba(255,221,112,.22);color:#f7e8ba}
