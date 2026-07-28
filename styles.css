@@ -689,3 +689,6 @@ body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
   .chapter-number{margin:0 0 22px!important}
   .section-heading{margin:28px 0 15px!important}
 }
+
+/* V1.64.18 — prueba de lectura con Lora (solo texto bíblico) */
+.reader .verse{font-family:"Lora",Georgia,"Times New Roman",serif;font-weight:400;}
