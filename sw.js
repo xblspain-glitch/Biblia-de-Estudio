@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.61.0';
-const CORE=['./','./index.html','./styles.css?v=1.61.0','./app.js?v=1.61.0','./manifest.webmanifest?v=1.61.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.61.0','./titulos.json?v=1.61.0','./titles-data.js?v=1.61.0','./biblical-dictionary.json?v=1.61.0','./dictionary-data.js?v=1.61.0'];
+const CACHE='biblia-estudio-v1.63.0';
+const CORE=['./','./index.html','./styles.css?v=1.63.0','./app.js?v=1.63.0','./manifest.webmanifest?v=1.63.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.63.0','./titulos.json?v=1.63.0','./titles-data.js?v=1.63.0','./biblical-dictionary.json?v=1.63.0','./dictionary-data.js?v=1.63.0'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
@@ -29,5 +29,14 @@ self.addEventListener('fetch',event=>{
     }catch(_){
       return (await caches.match(event.request)) || (await caches.match('./index.html'));
     }
+  })());
+});
+
+self.addEventListener('notificationclick',event=>{
+  event.notification.close();
+  event.waitUntil((async()=>{
+    const all=await clients.matchAll({type:'window',includeUncontrolled:true});
+    for(const client of all){if('focus'in client){client.postMessage({type:'OPEN_DAILY_VERSE'});return client.focus()}}
+    return clients.openWindow('./?dailyVerse=1');
   })());
 });

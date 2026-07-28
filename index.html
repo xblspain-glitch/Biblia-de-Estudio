@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.61.0">
-  <link rel="stylesheet" href="styles.css?v=1.61.0">
+  <link rel="manifest" href="manifest.webmanifest?v=1.63.0">
+  <link rel="stylesheet" href="styles.css?v=1.63.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -35,6 +35,10 @@
       <button id="homeSaved" class="home-card home-card-saved" type="button">
         <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.2" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
+      </button>
+      <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
+        <span class="home-icon daily-verse-icon" aria-hidden="true"><span>📖</span></span>
+        <span><strong>Versículo del día</strong><small id="homeDailyVerseRef">Preparando el versículo de hoy…</small></span>
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
@@ -193,11 +197,28 @@
     <div id="statsRecent" class="stats-recent"></div>
   </dialog>
 
+  <dialog id="dailyVerseDialog" class="sheet-dialog daily-verse-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="daily-verse-heading"><span aria-hidden="true">🌅</span><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
+    <article class="daily-verse-card">
+      <div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div>
+      <blockquote id="dailyVerseText"></blockquote>
+      <strong id="dailyVerseReference" class="daily-verse-reference"></strong>
+    </article>
+    <div class="daily-verse-actions">
+      <button id="copyDailyVerse" type="button" class="primary">Copiar</button>
+      <button id="saveDailyVerse" type="button">Guardar</button>
+      <button id="openDailyChapter" type="button">Abrir capítulo</button>
+    </div>
+    <p class="daily-verse-note">La categoría es orientativa y no se incluye al copiar.</p>
+  </dialog>
+
   <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Ajustes</h2>
     <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="13" max="34" value="24"></label>
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
+    <label class="setting-row"><input id="dailyVerseNotifications" type="checkbox"> Notificación del versículo del día</label>
     <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto de libro guardado</button>
     <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
@@ -227,6 +248,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.61.0"></script>
+  <script src="app.js?v=1.63.0"></script>
 </body>
 </html>
