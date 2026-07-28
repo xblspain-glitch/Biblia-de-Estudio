@@ -668,3 +668,16 @@ body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
 .stats-grid-simple .stats-reading-point{grid-column:span 2}
 .stats-grid-simple .stats-reading-point strong{font-size:18px;line-height:1.25;overflow-wrap:anywhere}
 @media(min-width:620px){.stats-grid-simple{grid-template-columns:repeat(3,minmax(0,1fr))}.stats-grid-simple .stats-reading-point{grid-column:span 1}}
+
+
+/* V1.64.14 · Separador etíope más grande y encabezado más compacto */
+.chapter-number{margin-bottom:10px!important}
+.section-heading{margin:0 0 12px!important;text-align:center;overflow:visible}
+.section-divider{display:block;width:min(118%,560px)!important;max-width:none!important;height:58px!important;object-fit:contain;margin:0 auto -2px!important;transform:translateX(0);pointer-events:none;user-select:none}
+.section-title{margin:0 0 14px!important;line-height:1.3!important}
+@media(max-width:420px){
+  .chapter-number{margin-bottom:6px!important}
+  .section-heading{margin:0 0 10px!important}
+  .section-divider{width:128%!important;height:56px!important;margin-left:-14%!important;margin-right:-14%!important;margin-bottom:-3px!important}
+  .section-title{margin:0 0 12px!important}
+}
