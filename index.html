@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.10">
-  <link rel="stylesheet" href="styles.css?v=1.64.10">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.8">
+  <link rel="stylesheet" href="styles.css?v=1.64.8">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -32,8 +32,12 @@
         <span class="home-icon"><img src="icon-buscar.jpg?v=1.35.2" alt=""></span>
         <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
       </button>
+      <button id="homeSaved" class="home-card home-card-saved" type="button">
+        <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.2" alt=""></span>
+        <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
+      </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.10" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.8" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -162,15 +166,41 @@
     </div>
   </dialog>
 
+  <dialog id="savedDialog" class="sheet-dialog saved-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Guardados</h2>
+    <section class="reading-point-card">
+      <div class="saved-section-title">Punto de libro</div>
+      <p class="empty-saved">El último versículo que guardes será el punto de libro.</p>
+      <div id="readingMarksList" class="reading-marks-list"></div>
+    </section>
+    <section>
+      <div class="saved-section-title">Versículos guardados</div>
+      <div id="savedVersesList" class="saved-verses-list"></div>
+    </section>
+  </dialog>
+
   <dialog id="statsDialog" class="sheet-dialog stats-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Estadísticas</h2>
     <p id="statsNow" class="stats-now"></p>
-    <div class="stats-grid stats-grid-simple">
-      <div class="stats-point-card"><strong id="statsReadingPoint">Sin guardar</strong><span>Punto de libro</span></div>
+    <div class="stats-grid">
+      <div><strong id="statsSavedTotal">0</strong><span>Guardados</span></div>
+      <div><strong id="statsSavedToday">0</strong><span>Hoy</span></div>
+      <div><strong id="statsSavedWeek">0</strong><span>Esta semana</span></div>
+      <div><strong id="statsSavedMonth">0</strong><span>Este mes</span></div>
+      <div><strong id="statsDaysActive">0</strong><span>Días con guardados</span></div>
+      <div><strong id="statsHighlights">0</strong><span>Subrayados</span></div>
       <div><strong id="statsExplanations">0</strong><span>Explicaciones</span></div>
-      <div><strong id="statsDictionary">433</strong><span>Diccionario</span></div>
+      <div><strong id="statsReadingPoints">0</strong><span>Puntos de libro</span></div>
+      <div><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span></div>
     </div>
+    <div class="stats-section-title">Resumen personal</div>
+    <div id="statsInsight" class="stats-insight"><strong>Actividad</strong><span>Todavía no hay suficientes datos.</span></div>
+    <div class="stats-section-title">Último guardado</div>
+    <div id="statsLastSaved" class="stats-last">Todavía no hay versículos guardados.</div>
+    <div class="stats-section-title">Guardados recientes</div>
+    <div id="statsRecent" class="stats-recent"></div>
   </dialog>
 
   <dialog id="dailyVerseDialog" class="sheet-dialog daily-verse-dialog">
@@ -183,6 +213,7 @@
     </article>
     <div class="daily-verse-actions">
       <button id="copyDailyVerse" type="button" class="primary">Copiar</button>
+      <button id="saveDailyVerse" type="button">Guardar</button>
       <button id="openDailyChapter" type="button">Abrir capítulo</button>
     </div>
     <p class="daily-verse-note">La categoría es orientativa y no se incluye al copiar.</p>
@@ -195,13 +226,14 @@
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
     <label class="setting-row"><input id="dailyVerseNotifications" type="checkbox"> Notificación del versículo del día</label>
     <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto de libro guardado</button>
+    <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
     <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico (433)</button>
     <div class="settings-section-title">Copia de seguridad</div>
     <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
     <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
     <input id="backupFileInput" type="file" accept="application/json,.json" hidden>
-    <p class="backup-help">Incluye el punto de libro, subrayados, explicaciones, diccionario, ajustes, títulos instalados y resultados de auditoría.</p>
+    <p class="backup-help">Incluye guardados, punto de lectura, subrayados, explicaciones, ajustes, títulos instalados y resultados de auditoría.</p>
     <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
     <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
     <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
@@ -222,6 +254,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.64.10"></script>
+  <script src="app.js?v=1.64.8"></script>
 </body>
 </html>
