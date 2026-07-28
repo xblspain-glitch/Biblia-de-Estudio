@@ -407,3 +407,52 @@ body.light-mode .verse.explained-verse{
     line-height:1.91;
   }
 }
+
+
+/* V1.52 — botones pastel sin imágenes */
+.action.pastel-action{
+  position:relative;
+  width:100%;
+  min-width:0;
+  height:clamp(58px,8.2vh,76px);
+  min-height:58px;
+  padding:8px 14px;
+  border:2px solid rgba(255,255,255,.62);
+  border-radius:22px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(19px,4.7vw,28px);
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.045em;
+  text-align:center;
+  color:#34302d;
+  text-shadow:0 1px 0 rgba(255,255,255,.82),0 2px 5px rgba(74,58,42,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),inset 0 -4px 8px rgba(67,55,45,.10),0 5px 11px rgba(0,0,0,.30);
+  transition:transform .12s ease,filter .12s ease,box-shadow .12s ease;
+}
+.action.pastel-action::before{
+  content:"";
+  position:absolute;
+  left:5%;right:5%;top:5px;height:42%;
+  border-radius:18px 18px 50% 50%;
+  background:linear-gradient(180deg,rgba(255,255,255,.70),rgba(255,255,255,0));
+  pointer-events:none;
+}
+.action.pastel-action:active{transform:scale(.985);filter:brightness(.96)}
+.action.pastel-action:focus-visible{outline:3px solid rgba(255,255,255,.9);outline-offset:2px}
+.action.pastel-action:disabled{opacity:.38;filter:grayscale(.35);cursor:not-allowed}
+.action-highlight{background:linear-gradient(180deg,#dff4ff 0%,#b9def5 55%,#9bcbea 100%);border-color:#7bbce3!important}
+.action-favorite{background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%);border-color:#e69a48!important}
+.action-explain{background:linear-gradient(180deg,#e9f9ec 0%,#c9ebce 55%,#a9d9b1 100%);border-color:#86c994!important}
+.action-dictionary{background:linear-gradient(180deg,#fff9d9 0%,#f8e8a8 55%,#e8ce72 100%);border-color:#d4b64f!important}
+.action-copy{background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%);border-color:#dc8580!important}
+.action-clear{background:linear-gradient(180deg,#f2f3f5 0%,#d9dde2 55%,#bcc2ca 100%);border-color:#9ea6b0!important}
+body.light-mode .action.pastel-action{color:#34302d!important;border-width:2px!important}
+@media(max-height:760px){
+  .action.pastel-action{height:54px;min-height:54px;border-radius:18px;font-size:clamp(17px,4.3vw,23px)}
+  .actions-scroll{gap:6px!important}
+}
