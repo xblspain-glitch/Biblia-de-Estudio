@@ -491,3 +491,34 @@ body.light-mode .verse.explained-verse.saved-verse.selected{
 
 .saved-verse{background:rgba(255,215,64,.22)!important;border:1px solid rgba(255,220,120,.9)!important;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);} .saved-verse::after{display:none!important;}
 .action-btn{border-width:3px!important;}
+
+/* V1.56 · guardados con cápsulas de cristal amarillo completas por cada línea */
+.verse.explained-verse,
+.verse.saved-verse{
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+}
+.verse.saved-verse:not(.explained-verse){
+  background:linear-gradient(180deg,rgba(255,225,105,.26),rgba(211,169,45,.20))!important;
+  border:0!important;
+  outline:1px solid rgba(247,213,99,.78)!important;
+  border-radius:6px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 0 1px rgba(177,132,24,.10)!important;
+  padding:2px 2px!important;
+}
+.verse.saved-verse:not(.explained-verse).selected{
+  background:rgba(114,189,235,.24)!important;
+  border:0!important;
+  outline:1px solid rgba(134,201,238,.62)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 0 0 1px rgba(92,161,204,.10)!important;
+}
+body.light-mode .verse.saved-verse:not(.explained-verse){
+  background:linear-gradient(180deg,rgba(255,226,111,.38),rgba(222,180,55,.25))!important;
+  outline:1px solid rgba(188,143,28,.62)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.50),0 0 0 1px rgba(177,132,24,.08)!important;
+}
+body.light-mode .verse.saved-verse:not(.explained-verse).selected{
+  background:rgba(114,189,235,.26)!important;
+  outline:1px solid rgba(82,154,196,.62)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.42)!important;
+}
