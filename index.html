@@ -6,9 +6,8 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.65.0">
-  <link rel="stylesheet" href="styles.css?v=1.65.0">
-  <link rel="stylesheet" href="study-modules.css?v=1.65.0">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.8">
+  <link rel="stylesheet" href="styles.css?v=1.64.8">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -58,7 +57,7 @@
       <button id="bookTitle" class="book-title">Génesis</button>
       <button id="chapterTitle" class="chapter-title">1</button>
     </div>
-    <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">️</button>
+    <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">☀️</button>
     <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
     <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
   </header>
@@ -80,9 +79,6 @@
         <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar">GUARDAR</button>
         <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
         <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
-        <button class="action pastel-action action-guide" data-action="guide" aria-label="Guía"> GUÍA</button>
-        <button class="action pastel-action action-parables" data-action="parables" aria-label="Parábolas"> PARÁBOLAS</button>
-        <button class="action pastel-action action-characters" data-action="characters" aria-label="Personajes"> PERSONAJES</button>
         <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
         <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
         <button class="action pastel-action action-clear" data-action="clear" aria-label="Quitar">QUITAR</button>
@@ -93,19 +89,19 @@
 
   <div id="drawerBackdrop" class="backdrop hidden"></div>
   <aside id="drawer" class="drawer hidden">
-    <div class="drawer-head"><h2>Libros</h2><button id="closeDrawer"></button></div>
+    <div class="drawer-head"><h2>Libros</h2><button id="closeDrawer">✕</button></div>
     <div class="drawer-tabs"><button class="active" data-testament="all">Todos</button><button data-testament="A.T.">Antiguo</button><button data-testament="N.T.">Nuevo</button></div>
     <div id="booksList" class="books-list"></div>
   </aside>
 
   <dialog id="chapterDialog" class="sheet-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2 id="chapterDialogTitle">Capítulos</h2>
     <div id="chaptersGrid" class="chapters-grid"></div>
   </dialog>
 
   <dialog id="explanationDialog" class="sheet-dialog explanation-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Explicación</h2>
     <div id="explanationRef" class="modal-ref"></div>
     <textarea id="explanationText" placeholder="Escribe o pega aquí tu explicación..."></textarea>
@@ -118,7 +114,7 @@
   </dialog>
 
   <dialog id="viewExplanationDialog" class="sheet-dialog explanation-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Explicación</h2>
     <div id="viewExplanationRef" class="modal-ref"></div>
     <div id="viewExplanationText" class="explanation-content"></div>
@@ -129,7 +125,7 @@
   </dialog>
 
   <dialog id="highlightDialog" class="sheet-dialog compact-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Subrayar</h2>
     <div class="color-grid">
       <button data-color="yellow" aria-label="Amarillo"></button>
@@ -143,7 +139,7 @@
   </dialog>
 
   <dialog id="searchDialog" class="sheet-dialog search-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Buscar en la Biblia</h2>
     <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra, frase o referencia"><button id="runSearch" type="button">Buscar</button></div>
     <div id="searchResults" class="search-results"></div>
@@ -151,14 +147,14 @@
 
 
   <dialog id="dictionaryDialog" class="sheet-dialog dictionary-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas · escribe para filtrar</p></div><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div>
     <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Escribe una palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
     <div id="dictionaryResults" class="dictionary-results"></div>
   </dialog>
 
   <dialog id="dictionaryEditDialog" class="sheet-dialog dictionary-edit-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2 id="dictionaryEditTitle">Añadir palabra</h2>
     <input id="dictionaryEntryId" type="hidden">
     <label>Palabra<input id="dictionaryTerm" type="text" autocomplete="off"></label>
@@ -171,7 +167,7 @@
   </dialog>
 
   <dialog id="savedDialog" class="sheet-dialog saved-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Guardados</h2>
     <section class="reading-point-card">
       <div class="saved-section-title">Punto de libro</div>
@@ -185,7 +181,7 @@
   </dialog>
 
   <dialog id="statsDialog" class="sheet-dialog stats-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Estadísticas</h2>
     <p id="statsNow" class="stats-now"></p>
     <div class="stats-grid">
@@ -208,8 +204,8 @@
   </dialog>
 
   <dialog id="dailyVerseDialog" class="sheet-dialog daily-verse-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
-    <div class="daily-verse-heading"><span aria-hidden="true"></span><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="daily-verse-heading"><span aria-hidden="true">🌅</span><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
     <article class="daily-verse-card">
       <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
       <blockquote id="dailyVerseText"></blockquote>
@@ -224,7 +220,7 @@
   </dialog>
 
   <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
-    <form method="dialog"><button class="dialog-close"></button></form>
+    <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Ajustes</h2>
     <label class="setting-row">Tamaño de letra <input id="fontSize" type="range" min="13" max="34" value="24"></label>
     <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
@@ -240,7 +236,7 @@
     <p class="backup-help">Incluye guardados, punto de lectura, subrayados, explicaciones, ajustes, títulos instalados y resultados de auditoría.</p>
     <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
     <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
-    <div id="titleSeal" class="audit-seal hidden">️ Títulos verificados</div>
+    <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
     <p id="titleHash" class="audit-hash hidden"></p>
     <button id="exportTitles" type="button" class="wide-btn hidden">Exportar títulos JSON</button>
     <button id="importTitles" type="button" class="wide-btn primary">Auditar Biblia instalada</button>
@@ -251,20 +247,13 @@
       <div><strong id="auditVerseCount">0</strong><span>Versículos</span></div>
       <div><strong id="auditTitleCount">0</strong><span>Títulos</span></div>
     </div>
-    <div id="auditSeal" class="audit-seal hidden">️ Biblia verificada</div>
+    <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
     <p id="auditHash" class="audit-hash hidden"></p>
     <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
   </dialog>
 
-
-  <dialog id="studyModulesDialog" class="study-modules-dialog">
-    <div class="study-modules-head"><button type="button" onclick="closeStudyModulesV1650()"></button><div><h2 id="studyModulesTitle">Módulos</h2><p id="studyModulesSub"></p></div></div>
-    <div id="studyModulesBody" class="study-modules-body"></div>
-  </dialog>
-
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.65.0"></script>
-  <script src="study-modules.js?v=1.65.0"></script>
+  <script src="app.js?v=1.64.8"></script>
 </body>
 </html>

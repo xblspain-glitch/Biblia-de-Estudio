@@ -662,6 +662,3 @@ body:not(.light-mode) .home-card-daily strong{color:#211a08}
 body:not(.light-mode) .home-card-daily small{color:#2b210b}
 body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
 .home-card-daily #homeDailyVerseRef{font-weight:600}
-
-/* V1.65.0: compactar diez acciones */
-.actions-scroll{gap:4px!important}.action.pastel-action{height:48px!important;min-height:48px!important;border-radius:14px!important;font-size:clamp(14px,3.7vw,19px)!important;padding:5px 8px!important}
