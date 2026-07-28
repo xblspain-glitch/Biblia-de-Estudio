@@ -540,3 +540,52 @@ body.light-mode .verse.saved-verse:not(.explained-verse).selected{
 
 /* V1.59: Estadísticas integrado en el panel lateral de acciones */
 .action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #777b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
+
+
+/* V1.60 · correcciones de contraste en modo claro */
+body.light-mode .home-welcome h1{color:#7a5720!important;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+body.light-mode .home-welcome p{color:#655f56!important}
+body.light-mode .section-title{color:#6f4d18!important;text-shadow:none!important}
+body.light-mode .stats-now{color:#5f5a52}
+body.light-mode .stats-grid>div{background:linear-gradient(180deg,#fff,#eee7dc);border-color:#a78cc8}
+body.light-mode .stats-grid strong{color:#34264d}
+body.light-mode .stats-grid span{color:#5e5865}
+body.light-mode .stats-section-title{color:#7a5720}
+body.light-mode .stats-last,body.light-mode .stats-recent-row{background:#f3eee5;border-color:#cfc6b8}
+body.light-mode .stats-last strong,body.light-mode .stats-recent-row strong{color:#171512}
+body.light-mode .stats-last span,body.light-mode .stats-recent-row span{color:#5c574f}
+.stats-insight{border:1px solid #4d515b;border-radius:14px;background:#23262c;padding:12px 14px;font:14px/1.45 system-ui}
+.stats-insight strong{display:block;color:#f0d786;margin-bottom:4px}.stats-insight span{color:#d0cad6}
+body.light-mode .stats-insight{background:#f3eee5;border-color:#cfc6b8}
+body.light-mode .stats-insight strong{color:#7a5720}
+body.light-mode .stats-insight span{color:#4f4a43}
+
+/* V1.61 · conservar los colores pastel del panel también en modo claro */
+body.light-mode .action.pastel-action.action-highlight{
+  background:linear-gradient(180deg,#dff4ff 0%,#b9def5 55%,#9bcbea 100%)!important;
+  border-color:#7bbce3!important;
+}
+body.light-mode .action.pastel-action.action-favorite{
+  background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%)!important;
+  border-color:#e69a48!important;
+}
+body.light-mode .action.pastel-action.action-explain{
+  background:linear-gradient(180deg,#e9f9ec 0%,#c9ebce 55%,#a9d9b1 100%)!important;
+  border-color:#86c994!important;
+}
+body.light-mode .action.pastel-action.action-dictionary{
+  background:linear-gradient(180deg,#fff9d9 0%,#f8e8a8 55%,#e8ce72 100%)!important;
+  border-color:#d4b64f!important;
+}
+body.light-mode .action.pastel-action.action-stats{
+  background:linear-gradient(180deg,#eef0f5 0%,#cfd3dc 55%,#adb4c1 100%)!important;
+  border-color:#777b84!important;
+}
+body.light-mode .action.pastel-action.action-copy{
+  background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%)!important;
+  border-color:#dc8580!important;
+}
+body.light-mode .action.pastel-action.action-clear{
+  background:linear-gradient(180deg,#f2f3f5 0%,#d9dde2 55%,#bcc2ca 100%)!important;
+  border-color:#9ea6b0!important;
+}

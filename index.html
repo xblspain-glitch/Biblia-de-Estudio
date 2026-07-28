@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.59.0">
+  <link rel="manifest" href="manifest.webmanifest?v=1.61.0">
+  <link rel="stylesheet" href="styles.css?v=1.61.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -177,9 +177,16 @@
     <div class="stats-grid">
       <div><strong id="statsSavedTotal">0</strong><span>Guardados</span></div>
       <div><strong id="statsSavedToday">0</strong><span>Hoy</span></div>
+      <div><strong id="statsSavedWeek">0</strong><span>Esta semana</span></div>
+      <div><strong id="statsSavedMonth">0</strong><span>Este mes</span></div>
       <div><strong id="statsDaysActive">0</strong><span>Días con guardados</span></div>
+      <div><strong id="statsHighlights">0</strong><span>Subrayados</span></div>
+      <div><strong id="statsExplanations">0</strong><span>Explicaciones</span></div>
+      <div><strong id="statsReadingPoints">0</strong><span>Puntos de libro</span></div>
       <div><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span></div>
     </div>
+    <div class="stats-section-title">Resumen personal</div>
+    <div id="statsInsight" class="stats-insight"><strong>Actividad</strong><span>Todavía no hay suficientes datos.</span></div>
     <div class="stats-section-title">Último guardado</div>
     <div id="statsLastSaved" class="stats-last">Todavía no hay versículos guardados.</div>
     <div class="stats-section-title">Guardados recientes</div>
@@ -220,6 +227,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.59.0"></script>
+  <script src="app.js?v=1.61.0"></script>
 </body>
 </html>
