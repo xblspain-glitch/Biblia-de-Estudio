@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.2">
-  <link rel="stylesheet" href="styles.css?v=1.64.2">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.6">
+  <link rel="stylesheet" href="styles.css?v=1.64.6">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -37,8 +37,15 @@
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.2" alt=""></span>
-        <span><strong>Versículo del día</strong><small id="homeDailyVerseRef">Preparando el versículo de hoy…<br><span id="homeDailyVersePreview" style="font-size:.9em;opacity:.9"></span></small></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.6" alt=""></span>
+        <span class="home-daily-copy">
+          <strong>Versículo del día</strong>
+          <span class="home-daily-meta">
+            <span id="homeDailyVerseRef">Preparando el versículo de hoy…</span>
+            <span id="homeDailyVerseCategory" class="home-daily-category hidden"></span>
+          </span>
+          <small id="homeDailyVersePreview" class="home-daily-preview"></small>
+        </span>
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
@@ -248,6 +255,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.64.2"></script>
+  <script src="app.js?v=1.64.6"></script>
 </body>
 </html>

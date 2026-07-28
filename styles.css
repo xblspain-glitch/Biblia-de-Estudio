@@ -647,3 +647,15 @@ body:not(.light-mode) .daily-verse-actions .primary{background:linear-gradient(1
 .daily-verse-reflection{margin:17px 0 0;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(132,87,5,.2);font-size:14px;line-height:1.45;color:#5e481e}
 body:not(.light-mode) .daily-verse-number{color:#f3d77e}
 body:not(.light-mode) .daily-verse-reflection{background:rgba(255,255,255,.07);border-color:rgba(255,221,112,.22);color:#f7e8ba}
+
+
+/* V1.64.6 · Vista previa y categoría del Versículo del día en portada */
+.home-card-daily{position:relative}
+.home-daily-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;align-self:stretch}
+.home-daily-copy>strong{white-space:nowrap}
+.home-daily-meta{display:flex;align-items:center;gap:7px;min-width:0;line-height:1.15}
+#homeDailyVerseRef{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-daily-category{flex:0 0 auto;max-width:42%;padding:2px 7px;border-radius:999px;background:rgba(91,62,7,.18);border:1px solid rgba(112,76,7,.25);font-size:9.5px;font-weight:800;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-daily-preview{display:block!important;margin-top:3px;font-family:Georgia,'Times New Roman',serif;font-size:10.5px!important;line-height:1.2!important;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.95}
+body:not(.light-mode) .home-daily-category{background:rgba(255,240,177,.14);border-color:rgba(255,240,177,.28);color:#fff0b7}
+@media(max-width:390px){.home-daily-category{max-width:36%;font-size:9px;padding-inline:5px}.home-daily-preview{font-size:10px!important}}
