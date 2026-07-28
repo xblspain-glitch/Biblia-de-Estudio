@@ -7,13 +7,13 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.58.0">
+  <link rel="stylesheet" href="styles.css?v=1.59.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" src="cabecera-1.png?v=1.58.0" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" src="cabecera-1.png?v=1.59.0" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -35,10 +35,6 @@
       <button id="homeSaved" class="home-card home-card-saved" type="button">
         <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.2" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
-      </button>
-      <button id="homeStats" class="home-card home-card-stats" type="button">
-        <span class="home-icon stats-home-icon" aria-hidden="true">◷</span>
-        <span><strong>Estadísticas</strong><small id="homeStatsSummary">Días, horas y actividad de guardados</small></span>
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
@@ -73,6 +69,7 @@
         <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar">GUARDAR</button>
         <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
         <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
+        <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
         <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
         <button class="action pastel-action action-clear" data-action="clear" aria-label="Quitar">QUITAR</button>
       </div>
@@ -223,7 +220,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="titles-data.js?v=1.58.0"></script>
-  <script src="app.js?v=1.58.0"></script>
+  <script src="app.js?v=1.59.0"></script>
 </body>
 </html>
