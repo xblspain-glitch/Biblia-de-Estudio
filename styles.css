@@ -615,9 +615,8 @@ body.light-mode .dict-word.word-pressing{
 .home-card strong{font-size:20px;margin-bottom:3px}
 .home-card small{font-size:13px}
 .home-card-daily{background:linear-gradient(145deg,#fffdf1 0%,#fff0bc 48%,#f2cf70 100%);border-color:#c79b27}
-.daily-verse-icon{position:relative;background:linear-gradient(155deg,#fff8d3,#e7b845)!important;color:#5f4510!important;font-size:29px;overflow:visible}
-.daily-verse-icon::before{content:'☀';position:absolute;right:4px;top:0;font-size:20px;color:#e89716;text-shadow:0 1px 0 #fff}
-.daily-verse-icon span{position:relative;z-index:1;filter:drop-shadow(0 2px 1px rgba(0,0,0,.14))}
+.daily-verse-icon{position:relative;background:#f4c528!important;color:#5f4510!important;overflow:hidden;padding:0}
+.daily-verse-icon img{display:block;width:116%;height:116%;object-fit:cover;border-radius:14px;transform:scale(1.08);transform-origin:center}
 .home-enter-small{margin-top:14px}
 .daily-verse-dialog{max-width:610px}
 .daily-verse-heading{display:flex;align-items:center;gap:12px;margin:0 38px 16px 0}
