@@ -7,13 +7,13 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
   <link rel="manifest" href="manifest.webmanifest?v=1.23">
-  <link rel="stylesheet" href="styles.css?v=1.57.0">
+  <link rel="stylesheet" href="styles.css?v=1.58.0">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img src="portada-cabecera.jpg?v=1.23" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" src="cabecera-1.png?v=1.58.0" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -35,6 +35,10 @@
       <button id="homeSaved" class="home-card home-card-saved" type="button">
         <span class="home-icon"><img src="icon-guardados.jpg?v=1.35.2" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto y versículos guardados</small></span>
+      </button>
+      <button id="homeStats" class="home-card home-card-stats" type="button">
+        <span class="home-icon stats-home-icon" aria-hidden="true">◷</span>
+        <span><strong>Estadísticas</strong><small id="homeStatsSummary">Días, horas y actividad de guardados</small></span>
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
@@ -169,6 +173,22 @@
     </section>
   </dialog>
 
+  <dialog id="statsDialog" class="sheet-dialog stats-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Estadísticas</h2>
+    <p id="statsNow" class="stats-now"></p>
+    <div class="stats-grid">
+      <div><strong id="statsSavedTotal">0</strong><span>Guardados</span></div>
+      <div><strong id="statsSavedToday">0</strong><span>Hoy</span></div>
+      <div><strong id="statsDaysActive">0</strong><span>Días con guardados</span></div>
+      <div><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span></div>
+    </div>
+    <div class="stats-section-title">Último guardado</div>
+    <div id="statsLastSaved" class="stats-last">Todavía no hay versículos guardados.</div>
+    <div class="stats-section-title">Guardados recientes</div>
+    <div id="statsRecent" class="stats-recent"></div>
+  </dialog>
+
   <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
     <form method="dialog"><button class="dialog-close">✕</button></form>
     <h2>Ajustes</h2>
@@ -203,6 +223,7 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.57.0"></script>
+  <script src="titles-data.js?v=1.58.0"></script>
+  <script src="app.js?v=1.58.0"></script>
 </body>
 </html>
