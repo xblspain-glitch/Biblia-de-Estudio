@@ -662,8 +662,3 @@ body:not(.light-mode) .home-card-daily strong{color:#211a08}
 body:not(.light-mode) .home-card-daily small{color:#2b210b}
 body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
 .home-card-daily #homeDailyVerseRef{font-weight:600}
-
-/* V1.64.9 · Estadísticas simplificadas y retirada de Guardados */
-.stats-grid-simple{grid-template-columns:1fr 1fr;}
-.stats-grid-simple .stats-point-card{grid-column:1/-1;}
-.stats-grid-simple .stats-point-card strong{font-size:1.05rem;line-height:1.25;overflow-wrap:anywhere;}
