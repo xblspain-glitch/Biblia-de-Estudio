@@ -371,3 +371,39 @@ body.light-mode .action.image-action{background:transparent!important;border:0!i
 body.light-mode .verse.explained-verse{
   box-shadow:inset 0 -3px 0 rgba(155,104,205,.9);
 }
+
+
+/* V1.51 · acciones independientes y lectura con más aire */
+.reader{
+  max-width:760px;
+  padding-top:34px;
+  padding-left:38px;
+  padding-right:38px;
+  line-height:1.92;
+  letter-spacing:.004em;
+  word-spacing:.012em;
+}
+.verse{
+  margin-right:.16em;
+  padding-top:1px;
+  padding-bottom:1px;
+}
+.verse-number{
+  margin-right:7px;
+  opacity:.78;
+}
+.section-title{
+  margin-top:38px;
+  margin-bottom:22px;
+  line-height:1.42;
+}
+.reader-book-title{margin-bottom:20px}
+.chapter-number{margin-bottom:38px}
+@media(max-width:420px){
+  :root{--font-size:27px}
+  .reader{
+    padding-left:34px;
+    padding-right:34px;
+    line-height:1.91;
+  }
+}
