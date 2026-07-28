@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v1.48.0';
-const CORE=['./','./index.html','./styles.css?v=1.48.0','./app.js?v=1.48.0','./manifest.webmanifest?v=1.48.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.48.0','./titulos.json?v=1.48.0','./biblical-dictionary.json?v=1.48.0','./dictionary-data.js?v=1.48.0','./btn_subrayar.png','./btn_guardar.png','./btn_explicacion.png','./btn_diccionario.png','./btn_copiar.png','./btn_quitar.png'];
+const CACHE='biblia-estudio-v1.47.0';
+const CORE=['./','./index.html','./styles.css?v=1.47.0','./app.js?v=1.47.0','./manifest.webmanifest?v=1.47.0','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./portada-cabecera.jpg','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./index.json?v=1.47.0','./titulos.json?v=1.47.0','./biblical-dictionary.json?v=1.47.0','./dictionary-data.js?v=1.47.0','./btn_subrayar.png','./btn_guardar.png','./btn_explicacion.png','./btn_diccionario.png','./btn_copiar.png','./btn_quitar.png'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
