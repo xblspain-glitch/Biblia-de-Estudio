@@ -1,4 +1,4 @@
-const CACHE='biblia-estudio-v1.64.23';
+const CACHE='biblia-estudio-v1.64.25';
 const CORE=['./','./index.html','./styles.css?v=1.64.23','./app.js?v=1.64.23','./manifest.webmanifest?v=1.64.23','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=1.64.23','./titulos.json?v=1.64.23','./titles-data.js?v=1.64.23','./biblical-dictionary.json?v=1.64.23','./dictionary-data.js?v=1.64.23','./versiculos-del-dia.json?v=1.64.23','./separador_etiope_transparente_final.png?v=1.64.23','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
