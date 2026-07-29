@@ -908,3 +908,43 @@ body.light-mode .characters-screen .btn{background:#fff;color:#263f68;border-col
 body.biblical-characters-fullscreen-v2243{overflow:auto!important}
 
 /* V1.64.31 parables module */
+
+
+/* V1.64.40 — Prueba de barra inferior ilustrada (amanecer) */
+.chapter-nav{
+  min-height:76px;
+  padding:10px 18px calc(10px + var(--safe-bottom));
+  overflow:hidden;
+  background-image:
+    linear-gradient(90deg,rgba(12,12,15,.12),rgba(255,244,213,.02) 34%,rgba(255,244,213,.02) 66%,rgba(12,12,15,.12)),
+    url('barra-amanecer.png?v=1.64.40');
+  background-size:cover;
+  background-position:center center;
+  border-top:1px solid rgba(222,166,67,.72);
+  box-shadow:0 -5px 18px rgba(0,0,0,.34);
+}
+.chapter-nav::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.16));
+}
+.chapter-nav button,.chapter-nav span{position:relative;z-index:1}
+.chapter-nav button{
+  background:rgba(24,24,29,.78);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 2px 8px rgba(0,0,0,.38);
+}
+.chapter-nav span{
+  max-width:58%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#3a281d;
+  font-weight:800;
+  font-size:16px;
+  text-shadow:0 1px 0 rgba(255,255,255,.82),0 0 7px rgba(255,248,224,.95);
+}
+.light-mode .chapter-nav span{color:#2e2118}
+@media(max-width:420px){
+  .chapter-nav{min-height:72px;padding-left:14px;padding-right:14px}
+  .chapter-nav span{max-width:55%;font-size:15px}
+}
