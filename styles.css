@@ -949,12 +949,12 @@ body.biblical-characters-fullscreen-v2243{overflow:auto!important}
   .chapter-nav span{max-width:55%;font-size:15px}
 }
 
-/* V1.64.47 — Corrección definitiva del modo claro en la barra y colores del panel */
+/* V1.64.48 — Corrección definitiva del modo claro en la barra y colores del panel */
 body.light-mode .chapter-nav{
   background-color:transparent!important;
   background-image:
     linear-gradient(90deg,rgba(255,250,238,.08),rgba(255,255,255,0) 34%,rgba(255,255,255,0) 66%,rgba(255,250,238,.08)),
-    var(--chapter-nav-image,url('barra-amanecer.png?v=1.64.47'))!important;
+    var(--chapter-nav-image,url('barra-amanecer.png?v=1.64.48'))!important;
   background-size:cover!important;
   background-position:center center!important;
   border-top-color:rgba(184,132,45,.68)!important;
