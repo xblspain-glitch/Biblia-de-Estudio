@@ -1002,3 +1002,13 @@ body.dark-mode .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
   text-shadow:0 2px 4px rgba(0,0,0,.65)!important;
 }
+
+/* V1.64.53 - Título de la barra nocturna un 10% más grande */
+body.dark-mode .chapter-nav[data-period="noche"] span{
+  font-size:17.5px!important;
+}
+@media(max-width:420px){
+  body.dark-mode .chapter-nav[data-period="noche"] span{
+    font-size:16.5px!important;
+  }
+}
