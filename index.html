@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.23">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.26">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.23">
+  <link rel="stylesheet" href="styles.css?v=1.64.26">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -40,7 +40,7 @@
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.23" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.26" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -76,7 +76,7 @@
   <section id="selectionBar" class="selection-bar hidden" aria-label="Acciones del versículo">
     <button id="actionsPanelToggle" class="actions-panel-toggle" type="button" aria-label="Mostrar u ocultar acciones" aria-expanded="false">‹</button>
     <div class="actions-panel-inner">
-      <div class="selection-reference" id="selectionReference"></div>
+      <div class="selection-reference"><div id="selectionReference" class="selection-reference-title"></div><div id="selectionCount" class="selection-reference-count"></div></div>
       <div class="actions-scroll">
         <button class="action pastel-action action-highlight" data-action="highlight" aria-label="Subrayar">SUBRAYAR</button>
         <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar punto de libro">GUARDAR PUNTO DE LIBRO</button>
@@ -247,6 +247,6 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.64.23"></script>
+  <script src="app.js?v=1.64.26"></script>
 </body>
 </html>
