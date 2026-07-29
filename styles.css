@@ -784,3 +784,45 @@ body.light-mode .explanation-group{
   .selection-bar{width:154px}
   .action.pastel-action{height:42px;min-height:42px;font-size:11.5px;border-radius:13px}
 }
+
+
+/* V1.64.23 · bloque único de explicación y flujo mediante botonera */
+.explanation-group{
+  display:inline-block!important;
+  max-width:100%;
+  padding:3px 5px!important;
+  margin:1px 0;
+  border-radius:10px!important;
+  background:linear-gradient(180deg,rgba(205,170,239,.25),rgba(165,112,215,.20))!important;
+  border:1px solid rgba(211,174,244,.72);
+  outline:0!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(142,91,190,.10)!important;
+  white-space:normal;
+  line-height:inherit;
+}
+.explanation-group .verse,
+.explanation-group .verse.explained-verse,
+.explanation-group .verse.explained-verse.selected,
+.explanation-group .verse.explained-verse.saved-verse,
+.explanation-group .verse.explained-verse.saved-verse.selected{
+  background:transparent!important;
+  outline:0!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  -webkit-box-decoration-break:slice!important;
+  box-decoration-break:slice!important;
+}
+.explanation-group:has(.verse.selected){
+  background:linear-gradient(180deg,rgba(190,158,224,.42),rgba(151,104,194,.34))!important;
+  border-color:rgba(220,188,248,.92);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 0 0 2px rgba(151,104,194,.18)!important;
+}
+body.light-mode .explanation-group{
+  background:linear-gradient(180deg,rgba(209,178,239,.34),rgba(177,127,219,.25))!important;
+  border-color:rgba(153,101,200,.58);
+}
+body.light-mode .explanation-group:has(.verse.selected){
+  background:linear-gradient(180deg,rgba(198,159,232,.52),rgba(169,116,213,.40))!important;
+}
