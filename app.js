@@ -409,6 +409,7 @@ async function action(a){
   }
   if(a==='dictionary')openDictionary()
   if(a==='characters')openBiblicalCharactersV2242()
+  if(a==='parables')openBiblicalParables()
   if(a==='stats')openStats()
 }
 async function copyVerses(){const nums=[...state.selected].sort((a,b)=>a-b);const body=nums.map(n=>`[${n}] ${limpiarTextoBiblico(state.verses[n-1])}`).join('\n');const text=`${currentReference(nums,true)} RVR1960\n${body}`;await navigator.clipboard.writeText(text);toast('Versículos copiados')}

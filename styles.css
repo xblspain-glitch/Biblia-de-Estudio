@@ -905,3 +905,5 @@ body.light-mode .action.pastel-action.action-highlight[data-mode="remove"]{
 body.light-mode .characters-screen{background:linear-gradient(180deg,#f7f9fd 0%,#edf2fa 100%);color:#20242b}
 body.light-mode .characters-screen .btn{background:#fff;color:#263f68;border-color:rgba(85,113,153,.28)}
 body.biblical-characters-fullscreen-v2243{overflow:auto!important}
+
+/* V1.64.31 parables module */

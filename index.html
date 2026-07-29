@@ -6,12 +6,13 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.30">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.31">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.30">
-  <link rel="stylesheet" href="biblical-characters-v2243.css?v=1.64.30">
+  <link rel="stylesheet" href="styles.css?v=1.64.31">
+  <link rel="stylesheet" href="biblical-characters-v2243.css?v=1.64.31">
+  <link rel="stylesheet" href="biblical-parables.css?v=1.64.31">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -41,7 +42,7 @@
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.30" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.31" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -84,6 +85,7 @@
         <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
         <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
         <button class="action pastel-action action-characters" data-action="characters" aria-label="Personajes bíblicos">PERSONAJES</button>
+        <button class="action pastel-action action-parables" data-action="parables" aria-label="Parábolas">PARÁBOLAS</button>
         <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
         <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
       </div>
@@ -109,6 +111,21 @@
         <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
       </div>
       <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
+    </div>
+  </section>
+
+
+  <section id="biblicalParablesScreen" class="parables-screen hidden" aria-label="Parábolas">
+    <div class="biblical-parables-panel">
+      <div class="biblical-parables-head"><button class="btn soft" type="button" onclick="closeBiblicalParables()">← Volver</button></div>
+      <div id="biblicalParablesHome">
+        <h1 class="biblical-parables-title">Parábolas</h1>
+        <p class="biblical-parables-sub">Las enseñanzas de Cristo explicadas de forma clara y ordenada.</p>
+        <label class="biblical-parables-search"><span aria-hidden="true">🔎</span><input id="biblicalParablesSearch" type="search" autocomplete="off" placeholder="Buscar parábola o palabra…" oninput="renderBiblicalParables()"></label>
+        <div class="biblical-parables-list-head"><strong>Todas las parábolas</strong><span id="biblicalParablesCount"></span></div>
+        <div id="biblicalParablesList" class="biblical-parables-list"></div>
+      </div>
+      <article id="biblicalParableDetail" class="biblical-parable-detail hidden"></article>
     </div>
   </section>
 
@@ -270,7 +287,8 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="biblical-characters-v2243.js?v=1.64.30"></script>
-  <script src="app.js?v=1.64.30"></script>
+  <script src="biblical-characters-v2243.js?v=1.64.31"></script>
+  <script src="biblical-parables.js?v=1.64.31"></script>
+  <script src="app.js?v=1.64.31"></script>
 </body>
 </html>
