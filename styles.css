@@ -454,6 +454,7 @@ body.light-mode .verse.explained-verse{
 .action-favorite{background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%);border-color:#e69a48!important}
 .action-explain{background:linear-gradient(180deg,#e9f9ec 0%,#c9ebce 55%,#a9d9b1 100%);border-color:#86c994!important}
 .action-dictionary{background:linear-gradient(180deg,#fff9d9 0%,#f8e8a8 55%,#e8ce72 100%);border-color:#d4b64f!important}
+.action-characters{background:linear-gradient(180deg,#f3edff 0%,#d9c9f3 55%,#bda6e3 100%);border-color:#9b7fc9!important}
 .action-copy{background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%);border-color:#dc8580!important}
 .action-clear{background:linear-gradient(180deg,#f2f3f5 0%,#d9dde2 55%,#bcc2ca 100%);border-color:#9ea6b0!important}
 body.light-mode .action.pastel-action{color:#34302d!important;border-width:3px!important}
@@ -582,6 +583,8 @@ body.light-mode .action.pastel-action.action-dictionary{
   background:linear-gradient(180deg,#fff9d9 0%,#f8e8a8 55%,#e8ce72 100%)!important;
   border-color:#d4b64f!important;
 }
+body.light-mode .action.pastel-action.action-characters{background:linear-gradient(180deg,#f3edff 0%,#d9c9f3 55%,#bda6e3 100%)!important;border-color:#9b7fc9!important}
+
 body.light-mode .action.pastel-action.action-stats{
   background:linear-gradient(180deg,#eef0f5 0%,#cfd3dc 55%,#adb4c1 100%)!important;
   border-color:#777b84!important;
@@ -891,7 +894,7 @@ body.light-mode .action.pastel-action.action-highlight[data-mode="remove"]{
 }
 
 
-/* V1.64.27 · Personajes Bíblicos integrado desde Oraciones, sin importar su icono */
+/* V1.64.28 · Personajes Bíblicos integrado desde Oraciones, sin importar su icono */
 .home-card-characters{grid-template-columns:1fr!important;text-align:center!important;justify-items:center;background:linear-gradient(135deg,#463f61,#5a4f78)!important;border-color:#8575aa!important;color:#fff!important}
 .home-card-characters strong{font-size:20px}
 .home-card-characters small{color:#eee9ff!important;max-width:330px}

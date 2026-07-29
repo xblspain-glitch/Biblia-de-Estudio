@@ -85,7 +85,10 @@ body:not(.light-mode) .biblical-relation-row-v2249{background:rgba(155,179,218,.
 /* V2.250: bloques cristocéntricos y lecturas */
 .biblical-list-card-v2250 ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px}.biblical-list-card-v2250 li{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start;line-height:1.48}.biblical-list-card-v2250 li>span:first-child{font-size:15px;text-align:center}.biblical-list-card-v2250 li>span:last-child{font-size:14px;color:#31384a}.biblical-list-card-v2250 h2{color:#5a3c80}
 
-/* Adaptación V1.64.27: misma presentación dentro de la pantalla independiente de la Biblia */
+/* Adaptación V1.64.28: misma presentación dentro de la pantalla independiente de la Biblia */
 #biblicalCharactersScreen #biblicalCharactersViewV2242{display:block!important;width:100%!important;max-width:880px!important;min-height:100dvh!important;margin:0 auto!important;padding:18px 14px 42px!important;background:transparent!important}
 #biblicalCharactersScreen .biblical-characters-head-v2242{position:sticky;top:0;z-index:8;padding:10px 0 12px;background:linear-gradient(180deg,rgba(23,28,39,.98) 75%,rgba(23,28,39,0))}
 body.light-mode #biblicalCharactersScreen .biblical-characters-head-v2242{background:linear-gradient(180deg,rgba(247,249,253,.98) 75%,rgba(247,249,253,0))}
+
+/* V1.64.28 · Nombres legibles sobre las tarjetas blancas también en modo oscuro */
+body:not(.light-mode) .biblical-character-row-v2242 strong{color:#263f68!important}
