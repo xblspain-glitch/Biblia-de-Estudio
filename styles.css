@@ -996,3 +996,9 @@ body:not(.light-mode) button.action.pastel-action.action-guides[data-action="gui
 
 /* V1.64.50 · Control de tamaño de letra más accesible */
 .font-size-setting{padding:13px 0 16px}.font-size-heading{font-weight:600;margin-bottom:12px}.font-size-controls{display:grid;grid-template-columns:44px minmax(140px,1fr) 48px 44px;align-items:center;gap:10px}.font-size-controls input[type=range]{width:100%;min-width:0;accent-color:#1e7cff}.font-size-step{width:44px;height:44px;border:1px solid #4a4d54;border-radius:13px;background:#30333a;color:#fff;font:700 28px/1 system-ui;display:flex;align-items:center;justify-content:center;padding:0}.font-size-step:active{transform:scale(.96)}#fontSizeValue{min-width:48px;text-align:center;border:1px solid #4a4d54;border-radius:12px;background:#282b31;color:#fff;padding:8px 5px;font:700 18px/1 system-ui}.light-mode .font-size-step{background:#eee9dd;color:#171717;border-color:#c9c1b1}.light-mode #fontSizeValue{background:#f7f2e8;color:#171717;border-color:#c9c1b1}@media(max-width:420px){.font-size-controls{grid-template-columns:42px minmax(120px,1fr) 46px 42px;gap:8px}.font-size-step{width:42px;height:42px}}
+
+/* V1.64.51 - Título nocturno refinado */
+body.dark-mode .chapter-nav[data-period="noche"] span{
+  color:#f5efe5!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.55),0 0 2px rgba(255,255,255,.08)!important;
+}
