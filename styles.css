@@ -889,3 +889,16 @@ body.light-mode .action.pastel-action.action-highlight[data-mode="remove"]{
   .action.pastel-action{height:46px;min-height:46px;font-size:11.5px;border-radius:14px}
   .action-favorite{font-size:10.7px!important}
 }
+
+
+/* V1.64.27 · Personajes Bíblicos integrado desde Oraciones, sin importar su icono */
+.home-card-characters{grid-template-columns:1fr!important;text-align:center!important;justify-items:center;background:linear-gradient(135deg,#463f61,#5a4f78)!important;border-color:#8575aa!important;color:#fff!important}
+.home-card-characters strong{font-size:20px}
+.home-card-characters small{color:#eee9ff!important;max-width:330px}
+.characters-screen{position:relative;z-index:50;min-height:100dvh;width:100%;overflow-x:hidden;background:linear-gradient(180deg,#171c27 0%,#202735 100%);color:#f4f2ed}
+.characters-screen.hidden{display:none!important}
+.characters-screen .btn{border:1px solid rgba(190,168,239,.38);border-radius:14px;padding:10px 14px;background:rgba(94,74,133,.45);color:#fff;font-family:system-ui,sans-serif;font-weight:700}
+.characters-screen input{font-family:system-ui,sans-serif}
+body.light-mode .characters-screen{background:linear-gradient(180deg,#f7f9fd 0%,#edf2fa 100%);color:#20242b}
+body.light-mode .characters-screen .btn{background:#fff;color:#263f68;border-color:rgba(85,113,153,.28)}
+body.biblical-characters-fullscreen-v2243{overflow:auto!important}

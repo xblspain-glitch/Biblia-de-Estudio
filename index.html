@@ -6,11 +6,12 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.26">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.27">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.26">
+  <link rel="stylesheet" href="styles.css?v=1.64.27">
+  <link rel="stylesheet" href="biblical-characters-v2243.css?v=1.64.27">
 </head>
 <body>
   <div id="pullRefresh" class="pull-refresh" aria-hidden="true"><span>↓</span><strong>Desliza para actualizar</strong></div>
@@ -40,7 +41,7 @@
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.26" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.27" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -48,6 +49,9 @@
           </span>
           <small id="homeDailyVersePreview" class="home-daily-preview"></small>
         </span>
+      </button>
+      <button id="homeCharacters" class="home-card home-card-characters" type="button">
+        <span><strong>Personajes Bíblicos</strong><small>Quién fue cada personaje, su importancia y enseñanza</small></span>
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
@@ -88,6 +92,27 @@
     </div>
   </section>
   </div>
+
+
+  <section id="biblicalCharactersScreen" class="characters-screen hidden" aria-label="Personajes Bíblicos">
+    <div id="biblicalCharactersViewV2242" class="biblical-characters-panel-v2242">
+      <div class="biblical-characters-head-v2242">
+        <button class="btn soft" type="button" onclick="closeBiblicalCharactersV2242()">← Volver</button>
+      </div>
+      <div id="biblicalCharactersHomeV2242">
+        <h1 class="biblical-characters-title-v2242">Personajes Bíblicos</h1>
+        <p class="biblical-characters-sub-v2242">Recuerde quién fue cada personaje, por qué es importante y qué enseñanza nos deja.</p>
+        <label class="biblical-characters-search-v2242">
+          <span aria-hidden="true">🔎</span>
+          <input id="biblicalCharactersSearchV2242" type="search" autocomplete="off" placeholder="Buscar personaje, libro o categoría…" oninput="renderBiblicalCharactersV2242()">
+        </label>
+        <div id="biblicalCharactersCategoriesV2242" class="biblical-characters-categories-v2242"></div>
+        <div class="biblical-characters-list-head-v2242"><strong id="biblicalCharactersListTitleV2242">Todos los personajes</strong><span id="biblicalCharactersCountV2242"></span></div>
+        <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
+      </div>
+      <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
+    </div>
+  </section>
 
   <div id="drawerBackdrop" class="backdrop hidden"></div>
   <aside id="drawer" class="drawer hidden">
@@ -247,6 +272,7 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="app.js?v=1.64.26"></script>
+  <script src="biblical-characters-v2243.js?v=1.64.27"></script>
+  <script src="app.js?v=1.64.27"></script>
 </body>
 </html>
