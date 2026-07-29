@@ -948,3 +948,38 @@ body.biblical-characters-fullscreen-v2243{overflow:auto!important}
   .chapter-nav{min-height:72px;padding-left:14px;padding-right:14px}
   .chapter-nav span{max-width:55%;font-size:15px}
 }
+
+/* V1.64.47 — Corrección definitiva del modo claro en la barra y colores del panel */
+body.light-mode .chapter-nav{
+  background-color:transparent!important;
+  background-image:
+    linear-gradient(90deg,rgba(255,250,238,.08),rgba(255,255,255,0) 34%,rgba(255,255,255,0) 66%,rgba(255,250,238,.08)),
+    var(--chapter-nav-image,url('barra-amanecer.png?v=1.64.47'))!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  border-top-color:rgba(184,132,45,.68)!important;
+  box-shadow:0 -4px 14px rgba(70,50,20,.22)!important;
+}
+body.light-mode .chapter-nav::before{
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,248,230,.08))!important;
+}
+body.light-mode .chapter-nav button{
+  background:rgba(246,241,229,.52)!important;
+  color:#171512!important;
+  border-color:rgba(80,65,42,.18)!important;
+  box-shadow:0 2px 8px rgba(50,39,22,.24)!important;
+}
+body.light-mode .chapter-nav span{
+  color:#2e2118!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.88),0 0 6px rgba(255,248,224,.82)!important;
+}
+body.light-mode .action.pastel-action.action-reading-point{
+  background:linear-gradient(180deg,#f4ecff 0%,#d9c8f2 55%,#bca4df 100%)!important;
+  border-color:#9a7bc8!important;
+  color:#34302d!important;
+}
+body.light-mode .action.pastel-action.action-guides{
+  background:linear-gradient(180deg,#fff4d8 0%,#ecd9a7 55%,#d2b871 100%)!important;
+  border-color:#b7984d!important;
+  color:#3c3018!important;
+}
