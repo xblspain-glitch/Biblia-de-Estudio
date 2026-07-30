@@ -1003,7 +1003,7 @@ body.dark-mode .chapter-nav[data-period="noche"] span{
   text-shadow:0 2px 4px rgba(0,0,0,.65)!important;
 }
 
-/* V1.64.55 - Título de la barra nocturna un 10% más grande */
+/* V1.64.63 - Título de la barra nocturna un 10% más grande */
 body.dark-mode .chapter-nav[data-period="noche"] span{
   font-size:17.5px!important;
 }
@@ -1014,14 +1014,14 @@ body.dark-mode .chapter-nav[data-period="noche"] span{
 }
 
 
-/* V1.64.55 - Relieve nocturno invertido: luz arriba y sombra abajo */
+/* V1.64.63 - Relieve nocturno invertido: luz arriba y sombra abajo */
 body.dark-mode .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
   text-shadow:0 -1px 0 rgba(255,255,255,.95),0 2px 3px rgba(0,0,0,.72)!important;
 }
 
 
-/* V1.64.55 - Cápsula legible exclusiva para la barra nocturna */
+/* V1.64.63 - Cápsula legible exclusiva para la barra nocturna */
 body.dark .chapter-nav[data-period="noche"] span,
 body:not(.light-mode) .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
@@ -1044,3 +1044,11 @@ body:not(.light-mode) .chapter-nav[data-period="noche"] span{
 body.light-mode .chapter-nav[data-period="noche"] span{background:rgba(255,255,255,.90)!important;border-radius:14px;padding:4px 14px;}
 body.dark .chapter-nav span{background:transparent;}
 body.dark .chapter-nav.night span{background:rgba(0,0,0,.30);}
+
+
+/* V1.64.63 · Acciones de palabra y alta directa en el diccionario */
+.dictionary-title-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.dictionary-title-actions .secondary{border:2px solid #8f98aa;border-radius:14px;background:linear-gradient(180deg,#f6f7fa,#cfd4dd);color:#20242c;font-weight:800;padding:10px 14px}
+.dictionary-title-actions button:disabled{opacity:.45;cursor:not-allowed}
+.dictionary-empty{text-align:center;padding:18px 8px}.dictionary-empty .primary{margin-top:10px;border:3px solid #c19042;border-radius:14px;background:linear-gradient(180deg,#fff3c9,#e8c471);color:#2b2111;font-weight:800;padding:10px 16px}
+@media(max-width:520px){.dictionary-title-row{align-items:flex-start}.dictionary-title-actions{gap:6px}.dictionary-title-actions button{padding:9px 11px!important}}
