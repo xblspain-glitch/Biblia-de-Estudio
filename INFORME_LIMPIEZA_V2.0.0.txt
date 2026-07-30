@@ -1,0 +1,26 @@
+MI BIBLIA DE ESTUDIO — INFORME DE LIMPIEZA V2.0.0
+
+Objetivo
+--------
+Ordenar la estructura interna sin modificar el aspecto ni las funciones.
+
+Cambios realizados
+-------------------
+1. Se extrajeron 5 bloques CSS incrustados en index.html.
+2. Los bloques se consolidaron, respetando su orden original, en theme-overrides.css.
+3. Se trasladó el script visual de cambio de capítulo desde index.html a app.js.
+4. Se eliminaron las conexiones externas a Google Fonts; la aplicación usa las fuentes Lora locales y sigue siendo completamente offline.
+5. Se normalizaron todas las referencias de versión y caché a 2.0.0.
+6. Se añadió theme-overrides.css a la precaché del service worker.
+7. Se mantuvieron intactos los datos bíblicos, imágenes, módulos y comportamiento funcional.
+
+Resultado
+---------
+- index.html más legible y fácil de mantener.
+- CSS visual separado del marcado HTML.
+- Menos dependencias externas.
+- Caché coherente y preparada para futuras limpiezas.
+
+Nota
+----
+Esta es una limpieza estructural conservadora. No se han eliminado reglas visuales por similitud, porque hacerlo sin una batería completa de pruebas visuales podría alterar detalles ya aprobados.
