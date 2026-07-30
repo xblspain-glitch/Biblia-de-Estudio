@@ -1191,3 +1191,37 @@ button:not(:disabled):active {
     scale: 1;
   }
 }
+
+
+/* V1.64.76 · Cambio de capítulo suave */
+.reader.chapter-enter {
+  animation: chapterEnterV16476 220ms ease-out both;
+}
+@keyframes chapterEnterV16476 {
+  from { opacity: .18; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader.chapter-enter { animation: none; }
+}
+
+/* V1.64.76 · Personajes: fondo coherente y cabecera limpia */
+body:not(.light-mode) #biblicalCharactersScreen.characters-screen {
+  background: linear-gradient(180deg,#111315 0%,#171a20 100%) !important;
+  color:#f4f2ed !important;
+}
+body.light-mode #biblicalCharactersScreen.characters-screen {
+  background: linear-gradient(180deg,#f7f9fd 0%,#edf2fa 100%) !important;
+  color:#20242b !important;
+}
+#biblicalCharactersScreen .biblical-characters-head-v2242 {
+  position:relative !important;
+  top:auto !important;
+  z-index:8;
+  padding:0 0 10px !important;
+  margin:0 0 8px !important;
+  background:transparent !important;
+}
+#biblicalCharactersScreen #biblicalCharactersViewV2242 {
+  padding-top:16px !important;
+}
