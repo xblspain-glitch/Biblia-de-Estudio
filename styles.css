@@ -16,7 +16,7 @@ html,body{overscroll-behavior-y:auto}
 .reader-book-title{text-align:center;margin:4px 0 16px;color:#b6b6b8;font-weight:700;font-size:.9em;letter-spacing:.03em}.chapter-number{margin-top:0}.saved-dialog{padding-bottom:28px}.reading-point-card{background:#24262c;border:1px solid #393c43;border-radius:18px;padding:16px;margin:10px 0 22px}.saved-section-title{font-weight:800;font-size:17px;margin-bottom:10px}.saved-reading-ref{font-size:20px;color:#f5f1e8;margin-bottom:14px}.saved-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.saved-actions button{border:0;border-radius:12px;padding:11px;background:#343740;color:#fff}.saved-actions .primary{grid-column:1/-1;background:#98d4ef;color:#101216;font-weight:800}.saved-actions .danger{color:#ff9d9d}.saved-actions button:disabled{opacity:.45}.saved-verses-list{display:flex;flex-direction:column;gap:9px}.saved-verse-card{width:100%;text-align:left;border:1px solid #343740;border-radius:14px;background:#202229;color:#fff;padding:13px}.saved-verse-card strong{display:block;color:#a9dcf5;margin-bottom:6px}.saved-verse-card>span{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;line-height: 1.41;color:#ddd;white-space:normal;overflow-wrap:break-word;word-break:normal}
 .saved-verse-card .dict-word{display:inline!important;white-space:normal}.empty-saved{color:var(--muted)}.verse.reading-target{background:rgba(232,200,95,.34)!important;outline:2px solid rgba(232,200,95,.78);box-shadow:0 0 0 2px rgba(0,0,0,.35);border-radius:6px}
 
-/* V1.5: selector desplegable de capítulos dentro del listado de libros */
+/* selector desplegable de capítulos dentro del listado de libros */
 .book-entry{border-bottom:1px solid #2d3036}
 .book-entry .book-item{position:relative;border-bottom:0;padding-right:48px}
 .book-item>span:first-child{display:block;font-size:18px;font-weight:700}
@@ -30,7 +30,7 @@ html,body{overscroll-behavior-y:auto}
 @media(min-width:600px){.book-chapters{grid-template-columns:repeat(7,minmax(0,1fr))}}
 
 
-/* V1.6: capítulos desplegables con selector de versículos */
+/* capítulos desplegables con selector de versículos */
 .book-chapters-wrap{background:#202228;padding:4px 14px 16px}
 .book-chapters{padding:0;background:transparent}
 .chapter-block{display:contents}
@@ -43,9 +43,9 @@ html,body{overscroll-behavior-y:auto}
 .loading-verses{grid-column:1/-1;color:#aaa;padding:8px 2px;font-family:system-ui}
 @media(min-width:600px){.book-verses{grid-template-columns:repeat(7,minmax(0,1fr))}}
 
-/* V1.7: el versículo de destino permanece resaltado hasta tocar fuera */
+/* el versículo de destino permanece resaltado hasta tocar fuera */
 
-/* V1.8: pantalla principal de bienvenida */
+/* pantalla principal de bienvenida */
 .home-screen{min-height:100vh;padding:calc(34px + env(safe-area-inset-top,0px)) 20px calc(36px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;justify-content:center;max-width:720px;margin:0 auto;font-family:system-ui}
 .home-brand{text-align:center;margin-bottom:34px}.home-bible{width:92px;height:108px;margin:0 auto 20px;border:3px solid #d7d2c7;border-radius:8px 18px 18px 8px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:48px;color:#eee;background:#191b20;box-shadow:inset 8px 0 0 #403957}.home-brand h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:38px;font-weight:600}.home-brand p{margin:8px 0 0;color:var(--muted);font-size:16px}
 .home-actions{display:grid;grid-template-columns:1fr;gap:14px}.home-card{width:100%;min-height:92px;border:1px solid #363940;border-radius:20px;background:#111315;color:#fff;padding:17px 18px;display:grid;grid-template-columns:54px 1fr;gap:15px;align-items:center;text-align:left}.home-card-primary{background:#282b31;border-color:#4a4d54}.home-card:active{transform:scale(.985)}.home-card:disabled{opacity:.48}.home-icon{width:54px;height:54px;border-radius:16px;background:#30333a;display:flex;align-items:center;justify-content:center;font-size:28px}.home-card strong{display:block;font-size:21px;margin-bottom:5px}.home-card small{display:block;color:#b5b6bb;font-size:14px;line-height: 1.27}.reader-screen{min-height:100vh}
@@ -67,7 +67,7 @@ html,body{overscroll-behavior-y:auto}
 .home-card:disabled{opacity:.58;filter:saturate(.65);cursor:default}
 @media(min-width:620px){.home-screen{padding-left:20px;padding-right:20px}.home-hero{margin-bottom:24px}}
 
-/* V1.10: botones pastel claros con borde del mismo tono */
+/* botones pastel claros con borde del mismo tono */
 .home-card{color:#202126;box-shadow:0 7px 18px rgba(0,0,0,.18);border-width:3px}
 .home-card-continue{background:linear-gradient(135deg,#e8f4ff 0%,#cfe8ff 55%,#bbdcfb 100%);border-color:#4f91c8}
 .home-card-books{background:linear-gradient(135deg,#f2eaff 0%,#e2d2fa 55%,#d3baf3 100%);border-color:#8d62bd}
@@ -77,7 +77,7 @@ html,body{overscroll-behavior-y:auto}
 .home-card strong{color:#25262a}.home-card small{color:#53565d}
 .home-card:hover{filter:brightness(1.025)}
 
-/* V1.12 · botones pastel brillantes inspirados en la app principal */
+/* botones pastel brillantes inspirados en la app principal */
 .home-card{
   overflow:hidden;
   border-width:3px;
@@ -96,11 +96,11 @@ html,body{overscroll-behavior-y:auto}
 .home-card span:last-child{position:relative;z-index:1}
 .home-card:hover{filter:brightness(1.02) saturate(1.03)}
 
-/* V1.13 · estabilidad del listado de libros */
+/* estabilidad del listado de libros */
 .drawer{overscroll-behavior:contain;scroll-behavior:auto;overflow-anchor:auto}.drawer.is-open{scrollbar-gutter:stable}
 
-/* V1.14 · el gesto de actualización queda desactivado dentro de menús y diálogos */
-/* V1.16: marcas múltiples y explicación ampliada */
+/* el gesto de actualización queda desactivado dentro de menús y diálogos */
+/* marcas múltiples y explicación ampliada */
 .explanation-dialog{width:min(97vw,820px);max-height:94vh;padding:26px}
 .explanation-dialog textarea{min-height:52vh;max-height:68vh;font-size:18px;line-height: 1.46}
 .explanation-content{max-height:70vh;min-height:38vh;font-size:18px;line-height: 1.50}
@@ -113,7 +113,7 @@ html,body{overscroll-behavior-y:auto}
 .reading-mark-delete{border:1px solid #663f45;border-radius:14px;background:#332328;color:#ffaaaa;font-size:20px}
 @media(max-width:420px){.explanation-dialog{width:96vw;padding:20px 16px}.explanation-dialog textarea{min-height:58vh}.modal-actions{flex-wrap:wrap}.modal-actions button{flex:1}}
 
-/* V1.17: explicación más amplia y marcas fiables */
+/* explicación más amplia y marcas fiables */
 .explanation-dialog{width:min(96vw,760px);max-width:760px;}
 .explanation-dialog .dialog-body{max-height:88vh;}
 #explanationText{min-height:52vh;max-height:65vh;font-size:18px;line-height: 1.46;resize:vertical;}
@@ -121,7 +121,7 @@ html,body{overscroll-behavior-y:auto}
 .reading-mark-delete{font-size:15px;font-weight:700;padding:0 10px;}
 
 
-/* V1.20 — lectura inspirada en la referencia visual */
+/* lectura inspirada en la referencia visual */
 :root{--font-size:28px}
 .reader{
   font-family:Georgia,"Times New Roman",Times,serif;
@@ -148,7 +148,7 @@ html,body{overscroll-behavior-y:auto}
 @media(max-width:430px){.audit-counters-4{grid-template-columns:repeat(2,1fr)}}
 
 
-/* V1.35 · Panel estable, botón Entrar compacto e iconos personalizados */
+/* Panel estable, botón Entrar compacto e iconos personalizados */
 .home-card-enter{background:linear-gradient(145deg,#f7f4ff 0%,#e5ddff 48%,#cfc0f4 100%);border-color:#9273c6}
 .settings-section-title{margin:18px 2px 4px;color:#e8ddff;font-family:system-ui;font-weight:800;font-size:17px}
 .backup-export{background:linear-gradient(180deg,#e7f5ff,#bddff4);border:3px solid #609ec4;color:#15232d;font-weight:800}
@@ -157,11 +157,11 @@ html,body{overscroll-behavior-y:auto}
 .drawer{transition:transform .22s ease;will-change:transform;touch-action:pan-y}
 .drawer.closing{transform:translateX(-105%)}
 
-/* V1.35: el panel sigue el dedo sin animación durante el gesto. */
+/* el panel sigue el dedo sin animación durante el gesto. */
 .drawer.dragging{transition:none!important}
 .backdrop{transition:opacity .18s ease}
 
-/* V1.35: iconos proporcionados por el usuario y botón Entrar compacto */
+/* iconos proporcionados por el usuario y botón Entrar compacto */
 .home-icon{overflow:hidden;padding:0;width:64px;height:64px}
 .home-card{grid-template-columns:64px 1fr}
 .home-icon img{display:block;width:112%;height:112%;object-fit:cover;border-radius:14px;transform:scale(1.12)}
@@ -170,7 +170,7 @@ html,body{overscroll-behavior-y:auto}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
 
 
-/* V1.36 · Diccionario bíblico integrado */
+/* Diccionario bíblico integrado */
 .dictionary-dialog{width:min(96vw,780px);max-height:94vh;padding:22px}
 .dictionary-title-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
 .dictionary-title-row h2{margin:0}.dictionary-title-row p{margin:4px 0 0;color:#bfc3ce;font:14px system-ui}
@@ -183,7 +183,7 @@ html,body{overscroll-behavior-y:auto}
 @media(max-width:420px){.dictionary-dialog{padding:18px 14px}.dictionary-results{max-height:69vh}.dictionary-card p{font-size:14px}.dictionary-edit-dialog{padding:20px 15px}.dictionary-edit-dialog textarea{min-height:42vh}}
 
 
-/* V1.37 · Panel lateral derecho de acciones */
+/* Panel lateral derecho de acciones */
 .selection-bar{
   left:auto;right:0;top:84px;bottom:76px;width:min(82vw,310px);
   padding:0;background:transparent;border:0;z-index:45;
@@ -215,7 +215,7 @@ html,body{overscroll-behavior-y:auto}
 .selection-bar.dragging{transition:none!important}
 
 
-/* V1.40 · Pestaña siempre visible y compacta */
+/* Pestaña siempre visible y compacta */
 .selection-bar{top:78px;bottom:76px;width:min(82vw,310px)}
 .actions-panel-toggle{
   left:-36px;top:42%;width:36px;height:48px;
@@ -230,7 +230,7 @@ html,body{overscroll-behavior-y:auto}
   .actions-panel-toggle{left:-34px;width:34px;height:46px;top:40%}
 }
 
-/* V1.41 · Tirador lateral ultracompacto */
+/* Tirador lateral ultracompacto */
 .actions-panel-toggle{
   left:-20px;
   width:20px;
@@ -253,7 +253,7 @@ html,body{overscroll-behavior-y:auto}
 }
 
 
-/* V1.44 — modo blanco de lectura */
+/* modo blanco de lectura */
 .theme-toggle-btn{font-size:24px!important}
 body.light-mode{--bg:#f7f3e9;--text:#171512;background:#f7f3e9;color:#171512}
 body.light-mode .reader-screen{background:#f7f3e9;color:#171512}
@@ -281,7 +281,7 @@ body.light-mode .drawer-tabs button{background:#e7e1d6;color:#322e28}
 body.light-mode .saved-verse{background:linear-gradient(180deg,rgba(245,205,73,.25),rgba(225,184,50,.12))}
 
 
-/* V1.47 · botones ilustrados del panel lateral */
+/* botones ilustrados del panel lateral */
 .action.image-action{
   display:block;
   width:100%;
@@ -314,7 +314,7 @@ body.light-mode .action.image-action{background:transparent!important;border:0!i
   .actions-scroll{gap:8px}
   .action.image-action{border-radius:13px}
 }
-\n\n/* V1.47 · integración compacta y uniforme de botones ilustrados */
+\n\n/* integración compacta y uniforme de botones ilustrados */
 .selection-bar{overflow:visible}
 .actions-panel-inner{display:flex;flex-direction:column;min-height:0;padding:14px 12px 16px}
 .selection-reference{flex:0 0 auto;margin-bottom:8px;padding-bottom:9px}
@@ -359,7 +359,7 @@ body.light-mode .action.image-action{background:transparent!important;border:0!i
 }
 
 
-/* V1.50 · explicación indicada con subrayado lavanda, sin icono amarillo */
+/* explicación indicada con subrayado lavanda, sin icono amarillo */
 .explain-marker{display:none!important}
 .verse.explained-verse{
   box-shadow:inset 0 -3px 0 rgba(190,145,235,.92);
@@ -378,7 +378,7 @@ body.light-mode .verse.explained-verse{
 }
 
 
-/* V1.51 · acciones independientes y lectura con más aire */
+/* acciones independientes y lectura con más aire */
 .reader{
   max-width:760px;
   padding-top:34px;
@@ -414,7 +414,7 @@ body.light-mode .verse.explained-verse{
 }
 
 
-/* V1.52 — botones pastel sin imágenes */
+/* botones pastel sin imágenes */
 .action.pastel-action{
   position:relative;
   width:100%;
@@ -465,8 +465,8 @@ body.light-mode .action.pastel-action{color:#34302d!important;border-width:3px!i
 }
 
 
-/* V1.53 · explicación con cristal lavanda en toda la aplicación */
-.explain-marker{display:none!important}
+/* explicación con cristal lavanda en toda la aplicación */
+
 .verse.explained-verse{
   background:linear-gradient(180deg,rgba(205,170,239,.25),rgba(165,112,215,.20));
   outline:1px solid rgba(211,174,244,.72);
@@ -499,7 +499,7 @@ body.light-mode .verse.explained-verse.saved-verse.selected{
 .saved-verse{background:rgba(255,215,64,.22)!important;border:1px solid rgba(255,220,120,.9)!important;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);} .saved-verse::after{display:none!important;}
 .action-btn{border-width:3px!important;}
 
-/* V1.56 · guardados con cápsulas de cristal amarillo completas por cada línea */
+/* guardados con cápsulas de cristal amarillo completas por cada línea */
 .verse.explained-verse,
 .verse.saved-verse{
   -webkit-box-decoration-break:clone;
@@ -531,7 +531,7 @@ body.light-mode .verse.saved-verse:not(.explained-verse).selected{
 }
 
 
-/* V1.58 · cabeceras horarias, títulos integrados y estadísticas */
+/* cabeceras horarias, títulos integrados y estadísticas */
 .home-card-stats{background:linear-gradient(145deg,#fffdf2 0%,#f3ebbd 48%,#dfcc7e 100%);border-color:#b69a3b}
 .stats-home-icon{font-size:34px;font-weight:800;color:#6c5718;background:rgba(255,255,255,.56)!important}
 .stats-dialog{width:min(95vw,720px);max-height:92vh;padding:23px}
@@ -545,11 +545,11 @@ body.light-mode .verse.saved-verse:not(.explained-verse).selected{
 .stats-recent{display:flex;flex-direction:column;gap:8px;max-height:38vh;overflow:auto;overscroll-behavior:contain}
 @media(min-width:620px){.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-/* V1.59: Estadísticas integrado en el panel lateral de acciones */
+/* Estadísticas integrado en el panel lateral de acciones */
 .action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #777b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
 
 
-/* V1.60 · correcciones de contraste en modo claro */
+/* correcciones de contraste en modo claro */
 body.light-mode .home-welcome h1{color:#7a5720!important;text-shadow:0 1px 0 rgba(255,255,255,.8)}
 body.light-mode .home-welcome p{color:#655f56!important}
 body.light-mode .section-title{color:#6f4d18!important;text-shadow:none!important}
@@ -567,7 +567,7 @@ body.light-mode .stats-insight{background:#f3eee5;border-color:#cfc6b8}
 body.light-mode .stats-insight strong{color:#7a5720}
 body.light-mode .stats-insight span{color:#4f4a43}
 
-/* V1.61 · conservar los colores pastel del panel también en modo claro */
+/* conservar los colores pastel del panel también en modo claro */
 body.light-mode .action.pastel-action.action-highlight{
   background:linear-gradient(180deg,#dff4ff 0%,#b9def5 55%,#9bcbea 100%)!important;
   border-color:#7bbce3!important;
@@ -599,7 +599,7 @@ body.light-mode .action.pastel-action.action-clear{
   border-color:#9ea6b0!important;
 }
 
-/* V1.62 · palabra mantenida para consultar el diccionario */
+/* palabra mantenida para consultar el diccionario */
 .dict-word{
   -webkit-touch-callout:none;
   user-select:none;
@@ -617,7 +617,7 @@ body.light-mode .dict-word.word-pressing{
 }
 
 
-/* V1.63 · Versículo del día */
+/* Versículo del día */
 .home-actions{gap:10px}
 .home-card{min-height:78px;padding:11px 15px;grid-template-columns:58px 1fr;gap:14px;border-radius:20px}
 .home-icon{width:58px;height:58px}
@@ -650,7 +650,7 @@ body:not(.light-mode) .daily-verse-actions button{background:#24252a;color:#f5f0
 body:not(.light-mode) .daily-verse-actions .primary{background:linear-gradient(145deg,#8d6e22,#b68b2b);color:#fff9df;border-color:#d6ad42}
 @media(max-width:420px){.home-card{min-height:72px;padding:9px 13px;grid-template-columns:54px 1fr}.home-icon{width:54px;height:54px}.home-card strong{font-size:19px}.home-card small{font-size:12.5px}.daily-verse-actions{grid-template-columns:1fr}.daily-verse-actions button{min-height:42px}}
 
-/* V1.64 · Selección inteligente del Versículo del día */
+/* Selección inteligente del Versículo del día */
 .daily-verse-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .daily-verse-number{font-size:12px;font-weight:800;color:#76530d;opacity:.9}
 .daily-verse-reflection{margin:17px 0 0;padding:13px 14px;border-radius:14px;background:rgba(255,255,255,.42);border:1px solid rgba(132,87,5,.2);font-size:14px;line-height: 1.36;color:#5e481e}
@@ -658,7 +658,7 @@ body:not(.light-mode) .daily-verse-number{color:#f3d77e}
 body:not(.light-mode) .daily-verse-reflection{background:rgba(255,255,255,.07);border-color:rgba(255,221,112,.22);color:#f7e8ba}
 
 
-/* V1.64.8 · Vista previa limpia del Versículo del día en portada */
+/* Vista previa limpia del Versículo del día en portada */
 .home-card-daily{position:relative}
 .home-daily-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;align-self:stretch}
 .home-daily-copy>strong{white-space:nowrap}
@@ -666,18 +666,18 @@ body:not(.light-mode) .daily-verse-reflection{background:rgba(255,255,255,.07);b
 #homeDailyVerseRef{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .home-daily-preview{display:block!important;margin-top:3px;font-family:Georgia,'Times New Roman',serif;font-size:10.5px!important;line-height: 1.13!important;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.95}
 
-/* V1.64.8 · Texto oscuro y legible en la tarjeta dorada */
+/* Texto oscuro y legible en la tarjeta dorada */
 body:not(.light-mode) .home-card-daily strong{color:#211a08}
 body:not(.light-mode) .home-card-daily small{color:#2b210b}
 body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
 .home-card-daily #homeDailyVerseRef{font-weight:600}
 
-/* V1.64.9 · Guardados legibles y estadísticas simplificadas */
+/* Guardados legibles y estadísticas simplificadas */
 .stats-grid-simple .stats-reading-point{grid-column:span 2}
 .stats-grid-simple .stats-reading-point strong{font-size:18px;line-height: 1.17;overflow-wrap:anywhere}
 @media(min-width:620px){.stats-grid-simple{grid-template-columns:repeat(3,minmax(0,1fr))}.stats-grid-simple .stats-reading-point{grid-column:span 1}}
 
-/* V1.64.16 · Separador único debajo del libro y encima del capítulo */
+/* Separador único debajo del libro y encima del capítulo */
 .reader-book-title{margin:4px 0 2px!important}
 .chapter-divider{
   display:block;
@@ -698,10 +698,10 @@ body:not(.light-mode) .home-card-daily #homeDailyVerseRef{color:#2b210b}
   .section-heading{margin:28px 0 15px!important}
 }
 
-/* V1.64.20 — Lora local definitiva para el texto bíblico */
+/* Lora local definitiva para el texto bíblico */
 .reader .verse{font-family:"Lora",Georgia,"Times New Roman",serif;font-weight:400;}
 
-/* V1.64.21 · Panel de acciones reducido para dejar visible la lectura */
+/* Panel de acciones reducido para dejar visible la lectura */
 .selection-bar{
   width:116px;
   top:72px;
@@ -746,7 +746,7 @@ body.light-mode .action.pastel-action{border-width:2px!important}
   .action.pastel-action{height:36px;min-height:36px;font-size:10.5px;border-radius:11px}
 }
 
-/* V1.64.22 · explicaciones agrupadas y panel compacto ampliado */
+/* explicaciones agrupadas y panel compacto ampliado */
 .explanation-group{
   display:inline;
   padding:2px 2px;
@@ -790,7 +790,7 @@ body.light-mode .explanation-group{
 }
 
 
-/* V1.64.23 · bloque único de explicación y flujo mediante botonera */
+/* bloque único de explicación y flujo mediante botonera */
 .explanation-group{
   display:inline-block!important;
   max-width:100%;
@@ -832,7 +832,7 @@ body.light-mode .explanation-group:has(.verse.selected){
 }
 
 
-/* V1.64.26 · Panel refinado: proporciones, interruptores, animación y cabecera informativa */
+/* Panel refinado: proporciones, interruptores, animación y cabecera informativa */
 .selection-bar{
   transition:transform .18s cubic-bezier(.22,.72,.28,1)!important;
 }
@@ -895,7 +895,7 @@ body.light-mode .action.pastel-action.action-highlight[data-mode="remove"]{
 }
 
 
-/* V1.64.28 · Personajes Bíblicos integrado desde Oraciones, sin importar su icono */
+/* Personajes Bíblicos integrado desde Oraciones, sin importar su icono */
 .home-card-characters{grid-template-columns:1fr!important;text-align:center!important;justify-items:center;background:linear-gradient(135deg,#463f61,#5a4f78)!important;border-color:#8575aa!important;color:#fff!important}
 .home-card-characters strong{font-size:20px}
 .home-card-characters small{color:#eee9ff!important;max-width:330px}
@@ -907,10 +907,10 @@ body.light-mode .characters-screen{background:linear-gradient(180deg,#f7f9fd 0%,
 body.light-mode .characters-screen .btn{background:#fff;color:#263f68;border-color:rgba(85,113,153,.28)}
 body.biblical-characters-fullscreen-v2243{overflow:auto!important}
 
-/* V1.64.31 parables module */
+/* parables module */
 
 
-/* V1.64.42 — Barra inferior ilustrada automática por horario */
+/* Barra inferior ilustrada automática por horario */
 .chapter-nav{
   min-height:76px;
   padding:8px 18px calc(8px + var(--safe-bottom));
@@ -949,7 +949,7 @@ body.biblical-characters-fullscreen-v2243{overflow:auto!important}
   .chapter-nav span{max-width:55%;font-size:15px}
 }
 
-/* V1.64.49 — Corrección definitiva del modo claro en la barra y colores del panel */
+/* Corrección definitiva del modo claro en la barra y colores del panel */
 body.light-mode .chapter-nav{
   background-color:transparent!important;
   background-image:
@@ -985,7 +985,7 @@ body.light-mode .action.pastel-action.action-guides{
 }
 
 
-/* V1.64.49 — Guía amarilla definitiva en ambos temas */
+/* Guía amarilla definitiva en ambos temas */
 button.action.pastel-action.action-guides[data-action="guides"],
 body.light-mode button.action.pastel-action.action-guides[data-action="guides"],
 body:not(.light-mode) button.action.pastel-action.action-guides[data-action="guides"]{
@@ -994,16 +994,16 @@ body:not(.light-mode) button.action.pastel-action.action-guides[data-action="gui
   color:#3c3018!important;
 }
 
-/* V1.64.50 · Control de tamaño de letra más accesible */
+/* Control de tamaño de letra más accesible */
 .font-size-setting{padding:13px 0 16px}.font-size-heading{font-weight:600;margin-bottom:12px}.font-size-controls{display:grid;grid-template-columns:44px minmax(140px,1fr) 48px 44px;align-items:center;gap:10px}.font-size-controls input[type=range]{width:100%;min-width:0;accent-color:#1e7cff}.font-size-step{width:44px;height:44px;border:1px solid #4a4d54;border-radius:13px;background:#30333a;color:#fff;font:700 28px/1 system-ui;display:flex;align-items:center;justify-content:center;padding:0}.font-size-step:active{transform:scale(.96)}#fontSizeValue{min-width:48px;text-align:center;border:1px solid #4a4d54;border-radius:12px;background:#282b31;color:#fff;padding:8px 5px;font:700 18px/1 system-ui}.light-mode .font-size-step{background:#eee9dd;color:#171717;border-color:#c9c1b1}.light-mode #fontSizeValue{background:#f7f2e8;color:#171717;border-color:#c9c1b1}@media(max-width:420px){.font-size-controls{grid-template-columns:42px minmax(120px,1fr) 46px 42px;gap:8px}.font-size-step{width:42px;height:42px}}
 
-/* V1.64.51 - Título nocturno refinado */
+/* Título nocturno refinado */
 body.dark-mode .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
   text-shadow:0 2px 4px rgba(0,0,0,.65)!important;
 }
 
-/* V1.64.63 - Título de la barra nocturna un 10% más grande */
+/* Título de la barra nocturna un 10% más grande */
 body.dark-mode .chapter-nav[data-period="noche"] span{
   font-size:17.5px!important;
 }
@@ -1014,14 +1014,14 @@ body.dark-mode .chapter-nav[data-period="noche"] span{
 }
 
 
-/* V1.64.63 - Relieve nocturno invertido: luz arriba y sombra abajo */
+/* Relieve nocturno invertido: luz arriba y sombra abajo */
 body.dark-mode .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
   text-shadow:0 -1px 0 rgba(255,255,255,.95),0 2px 3px rgba(0,0,0,.72)!important;
 }
 
 
-/* V1.64.63 - Cápsula legible exclusiva para la barra nocturna */
+/* Cápsula legible exclusiva para la barra nocturna */
 body.dark .chapter-nav[data-period="noche"] span,
 body:not(.light-mode) .chapter-nav[data-period="noche"] span{
   color:#ffffff!important;
@@ -1046,7 +1046,7 @@ body.dark .chapter-nav span{background:transparent;}
 body.dark .chapter-nav.night span{background:rgba(0,0,0,.30);}
 
 
-/* V1.64.63 · Acciones de palabra y alta directa en el diccionario */
+/* Acciones de palabra y alta directa en el diccionario */
 .dictionary-title-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .dictionary-title-actions .secondary{border:2px solid #8f98aa;border-radius:14px;background:linear-gradient(180deg,#f6f7fa,#cfd4dd);color:#20242c;font-weight:800;padding:10px 14px}
 .dictionary-title-actions button:disabled{opacity:.45;cursor:not-allowed}
@@ -1054,7 +1054,7 @@ body.dark .chapter-nav.night span{background:rgba(0,0,0,.30);}
 @media(max-width:520px){.dictionary-title-row{align-items:flex-start}.dictionary-title-actions{gap:6px}.dictionary-title-actions button{padding:9px 11px!important}}
 
 
-/* V1.64.67 · Listados navegables desde Estadísticas */
+/* Listados navegables desde Estadísticas */
 .stats-grid .stats-tile{
   appearance:none;width:100%;margin:0;padding:14px 8px;border:2px solid #8a72b7;border-radius:17px;
   background:linear-gradient(180deg,rgba(235,224,255,.18),rgba(120,91,171,.09));text-align:center;color:inherit;cursor:pointer;
@@ -1128,11 +1128,10 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
 }
 
 
-/* V1.64.74 · Aviso dorado visible y persistente hasta abrir */
+/* Aviso dorado visible y persistente hasta abrir */
 .home-card-daily.daily-verse-unseen{
   isolation:isolate;
   border-color:#d2a52b!important;
-  animation:dailyVerseBreath 2.5s ease-in-out infinite;
 }
 .home-card-daily.daily-verse-unseen::after{
   content:"NUEVO";
@@ -1152,28 +1151,13 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
   box-shadow:0 2px 7px rgba(111,72,4,.22),inset 0 1px 0 rgba(255,255,255,.9);
   pointer-events:none;
 }
-.home-card-daily.daily-verse-unseen .daily-verse-icon{
-  animation:dailyVerseIconGlow 2.8s ease-in-out infinite;
-}
-@keyframes dailyVerseBreath{
-  0%,100%{box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 0 0 2px rgba(255,239,168,.42),inset 0 1px 0 rgba(255,255,255,.95),0 0 0 1px rgba(203,151,24,.45),0 0 7px rgba(218,159,25,.18)}
-  48%{box-shadow:0 8px 19px rgba(0,0,0,.18),inset 0 0 0 3px rgba(255,238,150,.92),inset 0 1px 0 rgba(255,255,255,.98),0 0 0 4px rgba(252,220,119,.88),0 0 22px 8px rgba(218,159,25,.38)}
-}
-@keyframes dailyVerseIconGlow{
-  0%,100%{filter:brightness(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 5px rgba(0,0,0,.08)}
-  48%{filter:brightness(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 0 13px rgba(232,181,45,.72)}
-}
-@media (prefers-reduced-motion:reduce){
-  .home-card-daily.daily-verse-unseen,.home-card-daily.daily-verse-unseen .daily-verse-icon{animation:none}
-  .home-card-daily.daily-verse-unseen{box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.95),0 0 0 3px rgba(231,184,61,.72)}
-}
 body:not(.light-mode) .home-card-daily.daily-verse-unseen::after{
   border-color:rgba(255,232,155,.55);
   background:linear-gradient(145deg,#f9e9a6 0%,#c99c30 52%,#7b5710 100%);
   color:#2d2109;
 }
 
-/* V1.64.75 · Respuesta táctil de botones (sin alterar el diseño) */
+/* Respuesta táctil de botones (sin alterar el diseño) */
 button:not(:disabled) {
   -webkit-tap-highlight-color: transparent;
 }
@@ -1193,7 +1177,7 @@ button:not(:disabled):active {
 }
 
 
-/* V1.64.77 · Cambio de capítulo suave sin desplazar la barra fija */
+/* Cambio de capítulo suave sin desplazar la barra fija */
 .reader.chapter-enter {
   animation: chapterEnterV16477 180ms ease-out both;
 }
@@ -1205,7 +1189,7 @@ button:not(:disabled):active {
   .reader.chapter-enter { animation: none; }
 }
 
-/* V1.64.77 · Personajes: fondo coherente y cabecera limpia */
+/* Personajes: fondo coherente y cabecera limpia */
 body:not(.light-mode) #biblicalCharactersScreen.characters-screen {
   background: linear-gradient(180deg,#111315 0%,#171a20 100%) !important;
   color:#f4f2ed !important;
@@ -1227,7 +1211,7 @@ body.light-mode #biblicalCharactersScreen.characters-screen {
 }
 
 
-/* V1.64.79: acabado premium y microinteracciones del panel Libros */
+/* acabado premium y microinteracciones del panel Libros */
 .drawer-tabs button{
   border:1px solid rgba(221,180,72,.48);
   background:linear-gradient(180deg,#2e3036 0%,#24262b 100%);
@@ -1279,7 +1263,7 @@ body.light-mode .book-item[aria-expanded="true"] .book-chevron{color:#a87817}
   .book-chapters-wrap{animation:none!important}
 }
 
-/* V1.64.80 · Buscador y Diccionario: identidad visual dorada unificada */
+/* Buscador y Diccionario: identidad visual dorada unificada */
 .search-dialog,
 .dictionary-dialog,
 .dictionary-edit-dialog{
@@ -1445,7 +1429,7 @@ body.light-mode .search-help{color:#625a4b}
   .search-result,.dictionary-card{transition:none}
 }
 
-/* V1.64.81 · Correcciones de buscador, cabecera del diccionario y botón Diccionario */
+/* Correcciones de buscador, cabecera del diccionario y botón Diccionario */
 /* Mantiene centrado el buscador cuando el teclado está visible: la animación anterior
    sustituía temporalmente translateX(-50%) y desplazaba el diálogo hacia la derecha. */
 .search-dialog.search-live-layout.keyboard-visible[open]{
@@ -1498,7 +1482,7 @@ body.light-mode .action.pastel-action.action-dictionary{
   .search-dialog.search-live-layout.keyboard-visible[open]{animation:none}
 }
 
-/* V1.64.82 · Guardados, Favoritos y Estadísticas unificados en dorado premium */
+/* Guardados, Favoritos y Estadísticas unificados en dorado premium */
 .saved-dialog,
 .stats-dialog,
 .stats-list-dialog{
@@ -1702,7 +1686,7 @@ body.light-mode .action.pastel-action.action-stats{color:#211707!important;borde
   .saved-actions button,.saved-verse-card,.stats-grid .stats-tile,.stats-list-item,.stats-pagination button{transition:none}
 }
 
-/* V1.64.88 · Sistema unificado de botones carbón y oro
+/* Sistema unificado de botones carbón y oro
    Inspirado en los filtros del panel Libros: oscuro en reposo,
    dorado al pulsar y dorado permanente cuando está activo/seleccionado. */
 :root{
@@ -1875,7 +1859,7 @@ body.light-mode .book-verses button{
   }
 }
 
-/* V1.64.95 · Corrección definitiva del sistema carbón/dorado
+/* Corrección definitiva del sistema carbón/dorado
    - todos los accesos laterales quedan carbón en ambos temas
    - desaparece el antiguo brillo ovalado
    - el dorado se usa sólo al pulsar o cuando el control está activo */
@@ -2031,7 +2015,7 @@ html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true
 }
 
 
-/* V1.64.95 · Ajuste visual claro/oscuro inspirado en Libros
+/* Ajuste visual claro/oscuro inspirado en Libros
    - claro: botones marfil con marco dorado; activo dorado
    - oscuro: botones carbón con marco dorado; activo dorado
    - emergentes sin emoji; tarjeta negra en oscuro y blanca en claro */
@@ -2183,7 +2167,7 @@ html body.light-mode .guide-popup-body{
   -webkit-text-fill-color:#29251e!important;
 }
 
-/* V1.64.95 · Portada unificada con el lenguaje visual de Libros
+/* Portada unificada con el lenguaje visual de Libros
    y pestaña lateral dorada permanente. */
 
 /* Tarjetas de la pantalla principal: carbón + marco dorado en modo oscuro. */
@@ -2288,7 +2272,7 @@ html body .selection-bar.open .actions-panel-toggle::after{
   -webkit-text-fill-color:#211707!important;
 }
 
-/* V1.64.95 · Recupera el aviso del versículo del día y refina el tirador lateral. */
+/* Recupera el aviso del versículo del día y refina el tirador lateral. */
 
 /* La regla de portada elimina decoraciones generales; esta excepción devuelve
    el distintivo NUEVO únicamente a la tarjeta diaria pendiente de abrir. */
@@ -2355,9 +2339,9 @@ html body .actions-panel-toggle:active{
 }
 
 
-/* V1.64.95 · Pulido del Versículo del día y diccionario adaptado al teclado. */
+/* Pulido del Versículo del día y diccionario adaptado al teclado. */
 
-/* V1.64.95 · Respiración real del marco dorado, sin mover la tarjeta. */
+/* Respiración real del marco dorado, sin mover la tarjeta. */
 html body .home-card-daily.daily-verse-unseen{
   animation:dailyVerseFrameBreath 2.8s ease-in-out infinite!important;
   transform:none!important;

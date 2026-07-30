@@ -63,7 +63,7 @@ body.light-mode #biblicalCharactersScreen input,body.light-mode #biblicalParable
 }
 
 /* Bloque consolidado 4 */
-/* V1.64.91 — corrección real: botones Volver + tema claro completo */
+/* corrección real: botones Volver + tema claro completo */
 :root{--study86-gold:#d4aa3d;--study86-gold-light:#fff0ad;--study86-ink:#2b220d}
 
 /* Los botones de retorno de las pantallas y de los detalles conservan siempre texto visible. */
@@ -237,7 +237,7 @@ body.light-mode .block-card-v16435 textarea{
 }
 
 /* Bloque consolidado 5 */
-/* V1.64.91 · Pulido final de Personajes, Parábolas y Guía */
+/* Pulido final de Personajes, Parábolas y Guía */
 :root{
   --study87-gold-top:#fff7d3;
   --study87-gold-mid:#e8c762;
