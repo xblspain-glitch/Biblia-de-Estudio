@@ -1701,3 +1701,176 @@ body.light-mode .action.pastel-action.action-stats{color:#211707!important;borde
   .saved-dialog[open],.stats-dialog[open],.stats-list-dialog[open]{animation:none}
   .saved-actions button,.saved-verse-card,.stats-grid .stats-tile,.stats-list-item,.stats-pagination button{transition:none}
 }
+
+/* V1.64.88 · Sistema unificado de botones carbón y oro
+   Inspirado en los filtros del panel Libros: oscuro en reposo,
+   dorado al pulsar y dorado permanente cuando está activo/seleccionado. */
+:root{
+  --btn88-bg-top:#303238;
+  --btn88-bg-bottom:#23252a;
+  --btn88-border:rgba(220,177,65,.66);
+  --btn88-text:#f2eee3;
+  --btn88-gold-top:#fff1b1;
+  --btn88-gold-mid:#e8c45b;
+  --btn88-gold-bottom:#b98620;
+  --btn88-gold-border:#f2d579;
+  --btn88-gold-text:#211807;
+  --btn88-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 4px 12px rgba(0,0,0,.22);
+  --btn88-gold-shadow:inset 0 1px 0 rgba(255,255,255,.74),0 4px 13px rgba(195,142,28,.30);
+}
+
+/* Botones funcionales de lectura, diálogos y módulos de estudio. */
+.actions-scroll .action,
+.btn.soft,
+.module-crud-tools button,
+.detail-crud-actions button,
+.parable-detail-top button,
+.guide-detail-top button,
+.biblical-detail-top-v2242 button,
+.biblical-detail-toolbar-v16433 button,
+.crud-dialog-foot button,
+.block-actions-v16434 button,
+.block-actions-v16435 button,
+.crud-editor-block-row button,
+.trash-row button,
+.empty-trash,
+.modal-actions button,
+.search-row button,
+.wide-btn,
+.saved-actions button,
+.daily-verse-actions button,
+.dictionary-title-actions button,
+.parable-popup-trigger,
+.guide-popup-trigger,
+.chapters-grid button,
+.book-chapters button,
+.book-verses button,
+.stats-pagination button,
+.stats-list-dialog button:not(.dialog-close),
+.dictionary-dialog button:not(.dialog-close),
+.dictionary-edit-dialog button:not(.dialog-close),
+.search-dialog button:not(.dialog-close),
+.saved-dialog button:not(.dialog-close),
+.settings-dialog button:not(.dialog-close){
+  background:linear-gradient(180deg,var(--btn88-bg-top) 0%,var(--btn88-bg-bottom) 100%)!important;
+  border:1px solid var(--btn88-border)!important;
+  color:var(--btn88-text)!important;
+  -webkit-text-fill-color:var(--btn88-text)!important;
+  box-shadow:var(--btn88-shadow)!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.55)!important;
+  transition:transform .11s ease,filter .12s ease,background .15s ease,border-color .15s ease,box-shadow .15s ease,color .15s ease!important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* El menú lateral usa la misma geometría elegante del panel Libros. */
+.actions-scroll .action{
+  min-height:58px!important;
+  border-radius:16px!important;
+  justify-content:center!important;
+  font-weight:800!important;
+  letter-spacing:.01em!important;
+}
+
+/* Dorado mientras se está pulsando. */
+.actions-scroll .action:active,
+.btn.soft:active,
+.module-crud-tools button:active,
+.detail-crud-actions button:active,
+.parable-detail-top button:active,
+.guide-detail-top button:active,
+.biblical-detail-top-v2242 button:active,
+.biblical-detail-toolbar-v16433 button:active,
+.crud-dialog-foot button:active,
+.block-actions-v16434 button:active,
+.block-actions-v16435 button:active,
+.crud-editor-block-row button:active,
+.trash-row button:active,
+.empty-trash:active,
+.modal-actions button:active,
+.search-row button:active,
+.wide-btn:active,
+.saved-actions button:active,
+.daily-verse-actions button:active,
+.dictionary-title-actions button:active,
+.parable-popup-trigger:active,
+.guide-popup-trigger:active,
+.chapters-grid button:active,
+.book-chapters button:active,
+.book-verses button:active,
+.stats-pagination button:active,
+.stats-list-dialog button:not(.dialog-close):active,
+.dictionary-dialog button:not(.dialog-close):active,
+.dictionary-edit-dialog button:not(.dialog-close):active,
+.search-dialog button:not(.dialog-close):active,
+.saved-dialog button:not(.dialog-close):active,
+.settings-dialog button:not(.dialog-close):active{
+  background:linear-gradient(180deg,var(--btn88-gold-top) 0%,var(--btn88-gold-mid) 48%,var(--btn88-gold-bottom) 100%)!important;
+  border-color:var(--btn88-gold-border)!important;
+  color:var(--btn88-gold-text)!important;
+  -webkit-text-fill-color:var(--btn88-gold-text)!important;
+  box-shadow:var(--btn88-gold-shadow)!important;
+  text-shadow:none!important;
+  transform:translateY(1px) scale(.975)!important;
+  filter:brightness(1.04)!important;
+}
+
+/* Estados persistentes activos o seleccionados. */
+.drawer-tabs button.active,
+.biblical-category-v2242.active,
+button.active:not(.icon-btn):not(.dialog-close),
+button.selected:not(.icon-btn):not(.dialog-close),
+button[aria-pressed="true"]:not(.icon-btn),
+button[aria-selected="true"]:not(.icon-btn){
+  background:linear-gradient(180deg,var(--btn88-gold-top) 0%,var(--btn88-gold-mid) 48%,var(--btn88-gold-bottom) 100%)!important;
+  border-color:var(--btn88-gold-border)!important;
+  color:var(--btn88-gold-text)!important;
+  -webkit-text-fill-color:var(--btn88-gold-text)!important;
+  box-shadow:var(--btn88-gold-shadow)!important;
+  text-shadow:none!important;
+  font-weight:800!important;
+}
+
+/* En modo claro se conserva deliberadamente el botón carbón. */
+body.light-mode .actions-scroll .action,
+body.light-mode .btn.soft,
+body.light-mode .module-crud-tools button,
+body.light-mode .detail-crud-actions button,
+body.light-mode .parable-detail-top button,
+body.light-mode .guide-detail-top button,
+body.light-mode .biblical-detail-top-v2242 button,
+body.light-mode .biblical-detail-toolbar-v16433 button,
+body.light-mode .crud-dialog-foot button,
+body.light-mode .block-actions-v16434 button,
+body.light-mode .block-actions-v16435 button,
+body.light-mode .crud-editor-block-row button,
+body.light-mode .trash-row button,
+body.light-mode .empty-trash,
+body.light-mode .modal-actions button,
+body.light-mode .search-row button,
+body.light-mode .wide-btn,
+body.light-mode .saved-actions button,
+body.light-mode .daily-verse-actions button,
+body.light-mode .dictionary-title-actions button,
+body.light-mode .parable-popup-trigger,
+body.light-mode .guide-popup-trigger,
+body.light-mode .chapters-grid button,
+body.light-mode .book-chapters button,
+body.light-mode .book-verses button{
+  background:linear-gradient(180deg,var(--btn88-bg-top),var(--btn88-bg-bottom))!important;
+  border-color:var(--btn88-border)!important;
+  color:var(--btn88-text)!important;
+  -webkit-text-fill-color:var(--btn88-text)!important;
+}
+
+/* Excepciones: controles puramente icónicos mantienen su diseño propio. */
+.icon-btn,.dialog-close,.drawer-head button,.actions-panel-toggle,
+.chapter-nav button,.explain-marker,.color-grid button{
+  text-shadow:none;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .actions-scroll .action,.btn.soft,.module-crud-tools button,
+  .detail-crud-actions button,.modal-actions button,.wide-btn{
+    transition:none!important;
+  }
+}

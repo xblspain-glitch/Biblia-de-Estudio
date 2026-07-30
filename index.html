@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.86">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.88">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.86">
-  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.86">
-  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.86">
-  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.86">
+  <link rel="stylesheet" href="styles.css?v=1.64.88">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.88">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.88">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.88">
 
 <style id="premium-study-modules-v16485">
 :root{--study-gold:#d7b45a;--study-gold-light:#f7e8a7;--study-gold-dark:#8b681e;--study-bg:#11151c;--study-panel:#181e28;--study-card:#202733;--study-text:#f7f4ea;--study-muted:#bfc4cc}
@@ -74,7 +74,7 @@ body.light-mode #biblicalCharactersScreen input,body.light-mode #biblicalParable
 </style>
 
 <style id="study-modules-fix-v16486">
-/* V1.64.86 — corrección real: botones Volver + tema claro completo */
+/* V1.64.88 — corrección real: botones Volver + tema claro completo */
 :root{--study86-gold:#d4aa3d;--study86-gold-light:#fff0ad;--study86-ink:#2b220d}
 
 /* Los botones de retorno de las pantallas y de los detalles conservan siempre texto visible. */
@@ -248,11 +248,82 @@ body.light-mode .block-card-v16435 textarea{
 }
 </style>
 
+
+<style id="study-modules-final-polish-v16487">
+/* V1.64.88 · Pulido final de Personajes, Parábolas y Guía */
+:root{
+  --study87-gold-top:#fff7d3;
+  --study87-gold-mid:#e8c762;
+  --study87-gold-bottom:#b7831c;
+  --study87-gold-border:#f4da7d;
+  --study87-gold-ink:#30230b;
+}
+
+/* El nombre del personaje mantiene contraste real en modo claro. */
+body.light-mode #biblicalCharactersScreen .biblical-detail-top-v2242 h1,
+body.light-mode #biblicalCharactersScreen .biblical-character-detail-v2242 .biblical-detail-top-v2242 h1{
+  color:#4a3512!important;
+  -webkit-text-fill-color:#4a3512!important;
+  text-shadow:none!important;
+  opacity:1!important;
+}
+
+/* Botones funcionales dorados en los tres módulos, en ambos temas. */
+#biblicalCharactersScreen .biblical-characters-head-v2242 .btn,
+#biblicalParablesScreen .biblical-parables-head .btn,
+#biblicalGuidesScreen .biblical-guides-head .btn,
+#biblicalCharactersScreen .module-crud-tools button,
+#biblicalParablesScreen .module-crud-tools button,
+#biblicalGuidesScreen .module-crud-tools button,
+#biblicalCharactersScreen .detail-crud-actions button,
+#biblicalParablesScreen .detail-crud-actions button,
+#biblicalGuidesScreen .detail-crud-actions button,
+#biblicalCharactersScreen .study-detail-back,
+#biblicalParablesScreen .study-detail-back,
+#biblicalGuidesScreen .study-detail-back,
+#biblicalCharactersScreen .biblical-detail-back-v2242,
+#biblicalParablesScreen .crud-editor-block-row .crud-block,
+#biblicalGuidesScreen .crud-editor-block-row .crud-block,
+#parableBlockOverlay .block-actions-v16434 button.primary,
+#guideBlockOverlay .block-actions-v16435 button.primary{
+  appearance:none!important;
+  background:linear-gradient(180deg,var(--study87-gold-top) 0%,var(--study87-gold-mid) 52%,var(--study87-gold-bottom) 100%)!important;
+  border:1px solid var(--study87-gold-border)!important;
+  color:var(--study87-gold-ink)!important;
+  -webkit-text-fill-color:var(--study87-gold-ink)!important;
+  font-weight:800!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.55)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 5px 13px rgba(0,0,0,.24)!important;
+  opacity:1!important;
+}
+
+body.light-mode #biblicalCharactersScreen .biblical-characters-head-v2242 .btn,
+body.light-mode #biblicalParablesScreen .biblical-parables-head .btn,
+body.light-mode #biblicalGuidesScreen .biblical-guides-head .btn,
+body.light-mode #biblicalCharactersScreen .module-crud-tools button,
+body.light-mode #biblicalParablesScreen .module-crud-tools button,
+body.light-mode #biblicalGuidesScreen .module-crud-tools button,
+body.light-mode #biblicalCharactersScreen .detail-crud-actions button,
+body.light-mode #biblicalParablesScreen .detail-crud-actions button,
+body.light-mode #biblicalGuidesScreen .detail-crud-actions button,
+body.light-mode #biblicalCharactersScreen .study-detail-back,
+body.light-mode #biblicalParablesScreen .study-detail-back,
+body.light-mode #biblicalGuidesScreen .study-detail-back,
+body.light-mode #biblicalCharactersScreen .biblical-detail-back-v2242,
+body.light-mode #biblicalParablesScreen .crud-editor-block-row .crud-block,
+body.light-mode #biblicalGuidesScreen .crud-editor-block-row .crud-block{
+  background:linear-gradient(180deg,var(--study87-gold-top) 0%,var(--study87-gold-mid) 52%,var(--study87-gold-bottom) 100%)!important;
+  border-color:var(--study87-gold-border)!important;
+  color:var(--study87-gold-ink)!important;
+  -webkit-text-fill-color:var(--study87-gold-ink)!important;
+}
+</style>
+
 </head>
 <body>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.86" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.88" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -276,7 +347,7 @@ body.light-mode .block-card-v16435 textarea{
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.86" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.88" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -321,7 +392,7 @@ body.light-mode .block-card-v16435 textarea{
         <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
         <button class="action pastel-action action-characters" data-action="characters" aria-label="Personajes bíblicos">PERSONAJES</button>
         <button class="action pastel-action action-parables" data-action="parables" aria-label="Parábolas">PARÁBOLAS</button>
-        <button class="action pastel-action action-guides" data-action="guides" aria-label="Guía" style="background:linear-gradient(180deg,#fff8df 0%,#f4df9a 55%,#e0bb49 100%) !important;border-color:#c39a24 !important;color:#3c3018 !important;">GUÍA</button>
+        <button class="action pastel-action action-guides" data-action="guides" aria-label="Guía">GUÍA</button>
         <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
         <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
       </div>
@@ -565,10 +636,10 @@ body.light-mode .block-card-v16435 textarea{
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="biblical-characters-v2244.js?v=1.64.86"></script>
-  <script src="biblical-parables-v16436.js?v=1.64.86"></script>
-  <script src="biblical-guides-v16436.js?v=1.64.86"></script>
-  <script src="app.js?v=1.64.86"></script>
+  <script src="biblical-characters-v2244.js?v=1.64.88"></script>
+  <script src="biblical-parables-v16436.js?v=1.64.88"></script>
+  <script src="biblical-guides-v16436.js?v=1.64.88"></script>
+  <script src="app.js?v=1.64.88"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
