@@ -1193,19 +1193,19 @@ button:not(:disabled):active {
 }
 
 
-/* V1.64.76 · Cambio de capítulo suave */
+/* V1.64.77 · Cambio de capítulo suave sin desplazar la barra fija */
 .reader.chapter-enter {
-  animation: chapterEnterV16476 220ms ease-out both;
+  animation: chapterEnterV16477 180ms ease-out both;
 }
-@keyframes chapterEnterV16476 {
-  from { opacity: .18; transform: translateX(12px); }
-  to   { opacity: 1; transform: translateX(0); }
+@keyframes chapterEnterV16477 {
+  from { opacity: .35; }
+  to   { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reader.chapter-enter { animation: none; }
 }
 
-/* V1.64.76 · Personajes: fondo coherente y cabecera limpia */
+/* V1.64.77 · Personajes: fondo coherente y cabecera limpia */
 body:not(.light-mode) #biblicalCharactersScreen.characters-screen {
   background: linear-gradient(180deg,#111315 0%,#171a20 100%) !important;
   color:#f4f2ed !important;
