@@ -6,19 +6,19 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.66">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.67">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.66">
-  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.66">
-  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.66">
-  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.66">
+  <link rel="stylesheet" href="styles.css?v=1.64.67">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.67">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.67">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.67">
 <style id="gold-top-line">.chapter-nav::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#d8b45a,#f7e7a3,#d8b45a,transparent);pointer-events:none;z-index:6}</style></head>
 <body>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.66" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.67" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -42,7 +42,7 @@
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.66" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.67" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -244,12 +244,31 @@
     <h2>Estadísticas</h2>
     <p id="statsNow" class="stats-now"></p>
     <div class="stats-grid stats-grid-simple">
-      <div><strong id="statsSavedTotal">0</strong><span>Guardados</span></div>
-      <div class="stats-reading-point"><strong id="statsReadingPointRef">Sin guardar</strong><span>Punto de libro</span></div>
-      <div><strong id="statsExplanations">0</strong><span>Explicaciones</span></div>
-      <div><strong id="statsDictionary">0</strong><span>Diccionario</span></div>
-      <div><strong id="statsHighlights">0</strong><span>Subrayados</span></div>
-      <div><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span></div>
+      <button type="button" class="stats-tile" data-stats-list="saved"><strong id="statsSavedTotal">0</strong><span>Guardados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile stats-reading-point" data-stats-list="reading"><strong id="statsReadingPointRef">Sin guardar</strong><span>Punto de libro</span><small>Ver historial</small></button>
+      <button type="button" class="stats-tile" data-stats-list="explanations"><strong id="statsExplanations">0</strong><span>Explicaciones</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile" data-stats-list="dictionary"><strong id="statsDictionary">0</strong><span>Diccionario</span><small>Ver palabras</small></button>
+      <button type="button" class="stats-tile" data-stats-list="highlights"><strong id="statsHighlights">0</strong><span>Subrayados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile" data-stats-list="titles"><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span><small>Ver listado</small></button>
+    </div>
+  </dialog>
+
+  <dialog id="statsListDialog" class="sheet-dialog stats-list-dialog">
+    <button id="closeStatsList" type="button" class="dialog-close" aria-label="Cerrar">✕</button>
+    <h2 id="statsListTitle">Listado</h2>
+    <div class="stats-list-tools">
+      <input id="statsListSearch" type="search" placeholder="Buscar en el listado" autocomplete="off">
+      <select id="statsListSort" aria-label="Ordenar listado">
+        <option value="recent">Más recientes</option>
+        <option value="az">A–Z</option>
+      </select>
+    </div>
+    <p id="statsListSummary" class="stats-list-summary"></p>
+    <div id="statsListResults" class="stats-list-results"></div>
+    <div class="stats-pagination">
+      <button id="statsPrevPage" type="button">◀ Anterior</button>
+      <span id="statsPageInfo">Página 1 de 1</span>
+      <button id="statsNextPage" type="button">Siguiente ▶</button>
     </div>
   </dialog>
 
@@ -312,9 +331,9 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="biblical-characters-v2244.js?v=1.64.66"></script>
-  <script src="biblical-parables-v16436.js?v=1.64.66"></script>
-  <script src="biblical-guides-v16436.js?v=1.64.66"></script>
-  <script src="app.js?v=1.64.66"></script>
+  <script src="biblical-characters-v2244.js?v=1.64.67"></script>
+  <script src="biblical-parables-v16436.js?v=1.64.67"></script>
+  <script src="biblical-guides-v16436.js?v=1.64.67"></script>
+  <script src="app.js?v=1.64.67"></script>
 </body>
 </html>
