@@ -6,14 +6,63 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1.23">
-  <link rel="manifest" href="manifest.webmanifest?v=1.64.84">
+  <link rel="manifest" href="manifest.webmanifest?v=1.64.85">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.64.84">
-  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.84">
-  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.84">
-  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.84">
+  <link rel="stylesheet" href="styles.css?v=1.64.85">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=1.64.85">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=1.64.85">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=1.64.85">
+
+<style id="premium-study-modules-v16485">
+:root{--study-gold:#d7b45a;--study-gold-light:#f7e8a7;--study-gold-dark:#8b681e;--study-bg:#11151c;--study-panel:#181e28;--study-card:#202733;--study-text:#f7f4ea;--study-muted:#bfc4cc}
+/* Pantallas completas */
+#biblicalCharactersScreen,#biblicalParablesScreen,#biblicalGuidesScreen{background:linear-gradient(180deg,#0d1016 0%,#151b24 100%)!important;color:var(--study-text)!important}
+#biblicalCharactersScreen #biblicalCharactersViewV2242,#biblicalParablesScreen .biblical-parables-panel,#biblicalGuidesScreen .biblical-guides-panel{background:transparent!important;color:var(--study-text)!important;border:0!important;box-shadow:none!important}
+/* Cabeceras y títulos */
+#biblicalCharactersScreen .biblical-characters-head-v2242,#biblicalParablesScreen .biblical-parables-head,#biblicalGuidesScreen .biblical-guides-head{background:linear-gradient(180deg,rgba(13,16,22,.98) 72%,rgba(13,16,22,0))!important;padding:10px 0 16px!important}
+#biblicalCharactersScreen .biblical-characters-title-v2242,#biblicalParablesScreen .biblical-parables-title,#biblicalGuidesScreen .biblical-guides-title{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.45)!important;position:relative!important;padding-bottom:13px!important}
+#biblicalCharactersScreen .biblical-characters-title-v2242:after,#biblicalParablesScreen .biblical-parables-title:after,#biblicalGuidesScreen .biblical-guides-title:after{content:"";display:block;width:92px;height:2px;margin:12px auto 0;background:linear-gradient(90deg,transparent,var(--study-gold),var(--study-gold-light),var(--study-gold),transparent);box-shadow:0 0 8px rgba(215,180,90,.4)}
+#biblicalCharactersScreen .biblical-characters-sub-v2242,#biblicalParablesScreen .biblical-parables-sub,#biblicalGuidesScreen .biblical-guides-sub{color:var(--study-muted)!important}
+/* Botón volver y acciones */
+#biblicalCharactersScreen .btn.soft,#biblicalParablesScreen .btn.soft,#biblicalGuidesScreen .btn.soft,
+#biblicalCharactersScreen .module-crud-tools button,#biblicalParablesScreen .module-crud-tools button,#biblicalGuidesScreen .module-crud-tools button,
+#biblicalCharactersScreen .detail-crud-actions button,#biblicalParablesScreen .detail-crud-actions button,#biblicalGuidesScreen .detail-crud-actions button{background:linear-gradient(180deg,#fff5ce 0%,#e3c66f 46%,#b88a28 100%)!important;border:1px solid #f6df91!important;color:#2d210b!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 4px 12px rgba(0,0,0,.28)!important;border-radius:12px!important;font-weight:800!important}
+/* Buscadores */
+#biblicalCharactersScreen .biblical-characters-search-v2242,#biblicalParablesScreen .biblical-parables-search,#biblicalGuidesScreen .biblical-guides-search{background:#1b222d!important;border:1px solid var(--study-gold)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 7px 20px rgba(0,0,0,.28)!important;color:var(--study-text)!important}
+#biblicalCharactersScreen .biblical-characters-search-v2242 input,#biblicalParablesScreen .biblical-parables-search input,#biblicalGuidesScreen .biblical-guides-search input{color:#fff!important;-webkit-text-fill-color:#fff!important;background:transparent!important}
+#biblicalCharactersScreen input::placeholder,#biblicalParablesScreen input::placeholder,#biblicalGuidesScreen input::placeholder{color:#9fa6b1!important}
+/* Categorías de personajes */
+#biblicalCharactersScreen .biblical-category-v2242{background:linear-gradient(180deg,#252d39,#1b222c)!important;border:1px solid rgba(215,180,90,.48)!important;color:#f4f1e8!important;box-shadow:0 5px 14px rgba(0,0,0,.22)!important}
+#biblicalCharactersScreen .biblical-category-v2242.active{background:linear-gradient(180deg,#fff3c5,#d8b252 58%,#a9791e)!important;border-color:#f7df8b!important;color:#2b200b!important;box-shadow:0 0 0 1px rgba(255,238,171,.25),0 6px 18px rgba(0,0,0,.3)!important}
+/* Encabezados de listas */
+#biblicalCharactersScreen .biblical-characters-list-head-v2242,#biblicalParablesScreen .biblical-parables-list-head,#biblicalGuidesScreen .biblical-guides-list-head{color:var(--study-gold-light)!important;border-bottom:1px solid rgba(215,180,90,.35)!important;padding-bottom:9px!important}
+#biblicalCharactersScreen .biblical-characters-list-head-v2242 span,#biblicalParablesScreen .biblical-parables-list-head span,#biblicalGuidesScreen .biblical-guides-list-head span{color:#c8c2af!important}
+/* Tarjetas principales */
+#biblicalCharactersScreen .biblical-character-row-v2242,#biblicalParablesScreen .biblical-parable-card,#biblicalGuidesScreen .biblical-guide-card{background:linear-gradient(145deg,#242c38,#1a2029)!important;border:1px solid rgba(215,180,90,.42)!important;border-left:5px solid var(--study-gold)!important;color:#f5f2e9!important;box-shadow:0 7px 18px rgba(0,0,0,.26)!important}
+#biblicalCharactersScreen .biblical-character-row-v2242 strong,#biblicalParablesScreen .biblical-parable-card strong,#biblicalGuidesScreen .biblical-guide-card strong{color:#fff4c8!important}
+#biblicalCharactersScreen .biblical-character-row-v2242 small,#biblicalParablesScreen .biblical-parable-card span,#biblicalGuidesScreen .biblical-guide-card span{color:#c4c8cf!important}
+#biblicalCharactersScreen .biblical-character-row-v2242 .arrow{color:var(--study-gold)!important}
+/* Detalles */
+#biblicalCharactersScreen .biblical-detail-card-v2242,#biblicalParablesScreen .biblical-parable-detail,#biblicalGuidesScreen .biblical-guide-detail{background:linear-gradient(160deg,#222a35,#171d25)!important;border:1px solid rgba(215,180,90,.45)!important;color:#f5f2e9!important;box-shadow:0 10px 28px rgba(0,0,0,.3)!important}
+#biblicalCharactersScreen .biblical-detail-card-v2242 h2,#biblicalCharactersScreen .biblical-detail-top-v2242 h1,#biblicalParablesScreen .biblical-parable-detail h1,#biblicalParablesScreen .parable-content .parable-section-title,#biblicalGuidesScreen .biblical-guide-detail h1,#biblicalGuidesScreen .guide-content .guide-section-title{color:#fff1b9!important}
+#biblicalCharactersScreen .biblical-detail-card-v2242 p,#biblicalParablesScreen .parable-content,#biblicalGuidesScreen .guide-content{color:#f0eee8!important}
+#biblicalParablesScreen .parable-scripture,#biblicalGuidesScreen .guide-scripture{background:#1a212a!important;border-color:rgba(215,180,90,.45)!important}
+#biblicalParablesScreen .parable-scripture summary,#biblicalGuidesScreen .guide-scripture summary{background:#292719!important;color:#ffe9a2!important}
+#biblicalParablesScreen .parable-scripture-body,#biblicalGuidesScreen .guide-scripture-body{color:#eeeae0!important}
+/* Botones de la barra de acciones: los tres iguales */
+button[data-action="characters"],button[data-action="parables"],button[data-action="guides"]{background:linear-gradient(180deg,#fff5ce 0%,#e5c86f 48%,#b88928 100%)!important;border:1px solid #f4dd8a!important;color:#2e220b!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 5px 14px rgba(0,0,0,.22)!important}
+/* Respuesta táctil */
+#biblicalCharactersScreen button:active,#biblicalParablesScreen button:active,#biblicalGuidesScreen button:active{transform:translateY(1px) scale(.985)!important}
+/* Modo claro: marfil premium en vez de colores verde/morado */
+body.light-mode #biblicalCharactersScreen,body.light-mode #biblicalParablesScreen,body.light-mode #biblicalGuidesScreen{background:linear-gradient(180deg,#f7f3e8,#eee7d8)!important;color:#29251d!important}
+body.light-mode #biblicalCharactersScreen .biblical-character-row-v2242,body.light-mode #biblicalParablesScreen .biblical-parable-card,body.light-mode #biblicalGuidesScreen .biblical-guide-card,body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242,body.light-mode #biblicalParablesScreen .biblical-parable-detail,body.light-mode #biblicalGuidesScreen .biblical-guide-detail{background:#fffdf7!important;color:#29251d!important;border-color:#c6a957!important}
+body.light-mode #biblicalCharactersScreen .biblical-characters-title-v2242,body.light-mode #biblicalParablesScreen .biblical-parables-title,body.light-mode #biblicalGuidesScreen .biblical-guides-title{color:#30291b!important;text-shadow:none!important}
+body.light-mode #biblicalCharactersScreen .biblical-characters-search-v2242,body.light-mode #biblicalParablesScreen .biblical-parables-search,body.light-mode #biblicalGuidesScreen .biblical-guides-search{background:#fffdf7!important}
+body.light-mode #biblicalCharactersScreen input,body.light-mode #biblicalParablesScreen input,body.light-mode #biblicalGuidesScreen input{color:#29251d!important;-webkit-text-fill-color:#29251d!important}
+</style>
+
 <style id="gold-top-line">.chapter-nav::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#d8b45a,#f7e7a3,#d8b45a,transparent);pointer-events:none;z-index:6}</style>
 <style>
 .chapter-title.pop{animation:chapPop .18s ease-out;}
@@ -27,7 +76,7 @@
 <body>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.84" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" src="cabecera-1.png?v=1.64.85" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -51,7 +100,7 @@
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.84" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img src="icon-versiculo-dia.jpg?v=1.64.85" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -340,10 +389,10 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=1.47.0"></script>
-  <script src="biblical-characters-v2244.js?v=1.64.84"></script>
-  <script src="biblical-parables-v16436.js?v=1.64.84"></script>
-  <script src="biblical-guides-v16436.js?v=1.64.84"></script>
-  <script src="app.js?v=1.64.84"></script>
+  <script src="biblical-characters-v2244.js?v=1.64.85"></script>
+  <script src="biblical-parables-v16436.js?v=1.64.85"></script>
+  <script src="biblical-guides-v16436.js?v=1.64.85"></script>
+  <script src="app.js?v=1.64.85"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
