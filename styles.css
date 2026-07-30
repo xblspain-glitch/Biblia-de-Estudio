@@ -1128,7 +1128,7 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
 }
 
 
-/* V1.64.72 · Aviso elegante del Versículo del día pendiente */
+/* V1.64.73 · Aviso elegante del Versículo del día pendiente */
 .home-card-daily.daily-verse-unseen{
   isolation:isolate;
   animation:dailyVerseBreath 2.8s ease-in-out infinite;
