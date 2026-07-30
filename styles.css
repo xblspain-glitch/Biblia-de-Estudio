@@ -1498,7 +1498,7 @@ body.light-mode .action.pastel-action.action-dictionary{
   .search-dialog.search-live-layout.keyboard-visible[open]{animation:none}
 }
 
-/* V1.64.82 · Guardados, Favoritos y Estadísticas unificados en dorado premium */
+/* V1.64.84 · Guardados, Favoritos y Estadísticas unificados en dorado premium */
 .saved-dialog,
 .stats-dialog,
 .stats-list-dialog{
