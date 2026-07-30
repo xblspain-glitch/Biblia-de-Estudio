@@ -1875,7 +1875,7 @@ body.light-mode .book-verses button{
   }
 }
 
-/* V1.64.89 · Corrección definitiva del sistema carbón/dorado
+/* V1.64.90 · Corrección definitiva del sistema carbón/dorado
    - todos los accesos laterales quedan carbón en ambos temas
    - desaparece el antiguo brillo ovalado
    - el dorado se usa sólo al pulsar o cuando el control está activo */
@@ -2028,4 +2028,157 @@ html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true
   -webkit-text-fill-color:var(--btn89-gold-text)!important;
   text-shadow:none!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 3px 10px rgba(190,132,20,.30)!important;
+}
+
+
+/* V1.64.90 · Ajuste visual claro/oscuro inspirado en Libros
+   - claro: botones marfil con marco dorado; activo dorado
+   - oscuro: botones carbón con marco dorado; activo dorado
+   - emergentes sin emoji; tarjeta negra en oscuro y blanca en claro */
+:root{
+  --btn90-light-top:#fffdf8;
+  --btn90-light-bottom:#ece7dd;
+  --btn90-light-border:#b89b58;
+  --btn90-light-text:#2a251c;
+}
+
+/* En modo claro, todos los botones funcionales imitan los filtros de Libros. */
+html body.light-mode :is(
+  .selection-bar .actions-scroll button.action.pastel-action,
+  .btn.soft,
+  .module-crud-tools button,
+  .detail-crud-actions button,
+  .parable-detail-top button,
+  .guide-detail-top button,
+  .biblical-detail-top-v2242 button,
+  .biblical-detail-toolbar-v16433 button,
+  .crud-dialog-foot button,
+  .block-actions-v16434 button,
+  .block-actions-v16435 button,
+  .crud-editor-block-row button,
+  .trash-row button,
+  .empty-trash,
+  .modal-actions button,
+  .search-row button,
+  .wide-btn,
+  .saved-actions button,
+  .daily-verse-actions button,
+  .dictionary-title-actions button,
+  .parable-popup-trigger,
+  .guide-popup-trigger,
+  .stats-pagination button,
+  .stats-list-dialog button:not(.dialog-close),
+  .dictionary-dialog button:not(.dialog-close),
+  .dictionary-edit-dialog button:not(.dialog-close),
+  .search-dialog button:not(.dialog-close),
+  .saved-dialog button:not(.dialog-close),
+  .settings-dialog button:not(.dialog-close)
+){
+  background:linear-gradient(180deg,var(--btn90-light-top),var(--btn90-light-bottom))!important;
+  border:1px solid var(--btn90-light-border)!important;
+  color:var(--btn90-light-text)!important;
+  -webkit-text-fill-color:var(--btn90-light-text)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 3px 9px rgba(70,55,25,.12)!important;
+  text-shadow:none!important;
+  filter:none!important;
+}
+
+/* Desactivados en claro: neutros y legibles. */
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action:disabled{
+  background:linear-gradient(180deg,#f2f0ea,#d8d4cc)!important;
+  border-color:#c4b993!important;
+  color:#8b8579!important;
+  -webkit-text-fill-color:#8b8579!important;
+  opacity:.72!important;
+  filter:none!important;
+}
+
+/* Activos y pulsación, igual que el botón seleccionado de Libros. */
+html body.light-mode :is(
+  .selection-bar .actions-scroll button.action.pastel-action:not(:disabled):active,
+  .btn.soft:not(:disabled):active,
+  .module-crud-tools button:not(:disabled):active,
+  .detail-crud-actions button:not(:disabled):active,
+  .parable-detail-top button:not(:disabled):active,
+  .guide-detail-top button:not(:disabled):active,
+  .biblical-detail-top-v2242 button:not(:disabled):active,
+  .biblical-detail-toolbar-v16433 button:not(:disabled):active,
+  .crud-dialog-foot button:not(:disabled):active,
+  .block-actions-v16434 button:not(:disabled):active,
+  .block-actions-v16435 button:not(:disabled):active,
+  .modal-actions button:not(:disabled):active,
+  .search-row button:not(:disabled):active,
+  .wide-btn:not(:disabled):active,
+  .saved-actions button:not(:disabled):active,
+  .daily-verse-actions button:not(:disabled):active,
+  .dictionary-title-actions button:not(:disabled):active,
+  .parable-popup-trigger:not(:disabled):active,
+  .guide-popup-trigger:not(:disabled):active
+),
+html body.light-mode button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true"]):not(.icon-btn):not(.dialog-close){
+  background:linear-gradient(180deg,var(--btn89-gold-top),var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom))!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 3px 10px rgba(190,132,20,.30)!important;
+  text-shadow:none!important;
+}
+
+/* Elimina el emoji de ventana del bloque emergente. */
+.parable-popup-trigger::before,
+.guide-popup-trigger::before{
+  content:none!important;
+  display:none!important;
+}
+
+/* Emergente: negro en oscuro, blanco en claro. */
+html body:not(.light-mode) .parable-popup-trigger,
+html body:not(.light-mode) .guide-popup-trigger{
+  background:linear-gradient(180deg,#2d2f34,#202227)!important;
+  color:#f4efe3!important;
+  -webkit-text-fill-color:#f4efe3!important;
+  border-color:#a88636!important;
+}
+html body.light-mode .parable-popup-trigger,
+html body.light-mode .guide-popup-trigger{
+  background:#fff!important;
+  color:#2a251c!important;
+  -webkit-text-fill-color:#2a251c!important;
+  border-color:#b89b58!important;
+}
+html body:not(.light-mode) .parable-popup-card,
+html body:not(.light-mode) .guide-popup-card{
+  background:#111317!important;
+  color:#f2eee5!important;
+  border:1px solid #a88636!important;
+}
+html body:not(.light-mode) .parable-popup-head,
+html body:not(.light-mode) .guide-popup-head{
+  background:#1b1d22!important;
+  border-bottom-color:#705d2d!important;
+}
+html body:not(.light-mode) .parable-popup-head h2,
+html body:not(.light-mode) .guide-popup-head h2,
+html body:not(.light-mode) .parable-popup-body,
+html body:not(.light-mode) .guide-popup-body{
+  color:#f2eee5!important;
+  -webkit-text-fill-color:#f2eee5!important;
+}
+html body.light-mode .parable-popup-card,
+html body.light-mode .guide-popup-card{
+  background:#fff!important;
+  color:#29251e!important;
+  border:1px solid #b89b58!important;
+}
+html body.light-mode .parable-popup-head,
+html body.light-mode .guide-popup-head{
+  background:#fffdf8!important;
+  border-bottom-color:#d2c398!important;
+}
+html body.light-mode .parable-popup-head h2,
+html body.light-mode .guide-popup-head h2,
+html body.light-mode .parable-popup-body,
+html body.light-mode .guide-popup-body{
+  color:#29251e!important;
+  -webkit-text-fill-color:#29251e!important;
 }
