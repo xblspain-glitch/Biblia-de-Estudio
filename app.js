@@ -92,7 +92,7 @@ async function init(){
   if('caches' in window){
     try{
       const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.64.73').map(name=>caches.delete(name)));
+      await Promise.all(cacheNames.filter(name=>name.startsWith('biblia-estudio-')&&name!=='biblia-estudio-v1.64.75').map(name=>caches.delete(name)));
     }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
   }
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());
@@ -450,15 +450,7 @@ function renderBooks(filter='all'){
   const list=$('#booksList');
   list.innerHTML='';
   const filtered=state.books.filter(b=>filter==='all'||b.testament===filter);
-  let previousCategory='';
   filtered.forEach(b=>{
-    if(b.category!==previousCategory){
-      const group=document.createElement('div');
-      group.className='book-category-header';
-      group.innerHTML=`<img src="separador_etiope_transparente_final.png?v=${APP_VERSION}" alt="" aria-hidden="true"><strong>${escapeHtml(String(b.category||'').toUpperCase())}</strong>`;
-      list.append(group);
-      previousCategory=b.category;
-    }
     const real=state.books.indexOf(b);
     const wrap=document.createElement('section');
     wrap.className='book-entry';
