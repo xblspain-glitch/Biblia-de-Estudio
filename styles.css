@@ -1446,7 +1446,11 @@ body.light-mode .search-help{color:#625a4b}
 }
 
 /* Separa con claridad Copiar del botón de cierre sin alterar su funcionamiento. */
-.dictionary-dialog{position:relative}
+/* El Diccionario debe permanecer anclado a la ventana, no al inicio del documento.
+   En Android, position:relative hacía que el navegador desplazara el capítulo hacia
+   arriba para mostrar el <dialog>; al restaurar la lectura, el panel quedaba fuera
+   de la pantalla y solo se veía el fondo oscurecido. */
+.dictionary-dialog{position:fixed;inset:0;margin:auto}
 .dictionary-dialog>.dialog-close{
   position:absolute;
   top:20px;
@@ -2437,4 +2441,20 @@ html body.light-mode .home-card-daily.daily-verse-unseen{
     font-size:clamp(28px,8vw,38px);
     line-height:1.05;
   }
+}
+
+
+/* V2.1.5 · El Diccionario nunca anima ni posiciona el panel mediante transform.
+   La animación anterior podía sobrescribir translateX(-50%) durante los cambios
+   del teclado/visualViewport y dejar solo el ::backdrop visible en Android. */
+.dictionary-dialog.dictionary-live-layout[open]{
+  animation:dictionaryDialogFadeV215 150ms ease-out both!important;
+}
+.dictionary-dialog.dictionary-live-layout.keyboard-visible[open]{
+  animation:dictionaryDialogFadeV215 150ms ease-out both!important;
+  transform:translateX(-50%)!important;
+}
+@keyframes dictionaryDialogFadeV215{
+  from{opacity:0}
+  to{opacity:1}
 }
