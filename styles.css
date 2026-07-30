@@ -1874,3 +1874,158 @@ body.light-mode .book-verses button{
     transition:none!important;
   }
 }
+
+/* V1.64.89 · Corrección definitiva del sistema carbón/dorado
+   - todos los accesos laterales quedan carbón en ambos temas
+   - desaparece el antiguo brillo ovalado
+   - el dorado se usa sólo al pulsar o cuando el control está activo */
+:root{
+  --btn89-top:#303238;
+  --btn89-bottom:#202227;
+  --btn89-border:#a88636;
+  --btn89-text:#f4efe3;
+  --btn89-gold-top:#fff0aa;
+  --btn89-gold-mid:#e5bd45;
+  --btn89-gold-bottom:#b77d13;
+  --btn89-gold-text:#211707;
+}
+
+/* Quita por completo el "bocadillo" de brillo heredado. */
+.action.pastel-action::before,
+.action.pastel-action::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+}
+
+/* Menú emergente: una sola apariencia en oscuro y claro, sin excepciones antiguas. */
+html body .selection-bar .actions-scroll button.action.pastel-action,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-highlight,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-reading-point,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-favorite,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-explain,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-dictionary,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-characters,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-parables,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-guides,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-stats,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-copy,
+html body .selection-bar .actions-scroll button.action.pastel-action.action-clear{
+  position:relative!important;
+  overflow:hidden!important;
+  background:linear-gradient(180deg,var(--btn89-top) 0%,var(--btn89-bottom) 100%)!important;
+  border:1px solid var(--btn89-border)!important;
+  color:var(--btn89-text)!important;
+  -webkit-text-fill-color:var(--btn89-text)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 3px 9px rgba(0,0,0,.27)!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.72)!important;
+  filter:none!important;
+}
+
+/* Los desactivados siguen carbón, pero se distinguen por opacidad. */
+html body .selection-bar .actions-scroll button.action.pastel-action:disabled{
+  opacity:.38!important;
+  filter:grayscale(.25)!important;
+}
+
+/* Dorado táctil. */
+html body .selection-bar .actions-scroll button.action.pastel-action:not(:disabled):active,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action:not(:disabled):active,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action:not(:disabled):active{
+  background:linear-gradient(180deg,var(--btn89-gold-top) 0%,var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom) 100%)!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 3px 10px rgba(190,132,20,.30)!important;
+  text-shadow:none!important;
+  transform:translateY(1px) scale(.975)!important;
+}
+
+/* El mismo componente para los botones de módulos y diálogos. */
+html body :is(
+  .btn.soft,
+  .module-crud-tools button,
+  .detail-crud-actions button,
+  .parable-detail-top button,
+  .guide-detail-top button,
+  .biblical-detail-top-v2242 button,
+  .biblical-detail-toolbar-v16433 button,
+  .crud-dialog-foot button,
+  .block-actions-v16434 button,
+  .block-actions-v16435 button,
+  .crud-editor-block-row button,
+  .trash-row button,
+  .empty-trash,
+  .modal-actions button,
+  .search-row button,
+  .wide-btn,
+  .saved-actions button,
+  .daily-verse-actions button,
+  .dictionary-title-actions button,
+  .parable-popup-trigger,
+  .guide-popup-trigger,
+  .stats-pagination button,
+  .stats-list-dialog button:not(.dialog-close),
+  .dictionary-dialog button:not(.dialog-close),
+  .dictionary-edit-dialog button:not(.dialog-close),
+  .search-dialog button:not(.dialog-close),
+  .saved-dialog button:not(.dialog-close),
+  .settings-dialog button:not(.dialog-close)
+){
+  background:linear-gradient(180deg,var(--btn89-top),var(--btn89-bottom))!important;
+  border:1px solid var(--btn89-border)!important;
+  color:var(--btn89-text)!important;
+  -webkit-text-fill-color:var(--btn89-text)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 3px 9px rgba(0,0,0,.23)!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.65)!important;
+}
+html body :is(
+  .btn.soft,
+  .module-crud-tools button,
+  .detail-crud-actions button,
+  .parable-detail-top button,
+  .guide-detail-top button,
+  .biblical-detail-top-v2242 button,
+  .biblical-detail-toolbar-v16433 button,
+  .crud-dialog-foot button,
+  .block-actions-v16434 button,
+  .block-actions-v16435 button,
+  .crud-editor-block-row button,
+  .trash-row button,
+  .empty-trash,
+  .modal-actions button,
+  .search-row button,
+  .wide-btn,
+  .saved-actions button,
+  .daily-verse-actions button,
+  .dictionary-title-actions button,
+  .parable-popup-trigger,
+  .guide-popup-trigger,
+  .stats-pagination button,
+  .stats-list-dialog button:not(.dialog-close),
+  .dictionary-dialog button:not(.dialog-close),
+  .dictionary-edit-dialog button:not(.dialog-close),
+  .search-dialog button:not(.dialog-close),
+  .saved-dialog button:not(.dialog-close),
+  .settings-dialog button:not(.dialog-close)
+):not(:disabled):active{
+  background:linear-gradient(180deg,var(--btn89-gold-top),var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom))!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  text-shadow:none!important;
+  transform:translateY(1px) scale(.975)!important;
+}
+
+/* Activos/seleccionados permanecen dorados. */
+html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true"]):not(.icon-btn):not(.dialog-close){
+  background:linear-gradient(180deg,var(--btn89-gold-top),var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom))!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  text-shadow:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 3px 10px rgba(190,132,20,.30)!important;
+}
