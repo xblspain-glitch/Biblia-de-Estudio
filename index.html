@@ -73,30 +73,181 @@ body.light-mode #biblicalCharactersScreen input,body.light-mode #biblicalParable
 }
 </style>
 
-<style id="v186-fixes">
-/* Unified back buttons */
-button.back-btn,.back-btn,.btn-back,[onclick*="volver"],[onclick*="Volver"]{
-background:linear-gradient(#f8e7a8,#c99a2a)!important;
-border:1px solid #e9d28a!important;
-color:#2d2207!important;border-radius:18px!important;
-box-shadow:0 2px 8px rgba(0,0,0,.35)!important;
+<style id="study-modules-fix-v16486">
+/* V1.64.86 — corrección real: botones Volver + tema claro completo */
+:root{--study86-gold:#d4aa3d;--study86-gold-light:#fff0ad;--study86-ink:#2b220d}
+
+/* Los botones de retorno de las pantallas y de los detalles conservan siempre texto visible. */
+#biblicalParablesScreen .biblical-parables-head .btn,
+#biblicalGuidesScreen .biblical-guides-head .btn,
+#biblicalCharactersScreen .biblical-characters-head-v2242 .btn,
+#biblicalParablesScreen #parableBackBtn,
+#biblicalGuidesScreen #guideBackBtn,
+#biblicalCharactersScreen .biblical-detail-back-v2242,
+#biblicalParablesScreen .study-detail-back,
+#biblicalGuidesScreen .study-detail-back{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;min-width:0!important;min-height:44px!important;
+  padding:10px 16px!important;margin:0!important;
+  border:1px solid #f4dc87!important;border-radius:14px!important;
+  background:linear-gradient(180deg,#fff6cf 0%,#e8cc72 48%,#b88824 100%)!important;
+  color:#2b220d!important;-webkit-text-fill-color:#2b220d!important;
+  font:800 16px/1.15 Georgia,serif!important;letter-spacing:0!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.55)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 11px rgba(0,0,0,.22)!important;
+  opacity:1!important;visibility:visible!important;
 }
-/* Light mode fixes for study modules */
-body.light .parables-container,
-body.light .guide-container,
-body.light .characters-container,
-body.light .study-card,
-body.light .character-card,
-body.light .parable-card,
-body.light .guide-card{
-background:#faf8f1!important;
-color:#222!important;
-border-color:#d7b35a!important;
+#biblicalParablesScreen #parableBackBtn:active,
+#biblicalGuidesScreen #guideBackBtn:active,
+#biblicalCharactersScreen .biblical-detail-back-v2242:active{transform:scale(.97)!important}
+
+/* TEMA CLARO REAL Y COMPLETO: PERSONAJES, PARÁBOLAS Y GUÍA. */
+body.light-mode #biblicalCharactersScreen,
+body.light-mode #biblicalParablesScreen,
+body.light-mode #biblicalGuidesScreen{
+  background:#f4efe3!important;color:#29251e!important;
 }
-body.light input,body.light textarea,body.light select{
-background:#fff!important;color:#222!important;border:1px solid #d7b35a!important;
+body.light-mode #biblicalCharactersScreen #biblicalCharactersViewV2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-panel,
+body.light-mode #biblicalGuidesScreen .biblical-guides-panel{
+  background:linear-gradient(180deg,#f8f4ea 0%,#eee5d4 100%)!important;
+  color:#29251e!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-head-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-head,
+body.light-mode #biblicalGuidesScreen .biblical-guides-head{
+  background:transparent!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-title-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-title,
+body.light-mode #biblicalGuidesScreen .biblical-guides-title,
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242 h1,
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242 h2,
+body.light-mode #biblicalParablesScreen .biblical-parable-detail h1,
+body.light-mode #biblicalGuidesScreen .biblical-guide-detail h1{
+  color:#4b3715!important;-webkit-text-fill-color:#4b3715!important;text-shadow:none!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-sub-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-sub,
+body.light-mode #biblicalGuidesScreen .biblical-guides-sub,
+body.light-mode #biblicalCharactersScreen .biblical-characters-list-head-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-list-head,
+body.light-mode #biblicalGuidesScreen .biblical-guides-list-head{
+  color:#655d50!important;-webkit-text-fill-color:#655d50!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-search-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parables-search,
+body.light-mode #biblicalGuidesScreen .biblical-guides-search{
+  background:#fffdf8!important;border:1px solid #b9963c!important;
+  box-shadow:0 4px 13px rgba(83,61,18,.12)!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-search-v2242 input,
+body.light-mode #biblicalParablesScreen .biblical-parables-search input,
+body.light-mode #biblicalGuidesScreen .biblical-guides-search input{
+  background:transparent!important;color:#28231c!important;-webkit-text-fill-color:#28231c!important;
+}
+body.light-mode #biblicalCharactersScreen input::placeholder,
+body.light-mode #biblicalParablesScreen input::placeholder,
+body.light-mode #biblicalGuidesScreen input::placeholder{color:#827968!important;-webkit-text-fill-color:#827968!important}
+
+body.light-mode #biblicalCharactersScreen .biblical-character-row-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parable-card,
+body.light-mode #biblicalGuidesScreen .biblical-guide-card,
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242,
+body.light-mode #biblicalParablesScreen .biblical-parable-detail,
+body.light-mode #biblicalGuidesScreen .biblical-guide-detail{
+  background:#fffdf8!important;color:#29251e!important;
+  border:1px solid #c7ad67!important;border-left:5px solid #b88b27!important;
+  box-shadow:0 6px 17px rgba(76,57,21,.12)!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-character-row-v2242 strong,
+body.light-mode #biblicalParablesScreen .biblical-parable-card strong,
+body.light-mode #biblicalGuidesScreen .biblical-guide-card strong,
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242 strong,
+body.light-mode #biblicalParablesScreen .biblical-parable-detail strong,
+body.light-mode #biblicalGuidesScreen .biblical-guide-detail strong,
+body.light-mode #biblicalParablesScreen .parable-content .parable-section-title,
+body.light-mode #biblicalGuidesScreen .guide-content .guide-section-title{
+  color:#4b3715!important;-webkit-text-fill-color:#4b3715!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-character-row-v2242 small,
+body.light-mode #biblicalParablesScreen .biblical-parable-card span,
+body.light-mode #biblicalGuidesScreen .biblical-guide-card span{
+  color:#6d6559!important;-webkit-text-fill-color:#6d6559!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242 p,
+body.light-mode #biblicalCharactersScreen .biblical-detail-card-v2242 li,
+body.light-mode #biblicalParablesScreen .parable-content,
+body.light-mode #biblicalParablesScreen .parable-content p,
+body.light-mode #biblicalGuidesScreen .guide-content,
+body.light-mode #biblicalGuidesScreen .guide-content p{
+  color:#29251e!important;-webkit-text-fill-color:#29251e!important;
+}
+body.light-mode #biblicalParablesScreen .parable-scripture,
+body.light-mode #biblicalGuidesScreen .guide-scripture{
+  background:#fbf6e9!important;border-color:#c7ad67!important;color:#29251e!important;
+}
+body.light-mode #biblicalParablesScreen .parable-scripture summary,
+body.light-mode #biblicalGuidesScreen .guide-scripture summary{
+  background:#eee3c7!important;color:#4b3715!important;-webkit-text-fill-color:#4b3715!important;
+}
+body.light-mode #biblicalParablesScreen .parable-scripture-body,
+body.light-mode #biblicalGuidesScreen .guide-scripture-body{
+  background:#fffdf8!important;color:#29251e!important;-webkit-text-fill-color:#29251e!important;
+}
+
+/* Categorías de Personajes sin restos oscuros/morados. */
+body.light-mode #biblicalCharactersScreen .biblical-characters-categories-v2242 button{
+  background:#fffdf8!important;color:#514735!important;-webkit-text-fill-color:#514735!important;
+  border-color:#cbb77d!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-categories-v2242 button.active,
+body.light-mode #biblicalCharactersScreen .biblical-characters-categories-v2242 button[aria-pressed="true"]{
+  background:linear-gradient(180deg,#fff3bd,#d6ad48)!important;color:#33260c!important;
+  -webkit-text-fill-color:#33260c!important;border-color:#a77b1f!important;
+}
+
+/* Herramientas y formularios dentro de los módulos claros. */
+body.light-mode #biblicalCharactersScreen .module-crud-tools button,
+body.light-mode #biblicalParablesScreen .module-crud-tools button,
+body.light-mode #biblicalGuidesScreen .module-crud-tools button,
+body.light-mode #biblicalCharactersScreen .detail-crud-actions button,
+body.light-mode #biblicalParablesScreen .detail-crud-actions button,
+body.light-mode #biblicalGuidesScreen .detail-crud-actions button{
+  color:#2b220d!important;-webkit-text-fill-color:#2b220d!important;
+}
+body.light-mode .module-crud-dialog,
+body.light-mode .block-card-v16434,
+body.light-mode .block-card-v16435,
+body.light-mode .parable-popup-card,
+body.light-mode .guide-popup-card{
+  background:#fffdf8!important;color:#29251e!important;border:1px solid #c7ad67!important;
+}
+body.light-mode .crud-dialog-head,
+body.light-mode .crud-dialog-foot,
+body.light-mode .parable-popup-head,
+body.light-mode .guide-popup-head{
+  background:#f1e7cf!important;border-color:#c7ad67!important;color:#3f3219!important;
+}
+body.light-mode .crud-dialog-body label,
+body.light-mode .block-card-v16434 label,
+body.light-mode .block-card-v16435 label,
+body.light-mode .crud-editor-block-row,
+body.light-mode .parable-popup-body,
+body.light-mode .guide-popup-body{color:#29251e!important;-webkit-text-fill-color:#29251e!important}
+body.light-mode .crud-dialog-body input,
+body.light-mode .crud-dialog-body textarea,
+body.light-mode .block-card-v16434 input,
+body.light-mode .block-card-v16434 textarea,
+body.light-mode .block-card-v16435 input,
+body.light-mode .block-card-v16435 textarea{
+  background:#fff!important;color:#29251e!important;-webkit-text-fill-color:#29251e!important;border-color:#bca35f!important;
+}
+@media(max-width:520px){
+ #biblicalParablesScreen #parableBackBtn,#biblicalGuidesScreen #guideBackBtn,#biblicalCharactersScreen .biblical-detail-back-v2242{min-height:42px!important;padding:9px 14px!important}
 }
 </style>
+
 </head>
 <body>
   <section id="homeScreen" class="home-screen">
