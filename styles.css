@@ -1225,3 +1225,56 @@ body.light-mode #biblicalCharactersScreen.characters-screen {
 #biblicalCharactersScreen #biblicalCharactersViewV2242 {
   padding-top:16px !important;
 }
+
+
+/* V1.64.79: acabado premium y microinteracciones del panel Libros */
+.drawer-tabs button{
+  border:1px solid rgba(221,180,72,.48);
+  background:linear-gradient(180deg,#2e3036 0%,#24262b 100%);
+  color:#e8e4da;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .12s ease,filter .12s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease,color .18s ease;
+}
+.drawer-tabs button.active{
+  color:#17130a;
+  border-color:#f0d47b;
+  background:linear-gradient(180deg,#fff0b0 0%,#e9c65d 46%,#bd8d25 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 2px 8px rgba(208,158,39,.22);
+  font-weight:800;
+}
+.drawer-tabs button:active{transform:translateY(1px) scale(.97);filter:brightness(1.08)}
+.book-item{
+  transition:transform .12s ease,filter .12s ease,background-color .18s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.book-item:active{transform:translateY(1px) scale(.985);filter:brightness(1.12)}
+.book-item small{color:#a3a5ac;letter-spacing:.01em}
+.book-chevron{
+  color:#b8bbc2;
+  transition:transform .2s cubic-bezier(.2,.75,.25,1),color .18s ease,filter .18s ease;
+  transform-origin:center;
+}
+.book-item[aria-expanded="true"]{
+  background:linear-gradient(90deg,rgba(218,174,66,.09),rgba(37,40,46,.92) 48%,rgba(218,174,66,.04));
+}
+.book-item[aria-expanded="true"] .book-chevron{
+  color:#e8c867;
+  filter:drop-shadow(0 0 4px rgba(232,200,103,.28));
+}
+.book-chapters-wrap{transform-origin:top center;will-change:transform,opacity}
+body.light-mode .drawer-tabs button{
+  color:#403a2c;
+  border-color:rgba(158,118,29,.45);
+  background:linear-gradient(180deg,#f4f0e7,#e7dfd1);
+}
+body.light-mode .drawer-tabs button.active{
+  color:#201707;
+  border-color:#bd8c28;
+  background:linear-gradient(180deg,#fff1b4,#e6bf55 50%,#c28e26);
+}
+body.light-mode .book-item[aria-expanded="true"]{background:linear-gradient(90deg,rgba(190,145,38,.12),rgba(238,233,224,.92))}
+body.light-mode .book-item[aria-expanded="true"] .book-chevron{color:#a87817}
+@media (prefers-reduced-motion:reduce){
+  .drawer-tabs button,.book-item,.book-chevron{transition:none!important}
+  .book-chapters-wrap{animation:none!important}
+}
