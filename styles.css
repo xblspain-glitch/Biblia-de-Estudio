@@ -1409,6 +1409,11 @@ body.light-mode .dictionary-edit-dialog textarea{
   color:#211b10;
   border-color:#b99a53;
 }
+body.light-mode .dictionary-edit-dialog label{
+  color:#4a3512;
+  -webkit-text-fill-color:#4a3512;
+  opacity:1;
+}
 body.light-mode .search-result,
 body.light-mode .dictionary-card{
   background:linear-gradient(180deg,#fffdf8,#f2eadb);
