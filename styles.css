@@ -1875,7 +1875,7 @@ body.light-mode .book-verses button{
   }
 }
 
-/* V1.64.92 · Corrección definitiva del sistema carbón/dorado
+/* V1.64.93 · Corrección definitiva del sistema carbón/dorado
    - todos los accesos laterales quedan carbón en ambos temas
    - desaparece el antiguo brillo ovalado
    - el dorado se usa sólo al pulsar o cuando el control está activo */
@@ -2031,7 +2031,7 @@ html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true
 }
 
 
-/* V1.64.92 · Ajuste visual claro/oscuro inspirado en Libros
+/* V1.64.93 · Ajuste visual claro/oscuro inspirado en Libros
    - claro: botones marfil con marco dorado; activo dorado
    - oscuro: botones carbón con marco dorado; activo dorado
    - emergentes sin emoji; tarjeta negra en oscuro y blanca en claro */
@@ -2183,7 +2183,7 @@ html body.light-mode .guide-popup-body{
   -webkit-text-fill-color:#29251e!important;
 }
 
-/* V1.64.92 · Portada unificada con el lenguaje visual de Libros
+/* V1.64.93 · Portada unificada con el lenguaje visual de Libros
    y pestaña lateral dorada permanente. */
 
 /* Tarjetas de la pantalla principal: carbón + marco dorado en modo oscuro. */
@@ -2288,7 +2288,7 @@ html body .selection-bar.open .actions-panel-toggle::after{
   -webkit-text-fill-color:#211707!important;
 }
 
-/* V1.64.92 · Recupera el aviso del versículo del día y refina el tirador lateral. */
+/* V1.64.93 · Recupera el aviso del versículo del día y refina el tirador lateral. */
 
 /* La regla de portada elimina decoraciones generales; esta excepción devuelve
    el distintivo NUEVO únicamente a la tarjeta diaria pendiente de abrir. */
@@ -2352,4 +2352,80 @@ html body.light-mode .selection-bar.open .actions-panel-toggle::after{
 }
 html body .actions-panel-toggle:active{
   transform:translateY(-50%) scale(.94)!important;
+}
+
+
+/* V1.64.93 · Pulido del Versículo del día y diccionario adaptado al teclado. */
+
+/* Recupera de forma explícita la animación de respiración tras la unificación
+   global de las tarjetas de portada. */
+html body .home-card-daily.daily-verse-unseen{
+  animation:dailyVerseBreath 2.5s ease-in-out infinite!important;
+  transform-origin:center center;
+  will-change:box-shadow,transform;
+}
+html body .home-card-daily.daily-verse-unseen .daily-verse-icon{
+  animation:dailyVerseIconGlow 2.8s ease-in-out infinite!important;
+}
+@keyframes dailyVerseBreath{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(203,151,24,.48),0 0 6px rgba(218,159,25,.16)
+  }
+  50%{
+    transform:scale(1.012);
+    box-shadow:0 9px 21px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.13),0 0 0 3px rgba(232,188,70,.72),0 0 22px 6px rgba(218,159,25,.28)
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  html body .home-card-daily.daily-verse-unseen,
+  html body .home-card-daily.daily-verse-unseen .daily-verse-icon{animation:none!important}
+}
+
+/* El encabezado queda limpio, sin emoji de amanecer. */
+.daily-verse-heading{gap:0!important}
+
+/* Diccionario adaptado al teclado móvil, igual que el buscador principal. */
+.dictionary-dialog{overflow:hidden}
+.dictionary-dialog.dictionary-live-layout{
+  width:min(94vw,780px);
+  max-height:calc(var(--dictionary-vv-height, 100dvh) - 24px);
+  display:flex;
+  flex-direction:column;
+}
+.dictionary-dialog.dictionary-live-layout.keyboard-visible{
+  position:fixed;
+  top:calc(var(--dictionary-vv-top, 0px) + 12px);
+  left:50%;
+  transform:translateX(-50%);
+  margin:0;
+  height:calc(var(--dictionary-vv-height, 100dvh) - 24px);
+  max-height:calc(var(--dictionary-vv-height, 100dvh) - 24px);
+  animation:none!important;
+}
+.dictionary-dialog.dictionary-live-layout .dictionary-results{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding-bottom:8px;
+}
+.dictionary-dialog.dictionary-live-layout.keyboard-visible .dictionary-title-row{
+  flex:0 0 auto;
+  margin-bottom:10px;
+}
+.dictionary-dialog.dictionary-live-layout.keyboard-visible .dictionary-search-row{
+  flex:0 0 auto;
+}
+@media(max-width:700px){
+  .dictionary-dialog.dictionary-live-layout.keyboard-visible{
+    width:calc(100vw - 24px);
+    padding:16px 14px;
+    border-radius:20px;
+  }
+  .dictionary-dialog.dictionary-live-layout.keyboard-visible .dictionary-title-row h2{
+    font-size:clamp(28px,8vw,38px);
+    line-height:1.05;
+  }
 }
