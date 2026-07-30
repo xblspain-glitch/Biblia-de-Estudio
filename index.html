@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f12">
+  <title>Mi Biblia de Estudio</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.0">
+  <link rel="manifest" href="manifest.webmanifest?v=2.1.0">
+<link rel="stylesheet" href="styles.css?v=2.1.0">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.0">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.0">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.0">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.1.0">
+
+
+
+
+</head>
+<body>
+  <section id="homeScreen" class="home-screen">
+    <div class="home-hero">
+      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=2.1.0" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+    </div>
+    <div class="home-welcome">
+      <h1>Bienvenido</h1>
+      <p>¿Qué desea hacer?</p>
+    </div>
+    <div class="home-actions">
+      <button id="homeContinue" class="home-card home-card-continue" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=2.1.0" alt=""></span>
+        <span><strong>Punto de libro</strong><small id="homeContinueRef">Todavía no hay un punto de libro guardado</small></span>
+      </button>
+      <button id="homeBooks" class="home-card home-card-books" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=2.1.0" alt=""></span>
+        <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
+      </button>
+      <button id="homeSearch" class="home-card home-card-search" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=2.1.0" alt=""></span>
+        <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
+      </button>
+      <button id="homeSaved" class="home-card home-card-saved" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=2.1.0" alt=""></span>
+        <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
+      </button>
+      <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
+        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=2.1.0" alt=""></span>
+        <span class="home-daily-copy">
+          <strong>Versículo del día</strong>
+          <span class="home-daily-meta">
+            <span id="homeDailyVerseRef">Preparando el versículo de hoy…</span>
+          </span>
+          <small id="homeDailyVersePreview" class="home-daily-preview"></small>
+        </span>
+      </button>
+    </div>
+    <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
+  </section>
+
+  <div id="readerScreen" class="reader-screen hidden">
+  <header class="topbar">
+    <button id="homeBtn" class="icon-btn" aria-label="Inicio">←</button>
+    <div class="title-wrap">
+      <button id="bookTitle" class="book-title">Génesis</button>
+      <button id="chapterTitle" class="chapter-title">1</button>
+    </div>
+    <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">☀️</button>
+    <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
+    <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
+  </header>
+
+  <main id="reader" class="reader" aria-live="polite"></main>
+
+  <nav class="chapter-nav">
+    <button id="prevChapter" aria-label="Capítulo anterior">‹</button>
+    <span id="chapterIndicator">Génesis 1</span>
+    <button id="nextChapter" aria-label="Capítulo siguiente">›</button>
+  </nav>
+
+  <section id="selectionBar" class="selection-bar hidden" aria-label="Acciones del versículo">
+    <button id="actionsPanelToggle" class="actions-panel-toggle" type="button" aria-label="Mostrar u ocultar acciones" aria-expanded="false">‹</button>
+    <div class="actions-panel-inner">
+      <div class="selection-reference"><div id="selectionReference" class="selection-reference-title"></div><div id="selectionCount" class="selection-reference-count"></div></div>
+      <div class="actions-scroll">
+        <button class="action pastel-action action-highlight" data-action="highlight" aria-label="Subrayar">SUBRAYAR</button>
+        <button class="action pastel-action action-reading-point" data-action="reading-point" aria-label="Ir al punto de libro">PUNTO DE LIBRO</button>
+        <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar punto de libro">GUARDAR PUNTO DE LIBRO</button>
+        <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
+        <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
+        <button class="action pastel-action action-characters" data-action="characters" aria-label="Personajes bíblicos">PERSONAJES</button>
+        <button class="action pastel-action action-parables" data-action="parables" aria-label="Parábolas">PARÁBOLAS</button>
+        <button class="action pastel-action action-guides" data-action="guides" aria-label="Guía">GUÍA</button>
+        <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
+        <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
+      </div>
+    </div>
+  </section>
+  </div>
+
+
+  <section id="biblicalCharactersScreen" class="characters-screen hidden" aria-label="Personajes Bíblicos">
+    <div id="biblicalCharactersViewV2242" class="biblical-characters-panel-v2242">
+      <div class="biblical-characters-head-v2242">
+        <button class="btn soft" type="button" onclick="closeBiblicalCharactersV2242()">← Volver</button>
+      </div>
+      <div id="biblicalCharactersHomeV2242">
+        <div id="biblicalCharactersCrudToolsV16436" class="module-crud-tools"><button type="button" class="crud-add" onclick="editBiblicalCharacterV16433()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalCharactersTrashV16433()">Papelera <span id="biblicalCharactersTrashCountV16436">0</span></button></div>
+        <h1 class="biblical-characters-title-v2242">Personajes Bíblicos</h1>
+        <p class="biblical-characters-sub-v2242">Recuerde quién fue cada personaje, por qué es importante y qué enseñanza nos deja.</p>
+        <label class="biblical-characters-search-v2242">
+          <span aria-hidden="true">🔎</span>
+          <input id="biblicalCharactersSearchV2242" type="search" autocomplete="off" placeholder="Buscar personaje, libro o categoría…" oninput="renderBiblicalCharactersV2242()">
+        </label>
+        <div id="biblicalCharactersCategoriesV2242" class="biblical-characters-categories-v2242"></div>
+        <div class="biblical-characters-list-head-v2242"><strong id="biblicalCharactersListTitleV2242">Todos los personajes</strong><span id="biblicalCharactersCountV2242"></span></div>
+        <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
+      </div>
+      <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
+    </div>
+  </section>
+
+
+  <section id="biblicalParablesScreen" class="parables-screen hidden" aria-label="Parábolas">
+    <div class="biblical-parables-panel">
+      <div class="biblical-parables-head"><button class="btn soft" type="button" onclick="closeBiblicalParables()">← Volver</button></div>
+      <div id="biblicalParablesHome">
+        <h1 class="biblical-parables-title">Parábolas</h1>
+        <p class="biblical-parables-sub">Las enseñanzas de Cristo explicadas de forma clara y ordenada.</p>
+        <label class="biblical-parables-search"><span aria-hidden="true">🔎</span><input id="biblicalParablesSearch" type="search" autocomplete="off" placeholder="Buscar parábola o palabra…" oninput="renderBiblicalParables()"></label>
+        <div class="biblical-parables-list-head"><strong>Todas las parábolas</strong><span id="biblicalParablesCount"></span></div>
+        <div id="biblicalParablesList" class="biblical-parables-list"></div>
+      </div>
+      <article id="biblicalParableDetail" class="biblical-parable-detail hidden"></article>
+    </div>
+  </section>
+
+  <section id="biblicalGuidesScreen" class="guides-screen hidden" aria-label="Guía">
+    <div class="biblical-guides-panel">
+      <div class="biblical-guides-head"><button class="btn soft" type="button" onclick="closeBiblicalGuides()">← Volver</button></div>
+      <div id="biblicalGuidesHome">
+        <h1 class="biblical-guides-title">Guía</h1>
+        <p class="biblical-guides-sub">Temas y estudios bíblicos organizados para consultar y ampliar.</p>
+        <label class="biblical-guides-search"><span aria-hidden="true">🔎</span><input id="biblicalGuidesSearch" type="search" autocomplete="off" placeholder="Buscar tema o palabra…" oninput="renderBiblicalGuides()"></label>
+        <div class="biblical-guides-list-head"><strong>Todos los temas</strong><span id="biblicalGuidesCount"></span></div>
+        <div id="biblicalGuidesList" class="biblical-guides-list"></div>
+      </div>
+      <article id="biblicalGuideDetail" class="biblical-guide-detail hidden"></article>
+    </div>
+  </section>
+
+  <div id="drawerBackdrop" class="backdrop hidden"></div>
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-head"><h2>Libros</h2><button id="closeDrawer">✕</button></div>
+    <div class="drawer-tabs"><button class="active" data-testament="all">Todos</button><button data-testament="A.T.">Antiguo</button><button data-testament="N.T.">Nuevo</button></div>
+    <div id="booksList" class="books-list"></div>
+  </aside>
+
+  <dialog id="chapterDialog" class="sheet-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="chapterDialogTitle">Capítulos</h2>
+    <div id="chaptersGrid" class="chapters-grid"></div>
+  </dialog>
+
+  <dialog id="explanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="explanationRef" class="modal-ref"></div>
+    <textarea id="explanationText" placeholder="Escribe o pega aquí tu explicación..."></textarea>
+    <div class="modal-actions">
+      <button id="editExplanationInline" type="button">Editar</button>
+      <button id="pasteExplanation" type="button">Pegar</button>
+      <button id="deleteExplanation" type="button" class="danger">Eliminar</button>
+      <button id="saveExplanation" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
+  <dialog id="viewExplanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="viewExplanationRef" class="modal-ref"></div>
+    <div id="viewExplanationText" class="explanation-content"></div>
+    <div class="modal-actions">
+      <button id="copyExplanation" type="button">Copiar</button>
+      <button id="editExplanation" type="button" class="primary">Editar</button>
+    </div>
+  </dialog>
+
+  <dialog id="highlightDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Subrayar</h2>
+    <div class="color-grid">
+      <button data-color="yellow" aria-label="Amarillo"></button>
+      <button data-color="green" aria-label="Verde"></button>
+      <button data-color="blue" aria-label="Azul"></button>
+      <button data-color="pink" aria-label="Rosa"></button>
+      <button data-color="orange" aria-label="Naranja"></button>
+      <button data-color="purple" aria-label="Morado"></button>
+      <button data-color="none" class="remove-highlight">Sin color</button>
+    </div>
+  </dialog>
+
+  <dialog id="searchDialog" class="sheet-dialog search-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Buscar en la Biblia</h2>
+    <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra, frase o referencia"><button id="runSearch" type="button">Buscar</button></div>
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+
+  <dialog id="dictionaryDialog" class="sheet-dialog dictionary-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas · escribe para filtrar</p></div><div class="dictionary-title-actions"><button id="copyDictionaryWord" type="button" class="secondary" disabled>Copiar</button><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div></div>
+    <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Escribe una palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
+    <div id="dictionaryResults" class="dictionary-results"></div>
+  </dialog>
+
+  <dialog id="dictionaryEditDialog" class="sheet-dialog dictionary-edit-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="dictionaryEditTitle">Añadir palabra</h2>
+    <input id="dictionaryEntryId" type="hidden">
+    <label>Palabra<input id="dictionaryTerm" type="text" autocomplete="off"></label>
+    <label>Categoría<input id="dictionaryCategory" type="text" autocomplete="off"></label>
+    <label>Explicación<textarea id="dictionaryExplanation" placeholder="Escribe el significado..."></textarea></label>
+    <div class="modal-actions">
+      <button id="deleteDictionaryEntry" type="button" class="danger">Eliminar</button>
+      <button id="saveDictionaryEntry" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
+  <dialog id="savedDialog" class="sheet-dialog saved-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Guardados</h2>
+    <section class="reading-point-card">
+      <div class="saved-section-title">Último punto de libro guardado</div>
+      <p class="empty-saved">Aquí se recordará el punto actual o, si lo quitas, el último que tuviste.</p>
+      <div id="readingMarksList" class="reading-marks-list"></div>
+    </section>
+    <section>
+      <div class="saved-section-title">Versículos guardados</div>
+      <div id="savedVersesList" class="saved-verses-list"></div>
+    </section>
+  </dialog>
+
+  <dialog id="statsDialog" class="sheet-dialog stats-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Estadísticas</h2>
+    <p id="statsNow" class="stats-now"></p>
+    <div class="stats-grid stats-grid-simple">
+      <button type="button" class="stats-tile" data-stats-list="saved"><strong id="statsSavedTotal">0</strong><span>Guardados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile stats-reading-point" data-stats-list="reading"><strong id="statsReadingPointRef">Sin guardar</strong><span>Punto de libro</span><small>Ver historial</small></button>
+      <button type="button" class="stats-tile" data-stats-list="explanations"><strong id="statsExplanations">0</strong><span>Explicaciones</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile" data-stats-list="dictionary"><strong id="statsDictionary">0</strong><span>Diccionario</span><small>Ver palabras</small></button>
+      <button type="button" class="stats-tile" data-stats-list="highlights"><strong id="statsHighlights">0</strong><span>Subrayados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile" data-stats-list="titles"><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span><small>Ver listado</small></button>
+    </div>
+  </dialog>
+
+  <dialog id="statsListDialog" class="sheet-dialog stats-list-dialog">
+    <button id="closeStatsList" type="button" class="dialog-close" aria-label="Cerrar">✕</button>
+    <h2 id="statsListTitle">Listado</h2>
+    <div class="stats-list-tools">
+      <input id="statsListSearch" type="search" placeholder="Buscar en el listado" autocomplete="off">
+      <select id="statsListSort" aria-label="Ordenar listado">
+        <option value="recent">Más recientes</option>
+        <option value="az">A–Z</option>
+      </select>
+    </div>
+    <p id="statsListSummary" class="stats-list-summary"></p>
+    <div id="statsListResults" class="stats-list-results"></div>
+    <div class="stats-pagination">
+      <button id="statsPrevPage" type="button">◀ Anterior</button>
+      <span id="statsPageInfo">Página 1 de 1</span>
+      <button id="statsNextPage" type="button">Siguiente ▶</button>
+    </div>
+  </dialog>
+
+  <dialog id="dailyVerseDialog" class="sheet-dialog daily-verse-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
+    <article class="daily-verse-card">
+      <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
+      <blockquote id="dailyVerseText"></blockquote>
+      <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
+    </article>
+    <div class="daily-verse-actions">
+      <button id="copyDailyVerse" type="button" class="primary">Copiar</button>
+      <button id="saveDailyVerse" type="button">Guardar</button>
+      <button id="openDailyChapter" type="button">Abrir capítulo</button>
+    </div>
+    <p class="daily-verse-note">La categoría es orientativa y no se incluye al copiar.</p>
+  </dialog>
+
+  <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Ajustes</h2>
+    <div class="font-size-setting">
+      <div class="font-size-heading">Tamaño de letra</div>
+      <div class="font-size-controls">
+        <button id="fontSizeMinus" type="button" class="font-size-step" aria-label="Reducir tamaño de letra">−</button>
+        <input id="fontSize" type="range" min="13" max="34" value="24" aria-label="Tamaño de letra">
+        <output id="fontSizeValue" for="fontSize" aria-live="polite">24</output>
+        <button id="fontSizePlus" type="button" class="font-size-step" aria-label="Aumentar tamaño de letra">+</button>
+      </div>
+    </div>
+    <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
+    <label class="setting-row"><input id="dailyVerseNotifications" type="checkbox"> Notificación del versículo del día</label>
+    <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto de libro guardado</button>
+    <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
+    <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
+    <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico (433)</button>
+    <div class="settings-section-title">Copia de seguridad</div>
+    <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
+    <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
+    <input id="backupFileInput" type="file" accept="application/json,.json" hidden>
+    <p class="backup-help">Incluye explicaciones, diccionario, personajes, parábolas, guía y sus papeleras, además de guardados, punto de lectura, subrayados, ajustes, títulos y auditorías.</p>
+    <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
+    <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
+    <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
+    <p id="titleHash" class="audit-hash hidden"></p>
+    <button id="exportTitles" type="button" class="wide-btn hidden">Exportar títulos JSON</button>
+    <button id="importTitles" type="button" class="wide-btn primary">Auditar Biblia instalada</button>
+    <p id="titlesStatus" class="titles-status">Comprueba los archivos de la Biblia que ya están en la aplicación. No sustituye ni descarga otra Biblia.</p>
+    <div class="audit-counters audit-counters-4" aria-label="Resultado de la auditoría">
+      <div><strong id="auditBookCount">0</strong><span>Libros</span></div>
+      <div><strong id="auditChapterCount">0</strong><span>Capítulos</span></div>
+      <div><strong id="auditVerseCount">0</strong><span>Versículos</span></div>
+      <div><strong id="auditTitleCount">0</strong><span>Títulos</span></div>
+    </div>
+    <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
+    <p id="auditHash" class="audit-hash hidden"></p>
+    <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="dictionary-data.js?v=2.1.0"></script>
+  <script src="biblical-characters-v2244.js?v=2.1.0"></script>
+  <script src="biblical-parables-v16436.js?v=2.1.0"></script>
+  <script src="biblical-guides-v16436.js?v=2.1.0"></script>
+  <script src="app.js?v=2.1.0"></script>
+</body>
+</html>
