@@ -1444,3 +1444,56 @@ body.light-mode .search-help{color:#625a4b}
   .search-dialog[open],.dictionary-dialog[open],.dictionary-edit-dialog[open]{animation:none}
   .search-result,.dictionary-card{transition:none}
 }
+
+/* V1.64.81 · Correcciones de buscador, cabecera del diccionario y botón Diccionario */
+/* Mantiene centrado el buscador cuando el teclado está visible: la animación anterior
+   sustituía temporalmente translateX(-50%) y desplazaba el diálogo hacia la derecha. */
+.search-dialog.search-live-layout.keyboard-visible[open]{
+  animation:premiumSearchDialogInV16481 160ms ease-out both;
+}
+@keyframes premiumSearchDialogInV16481{
+  from{opacity:0;transform:translateX(-50%)}
+  to{opacity:1;transform:translateX(-50%)}
+}
+
+/* Separa con claridad Copiar del botón de cierre sin alterar su funcionamiento. */
+.dictionary-dialog{position:relative}
+.dictionary-dialog>.dialog-close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  float:none;
+  z-index:2;
+}
+.dictionary-title-row{
+  padding-right:58px;
+}
+.dictionary-title-actions{
+  column-gap:12px;
+  row-gap:9px;
+}
+
+/* El acceso lateral al Diccionario adopta el mismo dorado metálico premium. */
+.action.pastel-action.action-dictionary{
+  color:#211707!important;
+  border:2px solid #d3a72f!important;
+  background:linear-gradient(180deg,#fff7cf 0%,#f6dc78 38%,#d9a92d 72%,#b77b17 100%)!important;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.82),inset 0 -2px 0 rgba(116,70,7,.18),0 3px 9px rgba(214,162,31,.24)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.42);
+}
+.action.pastel-action.action-dictionary:active{
+  transform:translateY(1px) scale(.985);
+  filter:brightness(1.06);
+}
+body.light-mode .action.pastel-action.action-dictionary{
+  color:#211707!important;
+  border-color:#bd8c28!important;
+  background:linear-gradient(180deg,#fff8d8 0%,#f2d66c 44%,#cf9c27 100%)!important;
+}
+@media(max-width:520px){
+  .dictionary-dialog>.dialog-close{top:16px;right:14px}
+  .dictionary-title-row{padding-right:52px}
+}
+@media(prefers-reduced-motion:reduce){
+  .search-dialog.search-live-layout.keyboard-visible[open]{animation:none}
+}
