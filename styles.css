@@ -1875,7 +1875,7 @@ body.light-mode .book-verses button{
   }
 }
 
-/* V1.64.90 · Corrección definitiva del sistema carbón/dorado
+/* V1.64.91 · Corrección definitiva del sistema carbón/dorado
    - todos los accesos laterales quedan carbón en ambos temas
    - desaparece el antiguo brillo ovalado
    - el dorado se usa sólo al pulsar o cuando el control está activo */
@@ -2031,7 +2031,7 @@ html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true
 }
 
 
-/* V1.64.90 · Ajuste visual claro/oscuro inspirado en Libros
+/* V1.64.91 · Ajuste visual claro/oscuro inspirado en Libros
    - claro: botones marfil con marco dorado; activo dorado
    - oscuro: botones carbón con marco dorado; activo dorado
    - emergentes sin emoji; tarjeta negra en oscuro y blanca en claro */
@@ -2181,4 +2181,109 @@ html body.light-mode .parable-popup-body,
 html body.light-mode .guide-popup-body{
   color:#29251e!important;
   -webkit-text-fill-color:#29251e!important;
+}
+
+/* V1.64.91 · Portada unificada con el lenguaje visual de Libros
+   y pestaña lateral dorada permanente. */
+
+/* Tarjetas de la pantalla principal: carbón + marco dorado en modo oscuro. */
+html body:not(.light-mode) .home-card,
+html body:not(.light-mode) .home-card-continue,
+html body:not(.light-mode) .home-card-books,
+html body:not(.light-mode) .home-card-search,
+html body:not(.light-mode) .home-card-saved,
+html body:not(.light-mode) .home-card-daily,
+html body:not(.light-mode) .home-card-stats{
+  background:linear-gradient(180deg,#303238 0%,#202227 100%)!important;
+  border:1px solid #a88636!important;
+  color:#f4efe3!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 4px 12px rgba(0,0,0,.28)!important;
+  text-shadow:none!important;
+  filter:none!important;
+}
+html body:not(.light-mode) .home-card strong{color:#f4efe3!important}
+html body:not(.light-mode) .home-card small,
+html body:not(.light-mode) .home-daily-preview,
+html body:not(.light-mode) .home-daily-meta{color:#c9c3b6!important}
+
+/* Tarjetas de portada en modo claro: iguales a los filtros no activos de Libros. */
+html body.light-mode .home-card,
+html body.light-mode .home-card-continue,
+html body.light-mode .home-card-books,
+html body.light-mode .home-card-search,
+html body.light-mode .home-card-saved,
+html body.light-mode .home-card-daily,
+html body.light-mode .home-card-stats{
+  background:linear-gradient(180deg,#fffdf8 0%,#eee9df 100%)!important;
+  border:1px solid #c7ad70!important;
+  color:#27231e!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 11px rgba(92,70,30,.12)!important;
+  text-shadow:none!important;
+  filter:none!important;
+}
+html body.light-mode .home-card strong{color:#27231e!important}
+html body.light-mode .home-card small,
+html body.light-mode .home-daily-preview,
+html body.light-mode .home-daily-meta{color:#625b50!important}
+
+/* Se elimina el antiguo brillo grande de las tarjetas de portada. */
+html body .home-card::before,
+html body .home-card::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Los iconos conservan la imagen, pero con marco dorado discreto. */
+html body .home-card .home-icon{
+  background:transparent!important;
+  border:1px solid rgba(168,134,54,.78)!important;
+  box-shadow:none!important;
+}
+
+/* Respuesta táctil dorada, sin dejar el botón activo permanentemente. */
+html body .home-card:not(:disabled):active,
+html body .home-enter-small:active{
+  background:linear-gradient(180deg,#fff0aa 0%,#e5bd45 48%,#b77d13 100%)!important;
+  border-color:#f1d16e!important;
+  color:#211707!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 4px 12px rgba(190,132,20,.28)!important;
+  transform:translateY(1px) scale(.975)!important;
+}
+html body .home-card:not(:disabled):active strong,
+html body .home-card:not(:disabled):active small,
+html body .home-card:not(:disabled):active .home-daily-preview,
+html body .home-card:not(:disabled):active .home-daily-meta{
+  color:#211707!important;
+}
+
+/* Botón Entrar de la portada, con el mismo sistema. */
+html body:not(.light-mode) .home-enter-small{
+  background:linear-gradient(180deg,#303238,#202227)!important;
+  border:1px solid #a88636!important;
+  color:#f4efe3!important;
+  box-shadow:0 4px 10px rgba(0,0,0,.24)!important;
+}
+html body.light-mode .home-enter-small{
+  background:linear-gradient(180deg,#fffdf8,#eee9df)!important;
+  border:1px solid #c7ad70!important;
+  color:#27231e!important;
+  box-shadow:0 4px 10px rgba(92,70,30,.12)!important;
+}
+
+/* Pestaña lateral: dorada siempre, tanto plegada como abierta y en ambos temas. */
+html body .actions-panel-toggle,
+html body.light-mode .actions-panel-toggle,
+html body:not(.light-mode) .actions-panel-toggle,
+html body .selection-bar.open .actions-panel-toggle{
+  background:linear-gradient(180deg,#fff0aa 0%,#e5bd45 48%,#b77d13 100%)!important;
+  border-color:#f1d16e!important;
+  color:#211707!important;
+  -webkit-text-fill-color:#211707!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),-3px 0 9px rgba(126,87,13,.25)!important;
+  text-shadow:none!important;
+  opacity:1!important;
+}
+html body .selection-bar.open .actions-panel-toggle::after{
+  color:#211707!important;
+  -webkit-text-fill-color:#211707!important;
 }
