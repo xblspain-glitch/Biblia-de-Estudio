@@ -1091,3 +1091,38 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
 @media(max-width:430px){.stats-list-dialog{padding:18px 15px}.stats-list-tools{grid-template-columns:1fr}.stats-list-item{padding:11px}.stats-pagination{gap:5px}.stats-pagination button{font-size:11px}}
 
 .book-search-result{border-color:rgba(226,190,86,.72);background:linear-gradient(145deg,rgba(108,76,20,.34),rgba(38,31,20,.96));box-shadow:inset 0 1px 0 rgba(255,239,175,.16),0 4px 14px rgba(0,0,0,.18)}.book-search-result strong{font-size:1.08em;color:#f7dc86}.book-search-result span{display:block;margin-top:4px;color:#e8dfc2}.light-mode .book-search-result{background:linear-gradient(145deg,#fff9e7,#f5ead0);border-color:#c99b2e}.light-mode .book-search-result strong{color:#7a5411}.light-mode .book-search-result span{color:#62583f}
+
+/* Buscador adaptado al teclado móvil: sube y aprovecha toda la zona visible. */
+.search-dialog{overflow:hidden}
+.search-dialog.search-live-layout{
+  width:min(94vw,650px);
+  max-height:calc(var(--search-vv-height, 100dvh) - 24px);
+  display:flex;
+  flex-direction:column;
+}
+.search-dialog.search-live-layout.keyboard-visible{
+  position:fixed;
+  top:calc(var(--search-vv-top, 0px) + 12px);
+  left:50%;
+  transform:translateX(-50%);
+  margin:0;
+  height:calc(var(--search-vv-height, 100dvh) - 24px);
+  max-height:calc(var(--search-vv-height, 100dvh) - 24px);
+}
+.search-dialog.search-live-layout .search-results{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding-bottom:8px;
+}
+.search-dialog.search-live-layout.keyboard-visible h2{margin-top:2px;margin-bottom:18px}
+@media(max-width:700px){
+  .search-dialog.search-live-layout.keyboard-visible{
+    width:calc(100vw - 24px);
+    padding:18px;
+    border-radius:20px;
+  }
+  .search-dialog.search-live-layout.keyboard-visible .search-row{flex:0 0 auto}
+}
