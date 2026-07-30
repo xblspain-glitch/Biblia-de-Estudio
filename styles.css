@@ -2429,3 +2429,40 @@ html body .home-card-daily.daily-verse-unseen .daily-verse-icon{
     line-height:1.05;
   }
 }
+
+/* V1.64.94 · Respiración luminosa del marco del Versículo del día.
+   La cápsula permanece inmóvil: sólo respiran el borde y el halo exterior. */
+html body .home-card-daily.daily-verse-unseen{
+  animation:dailyVerseFrameBreath 2.8s ease-in-out infinite!important;
+  transform:none!important;
+  transform-origin:center center;
+  will-change:box-shadow,border-color;
+}
+html body .home-card-daily.daily-verse-unseen .daily-verse-icon{
+  animation:none!important;
+  filter:none!important;
+  transform:none!important;
+}
+@keyframes dailyVerseFrameBreath{
+  0%,100%{
+    border-color:#c79b2b!important;
+    box-shadow:
+      0 7px 16px rgba(0,0,0,.16),
+      inset 0 1px 0 rgba(255,255,255,.08),
+      inset 0 0 0 1px rgba(255,232,145,.20),
+      0 0 0 1px rgba(199,155,43,.42),
+      0 0 7px 1px rgba(218,159,25,.14);
+  }
+  50%{
+    border-color:#f0cb67!important;
+    box-shadow:
+      0 7px 16px rgba(0,0,0,.16),
+      inset 0 1px 0 rgba(255,255,255,.12),
+      inset 0 0 0 2px rgba(255,239,165,.56),
+      0 0 0 4px rgba(244,207,101,.68),
+      0 0 22px 8px rgba(218,159,25,.34);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  html body .home-card-daily.daily-verse-unseen{animation:none!important}
+}
