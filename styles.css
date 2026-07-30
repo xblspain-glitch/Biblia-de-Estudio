@@ -1875,7 +1875,7 @@ body.light-mode .book-verses button{
   }
 }
 
-/* V1.64.91 · Corrección definitiva del sistema carbón/dorado
+/* V1.64.92 · Corrección definitiva del sistema carbón/dorado
    - todos los accesos laterales quedan carbón en ambos temas
    - desaparece el antiguo brillo ovalado
    - el dorado se usa sólo al pulsar o cuando el control está activo */
@@ -2031,7 +2031,7 @@ html body button:is(.active,.selected,[aria-pressed="true"],[aria-selected="true
 }
 
 
-/* V1.64.91 · Ajuste visual claro/oscuro inspirado en Libros
+/* V1.64.92 · Ajuste visual claro/oscuro inspirado en Libros
    - claro: botones marfil con marco dorado; activo dorado
    - oscuro: botones carbón con marco dorado; activo dorado
    - emergentes sin emoji; tarjeta negra en oscuro y blanca en claro */
@@ -2183,7 +2183,7 @@ html body.light-mode .guide-popup-body{
   -webkit-text-fill-color:#29251e!important;
 }
 
-/* V1.64.91 · Portada unificada con el lenguaje visual de Libros
+/* V1.64.92 · Portada unificada con el lenguaje visual de Libros
    y pestaña lateral dorada permanente. */
 
 /* Tarjetas de la pantalla principal: carbón + marco dorado en modo oscuro. */
@@ -2286,4 +2286,70 @@ html body .selection-bar.open .actions-panel-toggle{
 html body .selection-bar.open .actions-panel-toggle::after{
   color:#211707!important;
   -webkit-text-fill-color:#211707!important;
+}
+
+/* V1.64.92 · Recupera el aviso del versículo del día y refina el tirador lateral. */
+
+/* La regla de portada elimina decoraciones generales; esta excepción devuelve
+   el distintivo NUEVO únicamente a la tarjeta diaria pendiente de abrir. */
+html body .home-card-daily.daily-verse-unseen::after{
+  content:"NUEVO"!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:4!important;
+  top:7px!important;
+  right:9px!important;
+  width:auto!important;
+  height:auto!important;
+  padding:3px 8px 2px!important;
+  border-radius:999px!important;
+  border:1px solid rgba(117,75,3,.42)!important;
+  background:linear-gradient(145deg,#fff9cf 0%,#f5d56f 48%,#c99521 100%)!important;
+  color:#684305!important;
+  -webkit-text-fill-color:#684305!important;
+  font-size:9px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  box-shadow:0 2px 7px rgba(111,72,4,.22),inset 0 1px 0 rgba(255,255,255,.9)!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  transform:none!important;
+}
+html body:not(.light-mode) .home-card-daily.daily-verse-unseen::after{
+  border-color:rgba(255,232,155,.55)!important;
+  background:linear-gradient(145deg,#f9e9a6 0%,#c99c30 52%,#7b5710 100%)!important;
+  color:#2d2109!important;
+  -webkit-text-fill-color:#2d2109!important;
+}
+
+/* Tirador plegado: fondo integrado con el panel; sólo flecha y marco dorados. */
+html body:not(.light-mode) .actions-panel-toggle,
+html body:not(.light-mode) .selection-bar.open .actions-panel-toggle{
+  background:linear-gradient(180deg,#303238 0%,#202227 100%)!important;
+  border-color:#a88636!important;
+  color:#e4bd58!important;
+  -webkit-text-fill-color:#e4bd58!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),-3px 0 9px rgba(0,0,0,.28)!important;
+  text-shadow:none!important;
+}
+html body.light-mode .actions-panel-toggle,
+html body.light-mode .selection-bar.open .actions-panel-toggle{
+  background:linear-gradient(180deg,#fffdf8 0%,#eee9df 100%)!important;
+  border-color:#c7ad70!important;
+  color:#b17b13!important;
+  -webkit-text-fill-color:#b17b13!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),-3px 0 9px rgba(92,70,30,.12)!important;
+  text-shadow:none!important;
+}
+html body .selection-bar.open .actions-panel-toggle::after{
+  color:#e4bd58!important;
+  -webkit-text-fill-color:#e4bd58!important;
+}
+html body.light-mode .selection-bar.open .actions-panel-toggle::after{
+  color:#b17b13!important;
+  -webkit-text-fill-color:#b17b13!important;
+}
+html body .actions-panel-toggle:active{
+  transform:translateY(-50%) scale(.94)!important;
 }
