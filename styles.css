@@ -1128,11 +1128,10 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
 }
 
 
-/* V1.64.74 · Aviso dorado visible y persistente hasta abrir */
+/* V1.64.73 · Aviso elegante del Versículo del día pendiente */
 .home-card-daily.daily-verse-unseen{
   isolation:isolate;
-  border-color:#d2a52b!important;
-  animation:dailyVerseBreath 2.5s ease-in-out infinite;
+  animation:dailyVerseBreath 2.8s ease-in-out infinite;
 }
 .home-card-daily.daily-verse-unseen::after{
   content:"NUEVO";
@@ -1156,8 +1155,8 @@ body.light-mode .stats-pagination button{background:#eee6f7;color:#392b4d}
   animation:dailyVerseIconGlow 2.8s ease-in-out infinite;
 }
 @keyframes dailyVerseBreath{
-  0%,100%{box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 0 0 2px rgba(255,239,168,.42),inset 0 1px 0 rgba(255,255,255,.95),0 0 0 1px rgba(203,151,24,.45),0 0 7px rgba(218,159,25,.18)}
-  48%{box-shadow:0 8px 19px rgba(0,0,0,.18),inset 0 0 0 3px rgba(255,238,150,.92),inset 0 1px 0 rgba(255,255,255,.98),0 0 0 4px rgba(252,220,119,.88),0 0 22px 8px rgba(218,159,25,.38)}
+  0%,100%{box-shadow:0 7px 16px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 5px rgba(0,0,0,.06),0 0 0 0 rgba(221,170,43,0)}
+  48%{box-shadow:0 8px 19px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 5px rgba(0,0,0,.06),0 0 0 4px rgba(252,220,119,.78),0 0 18px 6px rgba(218,159,25,.28)}
 }
 @keyframes dailyVerseIconGlow{
   0%,100%{filter:brightness(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 5px rgba(0,0,0,.08)}
@@ -1171,23 +1170,4 @@ body:not(.light-mode) .home-card-daily.daily-verse-unseen::after{
   border-color:rgba(255,232,155,.55);
   background:linear-gradient(145deg,#f9e9a6 0%,#c99c30 52%,#7b5710 100%);
   color:#2d2109;
-}
-
-/* V1.64.75 · Respuesta táctil de botones (sin alterar el diseño) */
-button:not(:disabled) {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:not(:disabled):active {
-  translate: 0 2px;
-  scale: .985;
-  filter: brightness(1.08);
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, .18);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  button:not(:disabled):active {
-    translate: 0 1px;
-    scale: 1;
-  }
 }
