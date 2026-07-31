@@ -7,11 +7,11 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.12">
   <link rel="manifest" href="manifest.webmanifest?v=2.1.12">
-<link rel="stylesheet" href="styles.css?v=2.2.0">
+<link rel="stylesheet" href="styles.css?v=2.2.1">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.12">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.2.0">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.2.1">
 
 
 
@@ -102,22 +102,21 @@
       <div class="encyclopedia-head">
         <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
       </div>
-      <div class="encyclopedia-hero" aria-hidden="true">
-        <div class="encyclopedia-emblem">📚</div>
-      </div>
       <h1>Enciclopedia Bíblica</h1>
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.2.1" alt="" aria-hidden="true">
       <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
       <div class="encyclopedia-grid">
-        <button type="button" class="encyclopedia-card encyclopedia-characters" onclick="openEncyclopediaSection('characters')">
-          <span class="encyclopedia-card-icon">👤</span><span><strong>Personajes</strong><small>Conozca sus historias y enseñanzas</small></span><span class="encyclopedia-arrow">›</span>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
+          <strong>PERSONAJES</strong>
         </button>
-        <button type="button" class="encyclopedia-card encyclopedia-guides" onclick="openEncyclopediaSection('guides')">
-          <span class="encyclopedia-card-icon">📖</span><span><strong>Guía</strong><small>Temas y estudios bíblicos organizados</small></span><span class="encyclopedia-arrow">›</span>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('guides')">
+          <strong>GUÍA</strong>
         </button>
-        <button type="button" class="encyclopedia-card encyclopedia-parables" onclick="openEncyclopediaSection('parables')">
-          <span class="encyclopedia-card-icon">🕊️</span><span><strong>Parábolas</strong><small>Las enseñanzas de Cristo explicadas</small></span><span class="encyclopedia-arrow">›</span>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('parables')">
+          <strong>PARÁBOLAS</strong>
         </button>
       </div>
+      <div class="encyclopedia-coming-line" aria-hidden="true"></div>
       <p class="encyclopedia-coming">Próximamente: Lugares Bíblicos</p>
     </div>
   </section>
@@ -370,6 +369,6 @@
   <script src="biblical-characters-v2244.js?v=2.1.12"></script>
   <script src="biblical-parables-v16436.js?v=2.1.12"></script>
   <script src="biblical-guides-v16436.js?v=2.1.12"></script>
-  <script src="app.js?v=2.2.0"></script>
+  <script src="app.js?v=2.2.1"></script>
 </body>
 </html>
