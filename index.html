@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.8.22">
-  <link rel="manifest" href="manifest.webmanifest?v=2.8.22">
-<link rel="stylesheet" href="styles.css?v=2.8.22">
-  <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.8.22">
-  <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.8.22">
-  <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.8.22">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.8.22">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.8.23">
+  <link rel="manifest" href="manifest.webmanifest?v=2.8.23">
+<link rel="stylesheet" href="styles.css?v=2.8.23">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.8.23">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.8.23">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.8.23">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.8.23">
 
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
 </head>
 <body>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=2.8.22" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=2.8.23" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -28,23 +31,23 @@
     </div>
     <div class="home-actions">
       <button id="homeContinue" class="home-card home-card-continue" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=2.8.22" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=2.8.23" alt=""></span>
         <span><strong>Punto de libro</strong><small id="homeContinueRef">Todavía no hay un punto de libro guardado</small></span>
       </button>
       <button id="homeBooks" class="home-card home-card-books" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=2.8.22" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=2.8.23" alt=""></span>
         <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
       </button>
       <button id="homeSearch" class="home-card home-card-search" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=2.8.22" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=2.8.23" alt=""></span>
         <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
       </button>
       <button id="homeSaved" class="home-card home-card-saved" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=2.8.22" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=2.8.23" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=2.8.22" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=2.8.23" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -103,7 +106,7 @@
         <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
       </div>
       <h1>Enciclopedia Bíblica</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.8.22" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.8.23" alt="" aria-hidden="true">
       <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
       <div class="encyclopedia-grid">
         <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
@@ -191,7 +194,7 @@
           <input id="biblicalPlacesImportInput" type="file" accept="application/json,.json" hidden onchange="importBiblicalPlaces(event)">
         </div>
         <h1 class="biblical-prophecies-title">Lugares Bíblicos</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.22" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.23" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Ciudades, regiones, montes, ríos y territorios que forman parte de la historia de las Sagradas Escrituras.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPlacesSearch" type="search" autocomplete="off" placeholder="Buscar lugar, categoría, región o personaje…" oninput="renderBiblicalPlaces()"></label>
         <div class="biblical-prophecies-list-head"><strong>Todos los lugares</strong><span id="biblicalPlacesCount"></span></div>
@@ -205,31 +208,20 @@
         <div class="places-map-controls">
           <label><span>Buscar</span><input id="placesMapSearch" type="search" placeholder="Jerusalén, Belén, Egipto…" oninput="renderBiblicalPlacesMap()"></label>
           <label><span>Categoría</span><select id="placesMapCategory" onchange="renderBiblicalPlacesMap()"><option value="">Todas</option></select></label>
-          <div class="places-map-zoom" aria-label="Zoom del mapa"><button type="button" onclick="zoomBiblicalPlacesMap(1.5)">＋</button><button type="button" onclick="zoomBiblicalPlacesMap(.6667)">−</button><button type="button" onclick="resetBiblicalPlacesMap()">Tierra Santa</button></div>
+          <div class="places-map-regions" aria-label="Regiones rápidas">
+            <button type="button" onclick="focusBiblicalMapRegion('holyland')">Tierra Santa</button>
+            <button type="button" onclick="focusBiblicalMapRegion('egypt')">Egipto</button>
+            <button type="button" onclick="focusBiblicalMapRegion('mesopotamia')">Mesopotamia</button>
+            <button type="button" onclick="focusBiblicalMapRegion('asia')">Asia Menor</button>
+            <button type="button" onclick="focusBiblicalMapRegion('greece')">Grecia e Italia</button>
+          </div>
         </div>
-        <div class="places-map-canvas-wrap" id="placesMapCanvasWrap">
-          <svg id="placesMapSvg" class="places-map-svg" viewBox="0 0 1000 560" role="img" aria-label="Mapa bíblico offline con marcadores de lugares">
-            <defs>
-              <linearGradient id="mapSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#263a52"/><stop offset="1" stop-color="#172536"/></linearGradient>
-              <linearGradient id="mapLand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b8455"/><stop offset="1" stop-color="#6c5b3d"/></linearGradient>
-            </defs>
-            <rect width="1000" height="560" fill="url(#mapSea)"/>
-            <g class="places-map-land" aria-hidden="true">
-              <path d="M0 0H1000V92C910 105 856 139 807 174C751 213 706 236 633 231C544 225 482 189 415 205C334 225 279 281 206 302C132 323 69 314 0 338Z" fill="url(#mapLand)"/>
-              <path d="M0 372C91 342 175 345 259 383C327 414 385 456 447 487L447 560H0Z" fill="url(#mapLand)"/>
-              <path d="M597 272C656 244 735 248 801 286C862 322 925 338 1000 319V560H476C501 493 533 424 556 356C569 319 580 290 597 272Z" fill="url(#mapLand)"/>
-              <path d="M175 70C214 45 267 46 302 72C325 89 337 119 322 143C305 170 269 175 237 163C202 150 170 119 166 91C165 82 168 75 175 70Z" fill="url(#mapLand)"/>
-            </g>
-            <g class="places-map-region-labels" aria-hidden="true">
-              <text x="110" y="95">ITALIA</text><text x="280" y="165">GRECIA</text><text x="515" y="135">ASIA MENOR</text>
-              <text x="660" y="245">SIRIA</text><text x="835" y="275">MESOPOTAMIA</text><text x="585" y="410">ISRAEL</text>
-              <text x="345" y="500">EGIPTO</text><text x="390" y="330" class="sea-label">MAR MEDITERRÁNEO</text>
-            </g>
-            <g id="placesMapGrid"></g><g id="placesMapMarkers"></g>
-          </svg>
+        <div class="places-real-map-wrap">
+          <div id="placesLeafletMap" class="places-leaflet-map" aria-label="Mapa real interactivo de lugares bíblicos"></div>
+          <div id="placesMapLoading" class="places-map-loading">Cargando mapa real…</div>
         </div>
         <aside id="placesMapCard" class="places-map-card hidden" aria-live="polite"></aside>
-        <p class="places-map-note">Mapa offline simplificado. Los marcadores se sitúan mediante las coordenadas guardadas en cada ficha.</p>
+        <p class="places-map-note">El fondo cartográfico necesita conexión a Internet. Las fichas de Lugares Bíblicos continúan disponibles sin conexión.</p>
       </section>
       <article id="biblicalPlaceDetail" class="biblical-prophecy-detail hidden"></article>
     </div>
@@ -276,7 +268,7 @@
       <div id="biblicalPropheciesHome">
         <div class="module-crud-tools prophecy-crud-tools"><button type="button" class="crud-add" onclick="openBiblicalProphecyEditor()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalPropheciesTrash()">Papelera <span id="biblicalPropheciesTrashCount">0</span></button></div>
         <h1 class="biblical-prophecies-title">Profecías</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.22" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.23" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Profecías mesiánicas y su cumplimiento en nuestro Señor Jesucristo.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPropheciesSearch" type="search" autocomplete="off" placeholder="Buscar profecía, referencia o tema…" oninput="renderBiblicalProphecies()"></label>
         <div class="biblical-prophecies-list-head"><strong id="biblicalPropheciesListTitle">Todas las profecías</strong><span id="biblicalPropheciesCount"></span></div>
@@ -506,10 +498,12 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="dictionary-data.js?v=2.8.22"></script>
-  <script src="biblical-characters-v2244.js?v=2.8.22"></script>
-  <script src="biblical-parables-v16436.js?v=2.8.22"></script>
-  <script src="biblical-guides-v16436.js?v=2.8.22"></script>
-  <script src="app.js?v=2.8.22"></script>
+  <script src="dictionary-data.js?v=2.8.23"></script>
+  <script src="biblical-characters-v2244.js?v=2.8.23"></script>
+  <script src="biblical-parables-v16436.js?v=2.8.23"></script>
+  <script src="biblical-guides-v16436.js?v=2.8.23"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="app.js?v=2.8.23"></script>
 </body>
 </html>
