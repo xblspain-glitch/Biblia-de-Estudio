@@ -106,7 +106,9 @@ function openBiblicalCharacterDetailV2242(id,openedFromReader){
   const home=document.getElementById('biblicalCharactersHomeV2242'); if(home)home.classList.add('hidden');
   const d=document.getElementById('biblicalCharacterDetailV2242'); if(!d)return;
   const tags=[p.categoria]; if(p.tipoCristo)tags.push('✝ Figura relacionada con Cristo');
-  const returnToChapterButton=openedFromReader===true
+  let openedFromBible=openedFromReader===true||window.__biblicalEntityOpenedFromReader===true;
+  try{openedFromBible=openedFromBible||sessionStorage.getItem('biblicalEntityOpenedFromReader')==='1'}catch(_){ }
+  const returnToChapterButton=openedFromBible
     ? '<button class="btn soft biblical-return-chapter" type="button" onclick="window.returnBiblicalEntityToChapter&&window.returnBiblicalEntityToChapter()">Volver al capítulo</button>'
     : '';
   d.innerHTML='<div class="biblical-detail-toolbar-v16433"><div class="biblical-detail-nav-v288"><button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button>'+returnToChapterButton+'</div><div class="detail-crud-actions"><button type="button" class="crud-edit" onclick="editBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Editar</button><button type="button" class="crud-delete" onclick="deleteBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Eliminar</button></div></div>'+
