@@ -2777,5 +2777,2682 @@
     "image": "",
     "createdAt": 1760000000000,
     "updatedAt": 1785523410128
+  },
+  {
+    "id": "cesarea-maritima",
+    "name": "Cesarea Marítima",
+    "category": "Ciudad",
+    "currentRegion": "Costa mediterránea de Israel",
+    "firstAppearance": "Hechos 8:40",
+    "shortDescription": "Importante puerto romano desde el que el evangelio alcanzó a los gentiles y Pablo fue enviado a Roma.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Felipe",
+      "Cornelio",
+      "Pedro",
+      "Pablo"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 8:40",
+      "Hechos 10:1-48",
+      "Hechos 23:23-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "jope",
+    "name": "Jope",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Jaffa, Israel",
+    "firstAppearance": "Josué 19:46",
+    "shortDescription": "Puerto bíblico asociado con Jonás y con la visión de Pedro que abrió la misión a los gentiles.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonás",
+      "Pedro",
+      "Tabita"
+    ],
+    "jesusRelation": "En Jope, Pedro recibió la visión que preparó la entrada de los gentiles en la Iglesia por medio de Jesucristo.",
+    "mainVerses": [
+      "Jonás 1:3",
+      "Hechos 9:36-43",
+      "Hechos 10:5-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "lida",
+    "name": "Lida",
+    "category": "Ciudad",
+    "currentRegion": "Lod, Israel",
+    "firstAppearance": "1 Crónicas 8:12",
+    "shortDescription": "Ciudad donde Pedro sanó a Eneas, y muchos se convirtieron al Señor.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pedro",
+      "Eneas"
+    ],
+    "jesusRelation": "Pedro sanó allí a Eneas en el nombre de Jesucristo, y muchos habitantes se volvieron al Señor.",
+    "mainVerses": [
+      "Hechos 9:32-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "emaus",
+    "name": "Emaús",
+    "category": "Aldea",
+    "currentRegion": "Ubicación discutida cerca de Jerusalén",
+    "firstAppearance": "Lucas 24:13",
+    "shortDescription": "Aldea hacia la que caminaban dos discípulos el día de la resurrección.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Cleofas"
+    ],
+    "jesusRelation": "Jesús resucitado acompañó a dos discípulos camino de Emaús, les explicó las Escrituras y fue reconocido al partir el pan.",
+    "mainVerses": [
+      "Lucas 24:13-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "nain",
+    "name": "Naín",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, norte de Israel",
+    "firstAppearance": "Lucas 7:11",
+    "shortDescription": "Población galilea donde Jesús devolvió la vida al hijo único de una viuda.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Viuda de Naín"
+    ],
+    "jesusRelation": "Jesús tuvo compasión de una viuda y resucitó a su hijo, manifestando su autoridad sobre la muerte.",
+    "mainVerses": [
+      "Lucas 7:11-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "magdala",
+    "name": "Magdala",
+    "category": "Ciudad",
+    "currentRegion": "Orilla occidental del mar de Galilea",
+    "firstAppearance": "Mateo 15:39",
+    "shortDescription": "Ciudad galilea tradicionalmente relacionada con María Magdalena.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "María Magdalena",
+      "Jesús"
+    ],
+    "jesusRelation": "Está vinculada tradicionalmente con María Magdalena, fiel discípula y primera testigo del Cristo resucitado.",
+    "mainVerses": [
+      "Mateo 15:39"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "corazin",
+    "name": "Corazín",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, Israel",
+    "firstAppearance": "Mateo 11:21",
+    "shortDescription": "Ciudad cercana a Capernaúm que presenció obras poderosas de Jesús, pero no se arrepintió.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús"
+    ],
+    "jesusRelation": "Jesús realizó allí milagros y reprendió a la ciudad por no haberse arrepentido.",
+    "mainVerses": [
+      "Mateo 11:21",
+      "Lucas 10:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "betsaida",
+    "name": "Betsaida",
+    "category": "Ciudad",
+    "currentRegion": "Noreste del mar de Galilea; ubicación discutida",
+    "firstAppearance": "Mateo 11:21",
+    "shortDescription": "Ciudad de varios apóstoles y escenario de milagros de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Pedro",
+      "Andrés",
+      "Felipe"
+    ],
+    "jesusRelation": "Fue ciudad de Pedro, Andrés y Felipe; Jesús sanó allí a un ciego y actuó en sus alrededores durante la multiplicación de los panes.",
+    "mainVerses": [
+      "Marcos 8:22-26",
+      "Juan 1:44",
+      "Juan 6:1-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "genesaret",
+    "name": "Genesaret",
+    "category": "Región",
+    "currentRegion": "Llanura al noroeste del mar de Galilea",
+    "firstAppearance": "Mateo 14:34",
+    "shortDescription": "Fértil región donde muchos enfermos fueron llevados a Jesús para ser sanados.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús"
+    ],
+    "jesusRelation": "En Genesaret, cuantos tocaban el borde del manto de Jesús quedaban sanos.",
+    "mainVerses": [
+      "Mateo 14:34-36",
+      "Marcos 6:53-56"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tiberias",
+    "name": "Tiberias",
+    "category": "Ciudad",
+    "currentRegion": "Tiberíades, Israel",
+    "firstAppearance": "Juan 6:23",
+    "shortDescription": "Ciudad situada junto al mar de Galilea, que también llegó a dar nombre al lago.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Discípulos"
+    ],
+    "jesusRelation": "El Evangelio de Juan llama al mar de Galilea “mar de Tiberias”; allí Jesús alimentó a la multitud y se manifestó resucitado a sus discípulos.",
+    "mainVerses": [
+      "Juan 6:1",
+      "Juan 6:23",
+      "Juan 21:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "decapolis",
+    "name": "Decápolis",
+    "category": "Región",
+    "currentRegion": "Jordania, Siria e Israel actuales",
+    "firstAppearance": "Mateo 4:25",
+    "shortDescription": "Conjunto de ciudades helenísticas al este y sureste del mar de Galilea.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Hombre liberado de demonios"
+    ],
+    "jesusRelation": "Jesús ministró en esta región; el hombre liberado anunció allí lo que el Señor había hecho por él.",
+    "mainVerses": [
+      "Marcos 5:20",
+      "Marcos 7:31-37"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "perea",
+    "name": "Perea",
+    "category": "Región",
+    "currentRegion": "Este del río Jordán, principalmente Jordania",
+    "firstAppearance": "Lucas 13:22",
+    "shortDescription": "Región al este del Jordán recorrida por Jesús camino de Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Juan el Bautista"
+    ],
+    "jesusRelation": "Jesús se retiró al lugar donde Juan había bautizado, y muchos creyeron en Él.",
+    "mainVerses": [
+      "Juan 10:40-42"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "enon",
+    "name": "Enón",
+    "category": "Lugar de aguas",
+    "currentRegion": "Ubicación discutida cerca de Salim",
+    "firstAppearance": "Juan 3:23",
+    "shortDescription": "Lugar con abundante agua donde Juan bautizaba.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Juan el Bautista",
+      "Discípulos"
+    ],
+    "jesusRelation": "Forma parte del contexto del testimonio de Juan, quien afirmó que Cristo debía crecer y él menguar.",
+    "mainVerses": [
+      "Juan 3:23-26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "salim",
+    "name": "Salim",
+    "category": "Localidad",
+    "currentRegion": "Ubicación discutida en el valle del Jordán",
+    "firstAppearance": "Juan 3:23",
+    "shortDescription": "Localidad cercana a Enón, donde Juan realizaba bautismos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Juan el Bautista"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Juan 3:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "betabara",
+    "name": "Betábara",
+    "category": "Paso del Jordán",
+    "currentRegion": "Ubicación discutida al este del Jordán",
+    "firstAppearance": "Juan 1:28",
+    "shortDescription": "Lugar tradicionalmente asociado con el bautismo y el ministerio de Juan.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Juan el Bautista",
+      "Jesús"
+    ],
+    "jesusRelation": "En esta zona Juan señaló a Jesús como el Cordero de Dios y dio testimonio de que es el Hijo de Dios.",
+    "mainVerses": [
+      "Juan 1:28-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "arimatea",
+    "name": "Arimatea",
+    "category": "Ciudad",
+    "currentRegion": "Ubicación discutida en Judea",
+    "firstAppearance": "Mateo 27:57",
+    "shortDescription": "Ciudad de José de Arimatea, quien pidió el cuerpo de Jesús y lo colocó en su sepulcro.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "José de Arimatea",
+      "Jesús"
+    ],
+    "jesusRelation": "José de Arimatea, discípulo de Jesús, procedía de esta ciudad y ofreció su sepulcro para la sepultura del Señor.",
+    "mainVerses": [
+      "Mateo 27:57-60",
+      "Juan 19:38-42"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "efrain",
+    "name": "Efraín",
+    "category": "Ciudad",
+    "currentRegion": "Región montañosa de Judea; ubicación probable",
+    "firstAppearance": "Juan 11:54",
+    "shortDescription": "Lugar donde Jesús permaneció con sus discípulos antes de su última Pascua.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Discípulos"
+    ],
+    "jesusRelation": "Jesús se retiró allí después de la decisión del consejo de darle muerte, antes de dirigirse a Jerusalén.",
+    "mainVerses": [
+      "Juan 11:54"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "betfage",
+    "name": "Betfagé",
+    "category": "Aldea",
+    "currentRegion": "Ladera oriental del monte de los Olivos",
+    "firstAppearance": "Mateo 21:1",
+    "shortDescription": "Aldea desde donde comenzó la entrada triunfal de Jesús en Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Discípulos"
+    ],
+    "jesusRelation": "Desde Betfagé Jesús envió a buscar el asno y entró en Jerusalén como Rey humilde, cumpliendo la profecía.",
+    "mainVerses": [
+      "Mateo 21:1-11",
+      "Lucas 19:29-38"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "valle-de-hinom",
+    "name": "Valle de Hinom",
+    "category": "Valle",
+    "currentRegion": "Sur y suroeste de Jerusalén",
+    "firstAppearance": "Josué 15:8",
+    "shortDescription": "Valle asociado con prácticas idolátricas y usado como imagen del juicio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Reyes de Judá",
+      "Jeremías"
+    ],
+    "jesusRelation": "Jesús utilizó la palabra Gehena, relacionada con este valle, para advertir solemnemente sobre el juicio.",
+    "mainVerses": [
+      "2 Reyes 23:10",
+      "Jeremías 7:31-32"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "estanque-de-betesda",
+    "name": "Estanque de Betesda",
+    "category": "Estanque",
+    "currentRegion": "Jerusalén, cerca de la puerta de las Ovejas",
+    "firstAppearance": "Juan 5:2",
+    "shortDescription": "Estanque donde Jesús sanó a un hombre enfermo desde hacía treinta y ocho años.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Paralítico de Betesda"
+    ],
+    "jesusRelation": "Jesús sanó allí a un hombre y enseñó que el Hijo actúa con la autoridad del Padre.",
+    "mainVerses": [
+      "Juan 5:2-18"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "estanque-de-siloe",
+    "name": "Estanque de Siloé",
+    "category": "Estanque",
+    "currentRegion": "Ciudad de David, Jerusalén",
+    "firstAppearance": "Nehemías 3:15",
+    "shortDescription": "Depósito de agua de Jerusalén donde Jesús envió al ciego de nacimiento para que se lavara.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Ciego de nacimiento"
+    ],
+    "jesusRelation": "Jesús dio vista al ciego de nacimiento al enviarlo a lavarse en Siloé, cuyo nombre significa “Enviado”.",
+    "mainVerses": [
+      "Juan 9:1-11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "aposento-alto",
+    "name": "Aposento alto",
+    "category": "Casa o sala",
+    "currentRegion": "Jerusalén",
+    "firstAppearance": "Marcos 14:15",
+    "shortDescription": "Sala donde Jesús celebró la última Cena y donde los discípulos se reunieron.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Apóstoles",
+      "María"
+    ],
+    "jesusRelation": "Jesús instituyó allí la Cena del Señor; después de la ascensión, los discípulos perseveraron unidos en oración.",
+    "mainVerses": [
+      "Marcos 14:12-26",
+      "Hechos 1:13-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "via-dolorosa",
+    "name": "Vía Dolorosa",
+    "category": "Ruta tradicional",
+    "currentRegion": "Ciudad Vieja de Jerusalén",
+    "firstAppearance": "Juan 19:16-17",
+    "shortDescription": "Nombre tradicional del recorrido que recuerda el camino de Jesús hacia la crucifixión.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Simón de Cirene"
+    ],
+    "jesusRelation": "Recuerda el camino de Jesús cargando la cruz hacia el lugar de la crucifixión, aunque el trazado exacto es tradicional.",
+    "mainVerses": [
+      "Juan 19:16-17",
+      "Lucas 23:26-32"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "sepulcro-de-jesus",
+    "name": "Sepulcro de Jesús",
+    "category": "Sepulcro",
+    "currentRegion": "Jerusalén; localización tradicional discutida",
+    "firstAppearance": "Mateo 27:60",
+    "shortDescription": "Sepulcro nuevo donde fue puesto el cuerpo de Jesús y que fue hallado vacío.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "José de Arimatea",
+      "Mujeres discípulas"
+    ],
+    "jesusRelation": "Jesús fue sepultado y resucitó al tercer día; el sepulcro vacío proclama su victoria sobre la muerte.",
+    "mainVerses": [
+      "Mateo 27:57-66",
+      "Mateo 28:1-10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "monte-de-la-transfiguracion",
+    "name": "Monte de la Transfiguración",
+    "category": "Monte",
+    "currentRegion": "Identificación discutida; tradicionalmente Tabor",
+    "firstAppearance": "Mateo 17:1",
+    "shortDescription": "Monte alto donde Jesús fue transfigurado ante tres discípulos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Pedro",
+      "Jacobo",
+      "Juan",
+      "Moisés",
+      "Elías"
+    ],
+    "jesusRelation": "Jesús manifestó su gloria; la voz del Padre declaró: “Este es mi Hijo amado”.",
+    "mainVerses": [
+      "Mateo 17:1-8",
+      "Marcos 9:2-8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "desierto-de-judea",
+    "name": "Desierto de Judea",
+    "category": "Desierto",
+    "currentRegion": "Este de Judea, hacia el mar Muerto",
+    "firstAppearance": "Jueces 1:16",
+    "shortDescription": "Zona árida vinculada con Juan el Bautista y la tentación de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Juan el Bautista"
+    ],
+    "jesusRelation": "Jesús fue llevado por el Espíritu al desierto, donde venció las tentaciones permaneciendo fiel a la Palabra de Dios.",
+    "mainVerses": [
+      "Mateo 3:1-3",
+      "Mateo 4:1-11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "quarantania",
+    "name": "Quarantania",
+    "category": "Monte tradicional",
+    "currentRegion": "Cerca de Jericó",
+    "firstAppearance": "Mateo 4:1",
+    "shortDescription": "Monte tradicionalmente relacionado con la tentación de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús"
+    ],
+    "jesusRelation": "La tradición sitúa aquí el ayuno de cuarenta días y la victoria de Jesús sobre las tentaciones.",
+    "mainVerses": [
+      "Mateo 4:1-11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "samaria-de-sicar",
+    "name": "Samaria de Sicar",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de la actual Nablus, Cisjordania",
+    "firstAppearance": "Juan 4:5",
+    "shortDescription": "Ciudad samaritana donde Jesús habló con una mujer junto al pozo de Jacob.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Mujer samaritana"
+    ],
+    "jesusRelation": "Jesús se reveló como Mesías a la mujer samaritana y enseñó acerca del agua viva y la adoración en espíritu y verdad.",
+    "mainVerses": [
+      "Juan 4:5-42"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "monte-carmelo",
+    "name": "Monte Carmelo",
+    "category": "Monte",
+    "currentRegion": "Noroeste de Israel",
+    "firstAppearance": "Josué 12:22",
+    "shortDescription": "Cordillera asociada especialmente con el profeta Elías y la confrontación con los profetas de Baal.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Elías",
+      "Acab"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 18:19-39"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "arroyo-de-querit",
+    "name": "Arroyo de Querit",
+    "category": "Arroyo",
+    "currentRegion": "Al este del Jordán; ubicación incierta",
+    "firstAppearance": "1 Reyes 17:3",
+    "shortDescription": "Lugar donde Elías fue sustentado por Dios durante la sequía.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Elías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 17:3-7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "sarepta",
+    "name": "Sarepta",
+    "category": "Ciudad",
+    "currentRegion": "Sarafand, Líbano",
+    "firstAppearance": "1 Reyes 17:9",
+    "shortDescription": "Ciudad fenicia donde una viuda hospedó a Elías durante la sequía.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Elías",
+      "Viuda de Sarepta"
+    ],
+    "jesusRelation": "Jesús recordó la fe de la viuda de Sarepta para mostrar la libertad de la gracia de Dios.",
+    "mainVerses": [
+      "1 Reyes 17:8-24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "sunem",
+    "name": "Sunem",
+    "category": "Ciudad",
+    "currentRegion": "Sulam, norte de Israel",
+    "firstAppearance": "Josué 19:18",
+    "shortDescription": "Ciudad relacionada con la mujer sunamita y los milagros de Eliseo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Eliseo",
+      "Mujer sunamita"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Reyes 4:8-37"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "abel-mehola",
+    "name": "Abel-mehola",
+    "category": "Ciudad",
+    "currentRegion": "Valle del Jordán, ubicación probable",
+    "firstAppearance": "Jueces 7:22",
+    "shortDescription": "Lugar de origen de Eliseo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Eliseo",
+      "Elías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 19:16-21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "gilboa",
+    "name": "Gilboa",
+    "category": "Monte",
+    "currentRegion": "Noreste de Israel",
+    "firstAppearance": "1 Samuel 28:4",
+    "shortDescription": "Monte donde Saúl y sus hijos murieron en batalla contra los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Jonatán",
+      "David"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 31:1-6",
+      "2 Samuel 1:21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "endor",
+    "name": "Endor",
+    "category": "Ciudad",
+    "currentRegion": "Norte de Israel",
+    "firstAppearance": "Josué 17:11",
+    "shortDescription": "Lugar donde Saúl consultó a una mujer con espíritu de adivinación.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Samuel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 28:7-25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "valle-de-ela",
+    "name": "Valle de Ela",
+    "category": "Valle",
+    "currentRegion": "Suroeste de Jerusalén",
+    "firstAppearance": "1 Samuel 17:2",
+    "shortDescription": "Valle donde David venció a Goliat.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Goliat",
+      "Saúl"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 17:2-51"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "adulam",
+    "name": "Adulam",
+    "category": "Ciudad y cueva",
+    "currentRegion": "Región de la Sefela, Israel",
+    "firstAppearance": "Génesis 38:1",
+    "shortDescription": "Lugar donde David se refugió y reunió a sus primeros seguidores.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 22:1-2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tecoa",
+    "name": "Tecoa",
+    "category": "Ciudad",
+    "currentRegion": "Sur de Belén, Cisjordania",
+    "firstAppearance": "2 Samuel 14:2",
+    "shortDescription": "Ciudad de origen del profeta Amós.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Amós",
+      "Mujer sabia de Tecoa"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Amós 1:1",
+      "2 Samuel 14:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "anatot",
+    "name": "Anatot",
+    "category": "Ciudad",
+    "currentRegion": "Anata, cerca de Jerusalén",
+    "firstAppearance": "Josué 21:18",
+    "shortDescription": "Ciudad sacerdotal y lugar de origen del profeta Jeremías.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jeremías",
+      "Abiatar"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jeremías 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "laquis",
+    "name": "Laquis",
+    "category": "Ciudad fortificada",
+    "currentRegion": "Tell ed-Duweir, Israel",
+    "firstAppearance": "Josué 10:3",
+    "shortDescription": "Importante ciudad de Judá sitiada por Asiria y Babilonia.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Ezequías",
+      "Senaquerib"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:31-32",
+      "2 Reyes 18:14-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "libna",
+    "name": "Libna",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá; ubicación probable",
+    "firstAppearance": "Números 33:20",
+    "shortDescription": "Ciudad cananea conquistada por Josué y más tarde ciudad levítica.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:29-30"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "azeca",
+    "name": "Azeca",
+    "category": "Ciudad",
+    "currentRegion": "Valle de Ela, Israel",
+    "firstAppearance": "Josué 10:10",
+    "shortDescription": "Ciudad fortificada de Judá próxima al escenario de David y Goliat.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "David"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:10-11",
+      "1 Samuel 17:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "bet-semes",
+    "name": "Bet-semes",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:10",
+    "shortDescription": "Ciudad levítica donde llegó el arca devuelta por los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Samuel",
+      "Habitantes de Bet-semes"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 6:9-20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "quila",
+    "name": "Quila",
+    "category": "Ciudad",
+    "currentRegion": "Región montañosa de Judá",
+    "firstAppearance": "Josué 15:44",
+    "shortDescription": "Ciudad liberada por David de los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 23:1-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "maon",
+    "name": "Maón",
+    "category": "Ciudad y desierto",
+    "currentRegion": "Sur de Hebrón",
+    "firstAppearance": "Josué 15:55",
+    "shortDescription": "Zona donde David se ocultó de Saúl y donde vivía Nabal.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Nabal",
+      "Abigail"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 23:24-25",
+      "1 Samuel 25:2-42"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "carmelo-de-juda",
+    "name": "Carmelo de Judá",
+    "category": "Ciudad",
+    "currentRegion": "Sur de Hebrón",
+    "firstAppearance": "Josué 15:55",
+    "shortDescription": "Lugar relacionado con Nabal y Abigail, distinto del monte Carmelo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Nabal",
+      "Abigail"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 25:2-40"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "zif",
+    "name": "Zif",
+    "category": "Ciudad y desierto",
+    "currentRegion": "Sur de Hebrón",
+    "firstAppearance": "Josué 15:55",
+    "shortDescription": "Zona donde David se escondió mientras Saúl lo perseguía.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Saúl"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 23:14-19"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "bahurim",
+    "name": "Bahurim",
+    "category": "Aldea",
+    "currentRegion": "Al este de Jerusalén; ubicación probable",
+    "firstAppearance": "2 Samuel 3:16",
+    "shortDescription": "Lugar vinculado con la huida de David y las maldiciones de Simei.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Simei"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Samuel 16:5-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "rogel",
+    "name": "Rogel",
+    "category": "Fuente",
+    "currentRegion": "Sur de Jerusalén",
+    "firstAppearance": "Josué 15:7",
+    "shortDescription": "Fuente cercana a Jerusalén donde Adonías celebró su intento de proclamarse rey.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Adonías",
+      "Salomón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 1:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "gihon",
+    "name": "Gihón",
+    "category": "Manantial",
+    "currentRegion": "Jerusalén, valle de Cedrón",
+    "firstAppearance": "1 Reyes 1:33",
+    "shortDescription": "Principal manantial antiguo de Jerusalén, donde Salomón fue ungido rey.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Salomón",
+      "Sadoc",
+      "Natán"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 1:33-39"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ofel",
+    "name": "Ofel",
+    "category": "Colina",
+    "currentRegion": "Jerusalén, al sur del monte del Templo",
+    "firstAppearance": "2 Crónicas 27:3",
+    "shortDescription": "Sector fortificado de la antigua Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jotam",
+      "Manasés",
+      "Nehemías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Crónicas 27:3",
+      "Nehemías 3:26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "monte-del-templo",
+    "name": "Monte del Templo",
+    "category": "Monte",
+    "currentRegion": "Jerusalén",
+    "firstAppearance": "2 Crónicas 3:1",
+    "shortDescription": "Lugar donde Salomón construyó el templo de Dios.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Salomón",
+      "Sacerdotes",
+      "Jesús"
+    ],
+    "jesusRelation": "Jesús enseñó en el templo, lo purificó y anunció que Él mismo es el verdadero templo levantado después de tres días.",
+    "mainVerses": [
+      "2 Crónicas 3:1",
+      "Mateo 21:12-16"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "samaria-ciudad",
+    "name": "Samaria ciudad",
+    "category": "Ciudad",
+    "currentRegion": "Sebastia, Cisjordania",
+    "firstAppearance": "1 Reyes 16:24",
+    "shortDescription": "Capital del reino del norte fundada por Omri.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Omri",
+      "Acab",
+      "Elías",
+      "Eliseo"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 16:24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tirsa",
+    "name": "Tirsa",
+    "category": "Ciudad",
+    "currentRegion": "Tell el-Farah, Cisjordania",
+    "firstAppearance": "Josué 12:24",
+    "shortDescription": "Antigua capital del reino del norte antes de Samaria.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jeroboam",
+      "Baasa"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 14:17",
+      "1 Reyes 15:33"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "jezreel-ciudad",
+    "name": "Jezreel ciudad",
+    "category": "Ciudad",
+    "currentRegion": "Valle de Jezreel, Israel",
+    "firstAppearance": "Josué 19:18",
+    "shortDescription": "Ciudad relacionada con Acab, Jezabel y la viña de Nabot.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Acab",
+      "Jezabel",
+      "Nabot",
+      "Jehú"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 21:1-16",
+      "2 Reyes 9:30-37"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ramot-de-galaad",
+    "name": "Ramot de Galaad",
+    "category": "Ciudad",
+    "currentRegion": "Noroeste de Jordania; ubicación discutida",
+    "firstAppearance": "Deuteronomio 4:43",
+    "shortDescription": "Ciudad de refugio donde Acab murió en batalla.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Acab",
+      "Josafat",
+      "Jehú"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Reyes 22:1-37"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "dotan-de-eliseo",
+    "name": "Dotán de Eliseo",
+    "category": "Ciudad",
+    "currentRegion": "Tell Dothan, Cisjordania",
+    "firstAppearance": "Génesis 37:17",
+    "shortDescription": "Lugar donde Eliseo mostró que los ejércitos celestiales protegían a los siervos de Dios.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Eliseo",
+      "Sirios"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Reyes 6:13-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ribla",
+    "name": "Ribla",
+    "category": "Ciudad",
+    "currentRegion": "Riblah, Siria",
+    "firstAppearance": "Números 34:11",
+    "shortDescription": "Cuartel de los reyes de Babilonia durante la caída de Judá.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Nabucodonosor",
+      "Sedequías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Reyes 25:6-21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "carquemis",
+    "name": "Carquemis",
+    "category": "Ciudad",
+    "currentRegion": "Frontera entre Turquía y Siria",
+    "firstAppearance": "2 Crónicas 35:20",
+    "shortDescription": "Ciudad junto al Éufrates donde Babilonia derrotó a Egipto.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Nabucodonosor",
+      "Necao"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jeremías 46:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ninive",
+    "name": "Nínive",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de Mosul, Irak",
+    "firstAppearance": "Génesis 10:11",
+    "shortDescription": "Capital asiria a la que Jonás fue enviado para llamar al arrepentimiento.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonás",
+      "Habitantes de Nínive"
+    ],
+    "jesusRelation": "Jesús puso el arrepentimiento de los ninivitas como testimonio contra quienes rechazaban su palabra, y afirmó ser mayor que Jonás.",
+    "mainVerses": [
+      "Jonás 1:2",
+      "Jonás 3:1-10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tarsis",
+    "name": "Tarsis",
+    "category": "Región o puerto",
+    "currentRegion": "Identificación discutida; posiblemente occidente mediterráneo",
+    "firstAppearance": "Génesis 10:4",
+    "shortDescription": "Destino al que Jonás intentó huir para evitar la misión de Dios.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonás"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jonás 1:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "babilonia",
+    "name": "Babilonia",
+    "category": "Ciudad e imperio",
+    "currentRegion": "Babil, Irak",
+    "firstAppearance": "2 Reyes 17:24",
+    "shortDescription": "Capital del imperio que llevó a Judá al exilio y símbolo bíblico del poder humano rebelde.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Nabucodonosor",
+      "Daniel",
+      "Ezequiel"
+    ],
+    "jesusRelation": "En el Nuevo Testamento Babilonia se convierte en imagen del sistema mundano opuesto a Cristo, que finalmente será juzgado.",
+    "mainVerses": [
+      "2 Reyes 25:8-11",
+      "Daniel 1:1-6",
+      "Apocalipsis 18:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "susa",
+    "name": "Susa",
+    "category": "Ciudad",
+    "currentRegion": "Shush, Irán",
+    "firstAppearance": "Nehemías 1:1",
+    "shortDescription": "Capital persa donde vivieron Nehemías y Ester.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Ester",
+      "Mardoqueo",
+      "Nehemías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Ester 1:2",
+      "Nehemías 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ecbatana",
+    "name": "Ecbatana",
+    "category": "Ciudad",
+    "currentRegion": "Hamadan, Irán",
+    "firstAppearance": "Esdras 6:2",
+    "shortDescription": "Ciudad persa donde se halló el decreto de Ciro sobre la reconstrucción del templo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Ciro",
+      "Darío"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Esdras 6:2-5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "rio-quebar",
+    "name": "Río Quebar",
+    "category": "Canal",
+    "currentRegion": "Babilonia, actual Irak",
+    "firstAppearance": "Ezequiel 1:1",
+    "shortDescription": "Canal junto al cual Ezequiel recibió visiones de la gloria de Dios.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Ezequiel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Ezequiel 1:1-3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "valle-de-dura",
+    "name": "Valle de Dura",
+    "category": "Llanura",
+    "currentRegion": "Babilonia, Irak",
+    "firstAppearance": "Daniel 3:1",
+    "shortDescription": "Llanura donde Nabucodonosor levantó la estatua de oro.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sadrac",
+      "Mesac",
+      "Abed-nego"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Daniel 3:1-30"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "ulai",
+    "name": "Ulai",
+    "category": "Río o canal",
+    "currentRegion": "Susa, Irán",
+    "firstAppearance": "Daniel 8:2",
+    "shortDescription": "Lugar de una visión profética de Daniel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Daniel",
+      "Gabriel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Daniel 8:2-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "patmos",
+    "name": "Patmos",
+    "category": "Isla",
+    "currentRegion": "Grecia, mar Egeo",
+    "firstAppearance": "Apocalipsis 1:9",
+    "shortDescription": "Isla donde Juan recibió la revelación de Jesucristo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Juan",
+      "Jesucristo"
+    ],
+    "jesusRelation": "Juan recibió allí la revelación gloriosa de Jesucristo resucitado y los mensajes para las iglesias.",
+    "mainVerses": [
+      "Apocalipsis 1:9-20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "efeso",
+    "name": "Éfeso",
+    "category": "Ciudad",
+    "currentRegion": "Selçuk, Turquía",
+    "firstAppearance": "Hechos 18:19",
+    "shortDescription": "Importante centro del ministerio de Pablo y una de las siete iglesias del Apocalipsis.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Priscila",
+      "Aquila",
+      "Timoteo",
+      "Juan"
+    ],
+    "jesusRelation": "Cristo dirigió a la iglesia de Éfeso un llamado a recuperar su primer amor y permanecer fiel.",
+    "mainVerses": [
+      "Hechos 19:1-20",
+      "Efesios 1:1",
+      "Apocalipsis 2:1-7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "esmirna",
+    "name": "Esmirna",
+    "category": "Ciudad",
+    "currentRegion": "İzmir, Turquía",
+    "firstAppearance": "Apocalipsis 1:11",
+    "shortDescription": "Una de las siete iglesias de Asia Menor.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Cristianos de Esmirna"
+    ],
+    "jesusRelation": "Cristo animó a esta iglesia perseguida a ser fiel hasta la muerte y prometió la corona de la vida.",
+    "mainVerses": [
+      "Apocalipsis 2:8-11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "pergamo",
+    "name": "Pérgamo",
+    "category": "Ciudad",
+    "currentRegion": "Bergama, Turquía",
+    "firstAppearance": "Apocalipsis 1:11",
+    "shortDescription": "Ciudad de una de las siete iglesias del Apocalipsis.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Cristianos de Pérgamo",
+      "Antipas"
+    ],
+    "jesusRelation": "Cristo elogió su fidelidad en medio de la oposición, pero la llamó al arrepentimiento por tolerar falsas enseñanzas.",
+    "mainVerses": [
+      "Apocalipsis 2:12-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tiatira",
+    "name": "Tiatira",
+    "category": "Ciudad",
+    "currentRegion": "Akhisar, Turquía",
+    "firstAppearance": "Hechos 16:14",
+    "shortDescription": "Ciudad de origen de Lidia y sede de una de las siete iglesias.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Lidia",
+      "Cristianos de Tiatira"
+    ],
+    "jesusRelation": "Cristo reconoció sus obras, amor y servicio, pero la corrigió por tolerar corrupción espiritual.",
+    "mainVerses": [
+      "Hechos 16:14",
+      "Apocalipsis 2:18-29"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "sardis",
+    "name": "Sardis",
+    "category": "Ciudad",
+    "currentRegion": "Sart, Turquía",
+    "firstAppearance": "Apocalipsis 1:11",
+    "shortDescription": "Ciudad de una de las siete iglesias de Asia.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Cristianos de Sardis"
+    ],
+    "jesusRelation": "Cristo advirtió a una iglesia con fama de viva pero espiritualmente muerta, llamándola a velar.",
+    "mainVerses": [
+      "Apocalipsis 3:1-6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "filadelfia",
+    "name": "Filadelfia",
+    "category": "Ciudad",
+    "currentRegion": "Alaşehir, Turquía",
+    "firstAppearance": "Apocalipsis 1:11",
+    "shortDescription": "Ciudad de una iglesia pequeña pero fiel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Cristianos de Filadelfia"
+    ],
+    "jesusRelation": "Cristo puso delante de ella una puerta abierta y prometió guardar a quienes perseveraran.",
+    "mainVerses": [
+      "Apocalipsis 3:7-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "laodicea",
+    "name": "Laodicea",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de Denizli, Turquía",
+    "firstAppearance": "Colosenses 2:1",
+    "shortDescription": "Ciudad de una iglesia reprendida por su tibieza espiritual.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Cristianos de Laodicea"
+    ],
+    "jesusRelation": "Cristo llamó a esta iglesia tibia al arrepentimiento y ofreció comunión a quien abriera la puerta.",
+    "mainVerses": [
+      "Colosenses 4:16",
+      "Apocalipsis 3:14-22"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "colosas",
+    "name": "Colosas",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de Honaz, Turquía",
+    "firstAppearance": "Colosenses 1:2",
+    "shortDescription": "Ciudad de la iglesia destinataria de la carta a los Colosenses.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Epafras",
+      "Filemón"
+    ],
+    "jesusRelation": "La carta proclama la supremacía de Cristo, imagen del Dios invisible y cabeza de la Iglesia.",
+    "mainVerses": [
+      "Colosenses 1:1-8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "hierapolis",
+    "name": "Hierápolis",
+    "category": "Ciudad",
+    "currentRegion": "Pamukkale, Turquía",
+    "firstAppearance": "Colosenses 4:13",
+    "shortDescription": "Ciudad vecina de Laodicea y Colosas con una comunidad cristiana.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Epafras"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Colosenses 4:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "antioquia-de-siria",
+    "name": "Antioquía de Siria",
+    "category": "Ciudad",
+    "currentRegion": "Antakya, Turquía",
+    "firstAppearance": "Hechos 6:5",
+    "shortDescription": "Gran centro misionero donde los discípulos fueron llamados cristianos por primera vez.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Pedro"
+    ],
+    "jesusRelation": "Desde esta iglesia, el Espíritu Santo envió a Pablo y Bernabé a anunciar a Jesucristo entre las naciones.",
+    "mainVerses": [
+      "Hechos 11:19-26",
+      "Hechos 13:1-3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "antioquia-de-pisidia",
+    "name": "Antioquía de Pisidia",
+    "category": "Ciudad",
+    "currentRegion": "Yalvaç, Turquía",
+    "firstAppearance": "Hechos 13:14",
+    "shortDescription": "Ciudad donde Pablo predicó a Cristo en la sinagoga durante su primer viaje.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé"
+    ],
+    "jesusRelation": "Pablo anunció allí que por Jesús se proclama perdón de pecados y justificación.",
+    "mainVerses": [
+      "Hechos 13:14-52"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "iconio",
+    "name": "Iconio",
+    "category": "Ciudad",
+    "currentRegion": "Konya, Turquía",
+    "firstAppearance": "Hechos 13:51",
+    "shortDescription": "Ciudad evangelizada por Pablo y Bernabé.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 14:1-7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "listra",
+    "name": "Listra",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de Hatunsaray, Turquía",
+    "firstAppearance": "Hechos 14:6",
+    "shortDescription": "Ciudad donde Pablo sanó a un cojo, fue apedreado y conoció el entorno de Timoteo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Timoteo"
+    ],
+    "jesusRelation": "El evangelio de Cristo fue confirmado con una sanidad, aunque Pablo rechazó que lo adoraran como a un dios.",
+    "mainVerses": [
+      "Hechos 14:8-20",
+      "Hechos 16:1-3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "derbe",
+    "name": "Derbe",
+    "category": "Ciudad",
+    "currentRegion": "Región de Licaonia, Turquía",
+    "firstAppearance": "Hechos 14:6",
+    "shortDescription": "Ciudad visitada por Pablo en sus viajes misioneros.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Gayo"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 14:20-21",
+      "Hechos 20:4"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tarso",
+    "name": "Tarso",
+    "category": "Ciudad",
+    "currentRegion": "Tarsus, Turquía",
+    "firstAppearance": "Hechos 9:11",
+    "shortDescription": "Ciudad natal del apóstol Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo"
+    ],
+    "jesusRelation": "De Tarso era Pablo, escogido por Jesucristo para llevar su nombre ante gentiles, reyes e Israel.",
+    "mainVerses": [
+      "Hechos 9:11",
+      "Hechos 22:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "chipre",
+    "name": "Chipre",
+    "category": "Isla",
+    "currentRegion": "República de Chipre",
+    "firstAppearance": "Hechos 4:36",
+    "shortDescription": "Isla natal de Bernabé y primera gran etapa del viaje misionero de Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Bernabé",
+      "Pablo",
+      "Marcos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 13:4-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "salamina",
+    "name": "Salamina",
+    "category": "Ciudad",
+    "currentRegion": "Costa oriental de Chipre",
+    "firstAppearance": "Hechos 13:5",
+    "shortDescription": "Primera ciudad donde Pablo y Bernabé predicaron en Chipre.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Marcos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 13:5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "pafos",
+    "name": "Pafos",
+    "category": "Ciudad",
+    "currentRegion": "Pafos, Chipre",
+    "firstAppearance": "Hechos 13:6",
+    "shortDescription": "Ciudad donde el procónsul Sergio Paulo creyó al escuchar el evangelio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Sergio Paulo",
+      "Elimas"
+    ],
+    "jesusRelation": "El poder de Cristo sobre la oposición espiritual acompañó la predicación, y el procónsul creyó.",
+    "mainVerses": [
+      "Hechos 13:6-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "perge",
+    "name": "Perge",
+    "category": "Ciudad",
+    "currentRegion": "Provincia de Antalya, Turquía",
+    "firstAppearance": "Hechos 13:13",
+    "shortDescription": "Ciudad de Panfilia visitada por Pablo y Bernabé.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Marcos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 13:13",
+      "Hechos 14:25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "atalia",
+    "name": "Atalia",
+    "category": "Puerto",
+    "currentRegion": "Antalya, Turquía",
+    "firstAppearance": "Hechos 14:25",
+    "shortDescription": "Puerto desde el que Pablo y Bernabé regresaron a Antioquía.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 14:25-26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "troas",
+    "name": "Troas",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Noroeste de Turquía",
+    "firstAppearance": "Hechos 16:8",
+    "shortDescription": "Puerto donde Pablo recibió la visión del varón macedonio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas",
+      "Eutico"
+    ],
+    "jesusRelation": "Desde Troas el evangelio de Cristo avanzó hacia Macedonia; allí Pablo también restauró a Eutico.",
+    "mainVerses": [
+      "Hechos 16:8-10",
+      "Hechos 20:6-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "filipos",
+    "name": "Filipos",
+    "category": "Ciudad",
+    "currentRegion": "Krinides, Grecia",
+    "firstAppearance": "Hechos 16:12",
+    "shortDescription": "Primera gran ciudad europea evangelizada por Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas",
+      "Lidia",
+      "Carcelero de Filipos"
+    ],
+    "jesusRelation": "Cristo abrió el corazón de Lidia y salvó al carcelero y su casa mediante la predicación del evangelio.",
+    "mainVerses": [
+      "Hechos 16:12-40",
+      "Filipenses 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "anfipolis",
+    "name": "Anfípolis",
+    "category": "Ciudad",
+    "currentRegion": "Norte de Grecia",
+    "firstAppearance": "Hechos 17:1",
+    "shortDescription": "Ciudad atravesada por Pablo camino de Tesalónica.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 17:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "apolonia",
+    "name": "Apolonia",
+    "category": "Ciudad",
+    "currentRegion": "Norte de Grecia",
+    "firstAppearance": "Hechos 17:1",
+    "shortDescription": "Etapa del viaje de Pablo entre Filipos y Tesalónica.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 17:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "tesalonica",
+    "name": "Tesalónica",
+    "category": "Ciudad",
+    "currentRegion": "Tesalónica, Grecia",
+    "firstAppearance": "Hechos 17:1",
+    "shortDescription": "Ciudad donde nació una iglesia en medio de fuerte oposición.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas",
+      "Jasón"
+    ],
+    "jesusRelation": "Pablo anunció que Jesús es el Cristo; los creyentes se convirtieron para servir al Dios vivo y esperar a su Hijo.",
+    "mainVerses": [
+      "Hechos 17:1-9",
+      "1 Tesalonicenses 1:1-10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "berea",
+    "name": "Berea",
+    "category": "Ciudad",
+    "currentRegion": "Véria, Grecia",
+    "firstAppearance": "Hechos 17:10",
+    "shortDescription": "Ciudad cuyos habitantes examinaban cada día las Escrituras.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas"
+    ],
+    "jesusRelation": "Los bereanos recibieron el mensaje acerca de Cristo y comprobaron en las Escrituras si era verdadero.",
+    "mainVerses": [
+      "Hechos 17:10-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "atenas",
+    "name": "Atenas",
+    "category": "Ciudad",
+    "currentRegion": "Atenas, Grecia",
+    "firstAppearance": "Hechos 17:15",
+    "shortDescription": "Ciudad donde Pablo proclamó al Dios desconocido en el Areópago.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Dionisio",
+      "Dámaris"
+    ],
+    "jesusRelation": "Pablo anunció que Dios juzgará al mundo por Jesucristo, a quien resucitó de los muertos.",
+    "mainVerses": [
+      "Hechos 17:16-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "areopago",
+    "name": "Areópago",
+    "category": "Colina y consejo",
+    "currentRegion": "Atenas, Grecia",
+    "firstAppearance": "Hechos 17:19",
+    "shortDescription": "Lugar donde Pablo presentó el evangelio ante pensadores atenienses.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Dionisio",
+      "Dámaris"
+    ],
+    "jesusRelation": "Pablo proclamó al Creador, llamó al arrepentimiento y anunció la resurrección de Jesucristo.",
+    "mainVerses": [
+      "Hechos 17:19-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "corinto",
+    "name": "Corinto",
+    "category": "Ciudad",
+    "currentRegion": "Corinto, Grecia",
+    "firstAppearance": "Hechos 18:1",
+    "shortDescription": "Ciudad donde Pablo permaneció largo tiempo y fundó una iglesia.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Priscila",
+      "Aquila",
+      "Crispo"
+    ],
+    "jesusRelation": "Cristo aseguró a Pablo que tenía mucho pueblo en la ciudad; allí se proclamó a Jesucristo crucificado.",
+    "mainVerses": [
+      "Hechos 18:1-18",
+      "1 Corintios 1:1-2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "cencrea",
+    "name": "Cencrea",
+    "category": "Puerto",
+    "currentRegion": "Cerca de Corinto, Grecia",
+    "firstAppearance": "Hechos 18:18",
+    "shortDescription": "Puerto oriental de Corinto con una comunidad cristiana.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Febe"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 18:18",
+      "Romanos 16:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "mileto",
+    "name": "Mileto",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Costa occidental de Turquía",
+    "firstAppearance": "Hechos 20:15",
+    "shortDescription": "Lugar donde Pablo se despidió de los ancianos de Éfeso.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Ancianos de Éfeso"
+    ],
+    "jesusRelation": "Pablo exhortó a pastorear la Iglesia adquirida por la sangre de Cristo y a permanecer vigilantes.",
+    "mainVerses": [
+      "Hechos 20:17-38"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
+  },
+  {
+    "id": "cos",
+    "name": "Cos",
+    "category": "Isla",
+    "currentRegion": "Grecia",
+    "firstAppearance": "Hechos 21:1",
+    "shortDescription": "Escala marítima del viaje de Pablo hacia Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Hechos 21:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785524247453,
+    "updatedAt": 1785524247453
   }
 ]
