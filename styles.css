@@ -2542,3 +2542,55 @@ body.light-mode .encyclopedia-coming-line{background:linear-gradient(90deg,trans
 body.light-mode .encyclopedia-coming{color:#746b60}
 @media (min-width:680px){.encyclopedia-grid{grid-template-columns:repeat(3,1fr)}.encyclopedia-card{min-height:128px}.encyclopedia-card strong{font-size:21px}}
 
+
+
+/* V2.3.0 · Profecías mesiánicas */
+.prophecies-screen{position:fixed;inset:0;z-index:1700;overflow:auto;background:#0d0e12;color:#f7f2e8}
+.prophecies-screen.hidden{display:none!important}
+.biblical-prophecies-panel{min-height:100%;max-width:800px;margin:0 auto;padding:22px 18px calc(48px + env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 12%,rgba(178,133,42,.08),transparent 30%),linear-gradient(180deg,#101116,#0b0c10)}
+.biblical-prophecies-head,.biblical-prophecy-detail-head{display:flex;justify-content:flex-start;margin-bottom:28px}
+.biblical-prophecies-head .btn,.biblical-prophecy-detail-head .btn{border:1px solid #9d7a2f;border-radius:17px;padding:11px 17px;background:linear-gradient(180deg,#28292e,#17181c);color:#f8f1e4;font-family:Lora,serif;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.32)}
+.biblical-prophecies-title,.biblical-prophecy-detail h1{text-align:center;margin:0 0 5px;font-family:Lora,serif;font-size:clamp(29px,7vw,42px);color:#f3ead8;text-shadow:0 2px 10px rgba(0,0,0,.75)}
+.biblical-prophecies-divider{display:block;width:min(330px,72vw);height:auto;max-height:44px;object-fit:contain;margin:2px auto 12px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.65))}
+.biblical-prophecies-sub{max-width:620px;margin:0 auto 24px;text-align:center;line-height:1.55;color:#c9c2b7;font-family:Lora,serif;font-size:15px}
+.biblical-prophecies-search{max-width:650px;margin:0 auto 22px;display:flex;align-items:center;gap:10px;padding:12px 15px;border:1px solid #8f7132;border-radius:18px;background:#17181d;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.biblical-prophecies-search input{width:100%;border:0;outline:0;background:transparent;color:#f5efe4;font:600 15px Lora,serif}
+.biblical-prophecies-search input::placeholder{color:#958e83}
+.biblical-prophecies-list-head{max-width:650px;margin:0 auto 12px;display:flex;justify-content:space-between;gap:12px;color:#d9cba9;font-family:Lora,serif;font-size:13px}
+.biblical-prophecies-list{max-width:650px;margin:0 auto;display:grid;gap:12px}
+.biblical-prophecy-card{width:100%;text-align:left;border:1px solid #826629;border-radius:18px;padding:16px 18px;background:linear-gradient(180deg,#28292e,#18191e);color:#f6f0e6;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 7px 18px rgba(0,0,0,.28)}
+.biblical-prophecy-card:active{transform:scale(.99);filter:brightness(1.08)}
+.biblical-prophecy-card strong{display:block;margin:5px 0 8px;font:700 17px/1.35 Lora,serif}
+.biblical-prophecy-theme{display:inline-block;color:#d2b361;font:700 11px Lora,serif;letter-spacing:.07em;text-transform:uppercase}
+.biblical-prophecy-refs{display:block;color:#aaa297;font:italic 13px Lora,serif}
+.biblical-prophecies-empty{text-align:center;color:#aaa297;font:italic 14px Lora,serif;padding:24px 8px}
+.biblical-prophecy-detail{max-width:690px;margin:0 auto}
+.biblical-prophecy-detail-theme{text-align:center;margin:0 0 7px;color:#d2b361;font:700 12px Lora,serif;letter-spacing:.08em;text-transform:uppercase}
+.biblical-prophecy-detail h1{font-size:clamp(26px,6.5vw,38px);line-height:1.2}
+.biblical-prophecy-block,.biblical-prophecy-explanation{margin:18px 0;padding:20px 18px;border:1px solid #806527;border-radius:20px;background:linear-gradient(180deg,#24252b,#17181d);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 22px rgba(0,0,0,.28)}
+.biblical-prophecy-block h2,.biblical-prophecy-explanation h2{margin:0 0 7px;color:#d4b65e;font:700 13px Lora,serif;letter-spacing:.09em;text-align:center}
+.biblical-prophecy-block h3{margin:0 0 14px;color:#f4ead5;font:700 18px Lora,serif;text-align:center}
+.biblical-prophecy-block blockquote{margin:0;padding:0;border:0;color:#eee7dc;font:italic 16px/1.7 Lora,serif;white-space:pre-line}
+.biblical-prophecy-explanation p{margin:0;color:#e6dfd4;font:16px/1.72 Lora,serif}
+.prophecy-original{border-color:#a47e28}
+.prophecy-fulfilled{border-color:#8f7a3d}
+body.light-mode .prophecies-screen{background:#f5f0e5;color:#211d17}
+body.light-mode .biblical-prophecies-panel{background:radial-gradient(circle at 50% 12%,rgba(184,139,48,.13),transparent 32%),linear-gradient(180deg,#fbf8f1,#eee7da)}
+body.light-mode .biblical-prophecies-head .btn,body.light-mode .biblical-prophecy-detail-head .btn{background:linear-gradient(180deg,#fffdf8,#e9e2d6);color:#282118;border-color:#9d7a2f;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 5px 14px rgba(92,69,28,.16)}
+body.light-mode .biblical-prophecies-title,body.light-mode .biblical-prophecy-detail h1{color:#2b241b;text-shadow:0 1px 0 #fff,0 2px 8px rgba(115,82,25,.12)}
+body.light-mode .biblical-prophecies-divider{filter:drop-shadow(0 2px 3px rgba(111,77,18,.24))}
+body.light-mode .biblical-prophecies-sub{color:#5d554b}
+body.light-mode .biblical-prophecies-search{background:#fffdf9;border-color:#9d7a2f;box-shadow:inset 0 1px 0 #fff,0 5px 14px rgba(76,59,30,.12)}
+body.light-mode .biblical-prophecies-search input{color:#241f19}
+body.light-mode .biblical-prophecies-search input::placeholder{color:#82786d}
+body.light-mode .biblical-prophecies-list-head{color:#695b3b}
+body.light-mode .biblical-prophecy-card{background:linear-gradient(180deg,#fffdf9,#e9e2d7);color:#241f19;border-color:#9d7a2f;box-shadow:inset 0 1px 0 #fff,0 7px 18px rgba(76,59,30,.14)}
+body.light-mode .biblical-prophecy-theme{color:#7d5e1f}
+body.light-mode .biblical-prophecy-refs,body.light-mode .biblical-prophecies-empty{color:#6f675d}
+body.light-mode .biblical-prophecy-block,body.light-mode .biblical-prophecy-explanation{background:linear-gradient(180deg,#fffdf9,#ece5da);border-color:#9d7a2f;box-shadow:inset 0 1px 0 #fff,0 7px 18px rgba(76,59,30,.14)}
+body.light-mode .biblical-prophecy-block h2,body.light-mode .biblical-prophecy-explanation h2{color:#7d5e1f}
+body.light-mode .biblical-prophecy-block h3{color:#2a231a}
+body.light-mode .biblical-prophecy-block blockquote,body.light-mode .biblical-prophecy-explanation p{color:#352e25}
+@media (min-width:720px){.biblical-prophecies-list{grid-template-columns:1fr 1fr}.biblical-prophecy-card{min-height:150px}}
+
+@media (min-width:680px){.encyclopedia-grid{grid-template-columns:repeat(2,1fr)}}
