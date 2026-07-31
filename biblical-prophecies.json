@@ -128,5 +128,155 @@
     "fulfillment": "Viéndolo antes, habló de la resurrección de Cristo, que su alma no fue dejada en el Hades, ni su carne vio corrupción.",
     "explanation": "Pedro explicó en Pentecostés que David hablaba proféticamente de la resurrección de Cristo. Jesús murió verdaderamente, pero la muerte no pudo retenerlo ni su cuerpo quedó entregado a la corrupción.",
     "theme": "Resurrección"
+  },
+  {
+    "id": "abraham",
+    "title": "El Mesías sería descendiente de Abraham",
+    "prophecyRef": "Génesis 22:18",
+    "prophecy": "En tu simiente serán benditas todas las naciones de la tierra.",
+    "fulfillmentRef": "Gálatas 3:16",
+    "fulfillment": "A Abraham fueron hechas las promesas... a tu simiente, la cual es Cristo.",
+    "explanation": "La promesa hecha a Abraham encuentra su cumplimiento definitivo en Cristo.",
+    "theme": "Linaje"
+  },
+  {
+    "id": "isaac",
+    "title": "El Mesías sería descendiente de Isaac",
+    "prophecyRef": "Génesis 21:12",
+    "prophecy": "En Isaac te será llamada descendencia.",
+    "fulfillmentRef": "Romanos 9:7",
+    "fulfillment": "En Isaac te será llamada descendencia.",
+    "explanation": "Jesús pertenece a la línea prometida de Isaac.",
+    "theme": "Linaje"
+  },
+  {
+    "id": "jacob",
+    "title": "El Mesías sería descendiente de Jacob",
+    "prophecyRef": "Números 24:17",
+    "prophecy": "Saldrá Estrella de Jacob.",
+    "fulfillmentRef": "Mateo 1:2",
+    "fulfillment": "Abraham engendró a Isaac... Jacob...",
+    "explanation": "Cristo procede de la descendencia prometida.",
+    "theme": "Linaje"
+  },
+  {
+    "id": "david",
+    "title": "El Mesías heredaría el trono de David",
+    "prophecyRef": "2 Samuel 7:12-13",
+    "prophecy": "Afirmaré para siempre el trono de su reino.",
+    "fulfillmentRef": "Lucas 1:32-33",
+    "fulfillment": "El Señor Dios le dará el trono de David su padre.",
+    "explanation": "Jesús es el heredero prometido.",
+    "theme": "Reino"
+  },
+  {
+    "id": "precursor",
+    "title": "El Mesías tendría un precursor",
+    "prophecyRef": "Malaquías 3:1",
+    "prophecy": "He aquí, yo envío mi mensajero.",
+    "fulfillmentRef": "Mateo 11:10",
+    "fulfillment": "Este es de quien está escrito: He aquí, yo envío mi mensajero.",
+    "explanation": "Juan el Bautista preparó el camino.",
+    "theme": "Ministerio"
+  },
+  {
+    "id": "galilea",
+    "title": "El Mesías ministraría en Galilea",
+    "prophecyRef": "Isaías 9:1-2",
+    "prophecy": "El pueblo que andaba en tinieblas vio gran luz.",
+    "fulfillmentRef": "Mateo 4:13-16",
+    "fulfillment": "Se cumplió lo dicho por el profeta Isaías.",
+    "explanation": "Jesús comenzó su ministerio allí.",
+    "theme": "Ministerio"
+  },
+  {
+    "id": "gentiles",
+    "title": "Sería luz para los gentiles",
+    "prophecyRef": "Isaías 49:6",
+    "prophecy": "Te di por luz de las naciones.",
+    "fulfillmentRef": "Lucas 2:32",
+    "fulfillment": "Luz para revelación a los gentiles.",
+    "explanation": "Cristo trae salvación a todas las naciones.",
+    "theme": "Ministerio"
+  },
+  {
+    "id": "parabolas",
+    "title": "Hablaría por parábolas",
+    "prophecyRef": "Salmo 78:2",
+    "prophecy": "Abriré mi boca en parábolas.",
+    "fulfillmentRef": "Mateo 13:34-35",
+    "fulfillment": "Todo esto habló Jesús por parábolas.",
+    "explanation": "Jesús enseñó conforme a la profecía.",
+    "theme": "Ministerio"
+  },
+  {
+    "id": "milagros",
+    "title": "Haría milagros",
+    "prophecyRef": "Isaías 35:5-6",
+    "prophecy": "Los ojos de los ciegos serán abiertos...",
+    "fulfillmentRef": "Mateo 11:4-5",
+    "fulfillment": "Los ciegos ven y los cojos andan.",
+    "explanation": "Sus obras confirmaron su identidad.",
+    "theme": "Ministerio"
+  },
+  {
+    "id": "rechazado",
+    "title": "Sería rechazado por los suyos",
+    "prophecyRef": "Isaías 53:3",
+    "prophecy": "Despreciado y desechado.",
+    "fulfillmentRef": "Juan 1:11",
+    "fulfillment": "A lo suyo vino, y los suyos no le recibieron.",
+    "explanation": "El rechazo también fue anunciado.",
+    "theme": "Pasión"
+  },
+  {
+    "id": "transgresores",
+    "title": "Sería contado con los pecadores",
+    "prophecyRef": "Isaías 53:12",
+    "prophecy": "Fue contado con los pecadores.",
+    "fulfillmentRef": "Marcos 15:27-28",
+    "fulfillment": "Crucificaron con él a dos ladrones.",
+    "explanation": "Cumplido en la crucifixión.",
+    "theme": "Pasión"
+  },
+  {
+    "id": "vinagre",
+    "title": "Le darían vinagre",
+    "prophecyRef": "Salmo 69:21",
+    "prophecy": "En mi sed me dieron a beber vinagre.",
+    "fulfillmentRef": "Juan 19:28-30",
+    "fulfillment": "Le acercaron una esponja empapada en vinagre.",
+    "explanation": "Detalle cumplido en la cruz.",
+    "theme": "Pasión"
+  },
+  {
+    "id": "rico",
+    "title": "Sería sepultado con un rico",
+    "prophecyRef": "Isaías 53:9",
+    "prophecy": "Con los ricos fue en su muerte.",
+    "fulfillmentRef": "Mateo 27:57-60",
+    "fulfillment": "José de Arimatea puso el cuerpo en su sepulcro.",
+    "explanation": "Cumplimiento literal.",
+    "theme": "Sepultura"
+  },
+  {
+    "id": "diestra",
+    "title": "Se sentaría a la diestra de Dios",
+    "prophecyRef": "Salmo 110:1",
+    "prophecy": "Siéntate a mi diestra.",
+    "fulfillmentRef": "Hechos 2:34-36",
+    "fulfillment": "Dios le ha hecho Señor y Cristo.",
+    "explanation": "Cristo reina a la diestra del Padre.",
+    "theme": "Exaltación"
+  },
+  {
+    "id": "egipto",
+    "title": "Sería llamado de Egipto",
+    "prophecyRef": "Oseas 11:1",
+    "prophecy": "De Egipto llamé a mi hijo.",
+    "fulfillmentRef": "Mateo 2:14-15",
+    "fulfillment": "Para que se cumpliese... De Egipto llamé a mi Hijo.",
+    "explanation": "Cumplido tras el regreso de Egipto.",
+    "theme": "Infancia"
   }
 ]
