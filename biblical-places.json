@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "eden",
+    "nombre": "Edén",
+    "categoria": "Jardín",
+    "region": "Ubicación desconocida (tradicionalmente Mesopotamia)",
+    "primera_aparicion": "Génesis 2",
+    "descripcion": "Jardín creado por Dios donde vivieron Adán y Eva.",
+    "importancia": "Lugar donde comenzó la historia de la humanidad y ocurrió la caída.",
+    "historia": "Dios plantó el jardín y colocó allí al ser humano para cultivarlo y guardarlo.",
+    "personajes": "Adán, Eva, la serpiente",
+    "relacionConJesus": "Jesús es presentado como quien restaura lo que se perdió por el pecado.",
+    "versiculos": "Génesis 2–3",
+    "curiosidades": "De Edén salían cuatro ríos según el relato bíblico.",
+    "coordenadas": {
+      "lat": 0,
+      "lng": 0
+    },
+    "aliases": [
+      "Jardín del Edén"
+    ]
+  }
+]
