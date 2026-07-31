@@ -12,7 +12,7 @@ let biblicalCharactersTrashV16433=[];
 async function loadBiblicalCharactersV2252(){
   if(biblicalCharactersLoadedV2252)return BIBLICAL_CHARACTERS_V2242;
   try{
-    const response=await fetch("biblical-characters-v2261.json?v=2.1.0",{cache:"no-store"});
+    const response=await fetch("biblical-characters-v2261.json?v=2.1.5",{cache:"no-store"});
     if(!response.ok)throw new Error("HTTP "+response.status);
     const payload=await response.json();
     if(!payload||!Array.isArray(payload.categories)||!Array.isArray(payload.characters))throw new Error("Formato JSON no válido");
@@ -101,14 +101,17 @@ function renderBiblicalCharactersV2242(){
   const list=document.getElementById('biblicalCharactersListV2242'); if(!list)return;
   list.innerHTML=result.length?result.map(function(p){return '<button class="biblical-character-row-v2242" type="button" onclick="openBiblicalCharacterDetailV2242('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')"><span><strong>'+escapeBiblicalHtmlV2242(p.nombre)+'</strong><small>'+escapeBiblicalHtmlV2242(p.quienFue)+'</small></span><span class="arrow">›</span></button>'}).join(''):'<div class="biblical-empty-v2242">No se han encontrado personajes.</div>';
 }
-function openBiblicalCharacterDetailV2242(id){
+function openBiblicalCharacterDetailV2242(id,openedFromReader){
   const p=BIBLICAL_CHARACTERS_V2242.find(function(x){return x.id===id}); if(!p)return;
   const home=document.getElementById('biblicalCharactersHomeV2242'); if(home)home.classList.add('hidden');
   const d=document.getElementById('biblicalCharacterDetailV2242'); if(!d)return;
   const tags=[p.categoria]; if(p.tipoCristo)tags.push('✝ Figura relacionada con Cristo');
-  d.innerHTML='<div class="biblical-detail-toolbar-v16433"><button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button><div class="detail-crud-actions"><button type="button" class="crud-edit" onclick="editBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Editar</button><button type="button" class="crud-delete" onclick="deleteBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Eliminar</button></div></div>'+
+  const returnToChapterButton=openedFromReader===true
+    ? '<button class="btn soft biblical-return-chapter" type="button" onclick="window.returnBiblicalEntityToChapter&&window.returnBiblicalEntityToChapter()">Volver al capítulo</button>'
+    : '';
+  d.innerHTML='<div class="biblical-detail-toolbar-v16433"><div class="biblical-detail-nav-v288"><button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button>'+returnToChapterButton+'</div><div class="detail-crud-actions"><button type="button" class="crud-edit" onclick="editBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Editar</button><button type="button" class="crud-delete" onclick="deleteBiblicalCharacterV16433('+JSON.stringify(p.id).replace(/"/g,'&quot;')+')">Eliminar</button></div></div>'+
   '<div class="biblical-detail-top-v2242"><h1>'+escapeBiblicalHtmlV2242(p.nombre)+'</h1>'+(p.contextoRapido?'<div class="biblical-quick-context-v2249">'+escapeBiblicalHtmlV2242(p.contextoRapido)+'</div>':'')+'<p>'+escapeBiblicalHtmlV2242(p.frase)+'</p><div class="biblical-detail-tags-v2242">'+tags.map(function(t){return '<span>'+escapeBiblicalHtmlV2242(t)+'</span>'}).join('')+'</div></div>'+
-  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+biblicalListCardV2250('Cristo en esta historia',p.cristoClaves,'✝')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalListCardV2250('Para seguir leyendo',p.lecturas,'📖')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalMapCardV2247(p.mapa)+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
+  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+biblicalListCardV2250('Cristo en esta historia',p.cristoClaves,'✝')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalListCardV2250('Para seguir leyendo',p.lecturas,'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalMapCardV2247(p.mapa)+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
   d.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});
 }
 function biblicalDetailCardV2242(title,body){return '<section class="biblical-detail-card-v2242"><h2>'+escapeBiblicalHtmlV2242(title)+'</h2><p>'+escapeBiblicalHtmlV2242(body)+'</p></section>'}
