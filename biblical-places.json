@@ -5454,5 +5454,2665 @@
     "image": "",
     "createdAt": 1785524247453,
     "updatedAt": 1785524247453
+  },
+  {
+    "id": "rodas",
+    "name": "Rodas",
+    "category": "Isla",
+    "currentRegion": "Grecia",
+    "firstAppearance": "Hechos 21:1",
+    "shortDescription": "Isla en la ruta marítima de Pablo hacia Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Pablo pasó por Rodas mientras se dirigía a Jerusalén para dar testimonio de Cristo.",
+    "mainVerses": [
+      "Hechos 21:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "patara",
+    "name": "Pátara",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Costa suroccidental de Turquía",
+    "firstAppearance": "Hechos 21:1",
+    "shortDescription": "Puerto donde Pablo cambió de embarcación rumbo a Fenicia.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Formó parte del viaje de Pablo para continuar anunciando y sirviendo a Cristo.",
+    "mainVerses": [
+      "Hechos 21:1-2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "fenicia",
+    "name": "Fenicia",
+    "category": "Región",
+    "currentRegion": "Líbano y costa de Siria",
+    "firstAppearance": "Hechos 11:19",
+    "shortDescription": "Región costera alcanzada tempranamente por los creyentes dispersados.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Discípulos perseguidos",
+      "Pablo"
+    ],
+    "jesusRelation": "El evangelio de Jesucristo se extendió por Fenicia desde los primeros años de la Iglesia.",
+    "mainVerses": [
+      "Hechos 11:19",
+      "Hechos 15:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "ptolemaida",
+    "name": "Ptolemaida",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Acre, Israel",
+    "firstAppearance": "Hechos 21:7",
+    "shortDescription": "Puerto donde Pablo saludó a los hermanos y permaneció un día.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes locales"
+    ],
+    "jesusRelation": "La presencia de hermanos en Ptolemaida muestra la expansión de la Iglesia de Cristo.",
+    "mainVerses": [
+      "Hechos 21:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "myra",
+    "name": "Myra",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Demre, Turquía",
+    "firstAppearance": "Hechos 27:5",
+    "shortDescription": "Puerto de Licia donde Pablo fue trasladado a una nave alejandrina rumbo a Roma.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Julio el centurión"
+    ],
+    "jesusRelation": "Pablo pasó por Myra camino a Roma, donde daría testimonio de Jesucristo.",
+    "mainVerses": [
+      "Hechos 27:5-6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "cnido",
+    "name": "Cnido",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Suroeste de Turquía",
+    "firstAppearance": "Hechos 27:7",
+    "shortDescription": "Punto costero alcanzado con dificultad durante el viaje de Pablo a Roma.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Fue una etapa del viaje en el que Pablo llevaba el testimonio de Cristo hasta Roma.",
+    "mainVerses": [
+      "Hechos 27:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "creta",
+    "name": "Creta",
+    "category": "Isla",
+    "currentRegion": "Grecia",
+    "firstAppearance": "Hechos 27:7",
+    "shortDescription": "Gran isla mediterránea vinculada al viaje de Pablo y al ministerio de Tito.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Tito"
+    ],
+    "jesusRelation": "En Creta se organizaron iglesias y se establecieron ancianos para cuidar a los creyentes en Cristo.",
+    "mainVerses": [
+      "Hechos 27:7-13",
+      "Tito 1:5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "salmon",
+    "name": "Salmón",
+    "category": "Cabo",
+    "currentRegion": "Este de Creta, Grecia",
+    "firstAppearance": "Hechos 27:7",
+    "shortDescription": "Promontorio oriental de Creta bordeado por la nave que llevaba a Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Lugar atravesado durante el viaje de Pablo para dar testimonio de Cristo en Roma.",
+    "mainVerses": [
+      "Hechos 27:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "buenos-puertos",
+    "name": "Buenos Puertos",
+    "category": "Puerto",
+    "currentRegion": "Sur de Creta, Grecia",
+    "firstAppearance": "Hechos 27:8",
+    "shortDescription": "Puerto cretense donde la nave de Pablo se detuvo antes de continuar hacia la tormenta.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas",
+      "Tripulación"
+    ],
+    "jesusRelation": "Pablo advirtió del peligro antes de partir, mostrando prudencia y confianza en Dios.",
+    "mainVerses": [
+      "Hechos 27:8-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "lasea",
+    "name": "Lasea",
+    "category": "Ciudad",
+    "currentRegion": "Sur de Creta, Grecia",
+    "firstAppearance": "Hechos 27:8",
+    "shortDescription": "Ciudad cercana al puerto de Buenos Puertos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Se menciona en el viaje de Pablo hacia Roma para anunciar a Cristo.",
+    "mainVerses": [
+      "Hechos 27:8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "cauda",
+    "name": "Cauda",
+    "category": "Isla",
+    "currentRegion": "Sur de Creta, Grecia",
+    "firstAppearance": "Hechos 27:16",
+    "shortDescription": "Pequeña isla bajo cuya protección la tripulación aseguró el esquife durante la tormenta.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas",
+      "Tripulación"
+    ],
+    "jesusRelation": "En aquel viaje Dios preservó a Pablo para que cumpliera su misión de testificar de Cristo en Roma.",
+    "mainVerses": [
+      "Hechos 27:16-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "malta",
+    "name": "Malta",
+    "category": "Isla",
+    "currentRegion": "Malta",
+    "firstAppearance": "Hechos 28:1",
+    "shortDescription": "Isla donde naufragó Pablo y fue recibido por sus habitantes.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Publio"
+    ],
+    "jesusRelation": "Pablo sanó enfermos en Malta y dio testimonio del poder y la misericordia de Dios.",
+    "mainVerses": [
+      "Hechos 28:1-10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "siracusa",
+    "name": "Siracusa",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Sicilia, Italia",
+    "firstAppearance": "Hechos 28:12",
+    "shortDescription": "Puerto siciliano donde Pablo permaneció tres días camino a Roma.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Etapa final del viaje de Pablo para proclamar a Cristo en Roma.",
+    "mainVerses": [
+      "Hechos 28:12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "regio",
+    "name": "Regio",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Reggio Calabria, Italia",
+    "firstAppearance": "Hechos 28:13",
+    "shortDescription": "Puerto del sur de Italia por el que pasó Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Lucas"
+    ],
+    "jesusRelation": "Fue una etapa del avance del evangelio hacia la capital imperial.",
+    "mainVerses": [
+      "Hechos 28:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "puteoli",
+    "name": "Puteoli",
+    "category": "Ciudad portuaria",
+    "currentRegion": "Pozzuoli, Italia",
+    "firstAppearance": "Hechos 28:13",
+    "shortDescription": "Puerto italiano donde Pablo encontró hermanos y permaneció siete días.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes locales"
+    ],
+    "jesusRelation": "La presencia de discípulos muestra que la fe en Cristo ya había llegado a Italia.",
+    "mainVerses": [
+      "Hechos 28:13-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "roma",
+    "name": "Roma",
+    "category": "Ciudad",
+    "currentRegion": "Italia",
+    "firstAppearance": "Hechos 2:10",
+    "shortDescription": "Capital imperial donde Pablo permaneció bajo custodia anunciando el reino de Dios.",
+    "biblicalImportance": "Centro decisivo para la expansión del evangelio en el mundo mediterráneo.",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Cristianos de Roma"
+    ],
+    "jesusRelation": "En Roma Pablo predicó libremente acerca de Jesucristo, cumpliendo su llamado de llevar el evangelio a las naciones.",
+    "mainVerses": [
+      "Hechos 28:14-31",
+      "Romanos 1:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": 41.9028,
+      "longitude": 12.4964
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "foro-de-apio",
+    "name": "Foro de Apio",
+    "category": "Estación de camino",
+    "currentRegion": "Italia",
+    "firstAppearance": "Hechos 28:15",
+    "shortDescription": "Lugar de la Vía Apia donde hermanos salieron a recibir a Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes de Roma"
+    ],
+    "jesusRelation": "El recibimiento fortaleció a Pablo antes de llegar a Roma para testificar de Cristo.",
+    "mainVerses": [
+      "Hechos 28:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "tres-tabernas",
+    "name": "Tres Tabernas",
+    "category": "Estación de camino",
+    "currentRegion": "Italia",
+    "firstAppearance": "Hechos 28:15",
+    "shortDescription": "Parada de la Vía Apia donde otros creyentes se encontraron con Pablo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes de Roma"
+    ],
+    "jesusRelation": "La comunión de los hermanos animó a Pablo en su misión por Cristo.",
+    "mainVerses": [
+      "Hechos 28:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "galacia",
+    "name": "Galacia",
+    "category": "Región",
+    "currentRegion": "Turquía central",
+    "firstAppearance": "Hechos 16:6",
+    "shortDescription": "Región visitada por Pablo y destinataria de la carta a los Gálatas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes gálatas"
+    ],
+    "jesusRelation": "Pablo anunció allí la justificación por la fe en Jesucristo y defendió la libertad del evangelio.",
+    "mainVerses": [
+      "Hechos 16:6",
+      "Gálatas 1:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "frigia",
+    "name": "Frigia",
+    "category": "Región",
+    "currentRegion": "Turquía occidental y central",
+    "firstAppearance": "Hechos 2:10",
+    "shortDescription": "Región atravesada por Pablo durante sus viajes misioneros.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes frigios"
+    ],
+    "jesusRelation": "El evangelio de Cristo fue confirmado entre los discípulos de Frigia.",
+    "mainVerses": [
+      "Hechos 2:10",
+      "Hechos 16:6",
+      "Hechos 18:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "misia",
+    "name": "Misia",
+    "category": "Región",
+    "currentRegion": "Noroeste de Turquía",
+    "firstAppearance": "Hechos 16:7",
+    "shortDescription": "Región por la que Pablo pasó antes de recibir la visión del varón macedonio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas",
+      "Timoteo"
+    ],
+    "jesusRelation": "Desde Misia, Dios dirigió a Pablo hacia Macedonia para extender el evangelio de Cristo en Europa.",
+    "mainVerses": [
+      "Hechos 16:7-8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "bitinia",
+    "name": "Bitinia",
+    "category": "Región",
+    "currentRegion": "Norte de Turquía",
+    "firstAppearance": "Hechos 16:7",
+    "shortDescription": "Región a la que Pablo intentó entrar, pero el Espíritu no se lo permitió.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas",
+      "Timoteo"
+    ],
+    "jesusRelation": "La dirección del Espíritu condujo la misión de Cristo según el propósito de Dios.",
+    "mainVerses": [
+      "Hechos 16:7",
+      "1 Pedro 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "macedonia",
+    "name": "Macedonia",
+    "category": "Región",
+    "currentRegion": "Norte de Grecia y Macedonia del Norte",
+    "firstAppearance": "Hechos 16:9",
+    "shortDescription": "Región europea a la que Pablo fue llamado mediante una visión.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Silas",
+      "Lucas",
+      "Timoteo"
+    ],
+    "jesusRelation": "La llegada a Macedonia abrió una nueva etapa en la expansión del evangelio de Jesucristo.",
+    "mainVerses": [
+      "Hechos 16:9-12",
+      "2 Corintios 8:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "acaya",
+    "name": "Acaya",
+    "category": "Provincia",
+    "currentRegion": "Sur de Grecia",
+    "firstAppearance": "Hechos 18:12",
+    "shortDescription": "Provincia romana donde estaban Atenas y Corinto.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Galión",
+      "Apolos"
+    ],
+    "jesusRelation": "En Acaya surgieron comunidades cristianas importantes y se proclamó a Cristo entre judíos y gentiles.",
+    "mainVerses": [
+      "Hechos 18:12",
+      "2 Corintios 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "cilicia",
+    "name": "Cilicia",
+    "category": "Región",
+    "currentRegion": "Sur de Turquía",
+    "firstAppearance": "Hechos 6:9",
+    "shortDescription": "Región natal de Pablo y zona fortalecida por su ministerio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Creyentes de Cilicia"
+    ],
+    "jesusRelation": "Pablo confirmó allí a las iglesias que confesaban a Jesucristo.",
+    "mainVerses": [
+      "Hechos 6:9",
+      "Hechos 15:41"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "panfilia",
+    "name": "Panfilia",
+    "category": "Región",
+    "currentRegion": "Sur de Turquía",
+    "firstAppearance": "Hechos 2:10",
+    "shortDescription": "Región visitada durante el primer viaje misionero.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Juan Marcos"
+    ],
+    "jesusRelation": "El evangelio de Cristo llegó a esta región durante la misión apostólica.",
+    "mainVerses": [
+      "Hechos 2:10",
+      "Hechos 13:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "licaonia",
+    "name": "Licaonia",
+    "category": "Región",
+    "currentRegion": "Turquía central",
+    "firstAppearance": "Hechos 14:6",
+    "shortDescription": "Región donde estaban Listra y Derbe.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Bernabé",
+      "Timoteo"
+    ],
+    "jesusRelation": "Pablo y Bernabé anunciaron allí al Dios vivo y formaron discípulos de Cristo.",
+    "mainVerses": [
+      "Hechos 14:6-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "asia-romana",
+    "name": "Asia romana",
+    "category": "Provincia",
+    "currentRegion": "Oeste de Turquía",
+    "firstAppearance": "Hechos 2:9",
+    "shortDescription": "Provincia romana donde se hallaban Éfeso y las siete iglesias de Apocalipsis.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Pablo",
+      "Juan",
+      "Iglesias de Asia"
+    ],
+    "jesusRelation": "La palabra del Señor se difundió ampliamente por Asia y Cristo dirigió mensajes a sus iglesias.",
+    "mainVerses": [
+      "Hechos 19:10",
+      "Apocalipsis 1:4"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "capadocia",
+    "name": "Capadocia",
+    "category": "Región",
+    "currentRegion": "Turquía central",
+    "firstAppearance": "Hechos 2:9",
+    "shortDescription": "Región representada en Jerusalén durante Pentecostés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Peregrinos capadocios",
+      "Cristianos dispersos"
+    ],
+    "jesusRelation": "Personas de Capadocia oyeron las maravillas de Dios en Pentecostés y después hubo creyentes en Cristo allí.",
+    "mainVerses": [
+      "Hechos 2:9",
+      "1 Pedro 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "ponto",
+    "name": "Ponto",
+    "category": "Región",
+    "currentRegion": "Costa norte de Turquía",
+    "firstAppearance": "Hechos 2:9",
+    "shortDescription": "Región representada en Pentecostés y mencionada entre los destinatarios de Pedro.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Peregrinos del Ponto",
+      "Aquila"
+    ],
+    "jesusRelation": "El evangelio alcanzó a creyentes del Ponto desde los primeros tiempos de la Iglesia.",
+    "mainVerses": [
+      "Hechos 2:9",
+      "Hechos 18:2",
+      "1 Pedro 1:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "cirene",
+    "name": "Cirene",
+    "category": "Ciudad",
+    "currentRegion": "Libia",
+    "firstAppearance": "Mateo 27:32",
+    "shortDescription": "Ciudad norteafricana de donde procedía Simón, quien llevó la cruz de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Simón de Cirene",
+      "Lucio de Cirene"
+    ],
+    "jesusRelation": "Simón de Cirene fue obligado a llevar la cruz de Jesús camino al Gólgota.",
+    "mainVerses": [
+      "Mateo 27:32",
+      "Hechos 13:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "libia",
+    "name": "Libia",
+    "category": "Región",
+    "currentRegion": "Libia",
+    "firstAppearance": "Hechos 2:10",
+    "shortDescription": "Región norteafricana representada en Jerusalén durante Pentecostés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Peregrinos libios"
+    ],
+    "jesusRelation": "Habitantes de la región oyeron el anuncio de las maravillas de Dios en Pentecostés.",
+    "mainVerses": [
+      "Hechos 2:10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "alejandria",
+    "name": "Alejandría",
+    "category": "Ciudad",
+    "currentRegion": "Egipto",
+    "firstAppearance": "Hechos 6:9",
+    "shortDescription": "Importante ciudad egipcia de donde procedía Apolos y varias naves citadas en Hechos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Apolos",
+      "Pablo"
+    ],
+    "jesusRelation": "Apolos, natural de Alejandría, enseñó con fervor acerca de Jesús y fue instruido con mayor precisión.",
+    "mainVerses": [
+      "Hechos 6:9",
+      "Hechos 18:24",
+      "Hechos 27:6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "arabia",
+    "name": "Arabia",
+    "category": "Región",
+    "currentRegion": "Península arábiga",
+    "firstAppearance": "1 Reyes 10:15",
+    "shortDescription": "Amplia región mencionada en ambos Testamentos y visitada por Pablo tras su conversión.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Reyes árabes",
+      "Pablo"
+    ],
+    "jesusRelation": "Pablo fue a Arabia después de que Cristo se le revelara, antes de comenzar plenamente su ministerio.",
+    "mainVerses": [
+      "1 Reyes 10:15",
+      "Gálatas 1:17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "etiopia",
+    "name": "Etiopía",
+    "category": "Reino/Región",
+    "currentRegion": "Noreste de África",
+    "firstAppearance": "Génesis 2:13",
+    "shortDescription": "Región bíblica asociada a Cus y al funcionario etíope bautizado por Felipe.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Funcionario etíope",
+      "Felipe"
+    ],
+    "jesusRelation": "Un funcionario etíope creyó en Jesucristo al comprender la profecía de Isaías y fue bautizado.",
+    "mainVerses": [
+      "Génesis 2:13",
+      "Hechos 8:27-39"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "partia",
+    "name": "Partia",
+    "category": "Región/Imperio",
+    "currentRegion": "Irán y alrededores",
+    "firstAppearance": "Hechos 2:9",
+    "shortDescription": "Territorio oriental representado por peregrinos en Pentecostés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Peregrinos partos"
+    ],
+    "jesusRelation": "Partos oyeron en su lengua las maravillas de Dios cuando descendió el Espíritu Santo.",
+    "mainVerses": [
+      "Hechos 2:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "media",
+    "name": "Media",
+    "category": "Región/Reino",
+    "currentRegion": "Noroeste de Irán",
+    "firstAppearance": "2 Reyes 17:6",
+    "shortDescription": "Región donde fueron deportados israelitas y representada en Pentecostés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Israelitas deportados",
+      "Peregrinos medos"
+    ],
+    "jesusRelation": "Personas de Media escucharon el anuncio apostólico en Pentecostés.",
+    "mainVerses": [
+      "2 Reyes 17:6",
+      "Hechos 2:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "elam",
+    "name": "Elam",
+    "category": "Región/Reino",
+    "currentRegion": "Suroeste de Irán",
+    "firstAppearance": "Génesis 10:22",
+    "shortDescription": "Antigua región oriental representada en Pentecostés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Elam",
+      "Peregrinos elamitas"
+    ],
+    "jesusRelation": "Elamitas oyeron las maravillas de Dios en su propia lengua durante Pentecostés.",
+    "mainVerses": [
+      "Génesis 10:22",
+      "Hechos 2:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "judea",
+    "name": "Judea",
+    "category": "Región",
+    "currentRegion": "Israel y Cisjordania",
+    "firstAppearance": "Mateo 2:1",
+    "shortDescription": "Región donde se encuentran Belén y Jerusalén y donde ocurrieron acontecimientos centrales de la vida de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Juan el Bautista",
+      "Apóstoles"
+    ],
+    "jesusRelation": "Jesús nació en Judea, ministró allí, murió y resucitó en Jerusalén; desde Judea comenzó la misión apostólica.",
+    "mainVerses": [
+      "Mateo 2:1",
+      "Lucas 3:1",
+      "Hechos 1:8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "galilea",
+    "name": "Galilea",
+    "category": "Región",
+    "currentRegion": "Norte de Israel",
+    "firstAppearance": "Josué 20:7",
+    "shortDescription": "Región donde Jesús creció y desarrolló gran parte de su ministerio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Apóstoles"
+    ],
+    "jesusRelation": "Galilea fue el escenario principal de la predicación, los milagros y el llamado de los discípulos de Jesús.",
+    "mainVerses": [
+      "Mateo 2:22-23",
+      "Mateo 4:12-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "idumea",
+    "name": "Idumea",
+    "category": "Región",
+    "currentRegion": "Sur de Judea y Jordania",
+    "firstAppearance": "Marcos 3:8",
+    "shortDescription": "Región desde la que multitudes acudieron a escuchar a Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Multitudes"
+    ],
+    "jesusRelation": "Personas de Idumea buscaron a Jesús al oír las grandes cosas que hacía.",
+    "mainVerses": [
+      "Marcos 3:8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "iturea",
+    "name": "Iturea",
+    "category": "Región",
+    "currentRegion": "Líbano y Siria",
+    "firstAppearance": "Lucas 3:1",
+    "shortDescription": "Territorio gobernado por Felipe en tiempos de Juan el Bautista y Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Felipe el tetrarca",
+      "Juan el Bautista",
+      "Jesús"
+    ],
+    "jesusRelation": "La mención sitúa históricamente el comienzo del ministerio de Juan, que preparó el camino del Señor.",
+    "mainVerses": [
+      "Lucas 3:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "traconite",
+    "name": "Traconite",
+    "category": "Región",
+    "currentRegion": "Sur de Siria",
+    "firstAppearance": "Lucas 3:1",
+    "shortDescription": "Territorio gobernado por Felipe cuando comenzó el ministerio de Juan el Bautista.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Felipe el tetrarca",
+      "Juan el Bautista"
+    ],
+    "jesusRelation": "Forma parte del marco histórico en el que Juan anunció la llegada de Cristo.",
+    "mainVerses": [
+      "Lucas 3:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "abilinia",
+    "name": "Abilinia",
+    "category": "Región",
+    "currentRegion": "Siria, zona de Abila",
+    "firstAppearance": "Lucas 3:1",
+    "shortDescription": "Territorio gobernado por Lisanias al comenzar la predicación de Juan el Bautista.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Lisanias",
+      "Juan el Bautista"
+    ],
+    "jesusRelation": "Ayuda a situar el inicio de la preparación pública para el ministerio de Jesús.",
+    "mainVerses": [
+      "Lucas 3:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "dalmanuta",
+    "name": "Dalmanuta",
+    "category": "Región",
+    "currentRegion": "Orilla del mar de Galilea, ubicación discutida",
+    "firstAppearance": "Marcos 8:10",
+    "shortDescription": "Región a la que Jesús llegó después de alimentar a cuatro mil personas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Discípulos"
+    ],
+    "jesusRelation": "Jesús llegó allí tras realizar la multiplicación de los panes para cuatro mil.",
+    "mainVerses": [
+      "Marcos 8:10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "magadan",
+    "name": "Magadán",
+    "category": "Región",
+    "currentRegion": "Orilla del mar de Galilea, ubicación discutida",
+    "firstAppearance": "Mateo 15:39",
+    "shortDescription": "Región a la que Jesús fue después de alimentar a cuatro mil.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Discípulos"
+    ],
+    "jesusRelation": "Fue una etapa del ministerio de Jesús después de la multiplicación de los panes.",
+    "mainVerses": [
+      "Mateo 15:39"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "gadara",
+    "name": "Gadara",
+    "category": "Ciudad/Región",
+    "currentRegion": "Umm Qais, Jordania",
+    "firstAppearance": "Mateo 8:28",
+    "shortDescription": "Región asociada con la liberación de dos endemoniados.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Endemoniados gadarenos"
+    ],
+    "jesusRelation": "Jesús mostró allí su autoridad sobre los demonios al liberar a los poseídos.",
+    "mainVerses": [
+      "Mateo 8:28-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "gerasa",
+    "name": "Gerasa",
+    "category": "Ciudad/Región",
+    "currentRegion": "Jerash, Jordania",
+    "firstAppearance": "Marcos 5:1",
+    "shortDescription": "Región relacionada con la liberación del hombre poseído por una legión.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Hombre liberado"
+    ],
+    "jesusRelation": "Jesús liberó a un hombre atormentado y lo envió a anunciar lo que el Señor había hecho por él.",
+    "mainVerses": [
+      "Marcos 5:1-20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "tierra-de-los-gadarenos",
+    "name": "Tierra de los gadarenos",
+    "category": "Región",
+    "currentRegion": "Oriente del mar de Galilea",
+    "firstAppearance": "Mateo 8:28",
+    "shortDescription": "Zona donde Jesús expulsó demonios y fueron a una piara de cerdos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Endemoniados",
+      "Porqueros"
+    ],
+    "jesusRelation": "Jesús manifestó su poder sobre el mal y devolvió dignidad a quienes estaban oprimidos.",
+    "mainVerses": [
+      "Mateo 8:28-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "tierra-de-los-gerasenos",
+    "name": "Tierra de los gerasenos",
+    "category": "Región",
+    "currentRegion": "Oriente del mar de Galilea",
+    "firstAppearance": "Marcos 5:1",
+    "shortDescription": "Zona donde Jesús liberó al hombre conocido como el endemoniado geraseno.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jesús",
+      "Hombre liberado"
+    ],
+    "jesusRelation": "La liberación mostró que ninguna fuerza espiritual podía resistir la autoridad de Cristo.",
+    "mainVerses": [
+      "Marcos 5:1-20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "betania-al-otro-lado-del-jordan",
+    "name": "Betania al otro lado del Jordán",
+    "category": "Localidad",
+    "currentRegion": "Este del río Jordán, ubicación discutida",
+    "firstAppearance": "Juan 1:28",
+    "shortDescription": "Lugar donde Juan bautizaba y dio testimonio acerca de Jesús.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Juan el Bautista",
+      "Jesús"
+    ],
+    "jesusRelation": "Juan señaló allí a Jesús como el Cordero de Dios que quita el pecado del mundo.",
+    "mainVerses": [
+      "Juan 1:28-34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "jerusalen-celestial",
+    "name": "Jerusalén celestial",
+    "category": "Ciudad simbólica",
+    "currentRegion": "Realidad celestial",
+    "firstAppearance": "Gálatas 4:26",
+    "shortDescription": "Imagen bíblica de la ciudad de Dios y destino final de su pueblo.",
+    "biblicalImportance": "Símbolo culminante de la esperanza cristiana y de la nueva creación.",
+    "history": "",
+    "relatedPeople": [
+      "Pueblo de Dios",
+      "Cristo"
+    ],
+    "jesusRelation": "La nueva Jerusalén representa la comunión eterna de Dios con los redimidos por Jesucristo.",
+    "mainVerses": [
+      "Gálatas 4:26",
+      "Hebreos 12:22",
+      "Apocalipsis 21:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "nueva-jerusalen",
+    "name": "Nueva Jerusalén",
+    "category": "Ciudad simbólica",
+    "currentRegion": "Nueva creación",
+    "firstAppearance": "Apocalipsis 3:12",
+    "shortDescription": "Ciudad santa que desciende del cielo en la visión final de Apocalipsis.",
+    "biblicalImportance": "Representa el cumplimiento definitivo de la salvación en Cristo.",
+    "history": "",
+    "relatedPeople": [
+      "Dios",
+      "Cordero",
+      "Redimidos"
+    ],
+    "jesusRelation": "En ella el Cordero es su lumbrera y Dios habita para siempre con su pueblo.",
+    "mainVerses": [
+      "Apocalipsis 3:12",
+      "Apocalipsis 21:2-27"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "armagedon",
+    "name": "Armagedón",
+    "category": "Lugar simbólico",
+    "currentRegion": "Ubicación asociada a Meguido, Israel",
+    "firstAppearance": "Apocalipsis 16:16",
+    "shortDescription": "Nombre del lugar de reunión de los reyes para la batalla final.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Reyes de la tierra"
+    ],
+    "jesusRelation": "Apocalipsis presenta la victoria definitiva de Dios y de Cristo sobre las fuerzas del mal.",
+    "mainVerses": [
+      "Apocalipsis 16:16"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "meguido",
+    "name": "Meguido",
+    "category": "Ciudad",
+    "currentRegion": "Norte de Israel",
+    "firstAppearance": "Josué 12:21",
+    "shortDescription": "Antigua ciudad estratégica situada junto al valle de Jezreel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Reyes de Israel",
+      "Josías"
+    ],
+    "jesusRelation": "Su nombre está relacionado con Armagedón, símbolo apocalíptico del conflicto final.",
+    "mainVerses": [
+      "Josué 12:21",
+      "2 Reyes 23:29"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-josafat",
+    "name": "Valle de Josafat",
+    "category": "Valle simbólico/geográfico",
+    "currentRegion": "Entorno de Jerusalén, identificación discutida",
+    "firstAppearance": "Joel 3:2",
+    "shortDescription": "Lugar profético donde Dios reúne a las naciones para juicio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Naciones",
+      "Dios"
+    ],
+    "jesusRelation": "La profecía apunta al juicio de Dios, tema culminado en la autoridad de Cristo como juez.",
+    "mainVerses": [
+      "Joel 3:2",
+      "Joel 3:12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-acor",
+    "name": "Valle de Acor",
+    "category": "Valle",
+    "currentRegion": "Cerca de Jericó, Cisjordania",
+    "firstAppearance": "Josué 7:24",
+    "shortDescription": "Valle donde fue juzgado Acán después del pecado cometido en Jericó.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Acán",
+      "Josué"
+    ],
+    "jesusRelation": "Oseas lo presenta como puerta de esperanza, imagen de restauración después del juicio.",
+    "mainVerses": [
+      "Josué 7:24-26",
+      "Oseas 2:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-beraca",
+    "name": "Valle de Beraca",
+    "category": "Valle",
+    "currentRegion": "Cerca de Tecoa, Cisjordania",
+    "firstAppearance": "2 Crónicas 20:26",
+    "shortDescription": "Lugar donde Josafat y Judá bendijeron a Dios después de la victoria.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josafat",
+      "Pueblo de Judá"
+    ],
+    "jesusRelation": "Recibió su nombre porque el pueblo bendijo allí a Jah tras ser librado de sus enemigos.",
+    "mainVerses": [
+      "2 Crónicas 20:26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-escol",
+    "name": "Valle de Escol",
+    "category": "Valle",
+    "currentRegion": "Región de Hebrón, Cisjordania",
+    "firstAppearance": "Números 13:23",
+    "shortDescription": "Valle donde los espías cortaron un gran racimo de uvas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Doce espías",
+      "Josué",
+      "Caleb"
+    ],
+    "jesusRelation": "Mostró la fertilidad de la tierra prometida.",
+    "mainVerses": [
+      "Números 13:23-24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-refaim",
+    "name": "Valle de Refaim",
+    "category": "Valle",
+    "currentRegion": "Suroeste de Jerusalén",
+    "firstAppearance": "Josué 15:8",
+    "shortDescription": "Valle cercano a Jerusalén donde David combatió contra los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Filisteos"
+    ],
+    "jesusRelation": "David consultó a Dios antes de combatir y recibió dirección para la victoria.",
+    "mainVerses": [
+      "Josué 15:8",
+      "2 Samuel 5:18-25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "valle-de-zeboim",
+    "name": "Valle de Zeboim",
+    "category": "Valle",
+    "currentRegion": "Región de Benjamín, ubicación discutida",
+    "firstAppearance": "1 Samuel 13:18",
+    "shortDescription": "Valle mencionado en los movimientos de los filisteos durante el reinado de Saúl.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Jonatán",
+      "Filisteos"
+    ],
+    "jesusRelation": "Forma parte del escenario de los conflictos entre Israel y los filisteos.",
+    "mainVerses": [
+      "1 Samuel 13:18"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "abel-bet-maaca",
+    "name": "Abel-bet-maaca",
+    "category": "Ciudad",
+    "currentRegion": "Norte de Israel",
+    "firstAppearance": "2 Samuel 20:14",
+    "shortDescription": "Ciudad del norte donde se refugió Seba durante la rebelión contra David.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Joab",
+      "Seba",
+      "Mujer sabia"
+    ],
+    "jesusRelation": "Una mujer sabia evitó la destrucción de la ciudad mediante su intervención prudente.",
+    "mainVerses": [
+      "2 Samuel 20:14-22"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "abel-mizraim",
+    "name": "Abel-mizraim",
+    "category": "Lugar de duelo",
+    "currentRegion": "Cerca del Jordán, ubicación discutida",
+    "firstAppearance": "Génesis 50:11",
+    "shortDescription": "Lugar donde la comitiva de José hizo gran lamentación por Jacob.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "José",
+      "Familia de Jacob"
+    ],
+    "jesusRelation": "Su nombre recuerda el duelo de los egipcios por Jacob.",
+    "mainVerses": [
+      "Génesis 50:10-11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "abel-sitim",
+    "name": "Abel-sitim",
+    "category": "Llanura/asentamiento",
+    "currentRegion": "Jordania, frente a Jericó",
+    "firstAppearance": "Números 33:49",
+    "shortDescription": "Último campamento israelita antes de cruzar el Jordán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "Desde allí Josué envió espías a Jericó antes de entrar en la tierra prometida.",
+    "mainVerses": [
+      "Números 33:49",
+      "Josué 2:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "adam",
+    "name": "Adam",
+    "category": "Ciudad",
+    "currentRegion": "Valle del Jordán, Jordania",
+    "firstAppearance": "Josué 3:16",
+    "shortDescription": "Ciudad cercana al lugar donde las aguas del Jordán se detuvieron.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "El retroceso de las aguas permitió a Israel cruzar el Jordán en seco.",
+    "mainVerses": [
+      "Josué 3:16"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "adasa",
+    "name": "Adasa",
+    "category": "Lugar",
+    "currentRegion": "Cerca de Jerusalén, ubicación discutida",
+    "firstAppearance": "1 Macabeos 7:40",
+    "shortDescription": "Lugar de una batalla de Judas Macabeo contra Nicanor.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judas Macabeo",
+      "Nicanor"
+    ],
+    "jesusRelation": "Fue escenario de una victoria judía durante la época macabea.",
+    "mainVerses": [
+      "1 Macabeos 7:40-50"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "adma",
+    "name": "Adma",
+    "category": "Ciudad",
+    "currentRegion": "Región del mar Muerto",
+    "firstAppearance": "Génesis 10:19",
+    "shortDescription": "Una de las ciudades de la llanura asociadas con Sodoma y Gomorra.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Reyes de la llanura"
+    ],
+    "jesusRelation": "Fue destruida junto con las ciudades impías de la llanura.",
+    "mainVerses": [
+      "Génesis 10:19",
+      "Génesis 14:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "zeboim",
+    "name": "Zeboim",
+    "category": "Ciudad",
+    "currentRegion": "Región del mar Muerto",
+    "firstAppearance": "Génesis 10:19",
+    "shortDescription": "Ciudad de la llanura mencionada junto a Sodoma, Gomorra y Adma.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Reyes de la llanura"
+    ],
+    "jesusRelation": "Su destrucción quedó como ejemplo del juicio divino.",
+    "mainVerses": [
+      "Génesis 10:19",
+      "Deuteronomio 29:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "zoar",
+    "name": "Zoar",
+    "category": "Ciudad",
+    "currentRegion": "Región del mar Muerto, Jordania",
+    "firstAppearance": "Génesis 13:10",
+    "shortDescription": "Pequeña ciudad a la que Lot huyó cuando Sodoma fue destruida.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Lot"
+    ],
+    "jesusRelation": "Dios permitió a Lot refugiarse allí durante el juicio sobre Sodoma.",
+    "mainVerses": [
+      "Génesis 13:10",
+      "Génesis 19:20-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "aroer",
+    "name": "Aroer",
+    "category": "Ciudad",
+    "currentRegion": "Jordania, junto al Arnón",
+    "firstAppearance": "Números 32:34",
+    "shortDescription": "Ciudad reconstruida por los gaditas al este del Jordán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Gad"
+    ],
+    "jesusRelation": "Marcaba una zona fronteriza del territorio israelita al este del Jordán.",
+    "mainVerses": [
+      "Números 32:34",
+      "Deuteronomio 2:36"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "atarot",
+    "name": "Atarot",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 32:3",
+    "shortDescription": "Ciudad solicitada y reconstruida por la tribu de Gad.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Gad"
+    ],
+    "jesusRelation": "Formó parte de las ciudades pastoriles al este del Jordán.",
+    "mainVerses": [
+      "Números 32:3",
+      "Números 32:34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "dibon",
+    "name": "Dibón",
+    "category": "Ciudad",
+    "currentRegion": "Dhiban, Jordania",
+    "firstAppearance": "Números 21:30",
+    "shortDescription": "Ciudad moabita conquistada por Israel y asignada a Gad.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Israel",
+      "Tribu de Gad",
+      "Moabitas"
+    ],
+    "jesusRelation": "Fue una ciudad importante de Moab y del territorio transjordano.",
+    "mainVerses": [
+      "Números 21:30",
+      "Números 32:34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "medeba",
+    "name": "Medeba",
+    "category": "Ciudad",
+    "currentRegion": "Madaba, Jordania",
+    "firstAppearance": "Números 21:30",
+    "shortDescription": "Ciudad de la meseta de Moab mencionada tras la derrota de Sehón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Israel",
+      "Moabitas"
+    ],
+    "jesusRelation": "Formó parte de la región conquistada al este del Jordán.",
+    "mainVerses": [
+      "Números 21:30",
+      "Josué 13:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "baal-meon",
+    "name": "Baal-meón",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 32:38",
+    "shortDescription": "Ciudad reconstruida por los rubenitas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Rubén"
+    ],
+    "jesusRelation": "Perteneció al territorio asignado a Rubén al este del Jordán.",
+    "mainVerses": [
+      "Números 32:38"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "quiriataim",
+    "name": "Quiriataim",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 32:37",
+    "shortDescription": "Ciudad reconstruida por la tribu de Rubén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Rubén"
+    ],
+    "jesusRelation": "Formó parte de la heredad de Rubén en la meseta moabita.",
+    "mainVerses": [
+      "Números 32:37",
+      "Josué 13:19"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "jazer",
+    "name": "Jazer",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 21:32",
+    "shortDescription": "Ciudad amorrea conquistada y asignada a Gad.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Tribu de Gad"
+    ],
+    "jesusRelation": "Fue centro de una zona fértil al este del Jordán.",
+    "mainVerses": [
+      "Números 21:32",
+      "Josué 13:25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "eleale",
+    "name": "Eleale",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 32:3",
+    "shortDescription": "Ciudad de la meseta de Moab reconstruida por Rubén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Rubén"
+    ],
+    "jesusRelation": "Los profetas la mencionaron en lamentos sobre Moab.",
+    "mainVerses": [
+      "Números 32:3",
+      "Isaías 15:4"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "bet-nimra",
+    "name": "Bet-nimra",
+    "category": "Ciudad",
+    "currentRegion": "Valle del Jordán, Jordania",
+    "firstAppearance": "Números 32:36",
+    "shortDescription": "Ciudad fortificada y pastoril reconstruida por Gad.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Gad"
+    ],
+    "jesusRelation": "Formó parte del territorio gadita al este del Jordán.",
+    "mainVerses": [
+      "Números 32:36"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "bet-haran",
+    "name": "Bet-harán",
+    "category": "Ciudad",
+    "currentRegion": "Jordania",
+    "firstAppearance": "Números 32:36",
+    "shortDescription": "Ciudad fortificada reconstruida por la tribu de Gad.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Tribu de Gad"
+    ],
+    "jesusRelation": "Perteneció a las posesiones de Gad en Transjordania.",
+    "mainVerses": [
+      "Números 32:36"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "quiriat-arba",
+    "name": "Quiriat-arba",
+    "category": "Ciudad",
+    "currentRegion": "Hebrón, Cisjordania",
+    "firstAppearance": "Génesis 23:2",
+    "shortDescription": "Nombre antiguo de Hebrón, donde murió Sara.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sara",
+      "Abraham",
+      "Caleb"
+    ],
+    "jesusRelation": "Fue identificada con Hebrón y llegó a ser heredad de Caleb.",
+    "mainVerses": [
+      "Génesis 23:2",
+      "Josué 14:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "macpela",
+    "name": "Macpela",
+    "category": "Cueva/campo",
+    "currentRegion": "Hebrón, Cisjordania",
+    "firstAppearance": "Génesis 23:9",
+    "shortDescription": "Cueva comprada por Abraham como sepultura familiar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Abraham",
+      "Sara",
+      "Isaac",
+      "Rebeca",
+      "Jacob",
+      "Lea"
+    ],
+    "jesusRelation": "Fue la primera propiedad adquirida por Abraham en Canaán y sepultura de los patriarcas.",
+    "mainVerses": [
+      "Génesis 23:9-20",
+      "Génesis 49:29-32"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "mamre",
+    "name": "Mamre",
+    "category": "Encinar/localidad",
+    "currentRegion": "Hebrón, Cisjordania",
+    "firstAppearance": "Génesis 13:18",
+    "shortDescription": "Lugar cercano a Hebrón donde Abraham habitó y levantó altar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Abraham",
+      "Sara"
+    ],
+    "jesusRelation": "Allí Abraham recibió la visita de tres varones y la promesa del nacimiento de Isaac.",
+    "mainVerses": [
+      "Génesis 13:18",
+      "Génesis 18:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "beer-lahai-roi",
+    "name": "Beer-lahai-roi",
+    "category": "Pozo",
+    "currentRegion": "Desierto del Neguev, ubicación discutida",
+    "firstAppearance": "Génesis 16:14",
+    "shortDescription": "Pozo donde Agar encontró al ángel de Jah.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Agar",
+      "Isaac"
+    ],
+    "jesusRelation": "Su nombre recuerda al Dios vivo que ve a quien sufre.",
+    "mainVerses": [
+      "Génesis 16:14",
+      "Génesis 24:62"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "rehobot",
+    "name": "Rehobot",
+    "category": "Pozo/localidad",
+    "currentRegion": "Neguev, Israel",
+    "firstAppearance": "Génesis 26:22",
+    "shortDescription": "Pozo excavado por Isaac después de varias disputas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Isaac"
+    ],
+    "jesusRelation": "Isaac lo llamó Rehobot porque Dios les había dado espacio para prosperar.",
+    "mainVerses": [
+      "Génesis 26:22"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "sitna",
+    "name": "Sitna",
+    "category": "Pozo",
+    "currentRegion": "Neguev, ubicación discutida",
+    "firstAppearance": "Génesis 26:21",
+    "shortDescription": "Pozo disputado entre los pastores de Isaac y los de Gerar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Isaac",
+      "Pastores de Gerar"
+    ],
+    "jesusRelation": "Su nombre refleja la oposición sufrida por Isaac.",
+    "mainVerses": [
+      "Génesis 26:21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "esek",
+    "name": "Esek",
+    "category": "Pozo",
+    "currentRegion": "Neguev, ubicación discutida",
+    "firstAppearance": "Génesis 26:20",
+    "shortDescription": "Pozo por el que contendieron los pastores de Gerar con los de Isaac.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Isaac",
+      "Pastores de Gerar"
+    ],
+    "jesusRelation": "Su nombre significa contienda y recuerda el conflicto por el agua.",
+    "mainVerses": [
+      "Génesis 26:20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "beer-seba-de-isaac",
+    "name": "Beer-seba de Isaac",
+    "category": "Pozo/ciudad",
+    "currentRegion": "Beerseba, Israel",
+    "firstAppearance": "Génesis 26:23",
+    "shortDescription": "Lugar donde Dios se apareció a Isaac y confirmó la promesa dada a Abraham.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Isaac",
+      "Abimelec"
+    ],
+    "jesusRelation": "Isaac levantó allí altar y recibió una confirmación de la alianza.",
+    "mainVerses": [
+      "Génesis 26:23-33"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "luz",
+    "name": "Luz",
+    "category": "Ciudad",
+    "currentRegion": "Bet-el, Cisjordania",
+    "firstAppearance": "Génesis 28:19",
+    "shortDescription": "Nombre antiguo de la ciudad que Jacob llamó Bet-el.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jacob"
+    ],
+    "jesusRelation": "Jacob cambió su nombre a Bet-el después de la visión de la escalera.",
+    "mainVerses": [
+      "Génesis 28:19",
+      "Jueces 1:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "mizpa-de-galaad",
+    "name": "Mizpa de Galaad",
+    "category": "Lugar",
+    "currentRegion": "Jordania, región de Galaad",
+    "firstAppearance": "Génesis 31:49",
+    "shortDescription": "Lugar donde Jacob y Labán establecieron un pacto.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jacob",
+      "Labán"
+    ],
+    "jesusRelation": "El majano sirvió como testigo del pacto y límite entre ambos.",
+    "mainVerses": [
+      "Génesis 31:44-49"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "jaboc",
+    "name": "Jaboc",
+    "category": "Río",
+    "currentRegion": "Río Zarqa, Jordania",
+    "firstAppearance": "Génesis 32:22",
+    "shortDescription": "Río junto al cual Jacob luchó durante la noche y recibió el nombre Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jacob"
+    ],
+    "jesusRelation": "Junto al Jaboc Jacob tuvo un encuentro decisivo con Dios antes de reencontrarse con Esaú.",
+    "mainVerses": [
+      "Génesis 32:22-30"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "migdol",
+    "name": "Migdol",
+    "category": "Torre/localidad",
+    "currentRegion": "Egipto, ubicación discutida",
+    "firstAppearance": "Éxodo 14:2",
+    "shortDescription": "Lugar próximo al campamento israelita antes del cruce del mar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Formó parte del escenario de la liberación de Israel de Egipto.",
+    "mainVerses": [
+      "Éxodo 14:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "baal-zefon",
+    "name": "Baal-zefón",
+    "category": "Santuario/localidad",
+    "currentRegion": "Egipto, ubicación discutida",
+    "firstAppearance": "Éxodo 14:2",
+    "shortDescription": "Lugar frente al cual Israel acampó antes de cruzar el mar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel",
+      "Faraón"
+    ],
+    "jesusRelation": "Allí Faraón creyó tener atrapado a Israel antes de la intervención salvadora de Dios.",
+    "mainVerses": [
+      "Éxodo 14:2-9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "dofca",
+    "name": "Dofca",
+    "category": "Campamento",
+    "currentRegion": "Desierto del Sinaí, ubicación desconocida",
+    "firstAppearance": "Números 33:12",
+    "shortDescription": "Una de las estaciones de Israel durante el éxodo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Sirve para seguir el itinerario del pueblo por el desierto.",
+    "mainVerses": [
+      "Números 33:12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "alus",
+    "name": "Alús",
+    "category": "Campamento",
+    "currentRegion": "Desierto del Sinaí, ubicación desconocida",
+    "firstAppearance": "Números 33:13",
+    "shortDescription": "Campamento israelita entre Dofca y Refidim.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Fue una etapa del camino de Israel hacia el Sinaí.",
+    "mainVerses": [
+      "Números 33:13-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "kibrot-hataava",
+    "name": "Kibrot-hataava",
+    "category": "Campamento",
+    "currentRegion": "Desierto del Sinaí, ubicación discutida",
+    "firstAppearance": "Números 11:34",
+    "shortDescription": "Lugar donde fueron sepultados quienes codiciaron carne.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Su nombre recuerda las consecuencias de la codicia y la murmuración.",
+    "mainVerses": [
+      "Números 11:34-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "hazerot",
+    "name": "Hazerot",
+    "category": "Campamento",
+    "currentRegion": "Desierto del Sinaí, ubicación discutida",
+    "firstAppearance": "Números 11:35",
+    "shortDescription": "Campamento donde María y Aarón hablaron contra Moisés.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "María",
+      "Aarón"
+    ],
+    "jesusRelation": "Allí María fue disciplinada y después restaurada antes de que el pueblo continuara.",
+    "mainVerses": [
+      "Números 11:35",
+      "Números 12:1-16"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "ritma",
+    "name": "Ritma",
+    "category": "Campamento",
+    "currentRegion": "Desierto de Parán, ubicación desconocida",
+    "firstAppearance": "Números 33:18",
+    "shortDescription": "Estación israelita relacionada con la región de Cades.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Formó parte del prolongado recorrido de Israel por el desierto.",
+    "mainVerses": [
+      "Números 33:18"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "rimon-peres",
+    "name": "Rimón-peres",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:19",
+    "shortDescription": "Una de las estaciones del itinerario israelita.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Ayuda a reconstruir el camino seguido durante los años del desierto.",
+    "mainVerses": [
+      "Números 33:19"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "libna-del-desierto",
+    "name": "Libna del desierto",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:20",
+    "shortDescription": "Estación del éxodo distinta de la ciudad cananea de Libna.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Fue uno de los campamentos del pueblo en su peregrinación.",
+    "mainVerses": [
+      "Números 33:20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
+  },
+  {
+    "id": "rissa",
+    "name": "Rissa",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:21",
+    "shortDescription": "Lugar donde Israel acampó después de Libna.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "Es una estación conservada en la lista del itinerario del éxodo.",
+    "mainVerses": [
+      "Números 33:21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785527000000,
+    "updatedAt": 1785527000000
   }
 ]
