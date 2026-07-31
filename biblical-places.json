@@ -8114,5 +8114,2688 @@
     "image": "",
     "createdAt": 1785527000000,
     "updatedAt": 1785527000000
+  },
+  {
+    "id": "kehelata",
+    "name": "Kehelata",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:22",
+    "shortDescription": "Estación de Israel después de Rissa.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:22"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "monte-sefer",
+    "name": "Monte Sefer",
+    "category": "Monte / campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:23",
+    "shortDescription": "Lugar montañoso donde Israel acampó.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "harada",
+    "name": "Harada",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:24",
+    "shortDescription": "Estación del itinerario de Israel por el desierto.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "macelot",
+    "name": "Macelot",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:25",
+    "shortDescription": "Campamento situado entre Harada y Tahat.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:25-26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "tahat",
+    "name": "Tahat",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:26",
+    "shortDescription": "Una de las estaciones del éxodo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "tara",
+    "name": "Tara",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:27",
+    "shortDescription": "Lugar donde Israel acampó después de Tahat.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:27"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "mitca",
+    "name": "Mitca",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:28",
+    "shortDescription": "Estación del pueblo de Israel durante su peregrinación.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:28"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "hasmona",
+    "name": "Hasmona",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:29",
+    "shortDescription": "Campamento anterior a Moserot.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:29"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "moserot",
+    "name": "Moserot",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación discutida",
+    "firstAppearance": "Números 33:30",
+    "shortDescription": "Estación posiblemente relacionada con Mosera.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:30",
+      "Deuteronomio 10:6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bene-jaacan",
+    "name": "Bene-jaacán",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación discutida",
+    "firstAppearance": "Números 33:31",
+    "shortDescription": "Lugar del recorrido de Israel, también llamado Beerot-bene-jaacán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:31",
+      "Deuteronomio 10:6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "hor-haggidgad",
+    "name": "Hor-haggidgad",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación desconocida",
+    "firstAppearance": "Números 33:32",
+    "shortDescription": "Estación del éxodo situada después de Bene-jaacán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:32"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jotbata",
+    "name": "Jotbata",
+    "category": "Campamento",
+    "currentRegion": "Desierto, ubicación discutida",
+    "firstAppearance": "Números 33:33",
+    "shortDescription": "Lugar descrito como tierra de arroyos de aguas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:33",
+      "Deuteronomio 10:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "abrona",
+    "name": "Abrona",
+    "category": "Campamento",
+    "currentRegion": "Cerca del golfo de Aqaba, ubicación discutida",
+    "firstAppearance": "Números 33:34",
+    "shortDescription": "Estación situada antes de Ezión-geber.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "ezion-geber",
+    "name": "Ezión-geber",
+    "category": "Puerto / campamento",
+    "currentRegion": "Golfo de Aqaba, probablemente cerca de Eilat",
+    "firstAppearance": "Números 33:35",
+    "shortDescription": "Puerto y campamento importante junto al mar Rojo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Salomón",
+      "Josafat"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:35",
+      "1 Reyes 9:26",
+      "2 Crónicas 20:36"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jahaza",
+    "name": "Jahaza",
+    "category": "Ciudad",
+    "currentRegion": "Jordania central, ubicación discutida",
+    "firstAppearance": "Números 21:23",
+    "shortDescription": "Lugar donde Israel derrotó a Sehón rey de los amorreos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Sehón",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 21:23-24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "edrei",
+    "name": "Edrei",
+    "category": "Ciudad",
+    "currentRegion": "Sur de Siria, identificada con Daraa o sus cercanías",
+    "firstAppearance": "Números 21:33",
+    "shortDescription": "Ciudad donde Og de Basán fue derrotado por Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Og",
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 21:33-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "pisga",
+    "name": "Pisga",
+    "category": "Monte / cordillera",
+    "currentRegion": "Jordania, al este del mar Muerto",
+    "firstAppearance": "Números 21:20",
+    "shortDescription": "Altura desde la que se contemplaban territorios de Moab y Canaán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Balaam"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 21:20",
+      "Deuteronomio 3:27"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bamot-baal",
+    "name": "Bamot-baal",
+    "category": "Lugar alto",
+    "currentRegion": "Moab, Jordania",
+    "firstAppearance": "Números 22:41",
+    "shortDescription": "Lugar alto desde el que Balaam contempló parte del campamento de Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Balac",
+      "Balaam"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 22:41"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "campo-de-zofim",
+    "name": "Campo de Zofim",
+    "category": "Meseta",
+    "currentRegion": "Moab, ubicación discutida",
+    "firstAppearance": "Números 23:14",
+    "shortDescription": "Lugar donde Balac llevó a Balaam para intentar maldecir a Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Balac",
+      "Balaam"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 23:14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "peor",
+    "name": "Peor",
+    "category": "Monte",
+    "currentRegion": "Moab, Jordania",
+    "firstAppearance": "Números 23:28",
+    "shortDescription": "Monte relacionado con Balaam y con la idolatría de Baal-peor.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Balac",
+      "Balaam",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 23:28",
+      "Números 25:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "baal-peor",
+    "name": "Baal-peor",
+    "category": "Santuario / lugar",
+    "currentRegion": "Moab, Jordania",
+    "firstAppearance": "Números 25:3",
+    "shortDescription": "Lugar asociado al pecado de Israel con la idolatría moabita.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Israel",
+      "Finees"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 25:3-9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "campos-de-moab",
+    "name": "Campos de Moab",
+    "category": "Llanura",
+    "currentRegion": "Jordania, frente a Jericó",
+    "firstAppearance": "Números 22:1",
+    "shortDescription": "Última gran zona de campamento antes de entrar en Canaán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 22:1",
+      "Deuteronomio 34:8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bet-jesimot",
+    "name": "Bet-jesimot",
+    "category": "Ciudad",
+    "currentRegion": "Jordania, nordeste del mar Muerto",
+    "firstAppearance": "Números 33:49",
+    "shortDescription": "Extremo del campamento israelita en los campos de Moab.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Números 33:49",
+      "Josué 12:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "valle-frente-a-bet-peor",
+    "name": "Valle frente a Bet-peor",
+    "category": "Valle",
+    "currentRegion": "Moab, Jordania",
+    "firstAppearance": "Deuteronomio 3:29",
+    "shortDescription": "Zona donde Israel acampó y donde fue sepultado Moisés en un lugar desconocido.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Deuteronomio 3:29",
+      "Deuteronomio 34:6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "gilgal-del-jordan",
+    "name": "Gilgal del Jordán",
+    "category": "Campamento / santuario",
+    "currentRegion": "Cerca de Jericó, Cisjordania",
+    "firstAppearance": "Josué 4:19",
+    "shortDescription": "Primer campamento de Israel después de cruzar el Jordán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "El paso del Jordán y la renovación del pacto preparan la historia de la salvación que alcanza su plenitud en Jesucristo.",
+    "mainVerses": [
+      "Josué 4:19-24",
+      "Josué 5:9-10"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "valle-de-acan",
+    "name": "Valle de Acán",
+    "category": "Valle",
+    "currentRegion": "Cerca de Jericó, ubicación desconocida",
+    "firstAppearance": "Josué 7:24",
+    "shortDescription": "Lugar donde fue juzgado Acán por tomar del anatema.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Acán",
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 7:24-26"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "ebal",
+    "name": "Ebal",
+    "category": "Monte",
+    "currentRegion": "Cerca de Nablus, Cisjordania",
+    "firstAppearance": "Deuteronomio 11:29",
+    "shortDescription": "Monte donde se proclamaron las maldiciones del pacto y Josué levantó un altar.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Deuteronomio 11:29",
+      "Josué 8:30-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "gerizim",
+    "name": "Gerizim",
+    "category": "Monte",
+    "currentRegion": "Junto a Nablus, Cisjordania",
+    "firstAppearance": "Deuteronomio 11:29",
+    "shortDescription": "Monte relacionado con las bendiciones del pacto y posteriormente con el culto samaritano.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Moisés",
+      "Josué",
+      "Mujer samaritana",
+      "Jesús"
+    ],
+    "jesusRelation": "Jesús enseñó a la mujer samaritana que la adoración verdadera no quedaría limitada a este monte ni a Jerusalén, sino que sería en espíritu y en verdad.",
+    "mainVerses": [
+      "Deuteronomio 11:29",
+      "Josué 8:33",
+      "Juan 4:20-24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "cafira",
+    "name": "Cafira",
+    "category": "Ciudad",
+    "currentRegion": "Cisjordania, posiblemente Khirbet el-Kefireh",
+    "firstAppearance": "Josué 9:17",
+    "shortDescription": "Una de las cuatro ciudades de los gabaonitas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Gabaonitas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 9:17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "beerot-de-benjamin",
+    "name": "Beerot de Benjamín",
+    "category": "Ciudad",
+    "currentRegion": "Cisjordania, ubicación discutida",
+    "firstAppearance": "Josué 9:17",
+    "shortDescription": "Ciudad gabaonita asignada después a la tribu de Benjamín.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Gabaonitas",
+      "Benjamín"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 9:17",
+      "Josué 18:25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bet-horon-de-arriba",
+    "name": "Bet-horón de arriba",
+    "category": "Ciudad",
+    "currentRegion": "Cisjordania, cerca de Beit Ur al-Fauqa",
+    "firstAppearance": "Josué 10:10",
+    "shortDescription": "Ciudad situada en una ruta estratégica de ascenso y descenso.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:10-11",
+      "Josué 16:5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bet-horon-de-abajo",
+    "name": "Bet-horón de abajo",
+    "category": "Ciudad",
+    "currentRegion": "Cisjordania, cerca de Beit Ur al-Tahta",
+    "firstAppearance": "Josué 10:10",
+    "shortDescription": "Ciudad de la bajada de Bet-horón, escenario de persecuciones militares.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:10-11",
+      "Josué 16:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "maceda",
+    "name": "Maceda",
+    "category": "Ciudad / cueva",
+    "currentRegion": "Sefela, ubicación discutida",
+    "firstAppearance": "Josué 10:10",
+    "shortDescription": "Lugar donde se escondieron cinco reyes amorreos y fueron ejecutados.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Cinco reyes amorreos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:10",
+      "Josué 10:16-27"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "libna-de-juda",
+    "name": "Libna de Judá",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, ubicación discutida",
+    "firstAppearance": "Josué 10:29",
+    "shortDescription": "Ciudad cananea conquistada por Josué y después ciudad levítica.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:29-30",
+      "Josué 21:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "eglon",
+    "name": "Eglón",
+    "category": "Ciudad",
+    "currentRegion": "Sefela, ubicación discutida",
+    "firstAppearance": "Josué 10:34",
+    "shortDescription": "Ciudad cananea conquistada durante la campaña del sur.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Debir rey de Eglón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 10:34-35"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "aguas-de-merom",
+    "name": "Aguas de Merom",
+    "category": "Lago / región",
+    "currentRegion": "Norte de Israel, ubicación discutida",
+    "firstAppearance": "Josué 11:5",
+    "shortDescription": "Lugar donde Josué derrotó a la coalición de reyes del norte.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Jabín"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:5-8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "madon",
+    "name": "Madón",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación desconocida",
+    "firstAppearance": "Josué 11:1",
+    "shortDescription": "Ciudad cuyo rey se unió a la coalición contra Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jobab rey de Madón",
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "simron",
+    "name": "Simrón",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 11:1",
+    "shortDescription": "Ciudad cananea aliada con Hazor contra Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Rey de Simrón",
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:1",
+      "Josué 19:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "acsaf",
+    "name": "Acsaf",
+    "category": "Ciudad",
+    "currentRegion": "Galilea occidental, ubicación discutida",
+    "firstAppearance": "Josué 11:1",
+    "shortDescription": "Ciudad cuyo rey participó en la coalición del norte.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Rey de Acsaf",
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:1",
+      "Josué 12:20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "mizpa-del-libano",
+    "name": "Mizpa del Líbano",
+    "category": "Región",
+    "currentRegion": "Zona del monte Hermón, ubicación discutida",
+    "firstAppearance": "Josué 11:3",
+    "shortDescription": "Región mencionada en la campaña de Josué contra los reyes del norte.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:3",
+      "Josué 11:8"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "baal-gad",
+    "name": "Baal-gad",
+    "category": "Lugar / ciudad",
+    "currentRegion": "Valle del Líbano, cerca del Hermón",
+    "firstAppearance": "Josué 11:17",
+    "shortDescription": "Extremo septentrional de las conquistas de Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:17",
+      "Josué 12:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "monte-halac",
+    "name": "Monte Halac",
+    "category": "Monte",
+    "currentRegion": "Sur de Canaán, ubicación discutida",
+    "firstAppearance": "Josué 11:17",
+    "shortDescription": "Extremo meridional de la zona conquistada por Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:17",
+      "Josué 12:7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "anab",
+    "name": "Anab",
+    "category": "Ciudad",
+    "currentRegion": "Montes de Judá, cerca de la actual Anab",
+    "firstAppearance": "Josué 11:21",
+    "shortDescription": "Ciudad de los anaceos tomada por Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Anaceos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:21",
+      "Josué 15:50"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "quedes-de-neftali",
+    "name": "Quedes de Neftalí",
+    "category": "Ciudad",
+    "currentRegion": "Alta Galilea, Israel",
+    "firstAppearance": "Josué 12:22",
+    "shortDescription": "Ciudad de refugio y lugar de origen de Barac.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Barac",
+      "Débora",
+      "Neftalí"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 12:22",
+      "Jueces 4:6"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jocneam",
+    "name": "Jocneam",
+    "category": "Ciudad",
+    "currentRegion": "Cerca del monte Carmelo, Israel",
+    "firstAppearance": "Josué 12:22",
+    "shortDescription": "Ciudad cananea conquistada y entregada a los levitas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Leví"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 12:22",
+      "Josué 21:34"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "dor",
+    "name": "Dor",
+    "category": "Ciudad / puerto",
+    "currentRegion": "Costa mediterránea de Israel",
+    "firstAppearance": "Josué 11:2",
+    "shortDescription": "Ciudad costera cuyo rey fue derrotado por Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Rey de Dor"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 11:2",
+      "Josué 12:23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "timnat-sera",
+    "name": "Timnat-sera",
+    "category": "Ciudad",
+    "currentRegion": "Montes de Efraín, ubicación discutida",
+    "firstAppearance": "Josué 19:50",
+    "shortDescription": "Herencia y lugar de sepultura de Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:50",
+      "Josué 24:30"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "gaas",
+    "name": "Gaás",
+    "category": "Monte",
+    "currentRegion": "Montes de Efraín, ubicación discutida",
+    "firstAppearance": "Josué 24:30",
+    "shortDescription": "Monte cerca del lugar donde fue sepultado Josué.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 24:30",
+      "Jueces 2:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "quiriat-sefer",
+    "name": "Quiriat-sefer",
+    "category": "Ciudad",
+    "currentRegion": "Montes de Judá, otro nombre de Debir",
+    "firstAppearance": "Josué 15:15",
+    "shortDescription": "Antiguo nombre de Debir, conquistada por Otoniel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Caleb",
+      "Otoniel",
+      "Acsa"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:15-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "cabseel",
+    "name": "Cabseel",
+    "category": "Ciudad",
+    "currentRegion": "Néguev de Judá, ubicación discutida",
+    "firstAppearance": "Josué 15:21",
+    "shortDescription": "Ciudad del sur de Judá y lugar de origen de Benaía.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Benaía",
+      "Judá"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:21",
+      "2 Samuel 23:20"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jecabseel",
+    "name": "Jecabseel",
+    "category": "Ciudad",
+    "currentRegion": "Néguev de Judá, probablemente Cabseel",
+    "firstAppearance": "Nehemías 11:25",
+    "shortDescription": "Forma posterior del nombre Cabseel, habitada tras el exilio.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judíos retornados"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Nehemías 11:25"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "molada",
+    "name": "Molada",
+    "category": "Ciudad",
+    "currentRegion": "Néguev, ubicación discutida",
+    "firstAppearance": "Josué 15:26",
+    "shortDescription": "Ciudad del territorio meridional de Judá.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judá",
+      "Simeón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:26",
+      "Josué 19:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "hazar-sual",
+    "name": "Hazar-sual",
+    "category": "Ciudad",
+    "currentRegion": "Néguev, ubicación desconocida",
+    "firstAppearance": "Josué 15:28",
+    "shortDescription": "Ciudad del sur asignada a Judá y después a Simeón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judá",
+      "Simeón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:28",
+      "Josué 19:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "en-rimon",
+    "name": "En-rimón",
+    "category": "Ciudad",
+    "currentRegion": "Néguev, ubicación discutida",
+    "firstAppearance": "Josué 15:32",
+    "shortDescription": "Ciudad del sur de Judá, después asociada a Simeón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judá",
+      "Simeón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:32",
+      "Nehemías 11:29"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "zanoa",
+    "name": "Zanoa",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:34",
+    "shortDescription": "Ciudad de Judá cuyos habitantes ayudaron a reparar el muro de Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judá",
+      "Nehemías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:34",
+      "Nehemías 3:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "queila",
+    "name": "Queila",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, ubicación identificada cerca de Khirbet Qila",
+    "firstAppearance": "Josué 15:44",
+    "shortDescription": "Ciudad que David libró de los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Filisteos",
+      "Saúl"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:44",
+      "1 Samuel 23:1-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "maresa",
+    "name": "Maresa",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:44",
+    "shortDescription": "Ciudad fortificada de Judá y escenario de la victoria de Asa sobre Zera.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Asa",
+      "Zera"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:44",
+      "2 Crónicas 14:9-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "socoh-de-juda",
+    "name": "Socoh de Judá",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:35",
+    "shortDescription": "Ciudad cercana al valle donde David enfrentó a Goliat.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Goliat",
+      "Filisteos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:35",
+      "1 Samuel 17:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bet-semes-de-juda",
+    "name": "Bet-semes de Judá",
+    "category": "Ciudad",
+    "currentRegion": "Tel Beth-Shemesh, Israel",
+    "firstAppearance": "Josué 15:10",
+    "shortDescription": "Ciudad levítica donde regresó el arca desde territorio filisteo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Levitas",
+      "Filisteos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:10",
+      "1 Samuel 6:9-15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "timna-de-juda",
+    "name": "Timna de Judá",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, ubicación discutida",
+    "firstAppearance": "Génesis 38:12",
+    "shortDescription": "Lugar relacionado con Judá y Tamar, y más tarde con Sansón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Judá",
+      "Tamar",
+      "Sansón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Génesis 38:12-14",
+      "Jueces 14:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "belen-de-zabulon",
+    "name": "Belén de Zabulón",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 19:15",
+    "shortDescription": "Ciudad de Zabulón distinta de Belén de Judá.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:15"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "sarid",
+    "name": "Sarid",
+    "category": "Ciudad / frontera",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 19:10",
+    "shortDescription": "Punto fronterizo del territorio de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:10-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "marala",
+    "name": "Marala",
+    "category": "Ciudad / frontera",
+    "currentRegion": "Galilea, ubicación desconocida",
+    "firstAppearance": "Josué 19:11",
+    "shortDescription": "Lugar fronterizo de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "dabeset",
+    "name": "Dabeset",
+    "category": "Ciudad / frontera",
+    "currentRegion": "Galilea, ubicación desconocida",
+    "firstAppearance": "Josué 19:11",
+    "shortDescription": "Lugar mencionado en el límite de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:11"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "nehalal",
+    "name": "Nehalal",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 19:15",
+    "shortDescription": "Ciudad de Zabulón de la que no fueron expulsados todos los cananeos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón",
+      "Cananeos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:15",
+      "Jueces 1:30"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jafia",
+    "name": "Jafia",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, cerca de Nazaret",
+    "firstAppearance": "Josué 19:12",
+    "shortDescription": "Ciudad situada en la frontera de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "rimon-de-zabulon",
+    "name": "Rimón de Zabulón",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 19:13",
+    "shortDescription": "Ciudad del territorio de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "hanaton",
+    "name": "Hanatón",
+    "category": "Ciudad",
+    "currentRegion": "Galilea, ubicación discutida",
+    "firstAppearance": "Josué 19:14",
+    "shortDescription": "Ciudad del límite septentrional de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "daberat",
+    "name": "Daberat",
+    "category": "Ciudad",
+    "currentRegion": "Baja Galilea, Israel",
+    "firstAppearance": "Josué 19:12",
+    "shortDescription": "Ciudad fronteriza relacionada con Isacar y entregada a los levitas.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Isacar",
+      "Leví"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:12",
+      "1 Crónicas 6:72"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "quislot-tabor",
+    "name": "Quislot-tabor",
+    "category": "Ciudad",
+    "currentRegion": "Cerca del monte Tabor, Israel",
+    "firstAppearance": "Josué 19:12",
+    "shortDescription": "Ciudad situada junto al territorio de Zabulón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Zabulón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jezreel",
+    "name": "Jezreel",
+    "category": "Ciudad / valle",
+    "currentRegion": "Valle de Jezreel, Israel",
+    "firstAppearance": "Josué 19:18",
+    "shortDescription": "Ciudad vinculada a Acab y Jezabel y escenario de importantes acontecimientos del reino del norte.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Acab",
+      "Jezabel",
+      "Jehú",
+      "Elías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:18",
+      "1 Reyes 21:1",
+      "2 Reyes 9:30-37"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "quison",
+    "name": "Quisón",
+    "category": "Río",
+    "currentRegion": "Valle de Jezreel y bahía de Haifa, Israel",
+    "firstAppearance": "Jueces 4:7",
+    "shortDescription": "Río junto al cual fueron derrotadas las fuerzas de Sísara.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Débora",
+      "Barac",
+      "Sísara"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 4:7",
+      "Jueces 5:21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "taanac",
+    "name": "Taanac",
+    "category": "Ciudad",
+    "currentRegion": "Valle de Jezreel, Israel",
+    "firstAppearance": "Josué 12:21",
+    "shortDescription": "Ciudad cananea relacionada con la batalla de Débora y Barac.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Débora",
+      "Barac",
+      "Cananeos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 12:21",
+      "Jueces 5:19"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bet-sean",
+    "name": "Bet-seán",
+    "category": "Ciudad",
+    "currentRegion": "Beit Shean, Israel",
+    "firstAppearance": "Josué 17:11",
+    "shortDescription": "Ciudad donde los filisteos expusieron los cuerpos de Saúl y sus hijos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Jonatán",
+      "Filisteos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 17:11",
+      "1 Samuel 31:10-12"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "ibleam",
+    "name": "Ibleam",
+    "category": "Ciudad",
+    "currentRegion": "Samaria, ubicación discutida",
+    "firstAppearance": "Josué 17:11",
+    "shortDescription": "Ciudad cananea donde murió el rey Ocozías de Judá.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Ocozías",
+      "Jehú"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 17:11",
+      "2 Reyes 9:27"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "ofra-de-abiezer",
+    "name": "Ofra de Abiezer",
+    "category": "Ciudad",
+    "currentRegion": "Región de Manasés, ubicación discutida",
+    "firstAppearance": "Jueces 6:11",
+    "shortDescription": "Lugar de Gedeón, donde el ángel de Jah lo llamó para libertar a Israel.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Gedeón",
+      "Ángel de Jah"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 6:11-24"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "fuente-de-harod",
+    "name": "Fuente de Harod",
+    "category": "Manantial",
+    "currentRegion": "Valle de Jezreel, Israel",
+    "firstAppearance": "Jueces 7:1",
+    "shortDescription": "Lugar donde Gedeón redujo su ejército antes de enfrentar a Madián.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Gedeón",
+      "Israel"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 7:1-7"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "more",
+    "name": "More",
+    "category": "Colina",
+    "currentRegion": "Valle de Jezreel, Israel",
+    "firstAppearance": "Jueces 7:1",
+    "shortDescription": "Colina cerca del campamento madianita en tiempos de Gedeón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Gedeón",
+      "Madianitas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 7:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "tebes",
+    "name": "Tebes",
+    "category": "Ciudad",
+    "currentRegion": "Samaria, identificada con Tubas",
+    "firstAppearance": "Jueces 9:50",
+    "shortDescription": "Ciudad donde Abimelec fue herido mortalmente por una mujer.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Abimelec"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 9:50-54"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "penuel",
+    "name": "Penuel",
+    "category": "Ciudad / torre",
+    "currentRegion": "Al este del Jordán, Jordania",
+    "firstAppearance": "Génesis 32:30",
+    "shortDescription": "Lugar donde Jacob luchó con Dios; después Gedeón castigó su torre.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jacob",
+      "Gedeón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Génesis 32:30-31",
+      "Jueces 8:8-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "sucot-del-jordan",
+    "name": "Sucot del Jordán",
+    "category": "Ciudad",
+    "currentRegion": "Valle del Jordán, Jordania",
+    "firstAppearance": "Génesis 33:17",
+    "shortDescription": "Lugar donde Jacob construyó cabañas y que después negó ayuda a Gedeón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jacob",
+      "Gedeón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Génesis 33:17",
+      "Jueces 8:5-16"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "zaretan",
+    "name": "Zaretán",
+    "category": "Ciudad / región",
+    "currentRegion": "Valle del Jordán, ubicación discutida",
+    "firstAppearance": "Josué 3:16",
+    "shortDescription": "Lugar cercano donde las aguas del Jordán se detuvieron al entrar Israel en Canaán.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Josué",
+      "Israel",
+      "Salomón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 3:16",
+      "1 Reyes 7:46"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "tabor",
+    "name": "Tabor",
+    "category": "Monte",
+    "currentRegion": "Baja Galilea, Israel",
+    "firstAppearance": "Josué 19:22",
+    "shortDescription": "Monte relacionado con la batalla de Débora y Barac.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Débora",
+      "Barac",
+      "Sísara"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 19:22",
+      "Jueces 4:6-14"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "jabes-de-galaad",
+    "name": "Jabes de Galaad",
+    "category": "Ciudad",
+    "currentRegion": "Galaad, Jordania, ubicación discutida",
+    "firstAppearance": "Jueces 21:8",
+    "shortDescription": "Ciudad rescatada por Saúl cuyos habitantes después honraron su cuerpo.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Nahás",
+      "Habitantes de Jabes"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 21:8",
+      "1 Samuel 11:1-11",
+      "1 Samuel 31:11-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "lo-debar",
+    "name": "Lo-debar",
+    "category": "Ciudad",
+    "currentRegion": "Galaad, ubicación discutida",
+    "firstAppearance": "2 Samuel 9:4",
+    "shortDescription": "Lugar donde vivía Mefi-boset antes de ser llamado por David.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Mefi-boset",
+      "David",
+      "Maquir"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Samuel 9:4-5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "rogelim",
+    "name": "Rogelim",
+    "category": "Ciudad",
+    "currentRegion": "Galaad, ubicación desconocida",
+    "firstAppearance": "2 Samuel 17:27",
+    "shortDescription": "Lugar de origen de Barzilai, quien sostuvo a David durante la rebelión de Absalón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Barzilai",
+      "David"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "2 Samuel 17:27",
+      "2 Samuel 19:31"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "en-hacore",
+    "name": "En-hacoré",
+    "category": "Manantial",
+    "currentRegion": "Lehi, territorio de Judá, ubicación desconocida",
+    "firstAppearance": "Jueces 15:19",
+    "shortDescription": "Fuente que Dios abrió para dar agua a Sansón después de su victoria.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sansón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 15:19"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "lehi",
+    "name": "Lehi",
+    "category": "Lugar",
+    "currentRegion": "Territorio de Judá, ubicación desconocida",
+    "firstAppearance": "Jueces 15:9",
+    "shortDescription": "Lugar donde Sansón derrotó a mil filisteos con una quijada de asno.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sansón",
+      "Filisteos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 15:9-17"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "zora",
+    "name": "Zora",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:33",
+    "shortDescription": "Ciudad natal de Sansón y lugar cercano a su sepultura.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Manoa",
+      "Sansón"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:33",
+      "Jueces 13:2",
+      "Jueces 16:31"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "estaol",
+    "name": "Estaol",
+    "category": "Ciudad",
+    "currentRegion": "Sefela de Judá, Israel",
+    "firstAppearance": "Josué 15:33",
+    "shortDescription": "Ciudad cercana a Zora relacionada con el comienzo de la actividad de Sansón.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sansón",
+      "Danitas"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:33",
+      "Jueces 13:25",
+      "Jueces 18:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "valle-de-sorec",
+    "name": "Valle de Sorec",
+    "category": "Valle",
+    "currentRegion": "Sefela, Israel",
+    "firstAppearance": "Jueces 16:4",
+    "shortDescription": "Valle donde vivía Dalila, quien entregó a Sansón a los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Sansón",
+      "Dalila"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 16:4-21"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "rama-de-benjamin",
+    "name": "Ramá de Benjamín",
+    "category": "Ciudad",
+    "currentRegion": "Cerca de Jerusalén, Cisjordania",
+    "firstAppearance": "Josué 18:25",
+    "shortDescription": "Ciudad de Benjamín relacionada con Samuel y con diversos acontecimientos de los reinos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Samuel",
+      "Saúl",
+      "Jeremías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 18:25",
+      "1 Samuel 7:17",
+      "Jeremías 40:1"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "gueba",
+    "name": "Gueba",
+    "category": "Ciudad",
+    "currentRegion": "Benjamín, Cisjordania",
+    "firstAppearance": "Josué 18:24",
+    "shortDescription": "Ciudad levítica y puesto estratégico frente a los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonatán",
+      "Saúl"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 18:24",
+      "1 Samuel 13:3"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "micmas",
+    "name": "Micmas",
+    "category": "Ciudad / paso",
+    "currentRegion": "Cisjordania, cerca de Mukhmas",
+    "firstAppearance": "1 Samuel 13:2",
+    "shortDescription": "Lugar de la victoria de Jonatán sobre una guarnición filistea.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonatán",
+      "Saúl",
+      "Filisteos"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 13:2",
+      "1 Samuel 14:1-23"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "geba-del-paso",
+    "name": "Geba del paso",
+    "category": "Paso / región",
+    "currentRegion": "Benjamín, ubicación relacionada con Gueba",
+    "firstAppearance": "1 Samuel 13:16",
+    "shortDescription": "Zona estratégica en los enfrentamientos entre Israel y los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Jonatán"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 13:16",
+      "Isaías 10:29"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bozez-y-sene",
+    "name": "Bozez y Sene",
+    "category": "Peñascos",
+    "currentRegion": "Paso de Micmas, Cisjordania",
+    "firstAppearance": "1 Samuel 14:4",
+    "shortDescription": "Dos peñascos entre los que Jonatán pasó para atacar la guarnición filistea.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Jonatán",
+      "Escudero de Jonatán"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 14:4-13"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "gaba",
+    "name": "Gaba",
+    "category": "Ciudad",
+    "currentRegion": "Benjamín, ubicación discutida",
+    "firstAppearance": "Jueces 19:14",
+    "shortDescription": "Ciudad benjaminita relacionada con el crimen que provocó la guerra civil contra Benjamín.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Levítico anónimo",
+      "Tribu de Benjamín"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Jueces 19:14-30",
+      "Jueces 20:4"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "migron",
+    "name": "Migrón",
+    "category": "Lugar",
+    "currentRegion": "Benjamín, cerca de Micmas",
+    "firstAppearance": "1 Samuel 14:2",
+    "shortDescription": "Lugar donde Saúl acampó mientras Jonatán atacaba a los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "Saúl",
+      "Jonatán"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 14:2"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "bosque-de-heret",
+    "name": "Bosque de Heret",
+    "category": "Bosque",
+    "currentRegion": "Judá, ubicación desconocida",
+    "firstAppearance": "1 Samuel 22:5",
+    "shortDescription": "Bosque al que el profeta Gad indicó a David que regresara.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Gad"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "1 Samuel 22:5"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
+  },
+  {
+    "id": "en-rogel",
+    "name": "En-rogel",
+    "category": "Manantial",
+    "currentRegion": "Valle de Cedrón, Jerusalén",
+    "firstAppearance": "Josué 15:7",
+    "shortDescription": "Manantial cercano a Jerusalén relacionado con mensajeros de David y con la proclamación de Adonías.",
+    "biblicalImportance": "",
+    "history": "",
+    "relatedPeople": [
+      "David",
+      "Jonatán",
+      "Ahimaas",
+      "Adonías"
+    ],
+    "jesusRelation": "",
+    "mainVerses": [
+      "Josué 15:7",
+      "2 Samuel 17:17",
+      "1 Reyes 1:9"
+    ],
+    "curiosities": [],
+    "coordinates": {
+      "latitude": null,
+      "longitude": null
+    },
+    "image": "",
+    "createdAt": 1785531000000,
+    "updatedAt": 1785531000000
   }
 ]
