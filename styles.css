@@ -2528,11 +2528,17 @@ body.light-mode .action.pastel-action.action-encyclopedia{background:linear-grad
 .encyclopedia-card strong{display:block;font-family:Lora,serif;font-size:clamp(18px,4.8vw,23px);letter-spacing:.02em;text-shadow:0 2px 3px rgba(0,0,0,.75)}
 .encyclopedia-coming-line{width:min(250px,54vw);height:1px;margin:30px auto 14px;background:linear-gradient(90deg,transparent,#9d7a2f 20%,#d0ad59 50%,#9d7a2f 80%,transparent)}
 .encyclopedia-coming{text-align:center;margin:0;color:#aaa297;font-family:Lora,serif;font-size:13px;font-style:italic}
-body.light-mode .encyclopedia-screen{background:#0d0e12;color:#f7f2e8}
-body.light-mode .encyclopedia-panel{background:radial-gradient(circle at 50% 18%,rgba(178,133,42,.07),transparent 33%),linear-gradient(180deg,#101116 0%,#0b0c10 100%)}
-body.light-mode .encyclopedia-head .btn{background:linear-gradient(180deg,#28292e,#17181c);color:#f8f1e4;border-color:#9d7a2f}
-body.light-mode .encyclopedia-panel h1{color:#f3ead8}
-body.light-mode .encyclopedia-sub{color:#c9c2b7}
-body.light-mode .encyclopedia-coming{color:#aaa297}
+/* V2.2.2 · Modo claro de la portada de la Enciclopedia */
+body.light-mode .encyclopedia-screen{background:#f5f0e5;color:#211d17}
+body.light-mode .encyclopedia-panel{background:radial-gradient(circle at 50% 18%,rgba(184,139,48,.12),transparent 35%),linear-gradient(180deg,#fbf8f1 0%,#eee7da 100%)}
+body.light-mode .encyclopedia-head .btn{background:linear-gradient(180deg,#fffdf8,#e9e2d6);color:#282118;border-color:#9d7a2f;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 5px 14px rgba(92,69,28,.16)}
+body.light-mode .encyclopedia-panel h1{color:#2b241b;text-shadow:0 1px 0 rgba(255,255,255,.9),0 2px 8px rgba(115,82,25,.12)}
+body.light-mode .encyclopedia-divider{filter:drop-shadow(0 2px 3px rgba(111,77,18,.24))}
+body.light-mode .encyclopedia-sub{color:#5d554b}
+body.light-mode .encyclopedia-card{background:linear-gradient(180deg,#fffdf9 0%,#eee8de 62%,#e4dccf 100%);color:#241f19;border-color:#9d7a2f;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(104,76,24,.10),0 8px 20px rgba(76,59,30,.16)}
+body.light-mode .encyclopedia-card strong{text-shadow:0 1px 0 rgba(255,255,255,.95)}
+body.light-mode .encyclopedia-card:active{filter:brightness(.98);border-color:#7f5f22}
+body.light-mode .encyclopedia-coming-line{background:linear-gradient(90deg,transparent,#a8843b 20%,#c49a43 50%,#a8843b 80%,transparent)}
+body.light-mode .encyclopedia-coming{color:#746b60}
 @media (min-width:680px){.encyclopedia-grid{grid-template-columns:repeat(3,1fr)}.encyclopedia-card{min-height:128px}.encyclopedia-card strong{font-size:21px}}
 
