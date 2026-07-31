@@ -2594,3 +2594,33 @@ body.light-mode .biblical-prophecy-block blockquote,body.light-mode .biblical-pr
 @media (min-width:720px){.biblical-prophecies-list{grid-template-columns:1fr 1fr}.biblical-prophecy-card{min-height:150px}}
 
 @media (min-width:680px){.encyclopedia-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* V2.7.1 · Gestión completa de Profecías */
+.prophecy-crud-tools{max-width:650px;margin:0 auto 18px}
+.prophecy-detail-tools{display:flex;justify-content:center;gap:10px;margin:-14px auto 18px;flex-wrap:wrap}
+.prophecy-detail-tools button,.prophecy-trash-item button{border:1px solid #8f7132;border-radius:14px;padding:9px 15px;background:linear-gradient(180deg,#28292e,#17181c);color:#f5eee2;font:700 13px Lora,serif}
+.prophecy-detail-tools .danger,.prophecy-trash-item .danger{border-color:#8d4740;color:#ffd9d4}
+.prophecy-editor-dialog{width:min(760px,calc(100vw - 20px));max-height:min(92vh,900px);overflow:auto}
+.prophecy-editor-dialog h2,.prophecy-trash-dialog h2{text-align:center;font-family:Lora,serif}
+.prophecy-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prophecy-editor-grid label{display:flex;flex-direction:column;gap:7px;color:#e8dfcf;font:700 13px Lora,serif}
+.prophecy-editor-grid label.wide{grid-column:1/-1}
+.prophecy-editor-grid input,.prophecy-editor-grid textarea{width:100%;box-sizing:border-box;border:1px solid #806527;border-radius:14px;padding:12px;background:#17181d;color:#f4ede2;font:15px/1.5 Lora,serif;resize:vertical}
+.prophecy-editor-grid small{font-weight:400;color:#aaa297;line-height:1.35}
+.prophecy-editor-grid .highlight-field textarea{border-color:#af8a30;background:linear-gradient(180deg,rgba(212,182,94,.08),#17181d)}
+.prophecy-editor-actions{position:sticky;bottom:-1px;padding-top:14px;background:linear-gradient(180deg,transparent 0,#111217 28%)}
+.prophecy-trash-dialog{width:min(690px,calc(100vw - 20px));max-height:88vh;overflow:auto}
+.prophecy-trash-list{display:grid;gap:10px;margin:14px 0 20px}
+.prophecy-trash-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid #806527;border-radius:16px;background:#18191e;color:#f3ebdf}
+.prophecy-trash-item strong,.prophecy-trash-item small{display:block;font-family:Lora,serif}.prophecy-trash-item small{margin-top:5px;color:#aaa297}.prophecy-trash-item>div:last-child{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+body.light-mode .prophecy-detail-tools button,body.light-mode .prophecy-trash-item button{background:linear-gradient(180deg,#fffdf9,#e9e2d7);color:#2b241b;border-color:#9d7a2f}
+body.light-mode .prophecy-detail-tools .danger,body.light-mode .prophecy-trash-item .danger{color:#772f29;border-color:#9a514a}
+body.light-mode .prophecy-editor-grid label{color:#352d23}
+body.light-mode .prophecy-editor-grid input,body.light-mode .prophecy-editor-grid textarea{background:#fffdf9;color:#2b241b;border-color:#9d7a2f}
+body.light-mode .prophecy-editor-grid small{color:#6f675d}
+body.light-mode .prophecy-editor-grid .highlight-field textarea{background:linear-gradient(180deg,rgba(214,178,65,.16),#fffdf9)}
+body.light-mode .prophecy-editor-actions{background:linear-gradient(180deg,transparent 0,#f4eee4 28%)}
+body.light-mode .prophecy-trash-item{background:#fffdf9;color:#2b241b;border-color:#9d7a2f}
+body.light-mode .prophecy-trash-item small{color:#6f675d}
+@media(max-width:620px){.prophecy-editor-grid{grid-template-columns:1fr}.prophecy-editor-grid label.wide{grid-column:auto}.prophecy-trash-item{align-items:flex-start;flex-direction:column}.prophecy-trash-item>div:last-child{justify-content:flex-start}}

@@ -7,11 +7,11 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.12">
   <link rel="manifest" href="manifest.webmanifest?v=2.1.12">
-<link rel="stylesheet" href="styles.css?v=2.4.0">
+<link rel="stylesheet" href="styles.css?v=2.7.1">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.12">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.4.0">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.7.1">
 
 
 
@@ -103,7 +103,7 @@
         <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
       </div>
       <h1>Enciclopedia Bíblica</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.4.0" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.7.1" alt="" aria-hidden="true">
       <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
       <div class="encyclopedia-grid">
         <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
@@ -179,8 +179,9 @@
     <div class="biblical-prophecies-panel">
       <div class="biblical-prophecies-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('prophecies')">← Volver</button></div>
       <div id="biblicalPropheciesHome">
+        <div class="module-crud-tools prophecy-crud-tools"><button type="button" class="crud-add" onclick="openBiblicalProphecyEditor()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalPropheciesTrash()">Papelera <span id="biblicalPropheciesTrashCount">0</span></button></div>
         <h1 class="biblical-prophecies-title">Profecías</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.4.0" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.7.1" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Profecías mesiánicas y su cumplimiento en nuestro Señor Jesucristo.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPropheciesSearch" type="search" autocomplete="off" placeholder="Buscar profecía, referencia o tema…" oninput="renderBiblicalProphecies()"></label>
         <div class="biblical-prophecies-list-head"><strong id="biblicalPropheciesListTitle">Todas las profecías</strong><span id="biblicalPropheciesCount"></span></div>
@@ -189,6 +190,32 @@
       <article id="biblicalProphecyDetail" class="biblical-prophecy-detail hidden"></article>
     </div>
   </section>
+
+  <dialog id="biblicalProphecyEditDialog" class="sheet-dialog prophecy-editor-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="prophecyEditDialogTitle">Añadir profecía</h2>
+    <input id="prophecyEditId" type="hidden">
+    <div class="prophecy-editor-grid">
+      <label><span>Título</span><input id="prophecyEditTitle" type="text" placeholder="El Mesías…"></label>
+      <label><span>Tema</span><input id="prophecyEditTheme" type="text" placeholder="Pasión, Ministerio, Reino…"></label>
+      <label><span>Referencia de la profecía</span><input id="prophecyEditProphecyRef" type="text" placeholder="Isaías 53:5"></label>
+      <label class="wide"><span>Texto completo de la profecía</span><textarea id="prophecyEditProphecy" rows="5"></textarea></label>
+      <label class="wide highlight-field"><span>Frases destacadas de la profecía</span><small>Una frase por línea. Debe aparecer exactamente en el texto.</small><textarea id="prophecyEditProphecyHighlights" rows="3" placeholder="herido fue por nuestras rebeliones"></textarea></label>
+      <label><span>Referencia del cumplimiento</span><input id="prophecyEditFulfillmentRef" type="text" placeholder="1 Pedro 2:24"></label>
+      <label class="wide"><span>Texto completo del cumplimiento</span><textarea id="prophecyEditFulfillment" rows="5"></textarea></label>
+      <label class="wide highlight-field"><span>Frases destacadas del cumplimiento</span><small>Una frase por línea. Debe aparecer exactamente en el texto.</small><textarea id="prophecyEditFulfillmentHighlights" rows="3"></textarea></label>
+      <label class="wide"><span>Explicación</span><textarea id="prophecyEditExplanation" rows="6"></textarea></label>
+      <label class="wide"><span>Importancia</span><textarea id="prophecyEditImportance" rows="4"></textarea></label>
+    </div>
+    <div class="modal-actions prophecy-editor-actions"><button type="button" onclick="document.getElementById('biblicalProphecyEditDialog').close()">Cancelar</button><button type="button" class="primary" onclick="saveBiblicalProphecyEditor()">Guardar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPropheciesTrashDialog" class="sheet-dialog prophecy-trash-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Papelera de Profecías</h2>
+    <div id="biblicalPropheciesTrashList" class="prophecy-trash-list"></div>
+    <div class="modal-actions"><button id="emptyBiblicalPropheciesTrash" type="button" class="danger" onclick="emptyBiblicalPropheciesTrash()">Vaciar papelera</button><button type="button" onclick="document.getElementById('biblicalPropheciesTrashDialog').close()">Cerrar</button></div>
+  </dialog>
 
   <div id="drawerBackdrop" class="backdrop hidden"></div>
   <aside id="drawer" class="drawer hidden">
@@ -388,6 +415,6 @@
   <script src="biblical-characters-v2244.js?v=2.1.12"></script>
   <script src="biblical-parables-v16436.js?v=2.1.12"></script>
   <script src="biblical-guides-v16436.js?v=2.1.12"></script>
-  <script src="app.js?v=2.4.0"></script>
+  <script src="app.js?v=2.7.1"></script>
 </body>
 </html>
