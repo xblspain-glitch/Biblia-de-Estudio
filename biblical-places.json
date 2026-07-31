@@ -5,29 +5,26 @@
     "category": "Jardín",
     "currentRegion": "Ubicación desconocida; tradicionalmente vinculada a Mesopotamia",
     "firstAppearance": "Génesis 2:8",
-    "shortDescription": "Edén es un jardín mencionado en la Biblia, situado en Ubicación desconocida; tradicionalmente vinculada a Mesopotamia.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Edén en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Jardín donde Dios puso a Adán y Eva; allí ocurrió la desobediencia y la expulsión del ser humano.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Adán",
       "Eva"
     ],
-    "jesusRelation": "La tradición cristiana relaciona Edén con temas de creación, promesa, sacrificio, redención o reino cumplidos en Cristo.",
+    "jesusRelation": "",
     "mainVerses": [
       "Génesis 2:8-15",
       "Génesis 3:23-24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 2:8.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": null,
       "longitude": null
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "tierra-de-nod",
@@ -35,9 +32,9 @@
     "category": "Región",
     "currentRegion": "Al este de Edén; ubicación desconocida",
     "firstAppearance": "Génesis 4:16",
-    "shortDescription": "Tierra de Nod es un región mencionado en la Biblia, situado en Al este de Edén; ubicación desconocida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Tierra de Nod en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región al este de Edén donde Caín habitó después de apartarse de la presencia de Dios.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Caín"
     ],
@@ -45,17 +42,14 @@
     "mainVerses": [
       "Génesis 4:16-17"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 4:16.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": null,
       "longitude": null
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "ararat",
@@ -63,9 +57,9 @@
     "category": "Región montañosa",
     "currentRegion": "Este de Turquía y Armenia histórica",
     "firstAppearance": "Génesis 8:4",
-    "shortDescription": "Ararat es un región montañosa mencionado en la Biblia, situado en Este de Turquía y Armenia histórica.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ararat en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región montañosa donde reposó el arca de Noé después del diluvio.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Noé"
     ],
@@ -73,17 +67,14 @@
     "mainVerses": [
       "Génesis 8:4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 8:4.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 39.7,
       "longitude": 44.3
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "babel",
@@ -91,9 +82,9 @@
     "category": "Ciudad",
     "currentRegion": "Babilonia, actual Irak",
     "firstAppearance": "Génesis 11:9",
-    "shortDescription": "Babel es un ciudad mencionado en la Biblia, situado en Babilonia, actual Irak.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Babel en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad donde los hombres levantaron una torre y Dios confundió sus lenguas.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Nimrod",
       "descendientes de Noé"
@@ -103,17 +94,14 @@
       "Génesis 10:10",
       "Génesis 11:1-9"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 11:9.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.54,
       "longitude": 44.42
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "ur-de-los-caldeos",
@@ -121,9 +109,9 @@
     "category": "Ciudad",
     "currentRegion": "Sur de Irak",
     "firstAppearance": "Génesis 11:28",
-    "shortDescription": "Ur de los caldeos es un ciudad mencionado en la Biblia, situado en Sur de Irak.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ur de los caldeos en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad de la que salió Abraham cuando Dios comenzó a guiarlo hacia la tierra prometida.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Taré",
@@ -134,17 +122,14 @@
       "Génesis 11:28-31",
       "Nehemías 9:7"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 11:28.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.96,
       "longitude": 46.1
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "haran",
@@ -152,9 +137,9 @@
     "category": "Ciudad",
     "currentRegion": "Sureste de Turquía",
     "firstAppearance": "Génesis 11:31",
-    "shortDescription": "Harán es un ciudad mencionado en la Biblia, situado en Sureste de Turquía.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Harán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad donde vivió la familia de Abraham antes de que él partiera hacia Canaán.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Taré",
       "Abraham",
@@ -167,17 +152,14 @@
       "Génesis 12:4",
       "Génesis 27:43"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 11:31.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 36.86,
       "longitude": 39.03
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "canaan",
@@ -185,9 +167,9 @@
     "category": "Región",
     "currentRegion": "Israel, Palestina, Líbano y áreas vecinas",
     "firstAppearance": "Génesis 12:5",
-    "shortDescription": "Canaán es un región mencionado en la Biblia, situado en Israel, Palestina, Líbano y áreas vecinas.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Canaán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Tierra prometida por Dios a Abraham y a su descendencia.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Isaac",
@@ -198,17 +180,14 @@
       "Génesis 12:5-7",
       "Génesis 17:8"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:5.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.8,
       "longitude": 35.2
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "siquem",
@@ -216,9 +195,9 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania, cerca de Nablus",
     "firstAppearance": "Génesis 12:6",
-    "shortDescription": "Siquem es un ciudad mencionado en la Biblia, situado en Cisjordania, cerca de Nablus.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Siquem en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Abraham levantó un altar y donde más tarde ocurrieron hechos importantes de los patriarcas y de Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Jacob",
@@ -231,17 +210,14 @@
       "Génesis 33:18-20",
       "Josué 24:32"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:6.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.21,
       "longitude": 35.28
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "bet-el",
@@ -249,9 +225,9 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania, cerca de Beitín",
     "firstAppearance": "Génesis 12:8",
-    "shortDescription": "Bet-el es un ciudad mencionado en la Biblia, situado en Cisjordania, cerca de Beitín.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Bet-el en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jacob vio en sueños una escalera que llegaba al cielo y recibió la promesa de Dios.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Jacob"
@@ -261,17 +237,14 @@
       "Génesis 12:8",
       "Génesis 28:10-22"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:8.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.93,
       "longitude": 35.22
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "hai",
@@ -279,9 +252,9 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania; identificación discutida",
     "firstAppearance": "Génesis 12:8",
-    "shortDescription": "Hai es un ciudad mencionado en la Biblia, situado en Cisjordania; identificación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Hai en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad conquistada por Israel después de la derrota causada por el pecado de Acán.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Josué"
@@ -291,17 +264,14 @@
       "Génesis 12:8",
       "Josué 7-8"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:8.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.92,
       "longitude": 35.26
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "egipto",
@@ -309,32 +279,29 @@
     "category": "País",
     "currentRegion": "Egipto actual",
     "firstAppearance": "Génesis 12:10",
-    "shortDescription": "Egipto es un país mencionado en la Biblia, situado en Egipto actual.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Egipto en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "País donde Israel fue esclavizado y del que Dios lo liberó por medio de Moisés.",
+    "biblicalImportance": "Lugar de refugio de la familia de Jesús durante su infancia.",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "José",
       "Moisés",
       "Israel"
     ],
-    "jesusRelation": "",
+    "jesusRelation": "Jesús fue llevado a Egipto siendo niño para escapar de Herodes. Mateo presenta su regreso como cumplimiento de: “De Egipto llamé a mi Hijo” (Mateo 2:13-15).",
     "mainVerses": [
       "Génesis 12:10",
       "Génesis 37-50",
       "Éxodo 1-14"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:10.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 26.82,
       "longitude": 30.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "neguev",
@@ -342,9 +309,9 @@
     "category": "Región desértica",
     "currentRegion": "Sur de Israel",
     "firstAppearance": "Génesis 12:9",
-    "shortDescription": "Neguev es un región desértica mencionado en la Biblia, situado en Sur de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Neguev en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región desértica del sur de Canaán recorrida por Abraham, Isaac y otros personajes bíblicos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Isaac"
@@ -355,17 +322,14 @@
       "Génesis 20:1",
       "Números 13:17"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 12:9.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.5,
       "longitude": 34.9
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "hebron",
@@ -373,9 +337,9 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania",
     "firstAppearance": "Génesis 13:18",
-    "shortDescription": "Hebrón es un ciudad mencionado en la Biblia, situado en Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Hebrón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad vinculada a Abraham y a la cueva de Macpela; también fue una de las primeras capitales de David.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Sara",
@@ -387,17 +351,14 @@
       "Génesis 23:2",
       "2 Samuel 2:1-4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 13:18.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.53,
       "longitude": 35.1
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "valle-de-sidim",
@@ -405,9 +366,9 @@
     "category": "Valle",
     "currentRegion": "Zona del mar Muerto",
     "firstAppearance": "Génesis 14:3",
-    "shortDescription": "Valle de Sidim es un valle mencionado en la Biblia, situado en Zona del mar Muerto.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Valle de Sidim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Valle relacionado con la guerra de los reyes y con las ciudades de Sodoma y Gomorra.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Lot",
@@ -417,17 +378,14 @@
     "mainVerses": [
       "Génesis 14:3-10"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 14:3.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.2,
       "longitude": 35.5
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "salem",
@@ -435,9 +393,9 @@
     "category": "Ciudad",
     "currentRegion": "Identificada tradicionalmente con Jerusalén",
     "firstAppearance": "Génesis 14:18",
-    "shortDescription": "Salem es un ciudad mencionado en la Biblia, situado en Identificada tradicionalmente con Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Salem en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad cuyo rey y sacerdote fue Melquisedec, quien bendijo a Abraham.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Melquisedec",
       "Abraham"
@@ -447,17 +405,14 @@
       "Génesis 14:18",
       "Salmos 76:2"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 14:18.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.23
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "damasco",
@@ -465,9 +420,9 @@
     "category": "Ciudad",
     "currentRegion": "Siria",
     "firstAppearance": "Génesis 14:15",
-    "shortDescription": "Damasco es un ciudad mencionado en la Biblia, situado en Siria.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Damasco en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Antigua ciudad de Siria mencionada desde tiempos de Abraham y escenario posterior de la conversión de Pablo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Eliezer",
@@ -478,17 +433,14 @@
       "Génesis 14:15",
       "Hechos 9:1-25"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 14:15.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 33.51,
       "longitude": 36.29
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "sodoma",
@@ -496,9 +448,9 @@
     "category": "Ciudad",
     "currentRegion": "Región del mar Muerto; ubicación discutida",
     "firstAppearance": "Génesis 10:19",
-    "shortDescription": "Sodoma es un ciudad mencionado en la Biblia, situado en Región del mar Muerto; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Sodoma en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad destruida por Dios a causa de su gran maldad.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Lot",
       "Abraham"
@@ -508,17 +460,14 @@
       "Génesis 13:10-13",
       "Génesis 19"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 10:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": null,
       "longitude": null
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "gomorra",
@@ -526,9 +475,9 @@
     "category": "Ciudad",
     "currentRegion": "Región del mar Muerto; ubicación discutida",
     "firstAppearance": "Génesis 10:19",
-    "shortDescription": "Gomorra es un ciudad mencionado en la Biblia, situado en Región del mar Muerto; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gomorra en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad destruida junto con Sodoma por su corrupción y pecado.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Lot",
       "Abraham"
@@ -538,17 +487,14 @@
       "Génesis 18:20",
       "Génesis 19:24-28"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 10:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": null,
       "longitude": null
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "gerar",
@@ -556,9 +502,9 @@
     "category": "Ciudad",
     "currentRegion": "Suroeste de Canaán",
     "firstAppearance": "Génesis 20:1",
-    "shortDescription": "Gerar es un ciudad mencionado en la Biblia, situado en Suroeste de Canaán.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gerar en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad filistea donde vivieron temporalmente Abraham e Isaac.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Isaac",
@@ -569,17 +515,14 @@
       "Génesis 20:1-18",
       "Génesis 26:1-33"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 20:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.38,
       "longitude": 34.61
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "beerseba",
@@ -587,9 +530,9 @@
     "category": "Ciudad",
     "currentRegion": "Sur de Israel",
     "firstAppearance": "Génesis 21:14",
-    "shortDescription": "Beerseba es un ciudad mencionado en la Biblia, situado en Sur de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Beerseba en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar de pozos y pactos relacionado especialmente con Abraham, Isaac y Jacob.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Agar",
@@ -601,17 +544,14 @@
       "Génesis 21:14-33",
       "Génesis 26:23-33"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 21:14.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.25,
       "longitude": 34.79
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "moriah",
@@ -619,30 +559,27 @@
     "category": "Monte o región",
     "currentRegion": "Jerusalén, identificación tradicional",
     "firstAppearance": "Génesis 22:2",
-    "shortDescription": "Moriah es un monte o región mencionado en la Biblia, situado en Jerusalén, identificación tradicional.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Moriah en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde Abraham estuvo dispuesto a ofrecer a Isaac y donde más tarde se levantó el templo de Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Isaac",
       "Salomón"
     ],
-    "jesusRelation": "La tradición cristiana relaciona Moriah con temas de creación, promesa, sacrificio, redención o reino cumplidos en Cristo.",
+    "jesusRelation": "El ofrecimiento de Isaac por Abraham anticipa el tema del Padre que entrega a su Hijo. La relación es tipológica y no significa que todos los detalles sean una profecía directa.",
     "mainVerses": [
       "Génesis 22:2-14",
       "2 Crónicas 3:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 22:2.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "mesopotamia",
@@ -650,9 +587,9 @@
     "category": "Región",
     "currentRegion": "Irak y Siria entre los ríos Tigris y Éufrates",
     "firstAppearance": "Génesis 24:10",
-    "shortDescription": "Mesopotamia es un región mencionado en la Biblia, situado en Irak y Siria entre los ríos Tigris y Éufrates.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mesopotamia en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Amplia región entre los ríos Tigris y Éufrates, vinculada a los orígenes de la familia de Abraham.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Abraham",
       "Rebeca",
@@ -663,17 +600,14 @@
       "Génesis 24:10",
       "Deuteronomio 23:4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 24:10.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 35.0,
       "longitude": 43.0
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "padan-aram",
@@ -681,9 +615,9 @@
     "category": "Región",
     "currentRegion": "Alta Mesopotamia, norte de Siria y sureste de Turquía",
     "firstAppearance": "Génesis 25:20",
-    "shortDescription": "Padan-aram es un región mencionado en la Biblia, situado en Alta Mesopotamia, norte de Siria y sureste de Turquía.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Padan-aram en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región donde Jacob vivió con Labán, se casó y formó gran parte de su familia.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Isaac",
       "Rebeca",
@@ -695,17 +629,14 @@
       "Génesis 25:20",
       "Génesis 28:2-7"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 25:20.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 36.5,
       "longitude": 39.5
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "galaad",
@@ -713,9 +644,9 @@
     "category": "Región",
     "currentRegion": "Noroeste de Jordania",
     "firstAppearance": "Génesis 31:21",
-    "shortDescription": "Galaad es un región mencionado en la Biblia, situado en Noroeste de Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Galaad en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región montañosa al este del Jordán, conocida por sus pastos y su bálsamo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob",
       "Labán",
@@ -726,17 +657,14 @@
       "Génesis 31:21-55",
       "Jueces 10-12"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 31:21.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.2,
       "longitude": 35.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "mahanaim",
@@ -744,9 +672,9 @@
     "category": "Ciudad",
     "currentRegion": "Jordania, al este del Jordán",
     "firstAppearance": "Génesis 32:2",
-    "shortDescription": "Mahanaim es un ciudad mencionado en la Biblia, situado en Jordania, al este del Jordán.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mahanaim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jacob encontró ángeles de Dios y donde David recibió apoyo durante la rebelión de Absalón.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob",
       "David"
@@ -756,17 +684,14 @@
       "Génesis 32:2",
       "2 Samuel 17:24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 32:2.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.3,
       "longitude": 35.7
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "peniel",
@@ -774,9 +699,9 @@
     "category": "Lugar",
     "currentRegion": "Valle del Jaboc, Jordania",
     "firstAppearance": "Génesis 32:30",
-    "shortDescription": "Peniel es un lugar mencionado en la Biblia, situado en Valle del Jaboc, Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Peniel en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jacob luchó con Dios y recibió el nombre de Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob"
     ],
@@ -784,17 +709,14 @@
     "mainVerses": [
       "Génesis 32:24-31"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 32:30.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.22,
       "longitude": 35.7
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "sucot",
@@ -802,9 +724,9 @@
     "category": "Ciudad",
     "currentRegion": "Valle del Jordán, al este del río",
     "firstAppearance": "Génesis 33:17",
-    "shortDescription": "Sucot es un ciudad mencionado en la Biblia, situado en Valle del Jordán, al este del río.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Sucot en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jacob construyó una casa y cabañas después de reconciliarse con Esaú.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob",
       "Gedeón"
@@ -814,17 +736,14 @@
       "Génesis 33:17",
       "Jueces 8:5-16"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 33:17.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.2,
       "longitude": 35.62
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "efrata",
@@ -832,9 +751,9 @@
     "category": "Región o ciudad",
     "currentRegion": "Entorno de Belén, Cisjordania",
     "firstAppearance": "Génesis 35:16",
-    "shortDescription": "Efrata es un región o ciudad mencionado en la Biblia, situado en Entorno de Belén, Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Efrata en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Nombre antiguo relacionado con la zona de Belén y con la sepultura de Raquel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Raquel",
       "Jacob"
@@ -844,17 +763,14 @@
       "Génesis 35:16-19",
       "Miqueas 5:2"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 35:16.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.7,
       "longitude": 35.2
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410127
   },
   {
     "id": "belen",
@@ -862,32 +778,29 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania",
     "firstAppearance": "Génesis 35:19",
-    "shortDescription": "Belén es un ciudad mencionado en la Biblia, situado en Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Belén en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad de David y lugar donde nació Jesucristo, cumpliéndose la profecía anunciada por Miqueas.",
+    "biblicalImportance": "Ciudad de David y lugar escogido por Dios para el nacimiento del Mesías.",
+    "history": "",
     "relatedPeople": [
       "Raquel",
       "Rut",
       "David",
       "Jesús"
     ],
-    "jesusRelation": "Belén está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "En Belén nació Jesucristo. Su nacimiento cumplió la profecía de Miqueas 5:2 acerca del gobernante que saldría de esta pequeña ciudad.",
     "mainVerses": [
       "Génesis 35:19",
       "Rut 1:1-2",
       "Mateo 2:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 35:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.705,
       "longitude": 35.202
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "migdal-edar",
@@ -895,9 +808,9 @@
     "category": "Lugar",
     "currentRegion": "Cerca de Belén",
     "firstAppearance": "Génesis 35:21",
-    "shortDescription": "Migdal-edar es un lugar mencionado en la Biblia, situado en Cerca de Belén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Migdal-edar en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar cercano a Belén mencionado después de la muerte de Raquel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob"
     ],
@@ -905,17 +818,14 @@
     "mainVerses": [
       "Génesis 35:21"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 35:21.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.68,
       "longitude": 35.2
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "edom",
@@ -923,9 +833,9 @@
     "category": "Región",
     "currentRegion": "Sur de Jordania y norte de Arabia",
     "firstAppearance": "Génesis 36:1",
-    "shortDescription": "Edom es un región mencionado en la Biblia, situado en Sur de Jordania y norte de Arabia.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Edom en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Territorio de los descendientes de Esaú, al sureste de Judá.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Esaú",
       "edomitas"
@@ -935,17 +845,14 @@
       "Génesis 36:1-8",
       "Números 20:14-21"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 36:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.3,
       "longitude": 35.5
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "seir",
@@ -953,9 +860,9 @@
     "category": "Región montañosa",
     "currentRegion": "Sur de Jordania",
     "firstAppearance": "Génesis 14:6",
-    "shortDescription": "Seir es un región montañosa mencionado en la Biblia, situado en Sur de Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Seir en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región montañosa ocupada por Esaú y sus descendientes, los edomitas.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Esaú",
       "horeos"
@@ -965,17 +872,14 @@
       "Génesis 14:6",
       "Génesis 36:8-9"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 14:6.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.5,
       "longitude": 35.5
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "dotan",
@@ -983,9 +887,9 @@
     "category": "Ciudad",
     "currentRegion": "Norte de Cisjordania",
     "firstAppearance": "Génesis 37:17",
-    "shortDescription": "Dotán es un ciudad mencionado en la Biblia, situado en Norte de Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Dotán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde José fue vendido por sus hermanos y donde Eliseo fue protegido por el ejército celestial.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "José y sus hermanos",
       "Eliseo"
@@ -995,17 +899,14 @@
       "Génesis 37:17",
       "2 Reyes 6:13"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 37:17.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.42,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "gosen",
@@ -1013,9 +914,9 @@
     "category": "Región",
     "currentRegion": "Delta oriental del Nilo, Egipto",
     "firstAppearance": "Génesis 45:10",
-    "shortDescription": "Gosén es un región mencionado en la Biblia, situado en Delta oriental del Nilo, Egipto.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gosén en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región fértil de Egipto donde vivieron Jacob y sus descendientes.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "José",
       "Jacob",
@@ -1027,17 +928,14 @@
       "Génesis 47:6",
       "Éxodo 8:22"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 45:10.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.7,
       "longitude": 31.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "rameses",
@@ -1045,9 +943,9 @@
     "category": "Ciudad o región",
     "currentRegion": "Delta oriental del Nilo, Egipto",
     "firstAppearance": "Génesis 47:11",
-    "shortDescription": "Ramesés es un ciudad o región mencionado en la Biblia, situado en Delta oriental del Nilo, Egipto.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ramesés en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad o distrito egipcio asociado a la estancia de Israel y al comienzo del éxodo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "José",
       "israelitas",
@@ -1059,17 +957,14 @@
       "Éxodo 1:11",
       "Éxodo 12:37"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 47:11.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.8,
       "longitude": 32.0
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "piton",
@@ -1077,9 +972,9 @@
     "category": "Ciudad almacén",
     "currentRegion": "Delta oriental del Nilo, Egipto",
     "firstAppearance": "Éxodo 1:11",
-    "shortDescription": "Pitón es un ciudad almacén mencionado en la Biblia, situado en Delta oriental del Nilo, Egipto.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Pitón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad de almacenamiento construida por los israelitas durante su esclavitud en Egipto.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Israelitas",
       "faraón"
@@ -1088,17 +983,14 @@
     "mainVerses": [
       "Éxodo 1:11"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 1:11.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.6,
       "longitude": 32.1
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "madian",
@@ -1106,9 +998,9 @@
     "category": "Región",
     "currentRegion": "Noroeste de Arabia Saudí y sur de Jordania",
     "firstAppearance": "Éxodo 2:15",
-    "shortDescription": "Madián es un región mencionado en la Biblia, situado en Noroeste de Arabia Saudí y sur de Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Madián en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región donde Moisés vivió después de huir de Egipto y donde conoció a Séfora.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Jetro",
@@ -1119,17 +1011,14 @@
       "Éxodo 2:15-22",
       "Éxodo 3:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 2:15.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 28.5,
       "longitude": 35.0
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "horeb",
@@ -1137,9 +1026,9 @@
     "category": "Monte",
     "currentRegion": "Península del Sinaí; identificación discutida",
     "firstAppearance": "Éxodo 3:1",
-    "shortDescription": "Horeb es un monte mencionado en la Biblia, situado en Península del Sinaí; identificación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Horeb en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte de Dios donde Moisés vio la zarza ardiente y recibió el llamamiento para liberar a Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Elías"
@@ -1149,17 +1038,14 @@
       "Éxodo 3:1-6",
       "1 Reyes 19:8"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 3:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 28.54,
       "longitude": 33.98
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-sinai",
@@ -1167,29 +1053,26 @@
     "category": "Monte",
     "currentRegion": "Península del Sinaí, Egipto; identificación tradicional",
     "firstAppearance": "Éxodo 19:11",
-    "shortDescription": "Monte Sinaí es un monte mencionado en la Biblia, situado en Península del Sinaí, Egipto; identificación tradicional.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Sinaí en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde Dios entregó la Ley a Moisés y estableció su pacto con Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Israel"
     ],
-    "jesusRelation": "",
+    "jesusRelation": "La Ley dada en Sinaí prepara el camino para comprender la necesidad de la gracia y la Nueva Alianza cumplida en Jesucristo.",
     "mainVerses": [
       "Éxodo 19-20",
       "Éxodo 24:12-18"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 19:11.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 28.54,
       "longitude": 33.98
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "sucot-de-egipto",
@@ -1197,9 +1080,9 @@
     "category": "Campamento",
     "currentRegion": "Delta oriental del Nilo, Egipto",
     "firstAppearance": "Éxodo 12:37",
-    "shortDescription": "Sucot de Egipto es un campamento mencionado en la Biblia, situado en Delta oriental del Nilo, Egipto.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Sucot de Egipto en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Primera etapa del camino de Israel después de salir de Ramesés.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1209,17 +1092,14 @@
       "Éxodo 12:37",
       "Éxodo 13:20"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 12:37.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.6,
       "longitude": 32.0
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "etam",
@@ -1227,9 +1107,9 @@
     "category": "Campamento",
     "currentRegion": "Borde del desierto egipcio",
     "firstAppearance": "Éxodo 13:20",
-    "shortDescription": "Etam es un campamento mencionado en la Biblia, situado en Borde del desierto egipcio.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Etam en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Israel acampó al borde del desierto durante el éxodo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1238,17 +1118,14 @@
     "mainVerses": [
       "Éxodo 13:20"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 13:20.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.5,
       "longitude": 32.2
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "pi-hahirot",
@@ -1256,9 +1133,9 @@
     "category": "Campamento",
     "currentRegion": "Cerca del mar Rojo; ubicación discutida",
     "firstAppearance": "Éxodo 14:2",
-    "shortDescription": "Pi-hahirot es un campamento mencionado en la Biblia, situado en Cerca del mar Rojo; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Pi-hahirot en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Israel acampó antes de cruzar el mar y ser librado del ejército egipcio.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas",
@@ -1268,17 +1145,14 @@
     "mainVerses": [
       "Éxodo 14:2-9"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 14:2.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": null,
       "longitude": null
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "mar-rojo",
@@ -1286,29 +1160,26 @@
     "category": "Mar",
     "currentRegion": "Entre África y Arabia",
     "firstAppearance": "Éxodo 10:19",
-    "shortDescription": "Mar Rojo es un mar mencionado en la Biblia, situado en Entre África y Arabia.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mar Rojo en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Mar que Dios abrió para que Israel escapara de Egipto y donde fue derrotado el ejército de Faraón.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
     ],
-    "jesusRelation": "",
+    "jesusRelation": "La liberación a través del mar es presentada en la tradición cristiana como imagen de la salvación y del bautismo; Cristo libera de la esclavitud del pecado.",
     "mainVerses": [
       "Éxodo 14:21-31",
       "Éxodo 15:4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 10:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 27.0,
       "longitude": 34.5
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "mara",
@@ -1316,9 +1187,9 @@
     "category": "Lugar de aguas",
     "currentRegion": "Desierto de Shur, península del Sinaí",
     "firstAppearance": "Éxodo 15:23",
-    "shortDescription": "Mara es un lugar de aguas mencionado en la Biblia, situado en Desierto de Shur, península del Sinaí.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mara en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde las aguas eran amargas y Dios las hizo aptas para beber.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1327,17 +1198,14 @@
     "mainVerses": [
       "Éxodo 15:23-26"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 15:23.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 29.1,
       "longitude": 33.0
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "elim",
@@ -1345,9 +1213,9 @@
     "category": "Oasis",
     "currentRegion": "Península del Sinaí",
     "firstAppearance": "Éxodo 15:27",
-    "shortDescription": "Elim es un oasis mencionado en la Biblia, situado en Península del Sinaí.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Elim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Oasis con doce fuentes y setenta palmeras donde Israel descansó durante el éxodo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1357,17 +1225,14 @@
       "Éxodo 15:27",
       "Números 33:9"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 15:27.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 29.2,
       "longitude": 32.9
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "desierto-de-sin",
@@ -1375,9 +1240,9 @@
     "category": "Desierto",
     "currentRegion": "Península del Sinaí",
     "firstAppearance": "Éxodo 16:1",
-    "shortDescription": "Desierto de Sin es un desierto mencionado en la Biblia, situado en Península del Sinaí.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Desierto de Sin en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región donde Israel murmuró por falta de alimento y Dios comenzó a dar el maná.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1386,17 +1251,14 @@
     "mainVerses": [
       "Éxodo 16:1-36"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 16:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 29.0,
       "longitude": 33.3
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "refidim",
@@ -1404,9 +1266,9 @@
     "category": "Campamento",
     "currentRegion": "Península del Sinaí",
     "firstAppearance": "Éxodo 17:1",
-    "shortDescription": "Refidim es un campamento mencionado en la Biblia, situado en Península del Sinaí.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Refidim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Dios dio agua de la roca y donde Israel luchó contra Amalec.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Josué",
@@ -1416,17 +1278,14 @@
     "mainVerses": [
       "Éxodo 17:1-16"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Éxodo 17:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 28.7,
       "longitude": 33.6
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "cades-barnea",
@@ -1434,9 +1293,9 @@
     "category": "Oasis y campamento",
     "currentRegion": "Frontera entre Sinaí y Neguev",
     "firstAppearance": "Números 13:26",
-    "shortDescription": "Cades-barnea es un oasis y campamento mencionado en la Biblia, situado en Frontera entre Sinaí y Neguev.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Cades-barnea en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar desde donde fueron enviados los espías a Canaán y donde Israel se rebeló por incredulidad.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "María",
@@ -1448,17 +1307,14 @@
       "Números 20:1",
       "Deuteronomio 1:19"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 13:26.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.65,
       "longitude": 34.42
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "desierto-de-paran",
@@ -1466,9 +1322,9 @@
     "category": "Desierto",
     "currentRegion": "Noreste del Sinaí y sur de Canaán",
     "firstAppearance": "Génesis 21:21",
-    "shortDescription": "Desierto de Parán es un desierto mencionado en la Biblia, situado en Noreste del Sinaí y sur de Canaán.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Desierto de Parán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región desértica recorrida por Israel y relacionada con Ismael y con el envío de los espías.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Ismael",
       "Moisés",
@@ -1480,17 +1336,14 @@
       "Números 10:12",
       "Números 13:3"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 21:21.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 29.5,
       "longitude": 34.7
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "desierto-de-zin",
@@ -1498,9 +1351,9 @@
     "category": "Desierto",
     "currentRegion": "Sur de Canaán",
     "firstAppearance": "Números 13:21",
-    "shortDescription": "Desierto de Zin es un desierto mencionado en la Biblia, situado en Sur de Canaán.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Desierto de Zin en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región donde murió María y donde Moisés golpeó la roca.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "israelitas"
@@ -1510,17 +1363,14 @@
       "Números 13:21",
       "Números 20:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 13:21.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.7,
       "longitude": 34.6
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "horma",
@@ -1528,9 +1378,9 @@
     "category": "Ciudad",
     "currentRegion": "Sur de Canaán",
     "firstAppearance": "Números 14:45",
-    "shortDescription": "Hormá es un ciudad mencionado en la Biblia, situado en Sur de Canaán.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Hormá en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar relacionado con derrotas y victorias de Israel frente a los cananeos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Israelitas",
       "cananeos"
@@ -1540,17 +1390,14 @@
       "Números 14:45",
       "Números 21:3"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 14:45.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.0,
       "longitude": 34.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-hor",
@@ -1558,9 +1405,9 @@
     "category": "Monte",
     "currentRegion": "Cerca de Edom; identificación tradicional con Jebel Harun",
     "firstAppearance": "Números 20:22",
-    "shortDescription": "Monte Hor es un monte mencionado en la Biblia, situado en Cerca de Edom; identificación tradicional con Jebel Harun.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Hor en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde murió Aarón y Eleazar recibió sus vestiduras sacerdotales.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Aarón",
       "Moisés",
@@ -1570,17 +1417,14 @@
     "mainVerses": [
       "Números 20:22-29"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 20:22.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 30.32,
       "longitude": 35.41
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "arnon",
@@ -1588,9 +1432,9 @@
     "category": "Río y valle",
     "currentRegion": "Jordania, actual Wadi Mujib",
     "firstAppearance": "Números 21:13",
-    "shortDescription": "Arnón es un río y valle mencionado en la Biblia, situado en Jordania, actual Wadi Mujib.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Arnón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Río que marcaba la frontera de Moab y de los territorios conquistados por Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Israelitas",
       "moabitas",
@@ -1601,17 +1445,14 @@
       "Números 21:13-15",
       "Deuteronomio 2:24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 21:13.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.47,
       "longitude": 35.7
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "hesbon",
@@ -1619,9 +1460,9 @@
     "category": "Ciudad",
     "currentRegion": "Jordania",
     "firstAppearance": "Números 21:25",
-    "shortDescription": "Hesbón es un ciudad mencionado en la Biblia, situado en Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Hesbón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Capital del rey amorreo Sehón, conquistada por Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Sehón",
       "israelitas"
@@ -1631,17 +1472,14 @@
       "Números 21:25-31",
       "Cantares 7:4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 21:25.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.8,
       "longitude": 35.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "basan",
@@ -1649,9 +1487,9 @@
     "category": "Región",
     "currentRegion": "Altos del Golán y sur de Siria",
     "firstAppearance": "Números 21:33",
-    "shortDescription": "Basán es un región mencionado en la Biblia, situado en Altos del Golán y sur de Siria.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Basán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región fértil gobernada por Og y entregada a las tribus orientales de Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Og",
       "Moisés",
@@ -1662,17 +1500,14 @@
       "Números 21:33-35",
       "Deuteronomio 3:1-13"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 21:33.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.9,
       "longitude": 35.9
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "moab",
@@ -1680,9 +1515,9 @@
     "category": "Región",
     "currentRegion": "Centro-oeste de Jordania",
     "firstAppearance": "Génesis 19:37",
-    "shortDescription": "Moab es un región mencionado en la Biblia, situado en Centro-oeste de Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Moab en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Territorio al este del mar Muerto, relacionado con Rut y con los últimos días de Moisés.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Lot",
       "Rut",
@@ -1694,17 +1529,14 @@
       "Números 22-24",
       "Rut 1:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 19:37.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.3,
       "longitude": 35.7
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-nebo",
@@ -1712,9 +1544,9 @@
     "category": "Monte",
     "currentRegion": "Jordania",
     "firstAppearance": "Números 33:47",
-    "shortDescription": "Monte Nebo es un monte mencionado en la Biblia, situado en Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Nebo en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte desde el que Moisés contempló la tierra prometida antes de morir.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés"
     ],
@@ -1722,17 +1554,14 @@
     "mainVerses": [
       "Deuteronomio 34:1-5"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 33:47.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.77,
       "longitude": 35.73
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "jordan",
@@ -1740,9 +1569,9 @@
     "category": "Río",
     "currentRegion": "Israel, Cisjordania y Jordania",
     "firstAppearance": "Génesis 13:10",
-    "shortDescription": "Jordán es un río mencionado en la Biblia, situado en Israel, Cisjordania y Jordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Jordán en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Río que Israel cruzó para entrar en Canaán y en el que Jesús fue bautizado.",
+    "biblicalImportance": "Río del bautismo de Jesús y del comienzo público de su ministerio.",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Elías",
@@ -1750,23 +1579,20 @@
       "Juan el Bautista",
       "Jesús"
     ],
-    "jesusRelation": "Jordán está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús fue bautizado en el Jordán por Juan. Allí el Padre dio testimonio del Hijo y el Espíritu Santo descendió sobre Él.",
     "mainVerses": [
       "Josué 3",
       "2 Reyes 2",
       "Mateo 3:13"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 13:10.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.0,
       "longitude": 35.56
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "jerico",
@@ -1774,32 +1600,29 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania",
     "firstAppearance": "Números 22:1",
-    "shortDescription": "Jericó es un ciudad mencionado en la Biblia, situado en Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Jericó en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Primera gran ciudad conquistada por Israel en Canaán; siglos después Jesús obró allí y llamó a Zaqueo.",
+    "biblicalImportance": "Ciudad donde Jesús mostró su misericordia y su misión de buscar y salvar.",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Rahab",
       "Jesús",
       "Zaqueo"
     ],
-    "jesusRelation": "Jericó está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús devolvió la vista a ciegos cerca de Jericó y llamó a Zaqueo, declarando que el Hijo del Hombre vino a buscar y salvar lo que se había perdido.",
     "mainVerses": [
       "Josué 2",
       "Josué 6",
       "Lucas 19:1-10"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Números 22:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.87,
       "longitude": 35.44
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "gilgal",
@@ -1807,9 +1630,9 @@
     "category": "Lugar y campamento",
     "currentRegion": "Valle del Jordán, cerca de Jericó",
     "firstAppearance": "Josué 4:19",
-    "shortDescription": "Gilgal es un lugar y campamento mencionado en la Biblia, situado en Valle del Jordán, cerca de Jericó.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gilgal en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Primer campamento de Israel tras cruzar el Jordán y lugar de renovación del pacto.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Samuel",
@@ -1820,17 +1643,14 @@
       "Josué 4:19-24",
       "1 Samuel 11:14-15"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 4:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.9,
       "longitude": 35.42
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-ebal",
@@ -1838,9 +1658,9 @@
     "category": "Monte",
     "currentRegion": "Cisjordania, cerca de Nablus",
     "firstAppearance": "Deuteronomio 11:29",
-    "shortDescription": "Monte Ebal es un monte mencionado en la Biblia, situado en Cisjordania, cerca de Nablus.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Ebal en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde se proclamaron las maldiciones de la Ley y se levantó un altar.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Josué",
@@ -1851,17 +1671,14 @@
       "Deuteronomio 11:29",
       "Josué 8:30-35"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Deuteronomio 11:29.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.23,
       "longitude": 35.27
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-gerizim",
@@ -1869,9 +1686,9 @@
     "category": "Monte",
     "currentRegion": "Cisjordania, cerca de Nablus",
     "firstAppearance": "Deuteronomio 11:29",
-    "shortDescription": "Monte Gerizim es un monte mencionado en la Biblia, situado en Cisjordania, cerca de Nablus.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Gerizim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde se proclamaron las bendiciones y lugar sagrado para los samaritanos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Moisés",
       "Josué",
@@ -1882,17 +1699,14 @@
       "Deuteronomio 11:29",
       "Juan 4:20"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Deuteronomio 11:29.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.2,
       "longitude": 35.27
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "gabaon",
@@ -1900,9 +1714,9 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania, cerca de Jerusalén",
     "firstAppearance": "Josué 9:3",
-    "shortDescription": "Gabaón es un ciudad mencionado en la Biblia, situado en Cisjordania, cerca de Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gabaón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad cuyos habitantes hicieron pacto con Israel mediante engaño.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "gabaonitas",
@@ -1913,17 +1727,14 @@
       "Josué 9-10",
       "1 Reyes 3:4-5"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 9:3.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.85,
       "longitude": 35.18
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "ajalon",
@@ -1931,9 +1742,9 @@
     "category": "Valle y ciudad",
     "currentRegion": "Centro de Israel",
     "firstAppearance": "Josué 10:12",
-    "shortDescription": "Ajalón es un valle y ciudad mencionado en la Biblia, situado en Centro de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ajalón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Valle relacionado con la batalla en la que Josué pidió que el sol se detuviera.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "israelitas"
@@ -1942,17 +1753,14 @@
     "mainVerses": [
       "Josué 10:12-14"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 10:12.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.85,
       "longitude": 34.98
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "lachis",
@@ -1960,9 +1768,9 @@
     "category": "Ciudad",
     "currentRegion": "Sur de Israel",
     "firstAppearance": "Josué 10:3",
-    "shortDescription": "Lachís es un ciudad mencionado en la Biblia, situado en Sur de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Lachís en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Importante ciudad fortificada de Judá, conquistada por varios ejércitos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Senaquerib"
@@ -1972,17 +1780,14 @@
       "Josué 10:3-35",
       "2 Reyes 18:14-17"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 10:3.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.56,
       "longitude": 34.85
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "debir",
@@ -1990,9 +1795,9 @@
     "category": "Ciudad",
     "currentRegion": "Montes de Judá; ubicación tradicional",
     "firstAppearance": "Josué 10:38",
-    "shortDescription": "Debir es un ciudad mencionado en la Biblia, situado en Montes de Judá; ubicación tradicional.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Debir en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad cananea conquistada durante la entrada de Israel en la tierra.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Otoniel",
@@ -2003,17 +1808,14 @@
       "Josué 10:38-39",
       "Josué 15:15-17"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 10:38.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.42,
       "longitude": 34.96
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "hazor",
@@ -2021,9 +1823,9 @@
     "category": "Ciudad",
     "currentRegion": "Norte de Israel",
     "firstAppearance": "Josué 11:1",
-    "shortDescription": "Hazor es un ciudad mencionado en la Biblia, situado en Norte de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Hazor en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Gran ciudad cananea derrotada por Josué y más tarde relacionada con los jueces.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Jabín",
@@ -2034,17 +1836,14 @@
       "Josué 11:1-13",
       "Jueces 4:2"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 11:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 33.02,
       "longitude": 35.57
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "sidon",
@@ -2052,31 +1851,28 @@
     "category": "Ciudad",
     "currentRegion": "Líbano",
     "firstAppearance": "Génesis 10:15",
-    "shortDescription": "Sidón es un ciudad mencionado en la Biblia, situado en Líbano.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Sidón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Antigua ciudad fenicia; Jesús visitó su región y allí elogió la fe de una mujer gentil.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Sidonios",
       "Elías",
       "Jesús"
     ],
-    "jesusRelation": "Sidón está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús estuvo en la región de Tiro y Sidón y atendió la súplica de una mujer cananea, destacando su fe.",
     "mainVerses": [
       "Génesis 10:15",
       "1 Reyes 17:9",
       "Marcos 7:24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 10:15.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 33.56,
       "longitude": 35.37
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "tiro",
@@ -2084,32 +1880,29 @@
     "category": "Ciudad",
     "currentRegion": "Líbano",
     "firstAppearance": "Josué 19:29",
-    "shortDescription": "Tiro es un ciudad mencionado en la Biblia, situado en Líbano.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Tiro en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad fenicia costera; Jesús visitó su región y sus habitantes escucharon su enseñanza.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Hiram",
       "Ezequiel",
       "Jesús",
       "Pablo"
     ],
-    "jesusRelation": "Tiro está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús visitó la región de Tiro y Sidón, donde mostró que la misericordia de Dios alcanza también a los gentiles.",
     "mainVerses": [
       "2 Samuel 5:11",
       "Ezequiel 26-28",
       "Marcos 7:24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 19:29.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 33.27,
       "longitude": 35.2
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "gaza",
@@ -2117,9 +1910,9 @@
     "category": "Ciudad",
     "currentRegion": "Franja de Gaza",
     "firstAppearance": "Génesis 10:19",
-    "shortDescription": "Gaza es un ciudad mencionado en la Biblia, situado en Franja de Gaza.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gaza en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad filistea relacionada especialmente con Sansón y posteriormente con Felipe y el etíope.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Sansón",
       "filisteos",
@@ -2130,17 +1923,14 @@
       "Jueces 16",
       "Hechos 8:26"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 10:19.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.5,
       "longitude": 34.47
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "ascalon",
@@ -2148,9 +1938,9 @@
     "category": "Ciudad",
     "currentRegion": "Costa de Israel",
     "firstAppearance": "Josué 13:3",
-    "shortDescription": "Ascalón es un ciudad mencionado en la Biblia, situado en Costa de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ascalón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Una de las principales ciudades de los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Filisteos",
       "Sansón"
@@ -2160,17 +1950,14 @@
       "Jueces 14:19",
       "1 Samuel 6:17"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 13:3.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.67,
       "longitude": 34.57
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "asdod",
@@ -2178,9 +1965,9 @@
     "category": "Ciudad",
     "currentRegion": "Israel",
     "firstAppearance": "Josué 11:22",
-    "shortDescription": "Asdod es un ciudad mencionado en la Biblia, situado en Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Asdod en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad filistea donde fue llevado el arca de Dios y cayó la estatua de Dagón.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Filisteos",
       "Dagón"
@@ -2189,17 +1976,14 @@
     "mainVerses": [
       "1 Samuel 5:1-7"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 11:22.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.8,
       "longitude": 34.65
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "ecron",
@@ -2207,9 +1991,9 @@
     "category": "Ciudad",
     "currentRegion": "Israel",
     "firstAppearance": "Josué 13:3",
-    "shortDescription": "Ecrón es un ciudad mencionado en la Biblia, situado en Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ecrón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad filistea relacionada con el traslado del arca y con el culto a Baal-zebub.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Filisteos"
     ],
@@ -2218,17 +2002,14 @@
       "Josué 13:3",
       "1 Samuel 5:10"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 13:3.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.77,
       "longitude": 34.85
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "gat",
@@ -2236,9 +2017,9 @@
     "category": "Ciudad",
     "currentRegion": "Israel; ubicación arqueológica en Tell es-Safi",
     "firstAppearance": "Josué 11:22",
-    "shortDescription": "Gat es un ciudad mencionado en la Biblia, situado en Israel; ubicación arqueológica en Tell es-Safi.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gat en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad filistea asociada con Goliat y con el tiempo en que David huyó de Saúl.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Goliat",
       "David",
@@ -2249,17 +2030,14 @@
       "1 Samuel 17:4",
       "1 Samuel 21:10"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 11:22.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.7,
       "longitude": 34.85
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "ofra",
@@ -2267,9 +2045,9 @@
     "category": "Ciudad",
     "currentRegion": "Territorio de Manasés; ubicación discutida",
     "firstAppearance": "Jueces 6:11",
-    "shortDescription": "Ofra es un ciudad mencionado en la Biblia, situado en Territorio de Manasés; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ofra en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde el ángel de Dios llamó a Gedeón para liberar a Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Gedeón",
       "Joás"
@@ -2278,17 +2056,14 @@
     "mainVerses": [
       "Jueces 6:11-24"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Jueces 6:11.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.4,
       "longitude": 35.3
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "valle-de-jezreel",
@@ -2296,9 +2071,9 @@
     "category": "Valle",
     "currentRegion": "Norte de Israel",
     "firstAppearance": "Josué 17:16",
-    "shortDescription": "Valle de Jezreel es un valle mencionado en la Biblia, situado en Norte de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Valle de Jezreel en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Amplio valle relacionado con numerosas batallas y con la ciudad real de Jezreel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Gedeón",
       "Saúl",
@@ -2311,17 +2086,14 @@
       "1 Samuel 29:1",
       "2 Reyes 9"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 17:16.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.6,
       "longitude": 35.3
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-tabor",
@@ -2329,9 +2101,9 @@
     "category": "Monte",
     "currentRegion": "Norte de Israel",
     "firstAppearance": "Josué 19:22",
-    "shortDescription": "Monte Tabor es un monte mencionado en la Biblia, situado en Norte de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Tabor en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte de Galilea relacionado con la victoria de Débora y Barac.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Débora",
       "Barac"
@@ -2340,17 +2112,14 @@
     "mainVerses": [
       "Jueces 4:6-14"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 19:22.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.69,
       "longitude": 35.39
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "silo",
@@ -2358,9 +2127,9 @@
     "category": "Ciudad y santuario",
     "currentRegion": "Cisjordania",
     "firstAppearance": "Josué 18:1",
-    "shortDescription": "Silo es un ciudad y santuario mencionado en la Biblia, situado en Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Silo en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde estuvo el tabernáculo y donde Samuel sirvió siendo niño.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Josué",
       "Elí",
@@ -2372,17 +2141,14 @@
       "Josué 18:1",
       "1 Samuel 1-4"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 18:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.06,
       "longitude": 35.29
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "rama",
@@ -2390,9 +2156,9 @@
     "category": "Ciudad",
     "currentRegion": "Montes de Efraín; identificación tradicional",
     "firstAppearance": "Josué 18:25",
-    "shortDescription": "Ramá es un ciudad mencionado en la Biblia, situado en Montes de Efraín; identificación tradicional.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ramá en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad vinculada a Samuel y a diversos acontecimientos de la historia de Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Samuel",
       "Saúl",
@@ -2404,17 +2170,14 @@
       "1 Samuel 7:17",
       "Jeremías 31:15"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 18:25.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.85,
       "longitude": 35.23
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "mizpa",
@@ -2422,9 +2185,9 @@
     "category": "Ciudad o lugar elevado",
     "currentRegion": "Cisjordania; varias localidades bíblicas",
     "firstAppearance": "Génesis 31:49",
-    "shortDescription": "Mizpa es un ciudad o lugar elevado mencionado en la Biblia, situado en Cisjordania; varias localidades bíblicas.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mizpa en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Nombre de varios lugares bíblicos; uno de ellos fue centro de reunión y oración para Israel.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Jacob",
       "Samuel",
@@ -2435,17 +2198,14 @@
       "Génesis 31:49",
       "1 Samuel 7:5-12"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Génesis 31:49.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.83,
       "longitude": 35.18
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "belen-de-juda",
@@ -2453,32 +2213,29 @@
     "category": "Ciudad",
     "currentRegion": "Cisjordania",
     "firstAppearance": "Jueces 17:7",
-    "shortDescription": "Belén de Judá es un ciudad mencionado en la Biblia, situado en Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Belén de Judá en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "La misma Belén de la región de Judá, ciudad de David y lugar del nacimiento de Jesucristo.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Rut",
       "Booz",
       "David",
       "Jesús"
     ],
-    "jesusRelation": "Belén de Judá está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "En esta ciudad nació Jesucristo, el Hijo de David y Mesías prometido, conforme a Miqueas 5:2.",
     "mainVerses": [
       "Rut 1-4",
       "1 Samuel 16",
       "Mateo 2:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Jueces 17:7.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.705,
       "longitude": 35.202
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "quiriat-jearim",
@@ -2486,9 +2243,9 @@
     "category": "Ciudad",
     "currentRegion": "Cerca de Abu Ghosh, Israel",
     "firstAppearance": "Josué 9:17",
-    "shortDescription": "Quiriat-jearim es un ciudad mencionado en la Biblia, situado en Cerca de Abu Ghosh, Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Quiriat-jearim en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad donde permaneció el arca antes de que David la llevara a Jerusalén.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Israelitas",
       "David"
@@ -2499,17 +2256,14 @@
       "1 Samuel 7:1-2",
       "2 Samuel 6:2"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 9:17.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.8,
       "longitude": 35.1
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "nob",
@@ -2517,9 +2271,9 @@
     "category": "Ciudad sacerdotal",
     "currentRegion": "Cerca de Jerusalén; ubicación discutida",
     "firstAppearance": "1 Samuel 21:1",
-    "shortDescription": "Nob es un ciudad sacerdotal mencionado en la Biblia, situado en Cerca de Jerusalén; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Nob en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad sacerdotal donde David recibió pan consagrado y la espada de Goliat.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "Ahimelec",
       "David",
@@ -2530,17 +2284,14 @@
       "1 Samuel 21:1-9",
       "1 Samuel 22:11-19"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 1 Samuel 21:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.8,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "en-gadi",
@@ -2548,9 +2299,9 @@
     "category": "Oasis",
     "currentRegion": "Costa occidental del mar Muerto, Israel",
     "firstAppearance": "Josué 15:62",
-    "shortDescription": "En-gadi es un oasis mencionado en la Biblia, situado en Costa occidental del mar Muerto, Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona En-gadi en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Oasis del desierto de Judá donde David se escondió de Saúl.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "David",
       "Saúl"
@@ -2560,17 +2311,14 @@
       "1 Samuel 23:29",
       "1 Samuel 24:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 15:62.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.46,
       "longitude": 35.39
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "siclag",
@@ -2578,9 +2326,9 @@
     "category": "Ciudad",
     "currentRegion": "Sur de Canaán; ubicación discutida",
     "firstAppearance": "Josué 15:31",
-    "shortDescription": "Siclag es un ciudad mencionado en la Biblia, situado en Sur de Canaán; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Siclag en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad entregada a David durante su estancia entre los filisteos.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "David",
       "filisteos",
@@ -2591,17 +2339,14 @@
       "1 Samuel 27:6",
       "1 Samuel 30"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 15:31.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.2,
       "longitude": 34.8
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "jerusalen",
@@ -2609,9 +2354,9 @@
     "category": "Ciudad",
     "currentRegion": "Israel/Cisjordania; ciudad disputada internacionalmente",
     "firstAppearance": "Josué 10:1",
-    "shortDescription": "Jerusalén es un ciudad mencionado en la Biblia, situado en Israel/Cisjordania; ciudad disputada internacionalmente.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Jerusalén en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad donde Jesús enseñó, celebró la última cena, fue crucificado y resucitó; también allí descendió el Espíritu Santo en Pentecostés.",
+    "biblicalImportance": "Centro de acontecimientos decisivos de la salvación: la pasión, muerte y resurrección de Cristo y el nacimiento público de la Iglesia en Pentecostés.",
+    "history": "",
     "relatedPeople": [
       "David",
       "Salomón",
@@ -2619,24 +2364,21 @@
       "Jesús",
       "apóstoles"
     ],
-    "jesusRelation": "Jerusalén está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jerusalén ocupa un lugar central en la obra de Jesús: allí enseñó, celebró la última cena, murió en la cruz, resucitó y se apareció a sus discípulos.",
     "mainVerses": [
       "2 Samuel 5:6-10",
       "1 Reyes 8",
       "Lucas 19:28-44",
       "Hechos 2"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Josué 10:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.23
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "ciudad-de-david",
@@ -2644,29 +2386,26 @@
     "category": "Barrio histórico",
     "currentRegion": "Jerusalén",
     "firstAppearance": "2 Samuel 5:7",
-    "shortDescription": "Ciudad de David es un barrio histórico mencionado en la Biblia, situado en Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Ciudad de David en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Sector antiguo de Jerusalén conquistado por David y convertido en capital de su reino.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "David",
       "Salomón"
     ],
-    "jesusRelation": "",
+    "jesusRelation": "Jesús es llamado Hijo de David. La ciudad recuerda el reino de David y la promesa mesiánica cumplida en Cristo.",
     "mainVerses": [
       "2 Samuel 5:7-9",
       "1 Reyes 8:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 2 Samuel 5:7.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.77,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-sion",
@@ -2674,31 +2413,28 @@
     "category": "Monte y símbolo",
     "currentRegion": "Jerusalén",
     "firstAppearance": "2 Samuel 5:7",
-    "shortDescription": "Monte Sion es un monte y símbolo mencionado en la Biblia, situado en Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte Sion en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Nombre bíblico ligado a Jerusalén, al reinado de David y a la esperanza del reino de Dios.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "David",
       "salmistas",
       "profetas"
     ],
-    "jesusRelation": "La tradición cristiana relaciona Monte Sion con temas de creación, promesa, sacrificio, redención o reino cumplidos en Cristo.",
+    "jesusRelation": "El Nuevo Testamento utiliza Sion para expresar el cumplimiento de las promesas de Dios y la realidad del reino que llega por medio de Cristo.",
     "mainVerses": [
       "Salmos 48",
       "Isaías 2:3",
       "Hebreos 12:22"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 2 Samuel 5:7.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.23
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "valle-de-cedron",
@@ -2706,29 +2442,26 @@
     "category": "Valle",
     "currentRegion": "Jerusalén",
     "firstAppearance": "2 Samuel 15:23",
-    "shortDescription": "Valle de Cedrón es un valle mencionado en la Biblia, situado en Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Valle de Cedrón en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Valle al este de Jerusalén que Jesús cruzó camino de Getsemaní la noche de su arresto.",
+    "biblicalImportance": "",
+    "history": "",
     "relatedPeople": [
       "David",
       "Jesús"
     ],
-    "jesusRelation": "Valle de Cedrón está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús cruzó el torrente de Cedrón después de la última cena, camino del huerto donde sería arrestado.",
     "mainVerses": [
       "2 Samuel 15:23",
       "Juan 18:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 2 Samuel 15:23.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "monte-de-los-olivos",
@@ -2736,31 +2469,28 @@
     "category": "Monte",
     "currentRegion": "Este de Jerusalén",
     "firstAppearance": "2 Samuel 15:30",
-    "shortDescription": "Monte de los Olivos es un monte mencionado en la Biblia, situado en Este de Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Monte de los Olivos en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Monte donde Jesús enseñó, oró, entró triunfalmente hacia Jerusalén y desde donde ascendió al cielo.",
+    "biblicalImportance": "Lugar estrechamente unido a la entrada de Jesús en Jerusalén, sus enseñanzas finales y su ascensión.",
+    "history": "",
     "relatedPeople": [
       "David",
       "Jesús",
       "discípulos"
     ],
-    "jesusRelation": "Monte de los Olivos está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús entró desde este monte hacia Jerusalén, enseñó acerca de los acontecimientos futuros, oró en su entorno y ascendió al cielo desde sus cercanías.",
     "mainVerses": [
       "2 Samuel 15:30",
       "Mateo 24:3",
       "Hechos 1:12"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 2 Samuel 15:30.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.25
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "betania",
@@ -2768,32 +2498,29 @@
     "category": "Aldea",
     "currentRegion": "Cisjordania, al este de Jerusalén",
     "firstAppearance": "Mateo 21:17",
-    "shortDescription": "Betania es un aldea mencionado en la Biblia, situado en Cisjordania, al este de Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Betania en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Aldea de Marta, María y Lázaro, donde Jesús fue recibido y donde resucitó a Lázaro.",
+    "biblicalImportance": "Lugar de amistad, acogida, enseñanza y de la resurrección de Lázaro.",
+    "history": "",
     "relatedPeople": [
       "Marta",
       "María",
       "Lázaro",
       "Jesús"
     ],
-    "jesusRelation": "Betania está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús amó a Marta, María y Lázaro. Allí resucitó a Lázaro y fue ungido antes de su pasión.",
     "mainVerses": [
       "Mateo 21:17",
       "Juan 11",
       "Juan 12:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 21:17.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.77,
       "longitude": 35.26
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "getsemani",
@@ -2801,29 +2528,26 @@
     "category": "Huerto",
     "currentRegion": "Monte de los Olivos, Jerusalén",
     "firstAppearance": "Mateo 26:36",
-    "shortDescription": "Getsemaní es un huerto mencionado en la Biblia, situado en Monte de los Olivos, Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Getsemaní en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Huerto donde Jesús oró antes de su arresto y se sometió plenamente a la voluntad del Padre.",
+    "biblicalImportance": "Lugar de la oración y entrega obediente de Jesús antes de la cruz.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "discípulos"
     ],
-    "jesusRelation": "Getsemaní está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús oró con profunda angustia antes de ser arrestado y dijo: “No se haga mi voluntad, sino la tuya”.",
     "mainVerses": [
       "Mateo 26:36-46",
       "Marcos 14:32-42"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 26:36.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.24
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "golgota",
@@ -2831,30 +2555,27 @@
     "category": "Lugar de ejecución",
     "currentRegion": "Jerusalén",
     "firstAppearance": "Mateo 27:33",
-    "shortDescription": "Gólgota es un lugar de ejecución mencionado en la Biblia, situado en Jerusalén.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Gólgota en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jesucristo fue crucificado y entregó su vida por la salvación del mundo.",
+    "biblicalImportance": "Lugar del sacrificio redentor de Jesucristo.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "soldados",
       "discípulos"
     ],
-    "jesusRelation": "Gólgota está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "En Gólgota Jesús fue crucificado, cargó con nuestros pecados y entregó su vida para reconciliarnos con Dios.",
     "mainVerses": [
       "Mateo 27:33-50",
       "Juan 19:17-30"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 27:33.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 31.78,
       "longitude": 35.23
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "nazaret",
@@ -2862,31 +2583,28 @@
     "category": "Ciudad",
     "currentRegion": "Norte de Israel",
     "firstAppearance": "Mateo 2:23",
-    "shortDescription": "Nazaret es un ciudad mencionado en la Biblia, situado en Norte de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Nazaret en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad donde Jesús creció y vivió antes de comenzar públicamente su ministerio.",
+    "biblicalImportance": "Lugar donde transcurrieron la infancia, juventud y vida cotidiana de Jesús antes de su ministerio público.",
+    "history": "",
     "relatedPeople": [
       "María",
       "José",
       "Jesús"
     ],
-    "jesusRelation": "Nazaret está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús creció en Nazaret y fue conocido como Jesús de Nazaret. Allí también enseñó en la sinagoga y fue rechazado por muchos de sus vecinos.",
     "mainVerses": [
       "Mateo 2:23",
       "Lucas 1:26",
       "Lucas 4:16"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 2:23.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.7,
       "longitude": 35.3
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "capernaum",
@@ -2894,32 +2612,29 @@
     "category": "Ciudad",
     "currentRegion": "Orilla noroeste del mar de Galilea, Israel",
     "firstAppearance": "Mateo 4:13",
-    "shortDescription": "Capernaúm es un ciudad mencionado en la Biblia, situado en Orilla noroeste del mar de Galilea, Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Capernaúm en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Ciudad que se convirtió en uno de los principales centros del ministerio de Jesús en Galilea.",
+    "biblicalImportance": "Uno de los principales centros del ministerio de Jesús en Galilea.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "Pedro",
       "Andrés",
       "Mateo"
     ],
-    "jesusRelation": "Capernaúm está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús estableció en Capernaúm una base importante de su ministerio, enseñó en la sinagoga y realizó numerosas sanidades y liberaciones.",
     "mainVerses": [
       "Mateo 4:13",
       "Marcos 1:21",
       "Juan 6:59"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 4:13.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.88,
       "longitude": 35.58
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "mar-de-galilea",
@@ -2927,30 +2642,27 @@
     "category": "Lago",
     "currentRegion": "Norte de Israel",
     "firstAppearance": "Mateo 4:18",
-    "shortDescription": "Mar de Galilea es un lago mencionado en la Biblia, situado en Norte de Israel.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Mar de Galilea en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lago alrededor del cual Jesús enseñó, llamó discípulos y realizó numerosos milagros.",
+    "biblicalImportance": "Escenario de numerosos milagros, enseñanzas y llamamientos de discípulos.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "discípulos"
     ],
-    "jesusRelation": "Mar de Galilea está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús llamó allí a varios discípulos, calmó la tempestad, caminó sobre las aguas y enseñó a las multitudes junto al lago.",
     "mainVerses": [
       "Mateo 4:18-22",
       "Marcos 4:35-41",
       "Juan 6:1"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 4:18.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.82,
       "longitude": 35.59
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "cana-de-galilea",
@@ -2958,30 +2670,27 @@
     "category": "Aldea",
     "currentRegion": "Galilea, norte de Israel; ubicación discutida",
     "firstAppearance": "Juan 2:1",
-    "shortDescription": "Caná de Galilea es un aldea mencionado en la Biblia, situado en Galilea, norte de Israel; ubicación discutida.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Caná de Galilea en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Jesús realizó su primera señal al convertir el agua en vino.",
+    "biblicalImportance": "Lugar de la primera señal pública de Jesús según el Evangelio de Juan.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "María",
       "discípulos"
     ],
-    "jesusRelation": "Caná de Galilea está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús manifestó su gloria en Caná mediante su primera señal: transformó el agua en vino.",
     "mainVerses": [
       "Juan 2:1-11",
       "Juan 4:46"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Juan 2:1.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.75,
       "longitude": 35.34
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "samaria",
@@ -2989,9 +2698,9 @@
     "category": "Región y ciudad",
     "currentRegion": "Centro de Israel y Cisjordania",
     "firstAppearance": "1 Reyes 13:32",
-    "shortDescription": "Samaria es un región y ciudad mencionado en la Biblia, situado en Centro de Israel y Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Samaria en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Región atravesada por Jesús, donde habló con la mujer samaritana y anunció la adoración en espíritu y en verdad.",
+    "biblicalImportance": "Región donde Jesús derribó barreras religiosas y étnicas al anunciar el evangelio.",
+    "history": "",
     "relatedPeople": [
       "Omri",
       "Acab",
@@ -2999,23 +2708,20 @@
       "Jesús",
       "Felipe"
     ],
-    "jesusRelation": "Samaria está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Jesús atravesó Samaria, habló con la mujer junto al pozo y mostró que la salvación también era anunciada a los samaritanos.",
     "mainVerses": [
       "1 Reyes 16:24",
       "Juan 4",
       "Hechos 8:5-25"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: 1 Reyes 13:32.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.28,
       "longitude": 35.19
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "pozo-de-jacob",
@@ -3023,29 +2729,26 @@
     "category": "Pozo",
     "currentRegion": "Cerca de Siquem/Nablus, Cisjordania",
     "firstAppearance": "Juan 4:6",
-    "shortDescription": "Pozo de Jacob es un pozo mencionado en la Biblia, situado en Cerca de Siquem/Nablus, Cisjordania.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Pozo de Jacob en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar de Samaria donde Jesús habló con una mujer y se reveló como el Mesías.",
+    "biblicalImportance": "Lugar del encuentro de Jesús con la mujer samaritana.",
+    "history": "",
     "relatedPeople": [
       "Jacob",
       "mujer samaritana",
       "Jesús"
     ],
-    "jesusRelation": "Pozo de Jacob está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Junto al pozo, Jesús ofreció “agua viva” a la mujer samaritana y se declaró abiertamente como el Mesías.",
     "mainVerses": [
       "Juan 4:5-26"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Juan 4:6.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 32.21,
       "longitude": 35.28
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   },
   {
     "id": "cesarea-de-filipo",
@@ -3053,29 +2756,26 @@
     "category": "Ciudad",
     "currentRegion": "Altos del Golán, cerca de Banias",
     "firstAppearance": "Mateo 16:13",
-    "shortDescription": "Cesarea de Filipo es un ciudad mencionado en la Biblia, situado en Altos del Golán, cerca de Banias.",
-    "biblicalImportance": "Su importancia bíblica procede de los acontecimientos, personajes y enseñanzas asociados a este lugar en la historia de la salvación.",
-    "history": "La Biblia menciona Cesarea de Filipo en diversos episodios. Su identificación moderna puede ser segura, tradicional o discutida según el lugar y las fuentes históricas.",
+    "shortDescription": "Lugar donde Pedro confesó que Jesús es el Cristo, el Hijo del Dios viviente.",
+    "biblicalImportance": "Lugar de la confesión de Pedro acerca de la identidad de Jesús.",
+    "history": "",
     "relatedPeople": [
       "Jesús",
       "Pedro",
       "discípulos"
     ],
-    "jesusRelation": "Cesarea de Filipo está relacionado con el ministerio, la vida, la muerte o la enseñanza de Jesús según los pasajes indicados.",
+    "jesusRelation": "Aquí Pedro confesó que Jesús es el Cristo, el Hijo del Dios viviente, y Jesús habló de edificar su Iglesia.",
     "mainVerses": [
       "Mateo 16:13-20",
       "Marcos 8:27-30"
     ],
-    "curiosities": [
-      "Primera aparición registrada en esta ficha: Mateo 16:13.",
-      "La ubicación indicada utiliza la identificación histórica o tradicional más extendida cuando existe."
-    ],
+    "curiosities": [],
     "coordinates": {
       "latitude": 33.25,
       "longitude": 35.69
     },
     "image": "",
     "createdAt": 1760000000000,
-    "updatedAt": 1760000000000
+    "updatedAt": 1785523410128
   }
 ]
