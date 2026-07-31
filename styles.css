@@ -2650,3 +2650,7 @@ body.light-mode .biblical-entity-overlay{background:rgba(40,32,15,.42)}body.ligh
 .biblical-return-chapter{margin-left:auto;white-space:nowrap}
 .biblical-detail-nav-v288{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 @media(max-width:560px){.biblical-prophecy-detail-head{gap:8px;flex-wrap:wrap}.biblical-return-chapter{margin-left:0}}
+
+/* V2.8.13 · Botón Volver al capítulo fiable en fichas de Personajes */
+.biblical-return-character{display:none!important}
+body.biblical-entity-from-reader .biblical-return-character{display:inline-flex!important}
