@@ -2624,3 +2624,18 @@ body.light-mode .prophecy-editor-actions{background:linear-gradient(180deg,trans
 body.light-mode .prophecy-trash-item{background:#fffdf9;color:#2b241b;border-color:#9d7a2f}
 body.light-mode .prophecy-trash-item small{color:#6f675d}
 @media(max-width:620px){.prophecy-editor-grid{grid-template-columns:1fr}.prophecy-editor-grid label.wide{grid-column:auto}.prophecy-trash-item{align-items:flex-start;flex-direction:column}.prophecy-trash-item>div:last-child{justify-content:flex-start}}
+
+
+/* V2.8.0 · Lugares Bíblicos */
+.places-crud-tools{flex-wrap:wrap;justify-content:center}
+.places-crud-tools>button{border:1px solid #8f7132;border-radius:14px;padding:9px 12px;background:linear-gradient(180deg,#2b2c31,#18191d);color:#f5efe4;font:700 12px Lora,serif}
+.place-current-region{text-align:center;color:#b9aa88;font:italic 14px Lora,serif;margin:0 0 18px}
+.place-reference{text-align:center}.place-reference p{margin:0;color:#f0e6d1;font:700 16px/1.6 Lora,serif}
+.biblical-places-screen .biblical-prophecy-explanation ul{margin:0;padding-left:22px;color:#e6dfd4;font:16px/1.72 Lora,serif}
+.biblical-places-screen .biblical-prophecy-explanation li+li{margin-top:7px}
+.place-map-block{text-align:center}.place-map-block button{margin-top:12px;border:1px solid #a98431;border-radius:15px;padding:11px 18px;background:linear-gradient(180deg,#3a3020,#211b12);color:#f3df9d;font:700 14px Lora,serif}.place-map-block button:disabled{opacity:.42}
+.places-stats-content{font-family:Lora,serif}.places-stat-summary{text-align:center;padding:18px;border:1px solid #94742e;border-radius:18px;background:#1b1c21}.places-stat-summary strong{display:block;font-size:34px;color:#d6b85e}.places-stat-summary span{color:#ddd3c2}.places-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.places-stat-grid article{padding:14px;text-align:center;border:1px solid #6f5928;border-radius:15px;background:#202126}.places-stat-grid strong{display:block;font-size:22px;color:#d6b85e}.places-stat-grid span{font-size:12px;color:#c8c0b3}.places-stats-content h3{color:#d6b85e}.places-stats-content ul{list-style:none;padding:0;margin:0}.places-stats-content li{display:flex;justify-content:space-between;gap:12px;padding:9px 4px;border-bottom:1px solid rgba(183,147,62,.25)}
+body.light-mode .places-crud-tools>button{background:linear-gradient(180deg,#fffdf8,#e9dfcc);color:#2c2418}
+body.light-mode .place-current-region{color:#665b48}body.light-mode .place-reference p{color:#352b1d}
+body.light-mode .places-stat-summary,body.light-mode .places-stat-grid article{background:#fffaf0;color:#2a2116}
+body.light-mode .places-stat-summary span,body.light-mode .places-stat-grid span{color:#5e5547}

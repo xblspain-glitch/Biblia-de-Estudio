@@ -7,11 +7,11 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.12">
   <link rel="manifest" href="manifest.webmanifest?v=2.1.12">
-<link rel="stylesheet" href="styles.css?v=2.7.1">
+<link rel="stylesheet" href="styles.css?v=2.8.0">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.12">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.7.1">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.8.0">
 
 
 
@@ -103,7 +103,7 @@
         <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
       </div>
       <h1>Enciclopedia Bíblica</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.7.1" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=2.8.0" alt="" aria-hidden="true">
       <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
       <div class="encyclopedia-grid">
         <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
@@ -118,9 +118,12 @@
         <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('prophecies')">
           <strong>PROFECÍAS</strong>
         </button>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('places')">
+          <strong>LUGARES BÍBLICOS</strong>
+        </button>
       </div>
       <div class="encyclopedia-coming-line" aria-hidden="true"></div>
-      <p class="encyclopedia-coming">Próximamente: Lugares Bíblicos</p>
+      <p class="encyclopedia-coming">Una enciclopedia para conocer personas, enseñanzas, profecías y lugares de las Sagradas Escrituras.</p>
     </div>
   </section>
 
@@ -175,13 +178,71 @@
   </section>
 
 
+  <section id="biblicalPlacesScreen" class="prophecies-screen biblical-places-screen hidden" aria-label="Lugares Bíblicos">
+    <div class="biblical-prophecies-panel">
+      <div class="biblical-prophecies-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('places')">← Volver</button></div>
+      <div id="biblicalPlacesHome">
+        <div class="module-crud-tools prophecy-crud-tools places-crud-tools">
+          <button type="button" class="crud-add" onclick="openBiblicalPlaceEditor()">＋ Añadir</button>
+          <button type="button" onclick="exportBiblicalPlaces()">Exportar</button>
+          <button type="button" onclick="document.getElementById('biblicalPlacesImportInput').click()">Importar</button>
+          <button type="button" onclick="openBiblicalPlacesStats()">Estadísticas</button>
+          <button type="button" class="crud-trash" onclick="openBiblicalPlacesTrash()">Papelera <span id="biblicalPlacesTrashCount">0</span></button>
+          <input id="biblicalPlacesImportInput" type="file" accept="application/json,.json" hidden onchange="importBiblicalPlaces(event)">
+        </div>
+        <h1 class="biblical-prophecies-title">Lugares Bíblicos</h1>
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.0" alt="" aria-hidden="true">
+        <p class="biblical-prophecies-sub">Ciudades, regiones, montes, ríos y territorios que forman parte de la historia de las Sagradas Escrituras.</p>
+        <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPlacesSearch" type="search" autocomplete="off" placeholder="Buscar lugar, categoría, región o personaje…" oninput="renderBiblicalPlaces()"></label>
+        <div class="biblical-prophecies-list-head"><strong>Todos los lugares</strong><span id="biblicalPlacesCount"></span></div>
+        <div id="biblicalPlacesList" class="biblical-prophecies-list"></div>
+      </div>
+      <article id="biblicalPlaceDetail" class="biblical-prophecy-detail hidden"></article>
+    </div>
+  </section>
+
+  <dialog id="biblicalPlaceEditDialog" class="sheet-dialog prophecy-editor-dialog place-editor-dialog">
+    <div class="dialog-grip"></div>
+    <h2 id="placeEditDialogTitle">Añadir lugar bíblico</h2>
+    <input id="placeEditId" type="hidden">
+    <div class="prophecy-editor-grid">
+      <label><span>Nombre</span><input id="placeEditName" type="text" placeholder="Jerusalén"></label>
+      <label><span>Categoría</span><input id="placeEditCategory" type="text" placeholder="Ciudad, monte, río, región…"></label>
+      <label class="wide"><span>Región / país actual</span><input id="placeEditCurrentRegion" type="text" placeholder="Israel / Territorios Palestinos…"></label>
+      <label class="wide"><span>Primera aparición en la Biblia</span><input id="placeEditFirstAppearance" type="text" placeholder="Génesis 14:18"></label>
+      <label class="wide"><span>Descripción breve</span><textarea id="placeEditShortDescription" rows="3"></textarea></label>
+      <label class="wide"><span>Importancia bíblica</span><textarea id="placeEditBiblicalImportance" rows="5"></textarea></label>
+      <label class="wide"><span>Historia</span><textarea id="placeEditHistory" rows="6"></textarea></label>
+      <label class="wide"><span>Personajes relacionados</span><textarea id="placeEditRelatedPeople" rows="3" placeholder="Una persona por línea"></textarea></label>
+      <label class="wide"><span>Relación con Jesús</span><textarea id="placeEditJesusRelation" rows="4" placeholder="Déjelo vacío cuando no la tenga"></textarea></label>
+      <label class="wide"><span>Versículos principales</span><textarea id="placeEditMainVerses" rows="4" placeholder="Una referencia por línea"></textarea></label>
+      <label class="wide"><span>Curiosidades</span><textarea id="placeEditCuriosities" rows="4" placeholder="Una curiosidad por línea"></textarea></label>
+      <label><span>Latitud</span><input id="placeEditLatitude" type="number" step="any" placeholder="31.778"></label>
+      <label><span>Longitud</span><input id="placeEditLongitude" type="number" step="any" placeholder="35.235"></label>
+      <label class="wide"><span>Imagen</span><input id="placeEditImage" type="text" placeholder="Se incorporará más adelante" disabled></label>
+    </div>
+    <div class="modal-actions prophecy-editor-actions"><button type="button" onclick="document.getElementById('biblicalPlaceEditDialog').close()">Cancelar</button><button type="button" class="primary" onclick="saveBiblicalPlaceEditor()">Guardar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPlacesTrashDialog" class="sheet-dialog prophecy-trash-dialog">
+    <div class="dialog-grip"></div><h2>Papelera de Lugares Bíblicos</h2>
+    <div id="biblicalPlacesTrashList" class="prophecy-trash-list"></div>
+    <div class="modal-actions"><button id="emptyBiblicalPlacesTrash" type="button" class="danger" onclick="emptyBiblicalPlacesTrash()">Vaciar papelera</button><button type="button" onclick="document.getElementById('biblicalPlacesTrashDialog').close()">Cerrar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPlacesStatsDialog" class="sheet-dialog prophecy-trash-dialog places-stats-dialog">
+    <div class="dialog-grip"></div><h2>Estadísticas de Lugares Bíblicos</h2>
+    <div id="biblicalPlacesStatsContent" class="places-stats-content"></div>
+    <div class="modal-actions"><button type="button" onclick="document.getElementById('biblicalPlacesStatsDialog').close()">Cerrar</button></div>
+  </dialog>
+
   <section id="biblicalPropheciesScreen" class="prophecies-screen hidden" aria-label="Profecías mesiánicas">
     <div class="biblical-prophecies-panel">
       <div class="biblical-prophecies-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('prophecies')">← Volver</button></div>
       <div id="biblicalPropheciesHome">
         <div class="module-crud-tools prophecy-crud-tools"><button type="button" class="crud-add" onclick="openBiblicalProphecyEditor()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalPropheciesTrash()">Papelera <span id="biblicalPropheciesTrashCount">0</span></button></div>
         <h1 class="biblical-prophecies-title">Profecías</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.7.1" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=2.8.0" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Profecías mesiánicas y su cumplimiento en nuestro Señor Jesucristo.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPropheciesSearch" type="search" autocomplete="off" placeholder="Buscar profecía, referencia o tema…" oninput="renderBiblicalProphecies()"></label>
         <div class="biblical-prophecies-list-head"><strong id="biblicalPropheciesListTitle">Todas las profecías</strong><span id="biblicalPropheciesCount"></span></div>
@@ -415,6 +476,6 @@
   <script src="biblical-characters-v2244.js?v=2.1.12"></script>
   <script src="biblical-parables-v16436.js?v=2.1.12"></script>
   <script src="biblical-guides-v16436.js?v=2.1.12"></script>
-  <script src="app.js?v=2.7.1"></script>
+  <script src="app.js?v=2.8.0"></script>
 </body>
 </html>
