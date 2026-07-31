@@ -2460,30 +2460,33 @@ html body.light-mode .home-card-daily.daily-verse-unseen{
 }
 
 
-/* V2.1.6 · Palabras presentes en el diccionario: cápsula verde clara.
-   La marca vive dentro del versículo para seguir visible sobre explicación,
-   punto de libro, selección o cualquier subrayado del versículo. */
+/* V2.1.7 · Diccionario integrado: la misma cápsula de cristal que las demás,
+   únicamente teñida de verde. El texto conserva siempre el color normal del lector
+   (blanco en modo oscuro y negro en modo claro). */
 .dict-word.dict-known{
   display:inline;
   padding:.02em .18em .05em;
   margin:0 .015em;
-  border:1px solid rgba(91,190,122,.72);
+  border:1px solid rgba(105,211,137,.78);
   border-radius:.38em;
-  background:linear-gradient(180deg,rgba(205,248,216,.94),rgba(154,226,176,.88));
-  color:#173b22;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 0 0 1px rgba(46,132,74,.08);
+  background:linear-gradient(180deg,rgba(205,255,220,.24),rgba(89,207,126,.16));
+  color:inherit!important;
+  text-shadow:inherit;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(46,145,76,.18),0 0 0 1px rgba(75,184,108,.08),0 1px 3px rgba(0,0,0,.12);
   -webkit-box-decoration-break:clone;
   box-decoration-break:clone;
 }
 body.light-mode .dict-word.dict-known{
-  background:linear-gradient(180deg,rgba(218,250,226,.98),rgba(170,231,187,.94));
-  border-color:rgba(63,151,90,.66);
-  color:#15371f;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 0 0 1px rgba(44,122,67,.08);
+  background:linear-gradient(180deg,rgba(225,255,234,.58),rgba(111,211,142,.28));
+  border-color:rgba(65,166,96,.72);
+  color:inherit!important;
+  text-shadow:inherit;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(45,142,74,.16),0 0 0 1px rgba(55,145,84,.07),0 1px 3px rgba(31,83,47,.10);
 }
 .dict-word.dict-known.word-pressing,
 body.light-mode .dict-word.dict-known.word-pressing{
-  background:linear-gradient(180deg,rgba(168,235,188,.98),rgba(105,205,137,.94));
-  border-color:rgba(43,137,71,.92);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 0 0 2px rgba(71,180,103,.34);
+  background:linear-gradient(180deg,rgba(190,248,207,.66),rgba(80,195,115,.42));
+  border-color:rgba(42,143,72,.94);
+  color:inherit!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.68),0 0 0 2px rgba(71,180,103,.34);
 }
