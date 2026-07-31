@@ -2508,3 +2508,34 @@ body.light-mode .dictionary-highlight-help{color:#526257}
 .stats-dictionary-breakdown small b{order:2;color:#f4d77b;font-size:.78rem;font-variant-numeric:tabular-nums}
 .stats-dictionary-open{margin-top:auto}
 @media (max-width:430px){.stats-dictionary-tile{min-height:184px!important}.stats-dictionary-breakdown{padding:6px}.stats-dictionary-breakdown small{font-size:.68rem!important}}
+
+
+/* V2.2.0 · Enciclopedia Bíblica */
+.action-encyclopedia{background:linear-gradient(180deg,#eee8ff 0%,#d6c5f1 54%,#b99cdd 100%);border-color:#9673c4!important}
+body.light-mode .action.pastel-action.action-encyclopedia{background:linear-gradient(180deg,#f6f1ff 0%,#dfd1f4 54%,#c5abe5 100%)!important;border-color:#9673c4!important}
+.encyclopedia-screen{position:fixed;inset:0;z-index:1700;overflow:auto;background:linear-gradient(180deg,#171224 0%,#221b35 48%,#16121f 100%);color:#f7f2ff}
+.encyclopedia-screen.hidden{display:none!important}
+.encyclopedia-panel{min-height:100%;max-width:760px;margin:0 auto;padding:18px 16px calc(42px + env(safe-area-inset-bottom))}
+.encyclopedia-head{display:flex;justify-content:flex-start}
+.encyclopedia-head .btn{border:1px solid rgba(218,196,255,.3);border-radius:14px;padding:10px 15px;background:rgba(255,255,255,.08);color:#fff;font-weight:750}
+.encyclopedia-hero{display:flex;justify-content:center;margin:20px 0 8px}
+.encyclopedia-emblem{display:grid;place-items:center;width:86px;height:86px;border-radius:28px;background:linear-gradient(145deg,#f3e7be,#cda959);box-shadow:0 14px 34px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.7);font-size:42px}
+.encyclopedia-panel h1{text-align:center;margin:12px 0 8px;font-family:Lora,serif;font-size:clamp(29px,7vw,42px);color:#f2dfad}
+.encyclopedia-sub{max-width:590px;margin:0 auto 24px;text-align:center;line-height:1.55;color:#d7cde5}
+.encyclopedia-grid{display:grid;gap:14px}
+.encyclopedia-card{width:100%;display:grid;grid-template-columns:58px 1fr 24px;align-items:center;gap:13px;text-align:left;border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:16px 15px;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.2);transition:transform .15s ease,filter .15s ease}
+.encyclopedia-card:active{transform:scale(.985);filter:brightness(.97)}
+.encyclopedia-card-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.18);font-size:29px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}
+.encyclopedia-card strong{display:block;font-family:Lora,serif;font-size:20px;margin-bottom:4px}
+.encyclopedia-card small{display:block;color:rgba(255,255,255,.82);font-size:13px;line-height:1.35}
+.encyclopedia-arrow{font-size:32px;color:rgba(255,255,255,.7)}
+.encyclopedia-characters{background:linear-gradient(135deg,#66508d,#493868)}
+.encyclopedia-guides{background:linear-gradient(135deg,#4f7548,#345333)}
+.encyclopedia-parables{background:linear-gradient(135deg,#986c3e,#704a2d)}
+.encyclopedia-coming{text-align:center;margin:22px 0 0;color:#cbbddd;font-size:13px;font-style:italic}
+body.light-mode .encyclopedia-screen{background:linear-gradient(180deg,#f5f0fb 0%,#ece5f5 100%);color:#2c2537}
+body.light-mode .encyclopedia-head .btn{background:#fff;color:#4f3d6c;border-color:rgba(79,61,108,.2);box-shadow:0 4px 14px rgba(47,35,68,.08)}
+body.light-mode .encyclopedia-panel h1{color:#5c447c}
+body.light-mode .encyclopedia-sub{color:#655d70}
+body.light-mode .encyclopedia-coming{color:#71647e}
+@media (min-width:680px){.encyclopedia-grid{grid-template-columns:repeat(3,1fr)}.encyclopedia-card{grid-template-columns:1fr;text-align:center;justify-items:center;min-height:190px}.encyclopedia-arrow{display:none}.encyclopedia-card small{max-width:180px}}

@@ -7,11 +7,11 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.12">
   <link rel="manifest" href="manifest.webmanifest?v=2.1.12">
-<link rel="stylesheet" href="styles.css?v=2.1.13">
+<link rel="stylesheet" href="styles.css?v=2.2.0">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.12">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.1.13">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.2.0">
 
 
 
@@ -87,9 +87,7 @@
         <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar punto de libro">GUARDAR PUNTO DE LIBRO</button>
         <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
         <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
-        <button class="action pastel-action action-characters" data-action="characters" aria-label="Personajes bíblicos">PERSONAJES</button>
-        <button class="action pastel-action action-parables" data-action="parables" aria-label="Parábolas">PARÁBOLAS</button>
-        <button class="action pastel-action action-guides" data-action="guides" aria-label="Guía">GUÍA</button>
+        <button class="action pastel-action action-encyclopedia" data-action="encyclopedia" aria-label="Enciclopedia bíblica">ENCICLOPEDIA</button>
         <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
         <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
       </div>
@@ -98,10 +96,36 @@
   </div>
 
 
+
+  <section id="biblicalEncyclopediaScreen" class="encyclopedia-screen hidden" aria-label="Enciclopedia Bíblica">
+    <div class="encyclopedia-panel">
+      <div class="encyclopedia-head">
+        <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
+      </div>
+      <div class="encyclopedia-hero" aria-hidden="true">
+        <div class="encyclopedia-emblem">📚</div>
+      </div>
+      <h1>Enciclopedia Bíblica</h1>
+      <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
+      <div class="encyclopedia-grid">
+        <button type="button" class="encyclopedia-card encyclopedia-characters" onclick="openEncyclopediaSection('characters')">
+          <span class="encyclopedia-card-icon">👤</span><span><strong>Personajes</strong><small>Conozca sus historias y enseñanzas</small></span><span class="encyclopedia-arrow">›</span>
+        </button>
+        <button type="button" class="encyclopedia-card encyclopedia-guides" onclick="openEncyclopediaSection('guides')">
+          <span class="encyclopedia-card-icon">📖</span><span><strong>Guía</strong><small>Temas y estudios bíblicos organizados</small></span><span class="encyclopedia-arrow">›</span>
+        </button>
+        <button type="button" class="encyclopedia-card encyclopedia-parables" onclick="openEncyclopediaSection('parables')">
+          <span class="encyclopedia-card-icon">🕊️</span><span><strong>Parábolas</strong><small>Las enseñanzas de Cristo explicadas</small></span><span class="encyclopedia-arrow">›</span>
+        </button>
+      </div>
+      <p class="encyclopedia-coming">Próximamente: Lugares Bíblicos</p>
+    </div>
+  </section>
+
   <section id="biblicalCharactersScreen" class="characters-screen hidden" aria-label="Personajes Bíblicos">
     <div id="biblicalCharactersViewV2242" class="biblical-characters-panel-v2242">
       <div class="biblical-characters-head-v2242">
-        <button class="btn soft" type="button" onclick="closeBiblicalCharactersV2242()">← Volver</button>
+        <button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('characters')">← Volver</button>
       </div>
       <div id="biblicalCharactersHomeV2242">
         <div id="biblicalCharactersCrudToolsV16436" class="module-crud-tools"><button type="button" class="crud-add" onclick="editBiblicalCharacterV16433()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalCharactersTrashV16433()">Papelera <span id="biblicalCharactersTrashCountV16436">0</span></button></div>
@@ -122,7 +146,7 @@
 
   <section id="biblicalParablesScreen" class="parables-screen hidden" aria-label="Parábolas">
     <div class="biblical-parables-panel">
-      <div class="biblical-parables-head"><button class="btn soft" type="button" onclick="closeBiblicalParables()">← Volver</button></div>
+      <div class="biblical-parables-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('parables')">← Volver</button></div>
       <div id="biblicalParablesHome">
         <h1 class="biblical-parables-title">Parábolas</h1>
         <p class="biblical-parables-sub">Las enseñanzas de Cristo explicadas de forma clara y ordenada.</p>
@@ -136,7 +160,7 @@
 
   <section id="biblicalGuidesScreen" class="guides-screen hidden" aria-label="Guía">
     <div class="biblical-guides-panel">
-      <div class="biblical-guides-head"><button class="btn soft" type="button" onclick="closeBiblicalGuides()">← Volver</button></div>
+      <div class="biblical-guides-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('guides')">← Volver</button></div>
       <div id="biblicalGuidesHome">
         <h1 class="biblical-guides-title">Guía</h1>
         <p class="biblical-guides-sub">Temas y estudios bíblicos organizados para consultar y ampliar.</p>
@@ -346,6 +370,6 @@
   <script src="biblical-characters-v2244.js?v=2.1.12"></script>
   <script src="biblical-parables-v16436.js?v=2.1.12"></script>
   <script src="biblical-guides-v16436.js?v=2.1.12"></script>
-  <script src="app.js?v=2.1.13"></script>
+  <script src="app.js?v=2.2.0"></script>
 </body>
 </html>
