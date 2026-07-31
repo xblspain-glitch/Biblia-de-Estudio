@@ -2490,3 +2490,12 @@ body.light-mode .dict-word.dict-known.word-pressing{
   color:inherit!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.68),0 0 0 2px rgba(71,180,103,.34);
 }
+
+/* V2.1.8 · Diccionario inteligente: cada entrada decide si se resalta. */
+.dictionary-highlight-toggle{display:flex!important;align-items:center;gap:11px;margin:15px 0 4px!important;padding:12px 13px;border:1px solid rgba(102,190,125,.55);border-radius:14px;background:rgba(72,145,91,.13);cursor:pointer}
+.dictionary-highlight-toggle input{width:21px!important;height:21px;margin:0!important;flex:0 0 auto;accent-color:#64ba78}
+.dictionary-highlight-toggle span{font:700 14px/1.35 system-ui;color:#e8f4e9}
+.dictionary-highlight-help{margin:0 3px 12px;color:#aeb9b0;font:13px/1.4 system-ui}
+body.light-mode .dictionary-highlight-toggle{background:rgba(112,205,133,.15);border-color:rgba(57,145,77,.45)}
+body.light-mode .dictionary-highlight-toggle span{color:#17391f}
+body.light-mode .dictionary-highlight-help{color:#526257}
