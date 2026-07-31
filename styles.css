@@ -2499,3 +2499,12 @@ body.light-mode .dict-word.dict-known.word-pressing{
 body.light-mode .dictionary-highlight-toggle{background:rgba(112,205,133,.15);border-color:rgba(57,145,77,.45)}
 body.light-mode .dictionary-highlight-toggle span{color:#17391f}
 body.light-mode .dictionary-highlight-help{color:#526257}
+
+
+/* V2.1.13 · Desglose dinámico del diccionario en Estadísticas */
+.stats-dictionary-tile{min-height:176px!important;justify-content:flex-start!important;gap:4px!important}
+.stats-dictionary-breakdown{width:100%;display:grid;gap:3px;margin:4px 0 2px;padding:7px 8px;border-radius:10px;background:rgba(0,0,0,.16);border:1px solid rgba(218,179,77,.18)}
+.stats-dictionary-breakdown small{display:flex!important;justify-content:space-between;align-items:center;width:100%;font-size:.72rem!important;line-height:1.25;color:#d8d0b7!important;text-align:left}
+.stats-dictionary-breakdown small b{order:2;color:#f4d77b;font-size:.78rem;font-variant-numeric:tabular-nums}
+.stats-dictionary-open{margin-top:auto}
+@media (max-width:430px){.stats-dictionary-tile{min-height:184px!important}.stats-dictionary-breakdown{padding:6px}.stats-dictionary-breakdown small{font-size:.68rem!important}}

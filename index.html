@@ -7,11 +7,11 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2.1.12">
   <link rel="manifest" href="manifest.webmanifest?v=2.1.12">
-<link rel="stylesheet" href="styles.css?v=2.1.12">
+<link rel="stylesheet" href="styles.css?v=2.1.13">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=2.1.12">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=2.1.12">
-  <link rel="stylesheet" href="theme-overrides.css?v=2.1.12">
+  <link rel="stylesheet" href="theme-overrides.css?v=2.1.13">
 
 
 
@@ -251,7 +251,15 @@
       <button type="button" class="stats-tile" data-stats-list="saved"><strong id="statsSavedTotal">0</strong><span>Guardados</span><small>Ver listado</small></button>
       <button type="button" class="stats-tile stats-reading-point" data-stats-list="reading"><strong id="statsReadingPointRef">Sin guardar</strong><span>Punto de libro</span><small>Ver historial</small></button>
       <button type="button" class="stats-tile" data-stats-list="explanations"><strong id="statsExplanations">0</strong><span>Explicaciones</span><small>Ver listado</small></button>
-      <button type="button" class="stats-tile" data-stats-list="dictionary"><strong id="statsDictionary">0</strong><span>Diccionario</span><small>Ver palabras</small></button>
+      <button type="button" class="stats-tile stats-dictionary-tile" data-stats-list="dictionary">
+        <strong id="statsDictionary">0</strong><span>Diccionario</span>
+        <div class="stats-dictionary-breakdown" aria-label="Desglose del diccionario">
+          <small><b id="statsDictionaryOriginal">0</b> originales</small>
+          <small><b id="statsDictionaryCustom">0</b> añadidas por ti</small>
+          <small><b id="statsDictionaryCapsules">0</b> con cápsula activa</small>
+        </div>
+        <small class="stats-dictionary-open">Ver palabras</small>
+      </button>
       <button type="button" class="stats-tile" data-stats-list="highlights"><strong id="statsHighlights">0</strong><span>Subrayados</span><small>Ver listado</small></button>
       <button type="button" class="stats-tile" data-stats-list="titles"><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span><small>Ver listado</small></button>
     </div>
@@ -338,6 +346,6 @@
   <script src="biblical-characters-v2244.js?v=2.1.12"></script>
   <script src="biblical-parables-v16436.js?v=2.1.12"></script>
   <script src="biblical-guides-v16436.js?v=2.1.12"></script>
-  <script src="app.js?v=2.1.12"></script>
+  <script src="app.js?v=2.1.13"></script>
 </body>
 </html>
