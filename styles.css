@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.48 · Toasts visibles en modo claro */
+/* V2.8.49 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.48 · Mapas estáticos premium en Lugares */
+/* V2.8.49 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.48 · Zoom táctil de mapas premium */
+/* V2.8.49 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.48 · Mapas rehechos y visor optimizado */
+/* V2.8.49 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,10 +3075,23 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.48 · Último patrón: mapas dedicados por lugar principal */
+/* V2.8.49 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
 .place-geography-view-single .place-geography-copy{
   max-width:760px;
+}
+
+
+/* V2.8.49 · Apertura robusta del visor de mapas */
+.premium-map-open{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(184,139,46,.22);
+}
+.premium-map-open>img{
+  pointer-events:none!important;
+}
+.premium-map-open:active{
+  transform:scale(.992);
 }
