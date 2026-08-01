@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.41 · Toasts visibles en modo claro */
+/* V2.8.42 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.41 · Mapas estáticos premium en Lugares */
+/* V2.8.42 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2951,4 +2951,59 @@ body.light-mode .place-geography-copy p,
   .place-geography-premium{padding:14px}
   .place-geography-view{grid-template-columns:1fr;gap:10px}
   .place-geography-copy p{font-size:.98rem}
+}
+
+
+/* V2.8.42 · Zoom táctil de mapas premium */
+.premium-place-map-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:10px 14px;
+  border-bottom:1px solid rgba(184,139,46,.35);
+  background:#111923;
+}
+.premium-place-map-controls button{
+  appearance:none!important;
+  min-width:48px!important;
+  min-height:44px!important;
+  padding:8px 14px!important;
+  border:1px solid #b88b2e!important;
+  border-radius:14px!important;
+  background:#242831!important;
+  color:#f7e5ad!important;
+  -webkit-text-fill-color:#f7e5ad!important;
+  font-family:Lora,serif!important;
+  font-size:1rem!important;
+  font-weight:800!important;
+}
+.premium-place-map-zoom{
+  position:relative;
+  overflow:hidden!important;
+  min-height:240px;
+  padding:10px;
+  touch-action:none!important;
+  user-select:none;
+  cursor:grab;
+}
+.premium-place-map-zoom:active{cursor:grabbing}
+.premium-place-map-zoom img{
+  display:block;
+  width:100%!important;
+  max-width:none!important;
+  height:auto;
+  border-radius:14px;
+  transform-origin:center center;
+  transition:transform .06s linear;
+  will-change:transform;
+  pointer-events:none;
+  user-select:none;
+}
+body.light-mode .premium-place-map-controls,
+.light-mode .premium-place-map-controls{background:#f6efe2}
+body.light-mode .premium-place-map-controls button,
+.light-mode .premium-place-map-controls button{
+  background:#fffaf0!important;
+  color:#2a2117!important;
+  -webkit-text-fill-color:#2a2117!important;
 }
