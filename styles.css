@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.52 · Toasts visibles en modo claro */
+/* V2.8.53 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.52 · Mapas estáticos premium en Lugares */
+/* V2.8.53 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.52 · Zoom táctil de mapas premium */
+/* V2.8.53 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.52 · Mapas rehechos y visor optimizado */
+/* V2.8.53 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.52 · Último patrón: mapas dedicados por lugar principal */
+/* V2.8.53 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.52 · Apertura robusta del visor de mapas */
+/* V2.8.53 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.52 · Confirmación visible y apertura en captura */
+/* V2.8.53 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V2.8.52 · Dos mapas grandes: bíblico y moderno */
+/* V2.8.53 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V2.8.52 · Apertura de fichas y búsqueda por relevancia */
+/* V2.8.53 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3202,4 +3202,90 @@ body.light-mode .place-map-choice-action,
 }
 .biblical-place-card:active{
   transform:scale(.992);
+}
+
+
+/* V2.8.53 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+.biblical-place-detail-return:empty{
+  display:none!important;
+}
+.place-map-single-launcher .place-map-choice-card{
+  width:100%;
+  min-height:160px;
+}
+.places-list-mode-tabs{
+  display:flex;
+  gap:12px;
+  margin:18px 0 14px;
+}
+.places-list-mode-tabs button{
+  flex:1;
+  min-height:52px;
+  padding:10px 14px;
+  border:1.5px solid #b88b2e;
+  border-radius:18px;
+  background:#18222e;
+  color:#eee8dc;
+  -webkit-text-fill-color:#eee8dc;
+  font-family:Lora,serif;
+  font-size:1rem;
+  font-weight:800;
+}
+.places-list-mode-tabs button.active{
+  background:linear-gradient(180deg,#fff1a6,#d79d16);
+  color:#261a08;
+  -webkit-text-fill-color:#261a08;
+}
+.places-dual-map-block{
+  margin:22px 0;
+  padding:16px;
+  border:1px solid rgba(184,139,46,.72);
+  border-radius:22px;
+  background:#101b27;
+}
+.places-dual-map-block>h2{
+  margin:0 0 8px;
+  color:#f5d878;
+  font-family:Lora,serif;
+  font-size:1.45rem;
+}
+.places-dual-map-block>p{
+  margin:0 0 14px;
+  color:#ddd6c8;
+  line-height:1.45;
+}
+.places-leaflet-map-large{
+  height:min(72vh,720px)!important;
+  min-height:520px!important;
+}
+body.light-mode .places-list-mode-tabs button,
+.light-mode .places-list-mode-tabs button{
+  background:#fffaf0;
+  color:#302315;
+  -webkit-text-fill-color:#302315;
+}
+body.light-mode .places-list-mode-tabs button.active,
+.light-mode .places-list-mode-tabs button.active{
+  background:linear-gradient(180deg,#fff1a6,#d79d16);
+}
+body.light-mode .places-dual-map-block,
+.light-mode .places-dual-map-block{
+  background:#fffaf0;
+}
+body.light-mode .places-dual-map-block>h2,
+.light-mode .places-dual-map-block>h2{
+  color:#60400d;
+}
+body.light-mode .places-dual-map-block>p,
+.light-mode .places-dual-map-block>p{
+  color:#403326;
+}
+@media(max-width:640px){
+  .places-list-mode-tabs{gap:8px}
+  .places-list-mode-tabs button{font-size:.93rem}
+  .places-dual-map-block{padding:10px}
+  .places-leaflet-map-large{
+    height:68vh!important;
+    min-height:470px!important;
+  }
 }
