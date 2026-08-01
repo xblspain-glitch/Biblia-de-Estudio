@@ -2780,3 +2780,47 @@ body.light-mode .reference-result{
   background:linear-gradient(180deg,#fffdf8,#f2eadb)!important;
   border-color:rgba(170,127,35,.46)!important;
 }
+
+/* V2.8.39 · Toasts visibles en modo claro */
+body.light-mode #toast,
+body.light-mode .toast,
+body.light-mode .app-toast,
+body.light-mode .snackbar,
+body.light-mode [role="status"].toast,
+.light-mode #toast,
+.light-mode .toast,
+.light-mode .app-toast,
+.light-mode .snackbar {
+  background: #fffaf0 !important;
+  color: #241b12 !important;
+  -webkit-text-fill-color: #241b12 !important;
+  border: 1.5px solid #b88b2e !important;
+  text-shadow: none !important;
+  box-shadow: 0 8px 24px rgba(70, 48, 18, .26) !important;
+  opacity: 1 !important;
+}
+
+body.light-mode #toast *,
+body.light-mode .toast *,
+body.light-mode .app-toast *,
+body.light-mode .snackbar *,
+.light-mode #toast *,
+.light-mode .toast *,
+.light-mode .app-toast *,
+.light-mode .snackbar * {
+  color: #241b12 !important;
+  -webkit-text-fill-color: #241b12 !important;
+  text-shadow: none !important;
+}
+
+/* Mantener buen contraste en modo oscuro */
+body:not(.light-mode) #toast,
+body:not(.light-mode) .toast,
+body:not(.light-mode) .app-toast,
+body:not(.light-mode) .snackbar {
+  background: #f5f1e8 !important;
+  color: #1d1711 !important;
+  -webkit-text-fill-color: #1d1711 !important;
+  border: 1.5px solid #b88b2e !important;
+  text-shadow: none !important;
+}
