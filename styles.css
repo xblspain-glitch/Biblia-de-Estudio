@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.53 · Toasts visibles en modo claro */
+/* V2.8.54 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.53 · Mapas estáticos premium en Lugares */
+/* V2.8.54 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.53 · Zoom táctil de mapas premium */
+/* V2.8.54 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.53 · Mapas rehechos y visor optimizado */
+/* V2.8.54 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.53 · Último patrón: mapas dedicados por lugar principal */
+/* V2.8.54 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.53 · Apertura robusta del visor de mapas */
+/* V2.8.54 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.53 · Confirmación visible y apertura en captura */
+/* V2.8.54 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V2.8.53 · Dos mapas grandes: bíblico y moderno */
+/* V2.8.54 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V2.8.53 · Apertura de fichas y búsqueda por relevancia */
+/* V2.8.54 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3205,7 +3205,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V2.8.53 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+/* V2.8.54 · Un acceso, dos mapas y grupo de lugares con coordenadas */
 .biblical-place-detail-return:empty{
   display:none!important;
 }
@@ -3288,4 +3288,80 @@ body.light-mode .places-dual-map-block>p,
     height:68vh!important;
     min-height:470px!important;
   }
+}
+
+
+/* V2.8.54 · Atlas bíblico con etiquetas progresivas */
+.biblical-atlas-label-shell{
+  background:transparent!important;
+  border:0!important;
+  width:auto!important;
+  height:auto!important;
+  overflow:visible!important;
+  pointer-events:none!important;
+}
+.biblical-atlas-label{
+  display:block;
+  position:absolute;
+  transform:translate(-50%,-50%);
+  white-space:nowrap;
+  font-family:Lora,serif;
+  font-weight:800;
+  line-height:1;
+  text-align:center;
+  pointer-events:none;
+  user-select:none;
+}
+.biblical-atlas-territory{
+  color:rgba(91,62,23,.82);
+  -webkit-text-fill-color:rgba(91,62,23,.82);
+  font-size:clamp(16px,3.8vw,29px);
+  letter-spacing:.08em;
+  text-shadow:
+    0 1px 0 rgba(255,251,235,.95),
+    1px 0 0 rgba(255,251,235,.8),
+    -1px 0 0 rgba(255,251,235,.8);
+}
+.biblical-atlas-region{
+  color:rgba(111,76,25,.78);
+  -webkit-text-fill-color:rgba(111,76,25,.78);
+  font-size:clamp(14px,3.2vw,23px);
+  letter-spacing:.06em;
+  font-style:italic;
+  text-shadow:0 1px 1px rgba(255,252,238,.95);
+}
+.biblical-atlas-major-city{
+  padding:3px 6px;
+  border-radius:7px;
+  color:#1f180f;
+  -webkit-text-fill-color:#1f180f;
+  background:rgba(255,248,222,.82);
+  border:1px solid rgba(159,111,25,.48);
+  font-size:clamp(12px,2.8vw,18px);
+  box-shadow:0 1px 4px rgba(0,0,0,.16);
+}
+.biblical-atlas-local{
+  padding:2px 5px;
+  border-radius:6px;
+  color:#332616;
+  -webkit-text-fill-color:#332616;
+  background:rgba(255,250,232,.76);
+  border:1px solid rgba(165,121,39,.34);
+  font-size:clamp(11px,2.5vw,15px);
+  font-weight:700;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+}
+.biblical-atlas-water{
+  color:rgba(35,93,132,.82);
+  -webkit-text-fill-color:rgba(35,93,132,.82);
+  font-size:clamp(13px,3vw,21px);
+  font-style:italic;
+  text-shadow:0 1px 1px rgba(245,251,255,.9);
+}
+body.dark-mode .biblical-atlas-major-city,
+.dark-mode .biblical-atlas-major-city,
+body.dark-mode .biblical-atlas-local,
+.dark-mode .biblical-atlas-local{
+  color:#21180e;
+  -webkit-text-fill-color:#21180e;
 }
