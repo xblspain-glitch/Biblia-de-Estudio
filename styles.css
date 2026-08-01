@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.45 · Toasts visibles en modo claro */
+/* V2.8.46 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.45 · Mapas estáticos premium en Lugares */
+/* V2.8.46 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.45 · Zoom táctil de mapas premium */
+/* V2.8.46 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.45 · Mapas rehechos y visor optimizado */
+/* V2.8.46 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3074,7 +3074,7 @@ body.light-mode .premium-place-map-controls button,
   }
 }
 
-/* V2.8.45 · Mapas reutilizables y marcadores dinámicos de Judea */
+/* V2.8.46 · Mapas reutilizables y marcadores dinámicos de Judea */
 .premium-map-stage{
   position:relative;
   display:block;
@@ -3171,4 +3171,26 @@ body.light-mode .premium-place-map-controls button,
 body.light-mode .premium-map-precision,
 .light-mode .premium-map-precision{
   color:#6f5120!important;
+}
+
+
+/* V2.8.46 · Mapas maestros limpios y lugares principales */
+.premium-map-marker{transform:translate(-50%,-86%)!important}
+.premium-map-pin{
+  width:22px!important;height:22px!important;flex-basis:22px!important;border-width:1.5px!important
+}
+.premium-map-pin::after{
+  width:6px!important;height:6px!important;left:6.5px!important;top:6.5px!important
+}
+.premium-map-label{
+  margin:12px 0 0 4px!important;padding:2px 5px!important;font-size:.76rem!important
+}
+.premium-map-marker-modal .premium-map-pin{
+  width:28px!important;height:28px!important;flex-basis:28px!important
+}
+.premium-map-marker-modal .premium-map-pin::after{
+  width:8px!important;height:8px!important;left:8px!important;top:8px!important
+}
+.premium-map-marker-modal .premium-map-label{
+  margin-top:16px!important;font-size:.9rem!important
 }
