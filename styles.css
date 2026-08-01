@@ -1717,9 +1717,9 @@ body.light-mode .action.pastel-action.action-stats{color:#211707!important;borde
 .btn.soft,
 .module-crud-tools button,
 .detail-crud-actions button,
-.parable-detail-top button,
-.guide-detail-top button,
-.biblical-detail-top-v2242 button,
+.parable-detail-top button:not(.return-to-reader-btn),
+.guide-detail-top button:not(.return-to-reader-btn),
+.biblical-detail-top-v2242 button:not(.return-to-reader-btn),
 .biblical-detail-toolbar-v16433 button,
 .crud-dialog-foot button,
 .block-actions-v16434 button,
@@ -1769,9 +1769,9 @@ body.light-mode .action.pastel-action.action-stats{color:#211707!important;borde
 .btn.soft:active,
 .module-crud-tools button:active,
 .detail-crud-actions button:active,
-.parable-detail-top button:active,
-.guide-detail-top button:active,
-.biblical-detail-top-v2242 button:active,
+.parable-detail-top button:not(.return-to-reader-btn):active,
+.guide-detail-top button:not(.return-to-reader-btn):active,
+.biblical-detail-top-v2242 button:not(.return-to-reader-btn):active,
 .biblical-detail-toolbar-v16433 button:active,
 .crud-dialog-foot button:active,
 .block-actions-v16434 button:active,
@@ -1828,9 +1828,9 @@ body.light-mode .actions-scroll .action,
 body.light-mode .btn.soft,
 body.light-mode .module-crud-tools button,
 body.light-mode .detail-crud-actions button,
-body.light-mode .parable-detail-top button,
-body.light-mode .guide-detail-top button,
-body.light-mode .biblical-detail-top-v2242 button,
+body.light-mode .parable-detail-top button:not(.return-to-reader-btn),
+body.light-mode .guide-detail-top button:not(.return-to-reader-btn),
+body.light-mode .biblical-detail-top-v2242 button:not(.return-to-reader-btn),
 body.light-mode .biblical-detail-toolbar-v16433 button,
 body.light-mode .crud-dialog-foot button,
 body.light-mode .block-actions-v16434 button,
@@ -1942,9 +1942,9 @@ html body :is(
   .btn.soft,
   .module-crud-tools button,
   .detail-crud-actions button,
-  .parable-detail-top button,
-  .guide-detail-top button,
-  .biblical-detail-top-v2242 button,
+  .parable-detail-top button:not(.return-to-reader-btn),
+  .guide-detail-top button:not(.return-to-reader-btn),
+  .biblical-detail-top-v2242 button:not(.return-to-reader-btn),
   .biblical-detail-toolbar-v16433 button,
   .crud-dialog-foot button,
   .block-actions-v16434 button,
@@ -1979,9 +1979,9 @@ html body :is(
   .btn.soft,
   .module-crud-tools button,
   .detail-crud-actions button,
-  .parable-detail-top button,
-  .guide-detail-top button,
-  .biblical-detail-top-v2242 button,
+  .parable-detail-top button:not(.return-to-reader-btn),
+  .guide-detail-top button:not(.return-to-reader-btn),
+  .biblical-detail-top-v2242 button:not(.return-to-reader-btn),
   .biblical-detail-toolbar-v16433 button,
   .crud-dialog-foot button,
   .block-actions-v16434 button,
@@ -2041,9 +2041,9 @@ html body.light-mode :is(
   .btn.soft,
   .module-crud-tools button,
   .detail-crud-actions button,
-  .parable-detail-top button,
-  .guide-detail-top button,
-  .biblical-detail-top-v2242 button,
+  .parable-detail-top button:not(.return-to-reader-btn),
+  .guide-detail-top button:not(.return-to-reader-btn),
+  .biblical-detail-top-v2242 button:not(.return-to-reader-btn),
   .biblical-detail-toolbar-v16433 button,
   .crud-dialog-foot button,
   .block-actions-v16434 button,
@@ -2092,9 +2092,9 @@ html body.light-mode :is(
   .btn.soft:not(:disabled):active,
   .module-crud-tools button:not(:disabled):active,
   .detail-crud-actions button:not(:disabled):active,
-  .parable-detail-top button:not(:disabled):active,
-  .guide-detail-top button:not(:disabled):active,
-  .biblical-detail-top-v2242 button:not(:disabled):active,
+  .parable-detail-top button:not(.return-to-reader-btn):not(:disabled):active,
+  .guide-detail-top button:not(.return-to-reader-btn):not(:disabled):active,
+  .biblical-detail-top-v2242 button:not(.return-to-reader-btn):not(:disabled):active,
   .biblical-detail-toolbar-v16433 button:not(:disabled):active,
   .crud-dialog-foot button:not(:disabled):active,
   .block-actions-v16434 button:not(:disabled):active,
@@ -2652,13 +2652,13 @@ body.light-mode .biblical-entity-overlay{background:rgba(40,32,15,.42)}body.ligh
 @media(max-width:560px){.biblical-prophecy-detail-head{gap:8px;flex-wrap:wrap}.biblical-return-chapter{margin-left:0}}
 
 
-/* V2.8.29 · Navegación desde títulos de Parábolas */
+/* V2.8.30 · Navegación desde títulos de Parábolas */
 .parable-section-heading{display:flex;justify-content:center;margin:.75rem 0 .55rem}
 .parable-title-capsule{appearance:none;border:1px solid rgba(143,174,224,.72);border-radius:999px;background:#3f5274;color:#fff;padding:.48rem 1rem;font:700 1rem/1.2 Lora,serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.16);cursor:pointer;max-width:94%;text-align:center}
 .parable-title-capsule:active{transform:translateY(1px)}
 body.light-mode .parable-title-capsule,.light-mode .parable-title-capsule{background:#dbe8fb;color:#203759;border-color:#7694bf}
 
-/* V2.8.29 · Acceso a Guía desde capítulo 1 */
+/* V2.8.30 · Acceso a Guía desde capítulo 1 */
 .guide-chapter-entry{display:flex;justify-content:center;margin:.35rem 0 1rem}
 .guide-title-capsule{
   appearance:none;border:1px solid rgba(143,174,224,.72);border-radius:999px;
@@ -2714,7 +2714,7 @@ body.light-mode .places-map-mode button,.light-mode .places-map-mode button{back
 body.light-mode .places-map-mode button.active,.light-mode .places-map-mode button.active{background:linear-gradient(#fff3bd,#d8ac31);color:#171006;border-color:#b28617}
 
 
-/* V2.8.29 · Botón independiente Volver al capítulo */
+/* V2.8.30 · Botón independiente Volver al capítulo */
 .return-to-reader-btn{
   appearance:none;
   display:inline-flex;
