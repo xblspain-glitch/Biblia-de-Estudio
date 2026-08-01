@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.43 · Toasts visibles en modo claro */
+/* V2.8.44 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.43 · Mapas estáticos premium en Lugares */
+/* V2.8.44 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.43 · Zoom táctil de mapas premium */
+/* V2.8.44 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,89 +3008,68 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.43 · Visor casi a pantalla completa */
+/* V2.8.44 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
-  padding:8px!important;
+  padding:4px!important;
   align-items:center!important;
   justify-content:center!important;
 }
 .premium-place-map-dialog{
-  width:min(1200px,98vw)!important;
-  max-width:98vw!important;
-  height:94vh!important;
-  max-height:94vh!important;
-  border-radius:18px!important;
+  width:99vw!important;
+  max-width:99vw!important;
+  height:97vh!important;
+  max-height:97vh!important;
+  border-radius:14px!important;
 }
 .premium-place-map-head{
-  min-height:54px!important;
-  padding:8px 12px!important;
+  min-height:48px!important;
+  padding:6px 10px!important;
 }
 .premium-place-map-head h2{
-  font-size:.98rem!important;
-  line-height:1.25!important;
+  font-size:.92rem!important;
+  line-height:1.2!important;
+  max-width:calc(100% - 48px)!important;
 }
 .premium-place-map-close{
-  width:42px!important;
-  height:42px!important;
-  min-width:42px!important;
-  min-height:42px!important;
-  font-size:1.75rem!important;
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  min-height:38px!important;
+  font-size:1.65rem!important;
 }
 .premium-place-map-controls{
-  gap:8px!important;
-  padding:7px 10px!important;
+  gap:7px!important;
+  padding:6px 8px!important;
 }
 .premium-place-map-controls button{
-  min-width:42px!important;
-  min-height:40px!important;
-  padding:6px 12px!important;
-  border-radius:12px!important;
-  font-size:.95rem!important;
+  min-width:40px!important;
+  min-height:38px!important;
+  padding:5px 10px!important;
+  border-radius:11px!important;
+  font-size:.92rem!important;
 }
 .premium-place-map-zoom{
   flex:1 1 auto!important;
   min-height:0!important;
   height:auto!important;
-  padding:6px!important;
+  padding:2px!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
+  overflow:hidden!important;
 }
 .premium-place-map-zoom img{
-  width:auto!important;
+  width:100%!important;
   height:auto!important;
-  max-width:100%!important;
-  max-height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
   object-fit:contain!important;
+  border-radius:10px!important;
 }
-@media(max-width:640px){
-  .premium-place-map-modal{padding:4px!important}
+@media(min-width:700px){
   .premium-place-map-dialog{
-    width:99vw!important;
-    max-width:99vw!important;
-    height:96vh!important;
-    max-height:96vh!important;
-    border-radius:14px!important;
-  }
-  .premium-place-map-head{
-    min-height:48px!important;
-    padding:6px 9px!important;
-  }
-  .premium-place-map-head h2{
-    font-size:.9rem!important;
-    max-width:calc(100% - 52px)!important;
-  }
-  .premium-place-map-close{
-    width:38px!important;
-    height:38px!important;
-    min-width:38px!important;
-    min-height:38px!important;
-  }
-  .premium-place-map-controls{
-    padding:6px 8px!important;
-  }
-  .premium-place-map-controls button{
-    min-height:38px!important;
-    padding:5px 10px!important;
+    width:min(1180px,97vw)!important;
+    max-width:min(1180px,97vw)!important;
+    height:95vh!important;
   }
 }
