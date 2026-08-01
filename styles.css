@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.51 · Toasts visibles en modo claro */
+/* V2.8.52 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.51 · Mapas estáticos premium en Lugares */
+/* V2.8.52 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.51 · Zoom táctil de mapas premium */
+/* V2.8.52 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.51 · Mapas rehechos y visor optimizado */
+/* V2.8.52 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.51 · Último patrón: mapas dedicados por lugar principal */
+/* V2.8.52 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.51 · Apertura robusta del visor de mapas */
+/* V2.8.52 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.51 · Confirmación visible y apertura en captura */
+/* V2.8.52 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V2.8.51 · Dos mapas grandes: bíblico y moderno */
+/* V2.8.52 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3191,4 +3191,15 @@ body.light-mode .place-map-choice-action,
 @media(max-width:640px){
   .place-map-choice-grid{grid-template-columns:1fr}
   .place-map-choice-card{min-height:165px}
+}
+
+
+/* V2.8.52 · Apertura de fichas y búsqueda por relevancia */
+.biblical-place-card{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(184,139,46,.22);
+  cursor:pointer;
+}
+.biblical-place-card:active{
+  transform:scale(.992);
 }
