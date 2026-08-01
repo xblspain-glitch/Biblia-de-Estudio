@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V3.0.2 · Toasts visibles en modo claro */
+/* V3.0.3 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V3.0.2 · Mapas estáticos premium en Lugares */
+/* V3.0.3 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V3.0.2 · Zoom táctil de mapas premium */
+/* V3.0.3 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V3.0.2 · Mapas rehechos y visor optimizado */
+/* V3.0.3 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.2 · Último patrón: mapas dedicados por lugar principal */
+/* V3.0.3 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.2 · Apertura robusta del visor de mapas */
+/* V3.0.3 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.2 · Confirmación visible y apertura en captura */
+/* V3.0.3 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V3.0.2 · Dos mapas grandes: bíblico y moderno */
+/* V3.0.3 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.0.2 · Apertura de fichas y búsqueda por relevancia */
+/* V3.0.3 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3205,7 +3205,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.0.2 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+/* V3.0.3 · Un acceso, dos mapas y grupo de lugares con coordenadas */
 .biblical-place-detail-return:empty{
   display:none!important;
 }
@@ -3291,7 +3291,7 @@ body.light-mode .places-dual-map-block>p,
 }
 
 
-/* V3.0.2 · Atlas bíblico con etiquetas progresivas */
+/* V3.0.3 · Atlas bíblico con etiquetas progresivas */
 .biblical-atlas-label-shell{
   background:transparent!important;
   border:0!important;
@@ -3367,7 +3367,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.0.2 · Retoque final de etiquetas del atlas */
+/* V3.0.3 · Retoque final de etiquetas del atlas */
 .biblical-atlas-region{
   color:rgba(101,76,43,.66)!important;
   -webkit-text-fill-color:rgba(101,76,43,.66)!important;
@@ -3388,7 +3388,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.0.2 · Selección individual visible sobre explicaciones */
+/* V3.0.3 · Selección individual visible sobre explicaciones */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3416,7 +3416,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.0.2 · Selección estable sin cambio de tamaño */
+/* V3.0.3 · Selección estable sin cambio de tamaño */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3428,7 +3428,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.0.2 · Listas de fichas legibles en modo claro */
+/* V3.0.3 · Listas de fichas legibles en modo claro */
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 .light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation li,
@@ -3442,7 +3442,7 @@ body.light-mode .biblical-places-screen .biblical-prophecy-explanation li::marke
 }
 
 
-/* V3.0.2 · Desglose del diccionario legible en modo claro */
+/* V3.0.3 · Desglose del diccionario legible en modo claro */
 body.light-mode .stats-dictionary-breakdown,
 .light-mode .stats-dictionary-breakdown{
   background:rgba(126,91,31,.10)!important;

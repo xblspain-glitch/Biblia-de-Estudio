@@ -1,15 +1,34 @@
-const CACHE='biblia-estudio-v3.0.2';
-const CORE=['./','./index.html','./styles.css?v=3.0.2','./theme-overrides.css?v=3.0.2','./app.js?v=3.0.2','./manifest.webmanifest?v=3.0.2','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.0.2','./dictionary-data.js?v=3.0.2','./versiculos-del-dia.json?v=3.0.2','./separador_etiope_transparente_final.png?v=3.0.2','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.0.2','./biblical-characters-v2244-v2835.js?v=3.0.2','./biblical-characters-v2261.json?v=3.0.2','./biblical-parables-v16436.css?v=3.0.2','./biblical-parables-v16436-v2835.js?v=3.0.2','./biblical-parables.json?v=3.0.2','./biblical-guides-v16436.css?v=3.0.2','./biblical-guides-v16436-v2835.js?v=3.0.2','./biblical-guides.json?v=3.0.2','./biblical-prophecies.json?v=3.0.2','./biblical-places.json?v=3.0.2',
+const CACHE='biblia-estudio-v3.0.3';
+const CORE=['./','./index.html','./styles.css?v=3.0.3','./theme-overrides.css?v=3.0.3','./app.js?v=3.0.3','./manifest.webmanifest?v=3.0.3','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.0.3','./dictionary-data.js?v=3.0.3','./versiculos-del-dia.json?v=3.0.3','./separador_etiope_transparente_final.png?v=3.0.3','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.0.3','./biblical-characters-v2244-v2835.js?v=3.0.3','./biblical-characters-v2261.json?v=3.0.3','./biblical-parables-v16436.css?v=3.0.3','./biblical-parables-v16436-v2835.js?v=3.0.3','./biblical-parables.json?v=3.0.3','./biblical-guides-v16436.css?v=3.0.3','./biblical-guides-v16436-v2835.js?v=3.0.3','./biblical-guides.json?v=3.0.3','./biblical-prophecies.json?v=3.0.3','./biblical-places.json?v=3.0.3',
 ];
 self.addEventListener('install',event=>{
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
+  event.waitUntil((async()=>{
+    const cache=await caches.open(CACHE_NAME);
+    await cache.addAll(APP_SHELL);
+    await self.skipWaiting();
+  })());
 });
 self.addEventListener('activate',event=>{
-  event.waitUntil(Promise.all([
-    caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('biblia-estudio-')&&k!==CACHE).map(k=>caches.delete(k)))),
-    self.clients.claim()
-  ]));
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    await Promise.all(
+      keys
+        .filter(key=>key.startsWith('biblia-estudio-v')&&key!==CACHE_NAME)
+        .map(key=>caches.delete(key))
+    );
+    await self.clients.claim();
+
+    const clients=await self.clients.matchAll({
+      type:'window',
+      includeUncontrolled:true
+    });
+    for(const client of clients){
+      client.postMessage({
+        type:'BIBLIA_UPDATE_READY',
+        version:'3.0.3'
+      });
+    }
+  })());
 });
 
 self.addEventListener('message',event=>{
@@ -50,4 +69,11 @@ self.addEventListener('notificationclick',event=>{
     for(const client of all){if('focus'in client){client.postMessage({type:'OPEN_DAILY_VERSE'});return client.focus()}}
     return clients.openWindow('./?dailyVerse=1');
   })());
+});
+
+
+self.addEventListener('message',event=>{
+  if(event.data?.type==='BIBLIA_FORCE_ACTIVATE'){
+    self.skipWaiting();
+  }
 });
