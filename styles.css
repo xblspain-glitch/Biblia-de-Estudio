@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.55 · Toasts visibles en modo claro */
+/* V2.8.58 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.55 · Mapas estáticos premium en Lugares */
+/* V2.8.58 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.55 · Zoom táctil de mapas premium */
+/* V2.8.58 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.55 · Mapas rehechos y visor optimizado */
+/* V2.8.58 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.55 · Último patrón: mapas dedicados por lugar principal */
+/* V2.8.58 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.55 · Apertura robusta del visor de mapas */
+/* V2.8.58 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V2.8.55 · Confirmación visible y apertura en captura */
+/* V2.8.58 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V2.8.55 · Dos mapas grandes: bíblico y moderno */
+/* V2.8.58 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V2.8.55 · Apertura de fichas y búsqueda por relevancia */
+/* V2.8.58 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3205,7 +3205,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V2.8.55 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+/* V2.8.58 · Un acceso, dos mapas y grupo de lugares con coordenadas */
 .biblical-place-detail-return:empty{
   display:none!important;
 }
@@ -3291,7 +3291,7 @@ body.light-mode .places-dual-map-block>p,
 }
 
 
-/* V2.8.55 · Atlas bíblico con etiquetas progresivas */
+/* V2.8.58 · Atlas bíblico con etiquetas progresivas */
 .biblical-atlas-label-shell{
   background:transparent!important;
   border:0!important;
@@ -3367,7 +3367,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V2.8.55 · Retoque final de etiquetas del atlas */
+/* V2.8.58 · Retoque final de etiquetas del atlas */
 .biblical-atlas-region{
   color:rgba(101,76,43,.66)!important;
   -webkit-text-fill-color:rgba(101,76,43,.66)!important;
@@ -3385,4 +3385,32 @@ body.dark-mode .biblical-atlas-local,
   color:rgba(45,92,123,.72)!important;
   -webkit-text-fill-color:rgba(45,92,123,.72)!important;
   font-size:clamp(12px,2.6vw,18px)!important;
+}
+
+
+/* V2.8.58 · Selección individual visible sobre explicaciones */
+.explanation-group .verse.selected,
+.explanation-group .verse.explained-verse.selected,
+.explanation-group .verse.explained-verse.saved-verse.selected{
+  background:rgba(66,161,216,.34)!important;
+  outline:1.5px solid rgba(116,196,239,.88)!important;
+  border-radius:6px!important;
+  box-shadow:
+    0 0 0 1px rgba(48,135,190,.20),
+    inset 0 0 0 999px rgba(61,153,209,.08)!important;
+  padding:2px 2px!important;
+  -webkit-box-decoration-break:clone!important;
+  box-decoration-break:clone!important;
+}
+.explanation-group:has(.verse.selected){
+  background:linear-gradient(180deg,rgba(205,170,239,.25),rgba(165,112,215,.20))!important;
+  border-color:rgba(211,174,244,.72)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(142,91,190,.10)!important;
+}
+body.light-mode .explanation-group .verse.selected,
+.light-mode .explanation-group .verse.selected{
+  background:rgba(73,157,207,.28)!important;
+  outline-color:rgba(45,125,178,.82)!important;
+  color:#17130f!important;
+  -webkit-text-fill-color:#17130f!important;
 }

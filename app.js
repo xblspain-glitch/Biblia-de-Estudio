@@ -531,15 +531,15 @@ reader.addEventListener('click',e=>{
   if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
   const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}
   const v=e.target.closest('.verse');if(!v)return;
-  const n=+v.dataset.v,exp=findExplanationForVerse(n);
+  const n=+v.dataset.v;
   explanationArmedKey='';
-  if(exp){
-    state.selected.clear();for(const verse of exp.nums)state.selected.add(verse);
-    updateSelection();selectionBar.classList.add('open');actionsPanelToggle?.setAttribute('aria-expanded','true');
-    return;
+  const wasSelected=state.selected.has(n);
+  wasSelected?state.selected.delete(n):state.selected.add(n);
+  updateSelection();
+  if(!wasSelected){
+    selectionBar.classList.add('open');
+    actionsPanelToggle?.setAttribute('aria-expanded','true');
   }
-  const wasSelected=state.selected.has(n);wasSelected?state.selected.delete(n):state.selected.add(n);updateSelection();
-  if(!wasSelected){selectionBar.classList.add('open');actionsPanelToggle?.setAttribute('aria-expanded','true')}
 });
 // El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
 document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
@@ -2500,17 +2500,17 @@ const BIBLICAL_ATLAS_LABELS=[
   {name:'MESOPOTAMIA',lat:34.0,lon:44.2,minZoom:3,maxZoom:7,type:'territory'},
   {name:'ARABIA',lat:27.4,lon:40.9,minZoom:3,maxZoom:7,type:'territory'},
   {name:'MACEDONIA',lat:41.0,lon:22.2,minZoom:4,maxZoom:8,type:'territory'},
-  {name:'ACAYA',lat:38.1,lon:22.5,minZoom:5,maxZoom:8,type:'region'},
-  {name:'FENICIA',lat:33.8,lon:35.4,minZoom:5,maxZoom:8,type:'region'},
-  {name:'GALILEA',lat:32.8,lon:35.35,minZoom:6,maxZoom:9,type:'region'},
-  {name:'SAMARIA',lat:32.2,lon:35.22,minZoom:6,maxZoom:9,type:'region'},
-  {name:'JUDEA',lat:31.58,lon:35.16,minZoom:6,maxZoom:9,type:'region'},
-  {name:'PEREA',lat:31.85,lon:35.65,minZoom:7,maxZoom:9,type:'region'},
-  {name:'DECAPOLIS',lat:32.45,lon:35.82,minZoom:7,maxZoom:9,type:'region'},
-  {name:'IDUMEA',lat:30.9,lon:35.05,minZoom:7,maxZoom:9,type:'region'},
-  {name:'MOAB',lat:31.25,lon:35.72,minZoom:6,maxZoom:9,type:'region'},
-  {name:'AMÓN',lat:31.95,lon:35.93,minZoom:6,maxZoom:9,type:'region'},
-  {name:'EDOM',lat:30.35,lon:35.45,minZoom:6,maxZoom:9,type:'region'},
+  {name:'ACAYA',lat:38.1,lon:22.5,minZoom:5,maxZoom:14,type:'region'},
+  {name:'FENICIA',lat:33.8,lon:35.4,minZoom:5,maxZoom:14,type:'region'},
+  {name:'GALILEA',lat:32.8,lon:35.35,minZoom:6,maxZoom:14,type:'region'},
+  {name:'SAMARIA',lat:32.2,lon:35.22,minZoom:6,maxZoom:14,type:'region'},
+  {name:'JUDEA',lat:31.58,lon:35.16,minZoom:6,maxZoom:14,type:'region'},
+  {name:'PEREA',lat:31.85,lon:35.65,minZoom:7,maxZoom:14,type:'region'},
+  {name:'DECAPOLIS',lat:32.45,lon:35.82,minZoom:7,maxZoom:14,type:'region'},
+  {name:'IDUMEA',lat:30.9,lon:35.05,minZoom:7,maxZoom:14,type:'region'},
+  {name:'MOAB',lat:31.25,lon:35.72,minZoom:6,maxZoom:14,type:'region'},
+  {name:'AMÓN',lat:31.95,lon:35.93,minZoom:6,maxZoom:14,type:'region'},
+  {name:'EDOM',lat:30.35,lon:35.45,minZoom:6,maxZoom:14,type:'region'},
 
   // Ciudades de referencia y viajes apostólicos.
   {name:'ROMA',lat:41.9028,lon:12.4964,minZoom:4,maxZoom:20,type:'major-city'},
