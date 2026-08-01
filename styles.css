@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.39 · Toasts visibles en modo claro */
+/* V2.8.41 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2823,4 +2823,132 @@ body:not(.light-mode) .snackbar {
   -webkit-text-fill-color: #1d1711 !important;
   border: 1.5px solid #b88b2e !important;
   text-shadow: none !important;
+}
+
+
+/* V2.8.41 · Mapas estáticos premium en Lugares */
+.place-geography-premium{
+  margin:24px 0;
+  padding:18px;
+  border:1px solid rgba(185,145,48,.72);
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(15,27,39,.96),rgba(8,19,30,.96));
+  box-shadow:0 10px 30px rgba(0,0,0,.24);
+}
+.place-geography-premium>h2{
+  margin:0 0 18px;
+  color:#f5d878;
+  font-family:Lora,serif;
+  font-size:1.35rem;
+  letter-spacing:.03em;
+}
+.place-geography-view{
+  display:grid;
+  grid-template-columns:minmax(150px,.34fr) minmax(0,1fr);
+  gap:16px;
+  align-items:start;
+  margin-top:18px;
+}
+.place-geography-view:first-of-type{margin-top:0}
+.place-geography-copy h3{
+  margin:6px 0 10px;
+  color:#fff4d3;
+  font-family:Lora,serif;
+  font-size:1.08rem;
+}
+.place-geography-copy p{
+  margin:0;
+  color:#eee8dc;
+  line-height:1.55;
+}
+.place-map-image-button{
+  display:block;
+  width:100%;
+  padding:0!important;
+  border:1.5px solid #b88b2e!important;
+  border-radius:18px!important;
+  overflow:hidden;
+  background:#111!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.28)!important;
+  cursor:zoom-in;
+}
+.place-map-image-button img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.premium-place-map-modal{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.88);
+}
+.premium-place-map-modal.hidden{display:none!important}
+.premium-place-map-dialog{
+  width:min(980px,100%);
+  max-height:94vh;
+  display:flex;
+  flex-direction:column;
+  border:1.5px solid #b88b2e;
+  border-radius:22px;
+  overflow:hidden;
+  background:#0d1722;
+}
+.premium-place-map-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 16px;
+  border-bottom:1px solid rgba(184,139,46,.55);
+}
+.premium-place-map-head h2{
+  margin:0;
+  color:#f7e5ad;
+  font-family:Lora,serif;
+  font-size:1rem;
+}
+.premium-place-map-close{
+  width:46px;
+  height:46px;
+  border:1px solid #b88b2e!important;
+  border-radius:50%!important;
+  background:#20242b!important;
+  color:#f7e5ad!important;
+  font-size:2rem!important;
+  line-height:1!important;
+}
+.premium-place-map-zoom{
+  overflow:auto;
+  padding:10px;
+  touch-action:pan-x pan-y pinch-zoom;
+}
+.premium-place-map-zoom img{
+  display:block;
+  width:max(100%,900px);
+  height:auto;
+  border-radius:14px;
+}
+body.light-mode .place-geography-premium,
+.light-mode .place-geography-premium{
+  background:linear-gradient(180deg,#fffdf7,#f7f0e3);
+}
+body.light-mode .place-geography-premium>h2,
+.light-mode .place-geography-premium>h2,
+body.light-mode .place-geography-copy h3,
+.light-mode .place-geography-copy h3{
+  color:#5b3d0e;
+}
+body.light-mode .place-geography-copy p,
+.light-mode .place-geography-copy p{
+  color:#34291d;
+}
+@media(max-width:640px){
+  .place-geography-premium{padding:14px}
+  .place-geography-view{grid-template-columns:1fr;gap:10px}
+  .place-geography-copy p{font-size:.98rem}
 }
