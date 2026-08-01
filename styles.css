@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V2.8.44 · Toasts visibles en modo claro */
+/* V2.8.45 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V2.8.44 · Mapas estáticos premium en Lugares */
+/* V2.8.45 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V2.8.44 · Zoom táctil de mapas premium */
+/* V2.8.45 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V2.8.44 · Mapas rehechos y visor optimizado */
+/* V2.8.45 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3072,4 +3072,103 @@ body.light-mode .premium-place-map-controls button,
     max-width:min(1180px,97vw)!important;
     height:95vh!important;
   }
+}
+
+/* V2.8.45 · Mapas reutilizables y marcadores dinámicos de Judea */
+.premium-map-stage{
+  position:relative;
+  display:block;
+  width:100%;
+  overflow:hidden;
+  border-radius:inherit;
+}
+.premium-map-stage>img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.premium-map-marker{
+  position:absolute;
+  z-index:4;
+  transform:translate(-50%,-92%);
+  pointer-events:none;
+  display:flex;
+  align-items:flex-start;
+}
+.premium-map-pin{
+  position:relative;
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  border:2px solid #231600;
+  border-radius:50% 50% 50% 0;
+  background:linear-gradient(145deg,#fff2a2 0%,#e8b62f 46%,#9a6200 100%);
+  transform:rotate(-45deg);
+  box-shadow:0 3px 8px rgba(0,0,0,.55);
+}
+.premium-map-pin::after{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  left:8px;
+  top:8px;
+  border-radius:50%;
+  background:#17120a;
+}
+.premium-map-label{
+  margin:16px 0 0 5px;
+  padding:2px 5px;
+  border-radius:6px;
+  background:rgba(249,240,211,.9);
+  color:#17120a;
+  -webkit-text-fill-color:#17120a;
+  font-family:Lora,serif;
+  font-size:.88rem;
+  font-weight:800;
+  line-height:1.05;
+  white-space:nowrap;
+  text-shadow:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.premium-map-precision{
+  margin-top:9px!important;
+  color:#d7bf82!important;
+  font-size:.88rem!important;
+  font-style:italic;
+}
+.premium-place-map-canvas{
+  position:relative;
+  width:100%;
+  transform-origin:center center;
+  transition:transform .06s linear;
+  will-change:transform;
+}
+.premium-place-map-canvas>img{
+  display:block;
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  border-radius:10px;
+  pointer-events:none;
+  user-select:none;
+}
+.premium-map-marker-modal .premium-map-pin{
+  width:34px;
+  height:34px;
+  flex-basis:34px;
+}
+.premium-map-marker-modal .premium-map-pin::after{
+  width:10px;
+  height:10px;
+  left:10px;
+  top:10px;
+}
+.premium-map-marker-modal .premium-map-label{
+  margin-top:20px;
+  font-size:1rem;
+}
+body.light-mode .premium-map-precision,
+.light-mode .premium-map-precision{
+  color:#6f5120!important;
 }
