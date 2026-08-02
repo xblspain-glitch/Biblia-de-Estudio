@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0d0f12">
   <title>Mi Biblia de Estudio</title>
-  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.2">
-  <link rel="manifest" href="manifest.webmanifest?v=3.1.2">
-<link rel="stylesheet" href="styles.css?v=3.1.2">
-  <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.2">
-  <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.2">
-  <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.2">
-  <link rel="stylesheet" href="theme-overrides.css?v=3.1.2">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.3">
+  <link rel="manifest" href="manifest.webmanifest?v=3.1.3">
+<link rel="stylesheet" href="styles.css?v=3.1.3">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.3">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.3">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.3">
+  <link rel="stylesheet" href="theme-overrides.css?v=3.1.3">
 
 
 
@@ -23,7 +23,7 @@
 <body>
   <section id="homeScreen" class="home-screen">
     <div class="home-hero">
-      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=3.1.2" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
+      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=3.1.3" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
     <div class="home-welcome">
       <h1>Bienvenido</h1>
@@ -31,23 +31,23 @@
     </div>
     <div class="home-actions">
       <button id="homeContinue" class="home-card home-card-continue" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=3.1.2" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=3.1.3" alt=""></span>
         <span><strong>Punto de libro</strong><small id="homeContinueRef">Todavía no hay un punto de libro guardado</small></span>
       </button>
       <button id="homeBooks" class="home-card home-card-books" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=3.1.2" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=3.1.3" alt=""></span>
         <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
       </button>
       <button id="homeSearch" class="home-card home-card-search" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=3.1.2" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=3.1.3" alt=""></span>
         <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
       </button>
       <button id="homeSaved" class="home-card home-card-saved" type="button">
-        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=3.1.2" alt=""></span>
+        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=3.1.3" alt=""></span>
         <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
       </button>
       <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
-        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=3.1.2" alt=""></span>
+        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=3.1.3" alt=""></span>
         <span class="home-daily-copy">
           <strong>Versículo del día</strong>
           <span class="home-daily-meta">
@@ -69,7 +69,7 @@
     </div>
     <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">☀️</button>
     <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
-    <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
+    <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮<span id="backupPendingDot" class="backup-pending-dot" aria-hidden="true"></span></button>
   </header>
 
   <main id="reader" class="reader" aria-live="polite"></main>
@@ -108,7 +108,7 @@
         <button class="btn soft" type="button" onclick="closeMoreFunctions()">← Volver</button>
       </div>
       <h1>Más</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.3" alt="" aria-hidden="true">
       <p class="study-module-sub">Herramientas adicionales para ampliar el estudio bíblico.</p>
       <div class="more-functions-grid">
         <button id="calendarModuleBtn" class="more-function-card" type="button" onclick="openBiblicalCalendar()">
@@ -164,7 +164,7 @@
         <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
       </div>
       <h1>Enciclopedia Bíblica</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.3" alt="" aria-hidden="true">
       <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
       <div class="encyclopedia-grid">
         <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
@@ -252,7 +252,7 @@
           <input id="biblicalPlacesImportInput" type="file" accept="application/json,.json" hidden onchange="importBiblicalPlaces(event)">
         </div>
         <h1 class="biblical-prophecies-title">Lugares Bíblicos</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.3" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Ciudades, regiones, montes, ríos y territorios que forman parte de la historia de las Sagradas Escrituras.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPlacesSearch" type="search" autocomplete="off" placeholder="Buscar lugar, categoría, región o personaje…" oninput="renderBiblicalPlaces()"></label>
         <div class="places-list-mode-tabs" aria-label="Filtrar lugares">
@@ -344,7 +344,7 @@
       <div id="biblicalPropheciesHome">
         <div class="module-crud-tools prophecy-crud-tools"><button type="button" class="crud-add" onclick="openBiblicalProphecyEditor()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalPropheciesTrash()">Papelera <span id="biblicalPropheciesTrashCount">0</span></button></div>
         <h1 class="biblical-prophecies-title">Profecías</h1>
-        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.3" alt="" aria-hidden="true">
         <p class="biblical-prophecies-sub">Profecías mesiánicas y su cumplimiento en nuestro Señor Jesucristo.</p>
         <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPropheciesSearch" type="search" autocomplete="off" placeholder="Buscar profecía, referencia o tema…" oninput="renderBiblicalProphecies()"></label>
         <div class="biblical-prophecies-list-head"><strong id="biblicalPropheciesListTitle">Todas las profecías</strong><span id="biblicalPropheciesCount"></span></div>
@@ -551,10 +551,14 @@
     <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
     <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico</button>
     <div class="settings-section-title">Copia de seguridad</div>
+    <div id="backupStatusCard" class="backup-status-card" aria-live="polite">
+      <strong id="backupStatusTitle">Copia al día</strong>
+      <span id="backupStatusText">No hay cambios pendientes de exportar.</span>
+    </div>
     <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
     <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
     <input id="backupFileInput" type="file" accept="application/json,.json" hidden>
-    <p class="backup-help">Incluye explicaciones, diccionario, personajes, parábolas, guía y sus papeleras, además de guardados, punto de lectura, subrayados, ajustes, títulos y auditorías.</p>
+    <p class="backup-help">La copia completa incluye explicaciones, diccionario, personajes, parábolas, guías y sus papeleras, además de versículos guardados, puntos de lectura, subrayados, ajustes, títulos, festividades, pasajes editables y auditorías. Cuando realices un cambio, el botón Exportar y los tres puntos se marcarán en naranja hasta que hagas una nueva copia.</p>
     <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
     <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
     <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
@@ -574,19 +578,19 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="dictionary-data.js?v=3.1.2"></script>
-  <script src="biblical-characters-v2244-v2835.js?v=3.1.2"></script>
-  <script src="biblical-parables-v16436-v2835.js?v=3.1.2"></script>
-  <script src="biblical-guides-v16436-v2835.js?v=3.1.2"></script>
+  <script src="dictionary-data.js?v=3.1.3"></script>
+  <script src="biblical-characters-v2244-v2835.js?v=3.1.3"></script>
+  <script src="biblical-parables-v16436-v2835.js?v=3.1.3"></script>
+  <script src="biblical-guides-v16436-v2835.js?v=3.1.3"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="app.js?v=3.1.2"></script>
+  <script src="app.js?v=3.1.3"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.2';
+  const targetVersion='3.1.3';
   const reloadKey='biblia-sw-reloaded-'+targetVersion;
 
   navigator.serviceWorker.register('./sw.js?v='+targetVersion,{updateViaCache:'none'})
@@ -623,6 +627,124 @@
     refreshing=true;
     sessionStorage.setItem(reloadKey,'1');
     location.reload();
+  });
+})();
+</script>
+
+
+<script>
+(() => {
+  const DIRTY_KEY = 'bibliaBackupPendingChanges';
+  const LAST_BACKUP_KEY = 'bibliaLastBackupAt';
+  const originalSetItem = Storage.prototype.setItem;
+  const originalRemoveItem = Storage.prototype.removeItem;
+  let internalUpdate = false;
+
+  const ignoredExact = new Set([
+    DIRTY_KEY,
+    LAST_BACKUP_KEY,
+    'readerTheme',
+    'last',
+    'lastBook',
+    'lastChapter'
+  ]);
+
+  function isMeaningfulStorageKey(key) {
+    const k = String(key || '');
+    if (!k || ignoredExact.has(k)) return false;
+    if (/migration|cache|version|install|reload|theme|font|zoom|last$/i.test(k)) return false;
+    return true;
+  }
+
+  function setPending(value) {
+    internalUpdate = true;
+    try {
+      originalSetItem.call(localStorage, DIRTY_KEY, value ? '1' : '0');
+    } finally {
+      internalUpdate = false;
+    }
+    refreshBackupIndicator();
+  }
+
+  function formatBackupDate(value) {
+    if (!value) return '';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat('es-ES', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(date);
+  }
+
+  function refreshBackupIndicator() {
+    const pending = localStorage.getItem(DIRTY_KEY) === '1';
+    const exportBtn = document.getElementById('exportBackup');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const dot = document.getElementById('backupPendingDot');
+    const card = document.getElementById('backupStatusCard');
+    const title = document.getElementById('backupStatusTitle');
+    const text = document.getElementById('backupStatusText');
+    const lastBackup = formatBackupDate(localStorage.getItem(LAST_BACKUP_KEY));
+
+    exportBtn?.classList.toggle('backup-needs-export', pending);
+    settingsBtn?.classList.toggle('backup-needs-attention', pending);
+    dot?.classList.toggle('visible', pending);
+    card?.classList.toggle('pending', pending);
+
+    if (title) title.textContent = pending ? 'Copia pendiente' : 'Copia al día';
+    if (text) {
+      if (pending) {
+        text.textContent = 'Has realizado cambios. Entra aquí y exporta una copia completa para protegerlos.';
+      } else {
+        text.textContent = lastBackup
+          ? `No hay cambios pendientes. Última copia: ${lastBackup}.`
+          : 'No hay cambios pendientes de exportar.';
+      }
+    }
+  }
+
+  Storage.prototype.setItem = function(key, value) {
+    const oldValue = this.getItem(key);
+    const result = originalSetItem.call(this, key, value);
+    if (
+      this === localStorage &&
+      !internalUpdate &&
+      oldValue !== String(value) &&
+      isMeaningfulStorageKey(key)
+    ) {
+      setPending(true);
+    }
+    return result;
+  };
+
+  Storage.prototype.removeItem = function(key) {
+    const existed = this.getItem(key) !== null;
+    const result = originalRemoveItem.call(this, key);
+    if (
+      this === localStorage &&
+      !internalUpdate &&
+      existed &&
+      isMeaningfulStorageKey(key)
+    ) {
+      setPending(true);
+    }
+    return result;
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    refreshBackupIndicator();
+
+    const exportBtn = document.getElementById('exportBackup');
+    exportBtn?.addEventListener('click', () => {
+      internalUpdate = true;
+      try {
+        originalSetItem.call(localStorage, LAST_BACKUP_KEY, new Date().toISOString());
+        originalSetItem.call(localStorage, DIRTY_KEY, '0');
+      } finally {
+        internalUpdate = false;
+      }
+      setTimeout(refreshBackupIndicator, 0);
+    });
   });
 })();
 </script>
