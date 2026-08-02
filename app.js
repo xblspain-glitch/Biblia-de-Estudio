@@ -1,3611 +1,11333 @@
-const DATA='./';
-const APP_VERSION='3.1.2';
-const CACHE_PREFIX='biblia-estudio-';
-// Los 2.077 títulos RVR1960 están incrustados en el código principal para evitar fallos de caché o carga externa.
-const BUILTIN_TITLES_EMBEDDED={"genesis":{"1":[{"versiculo":1,"titulo":"La creación"}],"2":[{"versiculo":4,"titulo":"El hombre en el huerto de Edén"}],"3":[{"versiculo":1,"titulo":"Desobediencia del hombre"}],"4":[{"versiculo":1,"titulo":"Caín y Abel"}],"5":[{"versiculo":1,"titulo":"Los descendientes de Adán"}],"6":[{"versiculo":1,"titulo":"La maldad de los hombres"},{"versiculo":9,"titulo":"Noé construye el arca"}],"7":[{"versiculo":1,"titulo":"El diluvio"}],"9":[{"versiculo":1,"titulo":"Pacto de Dios con Noé"},{"versiculo":18,"titulo":"Embriaguez de Noé"}],"10":[{"versiculo":1,"titulo":"Los descendientes de los hijos de Noé"}],"11":[{"versiculo":1,"titulo":"La torre de Babel"},{"versiculo":10,"titulo":"Los descendientes de Sem"},{"versiculo":27,"titulo":"Los descendientes de Taré"}],"12":[{"versiculo":1,"titulo":"Dios llama a Abram"},{"versiculo":10,"titulo":"Abram en Egipto"}],"13":[{"versiculo":1,"titulo":"Abram y Lot se separan"}],"14":[{"versiculo":1,"titulo":"Abram liberta a Lot"},{"versiculo":17,"titulo":"Melquisedec bendice a Abram"}],"15":[{"versiculo":1,"titulo":"Dios promete a Abram un hijo"}],"16":[{"versiculo":1,"titulo":"Agar e Ismael"}],"17":[{"versiculo":1,"titulo":"La circuncisión, señal del pacto"}],"18":[{"versiculo":1,"titulo":"Promesa del nacimiento de Isaac"},{"versiculo":16,"titulo":"Abraham intercede por Sodoma"}],"19":[{"versiculo":1,"titulo":"Destrucción de Sodoma y Gomorra"}],"20":[{"versiculo":1,"titulo":"Abraham y Abimelec"}],"21":[{"versiculo":1,"titulo":"Nacimiento de Isaac"},{"versiculo":8,"titulo":"Agar e Ismael son echados de la casa de Abraham"},{"versiculo":22,"titulo":"Pacto entre Abraham y Abimelec"}],"22":[{"versiculo":1,"titulo":"Dios ordena a Abraham que sacrifique a Isaac"}],"23":[{"versiculo":1,"titulo":"Muerte y sepultura de Sara"}],"24":[{"versiculo":1,"titulo":"Abraham busca esposa para Isaac"}],"25":[{"versiculo":1,"titulo":"Los descendientes de Abraham y Cetura"},{"versiculo":7,"titulo":"Muerte y sepultura de Abraham"},{"versiculo":12,"titulo":"Los descendientes de Ismael"},{"versiculo":19,"titulo":"Nacimiento de Jacob y Esaú"},{"versiculo":27,"titulo":"Esaú vende su primogenitura"}],"26":[{"versiculo":1,"titulo":"Isaac en Gerar"}],"27":[{"versiculo":1,"titulo":"Jacob obtiene la bendición de Isaac"},{"versiculo":41,"titulo":"Jacob huye de Esaú"}],"28":[{"versiculo":10,"titulo":"Dios se aparece a Jacob en Bet-el"}],"29":[{"versiculo":1,"titulo":"Jacob sirve a Labán por Raquel y Lea"},{"versiculo":31,"titulo":"Los hijos de Jacob"}],"30":[{"versiculo":25,"titulo":"Tretas de Jacob y de Labán"}],"31":[{"versiculo":17,"titulo":"Jacob huye de Labán"}],"32":[{"versiculo":1,"titulo":"Jacob se prepara para el encuentro con Esaú"},{"versiculo":22,"titulo":"Jacob lucha con el ángel en Peniel"}],"33":[{"versiculo":1,"titulo":"Reconciliación entre Jacob y Esaú"}],"34":[{"versiculo":1,"titulo":"La deshonra de Dina vengada"}],"35":[{"versiculo":1,"titulo":"Dios bendice a Jacob en Bet-el"},{"versiculo":16,"titulo":"Muerte de Raquel"},{"versiculo":22,"titulo":"Los hijos de Jacob"},{"versiculo":27,"titulo":"Muerte de Isaac"}],"36":[{"versiculo":1,"titulo":"Los descendientes de Esaú"}],"37":[{"versiculo":1,"titulo":"José es vendido por sus hermanos"}],"38":[{"versiculo":1,"titulo":"Judá y Tamar"}],"39":[{"versiculo":1,"titulo":"José y la esposa de Potifar"}],"40":[{"versiculo":1,"titulo":"José interpreta dos sueños"}],"41":[{"versiculo":1,"titulo":"José interpreta el sueño de Faraón"},{"versiculo":37,"titulo":"José, gobernador de Egipto"}],"42":[{"versiculo":1,"titulo":"Los hermanos de José vienen por alimentos"}],"43":[{"versiculo":1,"titulo":"Los hermanos de José regresan con Benjamín"}],"44":[{"versiculo":1,"titulo":"La copa de José"},{"versiculo":18,"titulo":"Judá intercede por Benjamín"}],"45":[{"versiculo":1,"titulo":"José se da a conocer a sus hermanos"}],"46":[{"versiculo":1,"titulo":"Jacob y su familia en Egipto"}],"48":[{"versiculo":1,"titulo":"Jacob bendice a Efraín y a Manasés"}],"49":[{"versiculo":1,"titulo":"Profecía de Jacob acerca de sus hijos"},{"versiculo":28,"titulo":"Muerte y sepelio de Jacob"}],"50":[{"versiculo":15,"titulo":"Muerte de José"}]},"exodo":{"1":[{"versiculo":1,"titulo":"Aflicción de los israelitas en Egipto"}],"2":[{"versiculo":1,"titulo":"Nacimiento de Moisés"},{"versiculo":11,"titulo":"Moisés huye de Egipto"}],"3":[{"versiculo":1,"titulo":"Llamamiento de Moisés"}],"4":[{"versiculo":18,"titulo":"Moisés vuelve a Egipto"}],"5":[{"versiculo":1,"titulo":"Moisés y Aarón ante Faraón"},{"versiculo":22,"titulo":"Jehová comisiona a Moisés y a Aarón"}],"7":[{"versiculo":8,"titulo":"La vara de Aarón"},{"versiculo":14,"titulo":"La plaga de sangre"}],"8":[{"versiculo":1,"titulo":"La plaga de ranas"},{"versiculo":16,"titulo":"La plaga de piojos"},{"versiculo":20,"titulo":"La plaga de moscas"}],"9":[{"versiculo":1,"titulo":"La plaga en el ganado"},{"versiculo":8,"titulo":"La plaga de úlceras"},{"versiculo":13,"titulo":"La plaga de granizo"}],"10":[{"versiculo":1,"titulo":"La plaga de langostas"},{"versiculo":21,"titulo":"La plaga de tinieblas"}],"11":[{"versiculo":1,"titulo":"Anunciada la muerte de los primogénitos"}],"12":[{"versiculo":1,"titulo":"La pascua"},{"versiculo":29,"titulo":"Muerte de los primogénitos"},{"versiculo":37,"titulo":"Los israelitas salen de Egipto"}],"13":[{"versiculo":1,"titulo":"Consagración de los primogénitos"},{"versiculo":17,"titulo":"La columna de nube y de fuego"}],"14":[{"versiculo":1,"titulo":"Los israelitas cruzan el Mar Rojo"}],"15":[{"versiculo":1,"titulo":"Cántico de Moisés y de María"},{"versiculo":22,"titulo":"El agua amarga de Mara"}],"16":[{"versiculo":1,"titulo":"Dios da el maná"}],"17":[{"versiculo":1,"titulo":"Agua de la roca"},{"versiculo":8,"titulo":"Guerra con Amalec"}],"18":[{"versiculo":1,"titulo":"Jetro visita a Moisés"},{"versiculo":13,"titulo":"Nombramiento de jueces"}],"19":[{"versiculo":1,"titulo":"Israel en Sinaí"}],"20":[{"versiculo":1,"titulo":"Los Diez Mandamientos"},{"versiculo":18,"titulo":"El terror del pueblo"}],"21":[{"versiculo":1,"titulo":"Leyes sobre los esclavos"},{"versiculo":12,"titulo":"Leyes sobre actos de violencia"},{"versiculo":26,"titulo":"Leyes sobre responsabilidades de amos y dueños"}],"22":[{"versiculo":1,"titulo":"Leyes sobre la restitución"},{"versiculo":16,"titulo":"Leyes humanitarias"}],"23":[{"versiculo":14,"titulo":"Las tres fiestas anuales"},{"versiculo":20,"titulo":"El Ángel de Jehová enviado para guiar a Israel"}],"24":[{"versiculo":1,"titulo":"Moisés y los ancianos en el monte Sinaí"}],"25":[{"versiculo":1,"titulo":"La ofrenda para el tabernáculo"},{"versiculo":10,"titulo":"El arca del testimonio"},{"versiculo":23,"titulo":"La mesa para el pan de la proposición"},{"versiculo":31,"titulo":"El candelero de oro"}],"26":[{"versiculo":1,"titulo":"El tabernáculo"}],"27":[{"versiculo":1,"titulo":"El altar de bronce"},{"versiculo":9,"titulo":"El atrio del tabernáculo"},{"versiculo":20,"titulo":"Aceite para las lámparas"}],"28":[{"versiculo":1,"titulo":"Las vestiduras de los sacerdotes"}],"29":[{"versiculo":1,"titulo":"Consagración de Aarón y de sus hijos"},{"versiculo":38,"titulo":"Las ofrendas diarias"}],"30":[{"versiculo":1,"titulo":"El altar del incienso"},{"versiculo":11,"titulo":"El dinero del rescate"},{"versiculo":17,"titulo":"La fuente de bronce"},{"versiculo":22,"titulo":"El aceite de la unción, y el incienso"}],"31":[{"versiculo":1,"titulo":"Llamamiento de Bezaleel y de Aholiab"},{"versiculo":12,"titulo":"El día de reposo como señal"},{"versiculo":18,"titulo":"El becerro de oro"}],"33":[{"versiculo":1,"titulo":"La presencia de Dios prometida"}],"34":[{"versiculo":1,"titulo":"El pacto renovado"},{"versiculo":11,"titulo":"Advertencia contra la idolatría de Canaán"},{"versiculo":18,"titulo":"Fiestas anuales"},{"versiculo":27,"titulo":"Moisés y las tablas de la ley"}],"35":[{"versiculo":1,"titulo":"Reglamento del día de reposo"},{"versiculo":4,"titulo":"La ofrenda para el tabernáculo"},{"versiculo":10,"titulo":"La obra del tabernáculo"},{"versiculo":20,"titulo":"El pueblo trae la ofrenda"},{"versiculo":30,"titulo":"Llamamiento de Bezaleel y de Aholiab"}],"36":[{"versiculo":2,"titulo":"Moisés suspende la ofrenda del pueblo"},{"versiculo":8,"titulo":"Construcción del tabernáculo"}],"37":[{"versiculo":1,"titulo":"Mobiliario del tabernáculo"}],"38":[{"versiculo":9,"titulo":"El atrio del tabernáculo"},{"versiculo":21,"titulo":"Dirección de la obra"},{"versiculo":24,"titulo":"Metales usados en el santuario"}],"39":[{"versiculo":1,"titulo":"Hechura de las vestiduras de los sacerdotes"},{"versiculo":32,"titulo":"La obra del tabernáculo terminada"}],"40":[{"versiculo":1,"titulo":"Moisés erige el tabernáculo"},{"versiculo":34,"titulo":"La nube sobre el tabernáculo"}]},"levitico":{"1":[{"versiculo":1,"titulo":"Los holocaustos"}],"2":[{"versiculo":1,"titulo":"Las ofrendas"}],"3":[{"versiculo":1,"titulo":"Ofrendas de paz"}],"4":[{"versiculo":1,"titulo":"Ofrendas por el pecado"}],"5":[{"versiculo":14,"titulo":"Ofrendas expiatorias"}],"6":[{"versiculo":8,"titulo":"Leyes de los sacrificios"}],"8":[{"versiculo":1,"titulo":"Consagración de Aarón y de sus hijos"}],"9":[{"versiculo":1,"titulo":"Los sacrificios de Aarón"}],"10":[{"versiculo":1,"titulo":"El pecado de Nadab y Abiú"}],"11":[{"versiculo":1,"titulo":"Animales limpios e inmundos"}],"12":[{"versiculo":1,"titulo":"La purificación de la mujer después del parto"}],"13":[{"versiculo":1,"titulo":"Leyes acerca de la lepra"}],"15":[{"versiculo":1,"titulo":"Impurezas físicas"}],"16":[{"versiculo":1,"titulo":"El día de la expiación"}],"17":[{"versiculo":1,"titulo":"El santuario único"},{"versiculo":10,"titulo":"Prohibición de comer la sangre"}],"18":[{"versiculo":1,"titulo":"Actos de inmoralidad prohibidos"}],"19":[{"versiculo":1,"titulo":"Leyes de santidad y de justicia"}],"20":[{"versiculo":1,"titulo":"Penas por actos de inmoralidad"}],"21":[{"versiculo":1,"titulo":"Santidad de los sacerdotes"}],"22":[{"versiculo":1,"titulo":"Santidad de las ofrendas"}],"23":[{"versiculo":1,"titulo":"Las fiestas solemnes"}],"24":[{"versiculo":1,"titulo":"Aceite para las lámparas"},{"versiculo":5,"titulo":"El pan de la proposición"},{"versiculo":10,"titulo":"Castigo del blasfemo"}],"25":[{"versiculo":1,"titulo":"El año de reposo de la tierra y el año del jubileo"}],"26":[{"versiculo":1,"titulo":"Bendiciones de la obediencia"},{"versiculo":14,"titulo":"Consecuencias de la desobediencia"}],"27":[{"versiculo":1,"titulo":"Cosas consagradas a Dios"}]},"numeros":{"1":[{"versiculo":1,"titulo":"Censo de Israel en Sinaí"},{"versiculo":47,"titulo":"Nombramiento de los levitas"}],"2":[{"versiculo":1,"titulo":"Campamentos y jefes de las tribus"}],"3":[{"versiculo":1,"titulo":"Censo y deberes de los levitas"},{"versiculo":40,"titulo":"Rescate de los primogénitos"}],"4":[{"versiculo":1,"titulo":"Tareas de los levitas"}],"5":[{"versiculo":1,"titulo":"Todo inmundo es echado fuera del campamento"},{"versiculo":5,"titulo":"Ley sobre la restitución"},{"versiculo":11,"titulo":"Ley sobre los celos"}],"6":[{"versiculo":1,"titulo":"El voto de los nazareos"},{"versiculo":22,"titulo":"La bendición sacerdotal"}],"7":[{"versiculo":1,"titulo":"Ofrendas para la dedicación del altar"}],"8":[{"versiculo":1,"titulo":"Aarón enciende las lámparas"},{"versiculo":5,"titulo":"Consagración de los levitas"}],"9":[{"versiculo":1,"titulo":"Celebración de la pascua"},{"versiculo":15,"titulo":"La nube sobre el tabernáculo"}],"10":[{"versiculo":1,"titulo":"Las trompetas de plata"},{"versiculo":11,"titulo":"Los israelitas salen de Sinaí"}],"11":[{"versiculo":1,"titulo":"Jehová envía codornices"}],"12":[{"versiculo":1,"titulo":"María y Aarón murmuran contra Moisés"}],"13":[{"versiculo":1,"titulo":"Misión de los doce espías"}],"14":[{"versiculo":1,"titulo":"Los israelitas se rebelan contra Jehová"},{"versiculo":20,"titulo":"Jehová castiga a Israel"},{"versiculo":36,"titulo":"Muerte de los diez espías malvados"},{"versiculo":39,"titulo":"La derrota en Horma"}],"15":[{"versiculo":1,"titulo":"Leyes sobre las ofrendas"},{"versiculo":32,"titulo":"Lapidación de un violador del día de reposo"},{"versiculo":37,"titulo":"Franjas en los vestidos"}],"16":[{"versiculo":1,"titulo":"La rebelión de Coré"}],"17":[{"versiculo":1,"titulo":"La vara de Aarón florece"}],"18":[{"versiculo":1,"titulo":"Sostenimiento de sacerdotes y levitas"}],"19":[{"versiculo":1,"titulo":"La purificación de los inmundos"}],"20":[{"versiculo":1,"titulo":"Agua de la roca"},{"versiculo":14,"titulo":"Edom rehúsa dar paso a Israel"},{"versiculo":22,"titulo":"Aarón muere en el monte Hor"}],"21":[{"versiculo":1,"titulo":"El rey de Arad ataca a Israel"},{"versiculo":4,"titulo":"La serpiente de bronce"},{"versiculo":10,"titulo":"Los israelitas rodean la tierra de Moab"},{"versiculo":21,"titulo":"Israel derrota a Sehón"},{"versiculo":31,"titulo":"Israel derrota a Og de Basán"}],"22":[{"versiculo":1,"titulo":"Balac manda llamar a Balaam"},{"versiculo":21,"titulo":"El ángel y el asna de Balaam"},{"versiculo":41,"titulo":"Balaam bendice a Israel"}],"24":[{"versiculo":10,"titulo":"Profecía de Balaam"}],"25":[{"versiculo":1,"titulo":"Israel acude a Baal-peor"}],"26":[{"versiculo":1,"titulo":"Censo del pueblo en Moab"},{"versiculo":52,"titulo":"Orden para la repartición de la tierra"},{"versiculo":57,"titulo":"Censo de la tribu de Leví"},{"versiculo":63,"titulo":"Caleb y Josué sobreviven"}],"27":[{"versiculo":1,"titulo":"Petición de las hijas de Zelofehad"},{"versiculo":12,"titulo":"Josué es designado como sucesor de Moisés"}],"28":[{"versiculo":1,"titulo":"Las ofrendas diarias"},{"versiculo":9,"titulo":"Ofrendas mensuales y del día de reposo"},{"versiculo":16,"titulo":"Ofrendas de las fiestas solemnes"}],"30":[{"versiculo":1,"titulo":"Ley de los votos"}],"31":[{"versiculo":1,"titulo":"Venganza de Israel contra Madián"},{"versiculo":21,"titulo":"Repartición del botín"}],"32":[{"versiculo":1,"titulo":"Rubén y Gad se establecen al oriente del Jordán"}],"33":[{"versiculo":1,"titulo":"Jornadas de Israel desde Egipto hasta el Jordán"},{"versiculo":50,"titulo":"Límites y repartición de Canaán"}],"35":[{"versiculo":1,"titulo":"Herencia de los levitas"},{"versiculo":9,"titulo":"Ciudades de refugio"},{"versiculo":29,"titulo":"Ley sobre los testigos y sobre el rescate"}],"36":[{"versiculo":1,"titulo":"Ley del casamiento de las herederas"}]},"deuteronomio":{"1":[{"versiculo":1,"titulo":"Moisés recuerda a Israel las promesas de Jehová en Horeb"},{"versiculo":9,"titulo":"Nombramiento de jueces"},{"versiculo":19,"titulo":"Misión de los doce espías"},{"versiculo":34,"titulo":"Dios castiga a Israel"},{"versiculo":41,"titulo":"La derrota en Horma"}],"2":[{"versiculo":1,"titulo":"Los años en el desierto"},{"versiculo":26,"titulo":"Israel derrota a Sehón"}],"3":[{"versiculo":1,"titulo":"Israel derrota a Og rey de Basán"},{"versiculo":12,"titulo":"Rubén, Gad y la media tribu de Manasés se establecen al oriente del Jordán"},{"versiculo":23,"titulo":"No se le permite a Moisés entrar a Canaán"}],"4":[{"versiculo":1,"titulo":"Moisés exhorta a la obediencia"},{"versiculo":9,"titulo":"La experiencia de Israel en Horeb"},{"versiculo":15,"titulo":"Advertencia contra la idolatría"},{"versiculo":41,"titulo":"Las ciudades de refugio al oriente del Jordán"},{"versiculo":44,"titulo":"Moisés recapitula la promulgación de la ley"}],"5":[{"versiculo":1,"titulo":"Los Diez Mandamientos"},{"versiculo":22,"titulo":"El terror del pueblo"}],"6":[{"versiculo":1,"titulo":"El gran mandamiento"},{"versiculo":10,"titulo":"Exhortaciones a la obediencia"}],"7":[{"versiculo":1,"titulo":"Advertencias contra la idolatría de Canaán"},{"versiculo":6,"titulo":"Un pueblo santo para Jehová"},{"versiculo":12,"titulo":"Bendiciones de la obediencia"}],"8":[{"versiculo":1,"titulo":"La buena tierra que han de poseer"},{"versiculo":11,"titulo":"Amonestación de no olvidar a Dios"}],"9":[{"versiculo":1,"titulo":"Dios destruirá a las naciones de Canaán"},{"versiculo":6,"titulo":"La rebelión de Israel en Horeb"}],"10":[{"versiculo":1,"titulo":"El pacto renovado"},{"versiculo":12,"titulo":"Lo que Dios exige"}],"11":[{"versiculo":1,"titulo":"La grandeza de Jehová"},{"versiculo":8,"titulo":"Bendiciones de la tierra prometida"}],"12":[{"versiculo":1,"titulo":"El santuario único"},{"versiculo":29,"titulo":"Advertencias contra la idolatría"}],"14":[{"versiculo":3,"titulo":"Animales limpios e inmundos"},{"versiculo":22,"titulo":"La ley del diezmo"}],"15":[{"versiculo":1,"titulo":"El año de remisión"},{"versiculo":7,"titulo":"Préstamos a los pobres"},{"versiculo":12,"titulo":"Leyes sobre los esclavos"},{"versiculo":19,"titulo":"Consagración de los primogénitos machos"}],"16":[{"versiculo":1,"titulo":"Fiestas anuales"},{"versiculo":18,"titulo":"Administración de la justicia"}],"17":[{"versiculo":14,"titulo":"Instrucciones acerca de un rey"}],"18":[{"versiculo":1,"titulo":"Las porciones de los levitas"},{"versiculo":9,"titulo":"Amonestación contra costumbres paganas"},{"versiculo":15,"titulo":"Dios promete un profeta como Moisés"}],"19":[{"versiculo":1,"titulo":"Las ciudades de refugio"},{"versiculo":15,"titulo":"Leyes sobre el testimonio"}],"20":[{"versiculo":1,"titulo":"Leyes sobre la guerra"}],"21":[{"versiculo":1,"titulo":"Expiación de un asesinato cuyo autor se desconoce"},{"versiculo":10,"titulo":"Diversas leyes"}],"22":[{"versiculo":13,"titulo":"Leyes sobre la castidad"}],"23":[{"versiculo":1,"titulo":"Los excluidos de la congregación"},{"versiculo":9,"titulo":"Leyes sanitarias"},{"versiculo":15,"titulo":"Leyes humanitarias"}],"25":[{"versiculo":17,"titulo":"Orden de exterminar a Amalec"}],"26":[{"versiculo":1,"titulo":"Primicias y diezmos"}],"27":[{"versiculo":1,"titulo":"Orden de escribir la ley en piedras sobre el monte Ebal"},{"versiculo":11,"titulo":"Las maldiciones en el monte Ebal"}],"28":[{"versiculo":1,"titulo":"Bendiciones de la obediencia"},{"versiculo":15,"titulo":"Consecuencias de la desobediencia"}],"29":[{"versiculo":1,"titulo":"Pacto de Jehová con Israel en Moab"}],"30":[{"versiculo":1,"titulo":"Condiciones para la restauración y la bendición"}],"31":[{"versiculo":1,"titulo":"Josué es instalado como sucesor de Moisés"},{"versiculo":24,"titulo":"Orden de guardar la ley junto al arca"},{"versiculo":30,"titulo":"Cántico de Moisés"}],"32":[{"versiculo":48,"titulo":"Se le permite a Moisés contemplar la tierra de Canaán"}],"33":[{"versiculo":1,"titulo":"Moisés bendice a las doce tribus de Israel"}],"34":[{"versiculo":1,"titulo":"Muerte y sepultura de Moisés"}]},"josue":{"1":[{"versiculo":1,"titulo":"Preparativos para la conquista"}],"2":[{"versiculo":1,"titulo":"Josué envía espías a Jericó"}],"3":[{"versiculo":1,"titulo":"El paso del Jordán"}],"4":[{"versiculo":1,"titulo":"Las doce piedras tomadas del Jordán"}],"5":[{"versiculo":1,"titulo":"La circuncisión y la pascua en Gilgal"},{"versiculo":13,"titulo":"Josué y el varón con la espada desenvainada"}],"6":[{"versiculo":1,"titulo":"La toma de Jericó"}],"7":[{"versiculo":1,"titulo":"El pecado de Acán"}],"8":[{"versiculo":1,"titulo":"Toma y destrucción de Hai"},{"versiculo":30,"titulo":"Lectura de la ley en el monte Ebal"}],"9":[{"versiculo":1,"titulo":"Astucia de los gabaonitas"}],"10":[{"versiculo":1,"titulo":"Derrota de los amorreos"}],"11":[{"versiculo":1,"titulo":"Derrota de la alianza de Jabín"},{"versiculo":16,"titulo":"Josué se apodera de toda la tierra"}],"12":[{"versiculo":1,"titulo":"Reyes derrotados por Moisés"},{"versiculo":7,"titulo":"Reyes derrotados por Josué"}],"13":[{"versiculo":1,"titulo":"Tierra aún sin conquistar"},{"versiculo":14,"titulo":"El territorio que distribuyó Moisés"}],"14":[{"versiculo":1,"titulo":"Canaán repartida por suerte"},{"versiculo":6,"titulo":"Caleb recibe Hebrón"}],"15":[{"versiculo":1,"titulo":"El territorio de Judá"},{"versiculo":13,"titulo":"Caleb conquista Hebrón y Debir"},{"versiculo":20,"titulo":"Las ciudades de Judá"}],"16":[{"versiculo":1,"titulo":"Territorio de Efraín y de Manasés"}],"18":[{"versiculo":1,"titulo":"Territorios de las demás tribus"}],"20":[{"versiculo":1,"titulo":"Josué señala ciudades de refugio"}],"21":[{"versiculo":1,"titulo":"Ciudades de los levitas"},{"versiculo":43,"titulo":"Israel ocupa la tierra"}],"22":[{"versiculo":1,"titulo":"El altar junto al Jordán"}],"23":[{"versiculo":1,"titulo":"Exhortación de Josué al pueblo"}],"24":[{"versiculo":1,"titulo":"Discurso de despedida de Josué"},{"versiculo":29,"titulo":"Muerte de Josué"},{"versiculo":32,"titulo":"Sepultura de los huesos de José en Siquem"},{"versiculo":33,"titulo":"Muerte de Eleazar"}]},"jueces":{"1":[{"versiculo":1,"titulo":"Judá y Simeón capturan a Adoni-bezec"},{"versiculo":8,"titulo":"Judá conquista Jerusalén y Hebrón"},{"versiculo":11,"titulo":"Otoniel conquista Debir y recibe a Acsa"},{"versiculo":16,"titulo":"Extensión de las conquistas de Judá y de Benjamín"},{"versiculo":22,"titulo":"José conquista Bet-el"},{"versiculo":27,"titulo":"Extensión de las conquistas de Manasés y de Efraín"},{"versiculo":30,"titulo":"Extensión de las conquistas de las demás tribus"}],"2":[{"versiculo":1,"titulo":"El ángel de Jehová en Boquim"},{"versiculo":6,"titulo":"Muerte de Josué"},{"versiculo":11,"titulo":"Apostasía de Israel, y la obra de los jueces"}],"3":[{"versiculo":1,"titulo":"Naciones que fueron dejadas para probar a Israel"},{"versiculo":7,"titulo":"Otoniel liberta a Israel de Cusan-risataim"},{"versiculo":12,"titulo":"Aod liberta a Israel de Moab"},{"versiculo":31,"titulo":"Samgar liberta a Israel de los filisteos"}],"4":[{"versiculo":1,"titulo":"Débora y Barac derrotan a Sísara"}],"5":[{"versiculo":1,"titulo":"Cántico de Débora y de Barac"}],"6":[{"versiculo":1,"titulo":"Llamamiento de Gedeón"}],"7":[{"versiculo":1,"titulo":"Gedeón derrota a los madianitas"}],"8":[{"versiculo":1,"titulo":"Gedeón captura a los reyes de Madián"}],"9":[{"versiculo":1,"titulo":"Reinado de Abimelec"}],"10":[{"versiculo":1,"titulo":"Tola y Jair juzgan a Israel"},{"versiculo":6,"titulo":"Jefté liberta a Israel de los amonitas"}],"12":[{"versiculo":8,"titulo":"Ibzán, Elón y Abdón, jueces de Israel"}],"13":[{"versiculo":1,"titulo":"Nacimiento de Sansón"}],"14":[{"versiculo":1,"titulo":"Sansón y la mujer filistea de Timnat"}],"15":[{"versiculo":9,"titulo":"Sansón derrota a los filisteos en Lehi"}],"16":[{"versiculo":1,"titulo":"Sansón en Gaza"},{"versiculo":4,"titulo":"Sansón y Dalila"},{"versiculo":23,"titulo":"Muerte de Sansón"}],"17":[{"versiculo":1,"titulo":"Las imágenes y el sacerdote de Micaía"}],"18":[{"versiculo":1,"titulo":"Micaía y los hombres de Dan"}],"19":[{"versiculo":1,"titulo":"El levita y su concubina"}],"20":[{"versiculo":1,"titulo":"La guerra contra Benjamín"}],"21":[{"versiculo":1,"titulo":"Mujeres para los benjamitas"}]},"rut":{"1":[{"versiculo":1,"titulo":"Rut y Noemí"}],"2":[{"versiculo":1,"titulo":"Rut recoge espigas en el campo de Booz"}],"3":[{"versiculo":1,"titulo":"Rut y Booz en la era"}],"4":[{"versiculo":1,"titulo":"Booz se casa con Rut"}]},"1_samuel":{"1":[{"versiculo":1,"titulo":"Nacimiento de Samuel"}],"2":[{"versiculo":1,"titulo":"Cántico de Ana"},{"versiculo":12,"titulo":"El pecado de los hijos de Elí"}],"3":[{"versiculo":1,"titulo":"Jehová llama a Samuel"}],"4":[{"versiculo":1,"titulo":"Los filisteos capturan el arca"}],"5":[{"versiculo":1,"titulo":"El arca en tierra de los filisteos"}],"6":[{"versiculo":1,"titulo":"Los filisteos devuelven el arca"}],"7":[{"versiculo":3,"titulo":"Samuel, juez de Israel"}],"8":[{"versiculo":1,"titulo":"Israel pide rey"}],"9":[{"versiculo":1,"titulo":"Saúl es elegido rey"}],"11":[{"versiculo":1,"titulo":"Saúl derrota a los amonitas"}],"12":[{"versiculo":1,"titulo":"Discurso de Samuel al pueblo"}],"13":[{"versiculo":1,"titulo":"Guerra contra los filisteos"}],"15":[{"versiculo":1,"titulo":"Saúl desobedece y es desechado"}],"16":[{"versiculo":1,"titulo":"Samuel unge a David"},{"versiculo":14,"titulo":"David toca para Saúl"}],"17":[{"versiculo":1,"titulo":"David mata a Goliat"}],"18":[{"versiculo":1,"titulo":"Pacto de Jonatán y David"},{"versiculo":6,"titulo":"Saúl tiene celos de David"}],"19":[{"versiculo":1,"titulo":"Saúl procura matar a David"}],"20":[{"versiculo":1,"titulo":"Amistad de David y Jonatán"}],"21":[{"versiculo":1,"titulo":"David huye de Saúl"}],"22":[{"versiculo":6,"titulo":"Saúl mata a los sacerdotes de Nob"}],"23":[{"versiculo":1,"titulo":"David en el desierto"}],"24":[{"versiculo":1,"titulo":"David perdona la vida a Saúl en En-gadi"}],"25":[{"versiculo":1,"titulo":"David y Abigail"}],"26":[{"versiculo":1,"titulo":"David perdona la vida a Saúl en Zif"}],"27":[{"versiculo":1,"titulo":"David entre los filisteos"}],"28":[{"versiculo":3,"titulo":"Saúl y la adivina de Endor"}],"29":[{"versiculo":1,"titulo":"Los filisteos desconfían de David"}],"30":[{"versiculo":1,"titulo":"David derrota a los amalecitas"}],"31":[{"versiculo":1,"titulo":"Muerte de Saúl y de sus hijos"}]},"2_samuel":{"1":[{"versiculo":1,"titulo":"David oye de la muerte de Saúl"},{"versiculo":17,"titulo":"David endecha a Saúl y a Jonatán"}],"2":[{"versiculo":1,"titulo":"David es proclamado rey de Judá"},{"versiculo":8,"titulo":"Guerra entre David y la casa de Saúl"}],"3":[{"versiculo":2,"titulo":"Hijos de David nacidos en Hebrón"},{"versiculo":6,"titulo":"Abner pacta con David en Hebrón"},{"versiculo":22,"titulo":"Joab mata a Abner"}],"4":[{"versiculo":1,"titulo":"Is-boset es asesinado"}],"5":[{"versiculo":1,"titulo":"David es proclamado rey de Israel"},{"versiculo":6,"titulo":"David toma la fortaleza de Sion"},{"versiculo":11,"titulo":"Hiram envía embajadores a David"},{"versiculo":13,"titulo":"Hijos de David nacidos en Jerusalén"},{"versiculo":17,"titulo":"David derrota a los filisteos"}],"6":[{"versiculo":1,"titulo":"David intenta llevar el arca a Jerusalén"},{"versiculo":12,"titulo":"David trae el arca a Jerusalén"}],"7":[{"versiculo":1,"titulo":"Pacto de Dios con David"}],"8":[{"versiculo":1,"titulo":"David extiende sus dominios"},{"versiculo":15,"titulo":"Oficiales de David"}],"9":[{"versiculo":1,"titulo":"Bondad de David hacia Mefi-boset"}],"10":[{"versiculo":1,"titulo":"Derrotas de amonitas y sirios"}],"11":[{"versiculo":1,"titulo":"David y Betsabé"}],"12":[{"versiculo":1,"titulo":"Natán amonesta a David"},{"versiculo":26,"titulo":"David captura Rabá"}],"13":[{"versiculo":1,"titulo":"Amnón y Tamar"},{"versiculo":20,"titulo":"Venganza y huida de Absalón"}],"14":[{"versiculo":1,"titulo":"Joab procura el regreso de Absalón"}],"15":[{"versiculo":1,"titulo":"Absalón se subleva contra David"}],"17":[{"versiculo":1,"titulo":"Consejos de Ahitofel y de Husai"}],"18":[{"versiculo":1,"titulo":"Muerte de Absalón"}],"19":[{"versiculo":1,"titulo":"David vuelve a Jerusalén"}],"20":[{"versiculo":1,"titulo":"Sublevación de Seba"},{"versiculo":23,"titulo":"Oficiales de David"}],"21":[{"versiculo":1,"titulo":"Venganza de los gabaonitas"},{"versiculo":15,"titulo":"Abisai libra a David del gigante"},{"versiculo":18,"titulo":"Los hombres de David matan a los gigantes"}],"22":[{"versiculo":1,"titulo":"Cántico de liberación de David"}],"23":[{"versiculo":1,"titulo":"Últimas palabras de David"},{"versiculo":8,"titulo":"Los valientes de David"}],"24":[{"versiculo":1,"titulo":"David censa al pueblo"}]},"1_reyes":{"1":[{"versiculo":1,"titulo":"Abisag sirve a David"},{"versiculo":5,"titulo":"Adonías usurpa el trono"},{"versiculo":28,"titulo":"David proclama rey a Salomón"}],"2":[{"versiculo":1,"titulo":"Mandato de David a Salomón"},{"versiculo":10,"titulo":"Muerte de David"},{"versiculo":13,"titulo":"Salomón afirma su reino"}],"3":[{"versiculo":1,"titulo":"Salomón se casa con la hija de Faraón"},{"versiculo":3,"titulo":"Salomón pide sabiduría"},{"versiculo":16,"titulo":"Sabiduría y prosperidad de Salomón"}],"5":[{"versiculo":1,"titulo":"Pacto de Salomón con Hiram"}],"6":[{"versiculo":1,"titulo":"Salomón edifica el templo"}],"7":[{"versiculo":1,"titulo":"Otros edificios de Salomón"},{"versiculo":13,"titulo":"Salomón emplea a Hiram, de Tiro"},{"versiculo":23,"titulo":"Mobiliario del templo"}],"8":[{"versiculo":1,"titulo":"Salomón traslada el arca al templo"},{"versiculo":12,"titulo":"Dedicación del templo"}],"9":[{"versiculo":1,"titulo":"Pacto de Dios con Salomón"},{"versiculo":10,"titulo":"Otras actividades de Salomón"}],"10":[{"versiculo":1,"titulo":"La reina de Sabá visita a Salomón"},{"versiculo":14,"titulo":"Riquezas y fama de Salomón"},{"versiculo":26,"titulo":"Salomón comercia en caballos y en carros"}],"11":[{"versiculo":1,"titulo":"Apostasía y dificultades de Salomón"},{"versiculo":41,"titulo":"Muerte de Salomón"}],"12":[{"versiculo":1,"titulo":"Rebelión de Israel"},{"versiculo":25,"titulo":"El pecado de Jeroboam"}],"13":[{"versiculo":1,"titulo":"Un profeta de Judá amonesta a Jeroboam"}],"14":[{"versiculo":1,"titulo":"Profecía de Ahías contra Jeroboam"},{"versiculo":21,"titulo":"Reinado de Roboam"}],"15":[{"versiculo":1,"titulo":"Reinado de Abiam"},{"versiculo":9,"titulo":"Reinado de Asa"},{"versiculo":16,"titulo":"Alianza de Asa con Ben-adad"},{"versiculo":23,"titulo":"Muerte de Asa"},{"versiculo":25,"titulo":"Reinado de Nadab"},{"versiculo":33,"titulo":"Reinado de Baasa"}],"16":[{"versiculo":8,"titulo":"Reinados de Ela y de Zimri"},{"versiculo":21,"titulo":"Reinado de Omri"},{"versiculo":29,"titulo":"Reinado de Acab"}],"17":[{"versiculo":1,"titulo":"Elías predice la sequía"},{"versiculo":8,"titulo":"Elías y la viuda de Sarepta"}],"18":[{"versiculo":1,"titulo":"Elías regresa a ver a Acab"},{"versiculo":20,"titulo":"Elías y los profetas de Baal"},{"versiculo":41,"titulo":"Elías ora por lluvia"}],"19":[{"versiculo":1,"titulo":"Elías huye a Horeb"},{"versiculo":19,"titulo":"Llamamiento de Eliseo"}],"20":[{"versiculo":1,"titulo":"Acab derrota a los sirios"}],"21":[{"versiculo":1,"titulo":"Acab y la viña de Nabot"}],"22":[{"versiculo":1,"titulo":"Micaías profetiza la derrota de Acab"},{"versiculo":41,"titulo":"Reinado de Josafat"},{"versiculo":51,"titulo":"Reinado de Ocozías de Israel"}]},"2_reyes":{"1":[{"versiculo":1,"titulo":"Muerte de Ocozías"}],"2":[{"versiculo":1,"titulo":"Eliseo sucede a Elías"}],"3":[{"versiculo":1,"titulo":"Reinado de Joram de Israel"},{"versiculo":4,"titulo":"Eliseo predice la victoria sobre Moab"}],"4":[{"versiculo":1,"titulo":"El aceite de la viuda"},{"versiculo":8,"titulo":"Eliseo y la sunamita"},{"versiculo":38,"titulo":"Milagros en beneficio de los profetas"}],"5":[{"versiculo":1,"titulo":"Eliseo y Naamán"}],"6":[{"versiculo":1,"titulo":"Eliseo hace flotar el hacha"},{"versiculo":8,"titulo":"Eliseo y los sirios"},{"versiculo":24,"titulo":"Eliseo y el sitio de Samaria"}],"8":[{"versiculo":1,"titulo":"Los bienes de la sunamita devueltos"},{"versiculo":7,"titulo":"Hazael reina en Siria"},{"versiculo":16,"titulo":"Reinado de Joram de Judá"},{"versiculo":25,"titulo":"Reinado de Ocozías de Judá"}],"9":[{"versiculo":1,"titulo":"Jehú es ungido rey de Israel"},{"versiculo":14,"titulo":"Jehú mata a Joram"},{"versiculo":27,"titulo":"Jehú mata a Ocozías"},{"versiculo":30,"titulo":"Muerte de Jezabel"}],"10":[{"versiculo":1,"titulo":"Jehú extermina la casa de Acab"},{"versiculo":18,"titulo":"Jehú extermina el culto de Baal"}],"11":[{"versiculo":1,"titulo":"Atalía usurpa el trono"}],"12":[{"versiculo":1,"titulo":"Reinado de Joás de Judá"}],"13":[{"versiculo":1,"titulo":"Reinado de Joacaz"},{"versiculo":10,"titulo":"Reinado de Joás de Israel"},{"versiculo":14,"titulo":"Profecía final y muerte de Eliseo"}],"14":[{"versiculo":1,"titulo":"Reinado de Amasías"},{"versiculo":23,"titulo":"Reinado de Jeroboam II"}],"15":[{"versiculo":1,"titulo":"Reinado de Azarías"},{"versiculo":8,"titulo":"Reinado de Zacarías"},{"versiculo":13,"titulo":"Reinado de Salum"},{"versiculo":17,"titulo":"Reinado de Manahem"},{"versiculo":23,"titulo":"Reinado de Pekaía"},{"versiculo":27,"titulo":"Reinado de Peka"},{"versiculo":32,"titulo":"Reinado de Jotam"}],"16":[{"versiculo":1,"titulo":"Reinado de Acaz"}],"17":[{"versiculo":1,"titulo":"Caída de Samaria y cautiverio de Israel"},{"versiculo":24,"titulo":"Asiria puebla de nuevo a Samaria"}],"18":[{"versiculo":1,"titulo":"Reinado de Ezequías"},{"versiculo":9,"titulo":"Caída de Samaria"},{"versiculo":13,"titulo":"Senaquerib invade a Judá"}],"19":[{"versiculo":1,"titulo":"Judá es librado de Senaquerib"}],"20":[{"versiculo":1,"titulo":"Enfermedad de Ezequías"},{"versiculo":12,"titulo":"Ezequías recibe a los enviados de Babilonia"},{"versiculo":20,"titulo":"Muerte de Ezequías"}],"21":[{"versiculo":1,"titulo":"Reinado de Manasés"},{"versiculo":19,"titulo":"Reinado de Amón"}],"22":[{"versiculo":1,"titulo":"Reinado de Josías"},{"versiculo":3,"titulo":"Hallazgo del libro de la ley"}],"23":[{"versiculo":4,"titulo":"Reformas de Josías"},{"versiculo":21,"titulo":"Josías celebra la pascua"},{"versiculo":24,"titulo":"Persiste la ira de Jehová contra Judá"},{"versiculo":28,"titulo":"Muerte de Josías"},{"versiculo":31,"titulo":"Reinado y destronamiento de Joacaz"},{"versiculo":36,"titulo":"Reinado de Joacim"}],"24":[{"versiculo":8,"titulo":"Joaquín y los nobles son llevados cautivos a Babilonia"},{"versiculo":18,"titulo":"Reinado de Sedequías"}],"25":[{"versiculo":1,"titulo":"Caída de Jerusalén"},{"versiculo":8,"titulo":"Cautividad de Judá"},{"versiculo":22,"titulo":"El remanente huye a Egipto"},{"versiculo":27,"titulo":"Joaquín es libertado y recibe honores en Babilonia"}]},"1_cronicas":{"1":[{"versiculo":1,"titulo":"Descendientes de Adán"},{"versiculo":5,"titulo":"Descendientes de los hijos de Noé"},{"versiculo":24,"titulo":"Descendientes de Sem"},{"versiculo":28,"titulo":"Descendientes de Ismael y de Cetura"},{"versiculo":34,"titulo":"Descendientes de Esaú"}],"2":[{"versiculo":1,"titulo":"Los hijos de Israel"},{"versiculo":3,"titulo":"Descendientes de Judá"}],"3":[{"versiculo":1,"titulo":"Los hijos de David"},{"versiculo":10,"titulo":"Descendientes de Salomón"}],"4":[{"versiculo":1,"titulo":"Descendientes de Judá"},{"versiculo":24,"titulo":"Descendientes de Simeón"}],"5":[{"versiculo":1,"titulo":"Descendientes de Rubén"},{"versiculo":11,"titulo":"Descendientes de Gad"},{"versiculo":18,"titulo":"Historia de las dos tribus y media"}],"6":[{"versiculo":1,"titulo":"Descendientes de Leví"},{"versiculo":31,"titulo":"Cantores del templo nombrados por David"},{"versiculo":49,"titulo":"Descendientes de Aarón"},{"versiculo":54,"titulo":"Las ciudades de los levitas"}],"7":[{"versiculo":1,"titulo":"Descendientes de Isacar"},{"versiculo":6,"titulo":"Descendientes de Benjamín"},{"versiculo":13,"titulo":"Descendientes de Neftalí"},{"versiculo":14,"titulo":"Descendientes de Manasés"},{"versiculo":20,"titulo":"Descendientes de Efraín"},{"versiculo":30,"titulo":"Descendientes de Aser"}],"8":[{"versiculo":1,"titulo":"Descendientes de Benjamín"}],"9":[{"versiculo":1,"titulo":"Los que regresaron de Babilonia"},{"versiculo":35,"titulo":"Genealogía de Saúl"}],"10":[{"versiculo":1,"titulo":"Muerte de Saúl y de sus hijos"}],"11":[{"versiculo":1,"titulo":"David es proclamado rey de Israel"},{"versiculo":4,"titulo":"David toma la fortaleza de Sion"},{"versiculo":10,"titulo":"Los valientes de David"}],"12":[{"versiculo":1,"titulo":"El ejército de David"}],"13":[{"versiculo":1,"titulo":"David propone trasladar el arca a Jerusalén"},{"versiculo":5,"titulo":"David intenta traer el arca"}],"14":[{"versiculo":1,"titulo":"Hiram envía embajadores a David"},{"versiculo":3,"titulo":"Hijos de David nacidos en Jerusalén"},{"versiculo":8,"titulo":"David derrota a los filisteos"}],"15":[{"versiculo":1,"titulo":"David trae el arca a Jerusalén"}],"16":[{"versiculo":7,"titulo":"Salmo de acción de gracias de David"},{"versiculo":37,"titulo":"Los levitas encargados del arca"}],"17":[{"versiculo":1,"titulo":"Pacto de Dios con David"}],"18":[{"versiculo":1,"titulo":"David extiende sus dominios"},{"versiculo":14,"titulo":"Oficiales de David"}],"19":[{"versiculo":1,"titulo":"Derrotas de amonitas y sirios"}],"20":[{"versiculo":1,"titulo":"David captura a Rabá"},{"versiculo":4,"titulo":"Los hombres de David matan a los gigantes"}],"21":[{"versiculo":1,"titulo":"David censa al pueblo"},{"versiculo":28,"titulo":"El lugar para el templo"}],"22":[{"versiculo":2,"titulo":"Preparativos para el templo"}],"23":[{"versiculo":1,"titulo":"Distribución y deberes de los levitas"}],"25":[{"versiculo":1,"titulo":"Distribución de músicos y cantores"}],"26":[{"versiculo":1,"titulo":"Porteros y oficiales"}],"27":[{"versiculo":1,"titulo":"Otros oficiales de David"}],"28":[{"versiculo":1,"titulo":"Salomón sucede a David"}],"29":[{"versiculo":26,"titulo":"Muerte de David"}]},"2_cronicas":{"1":[{"versiculo":1,"titulo":"Salomón pide sabiduría"},{"versiculo":14,"titulo":"Salomón comercia en caballos y en carros"}],"2":[{"versiculo":1,"titulo":"Pacto de Salomón con Hiram"}],"3":[{"versiculo":1,"titulo":"Salomón edifica el templo"},{"versiculo":15,"titulo":"Las dos columnas"}],"4":[{"versiculo":1,"titulo":"Mobiliario del templo"}],"5":[{"versiculo":2,"titulo":"Salomón traslada el arca al templo"}],"6":[{"versiculo":1,"titulo":"Dedicación del templo"}],"7":[{"versiculo":11,"titulo":"Pacto de Dios con Salomón"}],"8":[{"versiculo":1,"titulo":"Otras actividades de Salomón"}],"9":[{"versiculo":1,"titulo":"La reina de Sabá visita a Salomón"},{"versiculo":13,"titulo":"Riquezas y fama de Salomón"},{"versiculo":29,"titulo":"Muerte de Salomón"}],"10":[{"versiculo":1,"titulo":"Rebelión de Israel"}],"11":[{"versiculo":5,"titulo":"Prosperidad de Roboam"}],"12":[{"versiculo":1,"titulo":"Sisac invade Judá"}],"13":[{"versiculo":1,"titulo":"Reinado de Abías"}],"14":[{"versiculo":1,"titulo":"Reinado de Asa"}],"15":[{"versiculo":1,"titulo":"Reformas religiosas de Asa"}],"16":[{"versiculo":1,"titulo":"Alianza de Asa con Ben-adad"},{"versiculo":11,"titulo":"Muerte de Asa"}],"17":[{"versiculo":1,"titulo":"Reinado de Josafat"}],"18":[{"versiculo":1,"titulo":"Micaías profetiza la derrota de Acab"}],"19":[{"versiculo":1,"titulo":"El profeta Jehú amonesta a Josafat"},{"versiculo":4,"titulo":"Josafat nombra jueces"}],"20":[{"versiculo":1,"titulo":"Victoria sobre Moab y Amón"},{"versiculo":31,"titulo":"Resumen del reinado de Josafat"}],"21":[{"versiculo":1,"titulo":"Reinado de Joram de Judá"}],"22":[{"versiculo":1,"titulo":"Reinado de Ocozías de Judá"},{"versiculo":7,"titulo":"Jehú mata a Ocozías"},{"versiculo":10,"titulo":"Atalía usurpa el trono"}],"24":[{"versiculo":1,"titulo":"Reinado de Joás de Judá"}],"25":[{"versiculo":1,"titulo":"Reinado de Amasías"}],"26":[{"versiculo":1,"titulo":"Reinado de Uzías"}],"27":[{"versiculo":1,"titulo":"Reinado de Jotam"}],"28":[{"versiculo":1,"titulo":"Reinado de Acaz"}],"29":[{"versiculo":1,"titulo":"Reinado de Ezequías"},{"versiculo":3,"titulo":"Ezequías restablece el culto del templo"}],"30":[{"versiculo":1,"titulo":"Ezequías celebra la pascua"}],"31":[{"versiculo":2,"titulo":"Ezequías reorganiza el servicio de los sacerdotes y levitas"}],"32":[{"versiculo":1,"titulo":"Senaquerib invade a Judá"},{"versiculo":20,"titulo":"Jehová libra a Ezequías"},{"versiculo":24,"titulo":"Enfermedad de Ezequías"},{"versiculo":27,"titulo":"Ezequías recibe a los enviados de Babilonia"},{"versiculo":32,"titulo":"Muerte de Ezequías"}],"33":[{"versiculo":1,"titulo":"Reinado de Manasés"},{"versiculo":21,"titulo":"Reinado de Amón"}],"34":[{"versiculo":1,"titulo":"Reinado de Josías"},{"versiculo":3,"titulo":"Reformas de Josías"},{"versiculo":8,"titulo":"Hallazgo del libro de la ley"}],"35":[{"versiculo":1,"titulo":"Josías celebra la pascua"},{"versiculo":20,"titulo":"Muerte de Josías"}],"36":[{"versiculo":1,"titulo":"Reinado y destronamiento de Joacaz"},{"versiculo":5,"titulo":"Reinado de Joacim"},{"versiculo":9,"titulo":"Joaquín es llevado cautivo a Babilonia"},{"versiculo":11,"titulo":"Reinado de Sedequías"},{"versiculo":17,"titulo":"Cautividad de Judá"},{"versiculo":22,"titulo":"El decreto de Ciro"}]},"esdras":{"1":[{"versiculo":1,"titulo":"El decreto de Ciro"},{"versiculo":5,"titulo":"El regreso a Jerusalén"}],"2":[{"versiculo":1,"titulo":"Los que volvieron con Zorobabel"}],"3":[{"versiculo":1,"titulo":"Restauración del altar y del culto"},{"versiculo":8,"titulo":"Colocación de los cimientos del templo"}],"4":[{"versiculo":1,"titulo":"Los adversarios detienen la obra"}],"5":[{"versiculo":1,"titulo":"Reedificación del templo"}],"7":[{"versiculo":1,"titulo":"Esdras y sus compañeros llegan a Jerusalén"}],"9":[{"versiculo":1,"titulo":"Oración de confesión de Esdras"}],"10":[{"versiculo":1,"titulo":"Expulsión de las mujeres extranjeras"}]},"nehemias":{"1":[{"versiculo":1,"titulo":"Oración de Nehemías sobre Jerusalén"}],"2":[{"versiculo":1,"titulo":"Artajerjes envía a Nehemías a Jerusalén"},{"versiculo":11,"titulo":"Nehemías anima al pueblo a reedificar los muros"}],"3":[{"versiculo":1,"titulo":"Reparto del trabajo de reedificación"}],"4":[{"versiculo":1,"titulo":"Precauciones contra los enemigos"}],"5":[{"versiculo":1,"titulo":"Abolición de la usura"}],"6":[{"versiculo":1,"titulo":"Maquinaciones de los adversarios"}],"7":[{"versiculo":1,"titulo":"Nehemías designa dirigentes"},{"versiculo":5,"titulo":"Los que volvieron con Zorobabel"},{"versiculo":73,"titulo":"Esdras lee la ley al pueblo"}],"9":[{"versiculo":1,"titulo":"Esdras confiesa los pecados de Israel"},{"versiculo":38,"titulo":"Pacto del pueblo, de guardar la ley"}],"11":[{"versiculo":1,"titulo":"Los habitantes de Jerusalén"},{"versiculo":25,"titulo":"Lugares habitados fuera de Jerusalén"}],"12":[{"versiculo":1,"titulo":"Sacerdotes y levitas"},{"versiculo":27,"titulo":"Dedicación del muro"},{"versiculo":44,"titulo":"Porciones para sacerdotes y levitas"}],"13":[{"versiculo":1,"titulo":"Reformas de Nehemías"}]},"ester":{"1":[{"versiculo":1,"titulo":"La reina Vasti desafía a Asuero"}],"2":[{"versiculo":1,"titulo":"Ester es proclamada reina"},{"versiculo":19,"titulo":"Mardoqueo denuncia una conspiración contra el rey"}],"3":[{"versiculo":1,"titulo":"Amán trama la destrucción de los judíos"}],"4":[{"versiculo":1,"titulo":"Ester promete interceder por su pueblo"}],"5":[{"versiculo":1,"titulo":"Ester invita al rey y a Amán a un banquete"}],"6":[{"versiculo":1,"titulo":"Amán se ve obligado a honrar a Mardoqueo"}],"7":[{"versiculo":1,"titulo":"Amán es ahorcado"}],"8":[{"versiculo":1,"titulo":"Decreto de Asuero a favor de los judíos"}],"9":[{"versiculo":1,"titulo":"Los judíos destruyen a sus enemigos"},{"versiculo":16,"titulo":"La fiesta de Purim"}],"10":[{"versiculo":1,"titulo":"Grandeza de Mardoqueo"}]},"job":{"1":[{"versiculo":1,"titulo":"Las calamidades de Job"}],"3":[{"versiculo":1,"titulo":"Job maldice el día en que nació"}],"4":[{"versiculo":1,"titulo":"Elifaz reprende a Job"}],"6":[{"versiculo":1,"titulo":"Job reprocha la actitud de sus amigos"}],"7":[{"versiculo":1,"titulo":"Job argumenta contra Dios"}],"8":[{"versiculo":1,"titulo":"Bildad proclama la justicia de Dios"}],"9":[{"versiculo":1,"titulo":"Incapacidad de Job para responder a Dios"}],"10":[{"versiculo":1,"titulo":"Job lamenta su condición"}],"11":[{"versiculo":1,"titulo":"Zofar acusa de maldad a Job"}],"12":[{"versiculo":1,"titulo":"Job proclama el poder y la sabiduría de Dios"}],"13":[{"versiculo":1,"titulo":"Job defiende su integridad"}],"14":[{"versiculo":1,"titulo":"Job discurre sobre la brevedad de la vida"}],"15":[{"versiculo":1,"titulo":"Elifaz reprende a Job"}],"16":[{"versiculo":1,"titulo":"Job se queja contra Dios"}],"18":[{"versiculo":1,"titulo":"Bildad describe la suerte de los malos"}],"19":[{"versiculo":1,"titulo":"Job confía en que Dios lo justificará"}],"20":[{"versiculo":1,"titulo":"Zofar describe las calamidades de los malos"}],"21":[{"versiculo":1,"titulo":"Job afirma que los malos prosperan"}],"22":[{"versiculo":1,"titulo":"Elifaz acusa a Job de gran maldad"}],"23":[{"versiculo":1,"titulo":"Job desea abogar su causa delante de Dios"}],"24":[{"versiculo":1,"titulo":"Job se queja de que Dios es indiferente ante la maldad"}],"25":[{"versiculo":1,"titulo":"Bildad niega que el hombre pueda ser justificado delante de Dios"}],"26":[{"versiculo":1,"titulo":"Job proclama la soberanía de Dios"}],"27":[{"versiculo":1,"titulo":"Job describe el castigo de los malos"}],"28":[{"versiculo":1,"titulo":"El hombre en busca de la sabiduría"}],"29":[{"versiculo":1,"titulo":"Job recuerda su felicidad anterior"}],"30":[{"versiculo":1,"titulo":"Job lamenta su desdicha actual"}],"31":[{"versiculo":1,"titulo":"Job afirma su integridad"}],"32":[{"versiculo":1,"titulo":"Eliú justifica su derecho de contestar a Job"}],"33":[{"versiculo":1,"titulo":"Eliú censura a Job"}],"34":[{"versiculo":1,"titulo":"Eliú justifica a Dios"}],"36":[{"versiculo":1,"titulo":"Eliú exalta la grandeza de Dios"}],"38":[{"versiculo":1,"titulo":"Jehová convence a Job de su ignorancia"}],"40":[{"versiculo":6,"titulo":"Manifestaciones del poder de Dios"}],"42":[{"versiculo":1,"titulo":"Confesión y justificación de Job"},{"versiculo":10,"titulo":"Restauración de la prosperidad de Job"}]},"salmos":{"1":[{"versiculo":1,"titulo":"LIBRO I"},{"versiculo":1,"titulo":"El justo y los pecadores"}],"2":[{"versiculo":1,"titulo":"El reino del ungido de Jehová"}],"3":[{"versiculo":1,"titulo":"Oración matutina de confianza en Dios"}],"4":[{"versiculo":1,"titulo":"Oración vespertina de confianza en Dios"}],"5":[{"versiculo":1,"titulo":"Plegaria pidiendo protección"}],"6":[{"versiculo":1,"titulo":"Oración pidiendo misericordia en tiempo de prueba"}],"7":[{"versiculo":1,"titulo":"Plegaria pidiendo vindicación"}],"8":[{"versiculo":1,"titulo":"La gloria de Dios y la honra del hombre"}],"9":[{"versiculo":1,"titulo":"Acción de gracias por la justicia de Dios"}],"10":[{"versiculo":1,"titulo":"Plegaria pidiendo la destrucción de los malvados"}],"11":[{"versiculo":1,"titulo":"El refugio del justo"}],"12":[{"versiculo":1,"titulo":"Oración pidiendo ayuda contra los malos"}],"13":[{"versiculo":1,"titulo":"Plegaria pidiendo ayuda en la aflicción"}],"14":[{"versiculo":1,"titulo":"Necedad y corrupción del hombre"}],"15":[{"versiculo":1,"titulo":"Los que habitarán en el monte santo de Dios"}],"16":[{"versiculo":1,"titulo":"Una herencia escogida"}],"17":[{"versiculo":1,"titulo":"Plegaria pidiendo protección contra los opresores"}],"18":[{"versiculo":1,"titulo":"Acción de gracias por la victoria"}],"19":[{"versiculo":1,"titulo":"Las obras y la palabra de Dios"}],"20":[{"versiculo":1,"titulo":"Oración pidiendo la victoria"}],"21":[{"versiculo":1,"titulo":"Alabanza por haber sido librado del enemigo"}],"22":[{"versiculo":1,"titulo":"Un grito de angustia y un canto de alabanza"}],"23":[{"versiculo":1,"titulo":"Jehová es mi pastor"}],"24":[{"versiculo":1,"titulo":"El rey de gloria"}],"25":[{"versiculo":1,"titulo":"David implora dirección, perdón y protección"}],"26":[{"versiculo":1,"titulo":"Declaración de integridad"}],"27":[{"versiculo":1,"titulo":"Jehová es mi luz y mi salvación"}],"28":[{"versiculo":1,"titulo":"Plegaria pidiendo ayuda, y alabanza por la respuesta"}],"29":[{"versiculo":1,"titulo":"Poder y gloria de Jehová"}],"30":[{"versiculo":1,"titulo":"Acción de gracias por haber sido librado de la muerte"}],"31":[{"versiculo":1,"titulo":"Declaración de confianza"}],"32":[{"versiculo":1,"titulo":"La dicha del perdón"}],"33":[{"versiculo":1,"titulo":"Alabanzas al Creador y Preservador"}],"34":[{"versiculo":1,"titulo":"La protección divina"}],"35":[{"versiculo":1,"titulo":"Plegaria pidiendo ser librado de los enemigos"}],"36":[{"versiculo":1,"titulo":"La misericordia de Dios"}],"37":[{"versiculo":1,"titulo":"El camino de los malos"}],"38":[{"versiculo":1,"titulo":"Oración de un penitente"}],"39":[{"versiculo":1,"titulo":"El carácter transitorio de la vida"}],"40":[{"versiculo":1,"titulo":"Alabanza por la liberación divina"}],"41":[{"versiculo":1,"titulo":"Oración pidiendo salud"}],"42":[{"versiculo":1,"titulo":"LIBRO II"},{"versiculo":1,"titulo":"Mi alma tiene sed de Dios"}],"43":[{"versiculo":1,"titulo":"Plegaria pidiendo vindicación y liberación"}],"44":[{"versiculo":1,"titulo":"Liberaciones pasadas y pruebas presentes"}],"45":[{"versiculo":1,"titulo":"Cántico de las bodas del rey"}],"46":[{"versiculo":1,"titulo":"Dios es nuestro amparo y fortaleza"}],"47":[{"versiculo":1,"titulo":"Dios, el Rey de toda la tierra"}],"48":[{"versiculo":1,"titulo":"Hermosura y gloria de Sion"}],"49":[{"versiculo":1,"titulo":"La insensatez de confiar en las riquezas"}],"50":[{"versiculo":1,"titulo":"Dios juzgará al mundo"}],"51":[{"versiculo":1,"titulo":"Arrepentimiento, y plegaria pidiendo purificación"}],"52":[{"versiculo":1,"titulo":"Futilidad de la jactancia del malo"}],"53":[{"versiculo":1,"titulo":"Insensatez y maldad de los hombres"}],"54":[{"versiculo":1,"titulo":"Plegaria pidiendo protección contra los enemigos"}],"55":[{"versiculo":1,"titulo":"Plegaria pidiendo la destrucción de enemigos traicioneros"}],"56":[{"versiculo":1,"titulo":"Oración de confianza"}],"57":[{"versiculo":1,"titulo":"Plegaria pidiendo ser librado de los perseguidores"}],"58":[{"versiculo":1,"titulo":"Plegaria pidiendo el castigo de los malos"}],"59":[{"versiculo":1,"titulo":"Oración pidiendo ser librado de los enemigos"}],"60":[{"versiculo":1,"titulo":"Plegaria pidiendo ayuda contra el enemigo"}],"61":[{"versiculo":1,"titulo":"Confianza en la protección de Dios"}],"62":[{"versiculo":1,"titulo":"Dios, el único refugio"}],"63":[{"versiculo":1,"titulo":"Dios, satisfacción del alma"}],"64":[{"versiculo":1,"titulo":"Plegaria pidiendo protección contra enemigos ocultos"}],"65":[{"versiculo":1,"titulo":"La generosidad de Dios en la naturaleza"}],"66":[{"versiculo":1,"titulo":"Alabanza por los hechos poderosos de Dios"}],"67":[{"versiculo":1,"titulo":"Exhortación a las naciones, para que alaben a Dios"}],"68":[{"versiculo":1,"titulo":"El Dios del Sinaí y del santuario"}],"69":[{"versiculo":1,"titulo":"Un grito de angustia"}],"70":[{"versiculo":1,"titulo":"Súplica por la liberación"}],"71":[{"versiculo":1,"titulo":"Oración de un anciano"}],"72":[{"versiculo":1,"titulo":"El reino de un rey justo"}],"73":[{"versiculo":1,"titulo":"LIBRO III"},{"versiculo":1,"titulo":"El destino de los malos"}],"74":[{"versiculo":1,"titulo":"Apelación a Dios en contra del enemigo"}],"75":[{"versiculo":1,"titulo":"Dios abate al malo y exalta al justo"}],"76":[{"versiculo":1,"titulo":"El Dios de la victoria y del juicio"}],"77":[{"versiculo":1,"titulo":"Meditación sobre los hechos poderosos de Dios"}],"78":[{"versiculo":1,"titulo":"Fidelidad de Dios hacia su pueblo infiel"}],"79":[{"versiculo":1,"titulo":"Lamento por la destrucción de Jerusalén"}],"80":[{"versiculo":1,"titulo":"Súplica por la restauración"}],"81":[{"versiculo":1,"titulo":"Bondad de Dios y perversidad de Israel"}],"82":[{"versiculo":1,"titulo":"Amonestación contra los juicios injustos"}],"83":[{"versiculo":1,"titulo":"Plegaria pidiendo la destrucción de los enemigos de Israel"}],"84":[{"versiculo":1,"titulo":"Anhelo por la casa de Dios"}],"85":[{"versiculo":1,"titulo":"Súplica por la misericordia de Dios sobre Israel"}],"86":[{"versiculo":1,"titulo":"Oración pidiendo la continuada misericordia de Dios"}],"87":[{"versiculo":1,"titulo":"El privilegio de morar en Sion"}],"88":[{"versiculo":1,"titulo":"Súplica por la liberación de la muerte"}],"89":[{"versiculo":1,"titulo":"Pacto de Dios con David"}],"90":[{"versiculo":1,"titulo":"LIBRO IV"},{"versiculo":1,"titulo":"La eternidad de Dios y la transitoriedad del hombre"}],"91":[{"versiculo":1,"titulo":"Morando bajo la sombra del Omnipotente"}],"92":[{"versiculo":1,"titulo":"Alabanza por la bondad de Dios"}],"93":[{"versiculo":1,"titulo":"La majestad de Jehová"}],"94":[{"versiculo":1,"titulo":"Oración clamando por venganza"}],"95":[{"versiculo":1,"titulo":"Cántico de alabanza y de adoración"}],"96":[{"versiculo":1,"titulo":"Cántico de alabanza"}],"97":[{"versiculo":1,"titulo":"El dominio y el poder de Jehová"}],"98":[{"versiculo":1,"titulo":"Alabanza por la justicia de Dios"}],"99":[{"versiculo":1,"titulo":"Fidelidad de Jehová para con Israel"}],"100":[{"versiculo":1,"titulo":"Exhortación a la gratitud"}],"101":[{"versiculo":1,"titulo":"Promesa de vivir rectamente"}],"102":[{"versiculo":1,"titulo":"Oración de un afligido"}],"103":[{"versiculo":1,"titulo":"Alabanza por las bendiciones de Dios"}],"104":[{"versiculo":1,"titulo":"Dios cuida de su creación"}],"105":[{"versiculo":1,"titulo":"Maravillas de Jehová a favor de Israel"}],"106":[{"versiculo":1,"titulo":"La rebeldía de Israel"}],"107":[{"versiculo":1,"titulo":"LIBRO V"},{"versiculo":1,"titulo":"Dios libra de la aflicción"}],"108":[{"versiculo":1,"titulo":"Petición de ayuda contra el enemigo"}],"109":[{"versiculo":1,"titulo":"Clamor de venganza"}],"110":[{"versiculo":1,"titulo":"Jehová da dominio al rey"}],"111":[{"versiculo":1,"titulo":"Dios cuida de su pueblo"}],"112":[{"versiculo":1,"titulo":"Prosperidad del que teme a Jehová"}],"113":[{"versiculo":1,"titulo":"Dios levanta al pobre"}],"114":[{"versiculo":1,"titulo":"Las maravillas del éxodo"}],"115":[{"versiculo":1,"titulo":"Dios y los ídolos"}],"116":[{"versiculo":1,"titulo":"Acción de gracias por haber sido librado de la muerte"}],"117":[{"versiculo":1,"titulo":"Alabanza por la misericordia de Jehová"}],"118":[{"versiculo":1,"titulo":"Acción de gracias por la salvación recibida de Jehová"}],"119":[{"versiculo":1,"titulo":"Excelencias de la ley de Dios"}],"120":[{"versiculo":1,"titulo":"Plegaria ante el peligro de la lengua engañosa"}],"121":[{"versiculo":1,"titulo":"Jehová es tu guardador"}],"122":[{"versiculo":1,"titulo":"Oración por la paz de Jerusalén"}],"123":[{"versiculo":1,"titulo":"Plegaria pidiendo misericordia"}],"124":[{"versiculo":1,"titulo":"Alabanza por haber sido librado de los enemigos"}],"125":[{"versiculo":1,"titulo":"Dios protege a su pueblo"}],"126":[{"versiculo":1,"titulo":"Oración por la restauración"}],"127":[{"versiculo":1,"titulo":"La prosperidad viene de Jehová"}],"128":[{"versiculo":1,"titulo":"La bienaventuranza del que teme a Jehová"}],"129":[{"versiculo":1,"titulo":"Plegaria pidiendo la destrucción de los enemigos de Sion"}],"130":[{"versiculo":1,"titulo":"Esperanza en que Jehová dará redención"}],"131":[{"versiculo":1,"titulo":"Confiando en Dios como un niño"}],"132":[{"versiculo":1,"titulo":"Plegaria por bendición sobre el santuario"}],"133":[{"versiculo":1,"titulo":"La bienaventuranza del amor fraternal"}],"134":[{"versiculo":1,"titulo":"Exhortación a los guardas del templo"}],"135":[{"versiculo":1,"titulo":"La grandeza del Señor y la vanidad de los ídolos"}],"136":[{"versiculo":1,"titulo":"Alabanza por la misericordia eterna de Jehová"}],"137":[{"versiculo":1,"titulo":"Lamento de los cautivos en Babilonia"}],"138":[{"versiculo":1,"titulo":"Acción de gracias por el favor de Jehová"}],"139":[{"versiculo":1,"titulo":"Omnipresencia y omnisciencia de Dios"}],"140":[{"versiculo":1,"titulo":"Súplica de protección contra los perseguidores"}],"141":[{"versiculo":1,"titulo":"Oración a fin de ser guardado del mal"}],"142":[{"versiculo":1,"titulo":"Petición de ayuda en medio de la prueba"}],"143":[{"versiculo":1,"titulo":"Súplica de liberación y dirección"}],"144":[{"versiculo":1,"titulo":"Oración pidiendo socorro y prosperidad"}],"145":[{"versiculo":1,"titulo":"Alabanza por la bondad y el poder de Dios"}],"146":[{"versiculo":1,"titulo":"Alabanza por la justicia de Dios"}],"147":[{"versiculo":1,"titulo":"Alabanza por el favor de Dios hacia Jerusalén"}],"148":[{"versiculo":1,"titulo":"Exhortación a la creación, para que alabe a Jehová"}],"149":[{"versiculo":1,"titulo":"Exhortación a Israel, para que alabe a Jehová"}],"150":[{"versiculo":1,"titulo":"Exhortación a alabar a Dios con instrumentos de música"}]},"proverbios":{"1":[{"versiculo":1,"titulo":"Motivo de los proverbios"},{"versiculo":8,"titulo":"Amonestaciones de la sabiduría"}],"2":[{"versiculo":1,"titulo":"Excelencias de la sabiduría"}],"3":[{"versiculo":1,"titulo":"Exhortación a la obediencia"}],"4":[{"versiculo":1,"titulo":"Beneficios de la sabiduría"}],"5":[{"versiculo":1,"titulo":"Amonestación contra la impureza"}],"6":[{"versiculo":1,"titulo":"Amonestación contra la pereza y la falsedad"},{"versiculo":20,"titulo":"Amonestación contra el adulterio"}],"7":[{"versiculo":1,"titulo":"Las artimañas de la ramera"}],"8":[{"versiculo":1,"titulo":"Excelencia y eternidad de la sabiduría"}],"9":[{"versiculo":1,"titulo":"La sabiduría y la mujer insensata"}],"10":[{"versiculo":1,"titulo":"Contraste entre el justo y el malvado"}],"16":[{"versiculo":1,"titulo":"Proverbios sobre la vida y la conducta"}],"22":[{"versiculo":17,"titulo":"Preceptos y amonestaciones"}],"25":[{"versiculo":1,"titulo":"Comparaciones y lecciones morales"}],"28":[{"versiculo":1,"titulo":"Proverbios antitéticos"}],"30":[{"versiculo":1,"titulo":"Las palabras de Agur"}],"31":[{"versiculo":1,"titulo":"Exhortación a un rey"},{"versiculo":10,"titulo":"Elogio de la mujer virtuosa"}]},"eclesiastes":{"1":[{"versiculo":1,"titulo":"Todo es vanidad"},{"versiculo":12,"titulo":"La experiencia del Predicador"}],"3":[{"versiculo":1,"titulo":"Todo tiene su tiempo"},{"versiculo":16,"titulo":"Injusticias de la vida"}],"5":[{"versiculo":1,"titulo":"La insensatez de hacer votos a la ligera"},{"versiculo":8,"titulo":"La vanidad de la vida"}],"7":[{"versiculo":1,"titulo":"Contraste entre la sabiduría y la insensatez"}],"8":[{"versiculo":10,"titulo":"Desigualdades de la vida"}],"10":[{"versiculo":1,"titulo":"Excelencia de la sabiduría"}],"11":[{"versiculo":9,"titulo":"Consejos para la juventud"}],"12":[{"versiculo":9,"titulo":"Resumen del deber del hombre"}]},"cantares":{"1":[{"versiculo":1,"titulo":"La esposa y las hijas de Jerusalén"},{"versiculo":9,"titulo":"La esposa y el esposo"}],"3":[{"versiculo":1,"titulo":"El ensueño de la esposa"},{"versiculo":6,"titulo":"El cortejo de bodas"}],"4":[{"versiculo":1,"titulo":"El esposo alaba a la esposa"}],"5":[{"versiculo":2,"titulo":"El tormento de la separación"},{"versiculo":9,"titulo":"La esposa alaba al esposo"}],"6":[{"versiculo":1,"titulo":"Mutuo encanto del esposo y de la esposa"}],"8":[{"versiculo":5,"titulo":"El poder del amor"}]},"isaias":{"1":[{"versiculo":1,"titulo":"Una nación pecadora"},{"versiculo":10,"titulo":"Llamamiento al arrepentimiento verdadero"},{"versiculo":21,"titulo":"Juicio y redención de Jerusalén"}],"2":[{"versiculo":1,"titulo":"Reinado universal de Jehová"},{"versiculo":5,"titulo":"Juicio de Jehová contra los soberbios"}],"3":[{"versiculo":1,"titulo":"Juicio de Jehová contra Judá y Jerusalén"},{"versiculo":16,"titulo":"Juicio contra las hijas de Sion"}],"4":[{"versiculo":2,"titulo":"Futuro glorioso de Jerusalén"}],"5":[{"versiculo":1,"titulo":"Parábola de la viña"},{"versiculo":8,"titulo":"Ayes sobre los malvados"}],"6":[{"versiculo":1,"titulo":"Visión y llamamiento de Isaías"}],"7":[{"versiculo":1,"titulo":"Mensaje de Isaías a Acaz"}],"8":[{"versiculo":1,"titulo":"Sea Jehová vuestro temor"}],"9":[{"versiculo":1,"titulo":"Nacimiento y reinado del Mesías"},{"versiculo":8,"titulo":"La ira de Jehová contra Israel"}],"10":[{"versiculo":5,"titulo":"Asiria, instrumento de Dios"}],"11":[{"versiculo":1,"titulo":"Reinado justo del Mesías"}],"12":[{"versiculo":1,"titulo":"Cántico de acción de gracias"}],"13":[{"versiculo":1,"titulo":"Profecía sobre Babilonia"}],"14":[{"versiculo":1,"titulo":"Escarnio contra el rey de Babilonia"},{"versiculo":24,"titulo":"Asiria será destruida"},{"versiculo":28,"titulo":"Profecía sobre Filistea"}],"15":[{"versiculo":1,"titulo":"Profecía sobre Moab"}],"17":[{"versiculo":1,"titulo":"Profecía sobre Damasco"},{"versiculo":4,"titulo":"Juicio sobre Israel"}],"18":[{"versiculo":1,"titulo":"Profecía sobre Etiopía"}],"19":[{"versiculo":1,"titulo":"Profecía sobre Egipto"}],"20":[{"versiculo":1,"titulo":"Predicción de la conquista de Egipto y de Etiopía por Asiria"}],"21":[{"versiculo":1,"titulo":"Profecía sobre el desierto del mar"},{"versiculo":11,"titulo":"Profecía sobre Duma"},{"versiculo":13,"titulo":"Profecía sobre Arabia"}],"22":[{"versiculo":1,"titulo":"Profecía sobre el valle de la visión"},{"versiculo":15,"titulo":"Sebna será sustituido por Eliaquim"}],"23":[{"versiculo":1,"titulo":"Profecía sobre Tiro"}],"24":[{"versiculo":1,"titulo":"El juicio de Jehová sobre la tierra"}],"25":[{"versiculo":1,"titulo":"Cántico de alabanza por el favor de Jehová"}],"26":[{"versiculo":1,"titulo":"Cántico de confianza en la protección de Jehová"}],"27":[{"versiculo":1,"titulo":"Liberación y regreso de Israel"}],"28":[{"versiculo":1,"titulo":"Condenación de Efraín"},{"versiculo":14,"titulo":"Amonestación a Jerusalén"}],"29":[{"versiculo":1,"titulo":"Ariel y sus enemigos"},{"versiculo":9,"titulo":"Ceguera e hipocresía de Israel"},{"versiculo":17,"titulo":"Redención de Israel"}],"30":[{"versiculo":1,"titulo":"La futilidad de confiar en Egipto"},{"versiculo":18,"titulo":"Promesa de la gracia de Dios a Israel"},{"versiculo":27,"titulo":"El juicio de Jehová sobre Asiria"}],"31":[{"versiculo":1,"titulo":"Los egipcios son hombres y no dioses"}],"32":[{"versiculo":1,"titulo":"El Rey justo"},{"versiculo":9,"titulo":"Advertencia a las mujeres de Jerusalén"}],"33":[{"versiculo":1,"titulo":"Jehová traerá salvación"}],"34":[{"versiculo":1,"titulo":"La ira de Jehová contra las naciones"}],"35":[{"versiculo":1,"titulo":"Futuro glorioso de Sion"}],"36":[{"versiculo":1,"titulo":"La invasión de Senaquerib"}],"37":[{"versiculo":1,"titulo":"Judá es librado de Senaquerib"}],"38":[{"versiculo":1,"titulo":"Enfermedad de Ezequías"}],"39":[{"versiculo":1,"titulo":"Ezequías recibe a los enviados de Babilonia"}],"40":[{"versiculo":1,"titulo":"Jehová consuela a Sion"},{"versiculo":12,"titulo":"El incomparable Dios de Israel"}],"41":[{"versiculo":1,"titulo":"Seguridad de Dios para Israel"},{"versiculo":21,"titulo":"Dios reta a los falsos dioses"}],"42":[{"versiculo":1,"titulo":"El Siervo de Jehová"},{"versiculo":10,"titulo":"Alabanza por la liberación poderosa de Jehová"},{"versiculo":18,"titulo":"Israel no aprende de la disciplina"}],"43":[{"versiculo":1,"titulo":"Jehová es el único Redentor"}],"44":[{"versiculo":1,"titulo":"Jehová es el único Dios"},{"versiculo":9,"titulo":"La insensatez de la idolatría"},{"versiculo":21,"titulo":"Jehová es el Redentor de Israel"}],"45":[{"versiculo":1,"titulo":"Encargo de Dios para Ciro"},{"versiculo":8,"titulo":"Jehová el Creador"},{"versiculo":20,"titulo":"Jehová y los ídolos de Babilonia"}],"47":[{"versiculo":1,"titulo":"Juicio sobre Babilonia"}],"48":[{"versiculo":1,"titulo":"Dios reprende la infidelidad de Israel"}],"49":[{"versiculo":1,"titulo":"Israel, siervo de Jehová"},{"versiculo":8,"titulo":"Dios promete restaurar a Sion"}],"50":[{"versiculo":1,"titulo":"Jehová ayuda a quienes confían en él"}],"51":[{"versiculo":1,"titulo":"Palabras de consuelo para Sion"}],"52":[{"versiculo":1,"titulo":"Dios librará del cautiverio a Sion"},{"versiculo":13,"titulo":"Sufrimientos del Siervo de Jehová"}],"54":[{"versiculo":1,"titulo":"El amor eterno de Jehová hacia Israel"}],"55":[{"versiculo":1,"titulo":"Misericordia gratuita para todos"}],"56":[{"versiculo":1,"titulo":"Recompensa de los que guardan el pacto de Dios"}],"57":[{"versiculo":1,"titulo":"Condenación de la idolatría de Israel"}],"58":[{"versiculo":1,"titulo":"El verdadero ayuno"},{"versiculo":13,"titulo":"La observancia del día de reposo"}],"59":[{"versiculo":1,"titulo":"Confesión del pecado de Israel"}],"60":[{"versiculo":1,"titulo":"La futura gloria de Sion"}],"61":[{"versiculo":1,"titulo":"Buenas nuevas de salvación para Sion"}],"63":[{"versiculo":1,"titulo":"El día de la venganza de Jehová"},{"versiculo":7,"titulo":"Bondad de Jehová hacia Israel"},{"versiculo":15,"titulo":"Plegaria pidiendo misericordia y ayuda"}],"65":[{"versiculo":1,"titulo":"Castigo de los rebeldes"},{"versiculo":17,"titulo":"Cielos nuevos y tierra nueva"}],"66":[{"versiculo":1,"titulo":"Los juicios de Jehová y la futura prosperidad de Sion"}]},"jeremias":{"1":[{"versiculo":1,"titulo":"Llamamiento y misión de Jeremías"}],"2":[{"versiculo":1,"titulo":"Jehová y la apostasía de Israel"}],"3":[{"versiculo":6,"titulo":"Jehová exhorta a Israel y a Judá al arrepentimiento"}],"4":[{"versiculo":5,"titulo":"Judá es amenazada de invasión"}],"5":[{"versiculo":1,"titulo":"Impiedad de Jerusalén y de Judá"}],"6":[{"versiculo":1,"titulo":"El juicio contra Jerusalén y Judá"}],"7":[{"versiculo":1,"titulo":"Mejorad vuestros caminos y vuestras obras"},{"versiculo":21,"titulo":"Castigo de la rebelión de Judá"}],"8":[{"versiculo":18,"titulo":"Lamento sobre Judá y Jerusalén"}],"9":[{"versiculo":12,"titulo":"Amenaza de ruina y exilio"},{"versiculo":23,"titulo":"El conocimiento de Dios es la gloria del hombre"}],"10":[{"versiculo":1,"titulo":"Los falsos dioses y el Dios verdadero"},{"versiculo":17,"titulo":"Asolamiento de Judá"}],"11":[{"versiculo":1,"titulo":"El pacto violado"},{"versiculo":18,"titulo":"Complot contra Jeremías"}],"12":[{"versiculo":1,"titulo":"Queja de Jeremías y respuesta de Dios"}],"13":[{"versiculo":1,"titulo":"La señal del cinto podrido"},{"versiculo":12,"titulo":"La señal de las tinajas llenas"},{"versiculo":15,"titulo":"Judá será llevada en cautiverio"}],"14":[{"versiculo":1,"titulo":"Mensaje con motivo de la sequía"}],"15":[{"versiculo":1,"titulo":"La implacable ira de Dios contra Judá"},{"versiculo":15,"titulo":"Jehová reanima a Jeremías"}],"16":[{"versiculo":1,"titulo":"Juicio de Jehová contra Judá"}],"17":[{"versiculo":1,"titulo":"El pecado escrito en el corazón de Judá"},{"versiculo":19,"titulo":"Observancia del día de reposo"}],"18":[{"versiculo":1,"titulo":"La señal del alfarero y el barro"},{"versiculo":18,"titulo":"Conspiración del pueblo y oración de Jeremías"}],"19":[{"versiculo":1,"titulo":"La señal de la vasija rota"}],"20":[{"versiculo":1,"titulo":"Profecía contra Pasur"},{"versiculo":7,"titulo":"Lamento de Jeremías"}],"21":[{"versiculo":1,"titulo":"Jerusalén será destruida"}],"22":[{"versiculo":1,"titulo":"Profecías contra los reyes de Judá"}],"23":[{"versiculo":1,"titulo":"Regreso del remanente"},{"versiculo":9,"titulo":"Denunciación de los falsos profetas"}],"24":[{"versiculo":1,"titulo":"La señal de los higos buenos y malos"}],"25":[{"versiculo":1,"titulo":"Setenta años de desolación"},{"versiculo":15,"titulo":"La copa de ira para las naciones"}],"26":[{"versiculo":1,"titulo":"Jeremías es amenazado de muerte"}],"27":[{"versiculo":1,"titulo":"La señal de los yugos"}],"28":[{"versiculo":1,"titulo":"Falsa profecía de Hananías"}],"29":[{"versiculo":1,"titulo":"Carta de Jeremías a los cautivos"}],"30":[{"versiculo":1,"titulo":"Dios promete que los cautivos volverán"}],"31":[{"versiculo":27,"titulo":"El nuevo pacto"}],"32":[{"versiculo":1,"titulo":"Jeremías compra la heredad de Hanameel"}],"33":[{"versiculo":1,"titulo":"Restauración de la prosperidad de Jerusalén"}],"34":[{"versiculo":1,"titulo":"Jeremías amonesta a Sedequías"},{"versiculo":8,"titulo":"Violación del pacto de libertar a los siervos hebreos"}],"35":[{"versiculo":1,"titulo":"Obediencia de los recabitas"}],"36":[{"versiculo":1,"titulo":"El rey quema el rollo"}],"37":[{"versiculo":1,"titulo":"Encarcelamiento de Jeremías"}],"38":[{"versiculo":1,"titulo":"Jeremías en la cisterna"},{"versiculo":14,"titulo":"Sedequías consulta secretamente a Jeremías"}],"39":[{"versiculo":1,"titulo":"Caída de Jerusalén"},{"versiculo":11,"titulo":"Nabucodonosor cuida de Jeremías"},{"versiculo":15,"titulo":"Dios promete librar a Ebed-melec"}],"40":[{"versiculo":1,"titulo":"Jeremías y el remanente con Gedalías"},{"versiculo":13,"titulo":"Conspiración de Ismael contra Gedalías"}],"42":[{"versiculo":1,"titulo":"Mensaje a Johanán"}],"43":[{"versiculo":1,"titulo":"La emigración a Egipto"}],"44":[{"versiculo":1,"titulo":"Jeremías profetiza a los judíos en Egipto"}],"45":[{"versiculo":1,"titulo":"Mensaje a Baruc"}],"46":[{"versiculo":1,"titulo":"Profecías acerca de Egipto"}],"47":[{"versiculo":1,"titulo":"Profecía sobre los filisteos"}],"48":[{"versiculo":1,"titulo":"Profecía sobre Moab"}],"49":[{"versiculo":1,"titulo":"Profecía sobre los amonitas"},{"versiculo":7,"titulo":"Profecía sobre Edom"},{"versiculo":23,"titulo":"Profecía sobre Damasco"},{"versiculo":28,"titulo":"Profecía sobre Cedar y Hazor"},{"versiculo":34,"titulo":"Profecía sobre Elam"}],"50":[{"versiculo":1,"titulo":"Profecía sobre Babilonia"}],"51":[{"versiculo":1,"titulo":"Juicios de Jehová contra Babilonia"}],"52":[{"versiculo":1,"titulo":"Reinado de Sedequías"},{"versiculo":4,"titulo":"Caída de Jerusalén"},{"versiculo":12,"titulo":"Cautividad de Judá"},{"versiculo":31,"titulo":"Joaquín es libertado y recibe honores en Babilonia"}]},"lamentaciones":{"1":[{"versiculo":1,"titulo":"Tristezas de Sion la cautiva"}],"2":[{"versiculo":1,"titulo":"Las tristezas de Sion vienen de Jehová"}],"3":[{"versiculo":1,"titulo":"Esperanza de liberación por la misericordia de Dios"}],"4":[{"versiculo":1,"titulo":"El castigo de Sion consumado"}],"5":[{"versiculo":1,"titulo":"Oración del pueblo afligido"}]},"ezequiel":{"1":[{"versiculo":1,"titulo":"La visión de la gloria divina"}],"2":[{"versiculo":1,"titulo":"Llamamiento de Ezequiel"}],"3":[{"versiculo":16,"titulo":"El atalaya de Israel"},{"versiculo":22,"titulo":"El profeta mudo"}],"4":[{"versiculo":1,"titulo":"Predicción del sitio de Jerusalén"}],"6":[{"versiculo":1,"titulo":"Profecía contra los montes de Israel"}],"7":[{"versiculo":1,"titulo":"El fin viene"}],"8":[{"versiculo":1,"titulo":"Visión de las abominaciones en Jerusalén"}],"9":[{"versiculo":1,"titulo":"Visión de la muerte de los culpables"}],"10":[{"versiculo":1,"titulo":"La gloria de Dios abandona el templo"}],"11":[{"versiculo":1,"titulo":"Reprensión de los príncipes malvados"},{"versiculo":14,"titulo":"Promesa de restauración y renovación"}],"12":[{"versiculo":1,"titulo":"Salida de Ezequiel en señal de la cautividad"}],"13":[{"versiculo":1,"titulo":"Condenación de los falsos profetas"}],"14":[{"versiculo":1,"titulo":"Juicio contra los idólatras que consultan al profeta"},{"versiculo":12,"titulo":"Justicia del castigo de Jerusalén"}],"15":[{"versiculo":1,"titulo":"Jerusalén es como una vid inútil"}],"16":[{"versiculo":1,"titulo":"Infidelidad de Jerusalén"}],"17":[{"versiculo":1,"titulo":"Parábola de las águilas y la vid"}],"18":[{"versiculo":1,"titulo":"El alma que pecare morirá"},{"versiculo":21,"titulo":"El camino de Dios es justo"}],"19":[{"versiculo":1,"titulo":"Lamentación sobre los príncipes de Israel"}],"20":[{"versiculo":1,"titulo":"Modo de proceder de Dios con Israel"},{"versiculo":45,"titulo":"Profecía contra el Neguev"}],"21":[{"versiculo":1,"titulo":"La espada afilada de Jehová"},{"versiculo":28,"titulo":"Juicio contra los amonitas"}],"22":[{"versiculo":1,"titulo":"Los pecados de Jerusalén"}],"23":[{"versiculo":1,"titulo":"Las dos hermanas"}],"24":[{"versiculo":1,"titulo":"Parábola de la olla hirviente"},{"versiculo":15,"titulo":"Muerte de la esposa de Ezequiel"}],"25":[{"versiculo":1,"titulo":"Profecía contra Amón"},{"versiculo":8,"titulo":"Profecía contra Moab"},{"versiculo":12,"titulo":"Profecía contra Edom"},{"versiculo":15,"titulo":"Profecía contra los filisteos"}],"26":[{"versiculo":1,"titulo":"Profecía contra Tiro"}],"28":[{"versiculo":20,"titulo":"Profecía contra Sidón"}],"29":[{"versiculo":1,"titulo":"Profecías contra Egipto"}],"33":[{"versiculo":1,"titulo":"El deber del atalaya"},{"versiculo":10,"titulo":"El camino de Dios es justo"},{"versiculo":21,"titulo":"Nuevas de la caída de Jerusalén"}],"34":[{"versiculo":1,"titulo":"Profecía contra los pastores de Israel"}],"35":[{"versiculo":1,"titulo":"Profecía contra el monte de Seir"}],"36":[{"versiculo":1,"titulo":"Restauración futura de Israel"}],"37":[{"versiculo":1,"titulo":"El valle de los huesos secos"},{"versiculo":15,"titulo":"La reunión de Judá e Israel"}],"38":[{"versiculo":1,"titulo":"Profecía contra Gog"}],"40":[{"versiculo":1,"titulo":"La visión del templo"}],"43":[{"versiculo":1,"titulo":"La gloria de Jehová llena el templo"},{"versiculo":6,"titulo":"Leyes del templo"}],"47":[{"versiculo":1,"titulo":"Las aguas salutíferas"},{"versiculo":13,"titulo":"Límites y repartición de la tierra"}]},"daniel":{"1":[{"versiculo":1,"titulo":"Daniel y sus compañeros en Babilonia"}],"2":[{"versiculo":1,"titulo":"Daniel interpreta el sueño de Nabucodonosor"}],"3":[{"versiculo":1,"titulo":"Rescatados del horno de fuego"}],"4":[{"versiculo":1,"titulo":"La locura de Nabucodonosor"}],"5":[{"versiculo":1,"titulo":"La escritura en la pared"}],"6":[{"versiculo":1,"titulo":"Daniel en el foso de los leones"}],"7":[{"versiculo":1,"titulo":"Visión de las cuatro bestias"}],"8":[{"versiculo":1,"titulo":"Visión del carnero y del macho cabrío"}],"9":[{"versiculo":1,"titulo":"Oración de Daniel por su pueblo"},{"versiculo":20,"titulo":"Profecía de las setenta semanas"}],"10":[{"versiculo":1,"titulo":"Visión de Daniel junto al río"}],"11":[{"versiculo":2,"titulo":"Los reyes del norte y del sur"}],"12":[{"versiculo":1,"titulo":"El tiempo del fin"}]},"oseas":{"1":[{"versiculo":1,"titulo":"La esposa infiel de Oseas, y sus hijos"}],"2":[{"versiculo":1,"titulo":"El amor de Jehová hacia su pueblo infiel"}],"3":[{"versiculo":1,"titulo":"Oseas y la adúltera"}],"4":[{"versiculo":1,"titulo":"Controversia de Jehová con Israel"}],"5":[{"versiculo":1,"titulo":"Castigo de la apostasía de Israel"},{"versiculo":15,"titulo":"Insinceridad del arrepentimiento de Israel"}],"7":[{"versiculo":1,"titulo":"Iniquidad y rebelión de Israel"}],"8":[{"versiculo":1,"titulo":"Reprensión de la idolatría de Israel"}],"9":[{"versiculo":1,"titulo":"Castigo de la persistente infidelidad de Israel"}],"11":[{"versiculo":1,"titulo":"Dios se compadece de su pueblo obstinado"}],"12":[{"versiculo":1,"titulo":"Efraín reprendido por su falsedad y opresión"}],"13":[{"versiculo":1,"titulo":"Destrucción total de Efraín predicha"}],"14":[{"versiculo":1,"titulo":"Súplica a Israel para que vuelva a Jehová"}]},"joel":{"1":[{"versiculo":1,"titulo":"Devastación de la tierra por la langosta"}],"2":[{"versiculo":12,"titulo":"La misericordia de Jehová"},{"versiculo":28,"titulo":"Derramamiento del Espíritu de Dios"}],"3":[{"versiculo":1,"titulo":"Juicio de Jehová sobre las naciones"},{"versiculo":16,"titulo":"Liberación de Judá"}]},"amos":{"1":[{"versiculo":1,"titulo":"Juicios contra las naciones vecinas"}],"2":[{"versiculo":6,"titulo":"Juicio contra Israel"}],"3":[{"versiculo":1,"titulo":"El rugido del león"},{"versiculo":9,"titulo":"Destrucción de Samaria"}],"4":[{"versiculo":4,"titulo":"Aunque castigado, Israel no aprende"}],"5":[{"versiculo":1,"titulo":"Llamamiento al arrepentimiento"}],"6":[{"versiculo":1,"titulo":"Destrucción de Israel"}],"7":[{"versiculo":1,"titulo":"Tres visiones de destrucción"},{"versiculo":10,"titulo":"Amós y Amasías"}],"8":[{"versiculo":1,"titulo":"El canastillo de fruta de verano"},{"versiculo":4,"titulo":"El juicio sobre Israel se acerca"}],"9":[{"versiculo":1,"titulo":"Los juicios de Jehová son ineludibles"},{"versiculo":11,"titulo":"Restauración futura de Israel"}]},"abdias":{"1":[{"versiculo":1,"titulo":"La humillación de Edom"},{"versiculo":15,"titulo":"La exaltación de Israel"}]},"jonas":{"1":[{"versiculo":1,"titulo":"Jonás huye de Jehová"}],"2":[{"versiculo":1,"titulo":"Oración de Jonás"}],"3":[{"versiculo":1,"titulo":"Nínive se arrepiente"}],"4":[{"versiculo":1,"titulo":"El enojo de Jonás"}]},"miqueas":{"1":[{"versiculo":1,"titulo":"Lamento sobre Samaria y Jerusalén"}],"2":[{"versiculo":1,"titulo":"¡Ay de los que oprimen a los pobres!"}],"3":[{"versiculo":1,"titulo":"Acusación contra los dirigentes de Israel"}],"4":[{"versiculo":1,"titulo":"Reinado universal de Jehová"},{"versiculo":6,"titulo":"Israel será redimido del cautiverio"}],"5":[{"versiculo":1,"titulo":"El reinado del libertador desde Belén"}],"6":[{"versiculo":1,"titulo":"Controversia de Jehová contra Israel"},{"versiculo":6,"titulo":"Lo que pide Jehová"}],"7":[{"versiculo":1,"titulo":"Corrupción moral de Israel"},{"versiculo":8,"titulo":"Jehová trae luz y libertad"},{"versiculo":14,"titulo":"Compasión de Jehová por Israel"}]},"nahum":{"1":[{"versiculo":1,"titulo":"La ira vengadora de Dios"},{"versiculo":15,"titulo":"Anuncio de la caída de Nínive"}],"2":[{"versiculo":13,"titulo":"Destrucción total de Nínive"}]},"habacuc":{"1":[{"versiculo":1,"titulo":"Habacuc se queja de injusticia"},{"versiculo":5,"titulo":"Los caldeos castigarán a Judá"},{"versiculo":12,"titulo":"Protesta de Habacuc"}],"2":[{"versiculo":1,"titulo":"Jehová responde a Habacuc"},{"versiculo":6,"titulo":"Ayes contra los injustos"}],"3":[{"versiculo":1,"titulo":"Oración de Habacuc"}]},"sofonias":{"1":[{"versiculo":1,"titulo":"El día de la ira de Jehová"}],"2":[{"versiculo":1,"titulo":"Juicios contra las naciones vecinas"}],"3":[{"versiculo":1,"titulo":"El pecado de Jerusalén, y su redención"}]},"hageo":{"1":[{"versiculo":1,"titulo":"Exhortación a edificar el templo"}],"2":[{"versiculo":1,"titulo":"La gloria del nuevo templo"},{"versiculo":10,"titulo":"La infidelidad del pueblo es reprendida"},{"versiculo":20,"titulo":"Promesa de Jehová a Zorobabel"}]},"zacarias":{"1":[{"versiculo":1,"titulo":"Llamamiento a volver a Jehová"},{"versiculo":7,"titulo":"La visión de los caballos"},{"versiculo":18,"titulo":"Visión de los cuernos y los carpinteros"}],"2":[{"versiculo":1,"titulo":"Llamamiento a los cautivos"}],"3":[{"versiculo":1,"titulo":"Visión del sumo sacerdote Josué"}],"4":[{"versiculo":1,"titulo":"El candelabro de oro y los olivos"}],"5":[{"versiculo":1,"titulo":"El rollo volante"},{"versiculo":5,"titulo":"La mujer en el efa"}],"6":[{"versiculo":1,"titulo":"Los cuatro carros"},{"versiculo":9,"titulo":"Coronación simbólica de Josué"}],"7":[{"versiculo":1,"titulo":"El ayuno que Dios reprueba"},{"versiculo":8,"titulo":"La desobediencia, causa del cautiverio"}],"8":[{"versiculo":1,"titulo":"Promesa de la restauración de Jerusalén"}],"9":[{"versiculo":1,"titulo":"Castigo de las naciones vecinas"},{"versiculo":9,"titulo":"El futuro rey de Sion"}],"10":[{"versiculo":1,"titulo":"Jehová redimirá a su pueblo"}],"11":[{"versiculo":4,"titulo":"Los pastores inútiles"}],"12":[{"versiculo":1,"titulo":"Liberación futura de Jerusalén"}],"13":[{"versiculo":7,"titulo":"El pastor de Jehová es herido"}],"14":[{"versiculo":1,"titulo":"Jerusalén y las naciones"}]},"malaquias":{"1":[{"versiculo":1,"titulo":"Amor de Jehová por Jacob"},{"versiculo":6,"titulo":"Jehová reprende a los sacerdotes"}],"2":[{"versiculo":1,"titulo":"Reprensión de la infidelidad de Israel"},{"versiculo":17,"titulo":"El día del juicio se acerca"}],"3":[{"versiculo":6,"titulo":"El pago de los diezmos"},{"versiculo":13,"titulo":"Diferencia entre el justo y el malo"}],"4":[{"versiculo":1,"titulo":"El advenimiento del día de Jehová"}]},"mateo":{"1":[{"versiculo":1,"titulo":"Genealogía de Jesucristo"},{"versiculo":18,"titulo":"Nacimiento de Jesucristo"}],"2":[{"versiculo":1,"titulo":"La visita de los magos"},{"versiculo":13,"titulo":"Matanza de los niños"}],"3":[{"versiculo":1,"titulo":"Predicación de Juan el Bautista"},{"versiculo":13,"titulo":"El bautismo de Jesús"}],"4":[{"versiculo":1,"titulo":"Tentación de Jesús"},{"versiculo":12,"titulo":"Jesús principia su ministerio"}],"5":[{"versiculo":1,"titulo":"El Sermón del monte: Las bienaventuranzas"},{"versiculo":13,"titulo":"La sal de la tierra"},{"versiculo":14,"titulo":"La luz del mundo"},{"versiculo":17,"titulo":"Jesús y la ley"},{"versiculo":21,"titulo":"Jesús y la ira"},{"versiculo":27,"titulo":"Jesús y el adulterio"},{"versiculo":31,"titulo":"Jesús y el divorcio"},{"versiculo":33,"titulo":"Jesús y los juramentos"},{"versiculo":38,"titulo":"El amor hacia los enemigos"}],"6":[{"versiculo":1,"titulo":"Jesús y la limosna"},{"versiculo":5,"titulo":"Jesús y la oración"},{"versiculo":16,"titulo":"Jesús y el ayuno"},{"versiculo":19,"titulo":"Tesoros en el cielo"},{"versiculo":22,"titulo":"La lámpara del cuerpo"},{"versiculo":24,"titulo":"Dios y las riquezas"},{"versiculo":25,"titulo":"El afán y la ansiedad"}],"7":[{"versiculo":1,"titulo":"El juzgar a los demás"},{"versiculo":7,"titulo":"La oración, y la regla de oro"},{"versiculo":13,"titulo":"La puerta estrecha"},{"versiculo":15,"titulo":"Por sus frutos los conoceréis"},{"versiculo":21,"titulo":"Nunca os conocí"},{"versiculo":24,"titulo":"Los dos cimientos"}],"8":[{"versiculo":1,"titulo":"Jesús sana a un leproso"},{"versiculo":5,"titulo":"Jesús sana al siervo de un centurión"},{"versiculo":14,"titulo":"Jesús sana a la suegra de Pedro"},{"versiculo":18,"titulo":"Los que querían seguir a Jesús"},{"versiculo":23,"titulo":"Jesús calma la tempestad"},{"versiculo":28,"titulo":"Los endemoniados gadarenos"}],"9":[{"versiculo":1,"titulo":"Jesús sana a un paralítico"},{"versiculo":9,"titulo":"Llamamiento de Mateo"},{"versiculo":14,"titulo":"La pregunta sobre el ayuno"},{"versiculo":18,"titulo":"La hija de Jairo, y la mujer que tocó el manto de Jesús"},{"versiculo":27,"titulo":"Dos ciegos reciben la vista"},{"versiculo":32,"titulo":"Un mudo habla"},{"versiculo":35,"titulo":"La mies es mucha"}],"10":[{"versiculo":1,"titulo":"Elección de los doce apóstoles"},{"versiculo":5,"titulo":"Misión de los doce"},{"versiculo":16,"titulo":"Persecuciones venideras"},{"versiculo":26,"titulo":"A quién se debe temer"},{"versiculo":34,"titulo":"Jesús, causa de división"},{"versiculo":40,"titulo":"Recompensas"}],"11":[{"versiculo":1,"titulo":"Los mensajeros de Juan el Bautista"},{"versiculo":20,"titulo":"Ayes sobre las ciudades impenitentes"},{"versiculo":25,"titulo":"Venid a mí y descansad"}],"12":[{"versiculo":1,"titulo":"Los discípulos recogen espigas en el día de reposo"},{"versiculo":9,"titulo":"El hombre de la mano seca"},{"versiculo":15,"titulo":"El siervo escogido"},{"versiculo":22,"titulo":"La blasfemia contra el Espíritu Santo"},{"versiculo":38,"titulo":"La generación perversa demanda señal"},{"versiculo":43,"titulo":"El espíritu inmundo que vuelve"},{"versiculo":46,"titulo":"La madre y los hermanos de Jesús"}],"13":[{"versiculo":1,"titulo":"Parábola del sembrador"},{"versiculo":10,"titulo":"Propósito de las parábolas"},{"versiculo":18,"titulo":"Jesús explica la parábola del sembrador"},{"versiculo":24,"titulo":"Parábola del trigo y la cizaña"},{"versiculo":31,"titulo":"Parábola de la semilla de mostaza"},{"versiculo":33,"titulo":"Parábola de la levadura"},{"versiculo":34,"titulo":"El uso que Jesús hace de las parábolas"},{"versiculo":36,"titulo":"Jesús explica la parábola de la cizaña"},{"versiculo":44,"titulo":"El tesoro escondido"},{"versiculo":45,"titulo":"La perla de gran precio"},{"versiculo":47,"titulo":"La red"},{"versiculo":51,"titulo":"Tesoros nuevos y viejos"},{"versiculo":53,"titulo":"Jesús en Nazaret"}],"14":[{"versiculo":1,"titulo":"Muerte de Juan el Bautista"},{"versiculo":13,"titulo":"Alimentación de los cinco mil"},{"versiculo":22,"titulo":"Jesús anda sobre el mar"},{"versiculo":34,"titulo":"Jesús sana a los enfermos en Genesaret"}],"15":[{"versiculo":1,"titulo":"Lo que contamina al hombre"},{"versiculo":21,"titulo":"La fe de la mujer cananea"},{"versiculo":29,"titulo":"Jesús sana a muchos"},{"versiculo":32,"titulo":"Alimentación de los cuatro mil"}],"16":[{"versiculo":1,"titulo":"La demanda de una señal"},{"versiculo":5,"titulo":"La levadura de los fariseos"},{"versiculo":13,"titulo":"La confesión de Pedro"},{"versiculo":21,"titulo":"Jesús anuncia su muerte"}],"17":[{"versiculo":1,"titulo":"La transfiguración"},{"versiculo":14,"titulo":"Jesús sana a un muchacho lunático"},{"versiculo":22,"titulo":"Jesús anuncia otra vez su muerte"},{"versiculo":24,"titulo":"Pago del impuesto del templo"}],"18":[{"versiculo":1,"titulo":"¿Quién es el mayor?"},{"versiculo":6,"titulo":"Ocasiones de caer"},{"versiculo":10,"titulo":"Parábola de la oveja perdida"},{"versiculo":15,"titulo":"Cómo se debe perdonar al hermano"},{"versiculo":23,"titulo":"Los dos deudores"}],"19":[{"versiculo":1,"titulo":"Jesús enseña sobre el divorcio"},{"versiculo":13,"titulo":"Jesús bendice a los niños"},{"versiculo":16,"titulo":"El joven rico"}],"20":[{"versiculo":1,"titulo":"Los obreros de la viña"},{"versiculo":17,"titulo":"Nuevamente Jesús anuncia su muerte"},{"versiculo":20,"titulo":"Petición de Santiago y de Juan"},{"versiculo":29,"titulo":"Dos ciegos reciben la vista"}],"21":[{"versiculo":1,"titulo":"La entrada triunfal en Jerusalén"},{"versiculo":12,"titulo":"Purificación del templo"},{"versiculo":18,"titulo":"Maldición de la higuera estéril"},{"versiculo":23,"titulo":"La autoridad de Jesús"},{"versiculo":28,"titulo":"Parábola de los dos hijos"},{"versiculo":33,"titulo":"Los labradores malvados"}],"22":[{"versiculo":1,"titulo":"Parábola de la fiesta de bodas"},{"versiculo":15,"titulo":"La cuestión del tributo"},{"versiculo":23,"titulo":"La pregunta sobre la resurrección"},{"versiculo":34,"titulo":"El gran mandamiento"},{"versiculo":41,"titulo":"¿De quién es hijo el Cristo?"}],"23":[{"versiculo":1,"titulo":"Jesús acusa a escribas y fariseos"},{"versiculo":37,"titulo":"Lamento de Jesús sobre Jerusalén"}],"24":[{"versiculo":1,"titulo":"Jesús predice la destrucción del templo"},{"versiculo":3,"titulo":"Señales antes del fin"},{"versiculo":29,"titulo":"La venida del Hijo del Hombre"}],"25":[{"versiculo":1,"titulo":"Parábola de las diez vírgenes"},{"versiculo":14,"titulo":"Parábola de los talentos"},{"versiculo":31,"titulo":"El juicio de las naciones"}],"26":[{"versiculo":1,"titulo":"El complot para prender a Jesús"},{"versiculo":6,"titulo":"Jesús es ungido en Betania"},{"versiculo":14,"titulo":"Judas ofrece entregar a Jesús"},{"versiculo":17,"titulo":"Institución de la Cena del Señor"},{"versiculo":30,"titulo":"Jesús anuncia la negación de Pedro"},{"versiculo":36,"titulo":"Jesús ora en Getsemaní"},{"versiculo":47,"titulo":"Arresto de Jesús"},{"versiculo":57,"titulo":"Jesús ante el concilio"},{"versiculo":69,"titulo":"Pedro niega a Jesús"}],"27":[{"versiculo":1,"titulo":"Jesús ante Pilato"},{"versiculo":3,"titulo":"Muerte de Judas"},{"versiculo":11,"titulo":"Pilato interroga a Jesús"},{"versiculo":15,"titulo":"Jesús sentenciado a muerte"},{"versiculo":32,"titulo":"Crucifixión y muerte de Jesús"},{"versiculo":57,"titulo":"Jesús es sepultado"},{"versiculo":62,"titulo":"La guardia ante la tumba"}],"28":[{"versiculo":1,"titulo":"La resurrección"},{"versiculo":11,"titulo":"El informe de la guardia"},{"versiculo":16,"titulo":"La gran comisión"}]},"marcos":{"1":[{"versiculo":1,"titulo":"Predicación de Juan el Bautista"},{"versiculo":9,"titulo":"El bautismo de Jesús"},{"versiculo":12,"titulo":"Tentación de Jesús"},{"versiculo":14,"titulo":"Jesús principia su ministerio"},{"versiculo":16,"titulo":"Jesús llama a cuatro pescadores"},{"versiculo":21,"titulo":"Un hombre que tenía un espíritu inmundo"},{"versiculo":29,"titulo":"Jesús sana a la suegra de Pedro"},{"versiculo":32,"titulo":"Muchos sanados al ponerse el sol"},{"versiculo":35,"titulo":"Jesús recorre Galilea predicando"},{"versiculo":40,"titulo":"Jesús sana a un leproso"}],"2":[{"versiculo":1,"titulo":"Jesús sana a un paralítico"},{"versiculo":13,"titulo":"Llamamiento de Leví"},{"versiculo":18,"titulo":"La pregunta sobre el ayuno"},{"versiculo":23,"titulo":"Los discípulos recogen espigas en el día de reposo"}],"3":[{"versiculo":1,"titulo":"El hombre de la mano seca"},{"versiculo":7,"titulo":"La multitud a la orilla del mar"},{"versiculo":13,"titulo":"Elección de los doce apóstoles"},{"versiculo":20,"titulo":"La blasfemia contra el Espíritu Santo"},{"versiculo":31,"titulo":"La madre y los hermanos de Jesús"}],"4":[{"versiculo":1,"titulo":"Parábola del sembrador"},{"versiculo":21,"titulo":"Nada oculto que no haya de ser manifestado"},{"versiculo":26,"titulo":"Parábola del crecimiento de la semilla"},{"versiculo":30,"titulo":"Parábola de la semilla de mostaza"},{"versiculo":33,"titulo":"El uso que Jesús hace de las parábolas"},{"versiculo":35,"titulo":"Jesús calma la tempestad"}],"5":[{"versiculo":1,"titulo":"El endemoniado gadareno"},{"versiculo":21,"titulo":"La hija de Jairo, y la mujer que tocó el manto de Jesús"}],"6":[{"versiculo":1,"titulo":"Jesús en Nazaret"},{"versiculo":7,"titulo":"Misión de los doce discípulos"},{"versiculo":14,"titulo":"Muerte de Juan el Bautista"},{"versiculo":30,"titulo":"Alimentación de los cinco mil"},{"versiculo":45,"titulo":"Jesús anda sobre el mar"},{"versiculo":53,"titulo":"Jesús sana a los enfermos en Genesaret"}],"7":[{"versiculo":1,"titulo":"Lo que contamina al hombre"},{"versiculo":24,"titulo":"La fe de la mujer sirofenicia"},{"versiculo":31,"titulo":"Jesús sana a un sordomudo"}],"8":[{"versiculo":1,"titulo":"Alimentación de los cuatro mil"},{"versiculo":11,"titulo":"La demanda de una señal"},{"versiculo":14,"titulo":"La levadura de los fariseos"},{"versiculo":22,"titulo":"Un ciego sanado en Betsaida"},{"versiculo":27,"titulo":"La confesión de Pedro"},{"versiculo":31,"titulo":"Jesús anuncia su muerte"}],"9":[{"versiculo":2,"titulo":"La transfiguración"},{"versiculo":14,"titulo":"Jesús sana a un muchacho endemoniado"},{"versiculo":30,"titulo":"Jesús anuncia otra vez su muerte"},{"versiculo":33,"titulo":"¿Quién es el mayor?"},{"versiculo":38,"titulo":"El que no es contra nosotros, por nosotros es"},{"versiculo":42,"titulo":"Ocasiones de caer"}],"10":[{"versiculo":1,"titulo":"Jesús enseña sobre el divorcio"},{"versiculo":13,"titulo":"Jesús bendice a los niños"},{"versiculo":17,"titulo":"El joven rico"},{"versiculo":32,"titulo":"Nuevamente Jesús anuncia su muerte"},{"versiculo":35,"titulo":"Petición de Santiago y de Juan"},{"versiculo":46,"titulo":"El ciego Bartimeo recibe la vista"}],"11":[{"versiculo":1,"titulo":"La entrada triunfal en Jerusalén"},{"versiculo":12,"titulo":"Maldición de la higuera estéril"},{"versiculo":15,"titulo":"Purificación del templo"},{"versiculo":20,"titulo":"La higuera maldecida se seca"},{"versiculo":27,"titulo":"La autoridad de Jesús"}],"12":[{"versiculo":1,"titulo":"Los labradores malvados"},{"versiculo":13,"titulo":"La cuestión del tributo"},{"versiculo":18,"titulo":"La pregunta sobre la resurrección"},{"versiculo":28,"titulo":"El gran mandamiento"},{"versiculo":35,"titulo":"¿De quién es hijo el Cristo?"},{"versiculo":38,"titulo":"Jesús acusa a los escribas"},{"versiculo":41,"titulo":"La ofrenda de la viuda"}],"13":[{"versiculo":1,"titulo":"Jesús predice la destrucción del templo"},{"versiculo":3,"titulo":"Señales antes del fin"},{"versiculo":24,"titulo":"La venida del Hijo del Hombre"}],"14":[{"versiculo":1,"titulo":"El complot para prender a Jesús"},{"versiculo":3,"titulo":"Jesús es ungido en Betania"},{"versiculo":10,"titulo":"Judas ofrece entregar a Jesús"},{"versiculo":12,"titulo":"Institución de la Cena del Señor"},{"versiculo":26,"titulo":"Jesús anuncia la negación de Pedro"},{"versiculo":32,"titulo":"Jesús ora en Getsemaní"},{"versiculo":43,"titulo":"Arresto de Jesús"},{"versiculo":51,"titulo":"El joven que huyó"},{"versiculo":53,"titulo":"Jesús ante el concilio"},{"versiculo":66,"titulo":"Pedro niega a Jesús"}],"15":[{"versiculo":1,"titulo":"Jesús ante Pilato"},{"versiculo":6,"titulo":"Jesús sentenciado a muerte"},{"versiculo":21,"titulo":"Crucifixión y muerte de Jesús"},{"versiculo":42,"titulo":"Jesús es sepultado"}],"16":[{"versiculo":1,"titulo":"La resurrección"},{"versiculo":9,"titulo":"Jesús se aparece a María Magdalena"},{"versiculo":12,"titulo":"Jesús se aparece a dos de sus discípulos"},{"versiculo":14,"titulo":"Jesús comisiona a los apóstoles"},{"versiculo":19,"titulo":"La ascensión"}]},"lucas":{"1":[{"versiculo":1,"titulo":"Dedicatoria a Teófilo"},{"versiculo":5,"titulo":"Anuncio del nacimiento de Juan"},{"versiculo":26,"titulo":"Anuncio del nacimiento de Jesús"},{"versiculo":39,"titulo":"María visita a Elisabet"},{"versiculo":57,"titulo":"Nacimiento de Juan el Bautista"},{"versiculo":67,"titulo":"Profecía de Zacarías"}],"2":[{"versiculo":1,"titulo":"Nacimiento de Jesús"},{"versiculo":8,"titulo":"Los ángeles y los pastores"},{"versiculo":21,"titulo":"Presentación de Jesús en el templo"},{"versiculo":39,"titulo":"El regreso a Nazaret"},{"versiculo":41,"titulo":"El niño Jesús en el templo"}],"3":[{"versiculo":1,"titulo":"Predicación de Juan el Bautista"},{"versiculo":21,"titulo":"El bautismo de Jesús"},{"versiculo":23,"titulo":"Genealogía de Jesús"}],"4":[{"versiculo":1,"titulo":"Tentación de Jesús"},{"versiculo":14,"titulo":"Jesús principia su ministerio"},{"versiculo":16,"titulo":"Jesús en Nazaret"},{"versiculo":31,"titulo":"Un hombre que tenía un espíritu inmundo"},{"versiculo":38,"titulo":"Jesús sana a la suegra de Pedro"},{"versiculo":40,"titulo":"Muchos sanados al ponerse el sol"},{"versiculo":42,"titulo":"Jesús recorre Galilea predicando"}],"5":[{"versiculo":1,"titulo":"La pesca milagrosa"},{"versiculo":12,"titulo":"Jesús sana a un leproso"},{"versiculo":17,"titulo":"Jesús sana a un paralítico"},{"versiculo":27,"titulo":"Llamamiento de Leví"},{"versiculo":33,"titulo":"La pregunta sobre el ayuno"}],"6":[{"versiculo":1,"titulo":"Los discípulos recogen espigas en el día de reposo"},{"versiculo":6,"titulo":"El hombre de la mano seca"},{"versiculo":12,"titulo":"Elección de los doce apóstoles"},{"versiculo":17,"titulo":"Jesús atiende a una multitud"},{"versiculo":20,"titulo":"Bienaventuranzas y ayes"},{"versiculo":27,"titulo":"El amor hacia los enemigos, y la regla de oro"},{"versiculo":37,"titulo":"El juzgar a los demás"},{"versiculo":43,"titulo":"Por sus frutos los conoceréis"},{"versiculo":46,"titulo":"Los dos cimientos"}],"7":[{"versiculo":1,"titulo":"Jesús sana al siervo de un centurión"},{"versiculo":11,"titulo":"Jesús resucita al hijo de la viuda de Naín"},{"versiculo":18,"titulo":"Los mensajeros de Juan el Bautista"},{"versiculo":36,"titulo":"Jesús en el hogar de Simón el fariseo"}],"8":[{"versiculo":1,"titulo":"Mujeres que sirven a Jesús"},{"versiculo":4,"titulo":"Parábola del sembrador"},{"versiculo":16,"titulo":"Nada oculto que no haya de ser manifestado"},{"versiculo":19,"titulo":"La madre y los hermanos de Jesús"},{"versiculo":22,"titulo":"Jesús calma la tempestad"},{"versiculo":26,"titulo":"El endemoniado gadareno"},{"versiculo":40,"titulo":"La hija de Jairo, y la mujer que tocó el manto de Jesús"}],"9":[{"versiculo":1,"titulo":"Misión de los doce discípulos"},{"versiculo":7,"titulo":"Muerte de Juan el Bautista"},{"versiculo":10,"titulo":"Alimentación de los cinco mil"},{"versiculo":18,"titulo":"La confesión de Pedro"},{"versiculo":21,"titulo":"Jesús anuncia su muerte"},{"versiculo":28,"titulo":"La transfiguración"},{"versiculo":37,"titulo":"Jesús sana a un muchacho endemoniado"},{"versiculo":43,"titulo":"Jesús anuncia otra vez su muerte"},{"versiculo":46,"titulo":"¿Quién es el mayor?"},{"versiculo":49,"titulo":"El que no es contra nosotros, por nosotros es"},{"versiculo":51,"titulo":"Jesús reprende a Jacobo y a Juan"},{"versiculo":57,"titulo":"Los que querían seguir a Jesús"}],"10":[{"versiculo":1,"titulo":"Misión de los setenta"},{"versiculo":13,"titulo":"Ayes sobre las ciudades impenitentes"},{"versiculo":17,"titulo":"Regreso de los setenta"},{"versiculo":21,"titulo":"Jesús se regocija"},{"versiculo":25,"titulo":"El buen samaritano"},{"versiculo":38,"titulo":"Jesús visita a Marta y a María"}],"11":[{"versiculo":1,"titulo":"Jesús y la oración"},{"versiculo":14,"titulo":"Una casa dividida contra sí misma"},{"versiculo":24,"titulo":"El espíritu inmundo que vuelve"},{"versiculo":27,"titulo":"Los que en verdad son bienaventurados"},{"versiculo":29,"titulo":"La generación perversa demanda señal"},{"versiculo":33,"titulo":"La lámpara del cuerpo"},{"versiculo":37,"titulo":"Jesús acusa a fariseos y a intérpretes de la ley"}],"12":[{"versiculo":1,"titulo":"La levadura de los fariseos"},{"versiculo":4,"titulo":"A quién se debe temer"},{"versiculo":8,"titulo":"El que me confesare delante de los hombres"},{"versiculo":13,"titulo":"El rico insensato"},{"versiculo":22,"titulo":"El afán y la ansiedad"},{"versiculo":32,"titulo":"Tesoro en el cielo"},{"versiculo":35,"titulo":"El siervo vigilante"},{"versiculo":41,"titulo":"El siervo infiel"},{"versiculo":49,"titulo":"Jesús, causa de división"},{"versiculo":54,"titulo":"¿Cómo no reconocéis este tiempo?"},{"versiculo":57,"titulo":"Arréglate con tu adversario"}],"13":[{"versiculo":1,"titulo":"Arrepentíos o pereceréis"},{"versiculo":6,"titulo":"Parábola de la higuera estéril"},{"versiculo":10,"titulo":"Jesús sana a una mujer en el día de reposo"},{"versiculo":18,"titulo":"Parábola de la semilla de mostaza"},{"versiculo":20,"titulo":"Parábola de la levadura"},{"versiculo":22,"titulo":"La puerta estrecha"},{"versiculo":31,"titulo":"Lamento de Jesús sobre Jerusalén"}],"14":[{"versiculo":1,"titulo":"Jesús sana a un hidrópico"},{"versiculo":7,"titulo":"Los convidados a las bodas"},{"versiculo":15,"titulo":"Parábola de la gran cena"},{"versiculo":25,"titulo":"Lo que cuesta seguir a Cristo"},{"versiculo":34,"titulo":"Cuando la sal pierde su sabor"}],"15":[{"versiculo":1,"titulo":"Parábola de la oveja perdida"},{"versiculo":8,"titulo":"Parábola de la moneda perdida"},{"versiculo":11,"titulo":"Parábola del hijo pródigo"}],"16":[{"versiculo":1,"titulo":"Parábola del mayordomo infiel"},{"versiculo":16,"titulo":"La ley y el reino de Dios"},{"versiculo":18,"titulo":"Jesús enseña sobre el divorcio"},{"versiculo":19,"titulo":"El rico y Lázaro"}],"17":[{"versiculo":1,"titulo":"Ocasiones de caer"},{"versiculo":5,"titulo":"Auméntanos la fe"},{"versiculo":7,"titulo":"El deber del siervo"},{"versiculo":11,"titulo":"Diez leprosos son limpiados"},{"versiculo":20,"titulo":"La venida del Reino"}],"18":[{"versiculo":1,"titulo":"Parábola de la viuda y el juez injusto"},{"versiculo":9,"titulo":"Parábola del fariseo y el publicano"},{"versiculo":15,"titulo":"Jesús bendice a los niños"},{"versiculo":18,"titulo":"El joven rico"},{"versiculo":31,"titulo":"Nuevamente Jesús anuncia su muerte"},{"versiculo":35,"titulo":"Un ciego de Jericó recibe la vista"}],"19":[{"versiculo":1,"titulo":"Jesús y Zaqueo"},{"versiculo":11,"titulo":"Parábola de las diez minas"},{"versiculo":28,"titulo":"La entrada triunfal en Jerusalén"},{"versiculo":45,"titulo":"Purificación del templo"}],"20":[{"versiculo":1,"titulo":"La autoridad de Jesús"},{"versiculo":9,"titulo":"Los labradores malvados"},{"versiculo":19,"titulo":"La cuestión del tributo"},{"versiculo":27,"titulo":"La pregunta sobre la resurrección"},{"versiculo":41,"titulo":"¿De quién es hijo el Cristo?"},{"versiculo":45,"titulo":"Jesús acusa a los escribas"}],"21":[{"versiculo":1,"titulo":"La ofrenda de la viuda"},{"versiculo":5,"titulo":"Jesús predice la destrucción del templo"},{"versiculo":7,"titulo":"Señales antes del fin"},{"versiculo":25,"titulo":"La venida del Hijo del Hombre"}],"22":[{"versiculo":1,"titulo":"El complot para matar a Jesús"},{"versiculo":7,"titulo":"Institución de la Cena del Señor"},{"versiculo":24,"titulo":"La grandeza en el servicio"},{"versiculo":31,"titulo":"Jesús anuncia la negación de Pedro"},{"versiculo":35,"titulo":"Bolsa, alforja y espada"},{"versiculo":39,"titulo":"Jesús ora en Getsemaní"},{"versiculo":47,"titulo":"Arresto de Jesús"},{"versiculo":54,"titulo":"Pedro niega a Jesús"},{"versiculo":63,"titulo":"Jesús escarnecido y azotado"},{"versiculo":66,"titulo":"Jesús ante el concilio"}],"23":[{"versiculo":1,"titulo":"Jesús ante Pilato"},{"versiculo":6,"titulo":"Jesús ante Herodes"},{"versiculo":13,"titulo":"Jesús sentenciado a muerte"},{"versiculo":26,"titulo":"Crucifixión y muerte de Jesús"},{"versiculo":50,"titulo":"Jesús es sepultado"}],"24":[{"versiculo":1,"titulo":"La resurrección"},{"versiculo":13,"titulo":"En el camino a Emaús"},{"versiculo":36,"titulo":"Jesús se aparece a los discípulos"},{"versiculo":50,"titulo":"La ascensión"}]},"juan":{"1":[{"versiculo":1,"titulo":"El Verbo hecho carne"},{"versiculo":19,"titulo":"Testimonio de Juan el Bautista"},{"versiculo":29,"titulo":"El Cordero de Dios"},{"versiculo":35,"titulo":"Los primeros discípulos"},{"versiculo":43,"titulo":"Jesús llama a Felipe y a Natanael"}],"2":[{"versiculo":1,"titulo":"Las bodas de Caná"},{"versiculo":13,"titulo":"Jesús purifica el templo"},{"versiculo":23,"titulo":"Jesús conoce a todos los hombres"}],"3":[{"versiculo":1,"titulo":"Jesús y Nicodemo"},{"versiculo":16,"titulo":"De tal manera amó Dios al mundo"},{"versiculo":22,"titulo":"El amigo del esposo"},{"versiculo":31,"titulo":"El que viene de arriba"}],"4":[{"versiculo":1,"titulo":"Jesús y la mujer samaritana"},{"versiculo":43,"titulo":"Jesús sana al hijo de un noble"}],"5":[{"versiculo":1,"titulo":"El paralítico de Betesda"},{"versiculo":19,"titulo":"La autoridad del Hijo"},{"versiculo":30,"titulo":"Testigos de Cristo"}],"6":[{"versiculo":1,"titulo":"Alimentación de los cinco mil"},{"versiculo":16,"titulo":"Jesús anda sobre el mar"},{"versiculo":22,"titulo":"La gente busca a Jesús"},{"versiculo":25,"titulo":"Jesús, el pan de vida"},{"versiculo":60,"titulo":"Palabras de vida eterna"}],"7":[{"versiculo":1,"titulo":"Incredulidad de los hermanos de Jesús"},{"versiculo":10,"titulo":"Jesús en la fiesta de los tabernáculos"},{"versiculo":25,"titulo":"¿Es este el Cristo?"},{"versiculo":32,"titulo":"Los fariseos envían alguaciles para prender a Jesús"},{"versiculo":37,"titulo":"Ríos de agua viva"},{"versiculo":40,"titulo":"División entre la gente"},{"versiculo":45,"titulo":"¡Nunca ha hablado hombre así!"},{"versiculo":53,"titulo":"La mujer adúltera"}],"8":[{"versiculo":12,"titulo":"Jesús, la luz del mundo"},{"versiculo":21,"titulo":"A donde yo voy, vosotros no podéis venir"},{"versiculo":31,"titulo":"La verdad os hará libres"},{"versiculo":39,"titulo":"Sois de vuestro padre el diablo"},{"versiculo":48,"titulo":"La preexistencia de Cristo"}],"9":[{"versiculo":1,"titulo":"Jesús sana a un ciego de nacimiento"},{"versiculo":13,"titulo":"Los fariseos interrogan al ciego sanado"},{"versiculo":35,"titulo":"Ceguera espiritual"}],"10":[{"versiculo":1,"titulo":"Parábola del redil"},{"versiculo":7,"titulo":"Jesús, el buen pastor"},{"versiculo":22,"titulo":"Los judíos rechazan a Jesús"}],"11":[{"versiculo":1,"titulo":"Muerte de Lázaro"},{"versiculo":17,"titulo":"Jesús, la resurrección y la vida"},{"versiculo":28,"titulo":"Jesús llora ante la tumba de Lázaro"},{"versiculo":38,"titulo":"Resurrección de Lázaro"},{"versiculo":45,"titulo":"El complot para matar a Jesús"}],"12":[{"versiculo":1,"titulo":"Jesús es ungido en Betania"},{"versiculo":9,"titulo":"El complot contra Lázaro"},{"versiculo":12,"titulo":"La entrada triunfal en Jerusalén"},{"versiculo":20,"titulo":"Unos griegos buscan a Jesús"},{"versiculo":27,"titulo":"Jesús anuncia su muerte"},{"versiculo":36,"titulo":"Incredulidad de los judíos"},{"versiculo":44,"titulo":"Las palabras de Jesús juzgarán a los hombres"}],"13":[{"versiculo":1,"titulo":"Jesús lava los pies de sus discípulos"},{"versiculo":21,"titulo":"Jesús anuncia la traición de Judas"},{"versiculo":31,"titulo":"El nuevo mandamiento"},{"versiculo":36,"titulo":"Jesús anuncia la negación de Pedro"}],"14":[{"versiculo":1,"titulo":"Jesús, el camino al Padre"},{"versiculo":15,"titulo":"La promesa del Espíritu Santo"}],"15":[{"versiculo":1,"titulo":"Jesús, la vid verdadera"},{"versiculo":18,"titulo":"El mundo os aborrecerá"}],"16":[{"versiculo":4,"titulo":"La obra del Espíritu Santo"},{"versiculo":16,"titulo":"La tristeza se convertirá en gozo"},{"versiculo":25,"titulo":"Yo he vencido al mundo"}],"17":[{"versiculo":1,"titulo":"Jesús ora por sus discípulos"}],"18":[{"versiculo":1,"titulo":"Arresto de Jesús"},{"versiculo":12,"titulo":"Jesús ante el sumo sacerdote"},{"versiculo":15,"titulo":"Pedro en el patio de Anás"},{"versiculo":19,"titulo":"Anás interroga a Jesús"},{"versiculo":25,"titulo":"Pedro niega a Jesús"},{"versiculo":28,"titulo":"Jesús ante Pilato"}],"19":[{"versiculo":17,"titulo":"Crucifixión y muerte de Jesús"},{"versiculo":31,"titulo":"El costado de Jesús traspasado"},{"versiculo":38,"titulo":"Jesús es sepultado"}],"20":[{"versiculo":1,"titulo":"La resurrección"},{"versiculo":11,"titulo":"Jesús se aparece a María Magdalena"},{"versiculo":19,"titulo":"Jesús se aparece a los discípulos"},{"versiculo":24,"titulo":"Incredulidad de Tomás"},{"versiculo":30,"titulo":"El propósito del libro"}],"21":[{"versiculo":1,"titulo":"Jesús se aparece a siete de sus discípulos"},{"versiculo":15,"titulo":"Apacienta mis ovejas"},{"versiculo":20,"titulo":"El discípulo amado"}]},"hechos":{"1":[{"versiculo":1,"titulo":"La promesa del Espíritu Santo"},{"versiculo":6,"titulo":"La ascensión"},{"versiculo":12,"titulo":"Elección del sucesor de Judas"}],"2":[{"versiculo":1,"titulo":"La venida del Espíritu Santo"},{"versiculo":14,"titulo":"Primer discurso de Pedro"},{"versiculo":43,"titulo":"La vida de los primeros cristianos"}],"3":[{"versiculo":1,"titulo":"Curación de un cojo"},{"versiculo":11,"titulo":"Discurso de Pedro en el pórtico de Salomón"}],"4":[{"versiculo":1,"titulo":"Pedro y Juan ante el concilio"},{"versiculo":23,"titulo":"Los creyentes piden confianza y valor"},{"versiculo":32,"titulo":"Todas las cosas en común"}],"5":[{"versiculo":1,"titulo":"Ananías y Safira"},{"versiculo":12,"titulo":"Muchas señales y maravillas"},{"versiculo":17,"titulo":"Pedro y Juan son perseguidos"}],"6":[{"versiculo":1,"titulo":"Elección de siete diáconos"},{"versiculo":8,"titulo":"Arresto de Esteban"}],"7":[{"versiculo":1,"titulo":"Defensa y muerte de Esteban"}],"8":[{"versiculo":1,"titulo":"Saulo persigue a la iglesia"},{"versiculo":4,"titulo":"Predicación del evangelio en Samaria"},{"versiculo":26,"titulo":"Felipe y el etíope"}],"9":[{"versiculo":1,"titulo":"Conversión de Saulo"},{"versiculo":20,"titulo":"Saulo predica en Damasco"},{"versiculo":23,"titulo":"Saulo escapa de los judíos"},{"versiculo":26,"titulo":"Saulo en Jerusalén"},{"versiculo":32,"titulo":"Curación de Eneas"},{"versiculo":36,"titulo":"Dorcas es resucitada"}],"10":[{"versiculo":1,"titulo":"Pedro y Cornelio"}],"11":[{"versiculo":1,"titulo":"Informe de Pedro a la iglesia de Jerusalén"},{"versiculo":19,"titulo":"La iglesia en Antioquía"}],"12":[{"versiculo":1,"titulo":"Jacobo, muerto; Pedro, encarcelado"},{"versiculo":6,"titulo":"Pedro es librado de la cárcel"},{"versiculo":20,"titulo":"Muerte de Herodes"}],"13":[{"versiculo":1,"titulo":"Bernabé y Saulo comienzan su primer viaje misionero"},{"versiculo":4,"titulo":"Los apóstoles predican en Chipre"},{"versiculo":13,"titulo":"Pablo y Bernabé en Antioquía de Pisidia"}],"14":[{"versiculo":1,"titulo":"Pablo y Bernabé en Iconio"},{"versiculo":8,"titulo":"Pablo es apedreado en Listra"},{"versiculo":24,"titulo":"El regreso a Antioquía de Siria"}],"15":[{"versiculo":1,"titulo":"El concilio en Jerusalén"},{"versiculo":36,"titulo":"Pablo se separa de Bernabé, y comienza su segundo viaje misionero"}],"16":[{"versiculo":1,"titulo":"Timoteo acompaña a Pablo y a Silas"},{"versiculo":6,"titulo":"La visión del varón macedonio"},{"versiculo":11,"titulo":"Encarcelados en Filipos"}],"17":[{"versiculo":1,"titulo":"El alboroto en Tesalónica"},{"versiculo":10,"titulo":"Pablo y Silas en Berea"},{"versiculo":16,"titulo":"Pablo en Atenas"}],"18":[{"versiculo":1,"titulo":"Pablo en Corinto"},{"versiculo":22,"titulo":"Pablo regresa a Antioquía y comienza su tercer viaje misionero"},{"versiculo":24,"titulo":"Apolos predica en Éfeso"}],"19":[{"versiculo":1,"titulo":"Pablo en Éfeso"},{"versiculo":23,"titulo":"El alboroto en Éfeso"}],"20":[{"versiculo":1,"titulo":"Viaje de Pablo a Macedonia y Grecia"},{"versiculo":7,"titulo":"Visita de despedida de Pablo en Troas"},{"versiculo":13,"titulo":"Viaje de Troas a Mileto"},{"versiculo":17,"titulo":"Discurso de despedida de Pablo en Mileto"}],"21":[{"versiculo":1,"titulo":"Viaje de Pablo a Jerusalén"},{"versiculo":17,"titulo":"Arresto de Pablo en el templo"},{"versiculo":37,"titulo":"Defensa de Pablo ante el pueblo"}],"22":[{"versiculo":6,"titulo":"Pablo relata su conversión"},{"versiculo":17,"titulo":"Pablo es enviado a los gentiles"},{"versiculo":22,"titulo":"Pablo en manos del tribuno"},{"versiculo":30,"titulo":"Pablo ante el concilio"}],"23":[{"versiculo":12,"titulo":"Complot contra Pablo"},{"versiculo":23,"titulo":"Pablo es enviado a Félix el gobernador"}],"24":[{"versiculo":1,"titulo":"Defensa de Pablo ante Félix"}],"25":[{"versiculo":1,"titulo":"Pablo apela a César"},{"versiculo":13,"titulo":"Pablo ante Agripa y Berenice"}],"26":[{"versiculo":1,"titulo":"Defensa de Pablo ante Agripa"},{"versiculo":4,"titulo":"Vida anterior de Pablo"},{"versiculo":9,"titulo":"Pablo el perseguidor"},{"versiculo":12,"titulo":"Pablo relata su conversión"},{"versiculo":19,"titulo":"Pablo obedece a la visión"},{"versiculo":24,"titulo":"Pablo insta a Agripa a que crea"}],"27":[{"versiculo":1,"titulo":"Pablo es enviado a Roma"},{"versiculo":13,"titulo":"La tempestad en el mar"},{"versiculo":39,"titulo":"El naufragio"}],"28":[{"versiculo":1,"titulo":"Pablo en la isla de Malta"},{"versiculo":11,"titulo":"Pablo llega a Roma"},{"versiculo":17,"titulo":"Pablo predica en Roma"}]},"romanos":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":8,"titulo":"Deseo de Pablo de visitar Roma"},{"versiculo":16,"titulo":"El poder del evangelio"},{"versiculo":18,"titulo":"La culpabilidad del hombre"}],"2":[{"versiculo":1,"titulo":"El justo juicio de Dios"},{"versiculo":17,"titulo":"Los judíos y la ley"}],"3":[{"versiculo":9,"titulo":"No hay justo"},{"versiculo":21,"titulo":"La justicia es por medio de la fe"}],"4":[{"versiculo":1,"titulo":"El ejemplo de Abraham"},{"versiculo":13,"titulo":"La promesa realizada mediante la fe"}],"5":[{"versiculo":1,"titulo":"Resultados de la justificación"},{"versiculo":12,"titulo":"Adán y Cristo"}],"6":[{"versiculo":1,"titulo":"Muertos al pecado"},{"versiculo":15,"titulo":"Siervos de la justicia"}],"7":[{"versiculo":1,"titulo":"Analogía tomada del matrimonio"},{"versiculo":7,"titulo":"El pecado que mora en mí"}],"8":[{"versiculo":1,"titulo":"Viviendo en el Espíritu"},{"versiculo":28,"titulo":"Más que vencedores"}],"9":[{"versiculo":1,"titulo":"La elección de Israel"},{"versiculo":30,"titulo":"La justicia que es por fe"}],"11":[{"versiculo":1,"titulo":"El remanente de Israel"},{"versiculo":11,"titulo":"La salvación de los gentiles"},{"versiculo":25,"titulo":"La restauración de Israel"}],"12":[{"versiculo":1,"titulo":"Deberes cristianos"}],"14":[{"versiculo":1,"titulo":"Los débiles en la fe"}],"15":[{"versiculo":7,"titulo":"El evangelio a los gentiles"},{"versiculo":22,"titulo":"Pablo se propone ir a Roma"}],"16":[{"versiculo":1,"titulo":"Saludos personales"},{"versiculo":25,"titulo":"Doxología final"}]},"1_corintios":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":4,"titulo":"Acción de gracias por dones espirituales"},{"versiculo":10,"titulo":"¿Está dividido Cristo?"},{"versiculo":18,"titulo":"Cristo, poder y sabiduría de Dios"}],"2":[{"versiculo":1,"titulo":"Proclamando a Cristo crucificado"},{"versiculo":6,"titulo":"La revelación por el Espíritu de Dios"}],"3":[{"versiculo":1,"titulo":"Colaboradores de Dios"}],"4":[{"versiculo":1,"titulo":"El ministerio de los apóstoles"}],"5":[{"versiculo":1,"titulo":"Un caso de inmoralidad juzgado"}],"6":[{"versiculo":1,"titulo":"Litigios delante de los incrédulos"},{"versiculo":12,"titulo":"Glorificad a Dios en vuestro cuerpo"}],"7":[{"versiculo":1,"titulo":"Problemas del matrimonio"}],"8":[{"versiculo":1,"titulo":"Lo sacrificado a los ídolos"}],"9":[{"versiculo":1,"titulo":"Los derechos de un apóstol"}],"10":[{"versiculo":1,"titulo":"Amonestaciones contra la idolatría"},{"versiculo":23,"titulo":"Haced todo para la gloria de Dios"}],"11":[{"versiculo":2,"titulo":"Atavío de las mujeres"},{"versiculo":17,"titulo":"Abusos en la Cena del Señor"},{"versiculo":23,"titulo":"Institución de la Cena del Señor"},{"versiculo":27,"titulo":"Tomando la Cena indignamente"}],"12":[{"versiculo":1,"titulo":"Dones espirituales"}],"13":[{"versiculo":1,"titulo":"La preeminencia del amor"}],"14":[{"versiculo":1,"titulo":"El hablar en lenguas"}],"15":[{"versiculo":1,"titulo":"La resurrección de los muertos"}],"16":[{"versiculo":1,"titulo":"La ofrenda para los santos"},{"versiculo":5,"titulo":"Planes de Pablo"},{"versiculo":13,"titulo":"Salutaciones finales"}]},"2_corintios":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Aflicciones de Pablo"},{"versiculo":12,"titulo":"Por qué Pablo pospuso su visita a Corinto"}],"2":[{"versiculo":5,"titulo":"Pablo perdona al ofensor"},{"versiculo":12,"titulo":"Ansiedad de Pablo en Troas"},{"versiculo":14,"titulo":"Triunfantes en Cristo"}],"3":[{"versiculo":1,"titulo":"Ministros del nuevo pacto"}],"4":[{"versiculo":7,"titulo":"Viviendo por la fe"}],"5":[{"versiculo":11,"titulo":"El ministerio de la reconciliación"}],"6":[{"versiculo":14,"titulo":"Somos templo del Dios viviente"}],"7":[{"versiculo":2,"titulo":"Regocijo de Pablo al arrepentirse los corintios"}],"8":[{"versiculo":1,"titulo":"La ofrenda para los santos"}],"10":[{"versiculo":1,"titulo":"Pablo defiende su ministerio"}],"11":[{"versiculo":16,"titulo":"Sufrimientos de Pablo como apóstol"}],"12":[{"versiculo":1,"titulo":"El aguijón en la carne"},{"versiculo":14,"titulo":"Pablo anuncia su tercera visita"}],"13":[{"versiculo":11,"titulo":"Saludos y doxología final"}]},"galatas":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":6,"titulo":"No hay otro evangelio"},{"versiculo":11,"titulo":"El ministerio de Pablo"}],"2":[{"versiculo":11,"titulo":"Pablo reprende a Pedro en Antioquía"}],"3":[{"versiculo":1,"titulo":"El Espíritu se recibe por la fe"},{"versiculo":6,"titulo":"El pacto de Dios con Abraham"},{"versiculo":19,"titulo":"El propósito de la ley"}],"4":[{"versiculo":8,"titulo":"Exhortación contra el volver a la esclavitud"},{"versiculo":21,"titulo":"Alegoría de Sara y Agar"}],"5":[{"versiculo":1,"titulo":"Estad firmes en la libertad"},{"versiculo":16,"titulo":"Las obras de la carne y el fruto del Espíritu"}],"6":[{"versiculo":11,"titulo":"Pablo se gloría en la cruz de Cristo"},{"versiculo":18,"titulo":"Bendición final"}]},"efesios":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Bendiciones espirituales en Cristo"},{"versiculo":15,"titulo":"El espíritu de sabiduría y de revelación"}],"2":[{"versiculo":1,"titulo":"Salvos por gracia"},{"versiculo":11,"titulo":"Reconciliación por medio de la cruz"}],"3":[{"versiculo":1,"titulo":"Ministerio de Pablo a los gentiles"},{"versiculo":14,"titulo":"El amor que excede a todo conocimiento"}],"4":[{"versiculo":1,"titulo":"La unidad del Espíritu"},{"versiculo":17,"titulo":"La nueva vida en Cristo"}],"5":[{"versiculo":1,"titulo":"Andad como hijos de luz"},{"versiculo":21,"titulo":"Someteos los unos a los otros"}],"6":[{"versiculo":10,"titulo":"La armadura de Dios"},{"versiculo":21,"titulo":"Salutaciones finales"}]},"filipenses":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Oración de Pablo por los creyentes"},{"versiculo":12,"titulo":"Para mí el vivir es Cristo"}],"2":[{"versiculo":1,"titulo":"Humillación y exaltación de Cristo"},{"versiculo":12,"titulo":"Luminares en el mundo"},{"versiculo":19,"titulo":"Timoteo y Epafrodito"}],"3":[{"versiculo":1,"titulo":"Prosigo al blanco"}],"4":[{"versiculo":1,"titulo":"Regocijaos en el Señor siempre"},{"versiculo":8,"titulo":"En esto pensad"},{"versiculo":10,"titulo":"Dádivas de los filipenses"},{"versiculo":21,"titulo":"Salutaciones finales"}]},"colosenses":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Pablo pide que Dios les conceda sabiduría espiritual"},{"versiculo":15,"titulo":"Reconciliación por medio de la muerte de Cristo"},{"versiculo":24,"titulo":"Ministerio de Pablo a los gentiles"}],"2":[{"versiculo":8,"titulo":"Plenitud de vida en Cristo"}],"3":[{"versiculo":5,"titulo":"La vida antigua y la nueva"},{"versiculo":18,"titulo":"Deberes sociales de la nueva vida"}],"4":[{"versiculo":7,"titulo":"Salutaciones finales"}]},"1_tesalonicenses":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":2,"titulo":"Ejemplo de los tesalonicenses"}],"2":[{"versiculo":1,"titulo":"Ministerio de Pablo en Tesalónica"},{"versiculo":17,"titulo":"Ausencia de Pablo de la iglesia"}],"4":[{"versiculo":1,"titulo":"La vida que agrada a Dios"},{"versiculo":13,"titulo":"La venida del Señor"}],"5":[{"versiculo":12,"titulo":"Pablo exhorta a los hermanos"},{"versiculo":25,"titulo":"Salutaciones y bendición final"}]},"2_tesalonicenses":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Dios juzgará a los pecadores en la venida de Cristo"}],"2":[{"versiculo":1,"titulo":"Manifestación del hombre de pecado"},{"versiculo":13,"titulo":"Escogidos para salvación"}],"3":[{"versiculo":1,"titulo":"Que la palabra de Dios sea glorificada"},{"versiculo":6,"titulo":"El deber de trabajar"},{"versiculo":16,"titulo":"Bendición final"}]},"1_timoteo":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Advertencia contra falsas doctrinas"},{"versiculo":12,"titulo":"El ministerio de Pablo"}],"2":[{"versiculo":1,"titulo":"Instrucciones sobre la oración"}],"3":[{"versiculo":1,"titulo":"Requisitos de los obispos"},{"versiculo":8,"titulo":"Requisitos de los diáconos"},{"versiculo":14,"titulo":"El misterio de la piedad"}],"4":[{"versiculo":1,"titulo":"Predicción de la apostasía"},{"versiculo":6,"titulo":"Un buen ministro de Jesucristo"}],"5":[{"versiculo":1,"titulo":"Deberes hacia los demás"}],"6":[{"versiculo":3,"titulo":"Piedad y contentamiento"},{"versiculo":11,"titulo":"La buena batalla de la fe"},{"versiculo":20,"titulo":"Encargo final de Pablo a Timoteo"}]},"2_timoteo":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Testificando de Cristo"}],"2":[{"versiculo":1,"titulo":"Un buen soldado de Jesucristo"},{"versiculo":14,"titulo":"Un obrero aprobado"}],"3":[{"versiculo":1,"titulo":"Carácter de los hombres en los postreros días"}],"4":[{"versiculo":1,"titulo":"Predica la palabra"},{"versiculo":9,"titulo":"Instrucciones personales"},{"versiculo":19,"titulo":"Saludos y bendición final"}]},"tito":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":5,"titulo":"Requisitos de ancianos y obispos"}],"2":[{"versiculo":1,"titulo":"Enseñanza de la sana doctrina"}],"3":[{"versiculo":1,"titulo":"Justificados por gracia"},{"versiculo":12,"titulo":"Instrucciones personales"},{"versiculo":15,"titulo":"Salutaciones y bendición final"}]},"filemon":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":4,"titulo":"El amor y la fe de Filemón"},{"versiculo":8,"titulo":"Pablo intercede por Onésimo"},{"versiculo":23,"titulo":"Salutaciones y bendición final"}]},"hebreos":{"1":[{"versiculo":1,"titulo":"Dios ha hablado por su Hijo"},{"versiculo":5,"titulo":"El Hijo, superior a los ángeles"}],"2":[{"versiculo":1,"titulo":"Una salvación tan grande"},{"versiculo":5,"titulo":"El autor de la salvación"}],"3":[{"versiculo":1,"titulo":"Jesús es superior a Moisés"},{"versiculo":7,"titulo":"El reposo del pueblo de Dios"}],"4":[{"versiculo":14,"titulo":"Jesús el gran sumo sacerdote"}],"5":[{"versiculo":11,"titulo":"Advertencia contra la apostasía"}],"7":[{"versiculo":1,"titulo":"El sacerdocio de Melquisedec"}],"8":[{"versiculo":1,"titulo":"El mediador de un nuevo pacto"}],"9":[{"versiculo":23,"titulo":"El sacrificio de Cristo quita el pecado"}],"10":[{"versiculo":26,"titulo":"Advertencia al que peca deliberadamente"}],"11":[{"versiculo":1,"titulo":"La fe"}],"12":[{"versiculo":1,"titulo":"Puestos los ojos en Jesús"},{"versiculo":12,"titulo":"Los que rechazan la gracia de Dios"}],"13":[{"versiculo":1,"titulo":"Deberes cristianos"},{"versiculo":20,"titulo":"Bendición y salutaciones finales"}]},"santiago":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":2,"titulo":"La sabiduría que viene de Dios"},{"versiculo":12,"titulo":"Soportando las pruebas"},{"versiculo":19,"titulo":"Hacedores de la palabra"}],"2":[{"versiculo":1,"titulo":"Amonestación contra la parcialidad"},{"versiculo":14,"titulo":"La fe sin obras es muerta"}],"3":[{"versiculo":1,"titulo":"La lengua"},{"versiculo":13,"titulo":"La sabiduría de lo alto"}],"4":[{"versiculo":1,"titulo":"La amistad con el mundo"},{"versiculo":11,"titulo":"Juzgando al hermano"},{"versiculo":13,"titulo":"No os gloriéis del día de mañana"}],"5":[{"versiculo":1,"titulo":"Contra los ricos opresores"},{"versiculo":7,"titulo":"Sed pacientes y orad"}]},"1_pedro":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Una esperanza viva"},{"versiculo":13,"titulo":"Llamamiento a una vida santa"}],"2":[{"versiculo":4,"titulo":"La piedra viva"},{"versiculo":9,"titulo":"El pueblo de Dios"},{"versiculo":11,"titulo":"Vivid como siervos de Dios"}],"3":[{"versiculo":1,"titulo":"Deberes conyugales"},{"versiculo":8,"titulo":"Una buena conciencia"}],"4":[{"versiculo":1,"titulo":"Buenos administradores de la gracia de Dios"},{"versiculo":12,"titulo":"Padeciendo como cristianos"}],"5":[{"versiculo":1,"titulo":"Apacentad la grey de Dios"},{"versiculo":12,"titulo":"Salutaciones finales"}]},"2_pedro":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Partícipes de la naturaleza divina"},{"versiculo":16,"titulo":"Testigos presenciales de la gloria de Cristo"}],"2":[{"versiculo":1,"titulo":"Falsos profetas y falsos maestros"}],"3":[{"versiculo":1,"titulo":"El día del Señor vendrá"}]},"1_juan":{"1":[{"versiculo":1,"titulo":"La palabra de vida"},{"versiculo":5,"titulo":"Dios es luz"}],"2":[{"versiculo":1,"titulo":"Cristo, nuestro abogado"},{"versiculo":7,"titulo":"El nuevo mandamiento"},{"versiculo":18,"titulo":"El anticristo"}],"3":[{"versiculo":1,"titulo":"Hijos de Dios"}],"4":[{"versiculo":1,"titulo":"El Espíritu de Dios y el espíritu del anticristo"},{"versiculo":7,"titulo":"Dios es amor"}],"5":[{"versiculo":1,"titulo":"La fe que vence al mundo"},{"versiculo":6,"titulo":"El testimonio del Espíritu"},{"versiculo":13,"titulo":"El conocimiento de la vida eterna"}]},"2_juan":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":4,"titulo":"Permaneced en la doctrina de Cristo"},{"versiculo":12,"titulo":"Espero ir a vosotros"}]},"3_juan":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":5,"titulo":"Elogio de la hospitalidad de Gayo"},{"versiculo":9,"titulo":"La oposición de Diótrefes"},{"versiculo":11,"titulo":"Buen testimonio acerca de Demetrio"},{"versiculo":13,"titulo":"Salutaciones finales"}]},"judas":{"1":[{"versiculo":1,"titulo":"Salutación"},{"versiculo":3,"titulo":"Falsas doctrinas y falsos maestros"},{"versiculo":17,"titulo":"Amonestaciones y exhortaciones"},{"versiculo":24,"titulo":"Doxología"}]},"apocalipsis":{"1":[{"versiculo":1,"titulo":"La revelación de Jesucristo"},{"versiculo":4,"titulo":"Salutaciones a las siete iglesias"},{"versiculo":9,"titulo":"Una visión del Hijo del Hombre"}],"2":[{"versiculo":1,"titulo":"Mensajes a las siete iglesias: El mensaje a Éfeso"},{"versiculo":8,"titulo":"El mensaje a Esmirna"},{"versiculo":12,"titulo":"El mensaje a Pérgamo"},{"versiculo":18,"titulo":"El mensaje a Tiatira"}],"3":[{"versiculo":1,"titulo":"El mensaje a Sardis"},{"versiculo":7,"titulo":"El mensaje a Filadelfia"},{"versiculo":14,"titulo":"El mensaje a Laodicea"}],"4":[{"versiculo":1,"titulo":"La adoración celestial"}],"5":[{"versiculo":1,"titulo":"El rollo y el Cordero"}],"6":[{"versiculo":1,"titulo":"Los sellos"}],"7":[{"versiculo":1,"titulo":"Los 144 mil sellados"},{"versiculo":9,"titulo":"La multitud vestida de ropas blancas"}],"8":[{"versiculo":1,"titulo":"El séptimo sello"},{"versiculo":6,"titulo":"Las trompetas"}],"10":[{"versiculo":1,"titulo":"El ángel con el librito"}],"11":[{"versiculo":1,"titulo":"Los dos testigos"},{"versiculo":15,"titulo":"La séptima trompeta"}],"12":[{"versiculo":1,"titulo":"La mujer y el dragón"}],"13":[{"versiculo":1,"titulo":"Las dos bestias"}],"14":[{"versiculo":1,"titulo":"El cántico de los 144 mil"},{"versiculo":6,"titulo":"El mensaje de los tres ángeles"},{"versiculo":14,"titulo":"La tierra es segada"}],"15":[{"versiculo":1,"titulo":"Los ángeles con las siete postreras plagas"}],"16":[{"versiculo":1,"titulo":"Las copas de ira"}],"17":[{"versiculo":1,"titulo":"Condenación de la gran ramera"}],"18":[{"versiculo":1,"titulo":"La caída de Babilonia"}],"19":[{"versiculo":1,"titulo":"Alabanzas en el cielo"},{"versiculo":9,"titulo":"La cena de las bodas del Cordero"},{"versiculo":11,"titulo":"El jinete del caballo blanco"}],"20":[{"versiculo":1,"titulo":"Los mil años"},{"versiculo":11,"titulo":"El juicio ante el gran trono blanco"}],"21":[{"versiculo":1,"titulo":"Cielo nuevo y tierra nueva"},{"versiculo":9,"titulo":"La nueva Jerusalén"}],"22":[{"versiculo":6,"titulo":"La venida de Cristo está cerca"}]}};
-const BUILTIN_DICTIONARY_ENTRIES=Array.isArray(window.BIBLICAL_DICTIONARY_DATA)?window.BIBLICAL_DICTIONARY_DATA:[];
-const freshUrl=file=>`${DATA}${file}?v=${APP_VERSION}`;
-const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]');
-const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{},dictionaryBase:[],dictionaryCustom:JSON.parse(localStorage.getItem('dictionaryCustom')||'[]'),dictionaryEdits:JSON.parse(localStorage.getItem('dictionaryEdits')||'{}'),dictionaryDeleted:JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]'),activeReadingPoint:JSON.parse(localStorage.getItem('activeReadingPoint')||'null'),lastReadingPoint:JSON.parse(localStorage.getItem('lastReadingPoint')||'null')};
-// Migración única V2.1.11: las entradas personales creadas antes de esta versión
-// se activan una sola vez para que aparezcan con cápsula verde. Después, cada
-// entrada conserva libremente la elección que el usuario haga en el editor.
-const DICTIONARY_CUSTOM_CAPSULE_MIGRATION='dictionaryCustomCapsuleMigrationV2111';
-if(localStorage.getItem(DICTIONARY_CUSTOM_CAPSULE_MIGRATION)!=='done'){
-  if(Array.isArray(state.dictionaryCustom)&&state.dictionaryCustom.length){
-    state.dictionaryCustom=state.dictionaryCustom.map(entry=>({...entry,resaltar:true,updatedAt:entry.updatedAt||Date.now()}));
-    localStorage.setItem('dictionaryCustom',JSON.stringify(state.dictionaryCustom));
-  }
-  localStorage.setItem(DICTIONARY_CUSTOM_CAPSULE_MIGRATION,'done');
-}
+const BUILD_V3_1_200="tarjeta-final-limpia";
 
-// La primera pulsación abre la explicación; después el botón permite quitarla.
-let explanationArmedKey='';
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const reader=$('#reader'), selectionBar=$('#selectionBar');
+/* V2.277 · El calendario vive ahora en Mi Biblia de Estudio */
+try{localStorage.removeItem("oraciones_festivity_notes_v44")}catch(_){}
+/* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
-function applyTheme(mode=localStorage.getItem('readerTheme')||'dark'){
-  const light=mode==='light';
-  document.body.classList.toggle('light-mode',light);
-  document.body.classList.toggle('dark',!light);
-  const btn=$('#themeToggleBtn');
-  if(btn){btn.textContent=light?'🌙':'☀️';btn.setAttribute('aria-label',light?'Activar modo oscuro':'Activar modo blanco');btn.title=light?'Modo oscuro':'Modo blanco'}
-  document.querySelector('meta[name=theme-color]')?.setAttribute('content',light?'#f7f3e9':'#0d0f12');
-}
-function toggleTheme(){
-  const next=document.body.classList.contains('light-mode')?'dark':'light';
-  localStorage.setItem('readerTheme',next);applyTheme(next);
-}
-applyTheme();
-
-function showHome(){
-  applyTimeHeader();
-  updateHomeStatsSummary();
-  // Sincroniza los guardados directamente desde el almacenamiento antes de pintar la portada.
-  // Así Punto de libro aparece incluso en el primer arranque de una versión nueva.
-  syncFavoritesFromStorage();
-  $('#homeScreen').classList.remove('hidden');
-  $('#readerScreen').classList.add('hidden');
-  state.selected.clear();
-  updateSelection();
-  updateReadingPointUI();
-  scrollTo(0,0);
-}
-function showReader(){
-  $('#homeScreen').classList.add('hidden');
-  $('#readerScreen').classList.remove('hidden');
-  scrollTo(0,0);
-}
-function openBooksDrawer(){
-  // Reconstruir siempre la pestaña Todos al abrir evita un panel vacío durante el primer arranque.
-  prepareBooksDrawer();
-  const drawer=$('#drawer');
-  drawer.classList.remove('hidden','closing');
-  drawer.classList.add('is-open');
-  $('#drawerBackdrop').classList.remove('hidden');
-}
-function updateKeyboardAwareDialog({dialogSelector,inputSelector,layoutClass,variablePrefix}){
-  const dialog=$(dialogSelector);
-  if(!dialog?.open||!dialog.classList.contains(layoutClass))return;
-  const viewport=window.visualViewport;
-  const visibleHeight=viewport?.height||window.innerHeight;
-  const visibleTop=viewport?.offsetTop||0;
-  dialog.style.setProperty(`--${variablePrefix}-vv-height`,`${visibleHeight}px`);
-  dialog.style.setProperty(`--${variablePrefix}-vv-top`,`${visibleTop}px`);
-  const inputFocused=document.activeElement===$(inputSelector);
-  const keyboardVisible=visibleHeight<window.innerHeight*0.82;
-  dialog.classList.toggle('keyboard-visible',inputFocused||keyboardVisible);
-}
-function resetKeyboardAwareDialog({dialogSelector,layoutClass,variablePrefix}){
-  const dialog=$(dialogSelector);
-  dialog?.classList.remove(layoutClass,'keyboard-visible');
-  dialog?.style.removeProperty(`--${variablePrefix}-vv-height`);
-  dialog?.style.removeProperty(`--${variablePrefix}-vv-top`);
-}
-const SEARCH_DIALOG_LAYOUT={dialogSelector:'#searchDialog',inputSelector:'#searchInput',layoutClass:'search-live-layout',variablePrefix:'search'};
-const DICTIONARY_DIALOG_LAYOUT={dialogSelector:'#dictionaryDialog',inputSelector:'#dictionarySearch',layoutClass:'dictionary-live-layout',variablePrefix:'dictionary'};
-function bindKeyboardAwareDialog(config){
-  const dialog=$(config.dialogSelector),input=$(config.inputSelector);
-  if(!dialog||!input)return;
-  const update=()=>updateKeyboardAwareDialog(config);
-  input.addEventListener('focus',()=>requestAnimationFrame(update));
-  input.addEventListener('blur',()=>setTimeout(update,80));
-  dialog.addEventListener('close',()=>resetKeyboardAwareDialog(config));
-  window.visualViewport?.addEventListener('resize',update);
-  window.visualViewport?.addEventListener('scroll',update);
-  window.addEventListener('orientationchange',()=>setTimeout(update,120));
-}
-function updateSearchDialogViewport(){updateKeyboardAwareDialog(SEARCH_DIALOG_LAYOUT)}
-function resetSearchDialogLayout(){resetKeyboardAwareDialog(SEARCH_DIALOG_LAYOUT)}
-function updateDictionaryDialogViewport(){updateKeyboardAwareDialog(DICTIONARY_DIALOG_LAYOUT)}
-function openSearchDialog(){
-  const dialog=$('#searchDialog');
-  $('#searchDialog h2').textContent='Buscar en la Biblia';
-  $('#searchDialog .search-row').style.display='flex';
-  $('#searchResults').innerHTML='<p class="search-help">Busca palabras o una referencia, por ejemplo: Juan 3:16, 1 Corintios 6 o Romanos 8:28-30.</p>';
-  $('#searchInput').value='';
-  dialog.classList.add('search-live-layout');
-  dialog.showModal();
-  requestAnimationFrame(updateSearchDialogViewport);
-}
-
-function save(){
-  const values={
-    highlights:state.highlights,
-    favorites:state.favorites,
-    explanations:state.explanations,
-    last:{bookIndex:state.bookIndex,chapter:state.chapter},
-    readingPoints:state.readingPoints,
-    importedTitles:state.importedTitles||{},
-    dictionaryCustom:state.dictionaryCustom||[],
-    dictionaryEdits:state.dictionaryEdits||{},
-    dictionaryDeleted:state.dictionaryDeleted||[],
-    activeReadingPoint:state.activeReadingPoint||null,
-    lastReadingPoint:state.lastReadingPoint||null
+/* ===== PWA / INSTALACIÓN ===== */
+function buildInitialState(){
+  const prayerId = uid();
+  const noteId = uid();
+  return {
+    "section": "prayers",
+    "currentPrayerId": prayerId,
+    "currentNoteId": noteId,
+    "prayers": [{
+      "id": prayerId,
+      "title": "🌅 ✝️ Oración diaria completa",
+      "content": seedPrayer,
+      "updatedAt": Date.now(),
+      "favorite": true
+    }],
+    "notes": [{
+      "id": noteId,
+      "title": "📝 Mi primera nota",
+      "content": seedNote,
+      "updatedAt": Date.now(),
+      "favorite": false
+    }],
+    "trashPrayers": [],
+    "trashNotes": [],
+    "guides": [],
+    "trashGuides": [],
+    "currentGuideId": null,
+    "verses": [],
+    "trashVerses": [],
+    "currentVerseId": null
   };
-  for(const [storageKey,value] of Object.entries(values))localStorage.setItem(storageKey,JSON.stringify(value));
-  updateReadingPointUI();
-  updateHomeStatsSummary();
-  updateDictionaryCounters();
 }
-function key(v){return `${state.books[state.bookIndex].key}:${state.chapter}:${v}`}
-function rangeKey(nums=[...state.selected]){return `${state.books[state.bookIndex].key}:${state.chapter}:${nums.sort((a,b)=>a-b).join(',')}`}
-function displayBook(book){const map={mateo:'San Mateo',marcos:'San Marcos',lucas:'San Lucas',juan:'San Juan'};return map[book.key]||book.shortTitle}
-function formatNums(nums){nums=[...new Set(nums)].sort((a,b)=>a-b);if(!nums.length)return'';let out=[],start=nums[0],prev=nums[0];for(let i=1;i<=nums.length;i++){const n=nums[i];if(n===prev+1){prev=n;continue}out.push(start===prev?`${start}`:`${start}-${prev}`);start=prev=n}return out.join(', ')}
-function currentReference(nums=[...state.selected],upper=false){const b=displayBook(state.books[state.bookIndex]);const r=`${b} ${state.chapter}:${formatNums(nums)}`;return upper?r.toUpperCase():r}
-async function init(){
-  restoreDailyVerseHomeCache();
-  // Limpieza única de las cachés antiguas de esta aplicación. No afecta a localStorage.
-  if('caches' in window){
+
+function normalizeGuides(){
+  if(!Array.isArray(state.guides)) state.guides=[];
+  if(!Array.isArray(state.trashGuides)) state.trashGuides=[];
+  if(!state.currentGuideId && state.guides.length) state.currentGuideId=state.guides[0].id;
+  normalizeVerses();
+}
+
+function saveState(){
+  cleanAllVerseBreaks();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const backup = {"exportedAt": new Date().toISOString(), ...state};
+  localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
+}
+
+function loadState(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
     try{
-      const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith(CACHE_PREFIX)&&name!==`${CACHE_PREFIX}v${APP_VERSION}`).map(name=>caches.delete(name)));
-    }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
-  }
-  state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());
-  // Prepara el Versículo del día antes de pintar la portada, para evitar que quede en 'Preparando…'.
-  await ensureDailyVerse();
-  // El diccionario se carga una sola vez desde dictionary-data.js. Así se evita
-  // duplicar sus 433 entradas dentro de app.js y hacer otra petición al arrancar.
-  state.dictionaryBase=BUILTIN_DICTIONARY_ENTRIES.map(entry=>({...entry}));
-  updateDictionaryCounters();
-  state.externalBible=await loadInstalledBible();
-  const oldPoint=JSON.parse(localStorage.getItem('readingPoint')||'null');
-  if(oldPoint&&!state.readingPoints.length){
-    state.readingPoints=[{...oldPoint,id:oldPoint.updated||Date.now()}];
-    localStorage.setItem('readingPoints',JSON.stringify(state.readingPoints));
-    localStorage.removeItem('readingPoint');
-  }
-  state.baseTitles=JSON.parse(JSON.stringify(BUILTIN_TITLES_EMBEDDED));
-  await ensureAutomaticTitles();
-  state.titles=mergeTitles(mergeTitles(state.baseTitles,state.externalBible?.titles||{}),state.importedTitles||{});
-  const last=JSON.parse(localStorage.getItem('last')||'null');
-  if(last){state.bookIndex=Math.min(Number(last.bookIndex)||0,state.books.length-1);state.chapter=Math.max(1,Number(last.chapter)||1)}
-  await loadChapter();
-  // Relee los guardados justo antes de pintar la portada. Esto evita que el punto de libro
-  // aparezca vacío durante el primer arranque tras instalar una versión nueva.
-  try{state.favorites=JSON.parse(localStorage.getItem('favorites')||'{}')||{}}catch(error){state.favorites={}}
-  // Migración única: la primera vez conserva como punto activo el último guardado existente.
-  if(localStorage.getItem('activeReadingPoint')===null){
-    const entries=Object.entries(state.favorites||{}).sort((a,b)=>(Number(b[1]?.savedAt)||0)-(Number(a[1]?.savedAt)||0));
-    if(entries.length){
-      const [k,v]=entries[0],parts=k.split(':');
-      const migrated={bookKey:parts[0],chapter:Number(parts[1]),verse:Number(parts[2]),ref:v.ref,savedAt:Number(v.savedAt)||Date.now()};
-      state.activeReadingPoint=migrated;state.lastReadingPoint=migrated;
+      state = JSON.parse(raw);
+      if(!state || !Array.isArray(state.prayers) || !Array.isArray(state.notes)) throw new Error("bad");
+    }catch(e){
+      state = buildInitialState();
+      saveState();
     }
-    localStorage.setItem('activeReadingPoint',JSON.stringify(state.activeReadingPoint||null));
-    localStorage.setItem('lastReadingPoint',JSON.stringify(state.lastReadingPoint||null));
-  }
-  prepareBooksDrawer();
-  updateReadingPointUI();
-  showHome();
-  updateReadingPointUI();
-  await initializeDailyVerse().catch(error=>console.warn('Versículo del día no disponible',error));
-  const refreshHomeState=()=>{prepareBooksDrawer();syncFavoritesFromStorage();updateReadingPointUI()};
-  requestAnimationFrame(refreshHomeState);
-  [150,600].forEach(delay=>setTimeout(refreshHomeState,delay));
-  if('serviceWorker'in navigator){
-  // La actualización del service worker se aplica sin recargar la pantalla.
-  // Así el desplegable de Libros no vuelve solo a la portada mientras se usa.
-  navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`,{updateViaCache:'none'}).then(async reg=>{
-    await reg.update();
-    if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'});
-  }).catch(()=>{});
-}}
-async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
-async function loadChapter(){state.selected.clear();explanationArmedKey='';const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
-const GUIDE_IDS_BY_BOOK={"genesis":"mq189k74e19kqg","exodo":"mq18o6kz6j00l1","levitico":"mq18v33xs30y2a","numeros":"mq191gs6wfr7b0","deuteronomio":"mq19944izsypxx","josue":"mq19allbrruzzq","jueces":"mq19cja4i82uk0","rut":"mq19f4iyn19frs","1_samuel":"mq19hgzemminaq","2_samuel":"mq19k1n2cmwrtw","1_reyes":"mq19m2pj0vje93","2_reyes":"mq19rn9zjie94t","1_cronicas":"mq19tyrqcnpfyc","2_cronicas":"mq19xo7wkefakx","esdras":"mq19zowb7ouvw3","nehemias":"mq1a0picjtwdyi","ester":"mq1a26lacf0t0y","job":"mq1a5q5hqlzgul","salmos":"mq1adgfxp65wj2","proverbios":"mq1affanpikj1b","eclesiastes":"mq1agt5sk4n8qd","cantares":"mq1ai7gx0mxfvh","isaias":"mq1am8nws0d8p5","jeremias":"mq1ank6awoktb7","lamentaciones":"mq1aot6b6iuca0","ezequiel":"mq1as40zua0x8e","daniel":"mq1au3yltarg9p","oseas":"mq1avh2b4aslc6","joel":"mq1awwdclvwpqy","amos":"mq1ay3kqrq70cf","abdias":"mq1az78rdhd3iz","jonas":"mq1b0u86dcb1tp","miqueas":"mq1b2csjab29u4","nahum":"mq1b3oiqiw1lbg","habacuc":"mq1b4xtxg55bve","sofonias":"mq1bzxxwort7ks","hageo":"mq1c1awtu7tbtt","zacarias":"mq1c32iq0wn78q","malaquias":"mq1c54dc2gsr85","mateo":"mq1c8viydm77as","marcos":"mq1c967vtkw0hb","lucas":"mq1ccma6v2eop5","juan":"mq1ceah81ddbyq","hechos":"mq1che3kfjzpeo","romanos":"mq1ym5piynlofg","1_corintios":"mq1yni6umroyqm","2_corintios":"mq1yoqrfbq56dm","galatas":"mq1yqf7qlkowoj","efesios":"mq1yrs7qkq4dor","filipenses":"mq1ystvdnxn00p","colosenses":"mq1ytr94r0qqgn","1_tesalonicenses":"mq1yvex403cbwh","2_tesalonicenses":"mq1yws442t8gm9","1_timoteo":"mq1yy54b2osc2r","2_timoteo":"mq1z07jmjmz8x6","tito":"mq2fm2l7bln423","filemon":"mq2fo8hdjxlpue","hebreos":"mq2fq3dsb0acnk","santiago":"mq2fvfyhzr2dex","1_pedro":"mq2fxng3z9oohu","2_pedro":"mq2fyvoolenx0v","1_juan":"mq2g4wy5859q7b","2_juan":"mq2g70sqvxgj5d","3_juan":"mq2g7yu5ryhv1p","judas":"mq2g9r3ggh1k6j","apocalipsis":"mq2gdg7jusjcxw"};
-function guideChapterCapsule(book){
-  if(state.chapter!==1)return '';
-  const id=GUIDE_IDS_BY_BOOK[book.key];
-  if(!id)return '';
-  return `<div class="guide-chapter-entry"><button type="button" class="guide-title-capsule" onclick="openBiblicalGuideFromReader('${escapeHtml(book.key)}')">Abrir guía de ${escapeHtml(displayBook(book))}</button></div>`;
-}
-async function openBiblicalGuideFromReader(bookKey){
-  if(!GUIDE_IDS_BY_BOOK[bookKey])return;
-  biblicalEntityReturnPosition=captureBiblicalEntityPosition();
-  window.__biblicalEntityOpenedFromReader=true;
-  try{sessionStorage.setItem('biblicalEntityOpenedFromReader','1')}catch(_){ }
-  if(typeof window.openBiblicalGuideForBookFromReader!=='function'){toast('No se pudo abrir la guía');return}
-  await window.openBiblicalGuideForBookFromReader(bookKey);
-}
-window.openBiblicalGuideFromReader=openBiblicalGuideFromReader;
-const PARABLE_LINKS_BY_POSITION={"juan:15:1":{"id":"mrc9r5sndtw7xa","title":"JESÚS, LA VID VERDADERA"},"juan:10:1":{"id":"mr85cfg9j8u5cz","title":"LA PARÁBOLA DEL REDIL"},"mateo:7:24":{"id":"mr0zeojumyqtft","title":"LOS DOS CIMIENTOS"},"lucas:18:9":{"id":"mr0yol0zdz8k4o","title":"PARÁBOLA DEL FARISEO Y EL PUBLICANO"},"lucas:18:1":{"id":"mr0xqf8vixg4ej","title":"PARÁBOLA DE LA VIUDA Y EL JUEZ INJUSTO"},"lucas:17:7":{"id":"mr0x8wg5yzax8n","title":"EL DEBER DEL SIERVO"},"lucas:16:19":{"id":"mr0vnziybt2ji3","title":"EL RICO Y LÁZARO"},"lucas:16:1":{"id":"mr0vby4x43wfhq","title":"PARÁBOLA DEL MAYORDOMO INFIEL"},"lucas:15:11":{"id":"mqzjh8cgoauq13","title":"PARÁBOLA DEL HIJO PRÓDIGO"},"lucas:15:8":{"id":"mqzjawtmk8cvi7","title":"PARÁBOLA DE LA MONEDA PERDIDA"},"lucas:11:5":{"id":"mqzj0h2guhcnf2","title":"EL AMIGO IMPORTUNO"},"marcos:4:26":{"id":"mqzifvzjhqi1da","title":"PARÁBOLA DEL CRECIMIENTO DE LA SEMILLA"},"marcos:4:21":{"id":"mqzi8u8lpwqpjg","title":"NADA OCULTO QUE NO HAYA DE SER MANIFESTADO"},"mateo:24:32":{"id":"mqzhy9qmggyvdc","title":"LA HIGUERA"},"mateo:20:1":{"id":"mqzhrbjx41dcs6","title":"LOS OBREROS DE LA VIÑA"},"mateo:18:23":{"id":"mqzhk4xcck6oih","title":"LOS DOS DEUDORES"},"mateo:13:52":{"id":"mqzgz683nvg1xl","title":"TESOROS NUEVOS Y VIEJOS"},"mateo:13:47":{"id":"mqzgs3gj4agz1v","title":"LA RED"},"mateo:13:45":{"id":"mqzgnl9pxfy9i9","title":"LA PERLA DE GRAN PRECIO"},"mateo:13:44":{"id":"mqzgjorl5jj2oa","title":"EL TESORO ESCONDIDO"},"lucas:19:11":{"id":"mqzfkekjmu91yq","title":"PARÁBOLA DE LAS DÍEZ MINAS"},"mateo:25:14":{"id":"mqzfaikdmfenn7","title":"PARÁBOLA DE LOS TALENTOS"},"mateo:25:1":{"id":"mqzf34g47iamue","title":"PARÁBOLA DE LAS DIEZ VÍRGENES"},"lucas:14:15":{"id":"mqzev5zpi9dr0s","title":"PARÁBOLA DE LA GRAN CENA"},"mateo:22:1":{"id":"mqzeg3jjkgs1hc","title":"PARÁBOLA DE LA FIESTA DE BODAS"},"lucas:20:9":{"id":"mqzdxvlteu2x37","title":"LOS LABRADORES MALVADOS"},"mateo:21:28":{"id":"mqzdqtcnjx1qx8","title":"PARÁBOLA DE LOS DOS HIJOS"},"lucas:15:3":{"id":"mqzddzna6h3y1j","title":"PARÁBOLA DE LA OVEJA PERDIDA"},"mateo:13:24":{"id":"mqyvyfhq9l5m5k","title":"PARÁBOLA DEL TRIGO Y LA CIZAÑA"},"lucas:8:4":{"id":"mqyvpi8athfhic","title":"PARÁBOLA DEL SEMBRADOR"},"mateo:5:13":{"id":"mqypzwfv85o85t","title":"LA SAL DE LA TIERRA"},"lucas:13:20":{"id":"mqypnx0is61d9e","title":"PARÁBOLA DE LA LEVADURA"},"marcos:4:30":{"id":"mqy3wy85orqk9m","title":"PARÁBOLA DE LA SEMILLA DE MOSTAZA"},"lucas:10:25":{"id":"mqy3grm86k37k2","title":"EL BUEN SAMARITANO"}};
-function normalizeParableHeading(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9ñ\s]/g,' ').replace(/\s+/g,' ').trim()}
-function parableHeadingCapsule(link){return `<button type="button" class="parable-title-capsule" onclick="openBiblicalParableFromReader('${escapeHtml(link.id)}')">${escapeHtml(link.title)}</button>`}
-function render(){
-  const b=state.books[state.bookIndex];
-  $('#bookTitle').textContent=displayBook(b);$('#chapterTitle').textContent=state.chapter;$('#chapterIndicator').textContent=`${displayBook(b)} ${state.chapter}`;
-  const integratedChapter=BUILTIN_TITLES_EMBEDDED?.[b.key]?.[String(state.chapter)]||[];
-  const activeChapter=state.titles?.[b.key]?.[String(state.chapter)]||[];
-  const chapterTitles=[...integratedChapter,...activeChapter].reduce((m,x)=>{const v=Number(x?.versiculo),t=String(x?.titulo||'').trim();if(v>0&&t){m[v]||=[];if(!m[v].includes(t))m[v].push(t)}return m},{});
-  const latestPoint=latestSavedPoint();
-  const latestPointKey=latestPoint?`${latestPoint.bookKey}:${latestPoint.chapter}:${latestPoint.verse}`:'';
-  const groups=chapterExplanationGroups();
-  const groupByVerse=new Map();
-  for(const group of groups)for(const n of group.nums)groupByVerse.set(n,group);
-  let body='';let openGroupKey='';
-  for(let i=0;i<state.verses.length;i++){
-    const n=i+1,t=state.verses[i],k=key(n),group=groupByVerse.get(n)||null;
-    const parableLink=PARABLE_LINKS_BY_POSITION[`${b.key}:${state.chapter}:${n}`]||null;
-    let parableRendered=false;
-    const headings=(chapterTitles[n]||[]).map(x=>{
-      const isParable=parableLink&&normalizeParableHeading(x)===normalizeParableHeading(parableLink.title);
-      if(isParable)parableRendered=true;
-      return isParable?`<div class="section-heading parable-section-heading">${parableHeadingCapsule(parableLink)}</div>`:`<div class="section-heading"><h3 class="section-title">${escapeHtml(x)}</h3></div>`;
-    }).join('')+(parableLink&&!parableRendered?`<div class="section-heading parable-section-heading">${parableHeadingCapsule(parableLink)}</div>`:'');
-    if(headings){if(openGroupKey){body+='</span>';openGroupKey=''}body+=headings}
-    if(group?.key!==openGroupKey){if(openGroupKey)body+='</span>';if(group){body+=`<span class="explanation-group" data-exp-key="${escapeHtml(group.key)}">`;openGroupKey=group.key}}
-    const h=state.highlights[k]?` highlight-${state.highlights[k]}`:'';
-    const saved=k===latestPointKey?' saved-verse':'';
-    const explained=group?' explained-verse':'';
-    body+=`<span class="verse${h}${saved}${explained}" data-v="${n}"${group?` data-exp-key="${escapeHtml(group.key)}"`:''}><sup class="verse-number">${n}</sup>${formatBibleText(t)}</span> `;
-    const nextGroup=groupByVerse.get(n+1)||null;
-    if(openGroupKey&&nextGroup?.key!==openGroupKey){body+='</span>';openGroupKey=''}
-  }
-  if(openGroupKey)body+='</span>';
-  reader.innerHTML=`<div class="reader-book-title">${escapeHtml(displayBook(b).toUpperCase())}</div><img class="chapter-divider" src="separador_etiope_transparente_final.png?v=${APP_VERSION}" alt="" aria-hidden="true"><div class="chapter-number">${state.chapter}</div>${guideChapterCapsule(b)}`+body;
-  reader.classList.remove('chapter-enter');
-  void reader.offsetWidth;
-  reader.classList.add('chapter-enter');
-  reader.addEventListener('animationend',()=>reader.classList.remove('chapter-enter'),{once:true});
-  updateSelection();updateReadingPointUI();reader.scrollTop=0
-}
-function limpiarTextoBiblico(texto){return String(texto??'').replace(/\r\n?/g,'\n').replace(/\\n/g,'\n').replace(/\/n/gi,'\n').replace(/\u002Fn/gi,'\n').replace(/_+/g,'').replace(/\n{3,}/g,'\n\n').trim()}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-let dictionaryHighlightFormsCache=null;
-function invalidateDictionaryHighlights(){dictionaryHighlightFormsCache=null}
-function getDictionaryHighlightForms(){
-  if(dictionaryHighlightFormsCache)return dictionaryHighlightFormsCache;
-  const forms=new Set();
-  for(const entry of getDictionaryEntries()){
-    if(entry?.resaltar!==true)continue;
-    const term=cleanDictionaryWord(entry?.termino||'');
-    // Las cápsulas se aplican a palabras completas. Las expresiones de varias palabras
-    // siguen disponibles en el buscador, pero no se fragmentan en marcas engañosas.
-    if(!term||/\s/.test(term))continue;
-    dictionaryWordForms(term).forEach(form=>forms.add(form));
-  }
-  dictionaryHighlightFormsCache=forms;
-  return forms;
-}
-function isDictionaryWord(value){
-  const normalized=normalizeDictionaryText(cleanDictionaryWord(value));
-  return !!normalized&&getDictionaryHighlightForms().has(normalized);
-}
-function formatBibleText(s){
-  const safe=escapeHtml(limpiarTextoBiblico(s));
-  // Cada palabra queda identificada sin alterar la puntuación ni el espaciado del texto.
-  return safe.replace(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+(?:['’’-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*)/g,(word)=>`<span class="dict-word${isDictionaryWord(word)?' dict-known':''}" data-word="${word}">${word}</span>`).replace(/\n/g,'<br>');
-}
-function explanationNumsFromKey(k){return String(k||'').split(':')[2]?.split(',').map(Number).filter(Number.isFinite).sort((a,b)=>a-b)||[]}
-function isContinuousNums(nums){nums=[...new Set(nums)].sort((a,b)=>a-b);return nums.every((n,i)=>i===0||n===nums[i-1]+1)}
-function findExplanationForVerse(n){const prefix=`${state.books[state.bookIndex].key}:${state.chapter}:`;for(const [k,v] of Object.entries(state.explanations)){if(k.startsWith(prefix)){const nums=explanationNumsFromKey(k);if(nums.includes(n))return{key:k,nums,...v}}}return null}
-function findExplanationForSelection(nums=[...state.selected]){const unique=[...new Set(nums)].sort((a,b)=>a-b);if(!unique.length)return null;const matches=unique.map(findExplanationForVerse).filter(Boolean);if(!matches.length)return null;const first=matches[0];if(matches.every(x=>x.key===first.key)&&unique.every(n=>first.nums.includes(n)))return first;return null}
-function chapterExplanationGroups(){const prefix=`${state.books[state.bookIndex].key}:${state.chapter}:`;return Object.entries(state.explanations).filter(([k])=>k.startsWith(prefix)).map(([key,value])=>({key,nums:explanationNumsFromKey(key),...value})).filter(x=>x.nums.length).sort((a,b)=>a.nums[0]-b.nums[0])}
-function updateSelection(){
-  $$('.verse').forEach(el=>el.classList.toggle('selected',state.selected.has(+el.dataset.v)));
-  const highlightBtn=document.querySelector('.action[data-action="highlight"]');
-  const readingPointBtn=document.querySelector('.action[data-action="reading-point"]');
-  const favoriteBtn=document.querySelector('.action[data-action="favorite"]');
-  const explainBtn=document.querySelector('.action[data-action="explain"]');
-  const toggle=$('#actionsPanelToggle');
-  const needsSelection=['highlight','favorite','explain','copy'];
-  const hasSelection=state.selected.size>0;
-
-  // El panel lateral y su pestaña permanecen siempre disponibles.
-  selectionBar.classList.remove('hidden');
-  if(toggle)toggle.setAttribute('aria-expanded',selectionBar.classList.contains('open')?'true':'false');
-  $('#selectionReference').textContent=hasSelection?currentReference():'Selecciona uno o varios versículos';
-  const countEl=$('#selectionCount');
-  if(countEl){
-    const count=state.selected.size;
-    countEl.textContent=hasSelection?`${count} ${count===1?'versículo seleccionado':'versículos seleccionados'}`:'Toca un versículo para activar las acciones';
-  }
-
-  for(const actionName of needsSelection){
-    const btn=document.querySelector(`.action[data-action="${actionName}"]`);
-    if(btn){
-      btn.disabled=!hasSelection;
-      btn.setAttribute('aria-disabled',hasSelection?'false':'true');
-    }
-  }
-
-  if(highlightBtn){
-    const nums=[...state.selected];
-    const removeMode=hasSelection&&nums.length>0&&nums.every(n=>Boolean(state.highlights[key(n)]));
-    highlightBtn.dataset.mode=removeMode?'remove':'add';
-    highlightBtn.textContent=removeMode?'QUITAR SUBRAYADO':'SUBRAYAR';
-    highlightBtn.setAttribute('aria-label',removeMode?'Quitar subrayado':'Subrayar');
-    highlightBtn.title=removeMode?'Quitar subrayado':'Subrayar';
-  }
-
-  if(hasSelection){
-    const nums=[...state.selected];
-    const activeKey=state.activeReadingPoint?`${state.activeReadingPoint.bookKey}:${state.activeReadingPoint.chapter}:${state.activeReadingPoint.verse}`:'';
-    const removeMode=nums.length===1&&key(nums[0])===activeKey;
-    if(favoriteBtn){
-      favoriteBtn.dataset.mode=removeMode?'remove':'save';
-      favoriteBtn.textContent=removeMode?'QUITAR PUNTO DE LIBRO':'GUARDAR PUNTO DE LIBRO';
-      favoriteBtn.setAttribute('aria-label',removeMode?'Quitar punto de libro':'Guardar punto de libro');
-      favoriteBtn.title=removeMode?'Quitar punto de libro':'Guardar punto de libro';
-    }
-  }else if(favoriteBtn){
-    favoriteBtn.dataset.mode='save';
-    favoriteBtn.textContent='GUARDAR PUNTO DE LIBRO';
-    favoriteBtn.setAttribute('aria-label','Guardar punto de libro');
-    favoriteBtn.title='Guardar punto de libro';
-  }
-  const selectedExplanation=hasSelection?findExplanationForSelection([...state.selected]):null;
-  if(!selectedExplanation||selectedExplanation.key!==explanationArmedKey)explanationArmedKey='';
-  if(explainBtn){
-    const removeMode=Boolean(selectedExplanation&&explanationArmedKey===selectedExplanation.key);
-    explainBtn.dataset.mode=removeMode?'remove':(selectedExplanation?'view':'open');
-    explainBtn.textContent=removeMode?'QUITAR EXPLICACIÓN':'EXPLICACIÓN';
-    explainBtn.setAttribute('aria-label',removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación'));
-    explainBtn.title=removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación');
-  }
-}
-const actionsPanelToggle=$('#actionsPanelToggle');
-if(actionsPanelToggle)actionsPanelToggle.addEventListener('click',e=>{
-  e.stopPropagation();
-  const open=selectionBar.classList.toggle('open');
-  actionsPanelToggle.setAttribute('aria-expanded',open?'true':'false');
-});
-
-(function activarGestosPanelAcciones(){
-  const panel=selectionBar;
-  const toggle=actionsPanelToggle;
-  const EDGE=34;
-  const THRESHOLD=68;
-  let startX=0,startY=0,tracking=false,opening=false,horizontal=false;
-
-  function reset(){
-    panel.classList.remove('dragging');
-    panel.style.transform='';
-    tracking=opening=horizontal=false;
-  }
-  function finish(open){
-    reset();
-    panel.classList.toggle('open',open);
-    toggle?.setAttribute('aria-expanded',open?'true':'false');
-  }
-
-  // Abrir desde el borde derecho deslizando hacia la izquierda.
-  window.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||panel.classList.contains('open'))return;
-    if(document.querySelector('dialog[open]'))return;
-    const t=e.touches[0];
-    if(t.clientX<window.innerWidth-EDGE)return;
-    startX=t.clientX;startY=t.clientY;tracking=true;opening=true;horizontal=false;
-  },{passive:true});
-
-  // Cerrar el panel abierto deslizando hacia la derecha.
-  panel.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||!panel.classList.contains('open'))return;
-    const t=e.touches[0];
-    startX=t.clientX;startY=t.clientY;tracking=true;opening=false;horizontal=false;
-  },{passive:true});
-
-  window.addEventListener('touchmove',e=>{
-    if(!tracking)return;
-    const t=e.touches[0],dx=t.clientX-startX,dy=t.clientY-startY;
-    if(!horizontal){
-      if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>12){reset();return}
-      if(Math.abs(dx)>10)horizontal=true;
-    }
-    if(!horizontal)return;
-    if((opening&&dx>=0)||(!opening&&dx<=0))return;
-    e.preventDefault();
-    panel.classList.add('dragging');
-    if(opening){
-      const width=panel.offsetWidth||300;
-      const remaining=Math.max(0,width+dx);
-      panel.style.transform=`translateX(${remaining}px)`;
-    }else{
-      const x=Math.min(panel.offsetWidth||300,Math.max(0,dx));
-      panel.style.transform=`translateX(${x}px)`;
-    }
-  },{passive:false});
-
-  window.addEventListener('touchend',e=>{
-    if(!tracking)return;
-    const dx=(e.changedTouches[0]?.clientX??startX)-startX;
-    if(opening)finish(horizontal&&dx<-THRESHOLD);
-    else finish(!(horizontal&&dx>THRESHOLD));
-  },{passive:true});
-  window.addEventListener('touchcancel',reset,{passive:true});
-})();
-
-
-/* V2.8.7 · Reconocimiento inteligente de personajes y lugares al mantener pulsada una palabra. */
-let biblicalEntityReturnPosition=null;
-function normalizeBiblicalEntityText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9ñáéíóúü\s-]/gi,' ').replace(/\s+/g,' ').trim()}
-function captureBiblicalEntityPosition(){const se=document.scrollingElement||document.documentElement;return{readerTop:reader?.scrollTop||0,pageTop:se?.scrollTop||window.scrollY||0,pageLeft:se?.scrollLeft||window.scrollX||0}}
-function restoreBiblicalEntityPosition(){const p=biblicalEntityReturnPosition;if(!p)return;const se=document.scrollingElement||document.documentElement;if(reader)reader.scrollTop=p.readerTop;if(se){se.scrollTop=p.pageTop;se.scrollLeft=p.pageLeft}requestAnimationFrame(()=>{if(reader)reader.scrollTop=p.readerTop;if(se)se.scrollTop=p.pageTop});setTimeout(()=>{if(reader)reader.scrollTop=p.readerTop;if(se)se.scrollTop=p.pageTop},120)}
-const BIBLICAL_CHARACTER_ALIASES={
-  'pedro':['simón pedro','simón','cefás','cefas'], 'pablo':['saulo','saulo de tarso'],
-  'abraham':['abram'], 'sara':['sarai'], 'jacob':['israel'], 'josué':['oseas','hoshea'],
-  'miriam':['maría hermana de moisés'], 'maría madre de jesús':['maría'], 'jesús':['cristo','jesucristo','mesías','mesias']
-};
-function entityAliasesForCharacter(p){const base=[p.nombre];const n=normalizeBiblicalEntityText(p.nombre);for(const [canonical,aliases] of Object.entries(BIBLICAL_CHARACTER_ALIASES)){if(n===normalizeBiblicalEntityText(canonical)||n.startsWith(normalizeBiblicalEntityText(canonical)+' '))base.push(...aliases)}return base}
-function entityVersePlainText(wordElement){const verse=wordElement?.closest('.verse');return normalizeBiblicalEntityText(verse?.innerText||'')}
-function entityCandidatesForWord(raw,wordElement){
-  const needle=normalizeBiblicalEntityText(raw),verseText=entityVersePlainText(wordElement),out=[];
-  if(!needle)return out;
-  const chars=Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[];
-  for(const p of chars){
-    const names=entityAliasesForCharacter(p).map(normalizeBiblicalEntityText).filter(Boolean);
-    let score=99;
-    for(const n of names){if(n===needle)score=Math.min(score,0);else if(n.split(' ').includes(needle)&&verseText.includes(n))score=Math.min(score,1);else if(n.startsWith(needle+' ')&&verseText.includes(n))score=Math.min(score,2)}
-    if(score<99)out.push({type:'character',id:p.id,name:p.nombre,score});
-  }
-  for(const p of biblicalPlacesData||[]){
-    const n=normalizeBiblicalEntityText(p.name);let score=99;
-    if(n===needle)score=0;else if(n.split(' ').includes(needle)&&verseText.includes(n))score=1;else if(n.startsWith(needle+' ')&&verseText.includes(n))score=2;
-    if(score<99)out.push({type:'place',id:p.id,name:p.name,score});
-  }
-  const seen=new Set();return out.sort((a,b)=>a.score-b.score||a.name.localeCompare(b.name,'es')).filter(x=>{const k=x.type+':'+x.id;if(seen.has(k))return false;seen.add(k);return true}).slice(0,8);
-}
-async function openBiblicalParableFromReader(id){
-  biblicalEntityReturnPosition=captureBiblicalEntityPosition();
-  window.__biblicalEntityOpenedFromReader=true;
-  try{sessionStorage.setItem('biblicalEntityOpenedFromReader','1')}catch(_){ }
-  await openBiblicalParables();
-  openBiblicalParable(id,true);
-}
-window.openBiblicalParableFromReader=openBiblicalParableFromReader;
-function closeBiblicalEntityChooser(){document.getElementById('biblicalEntityChooser')?.remove()}
-function showBiblicalEntityChooser(candidates,raw){
-  closeBiblicalEntityChooser();
-  const wrap=document.createElement('div');wrap.id='biblicalEntityChooser';wrap.className='biblical-entity-overlay';
-  const rows=candidates.map((x,i)=>`<button type="button" data-entity-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button>`).join('');
-  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true" aria-labelledby="biblicalEntityTitle"><div class="biblical-entity-head"><div><small>SELECCIÓN BÍBLICA</small><h2 id="biblicalEntityTitle">${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Quieres ir a su ficha?</p><div class="biblical-entity-list">${rows}</div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
-  document.body.appendChild(wrap);
-  wrap.querySelector('.biblical-entity-close').addEventListener('click',closeBiblicalEntityChooser);
-  wrap.querySelector('.biblical-entity-cancel').addEventListener('click',closeBiblicalEntityChooser);
-  wrap.addEventListener('click',e=>{if(e.target===wrap)closeBiblicalEntityChooser()});
-  wrap.querySelectorAll('[data-entity-index]').forEach(btn=>btn.addEventListener('click',()=>openRecognizedBiblicalEntity(candidates[Number(btn.dataset.entityIndex)])));
-}
-async function openRecognizedBiblicalEntity(entity){
-  if(!entity)return;
-  biblicalEntityReturnPosition=captureBiblicalEntityPosition();
-  window.__biblicalEntityOpenedFromReader=true;
-  try{sessionStorage.setItem('biblicalEntityOpenedFromReader','1')}catch(_){ }
-  closeBiblicalEntityChooser();
-  if(entity.type==='character'){
-    try{await loadBiblicalCharactersV2252()}catch(_){toast('No se pudo abrir la ficha');return}
-    await openBiblicalCharactersV2242();
-    openBiblicalCharacterDetailV2242(entity.id,true);
   }else{
-    await openBiblicalPlaces();
-    openBiblicalPlaceDetail(entity.id);
+    state = buildInitialState();
+    saveState();
   }
-  ensureBiblicalEntityReturnButton();
-  requestAnimationFrame(ensureBiblicalEntityReturnButton);
-  setTimeout(ensureBiblicalEntityReturnButton,80);
-  setTimeout(ensureBiblicalEntityReturnButton,250);
-  setTimeout(ensureBiblicalEntityReturnButton,500);
-}
-async function recognizeBiblicalEntityOrDictionary(raw,wordElement){
-  try{await Promise.allSettled([loadBiblicalCharactersV2252(),loadBiblicalPlaces()])}catch(_){ }
-  const candidates=entityCandidatesForWord(raw,wordElement);
-  if(candidates.length){showBiblicalEntityChooser(candidates,raw);return true}
-  return false;
+  section = state.section || "prayers";
+  normalizeGuides();
 }
 
-// V1.62 · Pulsación prolongada sobre una palabra para abrir el diccionario.
-let wordPressTimer=null,wordPressTarget=null,wordPressStartX=0,wordPressStartY=0,wordPressSuppressUntil=0;
-function cancelWordPress(){
-  if(wordPressTimer){clearTimeout(wordPressTimer);wordPressTimer=null}
-  wordPressTarget?.classList.remove('word-pressing');
-  wordPressTarget=null;
+function openBackupFilePicker(){
+  const input=document.getElementById("jsonFileInput");
+  if(!input) return alert("Selector de archivo no disponible.");
+  input.value="";
+  input.click();
 }
-reader.addEventListener('pointerdown',e=>{
-  const word=e.target.closest('.dict-word');
-  if(!word||e.pointerType==='mouse'&&e.button!==0)return;
-  cancelWordPress();
-  wordPressTarget=word;wordPressStartX=e.clientX;wordPressStartY=e.clientY;
-  word.classList.add('word-pressing');
-  wordPressTimer=setTimeout(()=>{
-    const raw=word.dataset.word||word.textContent||'';
-    const clean=raw.replace(/^[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/g,'');
-    wordPressSuppressUntil=Date.now()+900;
-    navigator.vibrate?.(35);
-    cancelWordPress();
-    if(clean){recognizeBiblicalEntityOrDictionary(clean,word).then(found=>{if(!found){const toastEl=$('#toast');if(toastEl){toastEl.classList.add('hidden');toastEl.textContent=''}clearTimeout(toastTimer);openDictionary(clean)}})}
-  },650);
-},{passive:true});
-reader.addEventListener('pointermove',e=>{
-  if(!wordPressTarget)return;
-  if(Math.hypot(e.clientX-wordPressStartX,e.clientY-wordPressStartY)>12)cancelWordPress();
-},{passive:true});
-reader.addEventListener('pointerup',cancelWordPress,{passive:true});
-reader.addEventListener('pointercancel',cancelWordPress,{passive:true});
-reader.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')cancelWordPress()},{passive:true});
-reader.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word'))e.preventDefault()});
+function restoreAutoBackup(){
+  const raw = localStorage.getItem(AUTO_BACKUP_KEY);
+  if(!raw) return alert("No hay backup automático.");
+  if(!confirm("¿Restaurar el backup automático?")) return;
 
-reader.addEventListener('click',e=>{
-  // Un toque normal, incluso sobre una palabra del diccionario, selecciona el versículo.
-  // Solo el toque posterior a una pulsación larga se cancela para no seleccionar accidentalmente.
-  if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
-  const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}
-  const v=e.target.closest('.verse');if(!v)return;
-  const n=+v.dataset.v;
-  explanationArmedKey='';
-  const wasSelected=state.selected.has(n);
-  wasSelected?state.selected.delete(n):state.selected.add(n);
-  updateSelection();
-  if(!wasSelected){
-    selectionBar.classList.add('open');
-    actionsPanelToggle?.setAttribute('aria-expanded','true');
-  }
-});
-// El versículo abierto desde el selector permanece marcado hasta tocar fuera de él.
-document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
-$$('.action').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
-async function action(a){
-  if(a==='clear'){state.selected.clear();explanationArmedKey='';updateSelection()}
-  if(a==='reading-point')goToReadingPoint();
-  if(a==='more')openMoreFunctions();
-  if(a==='copy')copyVerses();
-  if(a==='highlight'){
-    const nums=[...state.selected].sort((a,b)=>a-b);
-    const removeMode=nums.length>0&&nums.every(n=>Boolean(state.highlights[key(n)]));
-    if(removeMode){
-      for(const n of nums)delete state.highlights[key(n)];
-      save();state.selected.clear();render();updateSelection();toast('Subrayado quitado');
-    }else $('#highlightDialog').showModal();
-  }
-  if(a==='favorite'){
-    const nums=[...state.selected].sort((a,b)=>a-b);
-    const activeKey=state.activeReadingPoint?`${state.activeReadingPoint.bookKey}:${state.activeReadingPoint.chapter}:${state.activeReadingPoint.verse}`:'';
-    const removeMode=nums.length===1&&key(nums[0])===activeKey;
-    if(removeMode){
-      const k=key(nums[0]);
-      delete state.favorites[k];
-      state.activeReadingPoint=null;
-    }else if(nums.length){
-      const now=Date.now();
-      for(const n of nums){
-        const k=key(n);
-        if(!state.favorites[k])state.favorites[k]={text:limpiarTextoBiblico(state.verses[n-1]),ref:`${displayBook(state.books[state.bookIndex])} ${state.chapter}:${n}`,savedAt:now};
-      }
-      const n=nums[0],fav=state.favorites[key(n)];
-      const point={bookKey:state.books[state.bookIndex].key,chapter:Number(state.chapter),verse:Number(n),ref:fav.ref,savedAt:Number(fav.savedAt)||now};
-      state.activeReadingPoint=point;state.lastReadingPoint=point;
-    }
-    save();
-    state.selected.clear();
-    render();
-    updateSelection();
-    toast(removeMode?'Punto de libro quitado':'Punto de libro guardado');
-  }
-  if(a==='explain'){
-    const nums=[...state.selected].sort((a,b)=>a-b);
-    const existing=findExplanationForSelection(nums);
-    if(existing){
-      if(explanationArmedKey===existing.key){
-        if(confirm(`¿Quitar la explicación de ${existing.ref}?`)){
-          delete state.explanations[existing.key];explanationArmedKey='';save();state.selected.clear();render();updateSelection();toast('Explicación eliminada');
-        }
-      }else{
-        openViewExplanation(existing.key);
-        explanationArmedKey=existing.key;
-        updateSelection();
-      }
-    }else{
-      explanationArmedKey='';
-      if(!isContinuousNums(nums)){toast('Selecciona versículos seguidos para crear una explicación');return}
-      openEditExplanation(rangeKey(nums),currentReference(nums));
-    }
-  }
-  if(a==='dictionary')openDictionary()
-  if(a==='encyclopedia')openBiblicalEncyclopedia()
-  if(a==='characters')openBiblicalCharactersV2242()
-  if(a==='parables')openBiblicalParables()
-  if(a==='guides')openBiblicalGuides()
-  if(a==='stats')openStats()
-}
-async function copyVerses(){const nums=[...state.selected].sort((a,b)=>a-b);const body=nums.map(n=>`[${n}] ${limpiarTextoBiblico(state.verses[n-1])}`).join('\n');const text=`${currentReference(nums,true)} RVR1960\n${body}`;await navigator.clipboard.writeText(text);toast('Versículos copiados')}
-$$('#highlightDialog [data-color]').forEach(b=>b.addEventListener('click',()=>{for(const n of state.selected){const k=key(n);b.dataset.color==='none'?delete state.highlights[k]:state.highlights[k]=b.dataset.color}save();state.selected.clear();$('#highlightDialog').close();render();updateSelection();toast('Subrayado actualizado')}));
-function openEditExplanation(k,ref){const old=state.explanations[k];const text=$('#explanationText');$('#explanationDialog').dataset.key=k;$('#explanationRef').textContent=ref;text.value=old?.text||'';text.readOnly=Boolean(old);$('#editExplanationInline').style.display=old?'inline-block':'none';$('#deleteExplanation').style.display=old?'inline-block':'none';$('#explanationDialog').showModal()}
-$('#saveExplanation').onclick=()=>{const k=$('#explanationDialog').dataset.key,text=$('#explanationText').value.trim();if(!text){toast('Escribe una explicación');return}state.explanations[k]={text,ref:$('#explanationRef').textContent,updated:Date.now()};save();$('#explanationDialog').close();state.selected.clear();render();toast('Explicación guardada')};
-$('#editExplanationInline').onclick=()=>{const text=$('#explanationText');text.readOnly=false;text.focus();text.setSelectionRange(text.value.length,text.value.length);toast('Modo edición')};
-$('#pasteExplanation').onclick=async()=>{try{const text=$('#explanationText');text.readOnly=false;text.value=await navigator.clipboard.readText();text.focus()}catch{toast('No se pudo pegar')}};
-$('#deleteExplanation').onclick=()=>{if(confirm('¿Eliminar esta explicación?')){delete state.explanations[$('#explanationDialog').dataset.key];save();$('#explanationDialog').close();render();toast('Explicación eliminada')}};
-function openViewExplanation(k){const x=state.explanations[k];if(!x)return;$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;$('#viewExplanationText').textContent=x.text;$('#viewExplanationDialog').showModal()}
-$('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
-$('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
-function renderBooks(filter='all'){
-  const list=$('#booksList');
-  list.innerHTML='';
-  const filtered=state.books.filter(b=>filter==='all'||b.testament===filter);
-  filtered.forEach(b=>{
-    const real=state.books.indexOf(b);
-    const wrap=document.createElement('section');
-    wrap.className='book-entry';
-
-    const btn=document.createElement('button');
-    btn.className='book-item';
-    btn.setAttribute('aria-expanded','false');
-    btn.innerHTML=`<span>${escapeHtml(displayBook(b))}</span><small>${escapeHtml(b.category)} • ${b.chapters} capítulos</small><span class="book-chevron">⌄</span>`;
-
-    const chaptersWrap=document.createElement('div');
-    chaptersWrap.className='book-chapters-wrap hidden';
-    const grid=document.createElement('div');
-    grid.className='book-chapters';
-    grid.setAttribute('aria-label',`Capítulos de ${displayBook(b)}`);
-    chaptersWrap.append(grid);
-
-    for(let chapter=1;chapter<=b.chapters;chapter++){
-      const chapterBlock=document.createElement('div');
-      chapterBlock.className='chapter-block';
-      const chapterBtn=document.createElement('button');
-      chapterBtn.type='button';
-      chapterBtn.className='chapter-choice';
-      chapterBtn.textContent=chapter;
-      if(real===state.bookIndex&&chapter===state.chapter)chapterBtn.classList.add('current');
-
-      const versesGrid=document.createElement('div');
-      versesGrid.className='book-verses hidden';
-      versesGrid.setAttribute('aria-label',`Versículos de ${displayBook(b)} ${chapter}`);
-
-      chapterBtn.onclick=async event=>{
-        event.stopPropagation();
-        const opening=versesGrid.classList.contains('hidden');
-        chaptersWrap.querySelectorAll('.book-verses').forEach(x=>x.classList.add('hidden'));
-        chaptersWrap.querySelectorAll('.chapter-choice').forEach(x=>x.classList.remove('open'));
-        if(!opening)return;
-        chapterBtn.classList.add('open');
-        if(!versesGrid.dataset.loaded){
-          versesGrid.innerHTML='<span class="loading-verses">Cargando…</span>';
-          try{
-            const data=await getBookChapters(b);
-            const count=(data[chapter-1]||[]).length;
-            versesGrid.innerHTML='';
-            for(let verse=1;verse<=count;verse++){
-              const verseBtn=document.createElement('button');
-              verseBtn.type='button';
-              verseBtn.textContent=verse;
-              verseBtn.onclick=async ev=>{
-                ev.stopPropagation();
-                state.bookIndex=real;
-                state.chapter=chapter;
-                closeDrawer();
-                showReader();
-                await loadChapter();
-                setTimeout(()=>{
-                  const el=$(`.verse[data-v="${verse}"]`);
-                  el?.scrollIntoView({block:'center',behavior:'smooth'});
-                  document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));
-                  el?.classList.add('reading-target');
-                },120);
-              };
-              versesGrid.append(verseBtn);
-            }
-            versesGrid.dataset.loaded='true';
-          }catch{
-            versesGrid.innerHTML='<span class="loading-verses">No se pudieron cargar los versículos.</span>';
-          }
-        }
-        versesGrid.classList.remove('hidden');
-        setTimeout(()=>chapterBlock.scrollIntoView({block:'nearest',behavior:'smooth'}),40);
-      };
-
-      chapterBlock.append(chapterBtn,versesGrid);
-      grid.append(chapterBlock);
-    }
-
-    btn.onclick=()=>{
-      const opening=chaptersWrap.classList.contains('hidden');
-
-      // Cierra cualquier otro libro abierto con una transición breve y aislada.
-      $$('.book-chapters-wrap').forEach(x=>{
-        if(x===chaptersWrap||x.classList.contains('hidden'))return;
-        const animation=x.animate(
-          [{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-7px)'}],
-          {duration:135,easing:'ease-in',fill:'both'}
-        );
-        animation.onfinish=()=>{x.classList.add('hidden');animation.cancel()};
-      });
-      $$('.book-item').forEach(x=>x.setAttribute('aria-expanded','false'));
-
-      if(opening){
-        chaptersWrap.classList.remove('hidden');
-        btn.setAttribute('aria-expanded','true');
-        const animation=chaptersWrap.animate(
-          [{opacity:0,transform:'translateY(-8px)'},{opacity:1,transform:'translateY(0)'}],
-          {duration:175,easing:'cubic-bezier(.2,.75,.25,1)',fill:'both'}
-        );
-        animation.onfinish=()=>animation.cancel();
-        setTimeout(()=>wrap.scrollIntoView({block:'nearest',behavior:'smooth'}),45);
-      }else{
-        const animation=chaptersWrap.animate(
-          [{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-7px)'}],
-          {duration:135,easing:'ease-in',fill:'both'}
-        );
-        animation.onfinish=()=>{chaptersWrap.classList.add('hidden');animation.cancel()};
-      }
+  try{
+    const parsed = JSON.parse(raw);
+    state = {
+      "section": parsed.section || "prayers",
+      "currentPrayerId": parsed.currentPrayerId || null,
+      "currentNoteId": parsed.currentNoteId || null,
+      "currentGuideId": parsed.currentGuideId || null,
+      "currentVerseId": parsed.currentVerseId || null,
+      "prayers": Array.isArray(parsed.prayers) ? parsed.prayers : [],
+      "notes": Array.isArray(parsed.notes) ? parsed.notes : [],
+      "guides": Array.isArray(parsed.guides) ? parsed.guides : [],
+      "verses": Array.isArray(parsed.verses) ? parsed.verses : [],
+      "trashPrayers": Array.isArray(parsed.trashPrayers) ? parsed.trashPrayers : [],
+      "trashNotes": Array.isArray(parsed.trashNotes) ? parsed.trashNotes : [],
+      "trashGuides": Array.isArray(parsed.trashGuides) ? parsed.trashGuides : [],
+      "trashVerses": Array.isArray(parsed.trashVerses) ? parsed.trashVerses : [],
+      "titleSeparatorsV3171": parsed.titleSeparatorsV3171 && typeof parsed.titleSeparatorsV3171 === "object" ? parsed.titleSeparatorsV3171 : {}
     };
 
-    wrap.append(btn,chaptersWrap);
-    list.append(wrap);
+    normalizeGuides();
+    saveState();
+    section = state.section;
+    syncTabs();
+    renderList();
+    renderReader();
+    applyReaderFont();
+    openReader();
+    toast("Backup automático restaurado");
+  }catch(e){
+    alert("No se pudo restaurar.");
+  }
+}
+function getDisplayCode(idx, kind){
+  const prefix = kind==="prayers" ? "O" : kind==="notes" ? "N" : kind==="guides" ? "G" : "V";
+  return prefix + (idx + 1);
+}
+
+function getCurrentCode(){
+  const items = section==="prayers" ? state.prayers : section==="notes" ? state.notes : section==="guides" ? state.guides : state.verses;
+  const id = section==="prayers" ? state.currentPrayerId : section==="notes" ? state.currentNoteId : section==="guides" ? state.currentGuideId : state.currentVerseId;
+  const idx = items.findIndex(x=>x.id===id);
+  return idx>=0 ? getDisplayCode(idx, section) : "";
+}
+
+function setSearchVisibleV26(show){
+  const s = document.getElementById("search");
+  if(s) s.classList.toggle("hidden", !show);
+}
+
+function updateSearchForReaderV26(){
+  setSearchVisibleV26(!(section==="prayers" || section==="notes" || section==="guides"));
+}
+
+function syncTabs(){
+  document.getElementById("tabPrayers").classList.toggle("active", section==="prayers");
+  document.getElementById("tabNotes").classList.toggle("active", section==="notes");
+
+  const guideTab = document.getElementById("tabGuides");
+  if(guideTab) guideTab.classList.toggle("active", section==="guides");
+
+  const verseTab = document.getElementById("tabVerses");
+  if(verseTab) verseTab.classList.toggle("active", section==="verses");
+
+  document.getElementById("search").placeholder =
+    section==="prayers" ? "Buscar oración o código (ej. O3)" :
+    section==="notes" ? "Buscar nota o código (ej. N2)" :
+    section==="guides" ? "Buscar guía o código (ej. G1)" :
+    "Buscar versículo, referencia o palabra";
+
+  document.getElementById("counterInfo").textContent =
+    `📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
+}
+
+function setActiveView(view){
+  document.querySelectorAll('[data-view-btn]').forEach(btn => {
+    btn.classList.remove('active-view');
   });
-}
-$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing')},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
-(function activarGestosPanelLibros(){
-  const drawer=$('#drawer');
-  const backdrop=$('#drawerBackdrop');
-  const EDGE=30;
-  const THRESHOLD=72;
-  let startX=0,startY=0,trackingClose=false,trackingOpen=false,horizontal=false;
 
-  function resetDrag(){
-    drawer.classList.remove('dragging');
-    drawer.style.transform='';
-    backdrop.style.opacity='';
-    trackingClose=trackingOpen=horizontal=false;
-  }
+  if(!view) return;
 
-  // Cerrar: arrastrar el panel abierto hacia la izquierda.
-  drawer.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||drawer.classList.contains('hidden'))return;
-    startX=e.touches[0].clientX;startY=e.touches[0].clientY;
-    trackingClose=true;horizontal=false;
-  },{passive:true});
-  drawer.addEventListener('touchmove',e=>{
-    if(!trackingClose)return;
-    const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;
-    if(!horizontal){
-      if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>12){trackingClose=false;return}
-      if(Math.abs(dx)>10)horizontal=true;
-    }
-    if(horizontal&&dx<0){
-      e.preventDefault();
-      drawer.classList.add('dragging');
-      const x=Math.max(-drawer.offsetWidth,dx);
-      drawer.style.transform=`translateX(${x}px)`;
-      backdrop.style.opacity=String(Math.max(0,1-Math.abs(x)/drawer.offsetWidth));
-    }
-  },{passive:false});
-  drawer.addEventListener('touchend',e=>{
-    if(!trackingClose){resetDrag();return}
-    const dx=(e.changedTouches[0]?.clientX??startX)-startX;
-    const shouldClose=horizontal&&dx<-THRESHOLD;
-    resetDrag();
-    if(shouldClose){
-      closeDrawer();
-    }else{
-      drawer.classList.remove('closing');
-      drawer.classList.add('is-open');
-      drawer.classList.remove('hidden');
-      backdrop.classList.remove('hidden');
-    }
-  },{passive:true});
-  drawer.addEventListener('touchcancel',resetDrag,{passive:true});
+  document.querySelectorAll('[data-view-btn="' + view + '"]').forEach(btn => {
+    btn.classList.add('active-view');
+  });
 
-  // Abrir: comenzar en el borde izquierdo y deslizar hacia la derecha.
-  window.addEventListener('touchstart',e=>{
-    if(e.touches.length!==1||!drawer.classList.contains('hidden'))return;
-    if(document.querySelector('dialog[open]'))return;
-    const t=e.touches[0];
-    if(t.clientX>EDGE)return;
-    startX=t.clientX;startY=t.clientY;
-    trackingOpen=true;horizontal=false;
-  },{passive:true});
-  window.addEventListener('touchmove',e=>{
-    if(!trackingOpen)return;
-    const dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;
-    if(!horizontal){
-      if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>12){trackingOpen=false;return}
-      if(dx>10){
-        horizontal=true;
-        drawer.classList.remove('hidden','closing');
-        drawer.classList.add('dragging');
-        backdrop.classList.remove('hidden');
-      }
-    }
-    if(horizontal){
-      e.preventDefault();
-      const width=drawer.offsetWidth||window.innerWidth*.9;
-      const progress=Math.max(0,Math.min(1,dx/width));
-      drawer.style.transform=`translateX(${(-1+progress)*100}%)`;
-      backdrop.style.opacity=String(progress);
-    }
-  },{passive:false});
-  window.addEventListener('touchend',e=>{
-    if(!trackingOpen)return;
-    const dx=(e.changedTouches[0]?.clientX??startX)-startX;
-    const shouldOpen=horizontal&&dx>THRESHOLD;
-    resetDrag();
-    if(shouldOpen){
-      drawer.classList.remove('hidden','closing');
-      drawer.classList.add('is-open');
-      backdrop.classList.remove('hidden');
-    }else{
-      drawer.classList.remove('is-open');
-      drawer.classList.add('hidden');
-      backdrop.classList.add('hidden');
-    }
-  },{passive:true});
-  window.addEventListener('touchcancel',()=>{
-    if(!trackingOpen)return;
-    resetDrag();
-    drawer.classList.remove('is-open');
-    drawer.classList.add('hidden');
-    backdrop.classList.add('hidden');
-  },{passive:true});
-})();
-$$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
-$('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
-$('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;showReader();await loadChapter();scrollTo(0,0)}
-$('#searchBtn').onclick=openSearchDialog;
-$('#searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});
-$('#searchInput').addEventListener('input',()=>requestAnimationFrame(updateSearchDialogViewport));
-$('#runSearch').onclick=runSearch;
-bindKeyboardAwareDialog(SEARCH_DIALOG_LAYOUT);
-function normalizeText(x){return String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[ªº°]/g,'').replace(/[.,;!?¿¡()\[\]]/g,' ').replace(/\s+/g,' ').trim()}
-function canonicalBookText(x){return normalizeText(x).replace(/^el libro (?:de |del |de los |de la )?/,'').replace(/^libro (?:de |del |de los |de la )?/,'').replace(/^el evangelio segun /,'').replace(/^evangelio segun /,'').replace(/^san /,'').replace(/^(primera|primer|1ro|1er) (?:carta |epistola )?(?:de |a los |a las )?/,'1 ').replace(/^(segunda|segundo|2do) (?:carta |epistola )?(?:de |a los |a las )?/,'2 ').replace(/^(tercera|tercer|3ro|3er) (?:carta |epistola )?(?:de |a los |a las )?/,'3 ').replace(/^i /,'1 ').replace(/^ii /,'2 ').replace(/^iii /,'3 ').replace(/\s+/g,' ').trim()}
-function bookSearchNames(book){
-  const names=new Set([book.key,book.shortTitle,book.title,book.abbr,displayBook(book)]);
-  const base=canonicalBookText(book.shortTitle||displayBook(book));
-  names.add(base);
-  const aliases={
-    genesis:['gen','gn'],exodo:['exo','ex'],levitico:['lev','lv'],numeros:['num','nm'],deuteronomio:['deut','dt'],
-    josue:['jos'],jueces:['jue'],rut:['ruth'],salmos:['salmo','sal','sl'],proverbios:['proverbio','prov','pr'],
-    eclesiastes:['ecl','qohelet'],cantares:['cantar','cantar de los cantares','cantar de salomon','cnt'],isaias:['isa'],
-    jeremias:['jer'],lamentaciones:['lam'],ezequiel:['eze','ez'],daniel:['dan'],oseas:['os'],abdias:['abd'],
-    miqueas:['miq'],nahum:['nah'],habacuc:['hab'],sofonias:['sof'],hageo:['hag'],zacarias:['zac'],malaquias:['mal'],
-    mateo:['san mateo','evangelio de mateo','mt'],marcos:['san marcos','evangelio de marcos','mc'],
-    lucas:['san lucas','evangelio de lucas','lc'],juan:['san juan','evangelio de juan','jn'],hechos:['hechos de los apostoles','hch'],
-    romanos:['rom','ro'],galatas:['gal'],efesios:['efe','ef'],filipenses:['fil','flp'],colosenses:['col'],
-    apocalipsis:['revelacion','apoc','ap']
+  const map = {
+    new: 'btnNew',
+    read: 'btnRead',
+    daily: 'btnDaily',
+    calendar: 'calendarBtn',
+    random: 'btnRandom',
+    titles: 'btnTitles',
+    edit: 'btnEdit',
+    favorites: 'btnFavorites',
+    backup: 'btnBackup',
+    trash: 'btnTrash',
+    list: 'btnList'
   };
-  (aliases[book.key]||[]).forEach(x=>names.add(x));
-  if(/^([123])_/.test(book.key)){
-    const n=book.key[0],rest=base.replace(/^[123] /,'');
-    const word=n==='1'?'primera':n==='2'?'segunda':'tercera';
-    const masc=n==='1'?'primero':n==='2'?'segundo':'tercero';
-    [ `${n} ${rest}`,`${word} de ${rest}`,`${word} ${rest}`,`${masc} de ${rest}`,`${n}a ${rest}`,`${n} ${rest.replace(/^de /,'')}` ].forEach(x=>names.add(x));
-  }
-  return [...names].map(canonicalBookText).filter(Boolean);
+
+  const id = map[view] || view;
+  const btn = document.getElementById(id);
+
+  if(btn) btn.classList.add('active-view');
 }
-function bookMatchScore(book,q){
-  const wanted=canonicalBookText(q),names=bookSearchNames(book);let best=0;
-  for(const name of names){
-    if(name===wanted)best=Math.max(best,1000);
-    else if(name.startsWith(wanted))best=Math.max(best,800-Math.max(0,name.length-wanted.length));
-    else if(name.split(' ').some(part=>part===wanted))best=Math.max(best,650);
-    else if(name.includes(wanted))best=Math.max(best,500-Math.max(0,name.length-wanted.length));
-  }
-  return best;
-}
-function findBookMatches(q){return state.books.map((book,bi)=>({book,bi,score:bookMatchScore(book,q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.bi-b.bi)}
-function parseReference(raw){
-  // Admite Libro 3, Libro 3:16, Libro 3 16, Libro 3,16 y rangos como Libro 3 16-18.
-  const q=normalizeText(raw);
-  const m=q.match(/^(.+?)\s+(\d+)(?:(?:\s*:\s*|\s+)(\d+)(?:\s*-\s*(\d+))?)?$/);
-  if(!m)return null;
-  const matches=findBookMatches(m[1]);
-  if(!matches.length)return null;
-  const {book:b,bi}=matches[0],c=+m[2],v=m[3]?+m[3]:null,endv=m[4]?+m[4]:v;
-  if(c<1||v!==null&&v<1||endv!==null&&endv<v)return null;
-  return{bi,c,v,endv,ref:v?`${displayBook(b)} ${c}:${v}${endv>v?'-'+endv:''}`:`${displayBook(b)} ${c}`};
-}
-async function openSearchResult(r){state.bookIndex=r.bi;state.chapter=r.c||1;$('#searchDialog').close();showReader();await loadChapter();if(r.v)setTimeout(()=>{for(let n=r.v;n<=Math.min(r.endv||r.v,state.verses.length);n++)state.selected.add(n);updateSelection();$(`.verse[data-v="${r.v}"]`)?.scrollIntoView({block:'center'})},100)}
-async function runSearch(){
-  const raw=$('#searchInput').value.trim();if(raw.length<2)return toast('Escribe al menos 2 caracteres');
-  const box=$('#searchResults'),direct=parseReference(raw);
-  if(direct){
-    const b=state.books[direct.bi];
-    if(direct.c>b.chapters){box.innerHTML=`<p>No existe ${escapeHtml(displayBook(b))} ${direct.c}.</p>`;return}
-    const chapters=await getBookChapters(b),verses=chapters[direct.c-1]||[];
-    if(direct.v&&direct.v>verses.length){box.innerHTML=`<p>No existe ${escapeHtml(displayBook(b))} ${direct.c}:${direct.v}.</p>`;return}
-    if(direct.endv&&direct.endv>verses.length){box.innerHTML=`<p>No existe ${escapeHtml(displayBook(b))} ${direct.c}:${direct.endv}.</p>`;return}
-    box.innerHTML=`<div class="search-result reference-result"><strong>${escapeHtml(direct.ref)}</strong><span>${direct.v?'Abrir este versículo':'Abrir este capítulo'}</span></div>`;
-    box.querySelector('.search-result').onclick=()=>openSearchResult(direct);return
-  }
-  const q=normalizeText(raw),bookMatches=findBookMatches(raw);box.innerHTML='<p>Buscando en toda la Biblia…</p>';
-  const bookResults=bookMatches.slice(0,8).map(x=>({type:'book',bi:x.bi,c:1,ref:displayBook(x.book),chapters:x.book.chapters,score:x.score}));
-  let verseResults=[];
-  for(let bi=0;bi<state.books.length&&verseResults.length<100;bi++){
-    const b=state.books[bi],chapters=await getBookChapters(b);
-    for(let ci=0;ci<chapters.length&&verseResults.length<100;ci++)for(let vi=0;vi<chapters[ci].length&&verseResults.length<100;vi++){
-      const text=limpiarTextoBiblico(chapters[ci][vi]);if(normalizeText(text).includes(q))verseResults.push({type:'verse',bi,c:ci+1,v:vi+1,endv:vi+1,t:text,ref:`${displayBook(b)} ${ci+1}:${vi+1}`});
-    }
-  }
-  const results=[...bookResults,...verseResults];
-  box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t)}</div>`).join(''):'<p>Sin resultados.</p>';
-  $$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]));
-}
-$('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();const fontSizeInput=$('#fontSize'),fontSizeValue=$('#fontSizeValue');function applyFontSize(value){const min=Number(fontSizeInput.min),max=Number(fontSizeInput.max),size=Math.min(max,Math.max(min,Number(value)||24));fontSizeInput.value=size;fontSizeValue.textContent=size;document.documentElement.style.setProperty('--font-size',size+'px');localStorage.setItem('fontSize',size)}fontSizeInput.oninput=e=>applyFontSize(e.target.value);$('#fontSizeMinus').onclick=()=>applyFontSize(Number(fontSizeInput.value)-1);$('#fontSizePlus').onclick=()=>applyFontSize(Number(fontSizeInput.value)+1);applyFontSize(localStorage.getItem('fontSize')||fontSizeInput.value)
-let wakeLock=null;$('#keepAwake').onchange=async e=>{try{if(e.target.checked&&'wakeLock'in navigator)wakeLock=await navigator.wakeLock.request('screen');else await wakeLock?.release()}catch{e.target.checked=false;toast('No disponible en este dispositivo')}};
-$('#showFavorites').onclick=()=>showCollection('Versículos guardados',Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text})));$('#showExplanations').onclick=()=>showCollection('Mis explicaciones',Object.entries(state.explanations).sort((a,b)=>b[1].updated-a[1].updated).map(([k,v])=>({k,ref:v.ref,text:v.text,exp:true})));function showCollection(title,items){$('#settingsDialog').close();resetSearchDialogLayout();$('#searchDialog h2').textContent=title;$('#searchDialog .search-row').style.display='none';$('#searchResults').innerHTML=items.length?items.map((x,i)=>`<div class="list-card" data-i="${i}"><strong>${x.ref}</strong><p>${formatBibleText(x.text)}</p></div>`).join(''):'<p>Todavía no hay elementos.</p>';$('#searchDialog').showModal();$$('.list-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];if(x.exp){$('#searchDialog').close();openViewExplanation(x.k)}else navigateKey(x.k)})}
-async function navigateKey(k){const [bookKey,c,v]=k.split(':');state.bookIndex=state.books.findIndex(b=>b.key===bookKey);state.chapter=+c;$('#searchDialog').close();showReader();await loadChapter();setTimeout(()=>{state.selected.add(+v);updateSelection();$(`.verse[data-v="${v}"]`)?.scrollIntoView({block:'center'})},80)}
-function currentVisibleVerse(){const verses=$$('.verse');let best=1,bestDistance=Infinity;for(const el of verses){const r=el.getBoundingClientRect();const d=Math.abs(r.top-100);if(r.bottom>72&&d<bestDistance){bestDistance=d;best=+el.dataset.v}}return best}
-function addReadingPoint(showToast=true){
-  const b=state.books[state.bookIndex];
-  const selected=[...state.selected].sort((a,b)=>a-b);
-  const v=selected[0]||currentVisibleVerse();
-  const existing=state.readingPoints.find(p=>p.bookKey===b.key&&Number(p.chapter)===Number(state.chapter)&&Number(p.verse)===Number(v));
-  if(existing){
-    if(showToast)toast(`Esta marca ya existe: ${existing.ref}`);
-    return existing;
-  }
-  const now=Date.now();
-  const point={id:`${now}-${Math.random().toString(36).slice(2)}`,bookKey:b.key,chapter:Number(state.chapter),verse:Number(v),ref:`${displayBook(b)} ${state.chapter}:${v}`,updated:now};
-  state.readingPoints.unshift(point);
-  save();
-  renderSavedDialog();
-  if(showToast)toast(`Marca puesta: ${point.ref}`);
-  return point;
-}
-function syncFavoritesFromStorage(){
+
+
+  /* ===== NAVEGACIÓN PRINCIPAL ===== */
+function switchSection(s){
+  section = s;
+  state.section = s;
+
   try{
-    const stored=JSON.parse(localStorage.getItem('favorites')||'{}');
-    if(stored&&typeof stored==='object'&&!Array.isArray(stored))state.favorites=stored;
-  }catch(error){console.warn('No se pudieron releer los versículos guardados',error)}
-}
-function latestSavedPoint(){
-  return state.activeReadingPoint&&state.activeReadingPoint.bookKey?state.activeReadingPoint:null;
-}
-function rememberedReadingPoint(){
-  return latestSavedPoint()||(state.lastReadingPoint&&state.lastReadingPoint.bookKey?state.lastReadingPoint:null);
-}
-function updateReadingPointUI(){
-  const latest=latestSavedPoint();
-  const continueBtn=$('#continueReading');
-  if(continueBtn){continueBtn.textContent=latest?`Ir a: ${latest.ref}`:'Todavía no hay un punto de libro guardado';continueBtn.disabled=!latest}
-  const homeRef=$('#homeContinueRef'),homeContinue=$('#homeContinue');
-  if(homeRef)homeRef.textContent=latest?latest.ref:'Todavía no hay un punto de libro guardado';
-  if(homeContinue)homeContinue.disabled=!latest;
-  const readingPointBtn=document.querySelector('.action[data-action="reading-point"]');
-  if(readingPointBtn){
-    readingPointBtn.disabled=!latest;
-    readingPointBtn.setAttribute('aria-disabled',latest?'false':'true');
-    readingPointBtn.title=latest?`Ir a ${latest.ref}`:'Todavía no hay un punto de libro guardado';
-  }
-}
-async function goToReadingPoint(point=latestSavedPoint()){
-  if(!point)return toast('Todavía no hay un punto de libro guardado');
-  const bi=state.books.findIndex(b=>b.key===point.bookKey);if(bi<0)return;
-  state.bookIndex=bi;state.chapter=point.chapter;
-  $('#settingsDialog')?.close();$('#savedDialog')?.close();
-  showReader();await loadChapter();
-  setTimeout(()=>{const el=$(`.verse[data-v="${point.verse}"]`);el?.scrollIntoView({block:'center'});document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));el?.classList.add('reading-target')},100)
-}
-function renderSavedDialog(){
-  updateReadingPointUI();
-  const active=latestSavedPoint();
-  const remembered=rememberedReadingPoint();
-  const marksBox=$('#readingMarksList');
-  if(marksBox){
-    if(remembered){
-      const note=active?'Este es tu punto de libro actual.':'Ahora no tienes punto de libro. Este fue el último que guardaste.';
-      marksBox.innerHTML=`<button class="reading-mark-card reading-mark-go" type="button"><strong>${escapeHtml(remembered.ref)}</strong><span>${note}</span></button>`;
-      marksBox.querySelector('.reading-mark-go').onclick=()=>goToReadingPoint(remembered);
-    }else marksBox.innerHTML='<p class="empty-saved">Todavía no has guardado ningún punto de libro.</p>';
-  }
-  const items=Object.entries(state.favorites).map(([k,v])=>({k,ref:v.ref,text:v.text}));
-  const box=$('#savedVersesList');
-  box.innerHTML=items.length?items.map((x,i)=>`<button class="saved-verse-card" data-i="${i}"><strong>${escapeHtml(x.ref)}</strong><span>${formatBibleText(x.text)}</span></button>`).join(''):'<p class="empty-saved">Todavía no hay versículos guardados.</p>';
-  $$('.saved-verse-card').forEach(el=>el.onclick=()=>{const x=items[+el.dataset.i];$('#savedDialog').close();navigateKey(x.k)});
-}
+    document.body.dataset.section = s;
+  }catch(e){}
 
+  saveState();
+  syncTabs();
+  setSearchVisibleV26(true);
+  setActiveView(null);
+  renderList();
 
-$('#readingMarksList').addEventListener('click',ev=>{
-  const card=ev.target.closest('.reading-mark-card');
-  if(!card)return;
-  ev.preventDefault();
-  ev.stopPropagation();
-  const id=card.dataset.markId;
-  const point=state.readingPoints.find(p=>String(p.id)===String(id));
-  if(ev.target.closest('.reading-mark-delete')){
-    state.readingPoints=state.readingPoints.filter(p=>String(p.id)!==String(id));
-    save();
-    renderSavedDialog();
-    toast('Marca quitada');
+  if(s === "verses"){
+    currentVerseCategory = currentVerseCategory || "fe";
+    verseNavigationMode = "categories";
+    openVerseCategories();
     return;
   }
-  if(ev.target.closest('.reading-mark-go')&&point)goToReadingPoint(point);
-});
 
-
-const HEADER_SCHEDULE=[
-  {from:6,to:9,file:'cabecera-1.png',bar:'barra-amanecer.png',label:'amanecer'},
-  {from:9,to:17,file:'cabecera-2.png',bar:'barra-dia.png',label:'día'},
-  {from:17,to:20,file:'cabecera-3.png',bar:'barra-atardecer.png',label:'atardecer'},
-  {from:20,to:30,file:'cabecera-4.png',bar:'barra-noche.png',label:'noche'}
-];
-function headerForHour(hour){
-  if(hour>=6&&hour<9)return HEADER_SCHEDULE[0];
-  if(hour>=9&&hour<17)return HEADER_SCHEDULE[1];
-  if(hour>=17&&hour<20)return HEADER_SCHEDULE[2];
-  return HEADER_SCHEDULE[3];
-}
-function applyTimeHeader(){
-  const selected=headerForHour(new Date().getHours());
-  const image=$('#timeHeaderImage');
-  if(image){
-    const next=`${selected.file}?v=${APP_VERSION}`;
-    if(image.getAttribute('src')!==next)image.setAttribute('src',next);
-    image.dataset.period=selected.label;
-  }
-  const chapterNav=$('.chapter-nav');
-  if(chapterNav){
-    const bar=`url("${selected.bar}?v=${APP_VERSION}")`;
-    if(chapterNav.style.getPropertyValue('--chapter-nav-image')!==bar)chapterNav.style.setProperty('--chapter-nav-image',bar);
-    chapterNav.dataset.period=selected.label;
-  }
-}
-function formatSavedDate(value){
-  const date=new Date(Number(value));
-  if(!Number.isFinite(date.getTime()))return 'Hora no registrada';
-  return new Intl.DateTimeFormat('es-ES',{weekday:'short',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(date);
-}
-function getSavedStats(){
-  const entries=Object.entries(state.favorites||{}).map(([k,v])=>({k,...v,savedAt:Number(v?.savedAt)||0})).sort((a,b)=>b.savedAt-a.savedAt);
-  const now=new Date(),todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
-  const mondayOffset=(now.getDay()+6)%7,weekStart=todayStart-mondayOffset*86400000,monthStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
-  const dayKey=t=>{const d=new Date(t);return Number.isFinite(d.getTime())?`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`:''};
-  const dated=entries.filter(x=>x.savedAt>0),today=dated.filter(x=>x.savedAt>=todayStart).length;
-  const week=dated.filter(x=>x.savedAt>=weekStart).length,month=dated.filter(x=>x.savedAt>=monthStart).length;
-  const byBook={},byHour={};
-  dated.forEach(x=>{const ref=String(x.ref||'').trim();const book=ref.replace(/\s+\d+:\d+(?:[-–]\d+)?$/,'')||'Sin libro';byBook[book]=(byBook[book]||0)+1;const hr=new Date(x.savedAt).getHours();byHour[hr]=(byHour[hr]||0)+1});
-  const topKey=obj=>Object.keys(obj).sort((a,b)=>obj[b]-obj[a])[0]||'';
-  return{entries,dated,today,week,month,days:new Set(dated.map(x=>dayKey(x.savedAt))).size,last:dated[0]||entries[0]||null,topBook:topKey(byBook),topHour:topKey(byHour)};
-}
-function updateHomeStatsSummary(){
-  const el=$('#homeStatsSummary');if(!el)return;const st=getSavedStats();
-  el.textContent=`${st.entries.length} guardado${st.entries.length===1?'':'s'} · ${st.today} hoy`;
-}
-function renderStats(){
-  const st=getSavedStats(),now=new Date(),point=latestSavedPoint();
-  $('#statsNow').textContent=`Hoy es ${new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now)} · ${new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(now)}`;
-  $('#statsSavedTotal').textContent=st.entries.length.toLocaleString('es-ES');
-  $('#statsReadingPointRef').textContent=point?.ref||'Sin guardar';
-  $('#statsExplanations').textContent=Object.keys(state.explanations||{}).length.toLocaleString('es-ES');
-  updateDictionaryCounters();
-  $('#statsHighlights').textContent=Object.keys(state.highlights||{}).length.toLocaleString('es-ES');
-  $('#statsTitlesTotal').textContent=countTitleLayer(BUILTIN_TITLES_EMBEDDED||{}).toLocaleString('es-ES');
-  updateHomeStatsSummary();
-}
-let statsClockTimer=0;
-function stopStatsClock(){
-  if(statsClockTimer){clearInterval(statsClockTimer);statsClockTimer=0}
-}
-function startStatsClock(){
-  stopStatsClock();
-  renderStats();
-  statsClockTimer=setInterval(()=>{
-    if(document.hidden||!$('#statsDialog')?.open){stopStatsClock();return}
-    renderStats();
-  },1000);
-}
-function openStats(){
-  $('#statsDialog').showModal();
-  startStatsClock();
+  renderReader();
+  openReader();
 }
 
-const statsListState={kind:'saved',page:1,pageSize:20,query:'',sort:'recent',items:[]};
-const STATS_LIST_LABELS={saved:'Guardados',reading:'Puntos de libro',explanations:'Explicaciones',dictionary:'Diccionario',highlights:'Subrayados',titles:'Títulos integrados'};
-function statsBookName(bookKey){const b=state.books.find(x=>x.key===bookKey);return b?displayBook(b):String(bookKey||'').replaceAll('_',' ')}
-function statsKeyParts(k){const [bookKey,chapter,verse]=String(k||'').split(':');return{bookKey,chapter:Number(chapter)||1,verse:Number(verse)||1}}
-function statsVerseText(k){const el=document.querySelector(`.verse[data-key="${CSS.escape(String(k))}"]`);return el?.textContent?.trim()||''}
-function getStatsListItems(kind){
-  if(kind==='saved')return Object.entries(state.favorites||{}).map(([key,x],i)=>({id:key,key,title:x.ref||key,text:x.text||'',date:Number(x.savedAt)||0,alpha:x.ref||key,index:i}));
-  if(kind==='reading'){
-    const all=[...(state.readingPoints||[])];
-    if(state.activeReadingPoint?.bookKey&&!all.some(x=>String(x.id)===String(state.activeReadingPoint.id)))all.unshift(state.activeReadingPoint);
-    if(state.lastReadingPoint?.bookKey&&!all.some(x=>String(x.id)===String(state.lastReadingPoint.id)))all.push(state.lastReadingPoint);
-    return all.map((x,i)=>({id:String(x.id||i),point:x,title:x.ref||`${statsBookName(x.bookKey)} ${x.chapter}:${x.verse}`,text:x===state.activeReadingPoint?'Punto de libro actual':'Punto de libro guardado',date:Number(x.updated||x.savedAt)||0,alpha:x.ref||'',index:i}));
-  }
-  if(kind==='explanations')return Object.entries(state.explanations||{}).map(([key,x],i)=>({id:key,key,title:x.ref||key,text:x.text||'',date:Number(x.updated)||0,alpha:x.ref||key,index:i}));
-  if(kind==='dictionary')return getDictionaryEntries().map((x,i)=>({id:x.id,title:x.termino||'Sin palabra',text:x.explicacion||'',tag:x.categoria||'Sin categoría',date:Number(x.updatedAt||x.createdAt)||0,alpha:x.termino||'',entry:x,index:i}));
-  if(kind==='highlights')return Object.entries(state.highlights||{}).map(([key,color],i)=>{const p=statsKeyParts(key);const ref=`${statsBookName(p.bookKey)} ${p.chapter}:${p.verse}`;return{id:key,key,title:ref,text:state.favorites?.[key]?.text||statsVerseText(key)||'Abrir el versículo subrayado',tag:color,date:0,alpha:ref,index:i}});
-  if(kind==='titles'){
-    const out=[];Object.entries(BUILTIN_TITLES_EMBEDDED||{}).forEach(([bookKey,chapters])=>Object.entries(chapters||{}).forEach(([chapter,arr])=>(arr||[]).forEach((x,i)=>out.push({id:`${bookKey}:${chapter}:${x.versiculo}:${i}`,key:`${bookKey}:${chapter}:${x.versiculo}`,title:`${statsBookName(bookKey)} ${chapter}:${x.versiculo}`,text:x.titulo||'',date:0,alpha:`${statsBookName(bookKey)} ${String(chapter).padStart(3,'0')} ${String(x.versiculo).padStart(3,'0')} ${x.titulo||''}`,index:out.length}))));return out;
-  }
-  return[];
-}
-function statsNormalize(v){return normalizeText(String(v||''))}
-function renderStatsList(){
-  const s=statsListState,q=statsNormalize(s.query);let items=getStatsListItems(s.kind);
-  if(q)items=items.filter(x=>statsNormalize(`${x.title} ${x.text} ${x.tag||''}`).includes(q));
-  items.sort((a,b)=>s.sort==='az'?String(a.alpha||a.title).localeCompare(String(b.alpha||b.title),'es',{numeric:true,sensitivity:'base'}):(Number(b.date)-Number(a.date)||Number(b.index)-Number(a.index)||String(a.alpha||a.title).localeCompare(String(b.alpha||b.title),'es',{numeric:true,sensitivity:'base'})));
-  s.items=items;const pages=Math.max(1,Math.ceil(items.length/s.pageSize));s.page=Math.min(Math.max(1,s.page),pages);const start=(s.page-1)*s.pageSize,visible=items.slice(start,start+s.pageSize);
-  $('#statsListSummary').textContent=`${items.length.toLocaleString('es-ES')} elemento${items.length===1?'':'s'} · ${s.sort==='az'?'orden alfabético':'más recientes primero'}`;
-  $('#statsPageInfo').textContent=`Página ${s.page} de ${pages}`;$('#statsPrevPage').disabled=s.page<=1;$('#statsNextPage').disabled=s.page>=pages;
-  $('#statsListResults').innerHTML=visible.length?visible.map((x,i)=>`<button type="button" class="stats-list-item" data-list-index="${start+i}"><strong>${escapeHtml(x.title)}</strong>${x.date?`<time>${escapeHtml(formatSavedDate(x.date))}</time>`:(x.tag?`<span class="stats-item-tag">${escapeHtml(x.tag)}</span>`:'')}<p>${escapeHtml(x.text||'Abrir')}</p></button>`).join(''):'<div class="stats-empty">No hay elementos que mostrar.</div>';
-}
-function openStatsList(kind){
-  statsListState.kind=kind;statsListState.page=1;statsListState.query='';statsListState.sort=kind==='dictionary'||kind==='titles'?'az':'recent';
-  $('#statsListTitle').textContent=STATS_LIST_LABELS[kind]||'Listado';$('#statsListSearch').value='';$('#statsListSort').value=statsListState.sort;
-  $('#statsDialog').close();renderStatsList();$('#statsListDialog').showModal();
-}
-async function activateStatsListItem(item){
-  if(!item)return;const kind=statsListState.kind;$('#statsListDialog').close();
-  if(kind==='reading')return goToReadingPoint(item.point);
-  if(kind==='dictionary')return openDictionaryEditor(item.id);
-  if(kind==='explanations')return openViewExplanation(item.key);
-  if(kind==='saved'||kind==='highlights'||kind==='titles')return navigateKey(item.key);
-}
-$('#statsDialog')?.addEventListener('click',e=>{const tile=e.target.closest('[data-stats-list]');if(tile)openStatsList(tile.dataset.statsList)});
-$('#closeStatsList')?.addEventListener('click',()=>$('#statsListDialog').close());
-$('#statsListSearch')?.addEventListener('input',e=>{statsListState.query=e.target.value;statsListState.page=1;renderStatsList()});
-$('#statsListSort')?.addEventListener('change',e=>{statsListState.sort=e.target.value;statsListState.page=1;renderStatsList()});
-$('#statsPrevPage')?.addEventListener('click',()=>{statsListState.page--;renderStatsList();$('#statsListResults').scrollTop=0});
-$('#statsNextPage')?.addEventListener('click',()=>{statsListState.page++;renderStatsList();$('#statsListResults').scrollTop=0});
-$('#statsListResults')?.addEventListener('click',e=>{const row=e.target.closest('[data-list-index]');if(row)activateStatsListItem(statsListState.items[Number(row.dataset.listIndex)])});
-// La cabecera depende de la hora, por lo que no necesita recalcularse cada segundo.
-let timeHeaderTimer=0;
-function scheduleTimeHeaderRefresh(){
-  clearTimeout(timeHeaderTimer);
-  applyTimeHeader();
-  const now=new Date();
-  const delay=(60-now.getSeconds())*1000-now.getMilliseconds()+50;
-  timeHeaderTimer=setTimeout(scheduleTimeHeaderRefresh,Math.max(1000,delay));
-}
-scheduleTimeHeaderRefresh();
-$('#statsDialog')?.addEventListener('close',stopStatsClock);
-
-
-const DAILY_VERSE_EPOCH=Date.UTC(2026,0,1);
-let currentDailyVerse=null;
-let dailyVersePool=null;
-function dailyDateKey(date=new Date()){
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
-}
-function dailyDayNumber(date=new Date()){
-  const today=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate());
-  return Math.floor((today-DAILY_VERSE_EPOCH)/86400000);
-}
-async function loadDailyVersePool(){
-  if(dailyVersePool)return dailyVersePool;
-  const response=await fetch(freshUrl('versiculos-del-dia.json'));
-  if(!response.ok)throw new Error('No se pudo cargar la selección del Versículo del día');
-  const data=await response.json();
-  dailyVersePool=Array.isArray(data?.verses)?data.verses:[];
-  if(!dailyVersePool.length)throw new Error('La selección del Versículo del día está vacía');
-  return dailyVersePool;
-}
-function chooseIntelligentDailyVerse(pool,date=new Date()){
-  const day=dailyDayNumber(date);
-  const categories=[...new Set(pool.map(v=>v.category).filter(Boolean))];
-  const categoryIndex=((day%categories.length)+categories.length)%categories.length;
-  const category=categories[categoryIndex];
-  const candidates=pool.filter(v=>v.category===category);
-  const cycle=Math.floor(day/categories.length);
-  const step=37;
-  const itemIndex=((cycle*step+categoryIndex*11)%candidates.length+candidates.length)%candidates.length;
-  return candidates[itemIndex];
-}
-async function getDailyVerse(date=new Date()){
-  const pool=await loadDailyVersePool();
-  const chosen=chooseIntelligentDailyVerse(pool,date);
-  const bookIndex=state.books.findIndex(b=>b.key===chosen.bookKey);
-  return{
-    ...chosen,
-    key:`${chosen.bookKey}:${chosen.chapter}:${chosen.verse}`,
-    bookIndex,
-    dateKey:dailyDateKey(date),
-    sequence:Math.max(1,dailyDayNumber(date)+1)
-  };
-}
-function dailyVersePreview(text,maxLength=62){
-  const clean=String(text||'').replace(/\s+/g,' ').trim();
-  if(clean.length<=maxLength)return clean;
-  const cut=clean.slice(0,maxLength+1);
-  const lastSpace=cut.lastIndexOf(' ');
-  return `${cut.slice(0,lastSpace>35?lastSpace:maxLength).replace(/[\s,;:.!?-]+$/,'')}…`;
-}
-function cacheDailyVerse(v){
-  try{localStorage.setItem('dailyVerseHomeCache',JSON.stringify(v))}catch(_){}
-}
-function restoreDailyVerseHomeCache(){
+function switchSectionAndReadV90187(s){
   try{
-    const cached=JSON.parse(localStorage.getItem('dailyVerseHomeCache')||'null');
-    if(cached?.dateKey===dailyDateKey()&&cached?.ref&&cached?.text){paintDailyVerse(cached);return true}
-  }catch(_){}
-  return false;
-}
-function updateDailyVerseReminder(v=currentDailyVerse){
-  const card=$('#homeDailyVerse');
-  if(!card)return;
-  const previewPending=localStorage.getItem('dailyVerseReminderPreviewPending')===APP_VERSION;
-  const unseen=Boolean(v?.dateKey)&&(localStorage.getItem('dailyVerseLastSeen')!==v.dateKey||previewPending);
-  card.classList.toggle('daily-verse-unseen',unseen);
-  card.setAttribute('aria-label',unseen?'Versículo del día, nuevo y pendiente de leer':'Versículo del día');
-}
-async function refreshDailyVerseReminder(){
-  try{
-    const today=dailyDateKey();
-    if(currentDailyVerse?.dateKey!==today)await ensureDailyVerse();
-    updateDailyVerseReminder();
-  }catch(_){ }
-}
-function paintDailyVerse(v){
-  currentDailyVerse=v;
-  const homeRef=$('#homeDailyVerseRef');if(homeRef)homeRef.textContent=v.ref;
-  const homePreview=$('#homeDailyVersePreview');if(homePreview)homePreview.textContent=`“${dailyVersePreview(v.text)}”`;
-  cacheDailyVerse(v);
-  updateDailyVerseReminder(v);
-  $('#dailyVerseDate').textContent=new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
-  $('#dailyVerseCategory').textContent=v.category;
-  const number=$('#dailyVerseNumber');if(number)number.textContent=`Versículo del día #${String(v.id||v.sequence).padStart(4,'0')}`;
-  const reflection=$('#dailyVerseReflection');if(reflection)reflection.textContent=v.reflection||'Una palabra para meditar y llevar a la vida durante este día.';
-  $('#dailyVerseText').textContent=v.text;
-  $('#dailyVerseReference').textContent=v.ref;
-  const saved=Boolean(state.favorites?.[v.key]);
-  $('#saveDailyVerse').textContent=saved?'Guardado':'Guardar';
-}
-async function ensureDailyVerse(){
-  const key=dailyDateKey();
-  if(currentDailyVerse?.dateKey===key)return currentDailyVerse;
-  const v=await getDailyVerse();paintDailyVerse(v);return v;
-}
-async function openDailyVerse(){
-  const v=await ensureDailyVerse();paintDailyVerse(v);$('#dailyVerseDialog').showModal();localStorage.setItem('dailyVerseLastSeen',v.dateKey);localStorage.removeItem('dailyVerseReminderPreviewPending');updateDailyVerseReminder(v);
-}
-async function copyDailyVerse(){
-  const v=await ensureDailyVerse();
-  await navigator.clipboard.writeText(`${v.ref} RVR1960\n[${v.verse}] ${v.text}`);
-  toast('Versículo copiado');
-}
-async function saveDailyVerse(){
-  const v=await ensureDailyVerse();
-  if(state.favorites[v.key]){
-    delete state.favorites[v.key];
-    const activeKey=state.activeReadingPoint?`${state.activeReadingPoint.bookKey}:${state.activeReadingPoint.chapter}:${state.activeReadingPoint.verse}`:'';
-    if(activeKey===v.key)state.activeReadingPoint=null;
-    toast('Quitado de guardados');
-  }else{
-    const savedAt=Date.now();state.favorites[v.key]={ref:v.ref,text:v.text,savedAt};
-    const [bookKey,chapter,verse]=v.key.split(':');const point={bookKey,chapter:Number(chapter),verse:Number(verse),ref:v.ref,savedAt};
-    state.activeReadingPoint=point;state.lastReadingPoint=point;toast('Versículo guardado');
+    switchSection(s);
+    if(s==="prayers" || s==="notes" || s==="guides" || s==="parables" || s==="psalms"){
+      setTimeout(function(){
+        try{ enterFullscreenReading(); }catch(e){ console.error("switchSectionAndReadV90187", e); }
+      }, 0);
+    }
+  }catch(e){
+    console.error("switchSectionAndReadV90187", e);
+    try{ switchSection(s); }catch(_){}
   }
-  save();paintDailyVerse(v);updateReadingPointUI();
 }
-async function openDailyChapter(){
-  const v=await ensureDailyVerse();$('#dailyVerseDialog').close();state.bookIndex=v.bookIndex;state.chapter=v.chapter;showReader();await loadChapter();
-  setTimeout(()=>{$(`.verse[data-v="${v.verse}"]`)?.scrollIntoView({block:'center',behavior:'smooth'})},100);
+function getItems(){
+  if(section === "prayers") return state.prayers;
+  if(section === "notes") return state.notes;
+  if(section === "guides") return state.guides;
+  return state.verses;
 }
-function dailyNotificationsEnabled(){return localStorage.getItem('dailyVerseNotifications')==='1'}
-function syncDailyNotificationToggle(){
-  const toggle=$('#dailyVerseNotifications');
-  if(!toggle)return;
-  // La preferencia pertenece al usuario y no debe perderse al cerrar o reabrir la app.
-  toggle.checked=dailyNotificationsEnabled();
-}
-function enableDailyReminderPreviewOnce(){
-  const previewKey='dailyVerseReminderPreviewVersion';
-  if(localStorage.getItem(previewKey)===APP_VERSION)return;
-  // Mantiene el marco visible en esta actualización hasta que el usuario pulse expresamente la tarjeta.
-  localStorage.setItem('dailyVerseReminderPreviewPending',APP_VERSION);
-  localStorage.setItem(previewKey,APP_VERSION);
-}
-async function maybeNotifyDailyVerse(v){
-  if(!dailyNotificationsEnabled()||!('Notification'in window)||Notification.permission!=='granted')return;
-  if(localStorage.getItem('dailyVerseLastNotification')===v.dateKey)return;
-  try{
-    const reg=await navigator.serviceWorker?.ready;
-    if(reg)await reg.showNotification(`Versículo del día · ${v.ref}`,{body:v.text,icon:'icon-192.png',badge:'icon-192.png',tag:'daily-verse',renotify:false,data:{url:'./?dailyVerse=1'}});
-    else new Notification(`Versículo del día · ${v.ref}`,{body:v.text,icon:'icon-192.png',tag:'daily-verse'});
-    localStorage.setItem('dailyVerseLastNotification',v.dateKey);
-  }catch(error){console.warn('No se pudo mostrar la notificación',error)}
-}
-async function initializeDailyVerse(){
-  restoreDailyVerseHomeCache();
-  enableDailyReminderPreviewOnce();
-  const v=await ensureDailyVerse();
-  syncDailyNotificationToggle();
-  await maybeNotifyDailyVerse(v);
-  const forced=new URLSearchParams(location.search).get('dailyVerse')==='1';
-  if(forced){const clean=new URL(location.href);clean.searchParams.delete('dailyVerse');history.replaceState(null,'',clean.pathname+clean.search+clean.hash)}
-  updateDailyVerseReminder(v);
-  if(forced&&localStorage.getItem('dailyVerseReminderPreviewPending')!==APP_VERSION)setTimeout(()=>openDailyVerse(),450);
-}
-$('#homeDailyVerse')?.addEventListener('click',openDailyVerse);
-$('#copyDailyVerse')?.addEventListener('click',copyDailyVerse);
-$('#saveDailyVerse')?.addEventListener('click',saveDailyVerse);
-$('#openDailyChapter')?.addEventListener('click',openDailyChapter);
-setInterval(refreshDailyVerseReminder,60000);
-$('#dailyVerseNotifications')?.addEventListener('change',async e=>{
-  if(!e.target.checked){localStorage.setItem('dailyVerseNotifications','0');toast('Notificación desactivada');return}
-  if(!('Notification'in window)){e.target.checked=false;toast('Las notificaciones no están disponibles');return}
-  const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
-  if(permission!=='granted'){e.target.checked=false;localStorage.setItem('dailyVerseNotifications','0');toast('Permiso de notificaciones no concedido');return}
-  localStorage.setItem('dailyVerseNotifications','1');toast('Notificación diaria activada');await maybeNotifyDailyVerse(await ensureDailyVerse());
-});
-// Mantiene el interruptor sincronizado al volver a la app, abrir Ajustes o restaurar la página.
-window.addEventListener('pageshow',syncDailyNotificationToggle);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncDailyNotificationToggle()});
-$('#settingsBtn')?.addEventListener('click',()=>requestAnimationFrame(syncDailyNotificationToggle));
 
-function wireHomeActions(){
-  $('#homeContinue')?.addEventListener('click',()=>goToReadingPoint());
-  $('#homeEnter')?.addEventListener('click',async()=>{showReader();await loadChapter();});
-  $('#homeBooks')?.addEventListener('click',()=>{prepareBooksDrawer();openBooksDrawer()});
-  $('#homeSearch')?.addEventListener('click',openSearchDialog);
-  $('#homeSaved')?.addEventListener('click',()=>{renderSavedDialog();$('#savedDialog').showModal()});
+function setItems(items){
+  if(section === "prayers") state.prayers = items;
+  else if(section === "notes") state.notes = items;
+  else if(section === "guides") state.guides = items;
+  else state.verses = items;
 }
-wireHomeActions();
-$('#themeToggleBtn')?.addEventListener('click',toggleTheme);
-$('#addReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('Guarda un versículo para usarlo como punto de libro')});
-$('#continueReading').onclick=()=>goToReadingPoint();
-$('#clearReadingPoint')?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toast('El punto de libro cambia al guardar otro versículo')});
 
-function fixDoubleShiftedImportedTitles(){
-  if(localStorage.getItem('titlesDoubleShiftFixedV126')==='1')return;
-  // La V1.25 desplazó una segunda vez los títulos ya instalados.
-  // Los devolvemos exactamente un capítulo, sin tocar los títulos manuales.
-  if(localStorage.getItem('titlesChapterOffsetV125')==='1'){
-    const corrected={};
-    for(const [bookKey,chapters] of Object.entries(state.importedTitles||{})){
-      for(const [chapter,items] of Object.entries(chapters||{})){
-        const target=Number(chapter)-1;
-        if(target<1)continue;
-        corrected[bookKey]=corrected[bookKey]||{};
-        corrected[bookKey][String(target)]=[...(corrected[bookKey][String(target)]||[]),...(items||[])];
+function getTrash(){
+  if(section === "prayers") return state.trashPrayers;
+  if(section === "notes") return state.trashNotes;
+  if(section === "guides") return state.trashGuides;
+  return state.trashVerses;
+}
+
+function setTrash(items){
+  if(section === "prayers") state.trashPrayers = items;
+  else if(section === "notes") state.trashNotes = items;
+  else if(section === "guides") state.trashGuides = items;
+  else state.trashVerses = items;
+}
+function currentItem(){
+  normalizeGuides();
+
+  const items = getItems();
+  const id = section === "prayers"
+    ? state.currentPrayerId
+    : section === "notes"
+      ? state.currentNoteId
+      : section === "guides"
+        ? state.currentGuideId
+        : state.currentVerseId;
+
+  const found = items.find(x => x.id === id);
+  if(found) return found;
+
+  const first = items[0] || null;
+  if(first){
+    if(section === "prayers") state.currentPrayerId = first.id;
+    else if(section === "notes") state.currentNoteId = first.id;
+    else if(section === "guides") state.currentGuideId = first.id;
+    else state.currentVerseId = first.id;
+  }
+
+  return first;
+}
+
+function setCurrentId(id){
+  if(section === "prayers") state.currentPrayerId = id;
+  else if(section === "notes") state.currentNoteId = id;
+  else if(section === "guides") state.currentGuideId = id;
+  else state.currentVerseId = id;
+
+  saveState();
+}
+
+function displayItemTitle(item){
+  if(section === "verses"){
+    return (item.shared ? "✓ " : "")
+      + (item.favorite ? "⭐ " : "")
+      + (item.reference || item.title || "Sin referencia");
+  }
+
+  return (item.favorite ? "⭐ " : "") + (item.title || "Sin título");
+}
+
+function displayItemSub(item){
+  if(section === "verses"){
+    return verseCategoryLabel(item.category)
+      + " · "
+      + ((item.text || item.content || "").slice(0, 70));
+  }
+
+  return (item.content || "").slice(0, 70);
+}
+
+function renderList(){
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const q = (titlesVisible
+    ? (document.getElementById("titlesSearch")?.value || "")
+    : (document.getElementById("search")?.value || "")
+  ).trim().toLowerCase();
+
+  const list = document.getElementById("list");
+  if(!list) return;
+
+  list.innerHTML = "";
+
+  let items = [...getItems()].map((item, idx) => ({
+    ...item,
+    __idx: idx,
+    __code: getDisplayCode(idx, section)
+  }));
+
+  items = items.filter(item => {
+    if(!q) return true;
+
+    const hay = [
+      item.title,
+      item.content,
+      item.reference,
+      item.category,
+      item.__code
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    return hay.includes(q);
+  });
+
+  items.sort((a, b) =>
+    (b.favorite === true) - (a.favorite === true)
+    || (b.updatedAt || 0) - (a.updatedAt || 0)
+  );
+
+  if(!items.length){
+    list.innerHTML = '<div class="empty">No hay elementos.</div>';
+    return;
+  }
+
+  const current = currentItem();
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item" + (current && item.id === current.id ? " active" : "") + (section === "verses" && (item.shared || item.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
+
+    const preview = String(item.content || "")
+      .trim()
+      .replace(/\n+/g, " ")
+      .slice(0, 70) || "Sin contenido";
+
+    div.innerHTML = '<div class="item-code">' + escapeHtml(item.__code) + '</div>'
+      + '<div class="item-title-row"><div class="item-title">'
+      + escapeHtml(item.reference || item.title || "Sin título")
+      + '</div><div class="fav">'
+      + (item.favorite ? '⭐' : '')
+      + '</div></div><div class="item-sub">'
+      + escapeHtml(preview)
+      + '</div>';
+
+    div.onclick = () => {
+      if(!document.getElementById("editorView").classList.contains("hidden")){
+        saveCurrent(false, true);
       }
-    }
-    state.importedTitles=corrected;
-    localStorage.setItem('importedTitles',JSON.stringify(corrected));
-  }
-  localStorage.setItem('titlesDoubleShiftFixedV126','1');
+
+      specialVerseMode = null;
+      setCurrentId(item.id);
+
+      if(section === "verses"){
+        currentVerseCategory = item.category || currentVerseCategory || "fe";
+        verseNavigationMode = "verse";
+      }
+
+      renderList();
+      renderReader();
+      openReader();
+    };
+
+    list.appendChild(div);
+  });
 }
 
-function mergeTitles(base,extra){
-  const out=JSON.parse(JSON.stringify(base||{}));
-  for(const [book,chapters] of Object.entries(extra||{})){
-    out[book]=out[book]||{};
-    for(const [chapter,items] of Object.entries(chapters||{})){
-      const merged=[...(out[book][chapter]||[]),...(items||[])];
-      const seen=new Set();
-      out[book][chapter]=merged.filter(x=>{const id=`${x.versiculo}|${x.titulo}`;if(seen.has(id))return false;seen.add(id);return true}).sort((a,b)=>a.versiculo-b.versiculo);
-    }
+function applyReaderFont(){
+  const size=state.readerFontSize||28;
+  document.documentElement.style.setProperty("--reader-font-size", size+"px");
+  const rt=document.getElementById("readerText");
+  if(rt) rt.style.fontSize=size+"px";
+}
+function changeReaderFont(delta){
+  state.readerFontSize=Math.max(18,Math.min(42,(state.readerFontSize||28)+delta));
+  applyReaderFont();
+  saveState();
+}
+
+function formatDailyDateEs(){
+  try{
+    return new Date().toLocaleDateString("es-ES", {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
+  }catch(e){
+    return new Date().toLocaleDateString();
   }
+}
+
+function highlightBibleReferencesV49(text){
+  const safe=escapeHtml(text||"");
+  const books=[
+    "Génesis","Genesis","Éxodo","Exodo","Levítico","Levitico","Números","Numeros","Deuteronomio",
+    "Josué","Josue","Jueces","Rut","1 Samuel","2 Samuel","1 Reyes","2 Reyes","1 Crónicas","2 Crónicas","1 Cronicas","2 Cronicas",
+    "Esdras","Nehemías","Nehemias","Ester","Job","Salmos","Salmo","Proverbios","Eclesiastés","Eclesiastes","Cantares",
+    "Isaías","Isaias","Jeremías","Jeremias","Lamentaciones","Ezequiel","Daniel","Oseas","Joel","Amós","Amos","Abdías","Abdias",
+    "Jonás","Jonas","Miqueas","Nahúm","Nahum","Habacuc","Sofonías","Sofonias","Hageo","Zacarías","Zacarias","Malaquías","Malaquias",
+    "Mateo","Marcos","Lucas","San Mateo","San Marcos","San Lucas","San Juan","Juan","Hechos","Romanos",
+    "1 Corintios","2 Corintios","Gálatas","Galatas","Efesios","Filipenses","Colosenses","1 Tesalonicenses","2 Tesalonicenses",
+    "1 Timoteo","2 Timoteo","Tito","Filemón","Filemon","Hebreos","Santiago","1 Pedro","2 Pedro",
+    "1 Juan","2 Juan","3 Juan","Judas","Apocalipsis"
+  ];
+  const escapedBooks=books
+    .sort((a,b)=>b.length-a.length)
+    .map(b=>b.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/\s+/g,"\\s+"));
+
+  // Detecta referencias con o sin icono previo. Si ya hay 📖, no lo duplica.
+  const re=new RegExp(
+    "(^|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9])" +
+    "(📖\\s*)?" +
+    "((?:"+escapedBooks.join("|")+")\\s+\\d{1,3}:\\d{1,3}" +
+    "(?:\\s*[-–—]\\s*\\d{1,3})?" +
+    "(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*)",
+    "gi"
+  );
+
+  const rendered=safe.replace(re,function(_,pre,icon,ref){
+    const cleanRef=String(ref||"").replace(/\s+/g," ").trim();
+    return pre+'<span class="bible-ref-highlight">📖 '+cleanRef+'</span>';
+  });
+  // V3.1.139: permite destacar la numeración migrada, por ejemplo **1.**
+  return rendered.replace(/\*\*(\d{1,3}\.)\*\*/g,'<strong class="note-number-v3139">$1</strong>');
+}
+function renderCollapsibleBlocksV864(text){
+  const raw = String(text || "");
+  const re = /\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  let out = "";
+  let last = 0;
+  let m;
+  let idx = 0;
+  function renderBetweenBlocks(segment){
+    const txt = String(segment || "");
+    // Si entre dos desplegables solo hay saltos de línea/espacios, no los mostramos.
+    // Así los bloques cerrados quedan juntos sin crear huecos grandes.
+    if(!txt.trim()) return "";
+    // Si después de un desplegable empieza texto real, quitamos solo los saltos iniciales sobrantes.
+    return highlightBibleReferencesV49(txt.replace(/^\s*\n+/, ""));
+  }
+  while((m = re.exec(raw))){
+    out += renderBetweenBlocks(raw.slice(last, m.index));
+    const title = escapeHtml(m[1] || "Desplegable");
+    const body = highlightBibleReferencesV49(m[2] || "");
+    out += '<details class="reader-collapse-block" data-block-index="'+idx+'"><summary>'+title+'</summary>' +
+      '<div class="block-controls-v865">' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+idx+')">✏️ Editar</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',-1)">↑ Subir</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',1)">↓ Bajar</button>' +
+      '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+idx+')">🗑️ Eliminar</button>' +
+      '</div><div class="reader-collapse-content">'+body+'</div></details>';
+    last = re.lastIndex;
+    idx++;
+  }
+  out += renderBetweenBlocks(raw.slice(last));
   return out;
 }
-
-
-
-function normalizeDictionaryText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}
-function cleanDictionaryWord(value){return String(value||'').trim().replace(/^[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/g,'')}
-function dictionaryWordForms(value){
-  const original=cleanDictionaryWord(value), normalized=normalizeDictionaryText(original);
-  if(!normalized)return new Set();
-  const forms=new Set([normalized]);
-  // Las variantes automáticas solo se aceptan cuando siguen siendo palabras completas
-  // de al menos tres letras. Así «mies» nunca genera el falso positivo «mí».
-  const addGenerated=form=>{if(form&&form.length>=3)forms.add(form)};
-  const addWordForms=word=>{
-    if(!word)return;
-    forms.add(word);
-    if(word.endsWith('ces')&&word.length>3)addGenerated(word.slice(0,-3)+'z');
-    if(word.endsWith('es')&&word.length>3&&!word.endsWith('ies'))addGenerated(word.slice(0,-2));
-    if(word.endsWith('s')&&!word.endsWith('es')&&word.length>2)addGenerated(word.slice(0,-1));
-    if(word.endsWith('z'))addGenerated(word.slice(0,-1)+'ces');
-    else if(/[aeiouáéó]$/.test(word))addGenerated(word+'s');
-    else if(/[íú]$/.test(word)){addGenerated(word+'s');addGenerated(word+'es')}
-    else addGenerated(word+'es');
-  };
-  addWordForms(normalized);
-  const parts=normalized.split(/\s+/);
-  if(parts.length>1){
-    const last=parts.pop();
-    const lastForms=new Set();
-    const basePrefix=parts.join(' ')+' ';
-    if(last.endsWith('ces')&&last.length>3)lastForms.add(last.slice(0,-3)+'z');
-    if(last.endsWith('es')&&last.length>3&&!last.endsWith('ies')&&last.slice(0,-2).length>=3)lastForms.add(last.slice(0,-2));
-    if(last.endsWith('s')&&!last.endsWith('es')&&last.length>3)lastForms.add(last.slice(0,-1));
-    if(last.endsWith('z'))lastForms.add(last.slice(0,-1)+'ces');
-    else if(/[aeiouáéó]$/.test(last))lastForms.add(last+'s');
-    else if(/[íú]$/.test(last)){lastForms.add(last+'s');lastForms.add(last+'es')}
-    else lastForms.add(last+'es');
-    lastForms.forEach(x=>forms.add(basePrefix+x));
-  }
-  return forms;
+function setReaderTextV49(text){
+  const el=document.getElementById("readerText");
+  if(el) el.innerHTML=renderCollapsibleBlocksV864(text||"");
 }
-function dictionaryMorphologyMatch(query,term){
-  const q=normalizeDictionaryText(query), t=normalizeDictionaryText(term);
-  if(!q||!t)return false;
-  const qForms=dictionaryWordForms(query), tForms=dictionaryWordForms(term);
-  return qForms.has(t)||tForms.has(q);
-}
-function syncDictionaryUserDataFromStorage(){
-  // Relee las entradas personales antes de calcular contadores. Esto evita que
-  // Estadísticas muestre únicamente el diccionario base después de instalar
-  // una actualización o restaurar una copia de seguridad.
+
+function renderReader(){
   try{
-    const custom=JSON.parse(localStorage.getItem('dictionaryCustom')||'[]');
-    const edits=JSON.parse(localStorage.getItem('dictionaryEdits')||'{}');
-    const deleted=JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]');
-    if(Array.isArray(custom))state.dictionaryCustom=custom;
-    if(edits&&typeof edits==='object'&&!Array.isArray(edits))state.dictionaryEdits=edits;
-    if(Array.isArray(deleted))state.dictionaryDeleted=deleted;
-  }catch(error){console.warn('No se pudo sincronizar el diccionario para el contador',error)}
-}
-function getDictionaryEntries({sync=false}={}){
-  if(sync)syncDictionaryUserDataFromStorage();
-  const deleted=new Set(state.dictionaryDeleted||[]), edits=state.dictionaryEdits||{};
-  const base=(state.dictionaryBase||[]).filter(x=>!deleted.has(x.id)).map(x=>({...x,...(edits[x.id]||{}),builtin:true}));
-  const custom=(state.dictionaryCustom||[]).filter(x=>!deleted.has(x.id)).map(x=>({...x,builtin:false}));
-  return [...base,...custom].sort((a,b)=>String(a.termino).localeCompare(String(b.termino),'es',{sensitivity:'base'}));
-}
-function getDictionaryStats(){
-  syncDictionaryUserDataFromStorage();
-  const deleted=new Set(state.dictionaryDeleted||[]);
-  const edits=state.dictionaryEdits||{};
-  const original=(state.dictionaryBase||[])
-    .filter(entry=>!deleted.has(entry.id))
-    .map(entry=>({...entry,...(edits[entry.id]||{}),builtin:true}));
-  const custom=(state.dictionaryCustom||[])
-    .filter(entry=>!deleted.has(entry.id))
-    .map(entry=>({...entry,builtin:false}));
-  const entries=[...original,...custom];
-  return{
-    total:entries.length,
-    original:original.length,
-    custom:custom.length,
-    capsules:entries.filter(entry=>entry.resaltar===true).length
-  };
-}
-function updateDictionaryCounters(){
-  const counts=getDictionaryStats();
-  const formatted=counts.total.toLocaleString('es-ES');
-  const stats=$('#statsDictionary');if(stats)stats.textContent=formatted;
-  const original=$('#statsDictionaryOriginal');if(original)original.textContent=counts.original.toLocaleString('es-ES');
-  const custom=$('#statsDictionaryCustom');if(custom)custom.textContent=counts.custom.toLocaleString('es-ES');
-  const capsules=$('#statsDictionaryCapsules');if(capsules)capsules.textContent=counts.capsules.toLocaleString('es-ES');
-  const settings=$('#openDictionarySettings');if(settings)settings.textContent=`Diccionario bíblico (${formatted})`;
-  return counts.total;
-}
-function dictionarySearchScore(entry,query){
-  const q=normalizeDictionaryText(query), term=normalizeDictionaryText(entry.termino), allText=normalizeDictionaryText(`${entry.termino} ${entry.explicacion} ${entry.categoria}`);
-  if(term===q)return 0;
-  if(dictionaryMorphologyMatch(query,entry.termino))return 1;
-  if(term.startsWith(q))return 2;
-  if(term.includes(q))return 3;
-  if(allText.includes(q))return 4;
-  return 99;
-}
-function renderDictionary(query=''){
-  const q=normalizeDictionaryText(query), all=getDictionaryEntries({sync:true});
-  const filtered=q
-    ?all.map(x=>({entry:x,score:dictionarySearchScore(x,query)})).filter(x=>x.score<99).sort((a,b)=>a.score-b.score||String(a.entry.termino).localeCompare(String(b.entry.termino),'es',{sensitivity:'base'})).map(x=>x.entry)
-    :all;
-  const visible=q?filtered:filtered.slice(0,80);
-  $('#dictionaryCount').textContent=q
-    ?`${filtered.length.toLocaleString('es-ES')} coincidencia${filtered.length===1?'':'s'} de ${all.length.toLocaleString('es-ES')} entradas`
-    :`${all.length.toLocaleString('es-ES')} entradas · escribe para filtrar`;
-  $('#dictionaryResults').innerHTML=visible.length
-    ?visible.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')} · ${x.resaltar===true?'Cápsula verde':'Solo consulta'}</small><p class="dictionary-explanation" data-dictionary-explanation>${escapeHtml(x.explicacion)}</p></button>`).join('')+(q?'':'<p class="dictionary-live-help">Escribe en el buscador y las coincidencias aparecerán al instante.</p>')
-    :`<div class="dictionary-empty"><p class="empty-saved">No se encontraron coincidencias para <strong>“${escapeHtml(cleanDictionaryWord(query))}”</strong>.</p><button id="addMissingDictionaryEntry" type="button" class="primary">Añadir palabra</button></div>`;
-  const copyBtn=$('#copyDictionaryWord');if(copyBtn)copyBtn.disabled=!cleanDictionaryWord(query);
-}
-let dictionaryReadingPosition=null;
-let dictionaryTransitionToEditor=false;
-let dictionaryEditorReturnToList=false;
-function captureDictionaryReadingPosition(){
-  const scrollingElement=document.scrollingElement||document.documentElement;
-  return {
-    readerTop:reader?.scrollTop||0,
-    pageLeft:scrollingElement?.scrollLeft||window.scrollX||0,
-    pageTop:scrollingElement?.scrollTop||window.scrollY||0
-  };
-}
-function restoreDictionaryReadingPosition(position=dictionaryReadingPosition){
-  if(!position)return;
-  if(reader)reader.scrollTop=position.readerTop;
-  const scrollingElement=document.scrollingElement||document.documentElement;
-  if(scrollingElement){
-    scrollingElement.scrollLeft=position.pageLeft;
-    scrollingElement.scrollTop=position.pageTop;
+    document.body.dataset.section=section;
+  }catch(e){}
+
+  applyReaderFont();
+
+  const dailyDateEl=document.getElementById("readerDailyDate");
+  const catReadEl=document.getElementById("readerCategory");
+
+  if(catReadEl){
+    catReadEl.classList.add("hidden");
+    catReadEl.textContent="";
   }
-}
-function preserveDictionaryReadingPosition(){
-  const position=dictionaryReadingPosition;
-  restoreDictionaryReadingPosition(position);
-  requestAnimationFrame(()=>{
-    restoreDictionaryReadingPosition(position);
-    requestAnimationFrame(()=>restoreDictionaryReadingPosition(position));
-  });
-  setTimeout(()=>restoreDictionaryReadingPosition(position),120);
-}
-function openDictionary(initialQuery=''){
-  dictionaryReadingPosition=captureDictionaryReadingPosition();
-  state.selected.clear();updateSelection();
-  selectionBar?.classList.remove('open');
-  actionsPanelToggle?.setAttribute('aria-expanded','false');
-  const query=String(initialQuery||'').trim();
-  const dialog=$('#dictionaryDialog');
-  $('#dictionarySearch').value=query;
-  renderDictionary(query);
-  dialog.classList.add('dictionary-live-layout');
-  dialog.showModal();
-  preserveDictionaryReadingPosition();
-  requestAnimationFrame(updateDictionaryDialogViewport);
-  setTimeout(()=>{
-    const input=$('#dictionarySearch');
-    // Cuando el Diccionario se abre desde una palabra del capítulo, no forzamos
-    // el foco ni la selección del campo: Chrome/Android puede cerrar el teclado,
-    // recalcular el viewport y desplazar el <dialog> fuera de la pantalla.
-    if(input&&!query){
-      try{input.focus({preventScroll:true})}catch{input.focus()}
+
+  if(dailyDateEl){
+    dailyDateEl.classList.add("hidden");
+    dailyDateEl.textContent="";
+  }
+
+  const item=currentItem();
+  const readerPanel=document.getElementById("readerView");
+  if(readerPanel){
+    readerPanel.classList.remove("reader-sent-bg-v3134","reader-kind-prayers-v31103","reader-kind-psalms-v31103","reader-kind-verses-v31103","reader-kind-notes-v31103","reader-kind-guides-v3192","reader-kind-parables-v3192","reader-kind-neutral-v31103");
+    const readerKindClass = section==="prayers" ? "reader-kind-prayers-v31103" : section==="psalms" ? "reader-kind-psalms-v31103" : section==="verses" ? "reader-kind-verses-v31103" : section==="notes" ? "reader-kind-notes-v31103" : section==="guides" ? "reader-kind-guides-v3192" : section==="parables" ? "reader-kind-parables-v3192" : "reader-kind-neutral-v31103";
+    readerPanel.classList.add(readerKindClass);
+  }
+  const identity=document.getElementById("readerIdentityV31103");
+  const identityIcon=document.getElementById("readerIdentityIconV31103");
+  const identityLabel=document.getElementById("readerIdentityLabelV31103");
+  const readerIdentityMeta = section==="prayers" ? {icon:"",label:"Oración"} : section==="psalms" ? {icon:"",label:"Salmo"} : section==="verses" ? {icon:"",label:"Versículo"} : section==="notes" ? {icon:"",label:"Nota"} : section==="guides" ? {icon:"",label:"Guía"} : section==="parables" ? {icon:"",label:"Parábola"} : null;
+  if(identity){
+    identity.classList.toggle("hidden",!readerIdentityMeta);
+    if(readerIdentityMeta){
+      if(identityIcon) identityIcon.textContent=readerIdentityMeta.icon;
+      if(identityLabel) identityLabel.textContent=readerIdentityMeta.label;
     }
-    updateDictionaryDialogViewport();
-    preserveDictionaryReadingPosition();
-  },80);
-}
-function openDictionaryEditor(id='',prefill=''){
-  const entry=getDictionaryEntries().find(x=>x.id===id);
-  $('#dictionaryEntryId').value=entry?.id||'';
-  $('#dictionaryTerm').value=entry?.termino||cleanDictionaryWord(prefill);
-  $('#dictionaryCategory').value=entry?.categoria||'';
-  $('#dictionaryExplanation').value=entry?.explicacion||'';
-  // Las entradas existentes respetan su elección guardada; las nuevas nacen con cápsula activada.
-  $('#dictionaryHighlightEnabled').checked=entry?entry.resaltar===true:true;
-  $('#dictionaryEditTitle').textContent=entry?'Editar palabra':'Añadir palabra';
-  $('#deleteDictionaryEntry').style.display=entry?'inline-block':'none';
+  }
+  if(!item){
+    document.getElementById("readerCode").textContent="";
+    document.getElementById("readerTitle").textContent=section==="verses"?"❤️ Versículos":"";
+    document.getElementById("readerText").textContent=section==="verses"?"Pulsa ❤️ Versículos para ver categorías o ➕ Nueva para añadir uno.":"";
+    return;
+  }
 
-  const listDialog=$('#dictionaryDialog');
-  const editDialog=$('#dictionaryEditDialog');
-  const showEditor=()=>{
-    dictionaryTransitionToEditor=false;
-    if(!editDialog.open)editDialog.showModal();
-    requestAnimationFrame(()=>{
-      const field=$('#dictionaryTerm');
-      try{field?.focus({preventScroll:true})}catch{field?.focus()}
-      preserveDictionaryReadingPosition();
+  if(section==="verses"){
+    if(readerPanel && (item.shared || item.lastCardSentAt)){
+      readerPanel.classList.add("reader-sent-bg-v3134");
+    }
+    const catEl=document.getElementById("readerCategory");
+    if(catEl){
+      catEl.textContent=verseCategoryLabel(item.category);
+      catEl.classList.remove("hidden");
+    }
+
+    document.getElementById("readerCode").textContent=(item.shared?"✓ Compartido · ":"")+(specialVerseMode==="daily"?"🌅 Versículo del día · ":specialVerseMode==="random"?"🌿 Versículo aleatorio · ":"")+formatLastCardSentAt(item.lastCardSentAt)+" · "+verseCategoryLabel(item.category);
+
+    if(specialVerseMode==="daily" && dailyDateEl){
+      dailyDateEl.textContent="📅 "+formatDailyDateEs();
+      dailyDateEl.classList.remove("hidden");
+    }
+
+    document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
+    setReaderTextV49(item.text||item.content||"");
+  }else{
+    document.getElementById("readerCode").textContent="";
+    document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
+    setReaderTextV49(item.content||"");
+  }
+
+  updateFavoriteButtons();
+  updateMoveVerseButtonVisibility();
+}
+
+function closeBlockOverlayV864(){
+  const el=document.getElementById("blockOverlayV864");
+  if(el) el.remove();
+}
+function openBlockMenu(){
+  closeBlockOverlayV864();
+  const wrap=document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button></div></div>';
+  document.body.appendChild(wrap);
+}
+function openCollapsibleBlockFormV864(){
+  const wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>📖 Crear desplegable</h3><label for="blockTitleV864">Título</label><input id="blockTitleV864" type="text" placeholder="📖 San Mateo 13:31-32"><label for="blockContentV864">Contenido</label><textarea id="blockContentV864" placeholder="Pega aquí el texto bíblico o el contenido del bloque..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveCollapsibleBlockV864()">Guardar bloque</button></div></div>';
+  if(!wrap.parentNode) document.body.appendChild(wrap);
+  setTimeout(()=>{try{document.getElementById("blockTitleV864").focus()}catch(e){}},50);
+}
+function saveCollapsibleBlockV864(){
+  const title=(document.getElementById("blockTitleV864")?.value||"").trim();
+  const content=(document.getElementById("blockContentV864")?.value||"").trim();
+  if(!title){alert("Escribe un título para el desplegable.");return;}
+  if(!content){alert("Escribe el contenido del desplegable.");return;}
+  const item=currentItem&&currentItem();
+  if(!item){closeBlockOverlayV864();return;}
+  const safeTitle=title.replace(/"/g,"'");
+  const block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
+  if(section==="verses"){
+    const old=(item.text||item.content||"").trim();
+    item.text=block+(old?'\n\n'+old:'');
+    item.content=item.text;
+  }else{
+    const old=(item.content||"").trim();
+    item.content=block+(old?'\n\n'+old:'');
+  }
+  item.updatedAt=Date.now();
+  saveState();
+  renderList();
+  renderReader();
+  closeBlockOverlayV864();
+  toast("Bloque desplegable añadido");
+}
+
+function getCurrentContentTextV865(){
+  const item=currentItem&&currentItem();
+  if(!item) return "";
+  return section==="verses" ? (item.text || item.content || "") : (item.content || "");
+}
+function setCurrentContentTextV865(value){
+  const item=currentItem&&currentItem();
+  if(!item) return;
+  if(section==="verses"){
+    item.text=value;
+    item.content=value;
+  }else{
+    item.content=value;
+  }
+  item.updatedAt=Date.now();
+  saveState();
+  renderList();
+  renderReader();
+}
+function parseCollapsibleBlocksV865(text){
+  const raw=String(text||"");
+  const re=/\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  const blocks=[];
+  let m;
+  while((m=re.exec(raw))){
+    blocks.push({
+      index:blocks.length,
+      start:m.index,
+      end:re.lastIndex,
+      full:raw.slice(m.index,re.lastIndex),
+      title:m[1]||"",
+      body:m[2]||""
     });
-  };
-
-  // Android/Chrome puede dejar únicamente el ::backdrop visible si se abre
-  // un segundo <dialog modal> encima del Diccionario. Cerramos primero la
-  // lista y abrimos el editor en el siguiente ciclo para que nunca haya dos
-  // diálogos modales compitiendo en la capa superior.
-  if(listDialog?.open){
-    dictionaryEditorReturnToList=true;
-    dictionaryTransitionToEditor=true;
-    listDialog.close('open-editor');
-    setTimeout(showEditor,0);
-  }else{
-    dictionaryEditorReturnToList=false;
-    showEditor();
   }
+  return blocks;
 }
-$('#runDictionarySearch')?.addEventListener('click',()=>renderDictionary($('#dictionarySearch').value));
-$('#dictionarySearch')?.addEventListener('input',e=>{renderDictionary(e.target.value);requestAnimationFrame(updateDictionaryDialogViewport)});
-$('#dictionarySearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();renderDictionary(e.target.value)}});
-$('#dictionaryResults')?.addEventListener('click',e=>{
-  const card=e.target.closest('.dictionary-card');
-  if(card){openDictionaryEditor(card.dataset.id);return}
-  if(e.target.closest('#addMissingDictionaryEntry'))openDictionaryEditor('',cleanDictionaryWord($('#dictionarySearch').value));
-});
-bindKeyboardAwareDialog(DICTIONARY_DIALOG_LAYOUT);
-$('#dictionaryDialog')?.addEventListener('close',event=>{
-  preserveDictionaryReadingPosition();
-  if(event.currentTarget?.returnValue==='open-editor'||dictionaryTransitionToEditor)return;
-  setTimeout(()=>{restoreDictionaryReadingPosition();dictionaryReadingPosition=null},140);
-});
-$('#dictionaryEditDialog')?.addEventListener('close',()=>{
-  preserveDictionaryReadingPosition();
-  if(!dictionaryEditorReturnToList)return;
-  dictionaryEditorReturnToList=false;
-  const query=$('#dictionarySearch')?.value||'';
-  requestAnimationFrame(()=>openDictionary(query));
-});
-$('#addDictionaryEntry')?.addEventListener('click',()=>openDictionaryEditor('',cleanDictionaryWord($('#dictionarySearch').value)));
-$('#copyDictionaryWord')?.addEventListener('click',async()=>{
-  const word=cleanDictionaryWord($('#dictionarySearch').value);
-  if(!word){toast('Selecciona o escribe una palabra');return}
-  const input=$('#dictionarySearch');
-  // Cerramos el teclado antes de copiar y recalculamos el diálogo sin perder
-  // la posición de lectura. Así el cambio del visualViewport no deja visible
-  // únicamente el fondo oscuro.
-  input?.blur();
-  requestAnimationFrame(()=>{updateDictionaryDialogViewport();preserveDictionaryReadingPosition()});
+function buildCollapsibleBlockV865(title, body){
+  const safeTitle=String(title||"Desplegable").trim().replace(/"/g,"'");
+  return '[desplegable titulo="'+safeTitle+'"]\n'+String(body||"").trim()+'\n[/desplegable]';
+}
+function editCollapsibleBlockV865(idx){
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  closeBlockOverlayV864();
+  const wrap=document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>✏️ Editar desplegable</h3><label for="blockTitleV864">Título</label><input id="blockTitleV864" type="text"><label for="blockContentV864">Contenido</label><textarea id="blockContentV864"></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveEditedCollapsibleBlockV865('+idx+')">Guardar cambios</button></div></div>';
+  document.body.appendChild(wrap);
+  const t=document.getElementById("blockTitleV864");
+  const c=document.getElementById("blockContentV864");
+  if(t) t.value=b.title;
+  if(c) c.value=b.body.trim();
+  setTimeout(()=>{try{t&&t.focus()}catch(e){}},50);
+}
+function saveEditedCollapsibleBlockV865(idx){
+  const title=(document.getElementById("blockTitleV864")?.value||"").trim();
+  const content=(document.getElementById("blockContentV864")?.value||"").trim();
+  if(!title){alert("Escribe un título para el desplegable.");return;}
+  if(!content){alert("Escribe el contenido del desplegable.");return;}
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  const replacement=buildCollapsibleBlockV865(title,content);
+  const updated=text.slice(0,b.start)+replacement+text.slice(b.end);
+  setCurrentContentTextV865(updated);
+  closeBlockOverlayV864();
+  toast("Bloque actualizado");
+}
+function deleteCollapsibleBlockV865(idx){
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  if(!confirm("¿Eliminar este bloque desplegable?")) return;
+  const updated=(text.slice(0,b.start)+text.slice(b.end)).replace(/\n{3,}/g,"\n\n");
+  setCurrentContentTextV865(updated);
+  toast("Bloque eliminado");
+}
+function splitTextUnitsV866(s){
+  const raw=String(s||"");
+  if(!raw.trim()) return [];
+  return raw.split(/\n{2,}/).map(x=>String(x||"").trim()).filter(Boolean).map(x=>({type:"text", text:x}));
+}
+function tokenizeContentBlocksV866(text){
+  const raw=String(text||"");
+  const re=/\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  const tokens=[];
+  let last=0, m, blockIndex=0;
+  while((m=re.exec(raw))){
+    tokens.push(...splitTextUnitsV866(raw.slice(last,m.index)));
+    tokens.push({type:"block", blockIndex:blockIndex, text:raw.slice(m.index,re.lastIndex).trim()});
+    last=re.lastIndex;
+    blockIndex++;
+  }
+  tokens.push(...splitTextUnitsV866(raw.slice(last)));
+  return tokens;
+}
+function moveCollapsibleBlockV865(idx,dir){
+  const text=getCurrentContentTextV865();
+  const tokens=tokenizeContentBlocksV866(text);
+  const pos=tokens.findIndex(t=>t.type==="block" && t.blockIndex===idx);
+  if(pos<0){alert("No se ha encontrado este bloque.");return;}
+  const target=pos+dir;
+  if(target<0 || target>=tokens.length){toast(dir<0?"Ya está arriba":"Ya está abajo");return;}
+  const tmp=tokens[pos];
+  tokens[pos]=tokens[target];
+  tokens[target]=tmp;
+  const updated=tokens.map(t=>String(t.text||"").trim()).filter(Boolean).join("\n\n");
+  setCurrentContentTextV865(updated);
+  toast("Bloque movido");
+}
+
+function updateFavoriteButtons(){
+  const item=currentItem&&currentItem();
+  document.querySelectorAll('[data-fav-btn]').forEach(btn=>{
+    const active=!!(item&&item.favorite);
+    btn.classList.toggle('favorite-active',active);
+    btn.textContent=active?'⭐':'☆';
+    btn.title=active?'Quitar de favoritos':'Añadir a favoritos';
+    btn.setAttribute('aria-label', active?'Quitar de favoritos':'Añadir a favoritos');
+  });
+}
+
+function updateMoveVerseButtonVisibility(){
+  const btn=document.getElementById("moveVerseBtn");
+  if(btn) btn.style.display=(section==="verses" ? "" : "none");
+}
+
+function setReturnToSentList(){
+  try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){}
+}
+function consumeReturnToSentList(){
   try{
-    await navigator.clipboard.writeText(word);
-    toast(`“${word}” copiada`);
-  }catch(_){toast('No se pudo copiar la palabra')}
-  setTimeout(()=>{updateDictionaryDialogViewport();preserveDictionaryReadingPosition()},120);
-});
-$('#openDictionarySettings')?.addEventListener('click',()=>{$('#settingsDialog').close();openDictionary()});
-$('#saveDictionaryEntry')?.addEventListener('click',()=>{
-  const id=$('#dictionaryEntryId').value, termino=$('#dictionaryTerm').value.trim(), categoria=$('#dictionaryCategory').value.trim(), explicacion=$('#dictionaryExplanation').value.trim(), resaltar=$('#dictionaryHighlightEnabled').checked;
-  if(!termino||!explicacion){toast('Escribe la palabra y su explicación');return}
-  if(id){
-    const customIndex=(state.dictionaryCustom||[]).findIndex(x=>x.id===id);
-    if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],termino,categoria,explicacion,resaltar,updatedAt:Date.now()};
-    else state.dictionaryEdits[id]={termino,categoria,explicacion,resaltar,updatedAt:Date.now()};
-  }else{
-    const newId=`custom-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
-    state.dictionaryCustom.push({id:newId,termino,categoria,explicacion,resaltar,builtin:false,createdAt:Date.now(),updatedAt:Date.now()});
-  }
-  save();invalidateDictionaryHighlights();render();$('#dictionaryEditDialog').close();renderDictionary($('#dictionarySearch').value);toast(id?'Entrada actualizada':'Entrada añadida');
-});
-$('#deleteDictionaryEntry')?.addEventListener('click',()=>{
-  const id=$('#dictionaryEntryId').value;if(!id||!confirm('¿Eliminar esta entrada del diccionario?'))return;
-  const customIndex=(state.dictionaryCustom||[]).findIndex(x=>x.id===id);
-  if(customIndex>=0)state.dictionaryCustom.splice(customIndex,1);else{if(!state.dictionaryDeleted.includes(id))state.dictionaryDeleted.push(id);delete state.dictionaryEdits[id]}
-  save();invalidateDictionaryHighlights();render();$('#dictionaryEditDialog').close();renderDictionary($('#dictionarySearch').value);toast('Entrada eliminada');
-});
-
-const BACKUP_KEYS=[
-  // Lectura y estudio
-  'highlights','favorites','explanations','last','readingPoints','readingPoint','activeReadingPoint','lastReadingPoint',
-  // Diccionario completo del usuario
-  'dictionaryCustom','dictionaryEdits','dictionaryDeleted',
-  // Módulos de estudio y sus papeleras
-  'biblia_personajes_crud_v16433','biblia_parabolas_crud_v16433','biblia_guias_crud_v16435',
-  'biblia_profecias_crud_v270','biblia_lugares_crud_v283','biblia_festividades_v310',
-  // Títulos, auditorías y ajustes
-  'importedTitles','fontSize','readerTheme','lastLocalBibleAudit','verifiedTitleLayerAudit',
-  'titlesChapterOffsetV125','titlesDoubleShiftFixedV126',
-  // Versículo del día y preferencias relacionadas
-  'dailyVerseHomeCache','dailyVerseLastSeen','dailyVerseNotifications',
-  'dailyVerseLastNotification','dailyVerseReminderPreviewPending'
-];
-
-const BACKUP_STORAGE_PREFIXES=[
-  'biblia_',
-  'dictionary',
-  'dailyVerse',
-  'titles',
-  'verifiedTitle',
-  'lastLocalBible'
-];
-
-function isBackupStorageKey(key){
-  return BACKUP_KEYS.includes(key) ||
-    BACKUP_STORAGE_PREFIXES.some(prefix=>String(key).startsWith(prefix));
+    const v=sessionStorage.getItem("returnToSentList");
+    if(v==="1"){
+      sessionStorage.removeItem("returnToSentList");
+      return true;
+    }
+  }catch(e){}
+  return false;
 }
 
-function collectCompleteBackupStorage(){
-  const data={};
-
-  // Claves conocidas y obligatorias.
-  for(const key of BACKUP_KEYS){
-    const value=localStorage.getItem(key);
-    if(value!==null)data[key]=value;
+function smartBack(){
+  if(typeof categoryListActive !== "undefined" && categoryListActive){
+    categoryListActive=false;
+    try{
+      section="verses";
+      state.section="verses";
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+    }catch(e){}
+    return;
   }
 
-  // Cualquier módulo presente o futuro de la aplicación.
-  for(let i=0;i<localStorage.length;i++){
-    const key=localStorage.key(i);
-    if(!key||!isBackupStorageKey(key))continue;
-    const value=localStorage.getItem(key);
-    if(value!==null)data[key]=value;
+  if(typeof sentListActive !== "undefined" && sentListActive){
+    sentListActive=false;
+    try{
+      section="verses";
+      state.section="verses";
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+    }catch(e){}
+    return;
   }
 
-  return data;
+  if(consumeReturnToSentList()){
+    openSentVersesList();
+    return;
+  }
+
+  if(returnToSentList){
+    returnToSentList=false;
+    openSentVersesList();
+    return;
+  }
+
+  if(section==="verses"){
+    const readerVisible=!document.getElementById("readerView").classList.contains("hidden");
+    const titlesVisible=!document.getElementById("titlesView").classList.contains("hidden");
+    const catsVisible=!document.getElementById("verseCategoriesView").classList.contains("hidden");
+
+    if(readerVisible){
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+      if(verseNavigationMode==="titles"){
+        openTitlesView();
+        setTimeout(()=>{
+          const active=document.querySelector("#titlesList .title-row.active");
+          if(active) active.scrollIntoView({block:"center"});
+        },50);
+        return;
+      }
+      if(currentVerseCategory){
+        verseNavigationMode="category";
+        renderVerseReferenceList(currentVerseCategory);
+        setTimeout(()=>{
+          const active=document.querySelector("#titlesList .title-row.active");
+          if(active) active.scrollIntoView({block:"center"});
+        },50);
+        return;
+      }
+      verseNavigationMode="categories";
+      openVerseCategories();
+      return;
+    }
+
+    if(titlesVisible){
+      verseNavigationMode="categories";
+      openVerseCategories();
+      return;
+    }
+
+    if(catsVisible){
+      openReader();
+      return;
+    }
+  }
+
+  exitFullscreenReading();
 }
 
-function parseBackupStorageValue(key,fallback){
+function openReader(){
+  document.body.classList.remove("editing-focus");
+  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
+function openList(){
+  document.body.classList.remove("editing-focus");
+  setActiveView("list");
+  clearNavModes();
+  renderList();
+document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72");document.getElementById("search").focus()}
+
+function registerCurrentAsReadV47G(){
   try{
-    const raw=localStorage.getItem(key);
-    return raw===null?fallback:JSON.parse(raw);
-  }catch(_){
-    return fallback;
+    const item=currentItem&&currentItem();
+    if(!item)return;
+    const title=recentTitleFromItem(item);
+    const isDraft =
+      !title ||
+      title==="Nueva referencia" ||
+      title==="Nueva oración" ||
+      title==="Nueva nota" ||
+      title==="Nueva guía" ||
+      title==="Nuevo salmo";
+    if(isDraft)return;
+    try{
+      item.isNewVerse=false;
+      item.isNewItem=false;
+      saveState();
+    }catch(e){}
+    addRecent("read",{kind:"item",section:section,id:item.id,title:title});
+  }catch(e){}
+}
+
+function enterFullscreenReading(){registerCurrentAsReadV47G();setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.remove("titles-fullscreen-v72");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
+function toggleReadingUI(){
+  if(!document.body.classList.contains("fullscreen-reading")) return;
+
+  const willHide = !document.body.classList.contains("hide-reading-ui");
+  document.body.classList.toggle("hide-reading-ui");
+
+  // V3.1.126: al ocultar la botonera, acerca automáticamente el inicio
+  // de la lectura a la parte superior. Los versículos conservan su
+  // comportamiento anterior y al volver a mostrar la botonera no se mueve.
+  if(!willHide || section === "verses") return;
+
+  window.setTimeout(function(){
+    try{
+      const identity = document.getElementById("readerIdentityV31103");
+      const identityVisible = identity && !identity.classList.contains("hidden");
+      const target = identityVisible
+        ? identity
+        : (document.getElementById("readerTitle") || document.getElementById("readerText"));
+
+      if(!target) return;
+      const rect = target.getBoundingClientRect();
+      const top = Math.max(0, window.scrollY + rect.top - 8);
+      window.scrollTo({top: top, behavior: "smooth"});
+    }catch(e){
+      console.warn("No se pudo ajustar el inicio de lectura", e);
+    }
+  }, 80);
+}
+function openEditor(){
+  setActiveView("edit");
+  clearNavModes();
+  document.body.classList.add("editing-focus");
+
+  const item = currentItem();
+  if(!item) return;
+
+  const cat = document.getElementById("editCategory");
+
+  if(section === "verses"){
+    document.getElementById("editTitle").value = item.reference || item.title || "";
+    cat.classList.remove("hidden");
+    cat.value = item.category || "fe";
+    document.getElementById("editText").value = item.text || item.content || "";
+  }else{
+    document.getElementById("editTitle").value = item.title || "";
+    cat.classList.add("hidden");
+    document.getElementById("editText").value = item.content || "";
+  }
+
+  document.getElementById("editorView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+
+  const vc = document.getElementById("verseCategoriesView");
+  if(vc) vc.classList.add("hidden");
+
+  document.body.classList.remove("reading-mobile", "fullscreen-reading", "hide-reading-ui");
+
+  isDirty = false;
+  setSaveStatus("Sin cambios");
+
+  setTimeout(() => {
+    try{
+      window.scrollTo({top: 0, behavior: "smooth"});
+      document.getElementById("editText").focus({preventScroll: true});
+    }catch(e){}
+  }, 80);
+}
+function scheduleAutosave(){
+  isDirty = true;
+  setSaveStatus("Cambios sin guardar");
+
+  if(autosaveTimer) clearTimeout(autosaveTimer);
+
+  /* v42C: autoguardado desactivado; solo guarda al pulsar Guardar */
+}
+function saveCurrentOriginal(stay, silent){
+  const item = currentItem();
+  if(!item) return;
+
+  if(section === "verses"){
+    item.reference = document.getElementById("editTitle").value.trim() || "Sin referencia";
+    item.title = item.reference;
+    item.category = document.getElementById("editCategory").value || currentVerseCategory || "fe";
+    currentVerseCategory = item.category;
+    item.text = document.getElementById("editText").value;
+    item.content = item.text;
+  }else{
+    item.title = document.getElementById("editTitle").value.trim() || "Sin título";
+    item.content = document.getElementById("editText").value;
+  }
+
+  item.updatedAt = Date.now();
+  isDirty = false;
+  setSaveStatus("Guardado");
+
+  saveState();
+  renderList();
+  renderReader();
+
+  if(!stay) leaveEditor();
+  if(!silent) toast("Guardado");
+}
+
+function normalizeVerseDuplicateKey(s){
+  return cleanTextBreaks(String(s || ""))
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/\brvr\s*1960\b/g,"")
+    .replace(/\breina\s*valera\s*1960\b/g,"")
+    .replace(/[–—]/g,"-")
+    .replace(/[.,;:()\[\]{}"“”'’]/g, "")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function extractReferenceFromPastedText(raw){
+  const lines = String(raw || "")
+    .split(/\n+/)
+    .map(x => x.trim())
+    .filter(Boolean);
+  const refRe = /^((?:[1-3]\s*)?(?:san\s+)?[a-záéíóúñü]+(?:\s+[a-záéíóúñü]+){0,3})\s+\d{1,3}:\d{1,3}(?:[-–—]\d{1,3})?/i;
+
+  for(const line of lines){
+    const clean = line.replace(/^[^\wáéíóúñü0-9]+/i, "").trim();
+    const m = clean.match(refRe);
+    if(m) return m[0].trim();
+  }
+
+  return "";
+}
+
+function removePastedHeadersForDuplicate(raw){
+  let s = String(raw || "");
+  const ref = extractReferenceFromPastedText(s);
+
+  if(ref){
+    s = s.replace(ref, " ");
+  }
+
+  // Quita líneas tipo "❤️ Salvación", "🌅 Versículo del día", etc.
+  s = s.split(/\n+/).filter(line => {
+    const t = line.trim();
+    if(!t) return false;
+    if(/^(❤️|🌿|✨|🙏🏾?|🙌🏾?|💪🏾?|🔥|👑|⏳|🕊️?|📖|🌅)/.test(t) && !/\[\d+\]/.test(t)) return false;
+    if(/versículo del día/i.test(t)) return false;
+    return true;
+  }).join(" ");
+
+  return s;
+}
+
+function findDuplicateVerseStrong(currentId, ref, body){
+  const refCandidate = normalizeVerseDuplicateKey(ref) || normalizeVerseDuplicateKey(extractReferenceFromPastedText(body));
+  const bodyKey = normalizeVerseDuplicateKey(removePastedHeadersForDuplicate(body));
+
+  if(!Array.isArray(state.verses)) return null;
+
+  return state.verses.find(v=>{
+    if(v.id === currentId) return false;
+    const vRefKey = normalizeVerseDuplicateKey(v.reference || v.title || "");
+    const vBodyKey = normalizeVerseDuplicateKey(removePastedHeadersForDuplicate(v.text || v.content || ""));
+
+    if(refCandidate && vRefKey && refCandidate === vRefKey) return true;
+    if(bodyKey && bodyKey.length > 25 && vBodyKey && bodyKey === vBodyKey) return true;
+
+    return false;
+  }) || null;
+}
+
+function saveCurrent(stay, silent){
+  try{
+    if(section==="verses"){
+      const item=currentItem();
+      const titleEl=document.getElementById("editTitle");
+      const textEl=document.getElementById("editText");
+
+      if(item && !item.duplicateAllowed){
+        const newRef=titleEl ? (titleEl.value.trim() || "Sin referencia") : (item.reference||item.title||"");
+        const newText=textEl ? textEl.value : (item.text||item.content||"");
+        const dup=findDuplicateVerseStrong(item.id,newRef,newText);
+
+        if(dup){
+          if(silent){
+            setSaveStatus("Duplicado detectado");
+            return;
+          }
+
+          const msg =
+            "⚠️ Este versículo ya existe:\n\n" +
+            (dup.reference || dup.title || "Sin referencia") + "\n" +
+            "Categoría: " + verseCategoryLabel(dup.category) + "\n\n" +
+            "Aceptar = añadir igualmente\n" +
+            "Cancelar = borrar esta copia y abrir el existente";
+
+          if(confirm(msg)){
+            item.duplicateAllowed=true;
+          }else{
+            // En pruebas detectamos que a veces el autosave ya había creado la copia.
+            // Por eso eliminamos siempre el item actual al cancelar.
+            state.verses = state.verses.filter(v => v.id !== item.id);
+            section = "verses";
+            state.section = "verses";
+            state.currentVerseId = dup.id;
+            currentVerseCategory = dup.category || currentVerseCategory || "sin_categoria";
+            verseNavigationMode = "reader";
+            saveState();
+
+            // Reconstruye la navegación completa antes de abrir el versículo existente.
+            // Evita que la tarjeta de Inicio quede visible y que la botonera pierda sus colores.
+            try{ document.body.dataset.section = "verses"; }catch(_e){}
+            syncTabs();
+            setActiveView("read");
+            setSearchVisibleV26(true);
+            clearNavModes();
+
+            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","welcomeView","momentsView","routineView","routineReaderV3192"].forEach(function(id){
+              var view=document.getElementById(id);
+              if(view) view.classList.add("hidden");
+            });
+
+            renderList();
+            renderReader();
+            applyReaderFont();
+            // Abre el versículo con el mismo flujo que al pulsarlo desde su categoría.
+            // Así se oculta la botonera general y se conserva la interfaz normal de lectura.
+            verseNavigationMode = "verse";
+            enterFullscreenReading();
+            window.scrollTo({top:0,behavior:"auto"});
+            toast("Duplicado descartado");
+            return;
+          }
+        }
+      }
+    }
+  }catch(e){
+    console.error("Detector duplicados:", e);
+  }
+
+  let wasNewItemForRecent=false;
+  try{
+    const before=currentItem();
+    const beforeTitle=recentTitleFromItem(before);
+    wasNewItemForRecent=!!(before&&(
+      before.isNewVerse ||
+      before.isNewItem ||
+      beforeTitle==="Nueva referencia" ||
+      beforeTitle==="Nueva oración" ||
+      beforeTitle==="Nueva nota" ||
+      beforeTitle==="Nueva guía"
+    ));
+  }catch(e){}
+
+  saveCurrentOriginal(stay, silent);
+
+  try{
+    const after=currentItem();
+    if(!silent && after){
+      const afterTitle=recentTitleFromItem(after);
+      const validAfterTitle = afterTitle &&
+        afterTitle!=="Nueva referencia" &&
+        afterTitle!=="Nueva oración" &&
+        afterTitle!=="Nueva nota" &&
+        afterTitle!=="Nueva guía";
+      if(wasNewItemForRecent && validAfterTitle){
+        addRecent('added',{kind:'item',section:section,id:after.id,title:afterTitle});
+      }else{
+        addRecentCurrent('edited');
+      }
+    }
+  }catch(e){}
+
+  try{
+    const item=currentItem();
+    if(item && !silent){
+      item.isNewVerse=false;
+      item.isNewItem=false;
+      saveState();
+    }
+  }catch(e){}
+}
+
+function discardEditorChanges(){
+  if(!confirm('¿Descartar cambios?')) return;
+  if(autosaveTimer) clearTimeout(autosaveTimer);
+
+  const item=currentItem();
+  const readerPanel=document.getElementById("readerView");
+  if(readerPanel){
+    readerPanel.classList.remove("reader-sent-bg-v3134");
+  }
+  if(!item){
+    isDirty=false;
+    leaveEditor();
+    toast("Cambios descartados");
+    return;
+  }
+
+  try{
+    const items=getItems();
+    const isNew =
+      item.isNewVerse ||
+      item.isNewItem ||
+      (item.title==="Nueva oración") ||
+      (item.title==="Nueva nota") ||
+      (item.title==="Nueva guía") ||
+      (item.title==="Nueva referencia") ||
+      (item.reference==="Nueva referencia");
+
+    if(isNew){
+      const filtered = items.filter(x => x.id !== item.id);
+      setItems(filtered);
+
+      const next = filtered[0] || null;
+      if(next){
+        setCurrentId(next.id);
+      }else{
+        const id = uid();
+        const fallback = section==="verses"
+          ? {id,reference:"Nueva referencia",title:"Nueva referencia",category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true}
+          : {id,title:(section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":"Nueva guía"),content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};
+        setItems([fallback]);
+        setCurrentId(id);
+      }
+
+      saveState();
+      renderList();
+      renderReader();
+      isDirty=false;
+      leaveEditor();
+      toast("Descartado");
+      return;
+    }
+
+    // Si no era nuevo, restauramos la vista sin guardar cambios
+    isDirty=false;
+    renderReader();
+    leaveEditor();
+    toast("Cambios descartados");
+  }catch(e){
+    console.error("discardEditorChanges", e);
+    isDirty=false;
+    leaveEditor();
+    toast("Cambios descartados");
   }
 }
 
-function moduleBackupSummary(key,collectionName){
-  const value=parseBackupStorageValue(key,null);
-  return{
-    total:Array.isArray(value?.[collectionName])?value[collectionName].length:0,
-    custom:Array.isArray(value?.custom)?value.custom.length:0,
-    edited:value?.edits&&typeof value.edits==='object'?Object.keys(value.edits).length:0,
-    deleted:Array.isArray(value?.deleted)?value.deleted.length:0,
-    trash:Array.isArray(value?.trash)?value.trash.length:0
-  };
+function leaveEditor(){
+  if(isDirty) saveCurrent(false, true);
+  else openReader();
+}
+function newItem(){
+  setActiveView("new");
+  const id=uid();
+  const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":section==="parables"?"Nueva parábola":section==="psalms"?"Nuevo salmo":"Nueva referencia";
+  const item=section==="verses"
+    ? {id,reference:title,title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true,isNewItem:true}
+    : {id,title,content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};
+  const items=getItems();
+  items.unshift(item);
+  setItems(items);
+  setCurrentId(id);
+  normalizeGuides();
+  saveState();
+  renderList();
+  renderReader();
+  openEditor();
+}
+function moveToTrash(){
+  const item = currentItem();
+  if(!item) return;
+
+  const items = getItems();
+  if(items.length === 1) return alert("Debe quedar al menos un elemento.");
+
+  const typeName = section === "prayers"
+    ? "oración"
+    : section === "notes"
+      ? "nota"
+      : section === "guides"
+        ? "guía"
+        : "versículo";
+
+  if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + item.title + '"')) return;
+
+  const trash = getTrash();
+  trash.unshift({...item, "deletedAt": Date.now()});
+
+  const filtered = items.filter(x => x.id !== item.id);
+  setItems(filtered);
+
+  if(section === "prayers") state.currentPrayerId = filtered[0].id;
+  else if(section === "notes") state.currentNoteId = filtered[0].id;
+  else if(section === "guides") state.currentGuideId = filtered[0].id;
+  else state.currentVerseId = filtered[0].id;
+
+  saveState();
+  syncTabs();
+  renderList();
+  renderReader();
+  applyReaderFont();
+  openReader();
+  toast("Movido a papelera");
 }
 
-function buildCompleteBackup(){
-  // Fuerza el guardado del estado principal antes de recopilar la copia.
-  save();
-
-  const data=collectCompleteBackupStorage();
-  const characters=parseBackupStorageValue('biblia_personajes_crud_v16433',null);
-  const parables=parseBackupStorageValue('biblia_parabolas_crud_v16433',null);
-  const guides=parseBackupStorageValue('biblia_guias_crud_v16435',null);
-  const prophecies=moduleBackupSummary('biblia_profecias_crud_v270','prophecies');
-  const places=moduleBackupSummary('biblia_lugares_crud_v283','places');
-
-  return{
-    app:'Mi Biblia de Estudio',
-    schema:3,
-    appVersion:APP_VERSION,
-    createdAt:new Date().toISOString(),
-    backupType:'complete-local-data',
-    summary:{
-      storageGroups:Object.keys(data).length,
-      savedVerses:Object.keys(state.favorites||{}).length,
-      highlights:Object.keys(state.highlights||{}).length,
-      explanations:Object.keys(state.explanations||{}).length,
-      readingPoints:(state.readingPoints||[]).length,
-      titles:countTitleLayer(state.importedTitles||{}),
-      dictionary:getDictionaryEntries().length,
-      dictionaryCustom:(state.dictionaryCustom||[]).length,
-      dictionaryEdited:Object.keys(state.dictionaryEdits||{}).length,
-      dictionaryDeleted:(state.dictionaryDeleted||[]).length,
-
-      characters:Array.isArray(characters?.characters)?characters.characters.length:0,
-      charactersTrash:Array.isArray(characters?.trash)?characters.trash.length:0,
-
-      parables:Array.isArray(parables?.parables)?parables.parables.length:0,
-      parablesCustom:Array.isArray(parables?.custom)?parables.custom.length:0,
-      parablesEdited:parables?.edits&&typeof parables.edits==='object'?Object.keys(parables.edits).length:0,
-      parablesDeleted:Array.isArray(parables?.deleted)?parables.deleted.length:0,
-      parablesTrash:Array.isArray(parables?.trash)?parables.trash.length:0,
-
-      guides:Array.isArray(guides?.guides)?guides.guides.length:0,
-      guidesCustom:Array.isArray(guides?.custom)?guides.custom.length:0,
-      guidesEdited:guides?.edits&&typeof guides.edits==='object'?Object.keys(guides.edits).length:0,
-      guidesDeleted:Array.isArray(guides?.deleted)?guides.deleted.length:0,
-      guidesTrash:Array.isArray(guides?.trash)?guides.trash.length:0,
-
-      propheciesCustom:prophecies.custom,
-      propheciesEdited:prophecies.edited,
-      propheciesDeleted:prophecies.deleted,
-      propheciesTrash:prophecies.trash,
-
-      placesCustom:places.custom,
-      placesEdited:places.edited,
-      placesDeleted:places.deleted,
-      placesTrash:places.trash
-    },
-    localStorage:data
-  };
+async function shareCurrent(){
+  const item=currentItem();if(!item)return;
+  const text=section==="verses"?buildVerseShareText(item):((item.title||"")+"\n\n"+(item.content||""));
+  try{
+    if(navigator.share){
+      await navigator.share({title:section==="verses"?(item.reference||"Versículo"):(item.title||"Compartir"), text});
+    }else{
+      await navigator.clipboard.writeText(cleanTextBreaks(text));
+    }
+    if(section==="verses"){
+      item.shared=true;
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+      saveState();renderList();renderReader();
+    }
+    toast(navigator.share?"Compartido":"Copiado");
+  }catch(e){}
 }
 
-function downloadJsonFile(name,value){
-  const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json;charset=utf-8'});
-  const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;
-  a.download=name;
+function todayKey(){
+  const d=new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function allVersesForDay(){
+  normalizeVerses();
+  return (state.verses||[]).filter(v=>(v.reference||v.title||v.text||v.content));
+}
+function pickRandomVerse(){
+  const verses=allVersesForDay();
+  if(!verses.length) return null;
+  return verses[Math.floor(Math.random()*verses.length)];
+}
+function getDailyVerse(){
+  const verses=allVersesForDay();
+  if(!verses.length) return null;
+  const key=todayKey();
+  if(!state.dailyVerse || state.dailyVerse.date!==key || !verses.find(v=>v.id===state.dailyVerse.id)){
+    const chosen=verses[Math.floor(Math.random()*verses.length)];
+    state.dailyVerse={date:key,id:chosen.id};
+    saveState();
+    return chosen;
+  }
+  return verses.find(v=>v.id===state.dailyVerse.id)||verses[0];
+}
+function openVerseSpecial(v,mode){
+  if(!v) return alert("Todavía no hay versículos guardados.");
+  section="verses";state.section="verses";
+  specialVerseMode=mode;
+  currentVerseCategory=v.category||"sin_categoria";
+  state.currentVerseId=v.id;
+  saveState();
+  syncTabs();
+  renderList();
+  renderReader();
+  applyReaderFont();
+  openReader();
+}
+function openDailyVerse(){ openVerseSpecial(getDailyVerse(),"daily"); setActiveView("daily"); }
+
+function startOfLocalDayMs(ts){
+  const d = ts ? new Date(ts) : new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+}
+
+function daysByCalendar(ts){
+  if(!ts) return null;
+  const today = startOfLocalDayMs(Date.now());
+  const sentDay = startOfLocalDayMs(ts);
+  return Math.round((today - sentDay) / 86400000);
+}
+
+function formatLastCardSentAt(ts){
+  const d = daysByCalendar(ts);
+  if(d === null) return "📤 Nunca enviada";
+  if(d <= 0) return "📤 Hoy";
+  if(d === 1) return "📤 Ayer";
+  return "📤 " + d + " días";
+}
+
+function formatSentListDate(ts){
+  const d = daysByCalendar(ts);
+  if(d === null) return "";
+  if(d <= 0) return "Hoy";
+  if(d === 1) return "Ayer";
+  return "" + d + " días";
+}
+
+function clearSentMark(id){
+  try{
+    const v = (state.verses||[]).find(x => x.id === id);
+    if(!v) return;
+    if(!confirm("¿Quitar este versículo de Enviados?")) return;
+    v.lastCardSentAt = 0;
+    v.shared = false;
+    saveState();
+    openSentVersesList();
+    toast("Quitado de Enviados");
+  }catch(e){
+    console.error(e);
+  }
+}
+
+function closeMoreMenu(){
+  const old = document.getElementById("moreDropdown");
+  if(old) old.remove();
+
+  document.removeEventListener("click", closeMoreMenuOutside, true);
+}
+
+function closeMoreMenuOutside(e){
+  const menu = document.getElementById("moreDropdown");
+  if(!menu) return;
+  if(menu.contains(e.target)) return;
+
+  const btn = e.target && e.target.closest
+    ? e.target.closest('[data-more-button="1"]')
+    : null;
+
+  if(btn) return;
+  closeMoreMenu();
+}
+
+function closeSendStatsPanel(){
+  const p = document.getElementById("sendStatsPanel");
+  if(p) p.remove();
+}
+
+function openNeverSentStatsMenu(){
+  try{
+    closeSendStatsPanel();
+
+    if(!state || !Array.isArray(state.verses)) return;
+
+    if(typeof ensureVerseCategories === "function") ensureVerseCategories();
+
+    const cats = (state.verseCategories && state.verseCategories.length)
+      ? state.verseCategories
+      : (typeof VERSE_CATEGORIES !== "undefined" ? VERSE_CATEGORIES : []);
+
+    const total = state.verses.length;
+    const sentTotal = state.verses.filter(v => !!v.lastCardSentAt).length;
+    const pendingTotal = total - sentTotal;
+
+    const panel = document.createElement("div");
+    panel.id = "sendStatsPanel";
+    panel.className = "send-stats-panel";
+
+    let html =
+      '<div class="send-stats-head"><span>📤 Resumen de envíos</span><button class="send-stats-close" type="button" onclick="closeSendStatsPanel()">×</button></div>' +
+      '<div class="send-stats-summary">📥 Pendientes: ' + pendingTotal + ' · 📋 Enviados: ' + sentTotal + ' · 📚 Total: ' + total + '</div>' +
+      '<div class="send-stats-list">';
+
+    cats.forEach(cat => {
+      const verses = state.verses.filter(v => (v.category || "sin_categoria") === cat.id);
+      if(!verses.length) return;
+
+      const sent = verses.filter(v => !!v.lastCardSentAt).length;
+      const pending = verses.length - sent;
+
+      html +=
+        '<div class="send-stats-row">' +
+          '<div class="send-stats-cat">' + escapeHtml(cat.label || cat.id) + '</div>' +
+          '<div class="send-stats-counts">📥 ' + pending + ' · 📋 ' + sent + '</div>' +
+        '</div>';
+    });
+
+    html += '</div>';
+    panel.innerHTML = html;
+    document.body.appendChild(panel);
+  }catch(e){
+    console.error("openNeverSentStatsMenu", e);
+    alert("No se pudo abrir el resumen de envíos.");
+  }
+}
+
+function openMoreMenu(ev){
+  try{
+    if(ev) ev.stopPropagation();
+
+    const existing = document.getElementById("moreDropdown");
+    if(existing){
+      closeMoreMenu();
+      return;
+    }
+
+    const btn = ev && ev.currentTarget ? ev.currentTarget : null;
+    const menu = document.createElement("div");
+    menu.id = "moreDropdown";
+    menu.className = "more-dropdown";
+    menu.innerHTML =
+      '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🌿 Versículo al azar</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📤 Enviados</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openRecentHistory()">🕘 Recientes</button>' +
+      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openAppCredits()"><img src="icon-192.png" alt="" style="width:20px;height:20px;border-radius:6px;vertical-align:-4px;margin-right:4px"> App / Versión</button>';
+
+    document.body.appendChild(menu);
+
+    let left = 12;
+    let top = 120;
+
+    if(btn){
+      const r = btn.getBoundingClientRect();
+      left = r.left;
+      top = r.bottom + 6;
+    }
+
+    const maxLeft = window.innerWidth - menu.offsetWidth - 8;
+    if(left > maxLeft) left = Math.max(8, maxLeft);
+    if(left < 8) left = 8;
+
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
+
+    setTimeout(() => document.addEventListener("click", closeMoreMenuOutside, true), 0);
+  }catch(e){
+    console.error("openMoreMenu", e);
+  }
+}
+
+const APP_VERSION_LABEL = "V2.277";
+const APP_VERSION_ZIP = "Oraciones_V2.277_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
+const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
+function closeAppCredits(){
+  const el=document.getElementById("appCreditsOverlay");
+  if(el) el.remove();
+}
+function openAppCredits(){
+  closeAppCredits();
+  const overlay=document.createElement("div");
+  overlay.id="appCreditsOverlay";
+  overlay.className="app-credits-overlay";
+  overlay.onclick=function(e){ if(e.target===overlay) closeAppCredits(); };
+  overlay.innerHTML =
+    '<div class="app-credits-card">' +
+      '<img class="app-credits-icon" src="icon-192.png" alt="Icono de la app">' +
+      '<div class="app-credits-title">Oraciones V3</div>' +
+      '<div class="app-credits-line"><strong>Versión instalada:</strong> '+APP_VERSION_LABEL+'</div>' +
+      '<div class="app-credits-line"><strong>ZIP:</strong></div>' +
+      '<div class="app-credits-zip">'+APP_VERSION_ZIP+'</div>' +
+      '<div class="app-credits-line">App personal de oraciones, notas, salmos y versículos.</div>' +
+      '<div class="app-credits-line">Desarrollada y perfeccionada versión a versión. 🙏🏾</div>' +
+      '<div class="app-credits-line">✨ Gracias por formar parte de este proyecto.</div>' +
+      '<button class="btn soft" type="button" onclick="closeAppCredits()">Cerrar</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+function openSentVersesList(){
+  sentListActive=true;
+  try{
+    if(!state || !Array.isArray(state.verses)) return;
+
+    section = "verses";
+    state.section = "verses";
+    specialVerseMode = null;
+    if(typeof syncTabs === "function") syncTabs();
+
+    const sent = state.verses
+      .filter(v => !!v.lastCardSentAt)
+      .sort((a,b) => (b.lastCardSentAt||0) - (a.lastCardSentAt||0));
+
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+
+    if(typeof clearNavModes === "function") clearNavModes();
+    document.body.classList.add("titles-only");
+
+    document.getElementById("titlesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+
+    box.innerHTML = "";
+
+    if(!sent.length){
+      box.innerHTML = '<div class="empty">Todavía no hay versículos enviados.</div>';
+      return;
+    }
+
+    sent.forEach(v => {
+      const div = document.createElement("div");
+      div.className = "title-row";
+      const ref = escapeHtml(v.reference || v.title || "Sin referencia");
+      const cat = typeof verseCategoryLabel === "function" ? verseCategoryLabel(v.category) : "";
+      const when = formatSentListDate(v.lastCardSentAt);
+      div.innerHTML =
+        '<div class="title-name">📋 ' + ref + '</div>' +
+        '<div class="small-note">' + escapeHtml(when + (cat ? " · " + cat : "")) + '</div>' +
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\')">🗑️ Quitar</button>';
+      div.onclick = () => {
+        state.currentVerseId = v.id;
+        currentVerseCategory = v.category || currentVerseCategory || "sin_categoria";
+        specialVerseMode = null;
+        sentListActive=false;
+        setReturnToSentList();
+        if(typeof saveState === "function") saveState();
+        if(typeof renderList === "function") renderList();
+        if(typeof renderReader === "function") renderReader();
+        sentListActive=false;
+        setReturnToSentList();
+        if(typeof openReader === "function") openReader();
+      };
+      box.appendChild(div);
+    });
+  }catch(e){
+    console.error("openSentVersesList", e);
+    alert("No se pudo abrir la lista de enviados.");
+  }
+}
+
+function openNeverSentVerse(){
+  try{
+    if(!state || !Array.isArray(state.verses)) return;
+
+    const list = state.verses.filter(v => !v.lastCardSentAt);
+    if(!list.length){
+      alert("No quedan versículos nunca enviados.");
+      return;
+    }
+
+    // Prioriza uno de la categoría actual si estás leyendo una categoría.
+    const current = (typeof currentItem === "function") ? currentItem() : null;
+    const cat = (current && current.category) || currentVerseCategory || "";
+    let chosen = null;
+
+    if(cat && cat !== "favoritos"){
+      chosen = list.find(v => v.category === cat);
+    }
+    if(!chosen) chosen = list[Math.floor(Math.random() * list.length)];
+
+    state.currentVerseId = chosen.id;
+    currentVerseCategory = chosen.category || currentVerseCategory || "sin_categoria";
+    specialVerseMode = "neverSent";
+
+    if(typeof saveState === "function") saveState();
+    if(typeof renderList === "function") renderList();
+    if(typeof renderReader === "function") renderReader();
+    if(typeof openReader === "function") openReader();
+
+    if(typeof toast === "function"){
+      toast("Nunca enviados: " + list.length);
+    }
+  }catch(e){
+    console.error("openNeverSentVerse", e);
+    alert("No se pudo abrir nunca enviados.");
+  }
+}
+
+function openRandomVerse(){ openVerseSpecial(pickRandomVerse(),"random"); setActiveView("random"); }
+function buildVerseShareText(item){
+  if(!item) return "";
+  const heading=specialVerseMode==="daily"?"🌅 Versículo del día\n\n":specialVerseMode==="random"?"🌿 Versículo aleatorio\n\n":"";
+  const cat=verseCategoryLabel(item.category);
+  return cleanTextBreaks(heading+cat+"\n\n"+(item.reference||item.title||"Versículo")+"\n\n"+(item.text||item.content||""));
+}
+
+
+  /* ===== VERSÍCULOS / CATEGORÍAS ===== */
+  function openVerseCategories(){
+  setSearchVisibleV26(true);
+  setActiveView("categories");
+  categoryListActive=true;
+  clearNavModes();
+
+  specialVerseMode=null;
+  verseNavigationMode="categories";
+  section="verses";
+  state.section="verses";
+  currentVerseCategory=currentVerseCategory||"sin_categoria";
+  normalizeVerses();
+  saveState();
+  syncTabs();
+  renderList();
+
+  document.body.classList.add("categories-fullscreen-v73");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+
+  document.getElementById("verseCategoriesView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+
+  const cs=document.getElementById("categorySearchV73");
+  if(cs) cs.value="";
+  renderVerseCategories();
+  setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},40);
+}
+
+function ensureVerseCategories(){
+  if(!state.verseCategories || !state.verseCategories.length){
+    state.verseCategories=VERSE_CATEGORIES.map(v=>({id:v.id,label:v.label}));
+  }
+}
+
+function createVerseCategory(){
+  ensureVerseCategories();
+
+  const name=prompt("Nombre de la categoría:");
+  if(!name) return;
+
+  const emoji=prompt("Emoji o icono (ej: ✨ ❤️ 📖 🙏):","✨")||"✨";
+  const id="cat_"+Date.now();
+
+  state.verseCategories.push({id:id,label:(emoji+" "+name).trim()});
+  saveState();
+  renderVerseCategories();
+  toast("Categoría creada");
+}
+
+function renameVerseCategory(){
+  ensureVerseCategories();
+
+  const labels=state.verseCategories.map((c,i)=>(i+1)+". "+c.label).join("\n");
+  const choice=prompt("Renombrar categoría:\n\n"+labels+"\n\nNúmero:");
+  if(!choice) return;
+
+  const idx=parseInt(choice,10)-1;
+  if(idx<0 || idx>=state.verseCategories.length) return;
+
+  const nuevo=prompt("Nuevo nombre:",state.verseCategories[idx].label);
+  if(!nuevo) return;
+
+  state.verseCategories[idx].label=nuevo;
+  saveState();
+  renderVerseCategories();
+  toast("Categoría renombrada");
+}
+
+function deleteVerseCategory(){
+  ensureVerseCategories();
+
+  const labels=state.verseCategories.map((c,i)=>(i+1)+". "+c.label).join("\n");
+  const choice=prompt("Eliminar categoría:\n\n"+labels+"\n\nNúmero:");
+  if(!choice) return;
+
+  const idx=parseInt(choice,10)-1;
+  if(idx<0 || idx>=state.verseCategories.length) return;
+
+  const cat=state.verseCategories[idx];
+  if(cat.id==="sin_categoria"){
+    alert("📖 Sin categoría es una categoría del sistema y no puede eliminarse.");
+    return;
+  }
+
+  if(!confirm('Eliminar "'+cat.label+'"? Sus versículos pasarán a Sin categoría.')) return;
+
+  state.verses.forEach(v=>{
+    if(v.category===cat.id) v.category='sin_categoria';
+  });
+  state.verseCategories.splice(idx,1);
+
+  const exists=state.verseCategories.find(c=>c.id==='sin_categoria');
+  if(!exists) state.verseCategories.unshift({id:'sin_categoria',label:'📖 Sin categoría'});
+
+  saveState();
+  renderVerseCategories();
+  toast("Categoría eliminada");
+}
+
+function moveVerseToCategory(){
+  if(section!=="verses") return;
+
+  const item=currentItem();
+  if(!item || section!=="verses") return;
+
+  ensureVerseCategories();
+
+  const cats=state.verseCategories;
+  const labels=cats.map((c,i)=>(i+1)+". "+c.label).join("\n");
+  const choice=prompt("Mover a:\n\n"+labels+"\n\nEscribe el número");
+  if(!choice) return;
+
+  const idx=parseInt(choice,10)-1;
+  if(idx<0 || idx>=cats.length) return;
+
+  item.category=cats[idx].id;
+  currentVerseCategory=item.category;
+  saveState();
+
+  if(verseNavigationMode==="category"){
+    renderVerseReferenceList(currentVerseCategory);
+  }else{
+    renderList();
+    renderReader();
+  }
+
+  toast("Versículo movido");
+}
+
+function renderVerseCategories(){
+  const box = document.getElementById("verseCategoriesList");
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const searchInput = titlesVisible
+    ? document.getElementById("titlesSearch")
+    : document.getElementById("search");
+  const q = (searchInput?.value || "").trim().toLowerCase();
+
+  if(q){
+    const cats = state.verseCategories && state.verseCategories.length
+      ? state.verseCategories
+      : VERSE_CATEGORIES;
+    const catLabel = (id)=>{
+      const c = cats.find(x=>x.id===id);
+      return c ? c.label : id;
+    };
+
+    const verses = state.verses.filter(v=>{
+      const hay = [
+        v.reference,
+        v.title,
+        v.content,
+        v.category,
+        catLabel(v.category)
+      ].filter(Boolean).join(" ").toLowerCase();
+
+      return hay.includes(q);
+    });
+
+    if(!verses.length){
+      box.innerHTML = '<div class="empty">No hay resultados.</div>';
+      return;
+    }
+
+    verses.forEach((v)=>{
+      const div = document.createElement("div");
+      const preview = String(v.content || "").replace(/\n+/g, " ").slice(0, 95);
+
+      div.className = "category-card" + ((v.shared || v.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
+      div.innerHTML = '<div><strong>' + escapeHtml(((v.shared || v.lastCardSentAt) ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</strong></div><div class="category-count">' + escapeHtml(catLabel(v.category)) + (preview ? ' · ' + escapeHtml(preview) : '') + '</div>';
+      div.onclick = ()=>{
+        verseNavigationMode = "verse";
+        currentVerseCategory = v.category || currentVerseCategory || "fe";
+        section = "verses";
+        state.section = "verses";
+        setCurrentId(v.id);
+        renderList();
+        renderReader();
+        applyReaderFont();
+        enterFullscreenReading();
+      };
+
+      box.appendChild(div);
+    });
+
+    return;
+  }
+
+  const cats = state.verseCategories && state.verseCategories.length
+    ? state.verseCategories
+    : VERSE_CATEGORIES;
+
+  cats.forEach(cat=>{
+    const count = state.verses.filter(v=>v.category===cat.id).length;
+    const div = document.createElement("div");
+
+    div.className = "category-card";
+    div.innerHTML = '<div>' + escapeHtml(cat.label) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
+    div.onclick = ()=>openVerseCategory(cat.id);
+
+    box.appendChild(div);
+  });
+}
+function openVerseCategory(catId){
+  document.body.classList.add("reading-mobile");
+
+  categoryListActive = false;
+  specialVerseMode = null;
+  verseNavigationMode = "category";
+  currentVerseCategory = catId || "fe";
+  section = "verses";
+  state.section = "verses";
+
+  saveState();
+  syncTabs();
+
+  const first = state.verses.find(v=>v.category===catId);
+  if(first) setCurrentId(first.id);
+
+  renderVerseReferenceList(catId);
+}
+function renderVerseReferenceList(catId){
+  const box = document.getElementById("titlesList");
+  if(!box) return;
+
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("verseCategoriesView").classList.add("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+
+  const verses = state.verses.filter(v=>v.category===catId);
+
+  box.innerHTML = "";
+  if(!verses.length){
+    box.innerHTML = '<div class="empty">No hay versículos en esta categoría.</div>';
+    return;
+  }
+
+  verses.forEach((v, idx)=>{
+    const div = document.createElement("div");
+
+    div.className = "title-row" + (state.currentVerseId===v.id ? " active" : "") + ((v.shared || v.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
+    div.innerHTML = '<div class="title-code">V' + (idx + 1) + '</div><div class="title-name">' + escapeHtml((v.shared ? '✓ ' : '') + (v.favorite ? '⭐ ' : '') + (v.reference || v.title || "Sin referencia")) + '</div>';
+    div.onclick = ()=>{
+      verseNavigationMode = "verse";
+      currentVerseCategory = v.category || currentVerseCategory || "fe";
+      setCurrentId(v.id);
+      renderList();
+      renderReader();
+      applyReaderFont();
+      enterFullscreenReading();
+    };
+
+    box.appendChild(div);
+  });
+}
+function openVerseFavorites(){
+  specialVerseMode = null;
+  section = "verses";
+  state.section = "verses";
+  saveState();
+  syncTabs();
+
+  const box = document.getElementById("titlesList");
+  if(!box) return;
+
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("verseCategoriesView").classList.add("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+
+  const verses = state.verses.filter(v => v.favorite);
+  box.innerHTML = "";
+
+  if(!verses.length){
+    box.innerHTML = '<div class="empty">No hay versículos favoritos.</div>';
+    return;
+  }
+
+  verses.forEach((v, idx) => {
+    const div = document.createElement("div");
+    div.className = "title-row" + (state.currentVerseId === v.id ? " active" : "") + ((v.shared || v.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
+    div.innerHTML = '<div class="title-code">★</div><div class="title-name">' + escapeHtml((v.shared ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</div>';
+    div.onclick = () => {
+      verseNavigationMode = "verse";
+      currentVerseCategory = catId;
+      setCurrentId(v.id);
+      renderList();
+      renderReader();
+      applyReaderFont();
+      openReader();
+    };
+    box.appendChild(div);
+  });
+}
+
+function renderTitles(){
+  const box = document.getElementById("titlesList");
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const q = (titlesVisible
+    ? (document.getElementById("titlesSearch")?.value || "")
+    : (document.getElementById("search")?.value || "")
+  ).trim().toLowerCase();
+
+  let items = getItems().map((item, idx) => ({
+    ...item,
+    __idx: idx,
+    __code: getDisplayCode(idx, section)
+  }));
+
+  if(q){
+    items = items.filter(item => {
+      const hay = [
+        item.__code,
+        item.title,
+        displayItemTitle(item),
+        item.content,
+        item.reference,
+        item.category
+      ].filter(Boolean).join(" ").toLowerCase();
+      return hay.includes(q);
+    });
+  }
+
+  const current = currentItem();
+  if(!items.length){
+    box.innerHTML = '<div class="empty">No hay resultados.</div>';
+    return;
+  }
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "title-row" + (current && item.id === current.id ? " active" : "") + (section === "verses" && (item.shared || item.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
+    div.innerHTML = '<div class="title-code">' + escapeHtml(item.__code) + '</div><div class="title-name">' + escapeHtml(displayItemTitle(item)) + '</div>';
+    div.onclick = () => {
+      if(section === "verses"){
+        specialVerseMode = null;
+        verseNavigationMode = "titles";
+        currentVerseCategory = null;
+      }
+      setCurrentId(item.id);
+      renderList();
+      renderReader();
+      enterFullscreenReading();
+    };
+    box.appendChild(div);
+  });
+}
+
+function clearNavModes(){
+  try{
+    const editor = document.getElementById("editorView");
+    if(!editor || editor.classList.contains("hidden")){
+      document.body.classList.remove("editing-focus");
+    }
+
+    document.body.classList.remove("titles-only");
+    document.body.classList.remove("titles-fullscreen-v72");
+    document.body.classList.remove("list-only");
+    document.body.classList.remove("backup-only");
+    document.body.classList.remove("special-view-only");
+
+    const cal = document.getElementById("calendarView");
+    if(cal) cal.classList.add("hidden");
+  }catch(e){}
+}
+
+function titlesPlaceholderV72(){
+  if(section === "prayers") return "Buscar oración o código (ej. O3)";
+  if(section === "notes") return "Buscar nota o código (ej. N2)";
+  if(section === "guides") return "Buscar guía o código (ej. G1)";
+  return "Buscar versículo, referencia o palabra";
+}
+
+function openTitlesView(){
+  setSearchVisibleV26(true);
+
+  if(section === "verses"){
+    specialVerseMode = null;
+    verseNavigationMode = "titles";
+    currentVerseCategory = null;
+  }
+
+  setActiveView("titles");
+  clearNavModes();
+  document.body.classList.add("titles-only", "titles-fullscreen-v72");
+
+  if(!document.getElementById("editorView").classList.contains("hidden")){
+    saveCurrent(false, true);
+  }
+
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+
+  const vc = document.getElementById("verseCategoriesView");
+  if(vc) vc.classList.add("hidden");
+
+  const cal = document.getElementById("calendarView");
+  if(cal) cal.classList.add("hidden");
+
+  document.body.classList.remove("reading-mobile", "fullscreen-reading", "hide-reading-ui");
+
+  const ts = document.getElementById("titlesSearch");
+  if(ts){
+    ts.value = "";
+    ts.placeholder = titlesPlaceholderV72();
+  }
+
+  renderTitles();
+
+  setTimeout(function(){
+    window.scrollTo({top: 0, behavior: "auto"});
+    const list = document.getElementById("titlesList");
+    if(list) list.scrollTop = 0;
+  }, 40);
+}
+
+function openTrash(){
+  setActiveView("trash");
+  clearNavModes();
+  document.body.classList.add("special-view-only");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  document.getElementById("trashView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");
+  renderTrash();
+}
+
+  /* ===== PAPELERA ===== */
+  function renderTrash(){
+    const box = document.getElementById("trashList");
+    box.innerHTML = "";
+
+    const trash = getTrash();
+    if(!trash.length){
+      box.innerHTML = '<div class="empty">La papelera está vacía.</div>';
+      return;
+    }
+
+    trash.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "trash-item";
+      div.innerHTML =
+        '<div class="trash-title">' + escapeHtml(item.title || "Sin título") + '</div>' +
+        '<div class="row">' +
+          '<button class="btn soft" type="button" onclick="restoreFromTrash(\'' + item.id + '\')">Restaurar</button>' +
+          '<button class="btn danger" type="button" onclick="deleteForever(\'' + item.id + '\')">Borrar definitivo</button>' +
+        '</div>';
+      box.appendChild(div);
+    });
+  }
+function restoreFromTrash(id){
+  const trash = getTrash();
+  const idx = trash.findIndex(x => x.id === id);
+  if(idx < 0) return;
+
+  const item = trash.splice(idx, 1)[0];
+  const items = getItems();
+  items.unshift(item);
+
+  setItems(items);
+  setCurrentId(item.id);
+  saveState();
+  syncTabs();
+  renderList();
+  renderReader();
+  renderTrash();
+  toast("Restaurado");
+}
+function deleteForever(id){
+  const trash = getTrash();
+  const item = trash.find(x => x.id === id);
+  if(!item) return;
+  if(!confirm('¿Borrar definitivamente "' + item.title + '"?')) return;
+
+  setTrash(trash.filter(x => x.id !== id));
+  saveState();
+  renderTrash();
+  toast("Borrado definitivo");
+}
+function emptyTrash(){
+  const trash = getTrash();
+  if(!trash.length) return alert("La papelera ya está vacía.");
+  if(!confirm("¿Vaciar toda la papelera? Esta acción no se puede deshacer.")) return;
+
+  setTrash([]);
+  saveState();
+  renderTrash();
+  toast("Papelera vaciada");
+}
+
+async function copyCurrentReference(){
+  const item=currentItem();
+  if(!item) return;
+  const ref=(item.reference||item.title||"").trim();
+  if(!ref) return;
+  try{
+    await navigator.clipboard.writeText(ref);
+    toast("Referencia copiada: "+ref);
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=ref;
+    ta.setAttribute("readonly","");
+    ta.style.position="fixed";
+    ta.style.left="-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    toast("Referencia copiada: "+ref);
+  }
+}
+
+function copyCurrent(){
+  const item=currentItem();if(!item)return;
+  const text=section==="verses"?buildVerseShareText(item):(item.content||"");
+  navigator.clipboard.writeText(cleanTextBreaks(text)).then(()=>{
+    if(section==="verses"){
+      item.shared=true;
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+      saveState();renderList();renderReader();
+    }
+    toast("Copiado")
+  })
+}
+
+function openFavoritesView(){
+  try{
+    setActiveView("favorites");
+    const favs = (getItems()||[]).filter(i => i.favorite);
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+
+    if(typeof clearNavModes === "function") clearNavModes();
+    document.body.classList.add("titles-only");
+
+    document.getElementById("titlesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+
+    box.innerHTML = "";
+    if(!favs.length){
+      box.innerHTML = '<div class="empty">No hay favoritos.</div>';
+      return;
+    }
+
+    favs.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "title-row";
+      const code = typeof getDisplayCode === "function"
+        ? getDisplayCode(getItems().findIndex(x => x.id === item.id), section)
+        : "";
+      div.innerHTML =
+        '<div class="title-name">⭐ ' + escapeHtml(item.title || "Sin título") + '</div>' +
+        (code ? '<div class="small-note">' + escapeHtml(code) + '</div>' : '');
+      div.onclick = () => {
+        setCurrentId(item.id);
+        specialVerseMode = null;
+        if(section === "verses"){
+          currentVerseCategory = item.category || currentVerseCategory || "sin_categoria";
+          verseNavigationMode = "verse";
+        }
+        if(typeof saveState === "function") saveState();
+        if(typeof renderList === "function") renderList();
+        if(typeof renderReader === "function") renderReader();
+        if(typeof openReader === "function") openReader();
+      };
+      box.appendChild(div);
+    });
+  }catch(e){
+    console.error("openFavoritesView", e);
+    alert("No se pudieron abrir los favoritos.");
+  }
+}
+
+function toggleFavorite(){
+  const item=currentItem();
+  if(!item) return;
+
+  item.favorite=!item.favorite;
+  item.updatedAt=Date.now();
+  saveState();
+  renderList();
+  renderReader();
+  toast(item.favorite?"Marcado como favorito":"Quitado de favoritos");
+}
+function changeReaderSize(delta){
+  readerSize+=delta;
+  if(readerSize<20) readerSize=20;
+  if(readerSize>34) readerSize=34;
+
+  localStorage.setItem(SIZE_KEY, String(readerSize));
+  renderReader();
+}
+
+
+/* Calendario trasladado a Mi Biblia de Estudio. */
+
+function openBackup(){
+  setActiveView("backup");
+  clearNavModes();
+  try{ renderBackupStatusV3149(); }catch(e){}
+
+  document.body.classList.add("backup-only", "special-view-only");
+  document.body.classList.remove("reading-mobile", "fullscreen-reading", "hide-reading-ui");
+
+  document.getElementById("backupView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+
+  var vc = document.getElementById("verseCategoriesView");
+  if(vc) vc.classList.add("hidden");
+
+  var cal = document.getElementById("calendarView");
+  if(cal) cal.classList.add("hidden");
+}
+function downloadBlob(filename, blob){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
-  a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'⭐ '+item.title:item.title;const bg=document.body.classList.contains("dark") ? "#111111" : "#f8f6f1";const card=document.body.classList.contains("dark") ? "#1a1a1a" : "#ffffff";const text=document.body.classList.contains("dark") ? "#f2eee7" : "#181818";return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>${escapeHtml(item.title)}</title><style>body{margin:0;background:${bg};color:${text};font-family:Arial,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:24px}.card{background:${card};border-radius:20px;padding:24px}.badge{font-size:13px;opacity:.7;margin-bottom:10px}h1{font-size:24px;margin:0 0 18px 0}.content{white-space:pre-wrap;font-size:${readerSize}px;line-height:2.05}body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
+.category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
+.category-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:bold}
+.category-count{color:var(--muted);font-size:13px;margin-top:4px}
+
+#readerText{font-size:var(--reader-font-size, 28px) !important}
+
+#editorView .panel-head{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+}
+#editorView textarea{
+  min-height:60vh;
 }
 
-$('#exportBackup')?.addEventListener('click',()=>{
-  const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-  const backup=buildCompleteBackup();
-  downloadJsonFile(`Biblia_de_Estudio_backup_${stamp}.json`,backup);
-  toast(`Copia completa exportada: ${backup.summary.storageGroups} grupos`);
-});
+#editorView{padding-bottom:90px}
+</style>
+<style id="v2-azul-suave-limpio-v20">
+body:not(.dark) .topbar{
+  background:rgba(248,246,241,.96)!important;
+  border-bottom:1px solid #dce8f5!important;
+}
 
-$('#importBackup')?.addEventListener('click',()=>$('#backupFileInput')?.click());
+/* Panel general superior: azul suave */
+body:not(.dark) .topbar-row{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  padding:10px!important;
+  gap:8px!important;
+}
 
-$('#backupFileInput')?.addEventListener('change',async e=>{
-  const file=e.target.files?.[0];
-  e.target.value='';
-  if(!file)return;
+/* Selector principal */
+body:not(.dark) .segment{
+  background:#dfeeff!important;
+  border:1px solid #cfe3f7!important;
+  border-radius:22px!important;
+  padding:6px!important;
+}
+body:not(.dark) .segment button{
+  background:transparent!important;
+  color:var(--text)!important;
+}
+body:not(.dark) .segment button.active{
+  background:#fff!important;
+  color:var(--text)!important;
+  font-weight:700!important;
+  box-shadow:0 5px 15px rgba(31,95,155,.08)!important;
+}
 
-  try{
-    const backup=JSON.parse(await file.text());
+/* Botones normales blancos sobre el panel azul */
+body:not(.dark) .topbar-row .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
 
-    if(
-      backup?.app!=='Mi Biblia de Estudio' ||
-      !backup.localStorage ||
-      typeof backup.localStorage!=='object' ||
-      Array.isArray(backup.localStorage)
-    ){
-      throw new Error('El archivo no es una copia válida de esta aplicación');
-    }
+/* Nueva azul */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  box-shadow:0 5px 14px rgba(31,95,155,.26)!important;
+}
 
-    const incomingEntries=Object.entries(backup.localStorage)
-      .filter(([key,value])=>isBackupStorageKey(key)&&typeof value==='string');
+/* Eliminar rojo siempre */
+body:not(.dark) .btn.danger{
+  background:var(--danger)!important;
+  color:#fff!important;
+}
 
-    if(!incomingEntries.length){
-      throw new Error('La copia no contiene datos compatibles para restaurar');
-    }
+/* Buscador blanco */
+body:not(.dark) .topbar-row .search{
+  background:#fff!important;
+  border:1px solid #cdddeb!important;
+}
 
-    const message=
-      `Se restaurarán ${incomingEntries.length} grupos de datos.\n\n`+
-      `Incluye lectura, diccionario y los módulos Personajes, Parábolas, Guía, `+
-      `Profecías y Lugares cuando estén presentes.\n\n`+
-      `Los datos actuales serán reemplazados. ¿Continuar?`;
+/* Panel inferior de lectura */
+body:not(.dark) #readerView .panel-head{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  margin:10px!important;
+  padding:10px!important;
+}
+body:not(.dark) #readerView .panel-head .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
 
-    if(!confirm(message))return;
+/* Los activos mandan sobre cualquier color */
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .btn.favorite-active{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid #8a5a2b!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
+}
+</style>
 
-    // Limpiar solo los datos pertenecientes a la aplicación.
-    const currentKeys=[];
-    for(let i=0;i<localStorage.length;i++){
-      const key=localStorage.key(i);
-      if(key&&isBackupStorageKey(key))currentKeys.push(key);
-    }
-    for(const key of currentKeys)localStorage.removeItem(key);
+<style id="v2-active-border-fix-v21">
+/* Refuerzo final para que el botón activo siempre muestre marco visible */
+body:not(.dark) .topbar-row .btn.active-view,
+body:not(.dark) #readerView .panel-head .btn.active-view,
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .segment button.active{
+  background:#ffffff !important;
+  border:2px solid #8a5a2b !important;
+  color:#181818 !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 14px rgba(138,90,43,.18) !important;
+  outline:none !important;
+}
 
-    // Restaurar todos los módulos incluidos, también los añadidos en futuras versiones.
-    for(const [key,value] of incomingEntries){
-      localStorage.setItem(key,value);
-    }
+/* Mantener el botón Nueva azul aunque sea primary */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  border:none!important;
+}
+</style>
 
-    toast(`Copia completa restaurada: ${incomingEntries.length} grupos. Reiniciando…`);
-    setTimeout(()=>location.reload(),850);
+<style id="v22-sin-lista-fix">
+button[onclick*="openList"]{display:none!important;}
+</style>
 
-  }catch(error){
-    console.error(error);
-    toast(error.message||'No se pudo importar la copia');
+<style id="v27-a-combo-real-css">
+.font-combo-v27{
+  display:inline-flex;
+  align-items:center;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(31,95,155,.045);
+  gap:0;
+}
+.font-combo-v27 .font-half-v27{
+  border-radius:0!important;
+  font-weight:600;
+  margin:0!important;
+  box-shadow:none!important;
+  border:none!important;
+  background:transparent!important;
+  border-right:1px solid rgba(31,95,155,.15)!important;
+  min-width:52px;
+  padding-left:12px;
+  padding-right:12px;
+}
+.font-combo-v27 .font-half-v27:first-child{
+  border-right:1px solid rgba(0,0,0,.08)!important;
+}
+body.dark .font-combo-v27{
+  background:var(--soft);
+  border:1px solid var(--line);
+}
+
+/* v43E - Calendario limpio */
+#calendarBtn.calendar-alert::after{
+  content:""!important;
+  display:none!important;
+}
+body:not(.dark) #calendarBtn.calendar-alert,
+body:not(.dark) #calendarBtn.calendar-alert.active-view,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert.active-view,
+body.dark #calendarBtn.calendar-alert,
+body.dark #calendarBtn.calendar-alert.active-view{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+
+</style>
+
+<style>
+
+.reader-collapse-block{
+  margin:6px 0;
+  border:1px solid #b9dcff;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f4fbff 0%,#eaf5ff 100%);
+  overflow:hidden;
+  box-shadow:0 3px 10px rgba(48,132,214,.08);
+}
+.reader-collapse-block summary{
+  cursor:pointer;
+  padding:9px 12px;
+  font-weight:700;
+  list-style:none;
+  color:#1f5f9f;
+  background:linear-gradient(135deg,#f7fcff,#eaf5ff);
+}
+.reader-collapse-block summary::-webkit-details-marker{display:none}
+.reader-collapse-block summary::after{content:"▶";display:inline-block;margin-left:6px;transition:transform .22s ease;font-weight:400}
+.reader-collapse-block[open] summary::after{transform:rotate(90deg)}
+.reader-collapse-content{
+  padding:0 12px 10px 12px;
+  white-space:pre-wrap;
+  line-height:1.48;
+  color:var(--text);
+  background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.18));
+}
+body.dark .reader-collapse-block{
+  border-color:#2d5f92;
+  background:linear-gradient(180deg,#15273a 0%,#102235 100%);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+body.dark .reader-collapse-block summary{
+  color:#b9dcff;
+  background:linear-gradient(135deg,#18314a,#12273d);
+}
+body.dark .reader-collapse-content{
+  background:rgba(255,255,255,.03);
+}
+.block-overlay-v864{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
+.block-card-v864{width:min(520px,94vw);max-height:86dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.block-card-v864 h3{margin:0 0 10px 0}
+.block-card-v864 label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+.block-card-v864 input,.block-card-v864 textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:10px;font-size:15px}
+.block-card-v864 textarea{min-height:170px;resize:vertical}
+.block-actions-v864{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
+.block-controls-v865{display:flex;gap:7px;flex-wrap:wrap;padding:0 10px 8px 10px}
+.block-mini-v865{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 10px;font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.block-mini-v865.danger{background:#fff1ef;color:#9c2b22;border-color:#f0c8c3}
+body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
+</style>
+
+<style id="v90-20-2-retoques-finales-reales-css">
+/* v90.20.2 - Retoques finales reales de portada: solo CSS, sin tocar lógica */
+.home-panel-v9019{
+  padding:22px 12px 28px!important;
+}
+
+.home-card-v9019{
+  border-width:1px!important;
+  border-color:rgba(155,213,248,.36)!important;
+  box-shadow:
+    0 22px 48px rgba(36,105,160,.105),
+    0 8px 18px rgba(80,150,210,.055),
+    inset 0 1px 0 rgba(255,255,255,.76)!important;
+}
+
+/* Marco interior más suave y premium */
+.home-card-v9019::before{
+  border-color:rgba(255,255,255,.58)!important;
+  opacity:.92!important;
+}
+
+/* Decoración superior derecha más discreta */
+.home-card-v9019::after{
+  font-size:28px!important;
+  opacity:.115!important;
+  right:24px!important;
+  top:22px!important;
+  filter:saturate(.72) brightness(1.05)!important;
+}
+
+/* Más serenidad en el encabezado */
+.home-kicker-v9019{
+  color:#166f9f!important;
+  font-weight:800!important;
+  letter-spacing:.05px!important;
+  margin-bottom:16px!important;
+}
+
+/* Cápsula de fecha más limpia */
+.home-date-v9019{
+  padding:6px 16px!important;
+  margin-bottom:28px!important;
+  color:#466f89!important;
+  background:rgba(255,255,255,.74)!important;
+  border-color:rgba(135,195,235,.24)!important;
+  box-shadow:
+    0 5px 14px rgba(51,118,170,.075),
+    inset 0 1px 0 rgba(255,255,255,.78)!important;
+}
+
+/* Referencia con más foco, sin aumentar demasiado */
+.home-ref-v9019{
+  color:#0e6599!important;
+  margin-top:4px!important;
+  margin-bottom:20px!important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.72),
+    0 10px 28px rgba(86,170,225,.18)!important;
+}
+
+/* Aire y lectura */
+.home-text-v9019{
+  color:#203748!important;
+  max-width:625px!important;
+}
+.home-text-short-v9019{line-height:1.78!important}
+.home-text-medium-v9019{line-height:1.68!important}
+.home-text-long-v9019{line-height:1.56!important}
+.home-text-xl-v9019{line-height:1.43!important}
+
+/* Separador más sutil */
+.home-line-v9019{
+  width:116px!important;
+  height:1px!important;
+  background:linear-gradient(90deg, transparent, rgba(52,142,205,.25), transparent)!important;
+  margin:26px auto 18px!important;
+  position:relative!important;
+}
+.home-line-v9019::after{
+  content:"✣";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-51%);
+  font-size:12px;
+  line-height:1;
+  color:rgba(52,142,205,.48);
+  background:rgba(246,252,255,.78);
+  padding:0 6px;
+}
+
+/* Frase inferior acompañando, sin competir */
+.home-phrase-v9019{
+  color:#4f7288!important;
+  font-weight:650!important;
+  opacity:.92!important;
+}
+
+/* Cielos un poco más refinados */
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(168,218,248,.34)!important;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.62) 30%, rgba(255,255,255,0) 59%),
+    radial-gradient(circle at 13% 12%, rgba(255,248,221,.20) 0%, rgba(255,248,221,0) 34%),
+    radial-gradient(circle at 87% 12%, rgba(200,232,255,.32) 0%, rgba(200,232,255,0) 35%),
+    linear-gradient(145deg,#e6f6ff 0%,#f8fdff 48%,#eef9ff 100%)!important;
+}
+.home-card-v9019.home-sky-day{
+  border-color:rgba(145,210,248,.34)!important;
+  background:
+    radial-gradient(circle at 50% 31%, rgba(255,255,255,1) 0%, rgba(255,255,255,.58) 31%, rgba(255,255,255,0) 60%),
+    radial-gradient(circle at 15% 13%, rgba(211,240,255,.48) 0%, rgba(211,240,255,0) 35%),
+    radial-gradient(circle at 90% 15%, rgba(176,222,250,.28) 0%, rgba(176,222,250,0) 36%),
+    linear-gradient(145deg,#d8f2ff 0%,#f7fcff 50%,#eaf8ff 100%)!important;
+}
+.home-card-v9019.home-sky-night{
+  border-color:rgba(175,218,250,.22)!important;
+  background:
+    radial-gradient(circle at 50% 33%, rgba(236,248,255,.30) 0%, rgba(236,248,255,.13) 30%, rgba(236,248,255,0) 61%),
+    radial-gradient(circle at 82% 13%, rgba(196,222,255,.22) 0%, rgba(196,222,255,0) 31%),
+    radial-gradient(circle at 15% 88%, rgba(117,142,210,.15) 0%, rgba(117,142,210,0) 38%),
+    linear-gradient(145deg,#183961 0%,#245b88 52%,#142d49 100%)!important;
+  box-shadow:0 24px 58px rgba(8,35,68,.26), inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+.home-card-v9019.home-sky-night .home-line-v9019::after{
+  background:rgba(29,66,100,.78);
+  color:rgba(220,242,255,.62);
+}
+
+@media (max-width:420px){
+  .home-panel-v9019{padding:22px 9px 28px!important}
+  .home-card-v9019{padding-top:33px!important;padding-bottom:28px!important}
+  .home-kicker-v9019{margin-bottom:15px!important}
+  .home-date-v9019{margin-bottom:26px!important}
+  .home-line-v9019{margin-top:25px!important;margin-bottom:17px!important}
+}
+</style>
+
+</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<style>
+
+body.verse-special-fullscreen-v74 .topbar,
+body.verse-special-fullscreen-v74 .sidebar,
+body.verse-special-fullscreen-v74 #list{display:none!important}
+body.verse-special-fullscreen-v74 .main{display:block;min-height:100dvh}
+body.verse-special-fullscreen-v74 .content{padding:0;min-height:100dvh}
+body.verse-special-fullscreen-v74 #readerView{border:none;border-radius:0;min-height:100dvh}
+body.verse-special-fullscreen-v74 #readerView .panel-head{position:sticky;top:0;z-index:20;border-radius:0;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--card)}
+body.verse-special-fullscreen-v74 .reader-code{padding:16px 16px 0;font-size:13px}
+body.verse-special-fullscreen-v74 .reader-daily-date{padding:8px 16px 0}
+body.verse-special-fullscreen-v74 .reader-title{padding:8px 16px 0;font-size:22px}
+body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
+</style>
+
+<style id="v85-2-copiar-contador-real-final">
+/* v85.2 - Añadir 📋 Copiar principal y mantener el contador dentro del marco */
+#btnMainCopy{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+}
+.topbar-bottom-row-v66{
+  box-sizing:border-box!important;
+  padding-right:6px!important;
+  overflow:hidden!important;
+}
+.counter-v66{
+  flex:1 1 0!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+  padding-right:2px!important;
+  box-sizing:border-box!important;
+}
+#btnCategories{display:none!important;}
+</style>
+
+<style id="v85-3-contador-fila-completa">
+/* v85.3 - Subir luna/eliminar y dedicar una fila completa al contador */
+#btnTheme.theme-btn-v66{
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:56px!important;
+  max-width:none!important;
+}
+.delete-btn-v66{
+  flex:0 0 auto!important;
+}
+.counter-row-v853{
+  flex:0 0 100%!important;
+  width:100%!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  padding:0 10px!important;
+  margin-top:-2px!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+}
+.counter-row-v853 .counter-v66{
+  flex:0 1 auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  text-align:center!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  white-space:nowrap!important;
+  font-size:13px!important;
+}
+</style>
+
+<style>
+
+.reader-collapse-block{
+  margin-top:4px!important;
+  margin-bottom:4px!important;
+}
+.reader-collapse-block + .reader-collapse-block{
+  margin-top:6px!important;
+}
+</style>
+
+<!-- v90.18.4: tarjeta blanca del contenido emergente más compacta -->
+<style id="v90-18-4-popup-content-compact">
+  .reader-popup-card-v908 .reader-popup-content-v908{
+    padding:10px 12px !important;
+    margin:0 !important;
+    min-height:0 !important;
+    font-size:19px !important;
+    line-height:1.64 !important;
+    border-radius:16px !important;
   }
-});
-
-const TITLE_SOURCE_URLS=[
-  'https://cdn.jsdelivr.net/gh/mrk214/bible-data-es-spa@main/data/es___spa___spa/RVR1960_vid_149.json',
-  'https://raw.githubusercontent.com/mrk214/bible-data-es-spa/main/data/es___spa___spa/RVR1960_vid_149.json'
-];
-function titleLayerEntries(layer){
-  const rows=[];
-  for(const book of USFM_KEYS){
-    for(const chapter of Object.keys(layer?.[book]||{}).map(Number).sort((a,b)=>a-b)){
-      for(const item of (layer[book]?.[String(chapter)]||[]).slice().sort((a,b)=>a.versiculo-b.versiculo||a.titulo.localeCompare(b.titulo,'es'))){
-        rows.push(`${book}|${chapter}|${item.versiculo}|${item.titulo}`);
-      }
-    }
+  .reader-popup-card-v908{
+    padding:18px !important;
   }
-  return rows;
-}
-function countTitleLayer(layer){return titleLayerEntries(layer).length}
-async function downloadStructuredTitleSource(){
-  let lastError;
-  for(const url of TITLE_SOURCE_URLS){
-    try{const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);return await res.json()}catch(error){lastError=error}
+  .reader-popup-card-v908 h3{
+    margin-bottom:10px !important;
+    padding-bottom:9px !important;
   }
-  throw lastError||new Error('No se pudo descargar la fuente de títulos');
-}
-function buildVerifiedTitleLayer(data){
-  const result={},errors=[],warnings=[];let ignoredIntroductions=0;
-  const books=Array.isArray(data?.books)?data.books:[];
-  if(books.length<66)errors.push(`La fuente solo contiene ${books.length} libros`);
-  books.slice(0,66).forEach((book,bookIndex)=>{
-    const key=USFM_KEYS[bookIndex],meta=state.books.find(b=>b.key===key);if(!key||!meta)return;
-    const chapters=Array.isArray(book?.chapters)?book.chapters:[];
-    // La fuente contiene un bloque introductorio en la posición 0. El capítulo bíblico 1 está en la posición 1.
-    chapters.forEach((chapter,sourceIndex)=>{
-      if(sourceIndex===0){ignoredIntroductions++;return}
-      const targetChapter=sourceIndex;
-      if(targetChapter<1||targetChapter>meta.chapters){warnings.push(`${meta.shortTitle}: se ignoró el bloque ${sourceIndex}`);return}
-      const items=Array.isArray(chapter?.items)?chapter.items:[];const found=[];
-      for(let i=0;i<items.length;i++){
-        const item=items[i]||{};
-        if(!['section1','section2','heading1','heading2'].includes(item.type))continue;
-        const titulo=(item.lines||[]).join(' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();if(!titulo)continue;
-        let verse=Number((item.verse_numbers||[])[0]||0);
-        if(!verse){for(let j=i+1;j<items.length;j++){const n=Number((items[j]?.verse_numbers||[])[0]||0);if(n){verse=n;break}}}
-        if(!verse)verse=1;
-        const max=EXPECTED_CHAPTER_VERSES[key]?.[targetChapter-1];
-        if(!Number.isInteger(max)||verse<1||verse>max){errors.push(`${meta.shortTitle} ${targetChapter}:${verse}: título fuera de un versículo válido`);continue}
-        found.push({versiculo:verse,titulo});
-      }
-      if(found.length){
-        const seen=new Set();
-        result[key]=result[key]||{};
-        result[key][String(targetChapter)]=found.filter(x=>{const id=`${x.versiculo}|${x.titulo.toLowerCase()}`;if(seen.has(id))return false;seen.add(id);return true}).sort((a,b)=>a.versiculo-b.versiculo);
-      }
-    });
-  });
-  const count=countTitleLayer(result);
-  if(!count)errors.push('No se encontró ningún título válido');
-  return{result,count,errors,warnings,ignoredIntroductions};
-}
-async function ensureAutomaticTitles(){
-  if(countTitleLayer(state.importedTitles||{})>0)return;
+  .reader-popup-actions-v913{
+    margin-top:14px !important;
+  }
+</style>
 
-  // Desde la V1.57 los 2.077 títulos RVR1960 forman parte del paquete.
-  // En un primer arranque se copian a la capa persistente para que también
-  // queden incluidos en las copias de seguridad y sobrevivan a futuras versiones.
-  const integratedCount=countTitleLayer(state.baseTitles||{});
-  if(integratedCount>0){
-    const integrated=JSON.parse(JSON.stringify(state.baseTitles));
-    const hash=await sha256Hex(titleLayerEntries(integrated).join('\n'));
-    state.importedTitles=integrated;
-    localStorage.setItem('importedTitles',JSON.stringify(integrated));
-    localStorage.setItem('verifiedTitleLayerAudit',JSON.stringify({installedAt:Date.now(),count:integratedCount,sha256:hash,ignoredIntroductions:0,warnings:[],automatic:true,integrated:true,appVersion:APP_VERSION}));
+<style id="v90-19-4-sent-home-hide">
+/* v90.19.4 - Evita que la portada de Inicio aparezca dentro de Más > Enviados */
+body.sent-fullscreen-v76 #homeView,
+body.sent-reader-v903 #homeView{
+  display:none!important;
+}
+</style>
+
+<style id="v90-20-16-portada-manana-final-css">
+/* v90.20.16 - Ajuste final SOLO mañana: sol y luz cálida más hacia la esquina superior izquierda */
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 7% 14%, rgba(255,255,255,.88) 0%, rgba(255,255,255,.60) 4%, rgba(255,246,204,.34) 12%, rgba(255,229,132,.21) 23%, rgba(255,229,132,0) 42%),
+    radial-gradient(ellipse at 0% 10%, rgba(255,219,108,.46) 0%, rgba(255,232,153,.25) 25%, rgba(255,232,153,0) 52%),
+    radial-gradient(ellipse at 24% 10%, rgba(255,255,255,.48) 0%, rgba(255,255,255,.18) 21%, rgba(255,255,255,0) 47%),
+    radial-gradient(ellipse at 78% 24%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(128deg,#fff0bd 0%,#f8f6df 22%,#d9f2ff 54%,#eafbff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.18),
+    0 9px 24px rgba(247,197,86,.08),
+    inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:17px!important;
+  right:auto!important;
+  top:36px!important;
+  font-size:39px!important;
+  opacity:.37!important;
+  color:rgba(247,184,61,.38)!important;
+  filter:saturate(.93) brightness(1.18) blur(.08px)!important;
+  text-shadow:
+    0 0 20px rgba(255,226,139,.52),
+    0 0 42px rgba(255,204,70,.20)!important;
+}
+</style>
+
+<style id="v90-20-26-portada-manana-brillo-esquina-css">
+/* v90.20.26 - SOLO mañana: brillo del amanecer unido al sol de la esquina.
+   No toca noche, tarde, navegación ni tarjetas de compartir. */
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 7% 13%, rgba(255,255,255,.86) 0%, rgba(255,255,255,.58) 5%, rgba(255,246,198,.38) 14%, rgba(255,232,138,.23) 27%, rgba(255,232,138,0) 49%),
+    radial-gradient(ellipse at 0% 12%, rgba(255,218,104,.50) 0%, rgba(255,231,151,.28) 27%, rgba(255,231,151,0) 58%),
+    radial-gradient(ellipse at 35% 16%, rgba(255,255,255,.48) 0%, rgba(255,255,255,.19) 21%, rgba(255,255,255,0) 49%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff1bf 0%,#f7f6df 25%,#d7f2ff 55%,#eafbff 100%)!important;
+}
+.home-card-v9019.home-sky-morning::before{
+  background:
+    radial-gradient(ellipse at 9% 13%, rgba(255,255,255,.46) 0%, rgba(255,255,255,.18) 18%, rgba(255,255,255,0) 41%),
+    radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 17%, rgba(255,255,255,0) 39%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+}
+.home-card-v9019.home-sky-morning::after{
+  left:6px!important;
+  top:18px!important;
+  opacity:.36!important;
+  text-shadow:
+    0 0 26px rgba(255,228,142,.66),
+    0 0 58px rgba(255,205,72,.30)!important;
+}
+</style>
+
+<style id="v90-20-31-tarde-cielo-calido-real-css">
+/* v90.20.31 - SOLO TARDE: tema propio de cielo cálido; mañana y noche intactas */
+.home-card-v9019.home-sky-day{
+  border-color:rgba(130,202,244,.46)!important;
+  background:
+    radial-gradient(circle at 76% 12%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.42) 8%, rgba(255,239,177,.22) 20%, rgba(255,239,177,0) 44%),
+    radial-gradient(ellipse at 72% 16%, rgba(255,219,120,.28) 0%, rgba(255,226,145,.16) 22%, rgba(255,226,145,0) 50%),
+    radial-gradient(ellipse at 26% 22%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 19%, rgba(255,255,255,0) 45%),
+    radial-gradient(ellipse at 58% 48%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 22%, rgba(255,255,255,0) 52%),
+    linear-gradient(145deg,#cdeeff 0%,#eaf8ff 38%,#fff7dc 70%,#eefaff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.16),
+    0 8px 22px rgba(246,195,96,.07),
+    inset 0 1px 0 rgba(255,255,255,.93)!important;
+}
+.home-card-v9019.home-sky-day::before{
+  border-color:rgba(255,255,255,.78)!important;
+  background:
+    radial-gradient(ellipse at 28% 24%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 16%, rgba(255,255,255,0) 38%),
+    radial-gradient(ellipse at 62% 32%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+  box-shadow:
+    inset 0 0 40px rgba(255,255,255,.36),
+    0 0 0 1px rgba(164,219,249,.08)!important;
+}
+.home-card-v9019.home-sky-day::after{
+  content:"☀️"!important;
+  left:auto!important;
+  right:20px!important;
+  top:16px!important;
+  font-size:34px!important;
+  opacity:.36!important;
+  color:rgba(247,184,61,.34)!important;
+  filter:saturate(.96) brightness(1.20) blur(.06px)!important;
+  text-shadow:
+    0 0 20px rgba(255,248,220,.62),
+    0 0 42px rgba(255,219,116,.42),
+    0 0 72px rgba(255,205,72,.18)!important;
+}
+.home-card-v9019.home-sky-day .home-date-v9019{
+  background:rgba(255,255,255,.84)!important;
+  border-color:rgba(126,194,235,.23)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.075), inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+.home-card-v9019.home-sky-day .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(73,156,218,.22),rgba(132,202,239,.48),rgba(73,156,218,.22),transparent)!important;
+}
+.home-card-v9019.home-sky-day .home-line-v9019::after{
+  color:rgba(73,154,215,.40)!important;
+  background:rgba(250,254,255,.54)!important;
+  text-shadow:0 1px 10px rgba(95,166,218,.10)!important;
+}
+</style>
+
+<style id="v90-20-37-atardecer-visible-real-css">
+/* v90.20.37 - ATARDECER visible real.
+   Este bloque va al final para ganar prioridad y SOLO afecta a 17:00-19:59. */
+.home-card-v9019.home-sky-sunset{
+  border-color:rgba(238,151,92,.62)!important;
+  background:
+    radial-gradient(circle at 4% 13%, rgba(255,255,255,.94) 0%, rgba(255,236,196,.74) 7%, rgba(255,197,126,.58) 18%, rgba(239,127,78,.34) 33%, rgba(239,127,78,0) 60%),
+    radial-gradient(ellipse at 0% 55%, rgba(255,157,101,.54) 0%, rgba(255,205,156,.28) 36%, rgba(255,205,156,0) 72%),
+    radial-gradient(ellipse at 42% 28%, rgba(255,226,190,.42) 0%, rgba(255,226,190,.15) 30%, rgba(255,226,190,0) 64%),
+    radial-gradient(ellipse at 100% 38%, rgba(177,222,255,.56) 0%, rgba(177,222,255,.28) 36%, rgba(177,222,255,0) 73%),
+    radial-gradient(ellipse at 88% 100%, rgba(158,213,250,.46) 0%, rgba(158,213,250,.20) 35%, rgba(158,213,250,0) 75%),
+    linear-gradient(135deg,#ffd9a8 0%,#ffe9c9 23%,#eef9ff 58%,#d9f1ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.15),
+    0 12px 30px rgba(226,124,76,.17),
+    inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+.home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.84)!important;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(255,255,255,.52) 0%, rgba(255,255,255,.20) 20%, rgba(255,255,255,0) 45%),
+    radial-gradient(ellipse at 35% 28%, rgba(255,203,168,.32) 0%, rgba(255,203,168,.13) 28%, rgba(255,203,168,0) 58%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 72%)!important;
+  box-shadow:
+    inset 0 0 44px rgba(255,255,255,.43),
+    0 0 0 1px rgba(238,151,92,.13)!important;
+}
+.home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:-6px!important;
+  right:auto!important;
+  top:18px!important;
+  font-size:34px!important;
+  opacity:.38!important;
+  color:rgba(224,113,56,.58)!important;
+  filter:saturate(1.12) brightness(1.08) blur(.05px)!important;
+  text-shadow:
+    0 0 18px rgba(255,246,205,.78),
+    0 0 44px rgba(255,174,91,.48),
+    0 0 82px rgba(224,103,55,.22)!important;
+}
+.home-card-v9019.home-sky-sunset .home-kicker-v9019,
+.home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.58)!important;
+}
+.home-card-v9019.home-sky-sunset .home-date-v9019{
+  background:rgba(255,255,255,.90)!important;
+  border-color:rgba(226,135,75,.28)!important;
+  box-shadow:0 7px 18px rgba(226,151,76,.09), inset 0 1px 0 rgba(255,255,255,.97)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(226,126,76,.34), rgba(70,159,213,.18), transparent)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019::after{
+  color:rgba(216,114,66,.62)!important;
+  background:rgba(255,246,235,.78)!important;
+}
+.home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#5e7890!important;
+}
+</style>
+
+<style id="v90-20-41-modo-oscuro-portada-dia-colores-originales">
+/* v90.20.41 - En modo oscuro, la app queda oscura pero las tarjetas de día conservan su cielo original.
+   Esto evita que morning/day/sunset se apaguen por los estilos globales dark. Noche queda intacta. */
+body.dark .home-card-v9019.home-sky-morning,
+body.dark .home-card-v9019.home-sky-day,
+body.dark .home-card-v9019.home-sky-sunset{
+  color:#173448!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning{
+  border-color:rgba(142,207,246,.58)!important;
+  background:
+    radial-gradient(circle at 7% 7%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.48) 4%, rgba(255,245,197,.30) 13%, rgba(255,232,142,.18) 24%, rgba(255,232,142,0) 44%),
+    radial-gradient(ellipse at 5% 24%, rgba(255,218,108,.42) 0%, rgba(255,231,151,.23) 25%, rgba(255,231,151,0) 54%),
+    radial-gradient(ellipse at 38% 16%, rgba(255,255,255,.50) 0%, rgba(255,255,255,.20) 21%, rgba(255,255,255,0) 49%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff1bf 0%,#f7f6df 25%,#d7f2ff 55%,#eafbff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.18),0 9px 24px rgba(247,197,86,.09),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+body.dark .home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:
+    radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 38%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 42px rgba(255,255,255,.40),0 0 0 1px rgba(164,219,249,.08)!important;
+}
+body.dark .home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:8px!important; right:auto!important; top:10px!important;
+  font-size:38px!important; opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:0 0 18px rgba(255,255,238,.78),0 0 34px rgba(255,225,132,.68),0 0 62px rgba(255,205,72,.38),0 0 92px rgba(255,229,150,.20)!important;
+}
+
+body.dark .home-card-v9019.home-sky-day{
+  border-color:rgba(126,198,239,.54)!important;
+  background:
+    radial-gradient(circle at 10% 9%, rgba(255,255,250,.92) 0%, rgba(255,255,245,.58) 7%, rgba(255,238,162,.35) 19%, rgba(255,222,104,.18) 34%, rgba(255,222,104,0) 58%),
+    radial-gradient(ellipse at 15% 18%, rgba(255,226,122,.38) 0%, rgba(255,234,158,.21) 30%, rgba(255,234,158,0) 62%),
+    radial-gradient(ellipse at 60% 18%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.18) 22%, rgba(255,255,255,0) 52%),
+    radial-gradient(ellipse at 86% 38%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 22%, rgba(255,255,255,0) 50%),
+    linear-gradient(130deg,#fff1bc 0%,#f8f6dd 28%,#d6f2ff 58%,#edfaff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.17),0 10px 24px rgba(247,197,86,.10),inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+body.dark .home-card-v9019.home-sky-day::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:radial-gradient(ellipse at 22% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 40%),radial-gradient(ellipse at 68% 24%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 44%),linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 42px rgba(255,255,255,.38),0 0 0 1px rgba(164,219,249,.08)!important;
+}
+body.dark .home-card-v9019.home-sky-day::after{
+  content:"☀️"!important;
+  left:8px!important; right:auto!important; top:10px!important;
+  font-size:39px!important; opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:0 0 18px rgba(255,255,238,.78),0 0 34px rgba(255,225,132,.68),0 0 62px rgba(255,205,72,.38),0 0 92px rgba(255,229,150,.20)!important;
+}
+
+body.dark .home-card-v9019.home-sky-sunset{
+  border-color:rgba(246,184,126,.42)!important;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.48) 7%, rgba(255,219,149,.34) 18%, rgba(255,173,103,.22) 33%, rgba(255,173,103,0) 56%),
+    radial-gradient(ellipse at 0% 28%, rgba(255,183,96,.50) 0%, rgba(255,205,137,.28) 28%, rgba(255,205,137,0) 62%),
+    radial-gradient(ellipse at 44% 20%, rgba(255,247,220,.42) 0%, rgba(255,247,220,.16) 24%, rgba(255,247,220,0) 52%),
+    radial-gradient(ellipse at 86% 22%, rgba(202,232,255,.34) 0%, rgba(202,232,255,.13) 24%, rgba(202,232,255,0) 52%),
+    linear-gradient(130deg,#ffe5b8 0%,#fff1d5 27%,#e4f6ff 58%,#dff4ff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.15),0 10px 26px rgba(232,151,86,.10),inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+body.dark .home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:radial-gradient(ellipse at 16% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 19%, rgba(255,255,255,0) 43%),radial-gradient(ellipse at 42% 18%, rgba(255,239,210,.32) 0%, rgba(255,239,210,.12) 22%, rgba(255,239,210,0) 46%),radial-gradient(ellipse at 80% 28%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 20%, rgba(255,255,255,0) 45%),linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 68%)!important;
+  box-shadow:inset 0 0 44px rgba(255,255,255,.40),0 0 0 1px rgba(246,184,126,.10)!important;
+}
+body.dark .home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:-6px!important; right:auto!important; top:18px!important;
+  font-size:34px!important; opacity:.38!important;
+  color:rgba(238,141,58,.38)!important;
+  filter:saturate(.92) brightness(1.10) blur(.08px)!important;
+  text-shadow:0 0 18px rgba(255,196,118,.42),0 0 44px rgba(236,132,58,.18)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-morning .home-ref-v9019,
+body.dark .home-card-v9019.home-sky-day .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-day .home-ref-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.45)!important;
+}
+body.dark .home-card-v9019.home-sky-morning .home-text-v9019,
+body.dark .home-card-v9019.home-sky-day .home-text-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-text-v9019{
+  color:#18364b!important;
+  text-shadow:none!important;
+}
+body.dark .home-card-v9019.home-sky-morning .home-date-v9019,
+body.dark .home-card-v9019.home-sky-day .home-date-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-date-v9019{
+  color:#385c76!important;
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(126,194,235,.24)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.08), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+body.dark .home-card-v9019.home-sky-morning .home-phrase-v9019,
+body.dark .home-card-v9019.home-sky-day .home-phrase-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#4f7890!important;
+  text-shadow:none!important;
+}
+body.dark .home-card-v9019.home-sky-morning .home-line-v9019,
+body.dark .home-card-v9019.home-sky-day .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(73,156,218,.24),rgba(132,202,239,.52),rgba(73,156,218,.24),transparent)!important;
+}
+body.dark .home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(232,151,76,.24), rgba(52,142,205,.18), transparent)!important;
+}
+</style>
+
+</body></html>`}
+async function exportCurrentHTML(){
+  setActiveView("export");
+  const item = currentItem();
+  if(!item) return;
+
+  const label = section === "prayers" ? "Oración" : "Nota";
+  const html = buildReadingHTML(item, label, getCurrentCode());
+  const filename = slugify(item.title) + ".html";
+
+  downloadBlob(filename, new Blob([html], {type:"text/html;charset=utf-8"}));
+
+  if(navigator.share){
+    try{
+      const file = new File([html], filename, {type:"text/html"});
+      await navigator.share({title:item.title, files:[file]});
+    }catch(e){}
+  }
+
+  toast("Lectura exportada");
+}
+async function exportAllZip(){
+  if(typeof JSZip === "undefined"){
+    alert("No se pudo cargar el exportador ZIP.");
     return;
   }
 
-  // Respaldo para paquetes antiguos o incompletos.
+  const zip = new JSZip();
+  const payload = {"exportedAt":new Date().toISOString(), ...state};
+  zip.file("backup.json", JSON.stringify(payload, null, 2));
+
+  const folders = [
+    ["oraciones", state.prayers, "Oración", "O"],
+    ["notas", state.notes, "Nota", "N"],
+    ["papelera/oraciones", state.trashPrayers, "Oración eliminada", "O"],
+    ["papelera/notas", state.trashNotes, "Nota eliminada", "N"]
+  ];
+
+  folders.forEach(([folder, items, label, prefix]) => {
+    items.forEach((item, idx) => {
+      const code = prefix + (idx + 1);
+      const name = (code + "-" + slugify(item.title)) + ".html";
+      zip.folder(folder).file(name, buildReadingHTML(item, label, code));
+    });
+  });
+
+  const blob = await zip.generateAsync({type:"blob"});
+  downloadBlob("exportacion_oraciones_notas.zip", blob);
+  toast("ZIP exportado");
+}
+
+/* ===== v3.1.52 - Estado de copia de seguridad pulido ===== */
+const BACKUP_EXPORT_STATUS_KEY_V3149 = "oraciones_v3_last_backup_export_status";
+
+function backupCountsV3149(){
+  const count = function(arr){ return Array.isArray(arr) ? arr.length : 0; };
+  return {
+    prayers: count(state && state.prayers),
+    notes: count(state && state.notes),
+    verses: count(state && state.verses),
+    psalms: count(state && state.psalms)
+  };
+}
+
+function backupTotalV3149(c){
+  c = c || backupCountsV3149();
+  return (c.prayers||0) + (c.notes||0) + (c.guides||0) + (c.verses||0) + (c.parables||0) + (c.psalms||0);
+}
+
+function formatBackupDateV3149(iso){
+  if(!iso) return "Sin exportaciones registradas";
   try{
-    const data=await downloadStructuredTitleSource();
-    const audit=buildVerifiedTitleLayer(data);
-    if(audit.errors.length)throw new Error(audit.errors[0]);
-    const hash=await sha256Hex(titleLayerEntries(audit.result).join('\n'));
-    state.importedTitles=audit.result;
-    localStorage.setItem('importedTitles',JSON.stringify(audit.result));
-    localStorage.setItem('verifiedTitleLayerAudit',JSON.stringify({installedAt:Date.now(),count:audit.count,sha256:hash,ignoredIntroductions:audit.ignoredIntroductions,warnings:audit.warnings,automatic:true}));
-  }catch(error){
-    console.warn('Los títulos automáticos no pudieron cargarse; se conservarán los ya guardados',error);
+    const d = new Date(iso);
+    let value = d.toLocaleString("es-ES", {
+      weekday:"long",
+      day:"2-digit",
+      month:"long",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    });
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }catch(e){
+    return iso;
   }
 }
 
-function prepareBooksDrawer(){
-  const tabs=$$('.drawer-tabs button');
-  tabs.forEach(button=>button.classList.toggle('active',button.dataset.testament==='all'));
-  renderBooks('all');
+function backupAgeTextV3149(iso){
+  if(!iso) return {tone:"warn", text:"Todavía no hay una copia registrada."};
+  const ms = Math.max(0, Date.now() - new Date(iso).getTime());
+  const minutes = Math.floor(ms / 60000);
+  const hours = Math.floor(ms / 3600000);
+  const days = Math.floor(ms / 86400000);
+  if(minutes < 1) return {tone:"ok", text:"Hace unos segundos"};
+  if(minutes < 60) return {tone:"ok", text: minutes === 1 ? "Hace 1 minuto" : "Hace " + minutes + " minutos"};
+  if(hours < 24) return {tone:"ok", text: hours === 1 ? "Hace 1 hora" : "Hace " + hours + " horas"};
+  if(days === 1) return {tone:"ok", text:"Ayer"};
+  if(days <= 14) return {tone:"ok", text:"Hace " + days + " días"};
+  if(days <= 45) return {tone:"mid", text:"Hace " + days + " días"};
+  return {tone:"bad", text:"Hace " + days + " días"};
 }
 
-async function installVerifiedTitles(){
-  const btn=$('#installTitles'),status=$('#titleLayerStatus'),seal=$('#titleSeal'),hashEl=$('#titleHash'),exportBtn=$('#exportTitles');
-  btn.disabled=true;btn.textContent='Descargando y verificando títulos…';status.textContent='Leyendo la fuente estructurada y colocando cada encabezado en su capítulo y versículo…';seal.classList.add('hidden');hashEl.classList.add('hidden');
+function backupStatusLabelV3150(age){
+  if(!age || age.tone === "warn") return "Estado: ⚪ Sin copia registrada";
+  if(age.tone === "ok") return "Estado: ✅ Copia reciente";
+  if(age.tone === "mid") return "Estado: 🟡 Conviene hacer una copia";
+  return "Estado: 🔴 Copia antigua";
+}
+
+function backupAdviceV3149(age){
+  if(!age || age.tone === "warn") return "Cuando descargues o compartas un JSON, guardaré aquí la fecha de la última copia. Se recomienda guardar el archivo también en Google Drive.";
+  if(age.tone === "ok") return "Tu copia de seguridad está reciente. Se recomienda guardar también una copia en Google Drive.";
+  if(age.tone === "mid") return "Hace un tiempo que no exportas. Sería buena idea guardar un JSON nuevo y conservarlo en Google Drive.";
+  return "Conviene hacer una copia nueva antes de seguir añadiendo contenido y guardarla también en Google Drive.";
+}
+
+function readBackupStatusV3149(){
   try{
-    const data=await downloadStructuredTitleSource();
-    const audit=buildVerifiedTitleLayer(data);
-    if(audit.errors.length)throw new Error(audit.errors[0]);
-    const hash=await sha256Hex(titleLayerEntries(audit.result).join('\n'));
-    state.importedTitles=audit.result;localStorage.setItem('importedTitles',JSON.stringify(audit.result));
-    state.titles=mergeTitles(state.baseTitles,audit.result);save();render();
-    const report={installedAt:Date.now(),count:audit.count,sha256:hash,ignoredIntroductions:audit.ignoredIntroductions,warnings:audit.warnings};
-    localStorage.setItem('verifiedTitleLayerAudit',JSON.stringify(report));
-    status.textContent=`${audit.count.toLocaleString('es-ES')} títulos instalados y verificados. Se ignoraron ${audit.ignoredIntroductions} introducciones. La Biblia de 31.104 versículos permanece intacta.`;
-    seal.classList.remove('hidden');hashEl.textContent=`SHA-256 títulos: ${hash}`;hashEl.classList.remove('hidden');exportBtn.classList.remove('hidden');
-    updateBibleCounters({...(state.lastLocalAudit?.stats||{}),titles:audit.count});toast('Títulos instalados correctamente');
-  }catch(error){console.error(error);status.textContent=`No se instalaron los títulos: ${error.message}`;toast('No se pudieron instalar los títulos')}
-  finally{btn.disabled=false;btn.textContent='Reinstalar títulos en su orden correcto'}
+    return JSON.parse(localStorage.getItem(BACKUP_EXPORT_STATUS_KEY_V3149) || "null");
+  }catch(e){
+    return null;
+  }
 }
-function restoreTitleLayerStatus(){
-  const report=JSON.parse(localStorage.getItem('verifiedTitleLayerAudit')||'null');const count=countTitleLayer(state.importedTitles||{});
-  if(!report||!count)return;
-  const status=$('#titleLayerStatus'),seal=$('#titleSeal'),hashEl=$('#titleHash'),exportBtn=$('#exportTitles'),btn=$('#installTitles');
-  status.textContent=`${count.toLocaleString('es-ES')} títulos instalados y disponibles sin conexión. La Biblia verificada permanece intacta.`;
-  seal.classList.remove('hidden');hashEl.textContent=`SHA-256 títulos: ${report.sha256}`;hashEl.classList.remove('hidden');exportBtn.classList.remove('hidden');btn.textContent='Reinstalar títulos en su orden correcto';
-}
-$('#installTitles')?.addEventListener('click',installVerifiedTitles);
-$('#exportTitles')?.addEventListener('click',()=>{
-  const layer=state.importedTitles||{};if(!countTitleLayer(layer)){toast('Todavía no hay títulos instalados');return}
-  const blob=new Blob([JSON.stringify(layer,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='titulos_rvr1960.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-});
-setTimeout(restoreTitleLayerStatus,1300);
 
-const EXPECTED_CHAPTER_VERSES={"genesis":[31,25,24,26,32,22,24,22,29,32,32,20,18,24,21,16,27,33,38,18,34,24,20,67,34,35,46,22,35,43,55,32,20,31,29,43,36,30,23,23,57,38,34,34,28,34,31,22,33,26],"exodo":[22,25,22,31,23,30,25,32,35,29,10,51,22,31,27,36,16,27,25,26,36,31,33,18,40,37,21,43,46,38,18,35,23,35,35,38,29,31,43,38],"levitico":[17,16,17,35,19,30,38,36,24,20,47,8,59,57,33,34,16,30,37,27,24,33,44,23,55,46,34],"numeros":[54,34,51,49,31,27,89,26,23,36,35,16,33,45,41,50,13,32,22,29,35,41,30,25,18,65,23,31,40,16,54,42,56,29,34,13],"deuteronomio":[46,37,29,49,33,25,26,20,29,22,32,32,18,29,23,22,20,22,21,20,23,30,25,22,19,19,26,68,29,20,30,52,29,12],"josue":[18,24,17,24,15,27,26,35,27,43,23,24,33,15,63,10,18,28,51,9,45,34,16,33],"jueces":[36,23,31,24,31,40,25,35,57,18,40,15,25,20,20,31,13,31,30,48,25],"rut":[22,23,18,22],"1_samuel":[28,36,21,22,12,21,17,22,27,27,15,25,23,52,35,23,58,30,24,42,15,23,29,22,44,25,12,25,11,31,13],"2_samuel":[27,32,39,12,25,23,29,18,13,19,27,31,39,33,37,23,29,33,43,26,22,51,39,25],"1_reyes":[53,46,28,34,18,38,51,66,28,29,43,33,34,31,34,34,24,46,21,43,29,53],"2_reyes":[18,25,27,44,27,33,20,29,37,36,21,21,25,29,38,20,41,37,37,21,26,20,37,20,30],"1_cronicas":[54,55,24,43,26,81,40,40,44,14,47,40,14,17,29,43,27,17,19,8,30,19,32,31,31,32,34,21,30],"2_cronicas":[17,18,17,22,14,42,22,18,31,19,23,16,22,15,19,14,19,34,11,37,20,12,21,27,28,23,9,27,36,27,21,33,25,33,27,23],"esdras":[11,70,13,24,17,22,28,36,15,44],"nehemias":[11,20,32,23,19,19,73,18,38,39,36,47,31],"ester":[22,23,15,17,14,14,10,17,32,3],"job":[22,13,26,21,27,30,21,22,35,22,20,25,28,22,35,22,16,21,29,29,34,30,17,25,6,14,23,28,25,31,40,22,33,37,16,33,24,41,30,24,34,17],"salmos":[6,12,8,8,12,10,17,9,20,18,7,8,6,7,5,11,15,50,14,9,13,31,6,10,22,12,14,9,11,12,24,11,22,22,28,12,40,22,13,17,13,11,5,26,17,11,10,14,20,23,19,9,6,7,23,13,11,11,17,12,8,12,11,10,13,20,7,35,36,5,24,20,28,23,10,12,20,72,13,19,16,8,18,12,13,17,7,18,52,17,16,15,5,23,11,13,12,9,9,5,8,28,22,35,45,48,43,13,31,7,10,10,9,8,18,19,2,29,176,7,8,9,4,8,5,6,5,6,8,8,3,18,3,3,21,26,9,8,24,13,10,7,12,15,21,10,20,14,9,6],"proverbios":[33,22,35,27,23,35,27,36,18,32,31,28,25,35,33,33,28,24,29,30,31,29,35,34,28,28,27,28,27,33,31],"eclesiastes":[18,26,22,16,20,12,29,17,18,20,10,14],"cantares":[17,17,11,16,16,13,13,14],"isaias":[31,22,26,6,30,13,25,22,21,34,16,6,22,32,9,14,14,7,25,6,17,25,18,23,12,21,13,29,24,33,9,20,24,17,10,22,38,22,8,31,29,25,28,28,25,13,15,22,26,11,23,15,12,17,13,12,21,14,21,22,11,12,19,12,25,24],"jeremias":[19,37,25,31,31,30,34,22,26,25,23,17,27,22,21,21,27,23,15,18,14,30,40,10,38,24,22,17,32,24,40,44,26,22,19,32,21,28,18,16,18,22,13,30,5,28,7,47,39,46,64,34],"lamentaciones":[22,22,66,22,22],"ezequiel":[28,10,27,17,17,14,27,18,11,22,25,28,23,23,8,63,24,32,14,49,32,31,49,27,17,21,36,26,21,26,18,32,33,31,15,38,28,23,29,49,26,20,27,31,25,24,23,35],"daniel":[21,49,30,37,31,28,28,27,27,21,45,13],"oseas":[11,23,5,19,15,11,16,14,17,15,12,14,16,9],"joel":[20,32,21],"amos":[15,16,15,13,27,14,17,14,15],"abdias":[21],"jonas":[17,10,10,11],"miqueas":[16,13,12,13,15,16,20],"nahum":[15,13,19],"habacuc":[17,20,19],"sofonias":[18,15,20],"hageo":[15,23],"zacarias":[21,13,10,14,11,15,14,23,17,12,17,14,9,21],"malaquias":[14,17,18,6],"mateo":[25,23,17,25,48,34,29,34,38,42,30,50,58,36,39,28,27,35,30,34,46,46,39,51,46,75,66,20],"marcos":[45,28,35,41,43,56,37,38,50,52,33,44,37,72,47,20],"lucas":[80,52,38,44,39,49,50,56,62,42,54,59,35,35,32,31,37,43,48,47,38,71,56,53],"juan":[51,25,36,54,47,71,53,59,41,42,57,50,38,31,27,33,26,40,42,31,25],"hechos":[26,47,26,37,42,15,60,40,43,48,30,25,52,28,41,40,34,28,41,38,40,30,35,27,27,32,44,31],"romanos":[32,29,31,25,21,23,25,39,33,21,36,21,14,23,33,27],"1_corintios":[31,16,23,21,13,20,40,13,27,33,34,31,13,40,58,24],"2_corintios":[24,17,18,18,21,18,16,24,15,18,33,21,14],"galatas":[24,21,29,31,26,18],"efesios":[23,22,21,32,33,24],"filipenses":[30,30,21,23],"colosenses":[29,23,25,18],"1_tesalonicenses":[10,20,13,18,28],"2_tesalonicenses":[12,17,18],"1_timoteo":[20,15,16,16,25,21],"2_timoteo":[18,26,17,22],"tito":[16,15,15],"filemon":[25],"hebreos":[14,18,19,16,14,20,28,13,28,39,40,29,25],"santiago":[27,26,18,17,20],"1_pedro":[25,25,22,19,14],"2_pedro":[21,22,18],"1_juan":[10,29,24,21,21],"2_juan":[13],"3_juan":[15],"judas":[25],"apocalipsis":[20,29,22,11,14,17,17,13,21,11,19,17,18,20,8,21,18,24,21,15,27,21]};
-const USFM_KEYS=['genesis','exodo','levitico','numeros','deuteronomio','josue','jueces','rut','1_samuel','2_samuel','1_reyes','2_reyes','1_cronicas','2_cronicas','esdras','nehemias','ester','job','salmos','proverbios','eclesiastes','cantares','isaias','jeremias','lamentaciones','ezequiel','daniel','oseas','joel','amos','abdias','jonas','miqueas','nahum','habacuc','sofonias','hageo','zacarias','malaquias','mateo','marcos','lucas','juan','hechos','romanos','1_corintios','2_corintios','galatas','efesios','filipenses','colosenses','1_tesalonicenses','2_tesalonicenses','1_timoteo','2_timoteo','tito','filemon','hebreos','santiago','1_pedro','2_pedro','1_juan','2_juan','3_juan','judas','apocalipsis'];
-function canonicalizeBibleForHash(parts){return parts.join('\n')}
-async function sha256Hex(text){
-  if(!crypto?.subtle)return 'No disponible en este navegador';
-  const bytes=new TextEncoder().encode(text);
-  const hash=await crypto.subtle.digest('SHA-256',bytes);
-  return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,'0')).join('');
+function saveBackupStatusV3149(method, filename){
+  const counts = backupCountsV3149();
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    method: method || "JSON",
+    filename: filename || "",
+    counts: counts,
+    total: backupTotalV3149(counts)
+  };
+  localStorage.setItem(BACKUP_EXPORT_STATUS_KEY_V3149, JSON.stringify(payload));
+  renderBackupStatusV3149();
 }
-function countInstalledTitles(){
-  let total=0,duplicates=0,invalid=0;
-  const seen=new Set();
-  for(const [book,chapters] of Object.entries(state.titles||{})){
-    const meta=state.books.find(b=>b.key===book);
-    for(const [chapter,items] of Object.entries(chapters||{})){
-      const c=Number(chapter);
-      if(!meta||c<1||c>meta.chapters){invalid+=(items||[]).length;continue}
-      for(const item of items||[]){
-        const v=Number(item?.versiculo);const title=String(item?.titulo||'').trim();
-        if(!title||v<1){invalid++;continue}
-        const id=`${book}:${c}:${v}:${title.toLowerCase()}`;
-        if(seen.has(id))duplicates++;else seen.add(id);
-        total++;
+
+function renderBackupStatusV3149(){
+  const box = document.getElementById("backupStatusV3149");
+  if(!box) return;
+  const data = readBackupStatusV3149();
+  const age = backupAgeTextV3149(data && data.exportedAt);
+  const counts = (data && data.counts) || backupCountsV3149();
+  const total = (data && typeof data.total === "number") ? data.total : backupTotalV3149(counts);
+  const file = data && data.filename ? data.filename : "Aún no hay archivo registrado";
+  box.innerHTML =
+    '<div class="backup-status-card-v3149 backup-status-'+age.tone+'-v3149">' +
+      '<div class="backup-status-title-v3149">💾 Estado de la copia de seguridad</div>' +
+      '<div class="backup-status-state-v3150">' + backupStatusLabelV3150(age) + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Última exportación:</strong><br>' + formatBackupDateV3149(data && data.exportedAt) + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Antigüedad:</strong> ' + age.text + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Método:</strong> ' + ((data && data.method) ? data.method : "Aún no registrado") + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Archivo:</strong><br><span class="backup-status-file-v3149">' + file + '</span></div>' +
+      '<div class="backup-status-grid-v3149">' +
+        '<span>🙏🏾 Oraciones: <strong>' + (counts.prayers||0) + '</strong></span>' +
+        '<span>📖 Versículos: <strong>' + (counts.verses||0) + '</strong></span>' +
+        '<span>♫ Salmos: <strong>' + (counts.psalms||0) + '</strong></span>' +
+        '<span>📝 Notas: <strong>' + (counts.notes||0) + '</strong></span>' +
+        '<span>📦 Total: <strong>' + total + '</strong></span>' +
+      '</div>' +
+      '<div class="backup-status-advice-v3149">' + backupAdviceV3149(age) + '</div>' +
+    '</div>';
+}
+
+function buildBackupText(){
+  const payload = {
+    "exportedAt": new Date().toISOString(),
+    ...state
+  };
+
+  const text = JSON.stringify(payload, null, 2);
+  document.getElementById("backupText").value = text;
+  return text;
+}
+function backupFilename(){
+  const now = new Date();
+  const stamp =
+    now.getFullYear().toString() +
+    String(now.getMonth() + 1).padStart(2, "0") +
+    String(now.getDate()).padStart(2, "0") +
+    "_" +
+    String(now.getHours()).padStart(2, "0") +
+    String(now.getMinutes()).padStart(2, "0");
+
+  return "backup_oraciones_notas_" + stamp + ".json";
+}
+function downloadBackupJson(){
+  const text = buildBackupText();
+  const filename = backupFilename();
+  downloadBlob(
+    filename,
+    new Blob([text], {type: "application/json;charset=utf-8"})
+  );
+  saveBackupStatusV3149("Descarga JSON", filename);
+  toast("JSON descargado");
+}
+async function copyBackupJson(){
+  const text=buildBackupText();
+  try{
+    await navigator.clipboard.writeText(cleanTextBreaks(text));
+    saveBackupStatusV3149("Copia JSON", "JSON copiado al portapapeles");
+    toast("JSON copiado");
+  }catch(e){
+    alert("No se pudo copiar automáticamente. El JSON queda visible para copiarlo manualmente.");
+  }
+}
+async function shareBackupJson(){
+  const text=buildBackupText();
+  const filename=backupFilename();
+  const file=new File([text], filename, {type:"application/json"});
+  try{
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({title:"Backup Oraciones y Notas", text:"Backup de Oraciones y Notas", files:[file]});
+      saveBackupStatusV3149("Compartir JSON", filename);
+      toast("Compartido");
+      return;
+    }
+    if(navigator.share){
+      await navigator.share({title:"Backup Oraciones y Notas", text:text});
+      saveBackupStatusV3149("Compartir JSON como texto", filename);
+      toast("Compartido como texto");
+      return;
+    }
+    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    saveBackupStatusV3149("Descarga JSON", filename);
+    alert("Tu navegador no permite compartir desde aquí. Se ha descargado el JSON.");
+  }catch(e){
+    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    saveBackupStatusV3149("Descarga JSON", filename);
+    toast("Compartir cancelado o no disponible");
+  }
+}
+async function exportBackup(){
+  downloadBackupJson();
+}
+function applyImportedData(parsed){
+  if(!Array.isArray(parsed.prayers)||!Array.isArray(parsed.notes)) throw new Error("bad");
+  state={
+    "section":parsed.section||"prayers",
+    "currentPrayerId":parsed.currentPrayerId||(parsed.prayers[0]&&parsed.prayers[0].id)||null,
+    "currentNoteId":parsed.currentNoteId||(parsed.notes[0]&&parsed.notes[0].id)||null,
+    "currentGuideId":parsed.currentGuideId||(Array.isArray(parsed.guides)&&parsed.guides[0]&&parsed.guides[0].id)||null,
+    "currentVerseId":parsed.currentVerseId||(Array.isArray(parsed.verses)&&parsed.verses[0]&&parsed.verses[0].id)||null,
+    "currentParableId":parsed.currentParableId||(Array.isArray(parsed.parables)&&parsed.parables[0]&&parsed.parables[0].id)||null,
+    "currentPsalmId":parsed.currentPsalmId||(Array.isArray(parsed.psalms)&&parsed.psalms[0]&&parsed.psalms[0].id)||null,
+    "prayers":parsed.prayers,
+    "notes":parsed.notes,
+    "guides":Array.isArray(parsed.guides)?parsed.guides:[],
+    "verses":Array.isArray(parsed.verses)?parsed.verses:[],
+    "parables":Array.isArray(parsed.parables)?parsed.parables:[],
+    "psalms":Array.isArray(parsed.psalms)?parsed.psalms:[],
+    "verseCategories":Array.isArray(parsed.verseCategories)?parsed.verseCategories:[],
+    "trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],
+    "trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],
+    "trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],
+    "trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[],
+    "trashParables":Array.isArray(parsed.trashParables)?parsed.trashParables:[],
+    "trashPsalms":Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[],
+    "titleSeparatorsV3171":parsed.titleSeparatorsV3171&&typeof parsed.titleSeparatorsV3171==="object"?parsed.titleSeparatorsV3171:{}
+  };
+  normalizeGuides();
+  if(typeof normalizeVerses==="function") normalizeVerses();
+  if(typeof ensureVerseCategories==="function") ensureVerseCategories();
+  if(typeof ensureParablesState==="function") ensureParablesState();
+  if(typeof ensurePsalmsStateV3176==="function") ensurePsalmsStateV3176();
+  saveState();
+  section=state.section;
+  syncTabs();
+  renderList();
+  renderReader();
+  openReader();
+  toast("Backup importado")
+}
+function importBackupFromText(){
+  const text = document.getElementById("backupText").value.trim();
+  if(!text) return alert("Pega primero una copia.");
+
+  try{
+    applyImportedData(JSON.parse(text));
+  }catch(e){
+    alert("La copia no es válida.");
+  }
+}
+function importBackupFromFile(file){
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try{
+      const text = String(reader.result || "");
+      document.getElementById("backupText").value = text;
+      applyImportedData(JSON.parse(text));
+    }catch(e){
+      alert("El archivo no es un JSON válido.");
+    }
+  };
+
+  reader.onerror = () => alert("No se pudo leer el archivo.");
+  reader.readAsText(file, "utf-8");
+}
+function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
+function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
+window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
+document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
+window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-276-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
+
+function getCardTextLayout(txt){
+  const n = String(txt || "").length;
+  // V2.218 — aumenta únicamente el cuerpo del versículo en la tarjeta Biblia.
+  if(n <= 150) return {font:54, line:77, max:7, y:1015};
+  if(n <= 240) return {font:50, line:71, max:9, y:1015};
+  if(n <= 340) return {font:45, line:64, max:11, y:1000};
+  if(n <= 480) return {font:41, line:58, max:13, y:985};
+  return {font:38, line:53, max:15, y:970};
+}
+
+function markCurrentVerseCardSentDirect(){
+  try{
+    if(typeof section !== "undefined" && section !== "verses") return;
+    if(!state || !Array.isArray(state.verses)) return;
+
+    let id = state.currentVerseId;
+    let v = state.verses.find(x => x.id === id);
+
+    // Fallback por si currentVerseId no está actualizado
+    if(!v && typeof currentItem === "function"){
+      const ci = currentItem();
+      if(ci && ci.id){
+        v = state.verses.find(x => x.id === ci.id) || ci;
       }
     }
+
+    if(!v) return;
+
+    v.shared = true;
+    v.lastCardSentAt = Date.now();
+
+    if(typeof saveState === "function") saveState();
+    if(typeof renderReader === "function") setTimeout(renderReader, 120);
+    if(typeof toast === "function") toast("Tarjeta marcada como enviada");
+  }catch(e){
+    console.error("markCurrentVerseCardSentDirect", e);
   }
-  return{total,duplicates,invalid};
 }
-function updateBibleCounters(stats={}){
-  const values={auditBookCount:stats.books||0,auditChapterCount:stats.chapters||0,auditVerseCount:stats.verses||0,auditTitleCount:stats.titles||0};
-  for(const [id,value] of Object.entries(values)){const el=$('#'+id);if(el)el.textContent=Number(value).toLocaleString('es-ES')}
+
+function getThematicCardTextLayoutV2220(txt){
+  const n=String(txt||"").length;
+  // V3.1.239 — tamaño inicial generoso. El ajuste definitivo se calcula
+  // con la anchura y la altura reales disponibles, sin cortar el versículo.
+  if(n<=150) return {font:57,y:1285};
+  if(n<=240) return {font:51,y:1285};
+  if(n<=340) return {font:45,y:1275};
+  if(n<=480) return {font:40,y:1265};
+  return {font:36,y:1255};
 }
-function createAuditReportText(report){
-  const lines=[
-    'AUDITORÍA DE LA BIBLIA INSTALADA — RVR1960','',
-    `Fecha: ${new Date(report.auditedAt).toLocaleString('es-ES')}`,
-    `Libros: ${report.stats.books} / 66`,
-    `Capítulos: ${report.stats.chapters} / 1.189`,
-    `Versículos: ${report.stats.verses.toLocaleString('es-ES')} / 31.104`,
-    `Títulos: ${report.stats.titles.toLocaleString('es-ES')}`,
-    `Versículos vacíos: ${report.stats.emptyVerses}`,
-    `Textos con /n o \\n defectuoso: ${report.stats.badBreaks}`,
-    `Títulos duplicados: ${report.stats.duplicateTitles}`,
-    `Títulos inválidos: ${report.stats.invalidTitles}`,
-    `Errores: ${report.errors.length}`,
-    `Advertencias: ${report.warnings.length}`,'',
-    `Estado: ${report.verified?'BIBLIA VERIFICADA':'REVISIÓN NECESARIA'}`,'',
-    'SHA-256:',report.sha256,'']
-  if(report.errors.length)lines.push('ERRORES',...report.errors.map(x=>`- ${x}`),'')
-  if(report.warnings.length)lines.push('ADVERTENCIAS',...report.warnings.map(x=>`- ${x}`),'')
-  return lines.join('\n');
+
+function getNewJerusalemCardTextLayoutV2217(txt){
+  const n=String(txt||"").length;
+  // V2.218 — cuerpo del versículo algo mayor y comienzo más bajo
+  // para que respire respecto a la línea decorativa con la cruz.
+  if(n<=150) return {font:52,line:73,max:7,y:1190};
+  if(n<=240) return {font:48,line:67,max:9,y:1180};
+  if(n<=340) return {font:43,line:60,max:11,y:1170};
+  if(n<=480) return {font:39,line:54,max:13,y:1160};
+  return {font:34,line:47,max:15,y:1150};
 }
-async function auditarBibliaInstalada(){
-  const btn=$('#importTitles'),status=$('#titlesStatus'),seal=$('#auditSeal'),hashEl=$('#auditHash'),download=$('#downloadAuditReport');
-  btn.disabled=true;btn.textContent='Auditando archivos locales…';
-  status.textContent='Comprobando los 66 libros de la raíz, capítulo por capítulo y versículo por versículo…';
-  seal.classList.add('hidden');hashEl.classList.add('hidden');download.classList.add('hidden');updateBibleCounters({});
-  const report={version:APP_VERSION,auditedAt:Date.now(),stats:{books:0,chapters:0,verses:0,titles:0,emptyVerses:0,badBreaks:0,duplicateTitles:0,invalidTitles:0},errors:[],warnings:[],sha256:'',verified:false};
-  const hashParts=[];
+
+function openCardStyleSelectorV2217(){
+  const modal=document.getElementById("cardStyleModalV2217");
+  if(modal) modal.classList.remove("hidden");
+}
+function closeCardStyleSelectorV2217(){
+  const modal=document.getElementById("cardStyleModalV2217");
+  if(modal) modal.classList.add("hidden");
+}
+async function chooseCardStyleV2217(style){
+  closeCardStyleSelectorV2217();
+  markCurrentVerseCardSentDirect();
+  await shareVerseCard(style);
+}
+
+async function shareVerseCard(cardStyle="classic"){
   try{
-    for(let bi=0;bi<state.books.length;bi++){
-      const meta=state.books[bi];
-      let chapters;
-      try{const res=await fetch(freshUrl(meta.key+'.json'),{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);chapters=await res.json()}catch(error){report.errors.push(`${meta.shortTitle}: no se pudo leer ${meta.key}.json (${error.message})`);continue}
-      report.stats.books++;
-      if(!Array.isArray(chapters)){report.errors.push(`${meta.shortTitle}: el archivo no contiene una lista de capítulos`);continue}
-      if(chapters.length!==meta.chapters)report.errors.push(`${meta.shortTitle}: capítulos esperados ${meta.chapters}, encontrados ${chapters.length}`);
-      const expected=EXPECTED_CHAPTER_VERSES[meta.key]||[];
-      let bookVerses=0;
-      chapters.forEach((verses,ci)=>{
-        report.stats.chapters++;
-        if(!Array.isArray(verses)){report.errors.push(`${meta.shortTitle} ${ci+1}: capítulo inválido`);return}
-        const expectedCount=expected[ci];
-        if(Number.isInteger(expectedCount)&&verses.length!==expectedCount)report.errors.push(`${meta.shortTitle} ${ci+1}: versículos esperados ${expectedCount}, encontrados ${verses.length}`);
-        verses.forEach((raw,vi)=>{
-          const original=String(raw??'');const cleaned=limpiarTextoBiblico(original);
-          report.stats.verses++;bookVerses++;
-          if(!cleaned) {report.stats.emptyVerses++;report.errors.push(`${meta.shortTitle} ${ci+1}:${vi+1} está vacío`)}
-          if(/\\n|\/n/i.test(original)){report.stats.badBreaks++;report.warnings.push(`${meta.shortTitle} ${ci+1}:${vi+1} contiene un salto defectuoso que la app limpia al mostrarlo`)}
-          hashParts.push(`${meta.key}|${ci+1}|${vi+1}|${cleaned}`);
+    const cardBackgroundsV2219={
+      classic:"card-sabiduria-v2240.jpg",
+      jerusalem:"shared-card-new-jerusalem-v2217.png",
+      salvacion:"card-salvacion-v2219.jpg",
+      oracion:"card-oracion-v2219.jpg",
+      "espiritu-santo":"card-espiritu-santo-v2219.jpg",
+      misericordia:"card-misericordia-v2219.jpg",
+      alabanza:"card-alabanza-v2219.jpg",
+      fortaleza:"card-fortaleza-v2219.jpg",
+      amor:"card-amor-v2219.jpg",
+      esperanza:"card-esperanza-v2219.jpg",
+      juicio:"card-juicio-v2219.jpg",
+      fe:"card-fe-v2219.jpg",
+      "segunda-venida":"card-segunda-venida-v2219.jpg",
+      "reino-dios":"card-reino-dios-v2230.jpg",
+      santidad:"card-santidad-v2230.jpg",
+      "cristo-es-dios":"card-cristo-es-dios-v2230.jpg",
+      "fe-nueva":"card-fe-nueva-v3261.png",
+      dios:"card-dios-v3261.png"
+    };
+    const isIllustratedV2219 = cardStyle !== "classic";
+    const isThematicV2220 = cardStyle !== "classic" && cardStyle !== "jerusalem";
+    // V2.232 — Nueva Jerusalén usa exactamente el mismo layout completo
+    // que las tarjetas temáticas nuevas: textos y marca de agua.
+    const usesNewTextLayoutV2231 = true; // V2.233 — Sabiduría también usa el layout unificado
+    const selectedBackgroundV2219 = cardBackgroundsV2219[cardStyle] || cardBackgroundsV2219.classic;
+    const item = (typeof currentItem === "function") ? currentItem() : null;
+
+    // Marcamos la tarjeta como enviada al pulsar el botón Tarjeta.
+    // Así queda registrada aunque WhatsApp no devuelva correctamente el resultado del compartir.
+    if(item && typeof section !== "undefined" && section === "verses"){
+      item.shared = true;
+      item.lastCardSentAt = Date.now();
+      if(typeof saveState === "function") saveState();
+      if(typeof renderReader === "function") setTimeout(renderReader, 80);
+    }
+
+    const codeEl = document.getElementById("readerCode");
+    const titleEl = document.getElementById("readerTitle");
+    const textEl = document.getElementById("readerText");
+
+    const code = codeEl ? codeEl.textContent : "";
+    const ref = cleanTextBreaks((item && (item.reference || item.title)) || (titleEl ? titleEl.textContent : "Sin referencia"));
+    const body = cleanTextBreaks((item && (item.text || item.content)) || (textEl ? textEl.textContent : ""));
+    let category = "📖 Versículo";
+
+    if(typeof verseCategoryLabel === "function" && item){
+      category = verseCategoryLabel(item.category);
+    }else if(code.includes("·")){
+      category = code.split("·").pop().trim();
+    }
+
+    if(!ref || !body){
+      alert("Abre primero un versículo para crear la tarjeta.");
+      return;
+    }
+
+    function iconFromCategory(c){
+      const s=String(c||"").trim();
+
+      // La tarjeta reutiliza el mismo icono que ya tiene la categoría.
+      // Ej.: "❤️ Salvación" -> "❤️", "🙏🏾 Fe" -> "🙏🏾".
+      const first=s.split(/\s+/)[0] || "";
+      if(first && /[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9]/.test(first)){
+        return first;
+      }
+
+      // Fallback por si alguna categoría antigua quedó guardada sin emoji.
+      if(s.includes("Salvación")) return "❤️";
+      if(s.includes("Fe")) return "🙏🏾";
+      if(s.includes("Esperanza")) return "🕊️";
+      if(s.includes("Fortaleza")) return "💪";
+      if(s.includes("Amor")) return "❤️";
+      if(s.includes("Descanso")) return "🌿";
+      if(s.includes("Sabiduría")) return "📚";
+      if(s.includes("Alabanza")) return "🙌🏾";
+      if(s.includes("Santidad")) return "⚖️";
+      if(s.includes("Reino")) return "👑";
+      if(s.includes("Espíritu")) return "🔥";
+      if(s.includes("Segunda")) return "⏳";
+      if(s.includes("Juicio")) return "⚖️";
+      if(s.includes("Matrimonio")) return "🤝";
+      if(s.includes("Misericordia")) return "🤲🏾";
+      if(s.includes("Vida Eterna")) return "✨";
+      return "📖";
+    }
+
+    function wrapText(ctx, t, x, y, maxWidth, lineHeight, maxLines){
+      const words=String(t||"").replace(/\s+/g," ").trim().split(" ");
+      let line="";
+      let lines=[];
+      for(let i=0;i<words.length;i++){
+        const test=line ? line+" "+words[i] : words[i];
+        if(ctx.measureText(test).width > maxWidth && line){
+          lines.push(line);
+          line=words[i];
+          if(lines.length>=maxLines) break;
+        }else{
+          line=test;
+        }
+      }
+      if(lines.length<maxLines && line) lines.push(line);
+      if(words.join(" ").length > lines.join(" ").length && lines.length){
+        lines[lines.length-1]=lines[lines.length-1].replace(/[.,;:]*$/,"")+"...";
+      }
+      lines.forEach(l=>{
+        ctx.fillText(l,x,y);
+        y += lineHeight;
+      });
+    }
+
+    const canvas=document.createElement("canvas");
+    canvas.width=1080;
+    canvas.height=1920;
+    const ctx=canvas.getContext("2d");
+
+    // V3.1.197 — fondo completo corregido: el azul continúa hasta el borde inferior, sin franja gris.
+    // La app conserva por encima todos los elementos dinámicos: borde, marca de agua, textos y pie.
+    try{
+      const cardBackground=await new Promise((resolve,reject)=>{
+        const im=new Image();
+        im.onload=()=>resolve(im);
+        im.onerror=reject;
+        im.src=selectedBackgroundV2219+"?v=v2-241-ajuste-dinamico-referencia-fija";
+      });
+      ctx.drawImage(cardBackground,0,0,1080,1920);
+    }catch(e){
+      // Fondo de respaldo si el recurso no pudiera cargarse.
+      const grad=ctx.createLinearGradient(0,0,0,1920);
+      grad.addColorStop(0,"#168fd2");
+      grad.addColorStop(0.45,"#24b8d5");
+      grad.addColorStop(1,"#1596c5");
+      ctx.fillStyle=grad;
+      ctx.fillRect(0,0,1080,1920);
+    }
+
+    // Borde interior sutil para dar aspecto de tarjeta cuidada
+    ctx.save();
+    ctx.strokeStyle="rgba(255,255,255,0.34)";
+    ctx.lineWidth=3;
+    if(ctx.roundRect){
+      ctx.beginPath();
+      ctx.roundRect(54,54,972,1812,34);
+      ctx.stroke();
+    }else{
+      ctx.strokeRect(54,54,972,1812);
+    }
+    ctx.restore();
+
+    // Marca de agua real de Oraciones V2.
+    // Usa el icono original de la app como máscara: conserva la cruz etíope y el libro,
+    // pero elimina el fondo azul para que quede integrado en la tarjeta.
+    async function loadCardLogoImage(src){
+      return await new Promise((resolve,reject)=>{
+        const img=new Image();
+        img.onload=()=>resolve(img);
+        img.onerror=reject;
+        img.src=src;
+      });
+    }
+
+    async function drawExactLogoWatermark(ctx, cx, cy, size){
+      try{
+        const img = await loadCardLogoImage("icon-512.png");
+        const w = 512, h = 512;
+        const off = document.createElement("canvas");
+        off.width = w;
+        off.height = h;
+        const octx = off.getContext("2d");
+        octx.drawImage(img,0,0,w,h);
+        const data = octx.getImageData(0,0,w,h);
+        const px = data.data;
+
+        // Máscara basada en los blancos del logo. El fondo azul queda descartado.
+        for(let i=0;i<px.length;i+=4){
+          const r=px[i], g=px[i+1], b=px[i+2], a=px[i+3];
+          const light = Math.min(r,g,b);
+          const whiteness = Math.max(0, Math.min(1, (light-132)/95));
+          const blueBgPenalty = (b > r+28 && b > g+8) ? 0.42 : 1;
+          const mask = Math.pow(whiteness * blueBgPenalty, 1.18);
+          px[i]=255;
+          px[i+1]=255;
+          px[i+2]=255;
+          px[i+3]=Math.round(a * mask * 0.12);
+        }
+        octx.putImageData(data,0,0);
+
+        ctx.save();
+        ctx.globalCompositeOperation="source-over";
+        ctx.filter="blur(0.35px)";
+        ctx.drawImage(off, cx-size/2, cy-size/2, size, size);
+        ctx.restore();
+      }catch(e){
+        // Fallback mínimo si el icono no cargara por caché/navegador.
+        ctx.save();
+        ctx.globalAlpha=0.050;
+        ctx.fillStyle="#ffffff";
+        ctx.font="360px Georgia, serif";
+        ctx.textAlign="center";
+        ctx.fillText("✝",cx,cy+120);
+        ctx.restore();
+      }
+    }
+    await drawExactLogoWatermark(ctx,540,usesNewTextLayoutV2231?1335:1168,usesNewTextLayoutV2231?870:780);
+
+    ctx.textAlign="center";
+    ctx.fillStyle="#ffffff";
+    ctx.shadowColor="rgba(0,0,0,0.25)";
+    ctx.shadowBlur=10;
+    ctx.shadowOffsetY=3;
+
+    // La cabecera visual (sol, nubes y Biblia) ya forma parte del fondo.
+    // No se dibuja ningún icono superpuesto, evitando el efecto de pegatina.
+    ctx.font="italic 56px Georgia, serif";
+    ctx.fillText("Versículo del día",540,usesNewTextLayoutV2231?900:590);
+    ctx.font="34px Georgia, serif";
+    const ds=new Date();
+    const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
+    ctx.fillText(fecha,540,usesNewTextLayoutV2231?965:655);
+
+    // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
+    const categoryTextV3200=String(category||"")
+      .replace(/^[^\p{L}\p{N}]+\s*/u,"")
+      .toLocaleUpperCase("es-ES");
+    ctx.font="44px Georgia, serif";
+    ctx.textAlign="center";
+    ctx.fillText(categoryTextV3200,540,usesNewTextLayoutV2231?1045:742);
+
+    // V2.241 — referencia bíblica con tamaño fijo y uniforme.
+    // No participa en el ajuste dinámico reservado exclusivamente al cuerpo del versículo.
+    const REFERENCE_FONT_SIZE_V2241=74;
+    ctx.font="bold "+REFERENCE_FONT_SIZE_V2241+"px Georgia, serif";
+    ctx.fillText(ref,540,usesNewTextLayoutV2231?1145:865);
+
+    // Línea decorativa azul tenue con cruz central
+    ctx.save();
+    ctx.shadowColor="rgba(0,0,0,0)";
+    ctx.shadowBlur=0;
+    ctx.shadowOffsetY=0;
+    ctx.strokeStyle="rgba(190,238,248,0.58)";
+    ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(180,usesNewTextLayoutV2231?1200:925); ctx.lineTo(500,usesNewTextLayoutV2231?1200:925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(580,usesNewTextLayoutV2231?1200:925); ctx.lineTo(900,usesNewTextLayoutV2231?1200:925); ctx.stroke();
+    ctx.fillStyle="rgba(214,249,255,0.78)";
+    ctx.font="34px Georgia, serif";
+    ctx.fillText("✝",540,usesNewTextLayoutV2231?1212:937);
+    ctx.restore();
+
+    const textLayout=usesNewTextLayoutV2231 ? getThematicCardTextLayoutV2220(body) : getCardTextLayout(body);
+
+    // V2.241 — ajuste dinámico real del versículo.
+    // Se mide el texto completo con el ancho disponible y se reduce la fuente
+    // solo lo necesario hasta que la última línea quede sobre la bendición.
+    function splitTextIntoLinesV2241(ctx,text,maxWidth){
+      const words=String(text||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
+      const lines=[];
+      let line="";
+      for(const word of words){
+        const test=line ? line+" "+word : word;
+        if(line && ctx.measureText(test).width>maxWidth){
+          lines.push(line);
+          line=word;
+        }else{
+          line=test;
+        }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+
+    function fitVerseTextV2241(ctx,text,initialFont,startY,maxWidth,maxBottomY){
+      let font=Math.max(28,Math.round(initialFont));
+      let lineHeight=0;
+      let lines=[];
+      while(font>=28){
+        lineHeight=Math.round(font*1.39);
+        ctx.font="italic "+font+"px Georgia, serif";
+        lines=splitTextIntoLinesV2241(ctx,text,maxWidth);
+        const lastBaseline=startY+Math.max(0,lines.length-1)*lineHeight;
+        if(lastBaseline<=maxBottomY) break;
+        font--;
+      }
+      return {font,line:lineHeight,lines};
+    }
+
+    if(usesNewTextLayoutV2231){
+      const fitted=fitVerseTextV2241(ctx,body,textLayout.font,textLayout.y,930,1640);
+      ctx.font="italic "+fitted.font+"px Georgia, serif";
+      let verseY=textLayout.y;
+      fitted.lines.forEach(line=>{
+        ctx.fillText(line,540,verseY);
+        verseY+=fitted.line;
+      });
+    }else{
+      ctx.font="italic "+textLayout.font+"px Georgia, serif";
+      wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
+    }
+
+    // Bendición del día: una frase estable durante toda la fecha local.
+    // No altera el versículo ni el flujo de compartir; solo se dibuja en el pie de la tarjeta.
+    const dailyBlessingsV3175=[
+      "Que el amor de Cristo te acompañe hoy.",
+      "Que Dios ilumine tu camino y fortalezca tu corazón.",
+      "Que la paz del Señor permanezca contigo durante este día.",
+      "Que estas palabras fortalezcan tu fe y llenen tu corazón de esperanza.",
+      "Que la Palabra de Dios sea luz en cada paso que des hoy.",
+      "Que la gracia de Cristo te sostenga en todo momento.",
+      "Que Dios bendiga tu hogar y a quienes amas.",
+      "Que el Espíritu Santo guíe tus pensamientos y decisiones.",
+      "Que hoy encuentres descanso y confianza en la presencia de Dios.",
+      "Que la esperanza en Cristo renueve tus fuerzas en este nuevo día.",
+      "Que el Señor llene tu corazón de serenidad y confianza.",
+      "Que Cristo sea tu refugio y tu fortaleza durante este día.",
+      "Que Dios dirija tus pasos por caminos de paz y de bien.",
+      "Que la luz de Cristo brille hoy en tu vida.",
+      "Que el Señor te conceda sabiduría en cada decisión.",
+      "Que la misericordia de Dios te abrace y te sostenga.",
+      "Que hoy camines bajo la bendición y el cuidado del Señor.",
+      "Que la presencia de Dios llene de paz tu hogar.",
+      "Que Cristo renueve tu ánimo y afirme tu esperanza.",
+      "Que el Señor guarde tu corazón y proteja tu camino.",
+      "Que la Palabra de Dios te dé consuelo y fortaleza.",
+      "Que la gracia del Señor te acompañe en cada momento.",
+      "Que Dios te conceda un corazón agradecido y lleno de paz.",
+      "Que Cristo ilumine tus pensamientos y guíe tus palabras.",
+      "Que hoy encuentres alegría en las bendiciones de Dios.",
+      "Que el Señor fortalezca tu fe ante cada dificultad.",
+      "Que el amor de Dios transforme todo cuanto hagas hoy.",
+      "Que Cristo te conceda paciencia, humildad y sabiduría.",
+      "Que la paz de Dios gobierne hoy tu mente y tu corazón.",
+      "Que el Señor te recuerde que nunca caminas a solas.",
+      "Que la esperanza del Evangelio ilumine tu jornada.",
+      "Que Dios bendiga tus pensamientos, palabras y acciones.",
+      "Que Cristo te sostenga cuando te sientas débil.",
+      "Que hoy puedas reconocer la bondad de Dios a tu alrededor.",
+      "Que el Espíritu Santo te conceda discernimiento y paz.",
+      "Que el Señor renueve tus fuerzas y afirme tus pasos.",
+      "Que la fidelidad de Dios sea hoy tu seguridad.",
+      "Que Cristo llene tu día de propósito y esperanza.",
+      "Que Dios te enseñe a descansar plenamente en sus promesas.",
+      "Que la paz de Cristo te acompañe en todo lugar.",
+      "Que el Señor bendiga el trabajo de tus manos.",
+      "Que hoy tu corazón permanezca firme en el amor de Dios.",
+      "Que Cristo te dé valor para hacer el bien.",
+      "Que la luz del Señor disipe toda preocupación.",
+      "Que Dios te conceda fortaleza para superar cada prueba.",
+      "Que la Palabra de Cristo habite abundantemente en ti.",
+      "Que hoy vivas bajo la gracia, la paz y el amor de Dios.",
+      "Que el Señor te guíe con ternura y sabiduría.",
+      "Que Cristo sea la alegría y la esperanza de tu corazón.",
+      "Que Dios proteja a tu familia y mantenga vuestro hogar en paz.",
+      "Que la presencia del Señor haga ligero tu camino.",
+      "Que hoy encuentres fuerzas nuevas al confiar en Dios.",
+      "Que Cristo te conceda un espíritu sereno y agradecido.",
+      "Que la bondad del Señor te acompañe durante toda la jornada.",
+      "Que Dios te ayude a sembrar paz allí donde estés.",
+      "Que el amor de Cristo inspire cada una de tus acciones.",
+      "Que el Señor te conceda claridad, paciencia y confianza.",
+      "Que hoy la Palabra de Dios alimente tu alma.",
+      "Que Cristo te cubra con su paz y te guarde de todo mal.",
+      "Que Dios te fortalezca para caminar conforme a su voluntad.",
+      "Que el Espíritu Santo renueve hoy tu interior.",
+      "Que el Señor bendiga cada encuentro y cada conversación.",
+      "Que Cristo te recuerde cuánto te ama Dios.",
+      "Que hoy puedas descansar en la fidelidad del Señor.",
+      "Que Dios ponga en tu corazón palabras de vida y de esperanza.",
+      "Que la gracia de Cristo te ayude a afrontar este día con fe.",
+      "Que el Señor te conceda paz en lo que no puedes controlar.",
+      "Que hoy tu vida refleje el amor y la bondad de Dios.",
+      "Que Cristo guíe tus pasos y sostenga tus decisiones.",
+      "Que Dios haga florecer la esperanza en tu corazón.",
+      "Que la paz del Señor sea más grande que tus preocupaciones.",
+      "Que hoy encuentres refugio bajo el cuidado de Dios.",
+      "Que Cristo fortalezca tus manos para servir con amor.",
+      "Que el Señor te conceda alegría en las cosas sencillas.",
+      "Que Dios ilumine tu mente y serene tu corazón.",
+      "Que la misericordia de Cristo te acompañe durante este día.",
+      "Que hoy puedas confiar en que Dios obra para tu bien.",
+      "Que el Señor te dé fuerzas para perseverar con esperanza.",
+      "Que Cristo haga de tu corazón un lugar de paz.",
+      "Que Dios bendiga tus proyectos y dirija tus caminos.",
+      "Que la Palabra del Señor sea lámpara para tus pasos.",
+      "Que hoy el amor de Cristo renueve tu manera de mirar.",
+      "Que Dios te conceda la calma de quien confía en sus manos.",
+      "Que el Señor proteja tu salida y tu entrada.",
+      "Que Cristo te ayude a vivir este día con gratitud.",
+      "Que hoy puedas llevar consuelo y esperanza a los demás.",
+      "Que la presencia de Dios te dé seguridad y descanso.",
+      "Que el Señor te sostenga con su mano y te conduzca en paz.",
+      "Que Cristo fortalezca tu corazón y avive tu fe.",
+      "Que Dios te conceda sabiduría para hablar y humildad para escuchar.",
+      "Que hoy la gracia del Señor sea suficiente para ti.",
+      "Que la paz de Cristo permanezca en tu hogar y en tu corazón.",
+      "Que Dios te recuerde hoy que sus promesas son fieles.",
+      "Que el Señor llene tu camino de luz, esperanza y amor.",
+      "Que Cristo te dé un corazón dispuesto a perdonar y servir.",
+      "Que hoy encuentres en Dios la fuerza que necesitas.",
+      "Que el Espíritu Santo te guíe por el camino de la verdad.",
+      "Que el Señor bendiga este nuevo día y todo cuanto vivas en él.",
+      "Que Cristo permanezca a tu lado y te conceda su paz.",
+      "Que Dios ilumine tu día y haga firme tu esperanza."
+    ];
+    const blessingDateKey=ds.getFullYear()+"-"+(ds.getMonth()+1)+"-"+ds.getDate();
+    let blessingHash=0;
+    for(let i=0;i<blessingDateKey.length;i++) blessingHash=((blessingHash*31)+blessingDateKey.charCodeAt(i))>>>0;
+    const dailyBlessing=dailyBlessingsV3175[blessingHash % dailyBlessingsV3175.length];
+
+    // Remate inferior, elevado ligeramente para dejar una zona limpia a la bendición.
+    ctx.save();
+    ctx.shadowColor="rgba(0,0,0,0)";
+    ctx.shadowBlur=0;
+    ctx.shadowOffsetY=0;
+    ctx.strokeStyle="rgba(220,250,255,0.55)";
+    ctx.fillStyle="rgba(235,253,255,0.75)";
+    ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(150,1688); ctx.lineTo(455,1688); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(625,1688); ctx.lineTo(930,1688); ctx.stroke();
+    ctx.font="34px Georgia, serif";
+    ctx.fillText("✧",498,1700);
+    ctx.fillText("✝",540,1700);
+    ctx.fillText("✧",582,1700);
+    ctx.restore();
+
+    // Frase final discreta, centrada y limitada a dos líneas para no competir con el versículo.
+    ctx.save();
+    ctx.fillStyle="rgba(245,254,255,0.92)";
+    ctx.shadowColor="rgba(0,0,0,0.18)";
+    ctx.shadowBlur=5;
+    ctx.shadowOffsetY=2;
+    ctx.font="italic 34px Georgia, serif";
+    ctx.textAlign="center";
+    wrapText(ctx,dailyBlessing,540,1752,840,44,2);
+    ctx.restore();
+
+    const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
+    if(!blob){
+      alert("No se pudo crear la tarjeta.");
+      return;
+    }
+
+    const file = new File([blob],"versiculo-del-dia.png",{type:"image/png"});
+
+    if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
+      await navigator.share({
+        files:[file],
+        title:"Versículo del día",
+        text:category+"\n"+ref
+      });
+      if(item){
+        item.shared=true;
+        item.lastCardSentAt=Date.now();
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+        saveState();
+        renderReader();
+      }
+      toast("Tarjeta compartida");
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download="versiculo-del-dia.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+      if(item){
+        item.shared=true;
+        item.lastCardSentAt=Date.now();
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+        saveState();
+        renderReader();
+      }
+      toast("Tarjeta descargada");
+    }
+  }catch(e){
+    console.error(e);
+    alert("Error creando la tarjeta: "+(e && e.message ? e.message : e));
+  }
+}
+
+function getCurrentVerseListForSwipe(){
+  try{
+    if(section !== "verses" || !state || !Array.isArray(state.verses)) return [];
+    if(specialVerseMode === "daily" || specialVerseMode === "random") return [];
+
+    if(verseNavigationMode === "titles"){
+      return state.verses;
+    }
+
+    if(currentVerseCategory === "favoritos"){
+      return state.verses.filter(v => v.favorite);
+    }
+
+    const item = currentItem();
+    const cat = currentVerseCategory || (item && item.category) || "sin_categoria";
+    return state.verses.filter(v => (v.category || "sin_categoria") === cat);
+  }catch(e){
+    return [];
+  }
+}
+
+function swipeVerse(dir){
+  try{
+    if(section !== "verses") return;
+    if(specialVerseMode === "daily" || specialVerseMode === "random") return;
+
+    const item = currentItem();
+    if(!item) return;
+
+    const list = getCurrentVerseListForSwipe();
+    if(!list || list.length <= 1) return;
+
+    const idx = list.findIndex(v => v.id === item.id);
+    if(idx < 0) return;
+
+    const nextIdx = idx + dir;
+
+    if(nextIdx < 0){
+      if(typeof toast === "function") toast("Inicio de la categoría");
+      return;
+    }
+    if(nextIdx >= list.length){
+      if(typeof toast === "function") toast("Fin de la categoría");
+      return;
+    }
+
+    state.currentVerseId = list[nextIdx].id;
+    saveState();
+    renderReader();
+
+    const reader = document.getElementById("readerText") || document.getElementById("readerTitle");
+    if(reader && reader.animate){
+      reader.animate(
+        [
+          {opacity:0.35, transform:"translateX(" + (dir > 0 ? "18px" : "-18px") + ")"},
+          {opacity:1, transform:"translateX(0)"}
+        ],
+        {duration:180, easing:"ease-out"}
+      );
+    }
+  }catch(e){
+    console.error("swipeVerse", e);
+  }
+}
+
+let swipeStartX = 0;
+let swipeStartY = 0;
+let swipeTracking = false;
+
+function installVerseSwipe(){
+  try{
+    const reader = document.getElementById("readerText");
+    if(!reader || reader.dataset.swipeInstalled === "1") return;
+    reader.dataset.swipeInstalled = "1";
+
+    reader.addEventListener("touchstart", function(e){
+      if(!e.touches || e.touches.length !== 1) return;
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+      swipeTracking = true;
+    }, {passive:true});
+
+    reader.addEventListener("touchend", function(e){
+      if(!swipeTracking || !e.changedTouches || e.changedTouches.length !== 1) return;
+      swipeTracking = false;
+
+      const dx = e.changedTouches[0].clientX - swipeStartX;
+      const dy = e.changedTouches[0].clientY - swipeStartY;
+
+      if(Math.abs(dx) < 70) return;
+      if(Math.abs(dy) > 55) return;
+
+      if(dx < 0){
+        swipeGeneric(1);
+      }else{
+        swipeGeneric(-1);
+      }
+    }, {passive:true});
+  }catch(e){}
+}
+
+setInterval(installVerseSwipe, 1000);
+
+function swipeGeneric(dir){
+  try{
+    if(section==="verses"){ swipeVerse(dir); return; }
+
+    const list=getItems();
+    const item=currentItem();
+    if(!item || !list || list.length<=1) return;
+
+    const idx=list.findIndex(v=>v.id===item.id);
+    if(idx<0) return;
+
+    const nextIdx=idx+dir;
+    if(nextIdx<0){
+      if(typeof toast==="function") toast("Inicio");
+      return;
+    }
+    if(nextIdx>=list.length){
+      if(typeof toast==="function") toast("Fin");
+      return;
+    }
+
+    setCurrentId(list[nextIdx].id);
+    renderList();
+    renderReader();
+
+    const reader=document.getElementById("readerText")||document.getElementById("readerTitle");
+    if(reader && reader.animate){
+      reader.animate(
+        [
+          {opacity:0.35, transform:"translateX(" + (dir > 0 ? "18px" : "-18px") + ")"},
+          {opacity:1, transform:"translateX(0)"}
+        ],
+        {duration:180, easing:"ease-out"}
+      );
+    }
+  }catch(e){}
+}
+
+function getVersePositionText(){
+  try{
+    const item = currentItem();
+    if(!item) return "";
+
+    if(section !== "verses"){
+      const list=getItems();
+      if(!list || !list.length) return "";
+      const idx=list.findIndex(v => v.id === item.id);
+      if(idx < 0) return "";
+      const prefix=section==="prayers"?"O":section==="notes"?"N":section==="guides"?"G":section==="parables"?"P":"";
+      return prefix + (idx + 1) + " / " + list.length;
+    }
+
+    if(!Array.isArray(state.verses)) return "";
+
+    let list = [];
+    if(verseNavigationMode === "titles"){
+      list = state.verses;
+    }else if(currentVerseCategory === "favoritos"){
+      list = state.verses.filter(v => v.favorite);
+    }else{
+      const cat = currentVerseCategory || item.category || "sin_categoria";
+      list = state.verses.filter(v => (v.category || "sin_categoria") === cat);
+    }
+
+    const idx = list.findIndex(v => v.id === item.id);
+    if(idx < 0) return "";
+
+    return "V" + (idx + 1) + " / " + list.length;
+  }catch(e){
+    return "";
+  }
+}
+
+function updateVersePositionCounter(){
+  try{
+    const existing = document.getElementById("versePositionCounter");
+
+    if(!["verses","prayers","notes","guides","parables","psalms"].includes(section)){
+      if(existing) existing.remove();
+      return;
+    }
+
+    const titleEl = document.getElementById("readerTitle");
+    if(!titleEl) return;
+
+    let counter = document.getElementById("versePositionCounter");
+    if(!counter){
+      counter = document.createElement("div");
+      counter.id = "versePositionCounter";
+      counter.style.opacity = "0.62";
+      counter.style.fontSize = "15px";
+      counter.style.margin = "8px 0 14px 0";
+      counter.style.textAlign = "center";
+      counter.style.width = "100%";
+      counter.style.fontWeight = "600";
+      titleEl.parentNode.insertBefore(counter, titleEl);
+    }
+
+    const txt = getVersePositionText();
+    counter.textContent = txt || "";
+  }catch(e){}
+}
+
+const oldRenderReaderForCounter = renderReader;
+renderReader = function(){
+  oldRenderReaderForCounter();
+  setTimeout(updateVersePositionCounter, 50);
+};
+
+setInterval(updateVersePositionCounter, 1000);
+
+/* v50C - Punto de lectura global con botón Marcar abajo */
+(function(){
+ const STORE_KEY="oraciones_reading_mark_v50";
+ let markingMode=false;
+
+ function allowed(sec){return ["prayers","notes","guides"].includes(sec||section)}
+ function item(){try{return currentItem&&currentItem()}catch(e){return null}}
+ function titleOf(it){try{if(typeof recentTitleFromItem==="function")return recentTitleFromItem(it)}catch(e){} return (it&&(it.reference||it.title))||"Lectura"}
+ function keyFor(sec,id){return sec+"|"+id}
+ function keyOfCurrent(){const it=item(); if(!it||!it.id)return null; return keyFor(section,it.id)}
+ function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||"{}")}catch(e){return {}}}
+ function save(data){localStorage.setItem(STORE_KEY,JSON.stringify(data||{}))}
+ function reader(){return document.getElementById("readerText")}
+ function clearVisual(){document.querySelectorAll(".reader-mark-pin-v50,.reader-mark-line-v50").forEach(x=>x.remove())}
+
+ function getGlobalMark(){
+   const data=load();
+   return data.__last || null;
+ }
+ function currentHasMark(){
+   const k=keyOfCurrent();
+   const data=load();
+   return !!(k && data[k]);
+ }
+
+ function closeMenu(){
+   const m=document.getElementById("readingMarkDropdown");
+   if(m)m.remove();
+   setTimeout(()=>document.removeEventListener("click",outsideMenu,true),0);
+ }
+ function outsideMenu(ev){
+   const m=document.getElementById("readingMarkDropdown");
+   if(m && !m.contains(ev.target) && !(ev.target&&ev.target.closest&&ev.target.closest("[data-mark-button]"))) closeMenu();
+ }
+
+ function draw(animate){
+   clearVisual();
+   const el=reader();
+   const k=keyOfCurrent();
+   if(!el||!k||!allowed(section))return;
+   const bm=load()[k];
+   if(!bm||typeof bm.y!=="number")return;
+   const y=Math.max(8,Math.min(bm.y,el.scrollHeight-8));
+
+   const line=document.createElement("div");
+   line.className="reader-mark-line-v50";
+   line.style.top=y+"px";
+
+   const pin=document.createElement("div");
+   pin.className="reader-mark-pin-v50"+(animate?" reader-mark-glow-v50":"");
+   pin.style.top=y+"px";
+   pin.textContent="📍";
+
+   el.appendChild(line);
+   el.appendChild(pin);
+ }
+
+ function showBanner(msg){
+   let b=document.getElementById("readingMarkBanner");
+   if(!b){
+     b=document.createElement("div");
+     b.id="readingMarkBanner";
+     b.className="reading-mark-banner";
+     document.body.appendChild(b);
+   }
+   b.textContent=msg;
+ }
+ function hideBanner(){
+   const b=document.getElementById("readingMarkBanner");
+   if(b)b.remove();
+ }
+
+ function snippetFromPoint(x,y){
+   try{
+     let r=null;
+     if(document.caretRangeFromPoint) r=document.caretRangeFromPoint(x,y);
+     else if(document.caretPositionFromPoint){
+       const p=document.caretPositionFromPoint(x,y);
+       if(p){r=document.createRange();r.setStart(p.offsetNode,p.offset)}
+     }
+     if(!r||!r.startContainer)return "";
+     let raw=r.startContainer.textContent||"";
+     raw=raw.replace(/\s+/g," ").trim();
+     return raw.length>140?raw.slice(0,140):raw;
+   }catch(e){return ""}
+ }
+
+ function startMarking(){
+   closeMenu();
+   if(!allowed(section)){
+     try{toast("Disponible en Oraciones, Notas y Guía")}catch(e){}
+     return;
+   }
+   const el=reader();
+   if(!el)return;
+   markingMode=true;
+   el.classList.add("marking-mode-v50");
+   showBanner("📍 Toca la frase donde deseas continuar");
+ }
+
+ function stopMarking(){
+   markingMode=false;
+   const el=reader();
+   if(el)el.classList.remove("marking-mode-v50");
+   hideBanner();
+ }
+
+ function saveAtEvent(ev){
+   if(!markingMode)return;
+   if(!allowed(section))return stopMarking();
+
+   const el=reader(), it=item(), k=keyOfCurrent();
+   if(!el||!it||!k)return stopMarking();
+
+   const p=(ev.touches&&ev.touches[0])||(ev.changedTouches&&ev.changedTouches[0])||ev;
+   const rect=el.getBoundingClientRect();
+   const y=p.clientY-rect.top+el.scrollTop;
+
+   const data=load();
+   const entry={
+     key:k,
+     section:section,
+     id:it.id,
+     title:titleOf(it),
+     y:y,
+     snippet:snippetFromPoint(p.clientX,p.clientY),
+     time:Date.now()
+   };
+   data[k]=entry;
+   data.__last=entry;
+   save(data);
+   stopMarking();
+   draw(true);
+   try{toast("📍 Punto de lectura guardado")}catch(e){}
+   if(ev.preventDefault)ev.preventDefault();
+   if(ev.stopPropagation)ev.stopPropagation();
+ }
+
+ function setCurrentFromEntry(bm){
+   if(!bm)return false;
+   section=bm.section;
+   if(state)state.section=bm.section;
+   if(bm.section==="prayers")state.currentPrayerId=bm.id;
+   else if(bm.section==="notes")state.currentNoteId=bm.id;
+   else if(bm.section==="guides")state.currentGuideId=bm.id;
+   else return false;
+   try{saveState()}catch(e){}
+   try{syncTabs()}catch(e){}
+   try{setActiveView("read")}catch(e){}
+   try{renderList()}catch(e){}
+   try{renderReader()}catch(e){}
+   try{
+     if(typeof enterFullscreenReading==="function") enterFullscreenReading();
+     else openReader();
+   }catch(e){
+     try{openReader()}catch(_){}
+   }
+   try{document.body.classList.add("fullscreen-reading");document.body.classList.remove("hide-reading-ui","reading-mobile")}catch(e){}
+   return true;
+ }
+
+ function scrollToMark(bm, animate){
+   setTimeout(function(){
+     const el=reader();
+     if(!el||!bm||typeof bm.y!=="number")return;
+     const target=Math.max(0,bm.y-80);
+     const top=el.getBoundingClientRect().top+window.scrollY+target;
+     try{window.scrollTo({top:top,behavior:"smooth"})}catch(e){window.scrollTo(0,top)}
+     setTimeout(function(){draw(animate!==false)},180);
+   },260);
+ }
+
+ function goGlobalMark(){
+   closeMenu();
+   const bm=getGlobalMark();
+   if(!bm){
+     try{toast("No hay punto de lectura guardado")}catch(e){}
+     return;
+   }
+   if(!setCurrentFromEntry(bm)){
+     try{toast("No se pudo abrir la lectura")}catch(e){}
+     return;
+   }
+   scrollToMark(bm,true);
+ }
+
+ function removeGlobalMark(){
+   closeMenu();
+   const bm=getGlobalMark();
+   if(!bm){
+     try{toast("No hay punto de lectura guardado")}catch(e){}
+     return;
+   }
+   const data=load();
+   if(bm.key)delete data[bm.key];
+   delete data.__last;
+   save(data);
+   clearVisual();
+   try{toast("📍 Punto eliminado")}catch(e){}
+ }
+
+ window.openReadingMarkMenu=function(ev){
+   try{ev&&ev.stopPropagation&&ev.stopPropagation()}catch(e){}
+   const existing=document.getElementById("readingMarkDropdown");
+   if(existing){closeMenu();return}
+
+   const menu=document.createElement("div");
+   menu.id="readingMarkDropdown";
+   menu.className="reading-mark-dropdown";
+   const bm=getGlobalMark();
+
+   menu.innerHTML=
+     '<button type="button" onclick="startReadingMarkV50()">📍 Guardar punto de lectura</button>'+
+     (bm?'<button type="button" onclick="goReadingMarkV50()">▶️ Ir al punto de lectura</button>':'')+
+     (bm?'<button type="button" onclick="removeReadingMarkV50()">❌ Quitar punto de lectura</button>':'');
+
+   document.body.appendChild(menu);
+
+   let left=12,top=120;
+   const btn=ev&&ev.currentTarget?ev.currentTarget:null;
+   if(btn){
+     const r=btn.getBoundingClientRect();
+     left=r.left;
+     top=r.bottom+6;
+   }
+   const maxLeft=window.innerWidth-menu.offsetWidth-8;
+   if(left>maxLeft)left=Math.max(8,maxLeft);
+   if(left<8)left=8;
+   menu.style.left=left+"px";
+   menu.style.top=top+"px";
+   setTimeout(()=>document.addEventListener("click",outsideMenu,true),0);
+ };
+
+ window.startReadingMarkV50=startMarking;
+ window.goReadingMarkV50=goGlobalMark;
+ window.removeReadingMarkV50=removeGlobalMark;
+
+ function arm(){
+   const el=reader();
+   if(!el||el.dataset.markArmV50==="1")return;
+   el.dataset.markArmV50="1";
+   el.addEventListener("click",saveAtEvent,true);
+   el.addEventListener("touchend",saveAtEvent,{passive:false,capture:true});
+ }
+
+ const oldRender=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(oldRender&&!window.__readingMarkWrappedV50C){
+   window.__readingMarkWrappedV50C=true;
+   window.renderReader=function(){
+     oldRender.apply(this,arguments);
+     setTimeout(()=>{arm();draw(false)},0);
+   };
+   try{renderReader=window.renderReader}catch(e){}
+ }
+ document.addEventListener("DOMContentLoaded",()=>setTimeout(()=>{arm();draw(false)},300));
+})();
+
+(function(){
+ function appendReaderEnd(){
+  try{
+   if(section==="verses") return;
+   const el=document.getElementById("readerText");
+   if(!el||el.querySelector(".reader-end-card")) return;
+   const d=document.createElement("div");
+   d.className="reader-end-card";
+   d.innerHTML='<div class="line"></div><div class="title">✝️ Fin de la lectura</div><div class="msg">Que la paz de Cristo permanezca en su corazón.</div><div class="line"></div>';
+   el.appendChild(d);
+  }catch(e){}
+ }
+ const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(old&&!window.__endCardWrapped){
+  window.__endCardWrapped=true;
+  window.renderReader=function(){old.apply(this,arguments);setTimeout(appendReaderEnd,30);}
+  try{renderReader=window.renderReader}catch(e){}
+ }
+ document.addEventListener("DOMContentLoaded",function(){setTimeout(appendReaderEnd,300)});
+})();
+
+(function(){
+ const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(old&&!window.__readerTransitionV52){
+   window.__readerTransitionV52=true;
+   window.renderReader=function(){
+      const view=document.getElementById("readerView");
+      const title=document.getElementById("readerTitle");
+      const text=document.getElementById("readerText");
+      if(view){
+        view.classList.remove("reader-fade-in");
+        view.classList.add("reader-fade-out");
+      }
+      setTimeout(function(){
+        old.apply(this,arguments);
+        try{window.scrollTo({top:0,behavior:"instant"})}catch(e){window.scrollTo(0,0)}
+        if(title) title.style.opacity="1";
+        if(text) text.style.opacity="0";
+        requestAnimationFrame(function(){
+          if(view){
+            view.classList.remove("reader-fade-out");
+            view.classList.add("reader-fade-in");
+          }
+          setTimeout(function(){
+            if(text) text.style.opacity="1";
+          },35);
+        });
+      },120);
+   };
+   try{renderReader=window.renderReader}catch(e){}
+ }
+})();
+
+/* v58 - Limpieza de puntos de lectura antiguos */
+(function(){
+  const ACTIVE_KEY="oraciones_reading_mark_v50";
+  const LEGACY_KEYS=[
+    "oraciones_reading_bookmarks_v50",
+    "oraciones_reading_bookmarks_v50b",
+    "oraciones_reading_bookmarks_v50d"
+  ];
+
+  function loadActive(){
+    try{return JSON.parse(localStorage.getItem(ACTIVE_KEY)||"{}")}catch(e){return {}}
+  }
+  function saveActive(data){
+    localStorage.setItem(ACTIVE_KEY,JSON.stringify(data||{}));
+  }
+  function newestEntryFrom(data){
+    let newest=null;
+    Object.keys(data||{}).forEach(k=>{
+      const v=data[k];
+      if(k==="__last" || !v || typeof v!=="object")return;
+      if(!newest || (v.time||0)>(newest.time||0)){
+        newest=Object.assign({key:k},v);
+      }
+    });
+    return newest;
+  }
+  function cleanupActive(){
+    const data=loadActive();
+    let keep=data.__last && data.__last.key ? data.__last : newestEntryFrom(data);
+    const clean={};
+    if(keep && keep.key){
+      clean[keep.key]=keep;
+      clean.__last=keep;
+    }
+    saveActive(clean);
+    return clean;
+  }
+  function removeLegacy(){
+    LEGACY_KEYS.forEach(k=>{
+      try{localStorage.removeItem(k)}catch(e){}
+    });
+  }
+  function clearVisualPins(){
+    document.querySelectorAll(
+      ".reader-mark-pin-v50,.reader-mark-line-v50,"+
+      ".reader-bookmark-pin-v50d,.reader-bookmark-line-v50d,"+
+      ".reading-bookmark-marker-v50b,.reading-bookmark-line-v50b"
+    ).forEach(x=>x.remove());
+  }
+
+  // Limpieza automática al cargar.
+  try{
+    cleanupActive();
+    removeLegacy();
+    setTimeout(clearVisualPins,80);
+  }catch(e){}
+
+  // Reforzar: guardar nuevo punto elimina cualquier resto antiguo.
+  const oldStart=window.startReadingMarkV50;
+  if(typeof oldStart==="function" && !window.__v58StartWrapped){
+    window.__v58StartWrapped=true;
+    window.startReadingMarkV50=function(){
+      removeLegacy();
+      cleanupActive();
+      clearVisualPins();
+      return oldStart.apply(this,arguments);
+    };
+  }
+
+  // Reforzar: quitar punto elimina todos los restos.
+  const oldRemove=window.removeReadingMarkV50;
+  if(typeof oldRemove==="function" && !window.__v58RemoveWrapped){
+    window.__v58RemoveWrapped=true;
+    window.removeReadingMarkV50=function(){
+      try{
+        localStorage.removeItem(ACTIVE_KEY);
+        removeLegacy();
+        clearVisualPins();
+      }catch(e){}
+      return oldRemove.apply(this,arguments);
+    };
+  }
+
+  // Exponer limpieza manual por seguridad.
+  window.cleanReadingMarksV58=function(){
+    try{
+      localStorage.removeItem(ACTIVE_KEY);
+      removeLegacy();
+      clearVisualPins();
+      if(typeof toast==="function")toast("📍 Puntos de lectura limpiados");
+    }catch(e){}
+  };
+})();
+
+/* v58A eliminado en V3 paso 22: reemplazado por v71 - Refuerzo táctil uniforme. */
+
+/* v59B eliminado en V3 paso 23: sustituido por v59D. */
+
+/* v59D - reparación segura continuar/inicio */
+(function(){
+  if(window.__v59DSafePatch)return;
+  window.__v59DSafePatch=true;
+  const RECENT_KEY="oraciones_next_prayer_recent_v59d";
+
+  function esc(s){
+    try{return escapeHtml(String(s||""))}catch(e){
+      return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]});
+    }
+  }
+  function getRecent(){
+    try{return JSON.parse(localStorage.getItem(RECENT_KEY)||"[]")}catch(e){return []}
+  }
+  function saveRecent(a){
+    try{localStorage.setItem(RECENT_KEY,JSON.stringify((a||[]).slice(0,5)))}catch(e){}
+  }
+  function choosePrayer(){
+    try{
+      if(!state||!Array.isArray(state.prayers)||state.prayers.length<2)return null;
+      const cur=(typeof currentItem==="function")?currentItem():null;
+      const curId=cur&&cur.id;
+      const recent=getRecent();
+      let pool=state.prayers.filter(p=>p&&p.id!==curId&&!recent.includes(p.id));
+      if(!pool.length)pool=state.prayers.filter(p=>p&&p.id!==curId);
+      if(!pool.length)return null;
+      return pool[Math.floor(Math.random()*pool.length)];
+    }catch(e){return null}
+  }
+  function renderEndActions(){
+    try{
+      if(typeof section==="undefined"||section==="verses")return;
+      const end=document.querySelector(".reader-end-card");
+      if(!end)return;
+
+      document.querySelectorAll(".reader-next").forEach(x=>x.remove());
+
+      const box=document.createElement("div");
+      box.className="reader-next";
+
+      if(section==="prayers"){
+        const s=choosePrayer();
+        if(s){
+          box.innerHTML =
+            '<div class="reader-next-label">🌿 Puede continuar con...</div>'+
+            '<div class="reader-next-link" data-v59d-next="'+esc(s.id)+'">'+esc(s.title||"Oración")+'</div>'+
+            '<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+        }else{
+          box.innerHTML='<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+        }
+      }else{
+        box.innerHTML='<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+      }
+
+      end.after(box);
+
+      const next=box.querySelector("[data-v59d-next]");
+      if(next)next.addEventListener("click",function(){
+        const id=this.getAttribute("data-v59d-next");
+        const recent=getRecent().filter(x=>x!==id);
+        recent.unshift(id);
+        saveRecent(recent);
+        try{
+          section="prayers";
+          state.section="prayers";
+          state.currentPrayerId=id;
+          saveState();
+          syncTabs();
+          renderList();
+          renderReader();
+          setTimeout(function(){
+            try{
+              if(typeof enterFullscreenReading==="function")enterFullscreenReading();
+              else openReader();
+            }catch(e){try{openReader()}catch(_){}}
+            setTimeout(renderEndActions,350);
+          },120);
+        }catch(e){try{toast("No se pudo abrir la oración")}catch(_){}}
+      });
+
+      const top=box.querySelector("[data-v59d-top]");
+      if(top)top.addEventListener("click",function(){
+        try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}
+      });
+    }catch(e){}
+  }
+
+  const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+  if(old&&!window.__v59DRenderWrapped){
+    window.__v59DRenderWrapped=true;
+    window.renderReader=function(){
+      old.apply(this,arguments);
+      setTimeout(renderEndActions,300);
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+  document.addEventListener("DOMContentLoaded",function(){setTimeout(renderEndActions,700)});
+})();
+
+/* v65.9 - Cambio claro/oscuro instantáneo */
+(function(){
+  if(window.__v659InstantTheme)return;
+  window.__v659InstantTheme=true;
+
+  const oldToggle=window.toggleTheme || (typeof toggleTheme!=="undefined" ? toggleTheme : null);
+  if(oldToggle){
+    window.toggleTheme=function(){
+      document.body.classList.add("theme-switching");
+      oldToggle.apply(this,arguments);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          document.body.classList.remove("theme-switching");
         });
       });
-      if(bookVerses!==meta.verses)report.errors.push(`${meta.shortTitle}: total esperado ${meta.verses}, encontrado ${bookVerses}`);
-      status.textContent=`Auditando ${meta.shortTitle}… ${bi+1}/66`;
-      updateBibleCounters({...report.stats,titles:0});
-      await new Promise(resolve=>setTimeout(resolve,0));
-    }
-    const titleStats=countInstalledTitles();report.stats.titles=titleStats.total;report.stats.duplicateTitles=titleStats.duplicates;report.stats.invalidTitles=titleStats.invalid;
-    if(titleStats.invalid)report.errors.push(`Hay ${titleStats.invalid} títulos con libro, capítulo, versículo o texto inválido`);
-    if(titleStats.duplicates)report.warnings.push(`Hay ${titleStats.duplicates} títulos duplicados exactamente en la misma posición`);
-    if(report.stats.books!==66)report.errors.push(`Libros leídos: ${report.stats.books}; esperados: 66`);
-    if(report.stats.chapters!==1189)report.errors.push(`Capítulos encontrados: ${report.stats.chapters}; esperados: 1.189`);
-    if(report.stats.verses!==31104)report.errors.push(`Versículos encontrados: ${report.stats.verses}; esperados: 31.104`);
-    report.sha256=await sha256Hex(canonicalizeBibleForHash(hashParts));
-    report.verified=report.errors.length===0;
-    state.lastLocalAudit=report;localStorage.setItem('lastLocalBibleAudit',JSON.stringify(report));
-    updateBibleCounters(report.stats);
-    hashEl.textContent=`SHA-256: ${report.sha256}`;hashEl.classList.remove('hidden');download.classList.remove('hidden');
-    if(report.verified){seal.classList.remove('hidden');status.textContent=`Auditoría superada: 66 libros, 1.189 capítulos y 31.104 versículos. ${report.stats.titles.toLocaleString('es-ES')} títulos detectados.${report.warnings.length?' Hay '+report.warnings.length+' advertencia(s) no estructurales.':''}`;toast('Biblia instalada verificada')}
-    else{status.textContent=`Revisión necesaria: se encontraron ${report.errors.length} error(es) y ${report.warnings.length} advertencia(s). Descarga el informe para ver el detalle.`;toast('Auditoría terminada con incidencias')}
-  }catch(error){console.error(error);status.textContent=`No se pudo completar la auditoría: ${error.message}`;toast('Error durante la auditoría')}
-  finally{btn.disabled=false;btn.textContent='Volver a auditar Biblia instalada'}
-}
-$('#importTitles')?.addEventListener('click',auditarBibliaInstalada);
-$('#downloadAuditReport')?.addEventListener('click',()=>{
-  const report=state.lastLocalAudit||JSON.parse(localStorage.getItem('lastLocalBibleAudit')||'null');if(!report){toast('Primero realiza la auditoría');return}
-  const blob=new Blob([createAuditReportText(report)],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`INFORME_AUDITORIA_RVR1960_V${APP_VERSION}.txt`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)
-});
-function actualizarEstadoTitulos(){
-  const report=JSON.parse(localStorage.getItem('lastLocalBibleAudit')||'null');if(!report)return;
-  state.lastLocalAudit=report;updateBibleCounters(report.stats||{});
-  const status=$('#titlesStatus'),seal=$('#auditSeal'),hashEl=$('#auditHash'),download=$('#downloadAuditReport'),btn=$('#importTitles');
-  if(btn)btn.textContent='Volver a auditar Biblia instalada';
-  if(status)status.textContent=report.verified?'Última auditoría superada. Puedes repetirla después de cualquier cambio en los libros.':`Última auditoría: ${report.errors?.length||0} error(es) y ${report.warnings?.length||0} advertencia(s).`;
-  if(report.verified)seal?.classList.remove('hidden');
-  if(report.sha256){hashEl.textContent=`SHA-256: ${report.sha256}`;hashEl.classList.remove('hidden')}
-  download?.classList.remove('hidden');
-}
-setTimeout(actualizarEstadoTitulos,1200);
-let toastTimer=0;
-function toast(message){
-  const element=$('#toast');
-  element.textContent=message;
-  element.classList.remove('hidden');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>element.classList.add('hidden'),1900);
-}
-
-// La actualización mediante gesto de arrastre se ha desactivado para evitar
-// recargas accidentales al llegar al inicio de listas y pantallas de lectura.
-function refreshAppStateAfterResume(){
-  syncFavoritesFromStorage();
-  updateReadingPointUI();
-  if(state.books.length)prepareBooksDrawer();
-}
-window.addEventListener('pageshow',refreshAppStateAfterResume);
-document.addEventListener('visibilitychange',()=>{
-  if(document.hidden){
-    stopStatsClock();
-    clearTimeout(timeHeaderTimer);
-    return;
-  }
-  refreshAppStateAfterResume();
-  scheduleTimeHeaderRefresh();
-  if($('#statsDialog')?.open)startStatsClock();
-  refreshDailyVerseReminder();
-});
-init().catch(e=>{reader.innerHTML='<p>No se pudo cargar la Biblia.</p>';console.error(e)});
-
-
-navigator.serviceWorker?.addEventListener('message',event=>{
-  if(event.data?.type==='OPEN_DAILY_VERSE')openDailyVerse();
-});
-
-/* V2.1.5 · Efecto visual del cambio de capítulo. */
-document.addEventListener('DOMContentLoaded',()=>{
- const el=document.getElementById('chapterTitle');
- if(!el) return;
- const obs=new MutationObserver(()=>{
-   el.classList.remove('pop');
-   void el.offsetWidth;
-   el.classList.add('pop');
- });
- obs.observe(el,{childList:true,characterData:true,subtree:true});
-});
-
-
-/* V2.2.2 · Enciclopedia Bíblica */
-let biblicalEncyclopediaReturnScreen='reader';
-let biblicalEncyclopediaReadingPosition=null;
-function captureEncyclopediaReadingPosition(){
-  const scrollingElement=document.scrollingElement||document.documentElement;
-  return {readerTop:reader?.scrollTop||0,pageLeft:scrollingElement?.scrollLeft||window.scrollX||0,pageTop:scrollingElement?.scrollTop||window.scrollY||0};
-}
-function restoreEncyclopediaReadingPosition(position=biblicalEncyclopediaReadingPosition){
-  if(!position)return;
-  if(reader)reader.scrollTop=position.readerTop;
-  const scrollingElement=document.scrollingElement||document.documentElement;
-  if(scrollingElement){scrollingElement.scrollLeft=position.pageLeft;scrollingElement.scrollTop=position.pageTop;}
-}
-function preserveEncyclopediaReadingPosition(){
-  const position=biblicalEncyclopediaReadingPosition;
-  restoreEncyclopediaReadingPosition(position);
-  requestAnimationFrame(()=>{restoreEncyclopediaReadingPosition(position);requestAnimationFrame(()=>restoreEncyclopediaReadingPosition(position));});
-  setTimeout(()=>restoreEncyclopediaReadingPosition(position),120);
-}
-function openBiblicalEncyclopedia(){
-  const home=document.getElementById('homeScreen');
-  const reader=document.getElementById('readerScreen');
-  biblicalEncyclopediaReturnScreen=(reader&&!reader.classList.contains('hidden'))?'reader':'home';
-  if(biblicalEncyclopediaReturnScreen==='reader')biblicalEncyclopediaReadingPosition=captureEncyclopediaReadingPosition();
-  if(home)home.classList.add('hidden');
-  if(reader)reader.classList.add('hidden');
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.remove('hidden');
-  if(biblicalEncyclopediaReturnScreen==='reader')preserveEncyclopediaReadingPosition();
-  else window.scrollTo({top:0});
-}
-function closeBiblicalEncyclopedia(){
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');
-  const home=document.getElementById('homeScreen');
-  const reader=document.getElementById('readerScreen');
-  if(biblicalEncyclopediaReturnScreen==='reader'&&reader){reader.classList.remove('hidden');preserveEncyclopediaReadingPosition();}
-  else if(home){home.classList.remove('hidden');window.scrollTo({top:0});}
-}
-async function openEncyclopediaSection(section){
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');
-  if(section==='characters')await openBiblicalCharactersV2242();
-  if(section==='guides')await openBiblicalGuides();
-  if(section==='parables')await openBiblicalParables();
-  if(section==='prophecies')await openBiblicalProphecies();
-  if(section==='places')await openBiblicalPlaces();
-}
-function returnFromEncyclopediaSection(section){
-  if(section==='characters'){
-    document.body.classList.remove('biblical-characters-fullscreen-v2243');
-    document.getElementById('biblicalCharactersScreen')?.classList.add('hidden');
-  }
-  if(section==='guides')document.getElementById('biblicalGuidesScreen')?.classList.add('hidden');
-  if(section==='parables')document.getElementById('biblicalParablesScreen')?.classList.add('hidden');
-  if(section==='prophecies')document.getElementById('biblicalPropheciesScreen')?.classList.add('hidden');
-  if(section==='places')document.getElementById('biblicalPlacesScreen')?.classList.add('hidden');
-  document.getElementById('homeScreen')?.classList.add('hidden');
-  document.getElementById('readerScreen')?.classList.add('hidden');
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-
-/* V2.7.1 · Profecías unificadas en un único archivo de datos */
-const PROPHECIES_CRUD_KEY='biblia_profecias_crud_v270';
-let biblicalPropheciesBase=[];
-let biblicalPropheciesData=[];
-let biblicalPropheciesLoaded=false;
-let activeBiblicalProphecyId='';
-function normalizeProphecyText(value){
-  return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-}
-function defaultPropheciesCrud(){return{custom:[],edits:{},deleted:[],trash:[]}}
-function loadPropheciesCrud(){
-  try{
-    const parsed=JSON.parse(localStorage.getItem(PROPHECIES_CRUD_KEY)||'null');
-    return{
-      custom:Array.isArray(parsed?.custom)?parsed.custom:[],
-      edits:parsed?.edits&&typeof parsed.edits==='object'&&!Array.isArray(parsed.edits)?parsed.edits:{},
-      deleted:Array.isArray(parsed?.deleted)?parsed.deleted:[],
-      trash:Array.isArray(parsed?.trash)?parsed.trash:[]
     };
-  }catch(_){return defaultPropheciesCrud()}
-}
-function savePropheciesCrud(value){localStorage.setItem(PROPHECIES_CRUD_KEY,JSON.stringify(value));updateBiblicalPropheciesTrashCount()}
-function prophecyCleanItem(item={}){
-  const lines=value=>Array.isArray(value)?value.map(x=>String(x||'').trim()).filter(Boolean):String(value||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-  return{
-    id:String(item.id||`custom-prophecy-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),
-    title:String(item.title||'').trim(),theme:String(item.theme||'Profecía mesiánica').trim(),
-    prophecyRef:String(item.prophecyRef||'').trim(),prophecy:String(item.prophecy||'').trim(),prophecyHighlights:lines(item.prophecyHighlights),
-    fulfillmentRef:String(item.fulfillmentRef||'').trim(),fulfillment:String(item.fulfillment||'').trim(),fulfillmentHighlights:lines(item.fulfillmentHighlights),
-    explanation:String(item.explanation||'').trim(),importance:String(item.importance||'').trim(),
-    createdAt:Number(item.createdAt)||Date.now(),updatedAt:Number(item.updatedAt)||Date.now()
-  };
-}
-function rebuildBiblicalPropheciesData(){
-  const crud=loadPropheciesCrud(),deleted=new Set(crud.deleted.map(String));
-  const base=biblicalPropheciesBase.filter(x=>!deleted.has(String(x.id))).map(x=>prophecyCleanItem(crud.edits[x.id]?{...x,...crud.edits[x.id],id:x.id}:{...x,id:x.id}));
-  const custom=crud.custom.map(prophecyCleanItem).filter(x=>!deleted.has(String(x.id)));
-  biblicalPropheciesData=[...base,...custom];
-  updateBiblicalPropheciesTrashCount();
-  return biblicalPropheciesData;
-}
-async function loadBiblicalProphecies(){
-  if(biblicalPropheciesLoaded)return rebuildBiblicalPropheciesData();
-  try{
-    const response=await fetch(freshUrl('biblical-prophecies.json'));
-    if(!response.ok)throw new Error('No se pudo cargar Profecías');
-    const raw=await response.json();
-    biblicalPropheciesBase=Array.isArray(raw)?raw.map(prophecyCleanItem):[];
-  }catch(error){console.error(error);biblicalPropheciesBase=[]}
-  biblicalPropheciesLoaded=true;
-  return rebuildBiblicalPropheciesData();
-}
-async function openBiblicalProphecies(){
-  document.getElementById('homeScreen')?.classList.add('hidden');
-  document.getElementById('readerScreen')?.classList.add('hidden');
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');
-  document.getElementById('biblicalPropheciesScreen')?.classList.remove('hidden');
-  document.getElementById('biblicalPropheciesHome')?.classList.remove('hidden');
-  document.getElementById('biblicalProphecyDetail')?.classList.add('hidden');
-  activeBiblicalProphecyId='';
-  await loadBiblicalProphecies();renderBiblicalProphecies();window.scrollTo({top:0,behavior:'smooth'});
-}
-function renderBiblicalProphecies(){
-  rebuildBiblicalPropheciesData();
-  const list=document.getElementById('biblicalPropheciesList');if(!list)return;
-  const query=normalizeProphecyText(document.getElementById('biblicalPropheciesSearch')?.value);
-  const filtered=biblicalPropheciesData.filter(item=>normalizeProphecyText([item.title,item.prophecyRef,item.fulfillmentRef,item.prophecy,item.fulfillment,item.explanation,item.importance,item.theme].join(' ')).includes(query));
-  const count=document.getElementById('biblicalPropheciesCount');if(count)count.textContent=`${filtered.length} ${filtered.length===1?'profecía':'profecías'}`;
-  list.innerHTML=filtered.length?filtered.map(item=>`<button type="button" class="biblical-prophecy-card" onclick="openBiblicalProphecyDetail('${escapeHtml(item.id)}')"><span class="biblical-prophecy-theme">${escapeHtml(item.theme||'Profecía mesiánica')}</span><strong>${escapeHtml(item.title)}</strong><span class="biblical-prophecy-refs">${escapeHtml(item.prophecyRef)} · ${escapeHtml(item.fulfillmentRef)}</span></button>`).join(''):`<p class="biblical-prophecies-empty">No se han encontrado profecías con esa búsqueda.</p>`;
-}
-function highlightProphecyText(text,phrases){
-  const source=String(text||''),wanted=(Array.isArray(phrases)?phrases:[]).filter(Boolean);if(!wanted.length)return escapeHtml(source);
-  const lower=source.toLocaleLowerCase('es'),ranges=[];
-  wanted.forEach(phrase=>{const target=String(phrase).toLocaleLowerCase('es');let start=0,index;while(target&&(index=lower.indexOf(target,start))!==-1){ranges.push([index,index+target.length]);start=index+target.length}});
-  if(!ranges.length)return escapeHtml(source);ranges.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);const merged=[];
-  ranges.forEach(range=>{const last=merged[merged.length-1];if(last&&range[0]<=last[1])last[1]=Math.max(last[1],range[1]);else merged.push(range.slice())});
-  let html='',cursor=0;merged.forEach(([s,e])=>{html+=escapeHtml(source.slice(cursor,s));html+='<mark class="prophecy-highlight">'+escapeHtml(source.slice(s,e))+'</mark>';cursor=e});return html+escapeHtml(source.slice(cursor));
-}
-function prophecyParagraphs(text){return String(text||'').split(/\n\s*\n/).filter(Boolean).map(p=>`<p>${escapeHtml(p)}</p>`).join('')}
-function openBiblicalProphecyDetail(id){
-  const item=biblicalPropheciesData.find(entry=>entry.id===id);if(!item)return;activeBiblicalProphecyId=id;
-  document.getElementById('biblicalPropheciesHome')?.classList.add('hidden');const detail=document.getElementById('biblicalProphecyDetail');if(!detail)return;
-  detail.innerHTML=`<div class="biblical-prophecy-detail-head"><button class="btn soft" type="button" onclick="closeBiblicalProphecyDetail()">← Volver</button></div><div class="prophecy-detail-tools"><button type="button" onclick="openBiblicalProphecyEditor('${escapeHtml(item.id)}')">Editar</button><button type="button" class="danger" onclick="deleteBiblicalProphecy('${escapeHtml(item.id)}')">Eliminar</button></div><p class="biblical-prophecy-detail-theme">${escapeHtml(item.theme||'Profecía mesiánica')}</p><h1>${escapeHtml(item.title)}</h1><img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=${APP_VERSION}" alt="" aria-hidden="true"><section class="biblical-prophecy-block prophecy-original"><h2>PROFECÍA</h2><h3>${escapeHtml(item.prophecyRef)}</h3><blockquote>${highlightProphecyText(item.prophecy,item.prophecyHighlights)}</blockquote></section><section class="biblical-prophecy-block prophecy-fulfilled"><h2>CUMPLIMIENTO</h2><h3>${escapeHtml(item.fulfillmentRef)}</h3><blockquote>${highlightProphecyText(item.fulfillment,item.fulfillmentHighlights)}</blockquote></section><section class="biblical-prophecy-explanation"><h2>EXPLICACIÓN</h2>${prophecyParagraphs(item.explanation)}</section><section class="biblical-prophecy-importance"><h2>IMPORTANCIA</h2><p>${escapeHtml(item.importance||'')}</p></section>`;
-  detail.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
-}
-function closeBiblicalProphecyDetail(){activeBiblicalProphecyId='';document.getElementById('biblicalProphecyDetail')?.classList.add('hidden');document.getElementById('biblicalPropheciesHome')?.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
-function prophecyEditorValue(id){return biblicalPropheciesData.find(x=>x.id===id)||null}
-function openBiblicalProphecyEditor(id=''){
-  const item=id?prophecyEditorValue(id):null,dialog=document.getElementById('biblicalProphecyEditDialog');if(!dialog)return;
-  document.getElementById('prophecyEditId').value=item?.id||'';
-  document.getElementById('prophecyEditTitle').value=item?.title||'';document.getElementById('prophecyEditTheme').value=item?.theme||'';
-  document.getElementById('prophecyEditProphecyRef').value=item?.prophecyRef||'';document.getElementById('prophecyEditProphecy').value=item?.prophecy||'';
-  document.getElementById('prophecyEditProphecyHighlights').value=(item?.prophecyHighlights||[]).join('\n');
-  document.getElementById('prophecyEditFulfillmentRef').value=item?.fulfillmentRef||'';document.getElementById('prophecyEditFulfillment').value=item?.fulfillment||'';
-  document.getElementById('prophecyEditFulfillmentHighlights').value=(item?.fulfillmentHighlights||[]).join('\n');
-  document.getElementById('prophecyEditExplanation').value=item?.explanation||'';document.getElementById('prophecyEditImportance').value=item?.importance||'';
-  document.getElementById('prophecyEditDialogTitle').textContent=item?'Editar profecía':'Añadir profecía';dialog.showModal();setTimeout(()=>document.getElementById('prophecyEditTitle')?.focus(),80);
-}
-function saveBiblicalProphecyEditor(){
-  const id=document.getElementById('prophecyEditId').value.trim(),title=document.getElementById('prophecyEditTitle').value.trim();
-  const prophecyRef=document.getElementById('prophecyEditProphecyRef').value.trim(),prophecy=document.getElementById('prophecyEditProphecy').value.trim();
-  const fulfillmentRef=document.getElementById('prophecyEditFulfillmentRef').value.trim(),fulfillment=document.getElementById('prophecyEditFulfillment').value.trim();
-  if(!title||!prophecyRef||!prophecy||!fulfillmentRef||!fulfillment){toast('Completa el título, la profecía y el cumplimiento');return}
-  const previous=id?prophecyEditorValue(id):null,item=prophecyCleanItem({...(previous||{}),id:id||undefined,title,theme:document.getElementById('prophecyEditTheme').value.trim()||'Profecía mesiánica',prophecyRef,prophecy,prophecyHighlights:document.getElementById('prophecyEditProphecyHighlights').value,fulfillmentRef,fulfillment,fulfillmentHighlights:document.getElementById('prophecyEditFulfillmentHighlights').value,explanation:document.getElementById('prophecyEditExplanation').value.trim(),importance:document.getElementById('prophecyEditImportance').value.trim(),createdAt:previous?.createdAt||Date.now(),updatedAt:Date.now()});
-  const crud=loadPropheciesCrud(),baseIds=new Set(biblicalPropheciesBase.map(x=>String(x.id)));
-  if(id&&baseIds.has(id))crud.edits[id]=item;else if(id){const at=crud.custom.findIndex(x=>String(x.id)===id);if(at>=0)crud.custom[at]=item;else crud.custom.push(item)}else crud.custom.push(item);
-  savePropheciesCrud(crud);rebuildBiblicalPropheciesData();renderBiblicalProphecies();document.getElementById('biblicalProphecyEditDialog')?.close();
-  if(id&&activeBiblicalProphecyId===id)openBiblicalProphecyDetail(id);toast(id?'Profecía actualizada':'Profecía añadida');
-}
-function deleteBiblicalProphecy(id){
-  const item=prophecyEditorValue(id);if(!item||!confirm(`¿Enviar “${item.title}” a la papelera?`))return;
-  const crud=loadPropheciesCrud(),baseIds=new Set(biblicalPropheciesBase.map(x=>String(x.id))),isBuiltin=baseIds.has(String(id));
-  crud.trash=crud.trash.filter(x=>String(x.id)!==String(id));crud.trash.unshift({...item,_origin:isBuiltin?'builtin':'custom',deletedAt:Date.now()});
-  if(isBuiltin){if(!crud.deleted.includes(id))crud.deleted.push(id)}else crud.custom=crud.custom.filter(x=>String(x.id)!==String(id));
-  savePropheciesCrud(crud);rebuildBiblicalPropheciesData();closeBiblicalProphecyDetail();renderBiblicalProphecies();toast('Profecía enviada a la papelera');
-}
-function updateBiblicalPropheciesTrashCount(){const n=loadPropheciesCrud().trash.length;const el=document.getElementById('biblicalPropheciesTrashCount');if(el)el.textContent=String(n)}
-function openBiblicalPropheciesTrash(){renderBiblicalPropheciesTrash();document.getElementById('biblicalPropheciesTrashDialog')?.showModal()}
-function renderBiblicalPropheciesTrash(){
-  const box=document.getElementById('biblicalPropheciesTrashList');if(!box)return;const trash=loadPropheciesCrud().trash;
-  box.innerHTML=trash.length?trash.map(x=>`<article class="prophecy-trash-item"><div><strong>${escapeHtml(x.title)}</strong><small>${escapeHtml(x.prophecyRef||'')} · ${escapeHtml(x.fulfillmentRef||'')}</small></div><div><button type="button" onclick="restoreBiblicalProphecy('${escapeHtml(x.id)}')">Restaurar</button><button type="button" class="danger" onclick="purgeBiblicalProphecy('${escapeHtml(x.id)}')">Eliminar</button></div></article>`).join(''):'<p class="biblical-prophecies-empty">La papelera está vacía.</p>';
-  document.getElementById('emptyBiblicalPropheciesTrash').disabled=!trash.length;
-}
-function restoreBiblicalProphecy(id){
-  const crud=loadPropheciesCrud(),at=crud.trash.findIndex(x=>String(x.id)===String(id));if(at<0)return;const item=crud.trash.splice(at,1)[0];
-  if(item._origin==='builtin'){crud.deleted=crud.deleted.filter(x=>String(x)!==String(id));const restored={...item};delete restored._origin;delete restored.deletedAt;crud.edits[id]=restored}else{const restored={...item};delete restored._origin;delete restored.deletedAt;crud.custom=crud.custom.filter(x=>String(x.id)!==String(id));crud.custom.push(restored)}
-  savePropheciesCrud(crud);rebuildBiblicalPropheciesData();renderBiblicalPropheciesTrash();renderBiblicalProphecies();toast('Profecía restaurada');
-}
-function purgeBiblicalProphecy(id){if(!confirm('¿Eliminar definitivamente esta profecía de la papelera?'))return;const crud=loadPropheciesCrud();crud.trash=crud.trash.filter(x=>String(x.id)!==String(id));savePropheciesCrud(crud);renderBiblicalPropheciesTrash();toast('Eliminada definitivamente')}
-function emptyBiblicalPropheciesTrash(){if(!confirm('¿Vaciar definitivamente toda la papelera de Profecías?'))return;const crud=loadPropheciesCrud();crud.trash=[];savePropheciesCrud(crud);renderBiblicalPropheciesTrash();toast('Papelera vaciada')}
+    try{toggleTheme=window.toggleTheme}catch(e){}
+  }
+})();
 
+/* v71 - Refuerzo táctil uniforme */
+(function(){
+  if(window.__v71PremiumTouch)return;
+  window.__v71PremiumTouch=true;
 
+  function press(el){
+    if(!el)return;
+    el.classList.add("premium-pressing");
+    clearTimeout(el.__v71PressTimer);
+    el.__v71PressTimer=setTimeout(function(){
+      el.classList.remove("premium-pressing");
+    },65);
+  }
 
-/* V2.8.6 · Lugares Bíblicos · arquitectura basada en Profecías */
-const PLACES_CRUD_KEY='biblia_lugares_crud_v283';
-let biblicalPlacesBase=[],biblicalPlacesData=[],biblicalPlacesLoaded=false,activeBiblicalPlaceId='';
-const placeLines=value=>Array.isArray(value)?value.map(x=>String(x||'').trim()).filter(Boolean):String(value||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-function normalizePlaceText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
-function defaultPlacesCrud(){return{custom:[],edits:{},deleted:[],trash:[]}}
-function loadPlacesCrud(){try{const p=JSON.parse(localStorage.getItem(PLACES_CRUD_KEY)||'null');return{custom:Array.isArray(p?.custom)?p.custom:[],edits:p?.edits&&typeof p.edits==='object'&&!Array.isArray(p.edits)?p.edits:{},deleted:Array.isArray(p?.deleted)?p.deleted:[],trash:Array.isArray(p?.trash)?p.trash:[]}}catch(_){return defaultPlacesCrud()}}
-function savePlacesCrud(v){localStorage.setItem(PLACES_CRUD_KEY,JSON.stringify(v));updateBiblicalPlacesTrashCount()}
-function placeCleanItem(item={}){const lat=item.coordinates?.latitude??item.latitude??'',lng=item.coordinates?.longitude??item.longitude??'';return{id:String(item.id||`custom-place-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),name:String(item.name||'').trim(),category:String(item.category||'Lugar bíblico').trim(),currentRegion:String(item.currentRegion||item.region||'').trim(),firstAppearance:String(item.firstAppearance||'').trim(),shortDescription:String(item.shortDescription||item.description||'').trim(),biblicalImportance:String(item.biblicalImportance||item.importance||'').trim(),history:String(item.history||'').trim(),relatedPeople:placeLines(item.relatedPeople),jesusRelation:String(item.jesusRelation||'').trim(),mainVerses:placeLines(item.mainVerses),curiosities:placeLines(item.curiosities),coordinates:{latitude:lat===''?null:Number(lat),longitude:lng===''?null:Number(lng)},image:String(item.image||'').trim(),createdAt:Number(item.createdAt)||Date.now(),updatedAt:Number(item.updatedAt)||Date.now()}}
-function rebuildBiblicalPlacesData(){const crud=loadPlacesCrud(),deleted=new Set(crud.deleted.map(String));const base=biblicalPlacesBase.filter(x=>!deleted.has(String(x.id))).map(x=>placeCleanItem(crud.edits[x.id]?{...x,...crud.edits[x.id],id:x.id}:x));const custom=crud.custom.map(placeCleanItem).filter(x=>!deleted.has(String(x.id)));biblicalPlacesData=[...base,...custom].sort((a,b)=>a.name.localeCompare(b.name,'es'));updateBiblicalPlacesTrashCount();return biblicalPlacesData}
-async function loadBiblicalPlaces(){if(biblicalPlacesLoaded)return rebuildBiblicalPlacesData();try{const r=await fetch(freshUrl('biblical-places.json'));if(!r.ok)throw new Error('No se pudieron cargar Lugares Bíblicos');const raw=await r.json();biblicalPlacesBase=Array.isArray(raw)?raw.map(placeCleanItem):[]}catch(e){console.error(e);biblicalPlacesBase=[]}biblicalPlacesLoaded=true;return rebuildBiblicalPlacesData()}
-async function openBiblicalPlaces(){document.getElementById('homeScreen')?.classList.add('hidden');document.getElementById('readerScreen')?.classList.add('hidden');document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');document.getElementById('biblicalPlacesScreen')?.classList.remove('hidden');document.getElementById('biblicalPlacesHome')?.classList.remove('hidden');document.getElementById('biblicalPlaceDetail')?.classList.add('hidden');activeBiblicalPlaceId='';await loadBiblicalPlaces();renderBiblicalPlaces();window.scrollTo({top:0,behavior:'smooth'})}
-function biblicalPlaceSearchScore(place,q){
-  if(!q)return 0;
-  const name=normalizePlaceText(place.name).trim();
-  const region=normalizePlaceText(place.currentRegion).trim();
-  const category=normalizePlaceText(place.category).trim();
-  const first=normalizePlaceText(place.firstAppearance).trim();
-  const description=normalizePlaceText(place.shortDescription).trim();
-  const importance=normalizePlaceText(place.biblicalImportance).trim();
-  const history=normalizePlaceText(place.history).trim();
-  const people=normalizePlaceText((place.relatedPeople||[]).join(' '));
-  const verses=normalizePlaceText((place.mainVerses||[]).join(' '));
-  const curiosities=normalizePlaceText((place.curiosities||[]).join(' '));
+  function target(e){
+    return e.target && e.target.closest && e.target.closest(".btn,.reader-next-link,.reader-top-link");
+  }
 
-  if(name===q)return 0;
-  if(name.startsWith(q))return 10;
-  const words=name.split(/\s+/);
-  if(words.some(word=>word.startsWith(q)))return 20;
-  if(name.includes(q))return 30;
-  if(region===q||category===q)return 40;
-  if(region.startsWith(q)||category.startsWith(q))return 50;
-  if(region.includes(q)||category.includes(q))return 60;
-  if(first.includes(q))return 70;
-  if(description.includes(q)||importance.includes(q))return 80;
-  if(history.includes(q)||people.includes(q)||verses.includes(q)||curiosities.includes(q))return 90;
-  return Infinity;
-}
+  document.addEventListener("touchstart",function(e){
+    const b=target(e);
+    if(b)press(b);
+  },{passive:true,capture:true});
 
-let biblicalPlacesListMode='all';
+  document.addEventListener("mousedown",function(e){
+    const b=target(e);
+    if(b)press(b);
+  },true);
 
-function setBiblicalPlacesListMode(mode){
-  biblicalPlacesListMode=mode==='mapped'?'mapped':'all';
-  renderBiblicalPlaces();
-}
-window.setBiblicalPlacesListMode=setBiblicalPlacesListMode;
+  document.addEventListener("touchend",function(e){
+    const b=target(e);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},50);
+  },{passive:true,capture:true});
 
-function renderBiblicalPlaces(){
-  rebuildBiblicalPlacesData();
-  const list=document.getElementById('biblicalPlacesList');
-  if(!list)return;
+  document.addEventListener("mouseup",function(e){
+    const b=target(e);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},50);
+  },true);
+})();
 
-  const q=normalizePlaceText(document.getElementById('biblicalPlacesSearch')?.value).trim();
-  const mappedCount=biblicalPlacesData.filter(biblicalMapHasCoords).length;
-
-  document.getElementById('placesListAll')?.classList.toggle('active',biblicalPlacesListMode==='all');
-  document.getElementById('placesListMapped')?.classList.toggle('active',biblicalPlacesListMode==='mapped');
-
-  const allButton=document.getElementById('placesListAll');
-  const mappedButton=document.getElementById('placesListMapped');
-  if(allButton)allButton.textContent=`Todos (${biblicalPlacesData.length})`;
-  if(mappedButton)mappedButton.textContent=`Con mapa (${mappedCount})`;
-
-  const heading=document.getElementById('biblicalPlacesListTitle');
-  if(heading)heading.textContent=biblicalPlacesListMode==='mapped'?'Lugares disponibles en el mapa':'Todos los lugares';
-
-  const filtered=biblicalPlacesData
-    .filter(place=>biblicalPlacesListMode!=='mapped'||biblicalMapHasCoords(place))
-    .map((place,index)=>({place,index,score:biblicalPlaceSearchScore(place,q)}))
-    .filter(item=>item.score!==Infinity)
-    .sort((a,b)=>a.score-b.score||a.place.name.localeCompare(b.place.name,'es'))
-    .map(item=>item.place);
-
-  const count=document.getElementById('biblicalPlacesCount');
-  if(count)count.textContent=`${filtered.length} ${filtered.length===1?'lugar':'lugares'}`;
-
-  list.innerHTML=filtered.length
-    ?filtered.map(x=>`<button type="button" class="biblical-prophecy-card biblical-place-card" data-place-id="${escapeHtml(x.id)}">
-        <span class="biblical-prophecy-theme">${escapeHtml(x.category||'Lugar bíblico')}</span>
-        <strong>${escapeHtml(x.name)}</strong>
-        <span class="biblical-prophecy-refs">${escapeHtml(x.currentRegion||x.firstAppearance||'')}</span>
-      </button>`).join('')
-    :'<p class="biblical-prophecies-empty">No se han encontrado lugares con esa búsqueda.</p>';
-}
-
-function handleBiblicalPlaceCardOpen(event){
-  const card=event.target.closest?.('.biblical-place-card');
-  if(!card)return;
-  event.preventDefault();
-  const id=card.dataset.placeId;
-  if(id)openBiblicalPlaceDetail(id);
-}
-document.addEventListener('click',handleBiblicalPlaceCardOpen,true);
-
-function placeParagraphs(text){return String(text||'').split(/\n\s*\n/).filter(Boolean).map(p=>`<p>${escapeHtml(p)}</p>`).join('')}
-function placeList(items){return items?.length?`<ul>${items.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<p>Sin información añadida.</p>'}
-function placeSection(title,content,cls='biblical-prophecy-explanation'){return `<section class="${cls}"><h2>${title}</h2>${content}</section>`}
-
-
-
-function openBiblicalPlaceDetail(id){
-  const x=biblicalPlacesData.find(e=>String(e.id)===String(id));
-  if(!x)return;
-  activeBiblicalPlaceId=x.id;
-  document.getElementById('biblicalPlacesHome')?.classList.add('hidden');
-  const d=document.getElementById('biblicalPlaceDetail');
-  if(!d)return;
-
-  const hasCoords=Number.isFinite(x.coordinates?.latitude)&&Number.isFinite(x.coordinates?.longitude);
-  const optional=(title,value,cls='biblical-prophecy-explanation')=>
-    String(value||'').trim()?placeSection(title,placeParagraphs(value),cls):'';
-  const optionalList=(title,items)=>items?.length?placeSection(title,placeList(items)):'';
-
-  d.innerHTML=`<div class="biblical-prophecy-detail-head biblical-place-detail-return">
-      ${biblicalEntityReturnButton()}
-    </div>
-    <div class="prophecy-detail-tools">
-      <button type="button" onclick="openBiblicalPlaceEditor('${escapeHtml(x.id)}')">Editar</button>
-      <button type="button" class="danger" onclick="deleteBiblicalPlace('${escapeHtml(x.id)}')">Eliminar</button>
-    </div>
-    <p class="biblical-prophecy-detail-theme">${escapeHtml(x.category)}</p>
-    <h1>${escapeHtml(x.name)}</h1>
-    <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=${APP_VERSION}" alt="" aria-hidden="true">
-    <p class="place-current-region">${escapeHtml(x.currentRegion)}</p>
-    ${optional('RELACIÓN CON JESÚS',x.jesusRelation,'biblical-prophecy-importance')}
-    ${placeSection('DESCRIPCIÓN BREVE',placeParagraphs(x.shortDescription))}
-    ${optional('IMPORTANCIA BÍBLICA',x.biblicalImportance,'biblical-prophecy-importance')}
-    ${placeSection('PRIMERA APARICIÓN',`<p>${escapeHtml(x.firstAppearance||'Sin especificar')}</p>`,'biblical-prophecy-block place-reference')}
-    ${optional('HISTORIA',x.history)}
-    ${optionalList('PERSONAJES RELACIONADOS',x.relatedPeople)}
-    ${optionalList('VERSÍCULOS PRINCIPALES',x.mainVerses)}
-    ${optionalList('CURIOSIDADES',x.curiosities)}
-    ${placeMapLaunchersBlock(x)}
-    <section class="biblical-prophecy-explanation place-map-block">
-      <h2>COORDENADAS</h2>
-      <p>${hasCoords?`${x.coordinates.latitude}, ${x.coordinates.longitude}`:'Coordenadas pendientes'}</p>
-    </section>`;
-
-  d.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-window.openBiblicalPlaceDetail=openBiblicalPlaceDetail;
-
-function placeMapLaunchersBlock(place){
-  const hasCoords=Number.isFinite(place?.coordinates?.latitude)&&Number.isFinite(place?.coordinates?.longitude);
-  if(!hasCoords)return "";
-  const id=escapeHtml(place.id);
-  const name=escapeHtml(place.name||"Lugar bíblico");
-  return `<section class="place-geography-premium place-map-choice-section place-map-single-launcher">
-    <h2>SITUACIÓN GEOGRÁFICA</h2>
-    <p class="place-map-choice-intro">${name} dispone de ubicación en el mapa.</p>
-    <button type="button" class="place-map-choice-card place-map-open-both" onclick="openBiblicalPlacesMap('${id}')">
-      <span class="place-map-choice-title">Abrir mapas</span>
-      <span class="place-map-choice-description">Mapa moderno arriba y mapa bíblico abajo, ambos centrados en ${name}.</span>
-      <span class="place-map-choice-action">Entrar a los mapas</span>
-    </button>
-  </section>`;
-}
-
-let biblicalPlacesModernMap=null;
-let biblicalPlacesBiblicalMap=null;
-let biblicalPlacesModernClusters=null;
-let biblicalPlacesBiblicalClusters=null;
-let biblicalPlacesModernMarkers=new Map();
-let biblicalPlacesBiblicalMarkers=new Map();
-let biblicalPlacesBiblicalLabels=L?.layerGroup?.()||null;
-let activeBiblicalMapPlaceId='';
-let biblicalPlacesMapFromDetail=false;
-
-function biblicalMapHasCoords(x){
-  return Number.isFinite(x?.coordinates?.latitude)&&Number.isFinite(x?.coordinates?.longitude);
-}
-
-function populateBiblicalPlacesMapCategories(){
-  const s=document.getElementById('placesMapCategory');
-  if(!s)return;
-  const current=s.value;
-  const cats=[...new Set(
-    biblicalPlacesData.filter(biblicalMapHasCoords).map(x=>x.category).filter(Boolean)
-  )].sort((a,b)=>a.localeCompare(b,'es'));
-  s.innerHTML='<option value="">Todas</option>'+
-    cats.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
-  s.value=cats.includes(current)?current:'';
-}
-
-function biblicalPremiumMarkerIcon(active=false){
-  return L.divIcon({
-    className:'biblical-leaflet-marker-shell',
-    html:`<span class="biblical-leaflet-marker${active?' active':''}"><i></i></span>`,
-    iconSize:[30,38],
-    iconAnchor:[15,36],
-    popupAnchor:[0,-34]
-  });
-}
-
-function biblicalPremiumClusterIcon(cluster){
-  const n=cluster.getChildCount();
-  return L.divIcon({
-    className:'biblical-cluster-shell',
-    html:`<span class="biblical-cluster"><strong>${n}</strong></span>`,
-    iconSize:[44,44]
-  });
-}
-
-const BIBLICAL_MAJOR_NAMES=new Set([
-  'Jerusalén','Belén','Nazaret','Capernaúm','Jericó','Betania','Caná','Betsaida',
-  'Corazín','Damasco','Antioquía','Egipto','Sinaí','Mar de Galilea','Río Jordán',
-  'Judea','Samaria','Galilea','Asia Menor','Roma','Corinto','Éfeso','Cesarea',
-  'Cesarea de Filipo','Tiro','Sidón','Hebrón','Beerseba','Siquem','Bet-el',
-  'Babilonia','Nínive'
-]);
-
-function createBiblicalPlacesLeafletMap(elementId,mode){
-  const el=document.getElementById(elementId);
-  if(!el)return null;
-  const map=L.map(el,{
-    zoomControl:true,
-    minZoom:3,
-    maxZoom:19,
-    worldCopyJump:true,
-    preferCanvas:true
-  }).setView([31.8,35.15],8);
-
-  const cfg=mode==='modern'
-    ?{
-      url:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-      attribution:'© OpenStreetMap contributors © CARTO'
+/* v72.2 - Buscador de títulos robusto */
+(function(){
+  if(window.__v722TitlesSearch)return;
+  window.__v722TitlesSearch=true;
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="titlesSearch"){
+      renderTitles();
     }
-    :{
-      url:'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-      attribution:'© OpenStreetMap contributors © CARTO'
-    };
+  },true);
+})();
 
-  L.tileLayer(cfg.url,{
-    subdomains:'abcd',
-    maxZoom:20,
-    attribution:cfg.attribution,
-    detectRetina:false
-  }).addTo(map);
+/* v72.3 - Buscador de títulos definitivo */
+(function(){
+  if(window.__v723TitlesSearchFinal)return;
+  window.__v723TitlesSearchFinal=true;
 
-  return map;
-}
+  window.renderTitles=function(){
+    const box=document.getElementById("titlesList");
+    if(!box) return;
+    box.innerHTML="";
 
-function ensureBiblicalLeafletMaps(){
-  const loading=document.getElementById('placesMapLoading');
-  if(typeof L==='undefined'){
-    if(loading){
-      loading.textContent='No se pudieron cargar los mapas. Comprueba la conexión a Internet.';
-      loading.classList.remove('hidden');
-    }
-    return false;
-  }
+    const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+    const searchValue = titlesVisible
+      ? (document.getElementById("titlesSearch")?.value || "")
+      : (document.getElementById("search")?.value || "");
 
-  if(!biblicalPlacesModernMap){
-    biblicalPlacesModernMap=createBiblicalPlacesLeafletMap('placesLeafletMapModern','modern');
-    if(!biblicalPlacesModernMap)return false;
-    biblicalPlacesModernClusters=L.markerClusterGroup({
-      showCoverageOnHover:false,
-      spiderfyOnMaxZoom:true,
-      removeOutsideVisibleBounds:true,
-      chunkedLoading:true,
-      maxClusterRadius:48,
-      iconCreateFunction:biblicalPremiumClusterIcon
-    });
-    biblicalPlacesModernMap.addLayer(biblicalPlacesModernClusters);
-    biblicalPlacesModernMap.on('click',()=>document.getElementById('placesMapCard')?.classList.add('hidden'));
-  }
+    const q = searchValue.trim().toLowerCase();
 
-  if(!biblicalPlacesBiblicalMap){
-    biblicalPlacesBiblicalMap=createBiblicalPlacesLeafletMap('placesLeafletMapBiblical','biblical');
-    if(!biblicalPlacesBiblicalMap)return false;
-    biblicalPlacesBiblicalClusters=L.markerClusterGroup({
-      showCoverageOnHover:false,
-      spiderfyOnMaxZoom:true,
-      removeOutsideVisibleBounds:true,
-      chunkedLoading:true,
-      maxClusterRadius:48,
-      iconCreateFunction:biblicalPremiumClusterIcon
-    });
-    biblicalPlacesBiblicalMap.addLayer(biblicalPlacesBiblicalClusters);
-    biblicalPlacesBiblicalLabels=L.layerGroup().addTo(biblicalPlacesBiblicalMap);
-    biblicalPlacesBiblicalMap.on('click',()=>document.getElementById('placesMapCard')?.classList.add('hidden'));
-    biblicalPlacesBiblicalMap.on('zoomend',()=>{
-      updateBiblicalMarkerLabels();
-      renderBiblicalAtlasLabels();
-    });
-    biblicalPlacesBiblicalMap.on('moveend',renderBiblicalAtlasLabels);
-  }
+    let items=getItems().map((item, idx)=>({
+      ...item,
+      __idx:idx,
+      __code:getDisplayCode(idx, section)
+    }));
 
-  loading?.classList.add('hidden');
-  return true;
-}
-
-
-const BIBLICAL_ATLAS_LABELS=[
-  // Grandes territorios: visibles desde muy lejos.
-  {name:'ITALIA',lat:42.2,lon:12.6,minZoom:3,maxZoom:6,type:'territory'},
-  {name:'GRECIA',lat:39.2,lon:22.2,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'ASIA MENOR',lat:39.2,lon:31.7,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'EGIPTO',lat:27.6,lon:30.5,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'SIRIA',lat:34.8,lon:38.2,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'MESOPOTAMIA',lat:34.0,lon:44.2,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'ARABIA',lat:27.4,lon:40.9,minZoom:3,maxZoom:7,type:'territory'},
-  {name:'MACEDONIA',lat:41.0,lon:22.2,minZoom:4,maxZoom:8,type:'territory'},
-  {name:'ACAYA',lat:38.1,lon:22.5,minZoom:5,maxZoom:14,type:'region'},
-  {name:'FENICIA',lat:33.8,lon:35.4,minZoom:5,maxZoom:14,type:'region'},
-  {name:'GALILEA',lat:32.8,lon:35.35,minZoom:6,maxZoom:14,type:'region'},
-  {name:'SAMARIA',lat:32.2,lon:35.22,minZoom:6,maxZoom:14,type:'region'},
-  {name:'JUDEA',lat:31.58,lon:35.16,minZoom:6,maxZoom:14,type:'region'},
-  {name:'PEREA',lat:31.85,lon:35.65,minZoom:7,maxZoom:14,type:'region'},
-  {name:'DECAPOLIS',lat:32.45,lon:35.82,minZoom:7,maxZoom:14,type:'region'},
-  {name:'IDUMEA',lat:30.9,lon:35.05,minZoom:7,maxZoom:14,type:'region'},
-  {name:'MOAB',lat:31.25,lon:35.72,minZoom:6,maxZoom:14,type:'region'},
-  {name:'AMÓN',lat:31.95,lon:35.93,minZoom:6,maxZoom:14,type:'region'},
-  {name:'EDOM',lat:30.35,lon:35.45,minZoom:6,maxZoom:14,type:'region'},
-
-  // Ciudades de referencia y viajes apostólicos.
-  {name:'ROMA',lat:41.9028,lon:12.4964,minZoom:4,maxZoom:20,type:'major-city'},
-  {name:'CORINTO',lat:37.9386,lon:22.9322,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'ATENAS',lat:37.9838,lon:23.7275,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'TESALÓNICA',lat:40.6401,lon:22.9444,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'FILIPOS',lat:41.0133,lon:24.2861,minZoom:6,maxZoom:20,type:'major-city'},
-  {name:'BEREA',lat:40.5244,lon:22.2024,minZoom:6,maxZoom:20,type:'major-city'},
-  {name:'ÉFESO',lat:37.9390,lon:27.3410,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'ANTIOQUÍA',lat:36.2021,lon:36.1605,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'DAMASCO',lat:33.5138,lon:36.2765,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'TROAS',lat:39.7586,lon:26.1510,minZoom:6,maxZoom:20,type:'major-city'},
-  {name:'MILETO',lat:37.5308,lon:27.2784,minZoom:6,maxZoom:20,type:'major-city'},
-  {name:'PATMOS',lat:37.3094,lon:26.5478,minZoom:6,maxZoom:20,type:'major-city'},
-  {name:'MALTA',lat:35.9375,lon:14.3754,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'JERUSALÉN',lat:31.778,lon:35.235,minZoom:5,maxZoom:20,type:'major-city'},
-  {name:'BELÉN',lat:31.705,lon:35.202,minZoom:8,maxZoom:20,type:'major-city'},
-  {name:'NAZARET',lat:32.6996,lon:35.3035,minZoom:7,maxZoom:20,type:'major-city'},
-  {name:'CAPERNAÚM',lat:32.8803,lon:35.5750,minZoom:8,maxZoom:20,type:'major-city'},
-  {name:'JERICÓ',lat:31.8611,lon:35.4617,minZoom:8,maxZoom:20,type:'major-city'},
-  {name:'TIRO',lat:33.2705,lon:35.2038,minZoom:7,maxZoom:20,type:'major-city'},
-  {name:'SIDÓN',lat:33.5606,lon:35.3759,minZoom:7,maxZoom:20,type:'major-city'},
-
-  // Aguas principales.
-  {name:'Mar Mediterráneo',lat:34.2,lon:29.3,minZoom:3,maxZoom:9,type:'water'},
-  {name:'Mar de Galilea',lat:32.81,lon:35.59,minZoom:8,maxZoom:12,type:'water'},
-  {name:'Mar Muerto',lat:31.50,lon:35.48,minZoom:7,maxZoom:11,type:'water'}
-];
-
-function biblicalAtlasLabelIcon(label){
-  const className=`biblical-atlas-label biblical-atlas-${label.type}`;
-  return L.divIcon({
-    className:'biblical-atlas-label-shell',
-    html:`<span class="${className}">${escapeHtml(label.name)}</span>`,
-    iconSize:null,
-    iconAnchor:[0,0]
-  });
-}
-
-function renderBiblicalAtlasLabels(){
-  if(!biblicalPlacesBiblicalMap||typeof L==='undefined')return;
-  if(!biblicalPlacesBiblicalLabels){
-    biblicalPlacesBiblicalLabels=L.layerGroup().addTo(biblicalPlacesBiblicalMap);
-  }
-  biblicalPlacesBiblicalLabels.clearLayers();
-
-  const zoom=biblicalPlacesBiblicalMap.getZoom();
-  const bounds=biblicalPlacesBiblicalMap.getBounds().pad(.12);
-
-  BIBLICAL_ATLAS_LABELS.forEach(label=>{
-    if(zoom<label.minZoom||zoom>label.maxZoom)return;
-    const latlng=L.latLng(label.lat,label.lon);
-    if(!bounds.contains(latlng))return;
-    L.marker(latlng,{
-      icon:biblicalAtlasLabelIcon(label),
-      interactive:false,
-      keyboard:false,
-      zIndexOffset:label.type==='major-city'?700:300
-    }).addTo(biblicalPlacesBiblicalLabels);
-  });
-
-  // Al acercarse, se añaden todos los nombres de lugares con coordenadas.
-  if(zoom>=11){
-    const occupied=new Set(
-      BIBLICAL_ATLAS_LABELS
-        .filter(label=>zoom>=label.minZoom&&zoom<=label.maxZoom)
-        .map(label=>normalizePlaceText(label.name))
-    );
-
-    biblicalPlacesData
-      .filter(biblicalMapHasCoords)
-      .filter(place=>bounds.contains([place.coordinates.latitude,place.coordinates.longitude]))
-      .forEach(place=>{
-        const key=normalizePlaceText(place.name);
-        if(occupied.has(key))return;
-        occupied.add(key);
-        L.marker([place.coordinates.latitude,place.coordinates.longitude],{
-          icon:L.divIcon({
-            className:'biblical-atlas-label-shell',
-            html:`<span class="biblical-atlas-label biblical-atlas-local">${escapeHtml(place.name)}</span>`,
-            iconSize:null,
-            iconAnchor:[0,0]
-          }),
-          interactive:false,
-          keyboard:false,
-          zIndexOffset:200
-        }).addTo(biblicalPlacesBiblicalLabels);
+    if(q){
+      items=items.filter(item=>{
+        const hay=[
+          displayItemTitle(item)
+        ].filter(Boolean).join(" ").toLowerCase();
+        return hay.includes(q);
       });
-  }
-}
+    }
 
-function updateBiblicalMarkerLabels(){
-  if(!biblicalPlacesBiblicalMap)return;
-  // Las etiquetas de orientación se gestionan en una capa independiente.
-  // Los tooltips antiguos se eliminan para evitar nombres duplicados.
-  biblicalPlacesBiblicalMarkers.forEach(marker=>{
-    if(marker.getTooltip())marker.unbindTooltip();
-  });
-}
+    const current=currentItem();
 
-async function openBiblicalPlacesMap(focusId=''){
-  document.getElementById('biblicalPlacesHome')?.classList.add('hidden');
-  document.getElementById('biblicalPlaceDetail')?.classList.add('hidden');
-  document.getElementById('biblicalPlacesMap')?.classList.remove('hidden');
+    if(!items.length){
+      box.innerHTML='<div class="empty">No hay resultados.</div>';
+      return;
+    }
 
-  await loadBiblicalPlaces();
-  populateBiblicalPlacesMapCategories();
-  biblicalPlacesMapFromDetail=Boolean(focusId);
-
-  if(!ensureBiblicalLeafletMaps())return;
-  renderBiblicalPlacesMap();
-
-  setTimeout(()=>{
-    biblicalPlacesModernMap?.invalidateSize();
-    biblicalPlacesBiblicalMap?.invalidateSize();
-    if(focusId)focusBiblicalPlaceOnMap(focusId);
-    else focusBiblicalMapRegion('holyland');
-  },180);
-
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function closeBiblicalPlacesMap(){
-  document.getElementById('biblicalPlacesMap')?.classList.add('hidden');
-  document.getElementById('placesMapCard')?.classList.add('hidden');
-  activeBiblicalMapPlaceId='';
-
-  if(biblicalPlacesMapFromDetail&&activeBiblicalPlaceId){
-    document.getElementById('biblicalPlacesHome')?.classList.add('hidden');
-    openBiblicalPlaceDetail(activeBiblicalPlaceId);
-  }else{
-    document.getElementById('biblicalPlacesHome')?.classList.remove('hidden');
-  }
-
-  biblicalPlacesMapFromDetail=false;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function renderBiblicalPlacesMap(){
-  if(!ensureBiblicalLeafletMaps())return;
-
-  const q=normalizePlaceText(document.getElementById('placesMapSearch')?.value||'');
-  const cat=document.getElementById('placesMapCategory')?.value||'';
-  const all=biblicalPlacesData.filter(biblicalMapHasCoords);
-  const filtered=all.filter(x=>
-    (!cat||x.category===cat)&&
-    (!q||normalizePlaceText([x.name,x.currentRegion,x.category,x.shortDescription].join(' ')).includes(q))
-  );
-
-  const count=document.getElementById('placesMapCount');
-  if(count)count.textContent=`${filtered.length} lugares con mapa`;
-
-  biblicalPlacesModernClusters.clearLayers();
-  biblicalPlacesBiblicalClusters.clearLayers();
-  biblicalPlacesModernMarkers.clear();
-  biblicalPlacesBiblicalMarkers.clear();
-
-  filtered.forEach(x=>{
-    const coords=[x.coordinates.latitude,x.coordinates.longitude];
-
-    const modernMarker=L.marker(coords,{
-      icon:biblicalPremiumMarkerIcon(x.id===activeBiblicalMapPlaceId),
-      title:x.name,
-      riseOnHover:true
+    items.forEach(item=>{
+      const div=document.createElement("div");
+      div.className="title-row"+(current&&item.id===current.id?" active":"")+(section==="verses"&&(item.shared||item.lastCardSentAt)?" verse-sent-bg-v3134":"");
+      div.innerHTML='<div class="title-code">'+escapeHtml(item.__code)+'</div><div class="title-name">'+escapeHtml((section==="verses"&&(item.shared||item.lastCardSentAt)&&!item.shared?"✓ ":"")+displayItemTitle(item))+'</div>';
+      div.onclick=()=>{
+        if(section==="verses"){
+          specialVerseMode=null;
+          verseNavigationMode="titles";
+          currentVerseCategory=null;
+        }
+        setCurrentId(item.id);
+        renderList();
+        renderReader();
+        enterFullscreenReading();
+      };
+      box.appendChild(div);
     });
-    modernMarker.on('click',()=>selectBiblicalPlaceMapMarker(x.id));
-    biblicalPlacesModernMarkers.set(x.id,modernMarker);
-    biblicalPlacesModernClusters.addLayer(modernMarker);
-
-    const biblicalMarker=L.marker(coords,{
-      icon:biblicalPremiumMarkerIcon(x.id===activeBiblicalMapPlaceId),
-      title:x.name,
-      riseOnHover:true
-    });
-    biblicalMarker.on('click',()=>selectBiblicalPlaceMapMarker(x.id));
-    biblicalPlacesBiblicalMarkers.set(x.id,biblicalMarker);
-    biblicalPlacesBiblicalClusters.addLayer(biblicalMarker);
-  });
-
-  updateBiblicalMarkerLabels();
-  renderBiblicalAtlasLabels();
-
-  if(q&&filtered.length===1){
-    focusBiblicalPlaceOnMap(filtered[0].id);
-  }else if(q&&filtered.length>1){
-    const bounds=L.latLngBounds(filtered.map(x=>[x.coordinates.latitude,x.coordinates.longitude]));
-    biblicalPlacesModernMap.fitBounds(bounds.pad(.18),{maxZoom:12});
-    biblicalPlacesBiblicalMap.fitBounds(bounds.pad(.18),{maxZoom:12});
-  }
-}
-
-function selectBiblicalPlaceMapMarker(id){
-  activeBiblicalMapPlaceId=id;
-
-  biblicalPlacesModernMarkers.forEach((marker,key)=>
-    marker.setIcon(biblicalPremiumMarkerIcon(key===id))
-  );
-  biblicalPlacesBiblicalMarkers.forEach((marker,key)=>
-    marker.setIcon(biblicalPremiumMarkerIcon(key===id))
-  );
-
-  showBiblicalPlacesMapCard(id);
-  updateBiblicalMarkerLabels();
-}
-
-function showBiblicalPlacesMapCard(id){
-  const x=biblicalPlacesData.find(e=>e.id===id);
-  const c=document.getElementById('placesMapCard');
-  if(!x||!c)return;
-  c.innerHTML=`<strong>${escapeHtml(x.name)}</strong>
-    <span>${escapeHtml(x.category)} · ${escapeHtml(x.currentRegion)}</span>
-    <p>${escapeHtml(x.shortDescription)}</p>
-    <button type="button" onclick="openBiblicalPlaceFromMap('${escapeHtml(x.id)}')">Abrir ficha</button>`;
-  c.classList.remove('hidden');
-  c.scrollIntoView({block:'nearest',behavior:'smooth'});
-}
-
-function focusBiblicalPlaceOnMap(id){
-  const x=biblicalPlacesData.find(e=>e.id===id);
-  if(!x||!biblicalMapHasCoords(x)||!ensureBiblicalLeafletMaps())return;
-
-  activeBiblicalMapPlaceId=id;
-  const coords=[x.coordinates.latitude,x.coordinates.longitude];
-
-  biblicalPlacesModernMap.setView(coords,14,{animate:true});
-  biblicalPlacesBiblicalMap.setView(coords,14,{animate:true});
-
-  setTimeout(()=>{
-    selectBiblicalPlaceMapMarker(id);
-  },300);
-}
-
-function focusBiblicalMapRegion(region){
-  if(!ensureBiblicalLeafletMaps())return;
-  const regions={
-    holyland:[[29.3,33.8],[33.6,36.7]],
-    egypt:[[21.5,24],[32.2,36.3]],
-    mesopotamia:[[29,36],[38.5,49]],
-    asia:[[35.5,25],[42.5,43]],
-    greece:[[34,7],[44.5,25]]
   };
-  const bounds=regions[region]||regions.holyland;
-  biblicalPlacesModernMap.fitBounds(bounds,{padding:[18,18],animate:true});
-  biblicalPlacesBiblicalMap.fitBounds(bounds,{padding:[18,18],animate:true});
-}
 
-function zoomBiblicalPlacesMap(factor){
-  if(!ensureBiblicalLeafletMaps())return;
-  const delta=factor>1?1:-1;
-  biblicalPlacesModernMap.setZoom(biblicalPlacesModernMap.getZoom()+delta);
-  biblicalPlacesBiblicalMap.setZoom(biblicalPlacesBiblicalMap.getZoom()+delta);
-}
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="titlesSearch"){
+      window.renderTitles();
+    }
+  },true);
+})();
 
-function resetBiblicalPlacesMap(){
-  focusBiblicalMapRegion('holyland');
-}
+/* v73 - Categorías en pantalla completa */
+(function(){
+  if(window.__v73CategoriesFull)return;
+  window.__v73CategoriesFull=true;
 
-function openBiblicalPlaceFromMap(id){
-  activeBiblicalPlaceId=id;
-  document.getElementById('biblicalPlacesMap')?.classList.add('hidden');
-  openBiblicalPlaceDetail(id);
-}
-
-function showBiblicalPlaceOnMap(id){
-  const x=biblicalPlacesData.find(e=>e.id===id);
-  if(!x||!biblicalMapHasCoords(x))return;
-  openBiblicalPlacesMap(id);
-}
-
-function openBiblicalPlaceEditor(id=''){const x=id?biblicalPlacesData.find(e=>e.id===id):null,d=document.getElementById('biblicalPlaceEditDialog');if(!d)return;const set=(n,v='')=>document.getElementById(n).value=v;set('placeEditId',x?.id);set('placeEditName',x?.name);set('placeEditCategory',x?.category);set('placeEditCurrentRegion',x?.currentRegion);set('placeEditFirstAppearance',x?.firstAppearance);set('placeEditShortDescription',x?.shortDescription);set('placeEditBiblicalImportance',x?.biblicalImportance);set('placeEditHistory',x?.history);set('placeEditRelatedPeople',(x?.relatedPeople||[]).join('\n'));set('placeEditJesusRelation',x?.jesusRelation);set('placeEditMainVerses',(x?.mainVerses||[]).join('\n'));set('placeEditCuriosities',(x?.curiosities||[]).join('\n'));set('placeEditLatitude',x?.coordinates?.latitude??'');set('placeEditLongitude',x?.coordinates?.longitude??'');document.getElementById('placeEditDialogTitle').textContent=x?'Editar lugar bíblico':'Añadir lugar bíblico';d.showModal();setTimeout(()=>document.getElementById('placeEditName')?.focus(),80)}
-function saveBiblicalPlaceEditor(){const val=n=>document.getElementById(n).value.trim(),id=val('placeEditId'),name=val('placeEditName');if(!name||!val('placeEditCategory')||!val('placeEditShortDescription')){toast('Completa el nombre, la categoría y la descripción breve');return}const previous=id?biblicalPlacesData.find(e=>e.id===id):null,item=placeCleanItem({...(previous||{}),id:id||undefined,name,category:val('placeEditCategory'),currentRegion:val('placeEditCurrentRegion'),firstAppearance:val('placeEditFirstAppearance'),shortDescription:val('placeEditShortDescription'),biblicalImportance:val('placeEditBiblicalImportance'),history:val('placeEditHistory'),relatedPeople:val('placeEditRelatedPeople'),jesusRelation:val('placeEditJesusRelation'),mainVerses:val('placeEditMainVerses'),curiosities:val('placeEditCuriosities'),latitude:val('placeEditLatitude'),longitude:val('placeEditLongitude'),createdAt:previous?.createdAt||Date.now(),updatedAt:Date.now()});const crud=loadPlacesCrud(),baseIds=new Set(biblicalPlacesBase.map(x=>String(x.id)));if(id&&baseIds.has(id))crud.edits[id]=item;else if(id){const at=crud.custom.findIndex(x=>String(x.id)===id);if(at>=0)crud.custom[at]=item;else crud.custom.push(item)}else crud.custom.push(item);savePlacesCrud(crud);rebuildBiblicalPlacesData();renderBiblicalPlaces();document.getElementById('biblicalPlaceEditDialog')?.close();if(id&&activeBiblicalPlaceId===id)openBiblicalPlaceDetail(id);toast(id?'Lugar actualizado':'Lugar añadido')}
-function deleteBiblicalPlace(id){const item=biblicalPlacesData.find(x=>x.id===id);if(!item||!confirm(`¿Enviar “${item.name}” a la papelera?`))return;const crud=loadPlacesCrud(),builtin=biblicalPlacesBase.some(x=>String(x.id)===String(id));crud.trash=crud.trash.filter(x=>String(x.id)!==String(id));crud.trash.unshift({...item,_origin:builtin?'builtin':'custom',deletedAt:Date.now()});if(builtin){if(!crud.deleted.includes(id))crud.deleted.push(id)}else crud.custom=crud.custom.filter(x=>String(x.id)!==String(id));savePlacesCrud(crud);rebuildBiblicalPlacesData();closeBiblicalPlaceDetail();renderBiblicalPlaces();toast('Lugar enviado a la papelera')}
-function updateBiblicalPlacesTrashCount(){const e=document.getElementById('biblicalPlacesTrashCount');if(e)e.textContent=String(loadPlacesCrud().trash.length)}
-function openBiblicalPlacesTrash(){renderBiblicalPlacesTrash();document.getElementById('biblicalPlacesTrashDialog')?.showModal()}
-function renderBiblicalPlacesTrash(){const box=document.getElementById('biblicalPlacesTrashList'),trash=loadPlacesCrud().trash;if(!box)return;box.innerHTML=trash.length?trash.map(x=>`<article class="prophecy-trash-item"><div><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.category||'')} · ${escapeHtml(x.currentRegion||'')}</small></div><div><button type="button" onclick="restoreBiblicalPlace('${escapeHtml(x.id)}')">Restaurar</button><button type="button" class="danger" onclick="purgeBiblicalPlace('${escapeHtml(x.id)}')">Eliminar</button></div></article>`).join(''):'<p class="biblical-prophecies-empty">La papelera está vacía.</p>';document.getElementById('emptyBiblicalPlacesTrash').disabled=!trash.length}
-function restoreBiblicalPlace(id){const crud=loadPlacesCrud(),at=crud.trash.findIndex(x=>String(x.id)===String(id));if(at<0)return;const item=crud.trash.splice(at,1)[0],restored={...item};delete restored._origin;delete restored.deletedAt;if(item._origin==='builtin'){crud.deleted=crud.deleted.filter(x=>String(x)!==String(id));crud.edits[id]=restored}else{crud.custom=crud.custom.filter(x=>String(x.id)!==String(id));crud.custom.push(restored)}savePlacesCrud(crud);rebuildBiblicalPlacesData();renderBiblicalPlacesTrash();renderBiblicalPlaces();toast('Lugar restaurado')}
-function purgeBiblicalPlace(id){if(!confirm('¿Eliminar definitivamente este lugar?'))return;const crud=loadPlacesCrud();crud.trash=crud.trash.filter(x=>String(x.id)!==String(id));savePlacesCrud(crud);renderBiblicalPlacesTrash();toast('Eliminado definitivamente')}
-function emptyBiblicalPlacesTrash(){if(!confirm('¿Vaciar definitivamente toda la papelera de Lugares Bíblicos?'))return;const crud=loadPlacesCrud();crud.trash=[];savePlacesCrud(crud);renderBiblicalPlacesTrash();toast('Papelera vaciada')}
-function exportBiblicalPlaces(){rebuildBiblicalPlacesData();const blob=new Blob([JSON.stringify(biblicalPlacesData,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='biblical-places.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast(`${biblicalPlacesData.length} lugares exportados`)}
-async function importBiblicalPlaces(event){const file=event.target.files?.[0];event.target.value='';if(!file)return;try{const raw=JSON.parse(await file.text());if(!Array.isArray(raw))throw new Error();const imported=raw.map(placeCleanItem).filter(x=>x.name);if(!confirm(`Se importarán ${imported.length} lugares y sustituirán la colección actual. ¿Continuar?`))return;savePlacesCrud({custom:imported,edits:{},deleted:biblicalPlacesBase.map(x=>x.id),trash:[]});rebuildBiblicalPlacesData();renderBiblicalPlaces();toast('Lugares importados correctamente')}catch(_){toast('El archivo JSON no es válido')}}
-function openBiblicalPlacesStats(){rebuildBiblicalPlacesData();const countBy=key=>Object.entries(biblicalPlacesData.reduce((a,x)=>{const k=x[key]||'Sin especificar';a[k]=(a[k]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1]);const categories=countBy('category'),regions=countBy('currentRegion'),withJesus=biblicalPlacesData.filter(x=>x.jesusRelation).length,withCoords=biblicalPlacesData.filter(x=>Number.isFinite(x.coordinates.latitude)&&Number.isFinite(x.coordinates.longitude)).length;document.getElementById('biblicalPlacesStatsContent').innerHTML=`<div class="places-stat-summary"><strong>${biblicalPlacesData.length}</strong><span>Lugares totales</span></div><div class="places-stat-grid"><article><strong>${categories.length}</strong><span>Categorías</span></article><article><strong>${regions.length}</strong><span>Regiones</span></article><article><strong>${withJesus}</strong><span>Relacionados con Jesús</span></article><article><strong>${withCoords}</strong><span>Con coordenadas</span></article></div><h3>Por categoría</h3>${categories.length?`<ul>${categories.map(([k,n])=>`<li><span>${escapeHtml(k)}</span><strong>${n}</strong></li>`).join('')}</ul>`:'<p>Aún no hay datos.</p>'}`;document.getElementById('biblicalPlacesStatsDialog')?.showModal()}
-
-
-/* V2.8.8 · Volver directamente desde una ficha reconocida al punto exacto del capítulo. */
-function returnBiblicalEntityToChapter(){
-  if(!biblicalEntityReturnPosition)return;
-  document.body.classList.remove('biblical-characters-fullscreen-v2243');
-  document.getElementById('biblicalCharacterDetailV2242')?.classList.add('hidden');
-  document.getElementById('biblicalCharactersHomeV2242')?.classList.remove('hidden');
-  document.getElementById('biblicalCharactersScreen')?.classList.add('hidden');
-  document.getElementById('biblicalPlaceDetail')?.classList.add('hidden');
-  document.getElementById('biblicalPlacesHome')?.classList.remove('hidden');
-  document.getElementById('biblicalPlacesScreen')?.classList.add('hidden');
-  document.getElementById('biblicalParableDetail')?.classList.add('hidden');
-  document.getElementById('biblicalParablesHome')?.classList.remove('hidden');
-  document.getElementById('biblicalParablesScreen')?.classList.add('hidden');
-  document.getElementById('biblicalGuideDetail')?.classList.add('hidden');
-  document.getElementById('biblicalGuidesHome')?.classList.remove('hidden');
-  document.getElementById('biblicalGuidesScreen')?.classList.add('hidden');
-  document.querySelector('.app-shell')?.classList.remove('hidden');
-  document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');
-  document.getElementById('homeScreen')?.classList.add('hidden');
-  document.getElementById('readerScreen')?.classList.remove('hidden');
-  const saved=biblicalEntityReturnPosition;
-  restoreBiblicalEntityPosition();
-  requestAnimationFrame(()=>restoreBiblicalEntityPosition());
-  setTimeout(()=>restoreBiblicalEntityPosition(),80);
-  setTimeout(()=>{restoreBiblicalEntityPosition();biblicalEntityReturnPosition=null;window.__biblicalEntityOpenedFromReader=false;try{sessionStorage.removeItem('biblicalEntityOpenedFromReader')}catch(_){ }},220);
-}
-window.returnBiblicalEntityToChapter=returnBiblicalEntityToChapter;
-function biblicalEntityReturnButton(){return biblicalEntityReturnPosition&&window.__biblicalEntityOpenedFromReader?'<button class="return-to-reader-btn" type="button" onclick="returnBiblicalEntityToChapter()">Volver al capítulo</button>':''}
-window.biblicalEntityReturnButton=biblicalEntityReturnButton;
-function ensureBiblicalEntityReturnButton(){
-  if(!biblicalEntityReturnPosition||!window.__biblicalEntityOpenedFromReader)return;
-  const targets=[
-    document.querySelector('#biblicalCharacterDetailV2242 .biblical-detail-nav-v288'),
-    document.querySelector('#biblicalPlaceDetail .biblical-prophecy-detail-head')
-  ].filter(Boolean);
-  for(const target of targets){
-    if(target.querySelector('.return-to-reader-btn'))continue;
-    const button=document.createElement('button');
-    button.className='return-to-reader-btn';button.style.cssText='appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;min-height:42px!important;margin-left:auto!important;padding:9px 14px!important;border:1px solid #9a792f!important;border-radius:14px!important;background:linear-gradient(180deg,#2b2c31 0%,#18191d 100%)!important;color:#f5efe4!important;-webkit-text-fill-color:#f5efe4!important;font:800 15px/1.15 Lora,serif!important;text-shadow:none!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 4px 12px rgba(0,0,0,.25)!important;white-space:nowrap!important;cursor:pointer!important;';
-    button.type='button';
-    button.textContent='Volver al capítulo';
-    button.addEventListener('click',returnBiblicalEntityToChapter);
-    target.appendChild(button);
-  }
-}
-window.ensureBiblicalEntityReturnButton=ensureBiblicalEntityReturnButton;
-
-/* V2.8.7 · Restaurar el punto de lectura al cerrar una ficha reconocida. */
-const closeBiblicalCharactersOriginalV287=window.closeBiblicalCharactersV2242;
-window.closeBiblicalCharactersV2242=function(){closeBiblicalCharactersOriginalV287?.();if(biblicalEntityReturnPosition){document.getElementById('readerScreen')?.classList.remove('hidden');document.getElementById('homeScreen')?.classList.add('hidden');restoreBiblicalEntityPosition();biblicalEntityReturnPosition=null;window.__biblicalEntityOpenedFromReader=false}};
-const closeBiblicalPlacesOriginalV287=window.closeBiblicalPlaces;
-window.closeBiblicalPlaces=function(){closeBiblicalPlacesOriginalV287?.();if(biblicalEntityReturnPosition){document.getElementById('readerScreen')?.classList.remove('hidden');document.getElementById('homeScreen')?.classList.add('hidden');restoreBiblicalEntityPosition();biblicalEntityReturnPosition=null;window.__biblicalEntityOpenedFromReader=false}};
-
-
-/* V3.1.2 · Más y Calendario de festividades */
-let biblicalFestivitiesData=[];
-let currentBiblicalFestivityId=null;
-let biblicalCalendarDate=new Date();
-
-let studyModuleReturnScreen='readerScreen';
-
-function showStudyModuleScreen(id){
-  const readerScreen=document.getElementById('readerScreen');
-  const homeScreen=document.getElementById('homeScreen');
-
-  if(readerScreen&&!readerScreen.classList.contains('hidden')){
-    studyModuleReturnScreen='readerScreen';
-  }else if(homeScreen&&!homeScreen.classList.contains('hidden')){
-    studyModuleReturnScreen='homeScreen';
+  const oldClearNavModes = window.clearNavModes || (typeof clearNavModes!=="undefined" ? clearNavModes : null);
+  if(oldClearNavModes){
+    window.clearNavModes=function(){
+      oldClearNavModes.apply(this,arguments);
+      document.body.classList.remove("categories-fullscreen-v73");
+    };
+    try{clearNavModes=window.clearNavModes}catch(e){}
   }
 
-  document.querySelectorAll('.study-module-screen').forEach(el=>el.classList.add('hidden'));
-  document.getElementById(id)?.classList.remove('hidden');
+  window.openVerseCategories=function(){
+    setSearchVisibleV26(true);
+    setActiveView("categories");
+    categoryListActive=true;
+    clearNavModes();
 
-  selectionBar?.classList.remove('open');
-  actionsPanelToggle?.setAttribute('aria-expanded','false');
-  document.body.classList.add('study-module-open');
-  window.scrollTo({top:0,behavior:'auto'});
-}
+    specialVerseMode=null;
+    verseNavigationMode="categories";
+    section="verses";
+    state.section="verses";
+    currentVerseCategory=currentVerseCategory||"sin_categoria";
+    normalizeVerses();
+    saveState();
+    syncTabs();
+    renderList();
 
-function closeStudyModuleScreens(){
-  document.querySelectorAll('.study-module-screen').forEach(el=>el.classList.add('hidden'));
-  document.body.classList.remove('study-module-open');
+    document.body.classList.add("categories-fullscreen-v73");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
 
-  const target=document.getElementById(studyModuleReturnScreen)||document.getElementById('readerScreen');
-  target?.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'auto'});
-}
+    document.getElementById("verseCategoriesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    document.getElementById("titlesView").classList.add("hidden");
+    var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
 
-function openMoreFunctions(){showStudyModuleScreen('moreFunctionsScreen')}
-function closeMoreFunctions(){closeStudyModuleScreens()}
-function openBiblicalCalendar(){
-  showStudyModuleScreen('biblicalCalendarScreen');
-  renderBiblicalCalendar(new Date());
-  updateBiblicalCalendarAlert();
-}
-function closeBiblicalCalendar(){
-  document.getElementById('biblicalCalendarScreen')?.classList.add('hidden');
-  document.getElementById('moreFunctionsScreen')?.classList.remove('hidden');
-  document.body.classList.add('study-module-open');
-  window.scrollTo({top:0,behavior:'auto'});
-}
-function padBiblicalCalendar(n){return String(n).padStart(2,'0')}
-function biblicalCalendarKey(d){return `${d.getFullYear()}-${padBiblicalCalendar(d.getMonth()+1)}-${padBiblicalCalendar(d.getDate())}`}
-function addBiblicalCalendarDays(date,days){const d=new Date(date);d.setDate(d.getDate()+days);return d}
-function sameBiblicalCalendarDay(a,b){return biblicalCalendarKey(a)===biblicalCalendarKey(b)}
-function formatBiblicalCalendarDate(d){
-  return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);
-}
-function westernEasterDate(y){
-  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25);
-  const g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4;
-  const l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
-  const month=Math.floor((h+l-7*m+114)/31)-1,day=((h+l-7*m+114)%31)+1;
-  return new Date(y,month,day);
-}
-function orthodoxEasterDate(y){
-  const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7;
-  const month=Math.floor((d+e+114)/31)-1,day=((d+e+114)%31)+1;
-  const julian=new Date(y,month,day);
-  julian.setDate(julian.getDate()+13);
-  return julian;
-}
-function addBiblicalCalendarEvent(map,date,trad,title,desc,id){
-  const k=biblicalCalendarKey(date);
-  (map[k]||(map[k]=[])).push({trad,title,desc,id});
-}
-function addBiblicalFixedEvent(map,y,month,day,trad,title,desc,id){
-  addBiblicalCalendarEvent(map,new Date(y,month-1,day),trad,title,desc,id);
-}
-function buildBiblicalCalendarYear(y){
-  const map={},west=westernEasterDate(y),east=orthodoxEasterDate(y);
-  addBiblicalFixedEvent(map,y,1,6,'catolica','Epifanía','Manifestación de Cristo a las naciones.','epifania_teofania');
-  addBiblicalFixedEvent(map,y,1,6,'protestante','Epifanía','Manifestación de Cristo a las naciones.','epifania_teofania');
-  addBiblicalFixedEvent(map,y,1,7,'ortodoxa','Navidad ortodoxa','Celebración de la Natividad de Cristo.','navidad');
-  addBiblicalFixedEvent(map,y,1,19,'etiope','Timkat','Celebración etíope de la Teofanía y del bautismo de Cristo.','epifania_teofania');
-  addBiblicalFixedEvent(map,y,3,25,'catolica','Anunciación','El anuncio del ángel Gabriel a María.','anunciacion');
-  addBiblicalFixedEvent(map,y,3,25,'ortodoxa','Anunciación','El anuncio del ángel Gabriel a María.','anunciacion');
-  addBiblicalFixedEvent(map,y,6,24,'catolica','Natividad de San Juan Bautista','Nacimiento del precursor de Cristo.','juan_bautista_natividad');
-  addBiblicalFixedEvent(map,y,6,29,'catolica','San Pedro y San Pablo','Memoria de los apóstoles Pedro y Pablo.','pedro_pablo');
-  addBiblicalFixedEvent(map,y,8,6,'catolica','Transfiguración del Señor','Cristo manifiesta su gloria ante los discípulos.','transfiguracion');
-  addBiblicalFixedEvent(map,y,8,15,'catolica','Asunción de María','Culminación de la vida terrenal de María.','asuncion_dormicion');
-  addBiblicalFixedEvent(map,y,8,15,'ortodoxa','Dormición de María','Culminación de la vida terrenal de María.','asuncion_dormicion');
-  addBiblicalFixedEvent(map,y,8,29,'catolica','Martirio de San Juan Bautista','Memoria del martirio del precursor.','martirio_juan_bautista');
-  addBiblicalFixedEvent(map,y,9,14,'catolica','Exaltación de la Santa Cruz','Memoria de la cruz de Cristo.','exaltacion_cruz');
-  addBiblicalFixedEvent(map,y,11,1,'catolica','Todos los Santos','Memoria de todos los santos.','todos_los_santos');
-  addBiblicalFixedEvent(map,y,11,30,'catolica','San Andrés','Memoria del apóstol Andrés.','san_andres');
-  addBiblicalFixedEvent(map,y,12,25,'catolica','Navidad','Nacimiento de Jesucristo.','navidad');
-  addBiblicalFixedEvent(map,y,12,25,'protestante','Navidad','Nacimiento de Jesucristo.','navidad');
-  addBiblicalFixedEvent(map,y,12,27,'catolica','San Juan Evangelista','Memoria del apóstol y evangelista Juan.','san_juan_evangelista');
+    const cs=document.getElementById("categorySearchV73");
+    if(cs) cs.value="";
+    renderVerseCategories();
+    setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},40);
+  };
 
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-46),'catolica','Miércoles de Ceniza','Comienzo de la Cuaresma occidental.','miercoles_ceniza');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-7),'catolica','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-7),'protestante','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-2),'catolica','Viernes Santo','Pasión y muerte de Cristo.','viernes_santo');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-2),'protestante','Viernes Santo','La cruz de Jesucristo.','viernes_santo');
-  addBiblicalCalendarEvent(map,west,'catolica','Pascua de Resurrección','Cristo ha resucitado.','resurreccion');
-  addBiblicalCalendarEvent(map,west,'protestante','Pascua de Resurrección','Cristo ha resucitado.','resurreccion');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,39),'catolica','Ascensión del Señor','Cristo asciende al Padre.','ascension');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,39),'protestante','Ascensión del Señor','Cristo asciende al Padre.','ascension');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,49),'catolica','Pentecostés','Venida del Espíritu Santo sobre la Iglesia.','pentecostes');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,49),'protestante','Pentecostés','Venida del Espíritu Santo.','pentecostes');
-
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-55),'etiope','Gran Ayuno','Preparación hacia Fasika.','gran_ayuno');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-48),'ortodoxa','Gran Cuaresma','Preparación hacia la Santa Pascua.','gran_cuaresma');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-7),'etiope','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-7),'ortodoxa','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-2),'etiope','Viernes Santo','Pasión y muerte de Cristo.','viernes_santo');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-2),'ortodoxa','Viernes Santo','Pasión y muerte de Cristo.','viernes_santo');
-  addBiblicalCalendarEvent(map,east,'etiope','Fasika','Pascua etíope de Resurrección.','fasika');
-  addBiblicalCalendarEvent(map,east,'ortodoxa','Pascua ortodoxa','Cristo ha resucitado.','resurreccion');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,39),'etiope','Ascensión del Señor','Cristo asciende al Padre.','ascension');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,39),'ortodoxa','Ascensión del Señor','Cristo asciende al Padre.','ascension');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,49),'etiope','Pentecostés','Venida del Espíritu Santo sobre la Iglesia.','pentecostes');
-  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,49),'ortodoxa','Pentecostés','Venida del Espíritu Santo.','pentecostes');
-  return map;
-}
-function getBiblicalCalendarEvents(date){
-  const y=date.getFullYear();
-  const all=Object.assign({},buildBiblicalCalendarYear(y-1),buildBiblicalCalendarYear(y),buildBiblicalCalendarYear(y+1));
-  return all[biblicalCalendarKey(date)]||[];
-}
-const biblicalTraditions=[
-  ['etiope','Ortodoxo etíope'],
-  ['ortodoxa','Ortodoxo'],
-  ['protestante','Protestante'],
-  ['catolica','Católico']
-];
-function renderBiblicalCalendarTradition(events,key,label){
-  const matches=events.filter(e=>e.trad===key);
-  let html=`<section class="biblical-calendar-card"><h2>${escapeHtml(label)}</h2>`;
-  if(!matches.length)html+='<p class="biblical-calendar-empty">Sin festividad especial.</p>';
-  for(const event of matches){
-    html+=`<button class="biblical-calendar-event" type="button" onclick="openBiblicalFestivityDetail('${event.id||''}')">
-      <strong>${escapeHtml(event.title)}</strong>
-      <span>${escapeHtml(event.desc||'')}</span>
-    </button>`;
+  const oldOpenReader = window.openReader || (typeof openReader!=="undefined" ? openReader : null);
+  if(oldOpenReader && !window.__v73OpenReaderWrapped){
+    window.__v73OpenReaderWrapped=true;
+    window.openReader=function(){
+      document.body.classList.remove("categories-fullscreen-v73");
+      oldOpenReader.apply(this,arguments);
+    };
+    try{openReader=window.openReader}catch(e){}
   }
-  return html+'</section>';
-}
-function renderBiblicalCalendar(date){
-  biblicalCalendarDate=new Date(date);
-  const box=document.getElementById('biblicalCalendarContent');
-  if(!box)return;
-  const events=getBiblicalCalendarEvents(biblicalCalendarDate);
-  const when=sameBiblicalCalendarDay(biblicalCalendarDate,new Date())?'Hoy':'Fecha';
-  box.innerHTML=`<header class="biblical-calendar-hero">
-      <h1>Calendario cristiano</h1>
-      <p>${when} · ${escapeHtml(formatBiblicalCalendarDate(biblicalCalendarDate))}</p>
-    </header>
-    <div class="biblical-calendar-grid">${biblicalTraditions.map(([k,l])=>renderBiblicalCalendarTradition(events,k,l)).join('')}</div>
-    <p class="biblical-calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</p>`;
-}
-async function loadBiblicalFestivities(){
-  if(biblicalFestivitiesData.length)return biblicalFestivitiesData;
+
+  window.renderVerseCategories=function(){
+    const box=document.getElementById("verseCategoriesList");
+    if(!box)return;
+    box.innerHTML="";
+
+    const q=(document.getElementById("categorySearchV73")?.value || "").trim().toLowerCase();
+    const cats=(state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES)
+      .filter(cat=>!q || String(cat.label||"").toLowerCase().includes(q));
+
+    if(!cats.length){
+      box.innerHTML='<div class="empty">No hay categorías.</div>';
+      return;
+    }
+
+    cats.forEach(cat=>{
+      const count=state.verses.filter(v=>v.category===cat.id).length;
+      const div=document.createElement("div");
+      div.className="category-card";
+      div.innerHTML='<div>'+escapeHtml(cat.label)+'</div><div class="category-count">'+count+' versículos</div>';
+      div.onclick=()=>openVerseCategory(cat.id);
+      box.appendChild(div);
+    });
+  };
+
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="categorySearchV73"){
+      window.renderVerseCategories();
+    }
+  },true);
+})();
+
+/* v74 - Nunca enviados en Categorías + Hoy/Azar en pantalla propia */
+(function(){
+  if(window.__v74SpecialVerseScreens)return;
+  window.__v74SpecialVerseScreens=true;
+
+  function hideOtherPanelsForSpecial(){
+    const ids=["editorView","backupView","trashView","titlesView","verseCategoriesView"];
+    ids.forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
+    const rv=document.getElementById("readerView");
+    if(rv) rv.classList.remove("hidden");
+  }
+
+  let specialHeadOriginalV75=null;
+
+  function getReaderHeadV75(){
+    return document.querySelector("#readerView .panel-head");
+  }
+
+  function restoreReaderHeadV75(){
+    const head=getReaderHeadV75();
+    if(head && specialHeadOriginalV75!==null){
+      head.innerHTML=specialHeadOriginalV75;
+      specialHeadOriginalV75=null;
+    }
+  }
+
+  window.restoreReaderHeadV75=restoreReaderHeadV75;
+
+  function setSpecialReaderHeadV75(mode){
+    const head=getReaderHeadV75();
+    if(!head) return;
+    if(specialHeadOriginalV75===null) specialHeadOriginalV75=head.innerHTML;
+    const randomBtn = mode==="random" ? '<button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Otro al azar</button>' : '';
+    head.innerHTML =
+      '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
+      randomBtn +
+      '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>' +
+      '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
+      '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>';
+  }
+
+  function enterSpecialVerseScreen(mode){
+    document.body.classList.add("verse-special-fullscreen-v74");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
+    hideOtherPanelsForSpecial();
+    setSpecialReaderHeadV75(mode);
+    if(typeof setActiveView==="function") setActiveView(mode||"read");
+    setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},30);
+  }
+
+  const oldOpenReader = window.openReader || (typeof openReader!=="undefined" ? openReader : null);
+  if(oldOpenReader && !window.__v74OpenReaderWrapped){
+    window.__v74OpenReaderWrapped=true;
+    window.openReader=function(){
+      restoreReaderHeadV75();
+      document.body.classList.remove("verse-special-fullscreen-v74");
+      return oldOpenReader.apply(this,arguments);
+    };
+    try{openReader=window.openReader}catch(e){}
+  }
+
+  const oldClearNavModes = window.clearNavModes || (typeof clearNavModes!=="undefined" ? clearNavModes : null);
+  if(oldClearNavModes && !window.__v74ClearNavModesWrapped){
+    window.__v74ClearNavModesWrapped=true;
+    window.clearNavModes=function(){
+      restoreReaderHeadV75();
+      document.body.classList.remove("verse-special-fullscreen-v74");
+      return oldClearNavModes.apply(this,arguments);
+    };
+    try{clearNavModes=window.clearNavModes}catch(e){}
+  }
+
+  window.openVerseSpecial=function(v,mode){
+    if(!v) return alert("Todavía no hay versículos guardados.");
+    section="verses"; state.section="verses";
+    specialVerseMode=mode;
+    currentVerseCategory=v.category||"sin_categoria";
+    state.currentVerseId=v.id;
+    if(typeof saveState==="function") saveState();
+    if(typeof syncTabs==="function") syncTabs();
+    if(typeof renderList==="function") renderList();
+    if(typeof renderReader==="function") renderReader();
+    if(typeof applyReaderFont==="function") applyReaderFont();
+    enterSpecialVerseScreen(mode);
+  };
+  try{openVerseSpecial=window.openVerseSpecial}catch(e){}
+
+  window.openDailyVerse=function(){
+    window.openVerseSpecial(getDailyVerse(),"daily");
+    enterSpecialVerseScreen("daily");
+  };
+  try{openDailyVerse=window.openDailyVerse}catch(e){}
+
+  window.openRandomVerse=function(){
+    window.openVerseSpecial(pickRandomVerse(),"random");
+    enterSpecialVerseScreen("random");
+  };
+  try{openRandomVerse=window.openRandomVerse}catch(e){}
+
+/* v75.1 - Hoy/Azar pantalla completa real: oculta cabecera y lista con estilos inline */
+(function(){
+  if(window.__v751SpecialFullScreenFix) return;
+  window.__v751SpecialFullScreenFix=true;
+
+  const hiddenNodes=[];
+  function hideForSpecialV751(){
+    document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
+
+    const selectors=[".topbar",".sidebar","#list"];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v751DisplaySaved){
+          el.dataset.v751DisplaySaved="1";
+          el.dataset.v751OldDisplay=el.style.display||"";
+          hiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v751Saved){main.dataset.v751Saved="1";main.dataset.v751OldDisplay=main.style.display||"";main.dataset.v751OldGrid=main.style.gridTemplateColumns||"";main.dataset.v751OldMinHeight=main.style.minHeight||"";}
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v751Saved){content.dataset.v751Saved="1";content.dataset.v751OldPadding=content.style.padding||"";content.dataset.v751OldMinHeight=content.style.minHeight||"";}
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+    }
+    const reader=document.getElementById("readerView");
+    if(reader){
+      reader.classList.remove("hidden");
+      if(!reader.dataset.v751Saved){reader.dataset.v751Saved="1";reader.dataset.v751OldBorder=reader.style.border||"";reader.dataset.v751OldRadius=reader.style.borderRadius||"";reader.dataset.v751OldMinHeight=reader.style.minHeight||"";}
+      reader.style.border="none";
+      reader.style.borderRadius="0";
+      reader.style.minHeight="100dvh";
+    }
+    ["editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
+  }
+
+  function restoreFromSpecialV751(){
+    hiddenNodes.splice(0).forEach(el=>{ if(el && el.dataset.v751DisplaySaved){ el.style.display=el.dataset.v751OldDisplay||""; delete el.dataset.v751DisplaySaved; delete el.dataset.v751OldDisplay; }});
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v751Saved){main.style.display=main.dataset.v751OldDisplay||"";main.style.gridTemplateColumns=main.dataset.v751OldGrid||"";main.style.minHeight=main.dataset.v751OldMinHeight||""; delete main.dataset.v751Saved;}
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v751Saved){content.style.padding=content.dataset.v751OldPadding||"";content.style.minHeight=content.dataset.v751OldMinHeight||""; delete content.dataset.v751Saved;}
+    const reader=document.getElementById("readerView");
+    if(reader && reader.dataset.v751Saved){reader.style.border=reader.dataset.v751OldBorder||"";reader.style.borderRadius=reader.dataset.v751OldRadius||"";reader.style.minHeight=reader.dataset.v751OldMinHeight||""; delete reader.dataset.v751Saved;}
+    document.body.classList.remove("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+  }
+
+  const oldRestore=window.restoreReaderHeadV75;
+  window.restoreReaderHeadV75=function(){ restoreFromSpecialV751(); if(typeof oldRestore==="function") return oldRestore.apply(this,arguments); };
+
+  const oldOpenVerseSpecial=window.openVerseSpecial;
+  window.openVerseSpecial=function(v,mode){
+    const r=oldOpenVerseSpecial ? oldOpenVerseSpecial.apply(this,arguments) : undefined;
+    hideForSpecialV751();
+    setTimeout(function(){ hideForSpecialV751(); window.scrollTo({top:0,behavior:"auto"}); },60);
+    return r;
+  };
+  try{openVerseSpecial=window.openVerseSpecial}catch(e){}
+
+  window.openDailyVerse=function(){ window.openVerseSpecial(getDailyVerse(),"daily"); if(typeof setActiveView==="function") setActiveView("daily"); };
+  try{openDailyVerse=window.openDailyVerse}catch(e){}
+  window.openRandomVerse=function(){ window.openVerseSpecial(pickRandomVerse(),"random"); if(typeof setActiveView==="function") setActiveView("random"); };
+  try{openRandomVerse=window.openRandomVerse}catch(e){}
+})();
+})();
+
+/* v76 - Enviados pantalla completa real desde Categorías */
+(function(){
+  if(window.__v76SentFullScreen) return;
+  window.__v76SentFullScreen=true;
+
+  const sentHiddenNodes=[];
+  let sentHeadOriginal=null;
+
+  function hideForSentV76(){
+    document.body.classList.add("sent-fullscreen-v76","titles-fullscreen-v72");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+
+    [".topbar",".sidebar","#list"].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v76SentDisplaySaved){
+          el.dataset.v76SentDisplaySaved="1";
+          el.dataset.v76SentOldDisplay=el.style.display||"";
+          sentHiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v76SentSaved){main.dataset.v76SentSaved="1";main.dataset.v76SentOldDisplay=main.style.display||"";main.dataset.v76SentOldGrid=main.style.gridTemplateColumns||"";main.dataset.v76SentOldMinHeight=main.style.minHeight||"";}
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v76SentSaved){content.dataset.v76SentSaved="1";content.dataset.v76SentOldPadding=content.style.padding||"";content.dataset.v76SentOldMinHeight=content.style.minHeight||"";content.dataset.v76SentOldWidth=content.style.width||"";content.dataset.v76SentOldMaxWidth=content.style.maxWidth||"";}
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+      content.style.width="100%";
+      content.style.maxWidth="none";
+    }
+  }
+
+  function restoreSentV76(){
+    sentHiddenNodes.splice(0).forEach(el=>{ if(el && el.dataset.v76SentDisplaySaved){ el.style.display=el.dataset.v76SentOldDisplay||""; delete el.dataset.v76SentDisplaySaved; delete el.dataset.v76SentOldDisplay; }});
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v76SentSaved){main.style.display=main.dataset.v76SentOldDisplay||"";main.style.gridTemplateColumns=main.dataset.v76SentOldGrid||"";main.style.minHeight=main.dataset.v76SentOldMinHeight||""; delete main.dataset.v76SentSaved;}
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v76SentSaved){content.style.padding=content.dataset.v76SentOldPadding||"";content.style.minHeight=content.dataset.v76SentOldMinHeight||"";content.style.width=content.dataset.v76SentOldWidth||"";content.style.maxWidth=content.dataset.v76SentOldMaxWidth||""; delete content.dataset.v76SentSaved;}
+    document.body.classList.remove("sent-fullscreen-v76","titles-fullscreen-v72");
+    const head=document.querySelector("#titlesView .panel-head");
+    if(head && sentHeadOriginal!==null){ head.innerHTML=sentHeadOriginal; sentHeadOriginal=null; }
+  }
+
+  window.closeSentFullScreenV76=function(){ restoreSentV76(); openVerseCategories(); };
+
+  window.openSentVersesList=function(){
+    try{
+      sentListActive=true;
+      if(!state || !Array.isArray(state.verses)) return;
+      section="verses"; state.section="verses"; specialVerseMode=null;
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof clearNavModes==="function") clearNavModes();
+
+      const titlesView=document.getElementById("titlesView");
+      const box=document.getElementById("titlesList");
+      const head=document.querySelector("#titlesView .panel-head");
+      if(!titlesView || !box || !head) return;
+      if(sentHeadOriginal===null) sentHeadOriginal=head.innerHTML;
+      head.innerHTML =
+        '<button class="btn soft" type="button" onclick="closeSentFullScreenV76()">← Volver</button>'+
+        '<input id="sentSearchV76" class="search titles-search-v72" placeholder="Buscar enviado" oninput="renderSentFullScreenV76()">';
+
+      document.getElementById("readerView").classList.add("hidden");
+      document.getElementById("editorView").classList.add("hidden");
+      document.getElementById("backupView").classList.add("hidden");
+      document.getElementById("trashView").classList.add("hidden");
+      const vc=document.getElementById("verseCategoriesView"); if(vc) vc.classList.add("hidden");
+      const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+      titlesView.classList.remove("hidden");
+      hideForSentV76();
+      window.renderSentFullScreenV76();
+      setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},30);
+    }catch(e){ console.error("openSentVersesList v76",e); alert("No se pudo abrir la lista de enviados."); }
+  };
+  try{openSentVersesList=window.openSentVersesList}catch(e){}
+
+  window.renderSentFullScreenV76=function(){
+    const box=document.getElementById("titlesList");
+    if(!box) return;
+    const q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+    let sent=(state.verses||[]).filter(v=>!!v.lastCardSentAt).sort((a,b)=>(b.lastCardSentAt||0)-(a.lastCardSentAt||0));
+    if(q){
+      sent=sent.filter(v=>String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q));
+    }
+    box.innerHTML="";
+    if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+    sent.forEach(v=>{
+      const div=document.createElement("div");
+      div.className="title-row";
+      const ref=escapeHtml(v.reference||v.title||"Sin referencia");
+      const cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+      const when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+      div.innerHTML=
+        '<div class="title-name">📋 '+ref+'</div>'+
+        '<div class="small-note">'+escapeHtml(when+(cat?" · "+cat:""))+'</div>'+
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+      div.onclick=function(){
+        restoreSentV76();
+        state.currentVerseId=v.id;
+        currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+        specialVerseMode=null;
+        sentListActive=false;
+        if(typeof saveState==="function") saveState();
+        if(typeof renderList==="function") renderList();
+        if(typeof renderReader==="function") renderReader();
+        if(typeof openReader==="function") openReader();
+      };
+      box.appendChild(div);
+    });
+  };
+
+  const oldOpenVerseCategoriesV76=window.openVerseCategories;
+  if(typeof oldOpenVerseCategoriesV76==="function"){
+    window.openVerseCategories=function(){ restoreSentV76(); return oldOpenVerseCategoriesV76.apply(this,arguments); };
+    try{openVerseCategories=window.openVerseCategories}catch(e){}
+  }
+})();
+
+
+/* v79.1 - Favoritos pantalla completa segura sobre v78; solo Volver; no rompe Títulos */
+(function(){
+  if(window.__v791FavoritesFullScreen) return;
+  window.__v791FavoritesFullScreen=true;
+
+  const favHiddenNodes=[];
+  let favSearchOldDisplay=null;
+  let favBackOldOnclick=null;
+
+  function hideForFavoritesV791(){
+    document.body.classList.add("favorites-fullscreen-v791");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","calendar-fullscreen-v78","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76");
+
+    [".topbar",".sidebar","#list"].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v791FavDisplaySaved){
+          el.dataset.v791FavDisplaySaved="1";
+          el.dataset.v791FavOldDisplay=el.style.display||"";
+          favHiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v791FavSaved){
+        main.dataset.v791FavSaved="1";
+        main.dataset.v791FavOldDisplay=main.style.display||"";
+        main.dataset.v791FavOldGrid=main.style.gridTemplateColumns||"";
+        main.dataset.v791FavOldMinHeight=main.style.minHeight||"";
+      }
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v791FavSaved){
+        content.dataset.v791FavSaved="1";
+        content.dataset.v791FavOldPadding=content.style.padding||"";
+        content.dataset.v791FavOldMinHeight=content.style.minHeight||"";
+        content.dataset.v791FavOldWidth=content.style.width||"";
+        content.dataset.v791FavOldMaxWidth=content.style.maxWidth||"";
+      }
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+      content.style.width="100%";
+      content.style.maxWidth="none";
+    }
+
+    ["readerView","editorView","backupView","trashView","verseCategoriesView"].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.classList.add("hidden");
+    });
+
+    const titles=document.getElementById("titlesView");
+    if(titles){
+      titles.classList.remove("hidden");
+      if(!titles.dataset.v791FavSaved){
+        titles.dataset.v791FavSaved="1";
+        titles.dataset.v791FavOldBorder=titles.style.border||"";
+        titles.dataset.v791FavOldRadius=titles.style.borderRadius||"";
+        titles.dataset.v791FavOldMinHeight=titles.style.minHeight||"";
+      }
+      titles.style.border="none";
+      titles.style.borderRadius="0";
+      titles.style.minHeight="100dvh";
+    }
+
+    const search=document.getElementById("titlesSearch");
+    if(search){
+      if(favSearchOldDisplay===null) favSearchOldDisplay=search.style.display||"";
+      search.style.display="none";
+    }
+
+    const backBtn=document.querySelector("#titlesView .panel-head button:first-child");
+    if(backBtn){
+      if(favBackOldOnclick===null) favBackOldOnclick=backBtn.getAttribute("onclick")||"";
+      backBtn.setAttribute("onclick","closeFavoritesFullScreenV791()");
+    }
+  }
+
+  function restoreFavoritesV791(){
+    favHiddenNodes.splice(0).forEach(el=>{
+      if(el && el.dataset.v791FavDisplaySaved){
+        el.style.display=el.dataset.v791FavOldDisplay||"";
+        delete el.dataset.v791FavDisplaySaved;
+        delete el.dataset.v791FavOldDisplay;
+      }
+    });
+
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v791FavSaved){
+      main.style.display=main.dataset.v791FavOldDisplay||"";
+      main.style.gridTemplateColumns=main.dataset.v791FavOldGrid||"";
+      main.style.minHeight=main.dataset.v791FavOldMinHeight||"";
+      delete main.dataset.v791FavSaved;
+    }
+
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v791FavSaved){
+      content.style.padding=content.dataset.v791FavOldPadding||"";
+      content.style.minHeight=content.dataset.v791FavOldMinHeight||"";
+      content.style.width=content.dataset.v791FavOldWidth||"";
+      content.style.maxWidth=content.dataset.v791FavOldMaxWidth||"";
+      delete content.dataset.v791FavSaved;
+    }
+
+    const titles=document.getElementById("titlesView");
+    if(titles && titles.dataset.v791FavSaved){
+      titles.style.border=titles.dataset.v791FavOldBorder||"";
+      titles.style.borderRadius=titles.dataset.v791FavOldRadius||"";
+      titles.style.minHeight=titles.dataset.v791FavOldMinHeight||"";
+      delete titles.dataset.v791FavSaved;
+    }
+
+    const search=document.getElementById("titlesSearch");
+    if(search && favSearchOldDisplay!==null){
+      search.style.display=favSearchOldDisplay||"";
+      favSearchOldDisplay=null;
+    }
+
+    const backBtn=document.querySelector("#titlesView .panel-head button:first-child");
+    if(backBtn && favBackOldOnclick!==null){
+      backBtn.setAttribute("onclick",favBackOldOnclick||"smartBack()");
+      favBackOldOnclick=null;
+    }
+
+    document.body.classList.remove("favorites-fullscreen-v791");
+  }
+
+  window.closeFavoritesFullScreenV791=function(){
+    restoreFavoritesV791();
+    const titles=document.getElementById("titlesView"); if(titles) titles.classList.add("hidden");
+    if(typeof openReader==="function") openReader();
+  };
+
+  const oldOpenFavoritesView=window.openFavoritesView || (typeof openFavoritesView!=="undefined" ? openFavoritesView : null);
+  window.openFavoritesView=function(){
+    if(oldOpenFavoritesView) oldOpenFavoritesView.apply(this,arguments);
+    hideForFavoritesV791();
+    if(typeof setActiveView==="function") setActiveView("favorites");
+    setTimeout(function(){ hideForFavoritesV791(); window.scrollTo({top:0,behavior:"auto"}); },50);
+  };
+  try{openFavoritesView=window.openFavoritesView}catch(e){}
+
+  function wrapRestoreV791(name){
+    const old=window[name] || (typeof globalThis[name]!=="undefined" ? globalThis[name] : null);
+    if(typeof old!=="function") return;
+    window[name]=function(){
+      restoreFavoritesV791();
+      return old.apply(this,arguments);
+    };
+    try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
+  }
+  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","openChristianCalendar","clearNavModes"].forEach(wrapRestoreV791);
+})();
+
+/* v80 - Favoritos abre en Leer + favoritos de Versículos/Categorías corregidos */
+(function(){
+  if(window.__v80FavoritesFix) return;
+  window.__v80FavoritesFix = true;
+
+  function openItemFromFavoritesV80(item, targetSection){
+    try{
+      if(!item) return;
+      section = targetSection || section;
+      if(state) state.section = section;
+      if(section === "verses"){
+        state.currentVerseId = item.id;
+        currentVerseCategory = "favoritos";
+        verseNavigationMode = "verse";
+        specialVerseMode = null;
+      }else if(section === "prayers"){
+        state.currentPrayerId = item.id;
+      }else if(section === "notes"){
+        state.currentNoteId = item.id;
+      }else if(section === "guides"){
+        state.currentGuideId = item.id;
+      }
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof closeFavoritesFullScreenV791 === "function"){
+        closeFavoritesFullScreenV791();
+      }else if(typeof openReader === "function"){
+        openReader();
+      }
+      setTimeout(function(){
+        if(typeof renderReader === "function") renderReader();
+        if(typeof applyReaderFont === "function") applyReaderFont();
+        if(typeof enterFullscreenReading === "function") enterFullscreenReading();
+        else if(typeof openReader === "function") openReader();
+      },30);
+    }catch(e){
+      console.error("openItemFromFavoritesV80", e);
+      if(typeof toast === "function") toast("No se pudo abrir el favorito");
+    }
+  }
+
+
+  /* ===== FAVORITOS ===== */
+  function renderFavoritesListV80(items, targetSection, emptyText){
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+    box.innerHTML = "";
+    if(!items || !items.length){
+      box.innerHTML = '<div class="empty">'+(emptyText || 'No hay favoritos.')+'</div>';
+      return;
+    }
+    items.forEach(function(item){
+      const div = document.createElement("div");
+      div.className = "title-row";
+      let label = targetSection === "verses" ? (item.reference || item.title || "Sin referencia") : (item.title || "Sin título");
+      let code = "★";
+      try{
+        const list = targetSection === "verses" ? state.verses : (targetSection === "prayers" ? state.prayers : targetSection === "notes" ? state.notes : state.guides);
+        const idx = (list || []).findIndex(function(x){ return x.id === item.id; });
+        if(typeof getDisplayCode === "function" && idx >= 0){
+          const oldSection = section;
+          section = targetSection;
+          code = getDisplayCode(idx, targetSection) || "★";
+          section = oldSection;
+        }
+      }catch(e){}
+      div.innerHTML = '<div class="title-code">⭐</div><div class="title-name">'+escapeHtml(label)+'</div>' + (code && code !== "★" ? '<div class="small-note">'+escapeHtml(code)+'</div>' : '');
+      div.onclick = function(){ openItemFromFavoritesV80(item, targetSection); };
+      box.appendChild(div);
+    });
+  }
+
+  const previousOpenFavoritesView = window.openFavoritesView || (typeof openFavoritesView !== "undefined" ? openFavoritesView : null);
+  window.openFavoritesView = function(){
+    try{
+      if(previousOpenFavoritesView) previousOpenFavoritesView.apply(this, arguments);
+      const targetSection = section || (state && state.section) || "prayers";
+      const items = (typeof getItems === "function" ? getItems() : []).filter(function(i){ return i && i.favorite; });
+      renderFavoritesListV80(items, targetSection, "No hay favoritos.");
+      if(typeof setActiveView === "function") setActiveView("favorites");
+      setTimeout(function(){
+        try{
+          if(document.body.classList.contains("favorites-fullscreen-v791") === false && previousOpenFavoritesView) previousOpenFavoritesView.apply(null, []);
+          renderFavoritesListV80(items, targetSection, "No hay favoritos.");
+        }catch(e){}
+      },40);
+    }catch(e){
+      console.error("openFavoritesView v80", e);
+      alert("No se pudieron abrir los favoritos.");
+    }
+  };
+  try{ openFavoritesView = window.openFavoritesView; }catch(e){}
+
+  window.openVerseFavorites = function(){
+    try{
+      specialVerseMode = null;
+      section = "verses";
+      if(state) state.section = "verses";
+      currentVerseCategory = "favoritos";
+      verseNavigationMode = "verse";
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      const titles = document.getElementById("titlesView");
+      const cats = document.getElementById("verseCategoriesView");
+      const reader = document.getElementById("readerView");
+      const editor = document.getElementById("editorView");
+      const backup = document.getElementById("backupView");
+      const trash = document.getElementById("trashView");
+      if(titles) titles.classList.remove("hidden");
+      if(cats) cats.classList.add("hidden");
+      if(reader) reader.classList.add("hidden");
+      if(editor) editor.classList.add("hidden");
+      if(backup) backup.classList.add("hidden");
+      if(trash) trash.classList.add("hidden");
+      renderFavoritesListV80((state.verses || []).filter(function(v){ return v && v.favorite; }), "verses", "No hay versículos favoritos.");
+    }catch(e){
+      console.error("openVerseFavorites v80", e);
+      if(typeof toast === "function") toast("No se pudieron abrir los favoritos");
+    }
+  };
+  try{ openVerseFavorites = window.openVerseFavorites; }catch(e){}
+})();
+
+/* v81 - Botones Enviados y Nunca enviados en Versículo del día */
+(function(){
+  if(window.__v81DailySentButtons) return;
+  window.__v81DailySentButtons = true;
+
+  function setDailyReaderHeadV81(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      const head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      head.innerHTML =
+        '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
+        '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>' +
+        '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
+        '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
+        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
+        '<button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>';
+    }catch(e){ console.error("setDailyReaderHeadV81", e); }
+  }
+
+  const oldOpenVerseSpecialV81 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV81 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      const r = oldOpenVerseSpecialV81.apply(this, arguments);
+      if(mode === "daily"){
+        setDailyReaderHeadV81();
+        setTimeout(setDailyReaderHeadV81, 80);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  window.openDailyVerse = function(){
+    window.openVerseSpecial(getDailyVerse(), "daily");
+    if(typeof setActiveView === "function") setActiveView("daily");
+    setDailyReaderHeadV81();
+    setTimeout(setDailyReaderHeadV81, 80);
+  };
+  try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+})();
+
+/* v81.3 - Volver de Enviados a Versículo del día sin tocar Enviados global */
+(function(){
+  if(window.__v813SentBackToDailySafe) return;
+  window.__v813SentBackToDailySafe = true;
+
+  function markDailySentOriginV813(){
+    window.__sentOpenedFromDailyV813 = true;
+  }
+  window.markDailySentOriginV813 = markDailySentOriginV813;
+
+  function patchDailySentButtonV813(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons = head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.setAttribute("onclick", "markDailySentOriginV813(); openSentVersesList()");
+        }
+      });
+    }catch(e){ console.error("patchDailySentButtonV813", e); }
+  }
+
+  var oldOpenDailyV813 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV813 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV813.apply(this, arguments);
+      setTimeout(patchDailySentButtonV813, 30);
+      setTimeout(patchDailySentButtonV813, 120);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV813 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV813 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV813.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailySentButtonV813, 30);
+        setTimeout(patchDailySentButtonV813, 120);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  var oldCloseSentV813 = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
+  if(typeof oldCloseSentV813 === "function"){
+    window.closeSentFullScreenV76 = function(){
+      var backToDaily = !!window.__sentOpenedFromDailyV813;
+      window.__sentOpenedFromDailyV813 = false;
+      var r = oldCloseSentV813.apply(this, arguments);
+      if(backToDaily){
+        setTimeout(function(){
+          try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){ console.error("backToDaily v813", e); }
+        }, 40);
+      }
+      return r;
+    };
+    try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
+  }
+
+  setTimeout(patchDailySentButtonV813, 100);
+})();
+
+/* ===== v90-3-sent-reader-back-only ===== */
+
+/* v90.3 - Enviados: al abrir un versículo desde Enviados, mostrar botón ← Volver a Enviados */
+(function(){
+  if(window.__v903SentReaderBackOnly) return;
+  window.__v903SentReaderBackOnly = true;
+
+  function escV903(s){
+    try{ return (typeof escapeHtml === "function") ? escapeHtml(s) : String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+    catch(e){ return String(s||""); }
+  }
+
+  function showSentReaderV903(v){
+    try{
+      section="verses"; state.section="verses";
+      state.currentVerseId=v.id;
+      currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+      specialVerseMode=null;
+      sentListActive=false;
+      window.__sentReaderBackV903 = true;
+      if(typeof saveState==="function") saveState();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+
+      /* Pantalla completa tipo Versículo del día, para que la cabecera no quede oculta en móvil */
+      document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-reader-v903");
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","sent-fullscreen-v76");
+
+      [".topbar",".sidebar","#list"].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){ el.style.display="none"; });
+      });
+      var main=document.querySelector(".main");
+      if(main){ main.style.display="block"; main.style.gridTemplateColumns="1fr"; main.style.minHeight="100dvh"; }
+      var content=document.querySelector(".content");
+      if(content){ content.style.padding="0"; content.style.minHeight="100dvh"; }
+      ["editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(function(id){
+        var el=document.getElementById(id); if(el) el.classList.add("hidden");
+      });
+      var reader=document.getElementById("readerView");
+      if(reader){ reader.classList.remove("hidden"); reader.style.border="none"; reader.style.borderRadius="0"; reader.style.minHeight="100dvh"; }
+      var head=document.querySelector("#readerView .panel-head");
+      if(head){
+        head.innerHTML =
+          '<button class="btn soft" type="button" onclick="backToSentListV903()">← Volver</button>'+
+          '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>'+
+          '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
+        head.style.display="flex";
+      }
+      setTimeout(function(){ try{ window.scrollTo({top:0,behavior:"auto"}); }catch(e){} },30);
+    }catch(e){ console.error("showSentReaderV903", e); }
+  }
+  window.showSentReaderV903 = showSentReaderV903;
+
+  window.backToSentListV903=function(){
+    try{
+      window.__sentReaderBackV903=false;
+      document.body.classList.remove("sent-reader-v903","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      if(typeof openSentVersesList === "function") openSentVersesList();
+    }catch(e){ console.error("backToSentListV903", e); }
+  };
+
+  window.renderSentFullScreenV76=function(){
+    try{
+      var box=document.getElementById("titlesList");
+      if(!box) return;
+      var q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+      var sent=(state.verses||[]).filter(function(v){return !!v.lastCardSentAt;}).sort(function(a,b){return (b.lastCardSentAt||0)-(a.lastCardSentAt||0);});
+      if(q){
+        sent=sent.filter(function(v){
+          return String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q);
+        });
+      }
+      box.innerHTML="";
+      if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+      sent.forEach(function(v){
+        var div=document.createElement("div");
+        div.className="title-row";
+        var ref=escV903(v.reference||v.title||"Sin referencia");
+        var cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+        var when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+        div.innerHTML=
+          '<div class="title-name">📋 '+ref+'</div>'+
+          '<div class="small-note">'+escV903(when+(cat?" · "+cat:""))+'</div>'+
+          '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+        div.onclick=function(){ showSentReaderV903(v); };
+        box.appendChild(div);
+      });
+    }catch(e){ console.error("renderSentFullScreenV76 v90.3", e); }
+  };
+})();
+
+/* ===== v90-6-daily-uses-more-sent-flow ===== */
+
+/* v90.6 - Versículo del día usa el mismo flujo de Enviados que Más, sin retorno especial ni bucle */
+(function(){
+  if(window.__v906DailyUsesMoreSentFlow) return;
+  window.__v906DailyUsesMoreSentFlow = true;
+
+  function patchDailySentButtonV906(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons = head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.setAttribute("onclick", "window.__sentOpenedFromDailyV813=false; openSentVersesList()");
+        }
+      });
+    }catch(e){ console.error("patchDailySentButtonV906", e); }
+  }
+
+  /* Anula el marcador antiguo: desde Hoy ya no se usa un retorno especial, se usa el flujo normal de Más */
+  window.markDailySentOriginV813 = function(){
+    window.__sentOpenedFromDailyV813 = false;
+  };
+
+  var oldOpenDailyV906 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV906 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV906.apply(this, arguments);
+      window.__sentOpenedFromDailyV813 = false;
+      setTimeout(patchDailySentButtonV906, 30);
+      setTimeout(patchDailySentButtonV906, 140);
+      setTimeout(patchDailySentButtonV906, 300);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV906 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV906 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV906.apply(this, arguments);
+      if(mode === "daily"){
+        window.__sentOpenedFromDailyV813 = false;
+        setTimeout(patchDailySentButtonV906, 30);
+        setTimeout(patchDailySentButtonV906, 140);
+        setTimeout(patchDailySentButtonV906, 300);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailySentButtonV906, 200);
+})();
+
+/* ===== v90-7-remove-sent-button-daily-only ===== */
+
+/* v90.7 - Eliminar solo el botón Enviados de Versículo del día */
+(function(){
+  if(window.__v907RemoveSentButtonDailyOnly) return;
+  window.__v907RemoveSentButtonDailyOnly = true;
+
+  function removeDailySentButtonV907(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons = head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.remove();
+        }
+      });
+    }catch(e){ console.error("removeDailySentButtonV907", e); }
+  }
+  window.removeDailySentButtonV907 = removeDailySentButtonV907;
+
+  var oldOpenDailyV907 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV907 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV907.apply(this, arguments);
+      setTimeout(removeDailySentButtonV907, 20);
+      setTimeout(removeDailySentButtonV907, 120);
+      setTimeout(removeDailySentButtonV907, 300);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV907 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV907 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV907.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(removeDailySentButtonV907, 20);
+        setTimeout(removeDailySentButtonV907, 120);
+        setTimeout(removeDailySentButtonV907, 300);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(removeDailySentButtonV907, 300);
+})();
+
+/* ===== v90-8-popup-blocks ===== */
+
+/* v90.8 - Bloques emergentes para versículos y lecturas */
+(function(){
+  if(window.__v908PopupBlocks) return;
+  window.__v908PopupBlocks = true;
+
+  function escapeAttrV908(s){ return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function getTextV908(){ try{return getCurrentContentTextV865();}catch(e){return "";} }
+  function setTextV908(v){ try{setCurrentContentTextV865(v);}catch(e){} }
+  function buildPopupBlockV908(title, body){
+    var safeTitle=String(title||"Emergente").trim().replace(/"/g,"'");
+    return '[emergente titulo="'+safeTitle+'"]\n'+String(body||"").trim()+'\n[/emergente]';
+  }
+  function parsePopupBlocksV908(text){
+    var raw=String(text||"");
+    var re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/g;
+    var blocks=[],m;
+    while((m=re.exec(raw))){
+      blocks.push({index:blocks.length,start:m.index,end:re.lastIndex,full:raw.slice(m.index,re.lastIndex),title:m[1]||"",body:m[2]||""});
+    }
+    return blocks;
+  }
+  window.parsePopupBlocksV908=parsePopupBlocksV908;
+
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var blocks=parsePopupBlocksV908(getTextV908());
+      var b=blocks[idx];
+      if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+      closeReaderPopupBlockV908();
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : escapeHtml(b.body||"");
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+escapeHtml(b.title||"Emergente")+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV908",e); }
+  };
+  window.closeReaderPopupBlockV908=function(){
+    var el=document.getElementById("readerPopupOverlayV908");
+    if(el) el.remove();
+  };
+
+  var oldOpenBlockMenuV908=window.openBlockMenu || (typeof openBlockMenu!=="undefined" ? openBlockMenu : null);
+  window.openBlockMenu=function(){
+    try{ closeBlockOverlayV864(); }catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button><button class="btn primary" type="button" onclick="openPopupBlockFormV908()">🪟 Emergente</button></div></div>';
+    document.body.appendChild(wrap);
+  };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  window.openPopupBlockFormV908=function(){
+    var wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>🪟 Crear emergente</h3><label for="popupTitleV908">Título o referencia</label><input id="popupTitleV908" type="text" placeholder="📖 San Lucas 16:19-31"><label for="popupContentV908">Contenido</label><textarea id="popupContentV908" placeholder="Pega aquí el texto bíblico o el contenido de la ventana emergente..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="savePopupBlockV908()">Guardar emergente</button></div></div>';
+    if(!wrap.parentNode) document.body.appendChild(wrap);
+    setTimeout(function(){try{document.getElementById("popupTitleV908").focus()}catch(e){}},50);
+  };
+  window.savePopupBlockV908=function(){
+    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
+    var content=(document.getElementById("popupContentV908")?.value||"").trim();
+    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
+    if(!content){alert("Escribe el contenido del emergente.");return;}
+    var item=(typeof currentItem==="function") ? currentItem() : null;
+    if(!item){try{closeBlockOverlayV864();}catch(e){} return;}
+    var block=buildPopupBlockV908(title,content);
+    if(section==="verses"){
+      var old=(item.text||item.content||"").trim();
+      item.text=block+(old?'\n\n'+old:'');
+      item.content=item.text;
+    }else{
+      var old2=(item.content||"").trim();
+      item.content=block+(old2?'\n\n'+old2:'');
+    }
+    item.updatedAt=Date.now();
+    try{saveState(); renderList(); renderReader(); closeBlockOverlayV864(); toast("Bloque emergente añadido");}catch(e){console.error(e);}
+  };
+
+  window.editPopupBlockV908=function(idx){
+    var blocks=parsePopupBlocksV908(getTextV908());
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    try{closeBlockOverlayV864();}catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>✏️ Editar emergente</h3><label for="popupTitleV908">Título o referencia</label><input id="popupTitleV908" type="text"><label for="popupContentV908">Contenido</label><textarea id="popupContentV908"></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveEditedPopupBlockV908('+idx+')">Guardar cambios</button></div></div>';
+    document.body.appendChild(wrap);
+    var t=document.getElementById("popupTitleV908"), c=document.getElementById("popupContentV908");
+    if(t) t.value=b.title;
+    if(c) c.value=String(b.body||"").trim();
+  };
+  window.saveEditedPopupBlockV908=function(idx){
+    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
+    var content=(document.getElementById("popupContentV908")?.value||"").trim();
+    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
+    if(!content){alert("Escribe el contenido del emergente.");return;}
+    var text=getTextV908();
+    var blocks=parsePopupBlocksV908(text);
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    setTextV908(text.slice(0,b.start)+buildPopupBlockV908(title,content)+text.slice(b.end));
+    try{closeBlockOverlayV864(); toast("Bloque emergente actualizado");}catch(e){}
+  };
+  window.deletePopupBlockV908=function(idx){
+    var text=getTextV908();
+    var blocks=parsePopupBlocksV908(text);
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    if(!confirm("¿Eliminar este bloque emergente?")) return;
+    setTextV908((text.slice(0,b.start)+text.slice(b.end)).replace(/\n{3,}/g,"\n\n"));
+    try{toast("Bloque emergente eliminado");}catch(e){}
+  };
+
+  window.renderCollapsibleBlocksV864=function(text){
+    var raw=String(text||"");
+    var re=/\[(desplegable|emergente)\s+titulo="([^"]*)"\]([\s\S]*?)\[\/\1\]/g;
+    var out="", last=0, m, dIdx=0, pIdx=0;
+    function between(seg){
+      var txt=String(seg||"");
+      if(!txt.trim()) return "";
+      return (typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(txt.replace(/^\s*\n+/,"")) : escapeHtml(txt);
+    }
+    while((m=re.exec(raw))){
+      out += between(raw.slice(last,m.index));
+      var type=m[1], title=escapeHtml(m[2]|| (type==="emergente"?"Emergente":"Desplegable"));
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(m[3]||"") : escapeHtml(m[3]||"");
+      if(type==="desplegable"){
+        out += '<details class="reader-collapse-block" data-block-index="'+dIdx+'"><summary>'+title+'</summary>' +
+          '<div class="block-controls-v865">' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+dIdx+')">✏️ Editar</button>' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+dIdx+',-1)">↑ Subir</button>' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+dIdx+',1)">↓ Bajar</button>' +
+          '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+dIdx+')">🗑️ Eliminar</button>' +
+          '</div><div class="reader-collapse-content">'+body+'</div></details>';
+        dIdx++;
+      }else{
+        out += '<div class="reader-popup-block" data-popup-index="'+pIdx+'">' +
+          '<button class="reader-popup-title" type="button" tabindex="-1" onpointerdown="event.preventDefault();event.stopPropagation()" onclick="event.preventDefault();event.stopPropagation();this.blur();openReaderPopupBlockV908('+pIdx+');return false">'+title+'</button>' +
+          '<div class="block-controls-v865">' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editPopupBlockV908('+pIdx+')">✏️ Editar</button>' +
+          '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deletePopupBlockV908('+pIdx+')">🗑️ Eliminar</button>' +
+          '</div></div>';
+        pIdx++;
+      }
+      last=re.lastIndex;
+    }
+    out += between(raw.slice(last));
+    return out;
+  };
+  try{ renderCollapsibleBlocksV864=window.renderCollapsibleBlocksV864; }catch(e){}
+
+  try{ if(typeof renderReader==="function") renderReader(); }catch(e){}
+})();
+
+/* ===== v90-12-blocks-in-editor-cursor ===== */
+
+(function(){
+  function editorIsOpenV912(){
+    var editor=document.getElementById('editorView');
+    var text=document.getElementById('editText');
+    return !!(editor && text && !editor.classList.contains('hidden'));
+  }
+  function getEditTextV912(){ return document.getElementById('editText'); }
+  function rememberCursorV912(){
+    try{
+      var t=getEditTextV912();
+      if(t && typeof t.selectionStart==='number') window.__blockCursorV912=t.selectionStart;
+    }catch(e){}
+  }
+  function insertIntoEditorV912(block){
+    var t=getEditTextV912();
+    if(!t) return false;
+    var start=(typeof t.selectionStart==='number') ? t.selectionStart : (window.__blockCursorV912||0);
+    var end=(typeof t.selectionEnd==='number') ? t.selectionEnd : start;
+    var value=String(t.value||'');
+    start=Math.max(0,Math.min(start,value.length));
+    end=Math.max(start,Math.min(end,value.length));
+    var before=value.slice(0,start);
+    var after=value.slice(end);
+    var prefix=(before && !before.endsWith('\n')) ? '\n\n' : '';
+    var suffix=(after && !after.startsWith('\n')) ? '\n\n' : '';
+    var insert=prefix+String(block||'').trim()+suffix;
+    t.value=before+insert+after;
+    var pos=(before+insert).length;
+    try{ t.focus({preventScroll:true}); }catch(e){ try{t.focus();}catch(e2){} }
+    try{ t.setSelectionRange(pos,pos); window.__blockCursorV912=pos; }catch(e){}
+    try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    try{ t.dispatchEvent(new Event('input',{bubbles:true})); }catch(e){}
+    return true;
+  }
   try{
-    const response=await fetch(`biblical-festivities.json?v=${APP_VERSION}`,{cache:'no-store'});
-    biblicalFestivitiesData=await response.json();
-  }catch(error){
-    console.error(error);
-    biblicalFestivitiesData=[];
+    document.addEventListener('selectionchange',function(){
+      var a=document.activeElement;
+      if(a && a.id==='editText') rememberCursorV912();
+    });
+    document.addEventListener('DOMContentLoaded',function(){
+      var t=getEditTextV912();
+      if(t){ ['keyup','click','input','select','touchend','focus'].forEach(function(ev){ t.addEventListener(ev,rememberCursorV912); }); }
+    });
+  }catch(e){}
+
+  var oldOpenBlockMenuV912=window.openBlockMenu || (typeof openBlockMenu!=='undefined' ? openBlockMenu : null);
+  window.openBlockMenu=function(){ rememberCursorV912(); if(oldOpenBlockMenuV912) return oldOpenBlockMenuV912.apply(this,arguments); };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  var oldSaveCollapsibleV912=window.saveCollapsibleBlockV864 || (typeof saveCollapsibleBlockV864!=='undefined' ? saveCollapsibleBlockV864 : null);
+  window.saveCollapsibleBlockV864=function(){
+    try{
+      var titleEl=document.getElementById('blockTitleV864');
+      var contentEl=document.getElementById('blockContentV864');
+      var title=(titleEl ? titleEl.value : '').trim();
+      var content=(contentEl ? contentEl.value : '').trim();
+      if(editorIsOpenV912()){
+        if(!title){ alert('Escribe un título para el desplegable.'); return; }
+        if(!content){ alert('Escribe el contenido del desplegable.'); return; }
+        var safeTitle=title.replace(/"/g,"'");
+        var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
+        if(insertIntoEditorV912(block)){
+          try{ closeBlockOverlayV864(); }catch(e){}
+          try{ toast('Bloque desplegable insertado'); }catch(e){}
+          return;
+        }
+      }
+    }catch(err){ console.error('v90.12 saveCollapsible editor insert',err); }
+    if(oldSaveCollapsibleV912) return oldSaveCollapsibleV912.apply(this,arguments);
+  };
+  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
+
+  function patchPopupSaverV912(){
+    var oldSavePopupV912=window.savePopupBlockV908;
+    window.savePopupBlockV908=function(){
+      try{
+        var titleEl=document.getElementById('popupTitleV908');
+        var contentEl=document.getElementById('popupContentV908');
+        var title=(titleEl ? titleEl.value : '').trim();
+        var content=(contentEl ? contentEl.value : '').trim();
+        if(editorIsOpenV912()){
+          if(!title){ alert('Escribe un título o referencia para el emergente.'); return; }
+          if(!content){ alert('Escribe el contenido del emergente.'); return; }
+          var block=(typeof buildPopupBlockV908==='function') ? buildPopupBlockV908(title,content) : ('[emergente titulo="'+title.replace(/"/g,"'")+'"]\n'+content+'\n[/emergente]');
+          if(insertIntoEditorV912(block)){
+            try{ closeBlockOverlayV864(); }catch(e){}
+            try{ toast('Bloque emergente insertado'); }catch(e){}
+            return;
+          }
+        }
+      }catch(err){ console.error('v90.12 savePopup editor insert',err); }
+      if(oldSavePopupV912) return oldSavePopupV912.apply(this,arguments);
+    };
   }
-  return biblicalFestivitiesData;
-}
-function emptyBiblicalFestivityStore(){
-  return{schema:2,custom:[],edits:{},deleted:[]};
-}
+  patchPopupSaverV912();
+})();
 
-function biblicalFestivityStore(){
+/* ===== v90-13-popup-actions-inside ===== */
+
+(function(){
+  if(window.__v913PopupCompact) return;
+  window.__v913PopupCompact=true;
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var text="";
+      try{ text=getCurrentContentTextV865(); }catch(e){ text=""; }
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){ alert("No se ha encontrado este bloque emergente."); return; }
+      try{ closeReaderPopupBlockV908(); }catch(e){}
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||"Emergente") : String(b.title||"Emergente");
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : ((typeof escapeHtml==='function') ? escapeHtml(b.body||"") : String(b.body||""));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button><button class="btn primary" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV913",e); }
+  };
+  try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; }catch(e){}
+})();
+
+/* ===== v90-15-otro-versiculo-daily ===== */
+
+/* v90.15 - Versículo del día: botón 🌿 Otro versículo, conserva elección del día */
+(function(){
+  if(window.__v9015OtroVersiculoDaily) return;
+  window.__v9015OtroVersiculoDaily = true;
+
+  function getCurrentDailyIdV9015(){
+    try{
+      if(state && state.dailyVerse && state.dailyVerse.date === todayKey()) return state.dailyVerse.id;
+      return state && state.currentVerseId;
+    }catch(e){ return null; }
+  }
+
+  window.pickOtherDailyVerseV9015 = function(){
+    try{
+      var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((state && state.verses) || []);
+      pool = (pool || []).filter(function(v){ return v && (v.reference || v.title || v.text || v.content); });
+      if(!pool.length) return alert("Todavía no hay versículos guardados.");
+      var currentId = getCurrentDailyIdV9015();
+      var candidates = pool.length > 1 ? pool.filter(function(v){ return v.id !== currentId; }) : pool;
+      var chosen = candidates[Math.floor(Math.random() * candidates.length)];
+      state.dailyVerse = { date: todayKey(), id: chosen.id, manual: true, changedAt: Date.now() };
+      if(typeof saveState === "function") saveState();
+      if(typeof openVerseSpecial === "function") openVerseSpecial(chosen, "daily");
+      if(typeof setActiveView === "function") setActiveView("daily");
+      setTimeout(patchDailyOtherButtonV9015, 20);
+      setTimeout(patchDailyOtherButtonV9015, 140);
+      setTimeout(patchDailyOtherButtonV9015, 300);
+    }catch(e){ console.error("pickOtherDailyVerseV9015", e); }
+  };
+
+  function patchDailyOtherButtonV9015(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      if(head.querySelector('[data-v9015-other-daily="1"]')) return;
+      var btn = document.createElement("button");
+      btn.className = "btn soft";
+      btn.type = "button";
+      btn.setAttribute("data-v9015-other-daily", "1");
+      btn.textContent = "🌿 Otro versículo";
+      btn.onclick = function(){ window.pickOtherDailyVerseV9015(); };
+      var move = document.getElementById("moveVerseBtn");
+      if(move && move.parentNode === head){
+        move.insertAdjacentElement("afterend", btn);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("patchDailyOtherButtonV9015", e); }
+  }
+  window.patchDailyOtherButtonV9015 = patchDailyOtherButtonV9015;
+
+  var oldOpenDailyV9015 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV9015 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV9015.apply(this, arguments);
+      setTimeout(patchDailyOtherButtonV9015, 20);
+      setTimeout(patchDailyOtherButtonV9015, 140);
+      setTimeout(patchDailyOtherButtonV9015, 300);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV9015 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV9015 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV9015.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailyOtherButtonV9015, 20);
+        setTimeout(patchDailyOtherButtonV9015, 140);
+        setTimeout(patchDailyOtherButtonV9015, 300);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailyOtherButtonV9015, 300);
+})();
+
+/* ===== v90-16-buscar-versiculo-daily ===== */
+
+/* v90.16 - Versículo del día: buscar referencia y fijarla como versículo del día */
+(function(){
+  if(window.__v9016BuscarVersiculoDaily) return;
+  window.__v9016BuscarVersiculoDaily = true;
+
+  function normV9016(s){
+    try{
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }catch(e){ return String(s || "").toLowerCase().trim(); }
+  }
+
+  function verseRefTextV9016(v){
+    return (v && (v.reference || v.title || "")) || "";
+  }
+
+  function verseBodyTextV9016(v){
+    return (v && (v.text || v.content || "")) || "";
+  }
+
+  function findVerseByQueryV9016(query){
+    var q = normV9016(query);
+    if(!q) return null;
+    var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((state && state.verses) || []);
+    pool = (pool || []).filter(function(v){ return v && (v.reference || v.title || v.text || v.content); });
+    if(!pool.length) return null;
+
+    var exact = pool.find(function(v){ return normV9016(verseRefTextV9016(v)) === q; });
+    if(exact) return exact;
+
+    var starts = pool.find(function(v){ return normV9016(verseRefTextV9016(v)).indexOf(q) === 0; });
+    if(starts) return starts;
+
+    var includes = pool.find(function(v){ return normV9016(verseRefTextV9016(v)).indexOf(q) !== -1; });
+    if(includes) return includes;
+
+    var body = pool.find(function(v){ return normV9016(verseBodyTextV9016(v)).indexOf(q) !== -1; });
+    return body || null;
+  }
+
+  window.setDailyVerseFromSearchV9016 = function(v){
+    if(!v) return;
+    try{
+      state.dailyVerse = { date: todayKey(), id: v.id, manual: true, searched: true, changedAt: Date.now() };
+      state.currentVerseId = v.id;
+      if(typeof saveState === "function") saveState();
+      if(typeof openVerseSpecial === "function") openVerseSpecial(v, "daily");
+      if(typeof setActiveView === "function") setActiveView("daily");
+      setTimeout(patchDailySearchButtonV9016, 30);
+      setTimeout(patchDailySearchButtonV9016, 180);
+    }catch(e){ console.error("setDailyVerseFromSearchV9016", e); }
+  };
+
+  window.openDailySearchV9016 = function(){
+    try{
+      var old = document.getElementById("dailySearchOverlayV9016");
+      if(old) old.remove();
+      var overlay = document.createElement("div");
+      overlay.id = "dailySearchOverlayV9016";
+      overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;";
+      overlay.innerHTML = ''+
+        '<div style="background:#fff;border-radius:22px;max-width:560px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:22px;box-sizing:border-box;">'+
+          '<h2 style="margin:0 0 12px;font-size:24px;">🔍 Buscar versículo</h2>'+
+          '<p style="margin:0 0 14px;color:#666;font-size:16px;">Escribe una referencia, por ejemplo: Juan 3:16, Romanos 8:28 o Salmo 23.</p>'+
+          '<input id="dailySearchInputV9016" type="text" inputmode="text" autocomplete="off" placeholder="Referencia" style="width:100%;font-size:20px;padding:14px 16px;border:1px solid #d8d0c0;border-radius:14px;box-sizing:border-box;margin-bottom:16px;">'+
+          '<div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">'+
+            '<button id="dailySearchCancelV9016" class="btn soft" type="button">Cancelar</button>'+
+            '<button id="dailySearchOkV9016" class="btn primary" type="button">🔍 Buscar</button>'+
+          '</div>'+
+        '</div>';
+      document.body.appendChild(overlay);
+      var input = document.getElementById("dailySearchInputV9016");
+      var close = function(){ try{ overlay.remove(); }catch(e){} };
+      var run = function(){
+        var q = input ? input.value : "";
+        var found = findVerseByQueryV9016(q);
+        if(!found){ alert("No encontré esa referencia."); if(input) input.focus(); return; }
+        close();
+        window.setDailyVerseFromSearchV9016(found);
+      };
+      document.getElementById("dailySearchCancelV9016").onclick = close;
+      document.getElementById("dailySearchOkV9016").onclick = run;
+      overlay.addEventListener("click", function(ev){ if(ev.target === overlay) close(); });
+      if(input){
+        input.focus();
+        input.addEventListener("keydown", function(ev){ if(ev.key === "Enter") run(); if(ev.key === "Escape") close(); });
+      }
+    }catch(e){ console.error("openDailySearchV9016", e); }
+  };
+
+  function patchDailySearchButtonV9016(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      if(head.querySelector('[data-v9016-search-daily="1"]')) return;
+      var btn = document.createElement("button");
+      btn.className = "btn soft";
+      btn.type = "button";
+      btn.setAttribute("data-v9016-search-daily", "1");
+      btn.textContent = "🔍 Buscar";
+      btn.onclick = function(){ window.openDailySearchV9016(); };
+      var other = head.querySelector('[data-v9015-other-daily="1"]');
+      if(other && other.parentNode === head){
+        other.insertAdjacentElement("afterend", btn);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("patchDailySearchButtonV9016", e); }
+  }
+  window.patchDailySearchButtonV9016 = patchDailySearchButtonV9016;
+
+  var oldOpenDailyV9016 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV9016 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV9016.apply(this, arguments);
+      setTimeout(patchDailySearchButtonV9016, 30);
+      setTimeout(patchDailySearchButtonV9016, 180);
+      setTimeout(patchDailySearchButtonV9016, 360);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV9016 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV9016 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV9016.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailySearchButtonV9016, 30);
+        setTimeout(patchDailySearchButtonV9016, 180);
+        setTimeout(patchDailySearchButtonV9016, 360);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailySearchButtonV9016, 500);
+})();
+
+/* ===== v90-17-buscar-versiculo-daily-live ===== */
+
+/* v90.17 - Resultados en vivo en el buscador del Versículo del día */
+(function(){
+  if(window.__v9017BuscarVersiculoDailyLive) return;
+  window.__v9017BuscarVersiculoDailyLive = true;
+
+  function normV9017(s){
+    try{
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }catch(e){ return String(s || "").toLowerCase().trim(); }
+  }
+
+  function refV9017(v){ return (v && (v.reference || v.title || "")) || ""; }
+  function textV9017(v){ return (v && (v.text || v.content || "")) || ""; }
+
+  function poolV9017(){
+    var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((window.state && state.verses) || []);
+    return (pool || []).filter(function(v){ return v && (refV9017(v) || textV9017(v)); });
+  }
+
+  function searchLiveV9017(query){
+    var q = normV9017(query);
+    if(!q) return [];
+    var terms = q.split(" ").filter(Boolean);
+    var scored = poolV9017().map(function(v){
+      var r = normV9017(refV9017(v));
+      var t = normV9017(textV9017(v));
+      var full = (r + " " + t).trim();
+      var score = 0;
+      if(r === q) score += 1000;
+      if(r.indexOf(q) === 0) score += 700;
+      if(r.indexOf(q) !== -1) score += 400;
+      if(t.indexOf(q) !== -1) score += 140;
+      var all = terms.every(function(term){ return full.indexOf(term) !== -1; });
+      if(all) score += 220;
+      terms.forEach(function(term){
+        if(r.indexOf(term) !== -1) score += 60;
+        if(t.indexOf(term) !== -1) score += 20;
+      });
+      return {v:v, score:score};
+    }).filter(function(x){ return x.score > 0; });
+    scored.sort(function(a,b){ return b.score - a.score; });
+    return scored.slice(0, 15).map(function(x){ return x.v; });
+  }
+
+  function escapeV9017(s){
+    return String(s || "").replace(/[&<>'"]/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c];
+    });
+  }
+
+  function snippetV9017(s){
+    s = String(s || "").replace(/\s+/g, " ").trim();
+    if(s.length > 120) s = s.slice(0, 120).trim() + "…";
+    return s;
+  }
+
+  function chooseV9017(v, overlay){
+    try{
+      if(overlay) overlay.remove();
+      if(typeof window.setDailyVerseFromSearchV9016 === "function"){
+        window.setDailyVerseFromSearchV9016(v);
+      }else{
+        state.dailyVerse = { date: todayKey(), id: v.id, manual: true, searched: true, changedAt: Date.now() };
+        if(typeof saveState === "function") saveState();
+        if(typeof openVerseSpecial === "function") openVerseSpecial(v, "daily");
+        if(typeof setActiveView === "function") setActiveView("daily");
+      }
+    }catch(e){ console.error("chooseV9017", e); }
+  }
+
+  window.openDailySearchV9016 = function(){
+    try{
+      var old = document.getElementById("dailySearchOverlayV9016");
+      if(old) old.remove();
+      var overlay = document.createElement("div");
+      overlay.id = "dailySearchOverlayV9016";
+      overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;";
+      overlay.innerHTML = ''+
+        '<div style="background:#fff;border-radius:22px;max-width:620px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:22px;box-sizing:border-box;">'+
+          '<h2 style="margin:0 0 12px;font-size:24px;">🔍 Buscar versículo</h2>'+
+          '<p style="margin:0 0 14px;color:#666;font-size:16px;">Escribe una referencia, un libro o una palabra. Toca un resultado para elegirlo.</p>'+
+          '<input id="dailySearchInputV9016" type="text" inputmode="text" autocomplete="off" placeholder="Ej. San Juan, Juan 3:16, amor…" style="width:100%;font-size:20px;padding:14px 16px;border:1px solid #d8d0c0;border-radius:14px;box-sizing:border-box;margin-bottom:12px;">'+
+          '<div id="dailySearchResultsV9017" style="display:flex;flex-direction:column;gap:8px;margin:4px 0 16px;"></div>'+
+          '<div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">'+
+            '<button id="dailySearchCancelV9016" class="btn soft" type="button">Cancelar</button>'+
+            '<button id="dailySearchOkV9016" class="btn primary" type="button">🔍 Buscar</button>'+
+          '</div>'+
+        '</div>';
+      document.body.appendChild(overlay);
+      var input = document.getElementById("dailySearchInputV9016");
+      var results = document.getElementById("dailySearchResultsV9017");
+      var currentResults = [];
+      var close = function(){ try{ overlay.remove(); }catch(e){} };
+      var renderResults = function(){
+        var q = input ? input.value : "";
+        currentResults = searchLiveV9017(q);
+        if(!results) return;
+        if(!normV9017(q)){
+          results.innerHTML = '<div style="color:#8a7d6a;font-size:15px;padding:8px 2px;">Empieza a escribir para ver resultados.</div>';
+          return;
+        }
+        if(!currentResults.length){
+          results.innerHTML = '<div style="color:#8a7d6a;font-size:15px;padding:8px 2px;">No hay resultados.</div>';
+          return;
+        }
+        results.innerHTML = currentResults.map(function(v, i){
+          return '<button type="button" data-idx="'+i+'" style="text-align:left;width:100%;border:1px solid #d9cfbd;background:#fffaf2;border-radius:14px;padding:10px 12px;box-sizing:border-box;cursor:pointer;">'+
+            '<div style="font-weight:700;color:#3b2b19;margin-bottom:4px;">📖 '+escapeV9017(refV9017(v))+'</div>'+
+            '<div style="font-size:14px;color:#665b4d;line-height:1.35;">'+escapeV9017(snippetV9017(textV9017(v)))+'</div>'+
+          '</button>';
+        }).join('\n');
+      };
+      var run = function(){
+        var q = input ? input.value : "";
+        var list = currentResults && currentResults.length ? currentResults : searchLiveV9017(q);
+        if(!list.length){ alert("No encontré esa referencia."); if(input) input.focus(); return; }
+        chooseV9017(list[0], overlay);
+      };
+      document.getElementById("dailySearchCancelV9016").onclick = close;
+      document.getElementById("dailySearchOkV9016").onclick = run;
+      if(results){
+        results.addEventListener("click", function(ev){
+          var btn = ev.target.closest ? ev.target.closest("button[data-idx]") : null;
+          if(!btn) return;
+          var idx = parseInt(btn.getAttribute("data-idx"), 10);
+          if(currentResults[idx]) chooseV9017(currentResults[idx], overlay);
+        });
+      }
+      overlay.addEventListener("click", function(ev){ if(ev.target === overlay) close(); });
+      if(input){
+        input.focus();
+        input.addEventListener("input", renderResults);
+        input.addEventListener("keydown", function(ev){ if(ev.key === "Enter") run(); if(ev.key === "Escape") close(); });
+        renderResults();
+      }
+    }catch(e){ console.error("openDailySearchV9017", e); }
+  };
+})();
+
+/* ===== v90-18-12-reset-sent-toolbar ===== */
+
+/* v90.18.12 - Restaurar botonera normal al salir de un detalle abierto desde Enviados */
+(function(){
+  if(window.__v901812ResetSentToolbar) return;
+  window.__v901812ResetSentToolbar = true;
+
+  var normalReaderHeadV901812 = "";
   try{
-    const raw=JSON.parse(localStorage.getItem('biblia_festividades_v310')||'null');
+    var head0 = document.querySelector("#readerView .panel-head");
+    if(head0) normalReaderHeadV901812 = head0.innerHTML;
+  }catch(e){}
 
-    if(!raw||typeof raw!=='object')return emptyBiblicalFestivityStore();
+  function restoreNormalReaderToolbarV901812(){
+    try{
+      var wasSentReader = document.body.classList.contains("sent-reader-v903");
+      document.body.classList.remove("sent-reader-v903");
+      if(wasSentReader){
+        document.body.classList.remove("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+        [".topbar", ".sidebar", "#list"].forEach(function(sel){
+          document.querySelectorAll(sel).forEach(function(el){ el.style.display = ""; });
+        });
+        var main = document.querySelector(".main");
+        if(main){ main.style.display=""; main.style.gridTemplateColumns=""; main.style.minHeight=""; }
+        var content = document.querySelector(".content");
+        if(content){ content.style.padding=""; content.style.minHeight=""; }
+      }
+      var head = document.querySelector("#readerView .panel-head");
+      if(head && normalReaderHeadV901812){
+        var txt = (head.textContent || "").replace(/\s+/g," ").trim();
+        var looksLikeSentToolbar = txt.indexOf("Tarjeta") !== -1 && txt.indexOf("Copiar") !== -1 && txt.indexOf("Nueva") === -1 && txt.indexOf("Títulos") === -1;
+        if(wasSentReader || looksLikeSentToolbar){
+          head.innerHTML = normalReaderHeadV901812;
+          head.style.display = "";
+        }
+      }
+      window.__sentReaderBackV903 = false;
+    }catch(e){ console.error("restoreNormalReaderToolbarV901812", e); }
+  }
+  window.restoreNormalReaderToolbarV901812 = restoreNormalReaderToolbarV901812;
 
-    // Migración automática desde la estructura inicial:
-    // {festividadId:{notes,passageTexts}}
-    if(!Array.isArray(raw.custom)||!raw.edits||!Array.isArray(raw.deleted)){
-      const migrated=emptyBiblicalFestivityStore();
-      for(const [id,value] of Object.entries(raw)){
-        if(!value||typeof value!=='object')continue;
-        migrated.edits[id]={
-          notes:value.notes||'',
-          passageTexts:value.passageTexts||{}
+  var oldSwitchSectionV901812 = window.switchSection || (typeof switchSection !== "undefined" ? switchSection : null);
+  if(typeof oldSwitchSectionV901812 === "function"){
+    window.switchSection = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldSwitchSectionV901812.apply(this, arguments);
+    };
+    try{ switchSection = window.switchSection; }catch(e){}
+  }
+
+  var oldSwitchSectionAndReadV901812 = window.switchSectionAndReadV90187 || (typeof switchSectionAndReadV90187 !== "undefined" ? switchSectionAndReadV90187 : null);
+  if(typeof oldSwitchSectionAndReadV901812 === "function"){
+    window.switchSectionAndReadV90187 = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldSwitchSectionAndReadV901812.apply(this, arguments);
+    };
+    try{ switchSectionAndReadV90187 = window.switchSectionAndReadV90187; }catch(e){}
+  }
+
+  var oldEnterFullscreenReadingV901812 = window.enterFullscreenReading || (typeof enterFullscreenReading !== "undefined" ? enterFullscreenReading : null);
+  if(typeof oldEnterFullscreenReadingV901812 === "function"){
+    window.enterFullscreenReading = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldEnterFullscreenReadingV901812.apply(this, arguments);
+    };
+    try{ enterFullscreenReading = window.enterFullscreenReading; }catch(e){}
+  }
+})();
+
+/* ===== v90-18-13-favorites-back-origin ===== */
+
+/* v90.18.13 - Volver desde listado de Favoritos regresa a la sección de origen */
+(function(){
+  if(window.__v901813FavoritesBackOrigin) return;
+  window.__v901813FavoritesBackOrigin = true;
+
+  function rememberFavoritesOriginV901813(){
+    try{
+      window.__favoritesOriginSectionV901813 = section || (state && state.section) || "prayers";
+    }catch(e){
+      window.__favoritesOriginSectionV901813 = "prayers";
+    }
+  }
+
+  function setFavoritesBackButtonV901813(){
+    try{
+      var backBtn = document.querySelector("#titlesView .panel-head button:first-child");
+      if(backBtn){
+        backBtn.setAttribute("onclick", "closeFavoritesBackToOriginV901813()");
+      }
+    }catch(e){}
+  }
+
+  window.closeFavoritesBackToOriginV901813 = function(){
+    var target = window.__favoritesOriginSectionV901813 || (state && state.section) || section || "prayers";
+    try{
+      /* v90.18.15: restaurar la sección ANTES de cerrar Favoritos.
+         Así closeFavoritesFullScreenV791/openReader ya dibuja la sección correcta
+         y evitamos el salto visual Inicio -> sección. */
+      section = target;
+      if(state) state.section = target;
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+
+      if(typeof closeFavoritesFullScreenV791 === "function"){
+        closeFavoritesFullScreenV791();
+      }else{
+        var titles = document.getElementById("titlesView");
+        if(titles) titles.classList.add("hidden");
+        if(typeof openReader === "function") openReader();
+      }
+
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof enterFullscreenReading === "function") enterFullscreenReading();
+    }catch(e){
+      console.error("closeFavoritesBackToOriginV901813", e);
+      try{ if(typeof openReader === "function") openReader(); }catch(_){}
+    }
+  };
+
+  var oldOpenFavoritesV901813 = window.openFavoritesView || (typeof openFavoritesView !== "undefined" ? openFavoritesView : null);
+  if(typeof oldOpenFavoritesV901813 === "function"){
+    window.openFavoritesView = function(){
+      rememberFavoritesOriginV901813();
+      var r = oldOpenFavoritesV901813.apply(this, arguments);
+      setTimeout(setFavoritesBackButtonV901813, 60);
+      setTimeout(setFavoritesBackButtonV901813, 160);
+      return r;
+    };
+    try{ openFavoritesView = window.openFavoritesView; }catch(e){}
+  }
+})();
+
+/* ===== v90-18-14-verse-favorites-back ===== */
+
+/* v90.18.14 - Volver desde Favoritos de Versículos regresa a Versículos */
+(function(){
+  if(window.__v901814VerseFavoritesBack) return;
+  window.__v901814VerseFavoritesBack = true;
+
+  function setVerseFavoritesBackButtonV901814(){
+    try{
+      var backBtn = document.querySelector("#titlesView .panel-head button:first-child");
+      if(backBtn){
+        backBtn.setAttribute("onclick", "closeVerseFavoritesBackV901814()");
+      }
+    }catch(e){}
+  }
+
+  window.closeVerseFavoritesBackV901814 = function(){
+    try{
+      section = "verses";
+      if(state) state.section = "verses";
+      specialVerseMode = null;
+      currentVerseCategory = null;
+      verseNavigationMode = "categories";
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof openVerseCategories === "function"){
+        openVerseCategories();
+      }else if(typeof openReader === "function"){
+        openReader();
+      }
+    }catch(e){
+      console.error("closeVerseFavoritesBackV901814", e);
+      try{ if(typeof openReader === "function") openReader(); }catch(_){}
+    }
+  };
+
+  var oldOpenVerseFavoritesV901814 = window.openVerseFavorites || (typeof openVerseFavorites !== "undefined" ? openVerseFavorites : null);
+  if(typeof oldOpenVerseFavoritesV901814 === "function"){
+    window.openVerseFavorites = function(){
+      section = "verses";
+      if(state) state.section = "verses";
+      var r = oldOpenVerseFavoritesV901814.apply(this, arguments);
+      setTimeout(setVerseFavoritesBackButtonV901814, 30);
+      setTimeout(setVerseFavoritesBackButtonV901814, 120);
+      return r;
+    };
+    try{ openVerseFavorites = window.openVerseFavorites; }catch(e){}
+  }
+})();
+
+/* ===== v90-19-0-home-visual ===== */
+
+/* v90.19.0 - Inicio real bajo la botonera, sin tocar la bienvenida */
+(function(){
+  if(window.__v90190HomeVisual) return;
+  window.__v90190HomeVisual = true;
+
+  var phrasesV9019 = [
+    "🙏🏾 Que esta palabra fortalezca hoy tu corazón.",
+    "🌿 Dios siempre habla en el momento oportuno.",
+    "❤️ Que el amor de Cristo guíe tus decisiones.",
+    "✨ Una sola palabra puede iluminar todo un día.",
+    "📖 La Palabra de Dios siempre tiene algo nuevo que mostrar."
+  ];
+
+  function escV9019(t){
+    return String(t||"").replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]||c;
+    });
+  }
+
+  function cleanV9019(t){
+    return String(t||"").replace(/\\n/g,"\n").trim();
+  }
+
+  function formatHomeDateV9019(){
+    try{
+      return new Date().toLocaleDateString("es-ES", {
+        weekday:"long", day:"numeric", month:"long", year:"numeric"
+      });
+    }catch(e){
+      return new Date().toLocaleDateString();
+    }
+  }
+
+  function pickHomeVerseV9019(){
+    try{
+      var verses = (state && Array.isArray(state.verses)) ? state.verses : [];
+      var usable = verses.filter(function(v){
+        return v && (v.reference || v.title) && (v.text || v.content);
+      });
+      if(usable.length){
+        var v = usable[Math.floor(Math.random()*usable.length)];
+        return {
+          ref: v.reference || v.title || "Versículo",
+          text: cleanV9019(v.text || v.content || "")
         };
       }
-      saveBiblicalFestivityStore(migrated);
-      return migrated;
+    }catch(e){}
+    return {
+      ref:"Romanos 8:28",
+      text:"Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien."
+    };
+  }
+
+  window.renderHomeV9019 = function(){
+    try{
+      var verse = pickHomeVerseV9019();
+      var date = document.getElementById("homeDateV9019");
+      var ref = document.getElementById("homeRefV9019");
+      var text = document.getElementById("homeTextV9019");
+      var phrase = document.getElementById("homePhraseV9019");
+      if(date) date.textContent = formatHomeDateV9019();
+      try{
+        var cardV9019=document.getElementById("homeCardV9019");
+        if(cardV9019){
+          var hV9019=(new Date()).getHours();
+          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-sunset","home-sky-night");
+          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<17) ? "home-sky-day" : ((hV9019>=17 && hV9019<20) ? "home-sky-sunset" : "home-sky-night")));
+        }
+      }catch(_skyErrV9019){}
+      if(ref) ref.textContent = verse.ref;
+      var verseTextV9019 = verse.text || "";
+      if(text){
+        text.textContent = "“" + verseTextV9019 + "”";
+        text.classList.remove("home-text-short-v9019","home-text-medium-v9019","home-text-long-v9019","home-text-xl-v9019");
+        var lenV9019 = verseTextV9019.length;
+        if(lenV9019 > 520) text.classList.add("home-text-xl-v9019");
+        else if(lenV9019 > 340) text.classList.add("home-text-long-v9019");
+        else if(lenV9019 > 210) text.classList.add("home-text-medium-v9019");
+        else text.classList.add("home-text-short-v9019");
+      }
+      if(phrase) phrase.textContent = phrasesV9019[Math.floor(Math.random()*phrasesV9019.length)];
+    }catch(e){
+      console.error("renderHomeV9019", e);
+    }
+  };
+
+  window.showHomeV9019 = function(){
+    try{
+      document.body.classList.remove("editing-focus","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","backup-only","special-view-only");
+      document.body.classList.add("home-active-v9019");
+      if(typeof setActiveView === "function") setActiveView(null);
+      try{
+        ["tabPrayers","tabNotes","tabGuides","tabVerses","tabParables"].forEach(function(id){
+          var btn=document.getElementById(id);
+          if(btn){
+            btn.classList.remove("active");
+            btn.classList.remove("active-view");
+          }
+        });
+      }catch(_e){}
+
+      ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(function(id){
+        var el=document.getElementById(id);
+        if(el) el.classList.add("hidden");
+      });
+      var home=document.getElementById("homeView");
+      if(home) home.classList.remove("hidden");
+      if(typeof renderHomeV9019 === "function") renderHomeV9019();
+      try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); }
+    }catch(e){
+      console.error("showHomeV9019", e);
+    }
+  };
+
+  function leaveHomeV9019(){
+    try{
+      document.body.classList.remove("home-active-v9019");
+      var home=document.getElementById("homeView");
+      if(home) home.classList.add("hidden");
+    }catch(e){}
+  }
+
+  ["openReader","enterFullscreenReading","openEditor","openBackup","openTrash","openTitlesView","openVerseCategories","openChristianCalendar"].forEach(function(fnName){
+    var old = window[fnName] || (typeof window[fnName] !== "undefined" ? window[fnName] : null);
+    if(typeof old === "function"){
+      window[fnName] = function(){
+        leaveHomeV9019();
+        return old.apply(this, arguments);
+      };
+      try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
+    }
+  });
+
+  var oldSmartBackV9019 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV9019 === "function"){
+    window.smartBack = function(){
+      try{
+        if(document.body.classList.contains("fullscreen-reading") && section !== "verses"){
+          showHomeV9019();
+          return;
+        }
+      }catch(e){}
+      return oldSmartBackV9019.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  var oldEnterWelcomeV9019 = window.enterOv2Welcome;
+  window.enterOv2Welcome = function(){
+    try{
+      if(typeof oldEnterWelcomeV9019 === "function") oldEnterWelcomeV9019.apply(this, arguments);
+      setTimeout(function(){ if(typeof showHomeV9019 === "function") showHomeV9019(); }, 0);
+    }catch(e){
+      try{ if(typeof showHomeV9019 === "function") showHomeV9019(); }catch(_){}
+    }
+  };
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(showHomeV9019, 80); });
+  }else{
+    setTimeout(showHomeV9019, 80);
+  }
+})();
+
+/* v90.19.1 - Ajuste mínimo: Versículo del día no arrastra la tarjeta de Inicio */
+(function(){
+  if(window.__v90191DailyHomeFix) return;
+  window.__v90191DailyHomeFix = true;
+
+  function hideHomeV90191(){
+    try{
+      document.body.classList.remove('home-active-v9019');
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+    }catch(e){}
+  }
+
+  var oldOpenDaily = window.openDailyVerse || (typeof openDailyVerse !== 'undefined' ? openDailyVerse : null);
+  if(typeof oldOpenDaily === 'function'){
+    window.openDailyVerse = function(){
+      window.__dailyOpenedFromHomeV90191 = true;
+      hideHomeV90191();
+      return oldOpenDaily.apply(this, arguments);
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldSmartBack = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof oldSmartBack === 'function'){
+    window.smartBack = function(){
+      try{
+        var reader = document.getElementById('readerView');
+        var inReader = reader && !reader.classList.contains('hidden');
+        if(window.__dailyOpenedFromHomeV90191 && inReader && typeof specialVerseMode !== 'undefined' && specialVerseMode === 'daily'){
+          window.__dailyOpenedFromHomeV90191 = false;
+          try{ specialVerseMode = null; }catch(_e){}
+          if(typeof showHomeV9019 === 'function'){
+            showHomeV9019();
+            return;
+          }
+        }
+      }catch(e){}
+      return oldSmartBack.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+})();
+
+/* ===== v90-20-5-verses-back-home-clean ===== */
+
+/* v90.20.5 - Limpieza segura: intercepta SOLO Volver desde Categorías de Versículos hacia Inicio */
+(function(){
+  if(window.__v90205VersesBackHomeClean) return;
+  window.__v90205VersesBackHomeClean = true;
+
+  var previousSmartBackV90205 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+
+  function isVerseCategoriesVisibleV90205(){
+    try{
+      var cats = document.getElementById("verseCategoriesView");
+      return !!(cats && !cats.classList.contains("hidden"));
+    }catch(e){ return false; }
+  }
+
+  window.smartBack = function(){
+    try{
+      var inVerseCategories = (typeof section !== "undefined" && section === "verses") &&
+        ((typeof categoryListActive !== "undefined" && categoryListActive) ||
+         (typeof verseNavigationMode !== "undefined" && verseNavigationMode === "categories") ||
+         isVerseCategoriesVisibleV90205());
+
+      if(inVerseCategories && typeof showHomeV9019 === "function"){
+        try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(_e1){}
+        try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(_e2){}
+        try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(_e3){}
+        try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(_e4){}
+        try{
+          var cats = document.getElementById("verseCategoriesView");
+          if(cats) cats.classList.add("hidden");
+        }catch(_e5){}
+        showHomeV9019();
+        return;
+      }
+    }catch(e){
+      console.warn("v90.20.5 verses back home skipped", e);
     }
 
-    return{
-      schema:2,
-      custom:Array.isArray(raw.custom)?raw.custom:[],
-      edits:raw.edits&&typeof raw.edits==='object'?raw.edits:{},
-      deleted:Array.isArray(raw.deleted)?raw.deleted:[]
+    if(typeof previousSmartBackV90205 === "function"){
+      return previousSmartBackV90205.apply(this, arguments);
+    }
+  };
+
+  try{ smartBack = window.smartBack; }catch(e){}
+})();
+
+
+/* v3.1.1 - Arreglo: Versículo al azar desde Más no debe arrastrar Inicio */
+(function(){
+  if(window.__v311RandomFromMoreHomeFix) return;
+  window.__v311RandomFromMoreHomeFix = true;
+
+  function hideHomeForRandomV311(){
+    try{
+      document.body.classList.remove('home-active-v9019');
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+    }catch(e){}
+  }
+
+  var oldOpenRandomV311 = window.openRandomVerse || (typeof openRandomVerse !== 'undefined' ? openRandomVerse : null);
+  if(typeof oldOpenRandomV311 === 'function'){
+    window.openRandomVerse = function(){
+      hideHomeForRandomV311();
+      return oldOpenRandomV311.apply(this, arguments);
     };
-  }catch(_){
-    return emptyBiblicalFestivityStore();
-  }
-}
-
-function saveBiblicalFestivityStore(store){
-  localStorage.setItem('biblia_festividades_v310',JSON.stringify({
-    schema:2,
-    custom:Array.isArray(store?.custom)?store.custom:[],
-    edits:store?.edits&&typeof store.edits==='object'?store.edits:{},
-    deleted:Array.isArray(store?.deleted)?store.deleted:[]
-  }));
-}
-
-function normalizeBiblicalFestivityPassages(item){
-  if(Array.isArray(item?.passageItems)){
-    return item.passageItems
-      .map(p=>({
-        id:String(p?.id||`passage_${Date.now()}_${Math.random().toString(36).slice(2,7)}`),
-        reference:String(p?.reference||'').trim(),
-        text:String(p?.text||'')
-      }))
-      .filter(p=>p.reference||p.text);
+    try{ openRandomVerse = window.openRandomVerse; }catch(e){}
   }
 
-  return (item?.passages||[]).map((reference,index)=>({
-    id:`legacy_${index}_${String(reference).replace(/\W+/g,'_')}`,
-    reference:String(reference||''),
-    text:String(item?.passageTexts?.[reference]||'')
-  }));
-}
+  var style = document.createElement('style');
+  style.id = 'v3-1-1-random-home-fix';
+  style.textContent = 'body.verse-special-fullscreen-v74 #homeView, body.verse-special-fullscreen-v751 #homeView{display:none!important;}';
+  document.head.appendChild(style);
+})();
 
-function mergedBiblicalFestivity(item){
-  const store=biblicalFestivityStore();
-  const edit=store.edits[item.id]||{};
-  const merged={...item,...edit};
+/* V3 paso 16: parches visuales finales movidos a patches.js. */
 
-  // Compatibilidad con ediciones antiguas que solo guardaban passageTexts.
-  if(!Array.isArray(merged.passageItems)){
-    merged.passageItems=normalizeBiblicalFestivityPassages({
-      ...merged,
-      passageTexts:{...(item.passageTexts||{}),...(edit.passageTexts||{})}
-    });
-  }else{
-    merged.passageItems=normalizeBiblicalFestivityPassages(merged);
+/* v3.1.2 - Arreglo real: Volver desde Títulos a botonera interna de sección */
+(function(){
+  if(window.__v312TitlesBackToSectionToolbar) return;
+  window.__v312TitlesBackToSectionToolbar = true;
+
+  function isTitlesVisibleV312(){
+    try{
+      var titles = document.getElementById('titlesView');
+      return !!(titles && !titles.classList.contains('hidden'));
+    }catch(e){ return false; }
   }
 
-  return merged;
-}
-
-function getAllBiblicalFestivities(){
-  const store=biblicalFestivityStore();
-  const deleted=new Set(store.deleted);
-  const base=biblicalFestivitiesData
-    .filter(item=>!deleted.has(item.id))
-    .map(mergedBiblicalFestivity);
-  const custom=store.custom
-    .filter(item=>item&&item.id&&!deleted.has(item.id))
-    .map(item=>({...item,custom:true,passageItems:normalizeBiblicalFestivityPassages(item)}));
-
-  return [...base,...custom].sort((a,b)=>
-    String(a.title||'').localeCompare(String(b.title||''),'es',{sensitivity:'base'})
-  );
-}
-
-function findBiblicalFestivity(id){
-  return getAllBiblicalFestivities().find(item=>item.id===id)||null;
-}
-
-async function openBiblicalFestivityLibrary(){
-  await loadBiblicalFestivities();
-  const dialog=document.getElementById('biblicalFestivityDialog');
-  backToBiblicalFestivityList();
-  dialog?.showModal();
-}
-
-function closeBiblicalFestivityDialog(){
-  document.getElementById('biblicalFestivityDialog')?.close();
-}
-
-function setBiblicalFestivityDialogView(view){
-  document.getElementById('biblicalFestivityListView')?.classList.toggle('hidden',view!=='list');
-  document.getElementById('biblicalFestivityDetailView')?.classList.toggle('hidden',view!=='detail');
-  document.getElementById('biblicalFestivityEditorView')?.classList.toggle('hidden',view!=='editor');
-}
-
-function backToBiblicalFestivityList(){
-  currentBiblicalFestivityId=null;
-  setBiblicalFestivityDialogView('list');
-  renderBiblicalFestivityLibrary();
-}
-
-async function renderBiblicalFestivityLibrary(){
-  await loadBiblicalFestivities();
-  const box=document.getElementById('biblicalFestivityList');
-  if(!box)return;
-
-  const q=normalizeText(document.getElementById('biblicalFestivitySearch')?.value||'');
-  const rows=getAllBiblicalFestivities().filter(f=>
-    !q||normalizeText(`${f.title} ${f.date} ${f.summary} ${f.meaning}`).includes(q)
-  );
-
-  box.innerHTML=rows.map(f=>`<button class="biblical-festivity-row" type="button" onclick="openBiblicalFestivityDetail('${f.id}')">
-    <strong>${escapeHtml(f.title)}</strong>
-    <span>${escapeHtml(f.date||'Sin fecha indicada')}${f.custom?' · Personalizada':''}</span>
-  </button>`).join('')||'<p class="biblical-calendar-empty">No se encontraron festividades.</p>';
-}
-
-function renderBiblicalFestivityPassageCard(passage,index){
-  return `<article class="biblical-festivity-passage-card">
-    <div class="biblical-festivity-passage-head">
-      <h3>${escapeHtml(passage.reference||`Pasaje ${index+1}`)}</h3>
-      <div class="festivity-inline-actions">
-        <button class="btn soft" type="button" onclick="editBiblicalFestivityPassage('${passage.id}')">Editar</button>
-        <button class="btn danger" type="button" onclick="deleteBiblicalFestivityPassage('${passage.id}')">Eliminar</button>
-      </div>
-    </div>
-    <p>${escapeHtml(passage.text||'Sin texto añadido.')}</p>
-  </article>`;
-}
-
-async function openBiblicalFestivityDetail(id){
-  await loadBiblicalFestivities();
-  const f=findBiblicalFestivity(id);
-  if(!f){
-    backToBiblicalFestivityList();
-    return;
+  function isNormalSectionV312(){
+    try{
+      return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1;
+    }catch(e){ return false; }
   }
 
-  currentBiblicalFestivityId=id;
-  const dialog=document.getElementById('biblicalFestivityDialog');
-  if(dialog&&!dialog.open)dialog.showModal();
-  setBiblicalFestivityDialogView('detail');
+  window.backFromTitlesToSectionToolbarV312 = function(){
+    try{
+      if(!isNormalSectionV312()){
+        if(typeof openReader === 'function') openReader();
+        return;
+      }
 
-  const box=document.getElementById('biblicalFestivityDetail');
-  const passages=normalizeBiblicalFestivityPassages(f);
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+      document.body.classList.remove('home-active-v9019','titles-only','titles-fullscreen-v72','list-only','backup-only','special-view-only');
 
-  box.innerHTML=`<header class="biblical-festivity-detail-head">
-      <div>
-        <h2>${escapeHtml(f.title)}</h2>
-        <p>${escapeHtml(f.date||'Sin fecha indicada')}</p>
-      </div>
-      <div class="festivity-detail-actions">
-        <button class="btn soft" type="button" onclick="openBiblicalFestivityEditor('${f.id}')">Editar</button>
-        <button class="btn danger" type="button" onclick="deleteBiblicalFestivity('${f.id}')">Eliminar</button>
-      </div>
-    </header>
+      var titles = document.getElementById('titlesView');
+      if(titles) titles.classList.add('hidden');
 
-    <section class="biblical-festivity-section">
-      <h3>Explicación</h3>
-      <p>${escapeHtml(f.summary||'Sin explicación añadida.')}</p>
-    </section>
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
 
-    <section class="biblical-festivity-section">
-      <h3>Significado</h3>
-      <p>${escapeHtml(f.meaning||'Sin significado añadido.')}</p>
-    </section>
+      if(typeof enterFullscreenReading === 'function'){
+        enterFullscreenReading();
+      }else if(typeof openReader === 'function'){
+        openReader();
+      }
 
-    <section class="biblical-festivity-section">
-      <h3>Notas</h3>
-      <p>${escapeHtml(f.notes||'Sin notas añadidas.')}</p>
-    </section>
-
-    <section class="biblical-festivity-section">
-      <div class="festivity-section-title-row">
-        <h3>Pasajes bíblicos</h3>
-        <button class="btn primary" type="button" onclick="addBiblicalFestivityPassage()">Añadir pasaje</button>
-      </div>
-      <div class="biblical-festivity-passage-list">
-        ${passages.map(renderBiblicalFestivityPassageCard).join('')||'<p class="biblical-calendar-empty">No hay pasajes añadidos.</p>'}
-      </div>
-    </section>`;
-}
-
-function newBiblicalFestivityId(){
-  return`festividad_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-}
-
-function newBiblicalPassageId(){
-  return`pasaje_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-}
-
-function openBiblicalFestivityEditor(id=''){
-  const existing=id?findBiblicalFestivity(id):null;
-  currentBiblicalFestivityId=existing?.id||null;
-  setBiblicalFestivityDialogView('editor');
-
-  const f=existing||{
-    id:newBiblicalFestivityId(),
-    title:'',
-    date:'',
-    summary:'',
-    meaning:'',
-    notes:'',
-    passageItems:[],
-    custom:true
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 40);
+    }catch(e){
+      console.error('backFromTitlesToSectionToolbarV312', e);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
   };
 
-  const box=document.getElementById('biblicalFestivityEditor');
-  box.dataset.festivityId=f.id;
-  box.dataset.isNew=existing?'0':'1';
-
-  box.innerHTML=`<header class="biblical-festivity-editor-head">
-      <h2>${existing?'Editar festividad':'Añadir festividad'}</h2>
-      <p>Completa la plantilla. Podrás añadir los pasajes después de guardar.</p>
-    </header>
-
-    <label class="festivity-form-field">
-      <span>Nombre de la festividad</span>
-      <input id="festivityEditorTitle" type="text" value="${escapeHtml(f.title||'')}" placeholder="Ej.: Fiesta de la Presentación">
-    </label>
-
-    <label class="festivity-form-field">
-      <span>Fecha o periodo</span>
-      <input id="festivityEditorDate" type="text" value="${escapeHtml(f.date||'')}" placeholder="Ej.: 2 de febrero o Fecha móvil">
-    </label>
-
-    <label class="festivity-form-field">
-      <span>Explicación</span>
-      <textarea id="festivityEditorSummary" placeholder="Explica brevemente qué se celebra.">${escapeHtml(f.summary||'')}</textarea>
-    </label>
-
-    <label class="festivity-form-field">
-      <span>Significado bíblico</span>
-      <textarea id="festivityEditorMeaning" placeholder="Describe su significado espiritual y bíblico.">${escapeHtml(f.meaning||'')}</textarea>
-    </label>
-
-    <label class="festivity-form-field">
-      <span>Notas</span>
-      <textarea id="festivityEditorNotes" placeholder="Añade tus notas personales.">${escapeHtml(f.notes||'')}</textarea>
-    </label>
-
-    <div class="festivity-editor-footer">
-      <button class="btn soft" type="button" onclick="cancelBiblicalFestivityEditor()">Cancelar</button>
-      <button class="btn primary" type="button" onclick="saveBiblicalFestivityEditor()">Guardar festividad</button>
-    </div>`;
-}
-
-function cancelBiblicalFestivityEditor(){
-  if(currentBiblicalFestivityId&&findBiblicalFestivity(currentBiblicalFestivityId)){
-    openBiblicalFestivityDetail(currentBiblicalFestivityId);
-  }else{
-    backToBiblicalFestivityList();
+  function forceTitlesBackButtonV312(){
+    try{
+      if(!isTitlesVisibleV312() || !isNormalSectionV312()) return;
+      var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
+      if(backBtn) backBtn.setAttribute('onclick','backFromTitlesToSectionToolbarV312()');
+    }catch(e){}
   }
-}
 
-function readBiblicalFestivityEditor(){
-  const box=document.getElementById('biblicalFestivityEditor');
-  return{
-    id:box?.dataset.festivityId||newBiblicalFestivityId(),
-    isNew:box?.dataset.isNew==='1',
-    title:document.getElementById('festivityEditorTitle')?.value.trim()||'',
-    date:document.getElementById('festivityEditorDate')?.value.trim()||'',
-    summary:document.getElementById('festivityEditorSummary')?.value.trim()||'',
-    meaning:document.getElementById('festivityEditorMeaning')?.value.trim()||'',
-    notes:document.getElementById('festivityEditorNotes')?.value||''
+  var previousOpenTitlesV312 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV312 === 'function'){
+    window.openTitlesView = function(){
+      var r = previousOpenTitlesV312.apply(this, arguments);
+      setTimeout(forceTitlesBackButtonV312, 30);
+      setTimeout(forceTitlesBackButtonV312, 120);
+      return r;
+    };
+    try{ openTitlesView = window.openTitlesView; }catch(e){}
+  }
+
+  var previousSmartBackV312 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof previousSmartBackV312 === 'function'){
+    window.smartBack = function(){
+      try{
+        if(isTitlesVisibleV312() && isNormalSectionV312()){
+          return window.backFromTitlesToSectionToolbarV312();
+        }
+      }catch(e){}
+      return previousSmartBackV312.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  document.addEventListener('click', function(e){
+    try{
+      var btn = e.target && e.target.closest ? e.target.closest('#titlesView .panel-head button:first-child') : null;
+      if(btn && isTitlesVisibleV312() && isNormalSectionV312()){
+        e.preventDefault();
+        e.stopPropagation();
+        window.backFromTitlesToSectionToolbarV312();
+      }
+    }catch(_e){}
+  }, true);
+})();
+
+/* v3.1.3 - Arreglo: Volver desde Títulos de Versículos mantiene flujo de Versículos */
+(function(){
+  if(window.__v313VerseTitlesBackFix) return;
+  window.__v313VerseTitlesBackFix = true;
+
+  function isVerseTitlesVisibleV313(){
+    try{
+      var titles = document.getElementById('titlesView');
+      return !!(titles && !titles.classList.contains('hidden') && typeof section !== 'undefined' && section === 'verses');
+    }catch(e){ return false; }
+  }
+
+  window.backFromVerseTitlesV313 = function(){
+    try{
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+      document.body.classList.remove('home-active-v9019','titles-only','titles-fullscreen-v72','list-only','backup-only','special-view-only');
+
+      try{ section = 'verses'; }catch(_e1){}
+      try{ state.section = 'verses'; }catch(_e2){}
+      try{ specialVerseMode = null; }catch(_e3){}
+      try{ verseNavigationMode = 'categories'; }catch(_e4){}
+      try{ categoryListActive = true; }catch(_e5){}
+
+      if(typeof openVerseCategories === 'function'){
+        openVerseCategories();
+      }else if(typeof openReader === 'function'){
+        openReader();
+      }
+    }catch(e){
+      console.error('backFromVerseTitlesV313', e);
+      try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
+    }
   };
-}
 
-function saveBiblicalFestivityEditor(){
-  const values=readBiblicalFestivityEditor();
-  if(!values.title){
-    toast('Escribe el nombre de la festividad');
-    document.getElementById('festivityEditorTitle')?.focus();
-    return;
+  function forceVerseTitlesBackButtonV313(){
+    try{
+      if(!isVerseTitlesVisibleV313()) return;
+      var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
+      if(backBtn) backBtn.setAttribute('onclick','backFromVerseTitlesV313()');
+    }catch(e){}
   }
 
-  const store=biblicalFestivityStore();
-  const existing=findBiblicalFestivity(values.id);
-  const passages=existing?normalizeBiblicalFestivityPassages(existing):[];
+  var previousOpenTitlesV313 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV313 === 'function'){
+    window.openTitlesView = function(){
+      var r = previousOpenTitlesV313.apply(this, arguments);
+      setTimeout(forceVerseTitlesBackButtonV313, 40);
+      setTimeout(forceVerseTitlesBackButtonV313, 140);
+      return r;
+    };
+    try{ openTitlesView = window.openTitlesView; }catch(e){}
+  }
 
-  if(values.isNew){
-    store.custom.push({
-      id:values.id,
-      title:values.title,
-      date:values.date,
-      summary:values.summary,
-      meaning:values.meaning,
-      notes:values.notes,
-      passageItems:passages,
-      custom:true,
-      createdAt:new Date().toISOString(),
-      updatedAt:new Date().toISOString()
-    });
-  }else{
-    const customIndex=store.custom.findIndex(item=>item.id===values.id);
+  var previousSmartBackV313 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof previousSmartBackV313 === 'function'){
+    window.smartBack = function(){
+      try{
+        if(isVerseTitlesVisibleV313()) return window.backFromVerseTitlesV313();
+      }catch(e){}
+      return previousSmartBackV313.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
 
-    if(customIndex>=0){
-      store.custom[customIndex]={
-        ...store.custom[customIndex],
-        ...values,
-        passageItems:passages,
-        custom:true,
-        updatedAt:new Date().toISOString()
+  document.addEventListener('click', function(e){
+    try{
+      var btn = e.target && e.target.closest ? e.target.closest('#titlesView .panel-head button:first-child') : null;
+      if(btn && isVerseTitlesVisibleV313()){
+        e.preventDefault();
+        e.stopPropagation();
+        window.backFromVerseTitlesV313();
+      }
+    }catch(_e){}
+  }, true);
+})();
+
+/* ===== v3.1.35 - Botón directo Compartido en detalle y Versículo del día ===== */
+(function(){
+  if(window.__v3135ToggleSharedButton) return;
+  window.__v3135ToggleSharedButton = true;
+
+  function currentVerseV3135(){
+    try{
+      if(typeof section !== "undefined" && section !== "verses") return null;
+      if(typeof currentItem === "function"){
+        var it = currentItem();
+        if(it) return it;
+      }
+      var id = (window.state && (state.currentVerseId || state.currentId)) || null;
+      if(!id) return null;
+      return (state.verses || []).find(function(v){ return v && v.id === id; }) || null;
+    }catch(e){ return null; }
+  }
+
+  function isSentV3135(v){
+    return !!(v && (v.shared || v.lastCardSentAt));
+  }
+
+  function refreshSharedToggleButtonV3135(){
+    try{
+      var btn = document.getElementById("readerSharedToggleBtnV3135");
+      var v = currentVerseV3135();
+      if(!btn || !v) return;
+      var sent = isSentV3135(v);
+      btn.textContent = sent ? "✓ Compartido" : "☐ Compartido";
+      btn.title = sent ? "Quitar marca de compartido" : "Marcar como compartido";
+      btn.classList.toggle("active-view", sent);
+    }catch(e){}
+  }
+
+  window.toggleCurrentVerseSharedV3135 = function(){
+    try{
+      var v = currentVerseV3135();
+      if(!v){ if(typeof toast === "function") toast("No hay versículo abierto"); return; }
+      if(isSentV3135(v)){
+        v.shared = false;
+        v.lastCardSentAt = 0;
+        if(typeof toast === "function") toast("Compartido quitado");
+      }else{
+        v.shared = true;
+        if(!v.lastCardSentAt) v.lastCardSentAt = Date.now();
+        if(typeof toast === "function") toast("Marcado como compartido");
+      }
+      if(typeof saveState === "function") saveState();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      setTimeout(window.ensureSharedToggleButtonV3135, 30);
+      setTimeout(window.ensureSharedToggleButtonV3135, 120);
+    }catch(e){ console.error("toggleCurrentVerseSharedV3135", e); }
+  };
+
+  window.ensureSharedToggleButtonV3135 = function(){
+    try{
+      var v = currentVerseV3135();
+      var head = document.querySelector("#readerView .panel-head");
+      var existing = document.getElementById("readerSharedToggleBtnV3135");
+      if(!head) return;
+      if(!v){
+        if(existing && existing.parentNode) existing.parentNode.removeChild(existing);
+        return;
+      }
+      if(!existing){
+        var btn = document.createElement("button");
+        btn.id = "readerSharedToggleBtnV3135";
+        btn.className = "btn soft";
+        btn.type = "button";
+        btn.setAttribute("onclick", "toggleCurrentVerseSharedV3135()");
+
+        var buttons = Array.prototype.slice.call(head.querySelectorAll("button"));
+        var blockBtn = buttons.find(function(b){ return (b.textContent || "").indexOf("Bloque") !== -1; });
+        var moveBtn = buttons.find(function(b){ return (b.textContent || "").indexOf("Mover") !== -1; });
+        var anchor = blockBtn || moveBtn || null;
+        if(anchor && anchor.parentNode === head){
+          head.insertBefore(btn, anchor.nextSibling);
+        }else{
+          head.appendChild(btn);
+        }
+      }
+      refreshSharedToggleButtonV3135();
+    }catch(e){ console.error("ensureSharedToggleButtonV3135", e); }
+  };
+
+  function afterV3135(){
+    setTimeout(window.ensureSharedToggleButtonV3135, 20);
+    setTimeout(window.ensureSharedToggleButtonV3135, 120);
+    setTimeout(window.ensureSharedToggleButtonV3135, 300);
+  }
+
+  var oldRenderReader = window.renderReader || (typeof renderReader !== "undefined" ? renderReader : null);
+  if(typeof oldRenderReader === "function"){
+    window.renderReader = function(){
+      var r = oldRenderReader.apply(this, arguments);
+      afterV3135();
+      return r;
+    };
+    try{ renderReader = window.renderReader; }catch(e){}
+  }
+
+  ["openReader", "openDailyVerse", "openVerseSpecial", "shareCurrent", "shareVerseCard", "markCurrentVerseCardSentDirect"].forEach(function(name){
+    try{
+      var old = window[name] || (typeof eval(name) !== "undefined" ? eval(name) : null);
+      if(typeof old !== "function" || old.__v3135Wrapped) return;
+      var wrapped = function(){
+        var r = old.apply(this, arguments);
+        afterV3135();
+        return r;
       };
-      delete store.custom[customIndex].isNew;
+      wrapped.__v3135Wrapped = true;
+      window[name] = wrapped;
+      try{ eval(name + " = window[name]"); }catch(e){}
+    }catch(e){}
+  });
+
+  document.addEventListener("DOMContentLoaded", afterV3135);
+  setTimeout(afterV3135, 250);
+})();
+
+/* v3.1.37 - Botón Buscar todos los versículos con buscador global */
+(function(){
+  if(window.__v3137AllVerseTitles) return;
+  window.__v3137AllVerseTitles = true;
+
+  function isVerseSentV3137(v){
+    return !!(v && (v.shared || v.lastCardSentAt));
+  }
+
+  function ensureAllVerseTitlesButtonsV3137(){
+    try{
+      var targets = [];
+      var readerHead = document.querySelector('#readerView .panel-head');
+      if(readerHead){
+        var readerTitles = Array.prototype.slice.call(readerHead.querySelectorAll('button')).find(function(b){
+          return (b.textContent || '').indexOf('Títulos') !== -1;
+        });
+        if(readerTitles) targets.push({anchor: readerTitles, id: 'btnReaderAllVerseTitlesV3137'});
+      }
+
+      targets.forEach(function(t){
+        if(!t.anchor || !t.anchor.parentNode) return;
+        var btn = document.getElementById(t.id);
+        if(!btn){
+          btn = document.createElement('button');
+          btn.id = t.id;
+          btn.className = 'btn soft all-verse-titles-btn-v3137';
+          btn.type = 'button';
+          btn.setAttribute('data-view-btn', 'allVerseTitles');
+          btn.setAttribute('onclick', 'openAllVerseTitlesViewV3137()');
+          btn.textContent = '🔎 Buscar todos';
+          t.anchor.parentNode.insertBefore(btn, t.anchor.nextSibling);
+        }
+      });
+      updateAllVerseTitlesButtonsV3137();
+    }catch(e){ console.error('ensureAllVerseTitlesButtonsV3137', e); }
+  }
+
+  function updateAllVerseTitlesButtonsV3137(){
+    try{
+      var show = (typeof section !== 'undefined' && section === 'verses');
+      document.querySelectorAll('.all-verse-titles-btn-v3137').forEach(function(btn){
+        btn.classList.toggle('hidden', !show);
+        btn.style.display = show ? '' : 'none';
+      });
+    }catch(e){}
+  }
+
+  window.renderAllVerseTitlesV3137 = function(){
+    try{
+      var box = document.getElementById('titlesList');
+      if(!box) return;
+      box.innerHTML = '';
+
+      var search = document.getElementById('titlesSearch');
+      var q = (search ? search.value : '').trim().toLowerCase();
+      var verses = (state && Array.isArray(state.verses) ? state.verses : []).map(function(v, idx){
+        var copy = Object.assign({}, v);
+        copy.__idx = idx;
+        copy.__code = 'V' + (idx + 1);
+        return copy;
+      });
+
+      if(q){
+        verses = verses.filter(function(v){
+          var cat = (typeof verseCategoryLabel === 'function') ? verseCategoryLabel(v.category) : (v.category || '');
+          var hay = [v.__code, v.reference, v.title, v.text, v.content, v.category, cat].filter(Boolean).join(' ').toLowerCase();
+          return hay.indexOf(q) !== -1;
+        });
+      }
+
+      if(!verses.length){
+        box.innerHTML = '<div class="empty">No hay resultados.</div>';
+        return;
+      }
+
+      var current = (typeof currentItem === 'function') ? currentItem() : null;
+      verses.forEach(function(v){
+        var div = document.createElement('div');
+        div.className = 'title-row' + (current && v.id === current.id ? ' active' : '') + (isVerseSentV3137(v) ? ' verse-sent-bg-v3134' : '');
+        var ref = escapeHtml(v.reference || v.title || 'Sin referencia');
+        var cat = '';
+        try{ cat = (typeof verseCategoryLabel === 'function') ? verseCategoryLabel(v.category) : (v.category || ''); }catch(e){}
+        var preview = escapeHtml(String(v.text || v.content || '').trim().replace(/\n+/g, ' ').slice(0, 90));
+        div.innerHTML = '<div class="title-code">' + escapeHtml(v.__code) + '</div>' +
+          '<div class="title-name">' + (isVerseSentV3137(v) ? '✓ ' : '') + ref + '</div>' +
+          '<div class="small-note">' + escapeHtml(cat || '') + (preview ? ' · ' + preview : '') + '</div>';
+        div.onclick = function(){
+          try{
+            section = 'verses';
+            state.section = 'verses';
+            state.currentVerseId = v.id;
+            currentVerseCategory = v.category || 'sin_categoria';
+            specialVerseMode = null;
+            verseNavigationMode = 'titles';
+            if(typeof saveState === 'function') saveState();
+            if(typeof syncTabs === 'function') syncTabs();
+            if(typeof renderList === 'function') renderList();
+            if(typeof renderReader === 'function') renderReader();
+            if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+            else if(typeof openReader === 'function') openReader();
+          }catch(e){ console.error('open all verse item', e); }
+        };
+        box.appendChild(div);
+      });
+    }catch(e){
+      console.error('renderAllVerseTitlesV3137', e);
+    }
+  };
+
+  window.openAllVerseTitlesViewV3137 = function(){
+    try{
+      section = 'verses';
+      state.section = 'verses';
+      specialVerseMode = null;
+      verseNavigationMode = 'allVerseTitles';
+      categoryListActive = false;
+      sentListActive = false;
+      if(typeof saveState === 'function') saveState();
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof clearNavModes === 'function') clearNavModes();
+      if(typeof setActiveView === 'function') setActiveView('allVerseTitles');
+
+      document.body.classList.add('titles-only','titles-fullscreen-v72');
+      document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','categories-fullscreen-v73','home-active-v9019');
+
+      ['readerView','editorView','backupView','trashView','verseCategoriesView','homeView'].forEach(function(id){
+        var el = document.getElementById(id); if(el) el.classList.add('hidden');
+      });
+      var titles = document.getElementById('titlesView');
+      if(titles) titles.classList.remove('hidden');
+      var search = document.getElementById('titlesSearch');
+      if(search){
+        search.value = '';
+        search.placeholder = 'Buscar en todos los versículos';
+      }
+      var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
+      if(backBtn) backBtn.setAttribute('onclick', 'backFromVerseTitlesV313()');
+      window.renderAllVerseTitlesV3137();
+      setTimeout(function(){ try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){} }, 30);
+    }catch(e){
+      console.error('openAllVerseTitlesViewV3137', e);
+      alert('No se pudo abrir Buscar todos.');
+    }
+  };
+
+  var oldRenderTitlesV3137 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
+  if(typeof oldRenderTitlesV3137 === 'function'){
+    window.renderTitles = function(){
+      try{
+        if(typeof section !== 'undefined' && section === 'verses' && typeof verseNavigationMode !== 'undefined' && verseNavigationMode === 'allVerseTitles'){
+          return window.renderAllVerseTitlesV3137();
+        }
+      }catch(e){}
+      return oldRenderTitlesV3137.apply(this, arguments);
+    };
+    try{ renderTitles = window.renderTitles; }catch(e){}
+  }
+
+  var oldSyncTabsV3137 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3137 === 'function'){
+    window.syncTabs = function(){
+      var r = oldSyncTabsV3137.apply(this, arguments);
+      ensureAllVerseTitlesButtonsV3137();
+      updateAllVerseTitlesButtonsV3137();
+      return r;
+    };
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  document.addEventListener('input', function(e){
+    try{
+      if(e.target && e.target.id === 'titlesSearch' && typeof section !== 'undefined' && section === 'verses' && typeof verseNavigationMode !== 'undefined' && verseNavigationMode === 'allVerseTitles'){
+        window.renderAllVerseTitlesV3137();
+      }
+    }catch(_e){}
+  }, true);
+
+  document.addEventListener('DOMContentLoaded', ensureAllVerseTitlesButtonsV3137);
+  setTimeout(ensureAllVerseTitlesButtonsV3137, 100);
+  setTimeout(ensureAllVerseTitlesButtonsV3137, 500);
+})();
+
+/* v3.1.38 - Títulos y Buscar todos en pantalla principal de Versículos */
+(function(){
+  if(window.__v3138VerseCategoriesTitleButtons) return;
+  window.__v3138VerseCategoriesTitleButtons = true;
+
+  function ensureVerseCategorySearchButtonsV3138(){
+    try{
+      var head = document.querySelector('#verseCategoriesView .categories-head-v73') || document.querySelector('#verseCategoriesView .panel-head');
+      if(!head) return;
+
+      var deleteBtn = Array.prototype.slice.call(head.querySelectorAll('button')).find(function(b){
+        return (b.textContent || '').indexOf('Eliminar') !== -1;
+      });
+
+      var titlesBtn = document.getElementById('btnVerseCatsTitlesV3138');
+      if(!titlesBtn){
+        titlesBtn = document.createElement('button');
+        titlesBtn.id = 'btnVerseCatsTitlesV3138';
+        titlesBtn.className = 'btn soft';
+        titlesBtn.type = 'button';
+        titlesBtn.textContent = '📑 Títulos';
+        titlesBtn.setAttribute('onclick', 'openTitlesView()');
+        head.insertBefore(titlesBtn, deleteBtn || null);
+      }
+
+      var allBtn = document.getElementById('btnVerseCatsAllTitlesV3138');
+      if(!allBtn){
+        allBtn = document.createElement('button');
+        allBtn.id = 'btnVerseCatsAllTitlesV3138';
+        allBtn.className = 'btn soft all-verse-titles-btn-v3137';
+        allBtn.type = 'button';
+        allBtn.textContent = '🔎 Buscar todos';
+        allBtn.setAttribute('data-view-btn', 'allVerseTitles');
+        allBtn.setAttribute('onclick', 'openAllVerseTitlesViewV3137()');
+        head.insertBefore(allBtn, deleteBtn || null);
+      }
+    }catch(e){ console.error('ensureVerseCategorySearchButtonsV3138', e); }
+  }
+
+  function removeReaderBuscarTodosV3138(){
+    try{
+      var btn = document.getElementById('btnReaderAllVerseTitlesV3137');
+      if(btn && btn.parentNode) btn.parentNode.removeChild(btn);
+    }catch(e){}
+  }
+
+  function afterV3138(){
+    ensureVerseCategorySearchButtonsV3138();
+    removeReaderBuscarTodosV3138();
+  }
+
+  var oldOpenVerseCategoriesV3138 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3138 === 'function' && !oldOpenVerseCategoriesV3138.__v3138Wrapped){
+    var wrappedOpenVerseCategoriesV3138 = function(){
+      var r = oldOpenVerseCategoriesV3138.apply(this, arguments);
+      setTimeout(afterV3138, 20);
+      setTimeout(afterV3138, 120);
+      return r;
+    };
+    wrappedOpenVerseCategoriesV3138.__v3138Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3138;
+    try{ openVerseCategories = window.openVerseCategories; }catch(e){}
+  }
+
+  var oldSyncTabsV3138 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3138 === 'function' && !oldSyncTabsV3138.__v3138Wrapped){
+    var wrappedSyncTabsV3138 = function(){
+      var r = oldSyncTabsV3138.apply(this, arguments);
+      setTimeout(afterV3138, 20);
+      return r;
+    };
+    wrappedSyncTabsV3138.__v3138Wrapped = true;
+    window.syncTabs = wrappedSyncTabsV3138;
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', afterV3138);
+  setTimeout(afterV3138, 100);
+  setTimeout(afterV3138, 500);
+  setInterval(removeReaderBuscarTodosV3138, 1000);
+})();
+
+/* ===== v3.1.43 - Inicio completo al volver desde lectores/favoritos ===== */
+(function(){
+  if(window.__v3143HomeChromeRestore) return;
+  window.__v3143HomeChromeRestore = true;
+
+  function restoreHomeChromeV3143(){
+    try{
+      document.body.classList.remove(
+        "favorites-fullscreen-v791",
+        "sent-fullscreen-v76",
+        "sent-reader-v903",
+        "verse-special-fullscreen-v74",
+        "verse-special-fullscreen-v751",
+        "calendar-fullscreen-v78",
+        "titles-fullscreen-v72",
+        "categories-fullscreen-v73",
+        "backup-only",
+        "special-view-only",
+        "reading-mobile",
+        "fullscreen-reading",
+        "hide-reading-ui",
+        "editing-focus"
+      );
+    }catch(e){}
+
+    try{
+      [".topbar", ".sidebar", "#list"].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){
+          el.style.display = "";
+          try{
+            delete el.dataset.v791FavDisplaySaved;
+            delete el.dataset.v791FavOldDisplay;
+          }catch(_e){}
+        });
+      });
+    }catch(e){}
+
+    try{
+      var main = document.querySelector(".main");
+      if(main){
+        main.style.display = "";
+        main.style.gridTemplateColumns = "";
+        main.style.minHeight = "";
+        try{ delete main.dataset.v791FavSaved; }catch(_e){}
+      }
+      var content = document.querySelector(".content");
+      if(content){
+        content.style.padding = "";
+        content.style.minHeight = "";
+        content.style.width = "";
+        content.style.maxWidth = "";
+        try{ delete content.dataset.v791FavSaved; }catch(_e){}
+      }
+    }catch(e){}
+  }
+
+  var oldShowHomeV3143 = window.showHomeV9019 || (typeof showHomeV9019 !== "undefined" ? showHomeV9019 : null);
+  if(typeof oldShowHomeV3143 === "function"){
+    window.showHomeV9019 = function(){
+      restoreHomeChromeV3143();
+      var r = oldShowHomeV3143.apply(this, arguments);
+      setTimeout(restoreHomeChromeV3143, 0);
+      return r;
+    };
+    try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
+  }
+})();
+
+
+/* v3.1.53 - Botón Nueva en pantalla principal de Versículos */
+(function(){
+  if(window.__v3153NewVerseFromCategories) return;
+  window.__v3153NewVerseFromCategories = true;
+
+  function chooseVerseCategoryForNewV3154(){
+    try{
+      if(typeof ensureVerseCategories === 'function') ensureVerseCategories();
+      var cats = (state && state.verseCategories && state.verseCategories.length)
+        ? state.verseCategories
+        : (typeof VERSE_CATEGORIES !== 'undefined' ? VERSE_CATEGORIES : []);
+      if(!cats || !cats.length) return null;
+      var msg = 'Elige la categoría para el nuevo versículo:\n\n' + cats.map(function(c, i){
+        return (i + 1) + '. ' + (c.label || c.id || 'Sin categoría');
+      }).join('\n');
+      var currentIndex = 1;
+      try{
+        var active = cats.findIndex(function(c){ return c.id === currentVerseCategory; });
+        if(active >= 0) currentIndex = active + 1;
+      }catch(e){}
+      var answer = prompt(msg, '');
+      if(answer === null) return null;
+      var n = parseInt(String(answer).trim(), 10);
+      if(!n || n < 1 || n > cats.length){
+        alert('Categoría no válida. No se ha creado el versículo.');
+        return null;
+      }
+      return cats[n - 1];
+    }catch(e){
+      console.error('chooseVerseCategoryForNewV3154', e);
+      return null;
+    }
+  }
+
+  function newVerseFromCategoriesV3154(){
+    try{
+      if(typeof section !== 'undefined') section = 'verses';
+      var cat = chooseVerseCategoryForNewV3154();
+      if(!cat) return;
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = (typeof uid === 'function') ? uid() : String(Date.now());
+      var title = 'Nueva referencia';
+      var item = {
+        id: id,
+        reference: title,
+        title: title,
+        category: cat.id || 'sin_categoria',
+        content: '',
+        text: '',
+        updatedAt: Date.now(),
+        favorite: false,
+        shared: false,
+        isNewVerse: true,
+        isNewItem: true
+      };
+      currentVerseCategory = item.category;
+      var items = (typeof getItems === 'function') ? getItems() : (state.verses || []);
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items); else state.verses = items;
+      if(typeof setCurrentId === 'function') setCurrentId(id); else state.currentVerseId = id;
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(e){
+      console.error('Nueva desde pantalla principal de Versículos', e);
+      alert('No se pudo crear el versículo.');
+    }
+  }
+
+  function ensureNewVerseButtonInCategoriesV3153(){
+    try{
+      var head = document.querySelector('#verseCategoriesView .categories-head-v73') || document.querySelector('#verseCategoriesView .panel-head');
+      if(!head) return;
+      if(document.getElementById('btnVerseCatsNewV3153')) return;
+
+      var btn = document.createElement('button');
+      btn.id = 'btnVerseCatsNewV3153';
+      btn.className = 'btn primary';
+      btn.type = 'button';
+      btn.textContent = '➕ Nueva';
+      btn.onclick = newVerseFromCategoriesV3154;
+
+      var volver = Array.prototype.slice.call(head.querySelectorAll('button')).find(function(b){
+        return (b.textContent || '').indexOf('Volver') !== -1;
+      });
+      if(volver && volver.nextSibling) head.insertBefore(btn, volver.nextSibling);
+      else if(volver) head.appendChild(btn);
+      else head.insertBefore(btn, head.firstChild || null);
+    }catch(e){ console.error('ensureNewVerseButtonInCategoriesV3153', e); }
+  }
+
+  function afterV3153(){
+    ensureNewVerseButtonInCategoriesV3153();
+  }
+
+  var oldOpenVerseCategoriesV3153 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3153 === 'function' && !oldOpenVerseCategoriesV3153.__v3153Wrapped){
+    var wrappedOpenVerseCategoriesV3153 = function(){
+      var r = oldOpenVerseCategoriesV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
+      setTimeout(afterV3153, 150);
+      return r;
+    };
+    wrappedOpenVerseCategoriesV3153.__v3153Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3153;
+    try{ openVerseCategories = window.openVerseCategories; }catch(e){}
+  }
+
+  var oldSyncTabsV3153 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3153 === 'function' && !oldSyncTabsV3153.__v3153Wrapped){
+    var wrappedSyncTabsV3153 = function(){
+      var r = oldSyncTabsV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
+      return r;
+    };
+    wrappedSyncTabsV3153.__v3153Wrapped = true;
+    window.syncTabs = wrappedSyncTabsV3153;
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', afterV3153);
+  setTimeout(afterV3153, 100);
+  setTimeout(afterV3153, 600);
+})();
+
+/* v3.1.56 - Selector propio de categoría para Nueva en pantalla principal de Versículos */
+(function(){
+  if(window.__v3156NewVerseCategoryModal) return;
+  window.__v3156NewVerseCategoryModal = true;
+
+  function catsV3156(){
+    try{ if(typeof ensureVerseCategories === 'function') ensureVerseCategories(); }catch(e){}
+
+    var out = [];
+    var seen = {};
+    function addCat(c){
+      if(!c) return;
+      var id = c.id || c.category || '';
+      if(!id) return;
+      if(seen[id]) return;
+      seen[id] = true;
+      out.push({ id:id, label:(c.label || (typeof verseCategoryLabel === 'function' ? verseCategoryLabel(id) : id) || id) });
+    }
+
+    if(typeof state !== 'undefined' && state && Array.isArray(state.verseCategories)){
+      state.verseCategories.forEach(addCat);
+    }
+    if(typeof VERSE_CATEGORIES !== 'undefined' && Array.isArray(VERSE_CATEGORIES)){
+      VERSE_CATEGORIES.forEach(addCat);
+    }
+
+    try{
+      var allVerses = [];
+      if(typeof state !== 'undefined' && state && Array.isArray(state.verses)) allVerses = allVerses.concat(state.verses);
+      if(typeof state !== 'undefined' && state && Array.isArray(state.trashVerses)) allVerses = allVerses.concat(state.trashVerses);
+      allVerses.forEach(function(v){
+        if(v && v.category) addCat({id:v.category, label:(typeof verseCategoryLabel === 'function' ? verseCategoryLabel(v.category) : v.category)});
+      });
+    }catch(e){}
+
+    return out;
+  }
+
+  function createVerseInCategoryV3156(cat){
+    try{
+      if(!cat) return;
+      if(typeof section !== 'undefined') section = 'verses';
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = (typeof uid === 'function') ? uid() : String(Date.now());
+      var title = 'Nueva referencia';
+      var item = {
+        id: id,
+        reference: title,
+        title: title,
+        category: cat.id || 'sin_categoria',
+        content: '',
+        text: '',
+        updatedAt: Date.now(),
+        favorite: false,
+        shared: false,
+        isNewVerse: true,
+        isNewItem: true
+      };
+      currentVerseCategory = item.category;
+      var items = (typeof getItems === 'function') ? getItems() : (state.verses || []);
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items); else state.verses = items;
+      if(typeof setCurrentId === 'function') setCurrentId(id); else state.currentVerseId = id;
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(e){
+      console.error('createVerseInCategoryV3156', e);
+      alert('No se pudo crear el versículo.');
+    }
+  }
+
+  function closeModalV3156(){
+    var old = document.getElementById('verseCategoryModalV3156');
+    if(old) old.remove();
+  }
+
+  function showCategoryModalV3156(){
+    try{
+      closeModalV3156();
+      var cats = catsV3156();
+      if(!cats || !cats.length){ alert('No hay categorías disponibles.'); return; }
+
+      var overlay = document.createElement('div');
+      overlay.id = 'verseCategoryModalV3156';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;';
+
+      var card = document.createElement('div');
+      card.style.cssText = 'width:min(92vw,560px);max-height:88vh;overflow:hidden;background:#fff;border-radius:26px;padding:22px;box-shadow:0 18px 40px rgba(0,0,0,.28);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#1d2733;display:flex;flex-direction:column;';
+
+      var title = document.createElement('div');
+      title.textContent = 'Elige categoría';
+      title.style.cssText = 'font-size:24px;font-weight:800;margin-bottom:8px;';
+      card.appendChild(title);
+
+      var sub = document.createElement('div');
+      sub.textContent = 'Selecciona dónde guardar el nuevo versículo (' + cats.length + ' categorías).';
+      sub.style.cssText = 'font-size:16px;color:#67717d;margin-bottom:18px;line-height:1.35;';
+      card.appendChild(sub);
+
+      var list = document.createElement('div');
+      list.style.cssText = 'display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:58vh;padding-right:4px;-webkit-overflow-scrolling:touch;';
+      cats.forEach(function(cat){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = cat.label || cat.id || 'Sin categoría';
+        btn.style.cssText = 'width:100%;text-align:left;border:1px solid #e2d8c8;background:#faf8f2;border-radius:18px;padding:14px 16px;font-size:18px;font-weight:700;color:#1d2733;box-shadow:0 3px 10px rgba(0,0,0,.04);';
+        btn.onclick = function(){ closeModalV3156(); createVerseInCategoryV3156(cat); };
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      if(cats.length > 8){
+        var hint = document.createElement('div');
+        hint.textContent = 'Desliza para ver todas las categorías.';
+        hint.style.cssText = 'font-size:13px;color:#7b6f60;margin-top:10px;text-align:center;';
+        card.appendChild(hint);
+      }
+
+      var footer = document.createElement('div');
+      footer.style.cssText = 'display:flex;justify-content:flex-end;margin-top:18px;';
+      var cancel = document.createElement('button');
+      cancel.type = 'button';
+      cancel.textContent = 'Cancelar';
+      cancel.style.cssText = 'border:0;background:#eee7dc;border-radius:16px;padding:12px 18px;font-size:17px;font-weight:700;color:#2b2b2b;';
+      cancel.onclick = closeModalV3156;
+      footer.appendChild(cancel);
+      card.appendChild(footer);
+
+      overlay.appendChild(card);
+      overlay.addEventListener('click', function(ev){ if(ev.target === overlay) closeModalV3156(); });
+      document.body.appendChild(overlay);
+    }catch(e){
+      console.error('showCategoryModalV3156', e);
+      alert('No se pudo abrir el selector de categorías.');
+    }
+  }
+
+  function bindNewButtonV3156(){
+    try{
+      var btn = document.getElementById('btnVerseCatsNewV3153');
+      if(btn){
+        btn.onclick = showCategoryModalV3156;
+        btn.dataset.v3156Bound = '1';
+      }
+    }catch(e){}
+  }
+
+  var oldOpenVerseCategoriesV3156 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3156 === 'function' && !oldOpenVerseCategoriesV3156.__v3156Wrapped){
+    var wrappedOpenVerseCategoriesV3156 = function(){
+      var r = oldOpenVerseCategoriesV3156.apply(this, arguments);
+      setTimeout(bindNewButtonV3156, 30);
+      setTimeout(bindNewButtonV3156, 180);
+      return r;
+    };
+    wrappedOpenVerseCategoriesV3156.__v3156Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3156;
+    try{ openVerseCategories = window.openVerseCategories; }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(bindNewButtonV3156, 200); });
+  setTimeout(bindNewButtonV3156, 300);
+  setTimeout(bindNewButtonV3156, 900);
+})();
+
+/* v3.1.59 - Eliminar vuelve a la botonera del lector de la sección */
+(function(){
+  if(window.__v3159DeleteBackToReaderToolbar) return;
+  window.__v3159DeleteBackToReaderToolbar = true;
+
+  function backToReaderToolbarV3159(){
+    try{
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('backToReaderToolbarV3159', e);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+
+  window.moveToTrash = function(){
+    var item = (typeof currentItem === 'function') ? currentItem() : null;
+    if(!item) return;
+
+    var items = (typeof getItems === 'function') ? getItems() : [];
+    if(items.length === 1) return alert('Debe quedar al menos un elemento.');
+
+    var typeName = 'elemento';
+    try{
+      typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(section).sing :
+        (section === 'prayers' ? 'oración' : section === 'notes' ? 'nota' : section === 'guides' ? 'guía' : section === 'parables' ? 'parábola' : 'versículo');
+    }catch(_t){}
+
+    if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
+
+    var trash = (typeof getTrash === 'function') ? getTrash() : [];
+    trash.unshift(Object.assign({}, item, {deletedAt: Date.now()}));
+    if(typeof setTrash === 'function') setTrash(trash);
+
+    var filtered = items.filter(function(x){ return x.id !== item.id; });
+    if(typeof setItems === 'function') setItems(filtered);
+
+    if(filtered[0]){
+      try{
+        if(section === 'prayers') state.currentPrayerId = filtered[0].id;
+        else if(section === 'notes') state.currentNoteId = filtered[0].id;
+        else if(section === 'guides') state.currentGuideId = filtered[0].id;
+        else if(section === 'parables') state.currentParableId = filtered[0].id;
+        else state.currentVerseId = filtered[0].id;
+      }catch(_s){}
+    }
+
+    if(typeof saveState === 'function') saveState();
+    if(typeof syncTabs === 'function') syncTabs();
+    if(typeof renderList === 'function') renderList();
+    if(typeof renderReader === 'function') renderReader();
+    if(typeof applyReaderFont === 'function') applyReaderFont();
+    backToReaderToolbarV3159();
+    if(typeof toast === 'function') toast('Movido a papelera');
+  };
+
+  try{ moveToTrash = window.moveToTrash; }catch(e){}
+})();
+
+/* v3.1.60 - Eliminar versículos vuelve a la pantalla limpia de Versículos */
+(function(){
+  if(window.__v3160DeleteVerseBackClean) return;
+  window.__v3160DeleteVerseBackClean = true;
+
+  function openCleanVerseCategoriesV3160(){
+    try{
+      section = 'verses';
+      if(state) state.section = 'verses';
+      if(typeof specialVerseMode !== 'undefined') specialVerseMode = null;
+      if(typeof verseNavigationMode !== 'undefined') verseNavigationMode = 'categories';
+
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['readerView','editorView','backupView','trashView','titlesView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'fullscreen-reading',
+        'reading-mobile',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+
+      if(typeof openVerseCategories === 'function'){
+        openVerseCategories();
+      }else{
+        var vc = document.getElementById('verseCategoriesView');
+        if(vc) vc.classList.remove('hidden');
+      }
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('openCleanVerseCategoriesV3160', e);
+      try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
+    }
+  }
+
+  function backToReaderToolbarV3160(){
+    try{
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('backToReaderToolbarV3160', e);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+
+  window.moveToTrash = function(){
+    var item = (typeof currentItem === 'function') ? currentItem() : null;
+    if(!item) return;
+
+    var currentSection = section;
+    var items = (typeof getItems === 'function') ? getItems() : [];
+    if(items.length === 1) return alert('Debe quedar al menos un elemento.');
+
+    var typeName = 'elemento';
+    try{
+      typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(currentSection).sing :
+        (currentSection === 'prayers' ? 'oración' : currentSection === 'notes' ? 'nota' : currentSection === 'guides' ? 'guía' : currentSection === 'parables' ? 'parábola' : 'versículo');
+    }catch(_t){}
+
+    if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
+
+    var trash = (typeof getTrash === 'function') ? getTrash() : [];
+    trash.unshift(Object.assign({}, item, {deletedAt: Date.now()}));
+    if(typeof setTrash === 'function') setTrash(trash);
+
+    var filtered = items.filter(function(x){ return x.id !== item.id; });
+    if(typeof setItems === 'function') setItems(filtered);
+
+    if(filtered[0]){
+      try{
+        if(currentSection === 'prayers') state.currentPrayerId = filtered[0].id;
+        else if(currentSection === 'notes') state.currentNoteId = filtered[0].id;
+        else if(currentSection === 'guides') state.currentGuideId = filtered[0].id;
+        else if(currentSection === 'parables') state.currentParableId = filtered[0].id;
+        else state.currentVerseId = filtered[0].id;
+      }catch(_s){}
+    }
+
+    if(typeof saveState === 'function') saveState();
+    if(typeof syncTabs === 'function') syncTabs();
+
+    if(currentSection === 'verses'){
+      openCleanVerseCategoriesV3160();
     }else{
-      store.edits[values.id]={
-        ...(store.edits[values.id]||{}),
-        title:values.title,
-        date:values.date,
-        summary:values.summary,
-        meaning:values.meaning,
-        notes:values.notes,
-        passageItems:passages,
-        updatedAt:new Date().toISOString()
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof applyReaderFont === 'function') applyReaderFont();
+      backToReaderToolbarV3160();
+    }
+
+    if(typeof toast === 'function') toast('Movido a papelera');
+  };
+
+  try{ moveToTrash = window.moveToTrash; }catch(e){}
+})();
+
+
+/* v3.1.61 - Acceso directo a Papelera en pantalla principal de Versículos */
+
+
+/* v3.1.62 - Contador independiente de compartidos y últimas 3 fechas */
+(function(){
+  if(window.__v3162VerseShareStats) return;
+  window.__v3162VerseShareStats = true;
+
+  function currentVerseV3162(){
+    try{
+      if(typeof section !== "undefined" && section !== "verses") return null;
+      if(typeof currentItem === "function"){
+        var item = currentItem();
+        if(item) return item;
+      }
+      var id = window.state && state.currentVerseId;
+      if(!id || !state || !Array.isArray(state.verses)) return null;
+      return state.verses.find(function(v){ return v && v.id === id; }) || null;
+    }catch(e){ return null; }
+  }
+
+  function normalizedStatsV3162(v){
+    var raw = v && v.shareStatsV3162;
+    var count = raw && Number.isFinite(Number(raw.count)) ? Math.max(0, Number(raw.count)) : 0;
+    var dates = raw && Array.isArray(raw.lastDates) ? raw.lastDates.map(Number).filter(function(x){ return Number.isFinite(x) && x > 0; }).slice(0,3) : [];
+    return {count:count, lastDates:dates};
+  }
+
+  window.recordVerseShareV3162 = function(v){
+    try{
+      if(!v) return;
+      var stats = normalizedStatsV3162(v);
+      var now = Date.now();
+      v.shareStatsV3162 = {
+        count: stats.count + 1,
+        lastDates: [now].concat(stats.lastDates).slice(0,3)
       };
+      if(typeof saveState === "function") saveState();
+      setTimeout(window.renderVerseShareStatsV3162, 0);
+    }catch(e){ console.error("recordVerseShareV3162", e); }
+  };
+
+  function formatShareDateV3162(ts){
+    try{
+      return new Intl.DateTimeFormat("es-ES", {
+        day:"2-digit", month:"2-digit", year:"numeric",
+        hour:"2-digit", minute:"2-digit"
+      }).format(new Date(ts));
+    }catch(e){
+      var d=new Date(ts);
+      return d.toLocaleString("es-ES");
     }
   }
 
-  saveBiblicalFestivityStore(store);
-  currentBiblicalFestivityId=values.id;
-  toast(values.isNew?'Festividad añadida':'Festividad actualizada');
-  openBiblicalFestivityDetail(values.id);
-}
+  window.renderVerseShareStatsV3162 = function(){
+    try{
+      var reader = document.getElementById("readerView");
+      if(!reader) return;
+      var old = document.getElementById("verseShareStatsV3162");
+      var v = currentVerseV3162();
+      var stats = normalizedStatsV3162(v);
+      if(!v || stats.count < 1){
+        if(old && old.parentNode) old.parentNode.removeChild(old);
+        return;
+      }
+      var box = old || document.createElement("div");
+      box.id = "verseShareStatsV3162";
+      box.className = "verse-share-stats-v3162";
+      var times = stats.count === 1 ? "1 vez" : stats.count + " veces";
+      var html = '<div class="verse-share-count-v3162">📤 Compartido <strong>' + times + '</strong></div>';
+      if(stats.lastDates.length){
+        html += '<div class="verse-share-last-title-v3162">Últimos envíos</div>';
+        html += '<div class="verse-share-dates-v3162">' + stats.lastDates.map(function(ts){
+          return '<span>🗓️ ' + formatShareDateV3162(ts) + '</span>';
+        }).join('') + '</div>';
+      }
+      box.innerHTML = html;
+      if(!old){
+        var anchor = document.getElementById("readerCategory") || document.getElementById("readerCode");
+        if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
+      }
+    }catch(e){ console.error("renderVerseShareStatsV3162", e); }
+  };
 
-function deleteBiblicalFestivity(id){
-  const f=findBiblicalFestivity(id);
-  if(!f)return;
+  try{
+    var originalRenderReaderV3162 = renderReader;
+    window.renderReader = function(){
+      var result = originalRenderReaderV3162.apply(this, arguments);
+      setTimeout(window.renderVerseShareStatsV3162, 0);
+      return result;
+    };
+    try{ renderReader = window.renderReader; }catch(e){}
+  }catch(e){}
 
-  if(!confirm(`¿Eliminar la festividad "${f.title}"?`))return;
+  document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(window.renderVerseShareStatsV3162, 120);
+  });
+})();
 
-  const store=biblicalFestivityStore();
-  const customIndex=store.custom.findIndex(item=>item.id===id);
 
-  if(customIndex>=0){
-    store.custom.splice(customIndex,1);
-  }else{
-    if(!store.deleted.includes(id))store.deleted.push(id);
-    delete store.edits[id];
+/* ===== v3.1.66 - Compartir bonito como HTML (oraciones, notas, guías y parábolas) ===== */
+(function(){
+  if(window.__shareBeautifulV3166Installed) return;
+  window.__shareBeautifulV3166Installed = true;
+
+  function escV3166(value){
+    return String(value == null ? "" : value)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
   }
 
-  saveBiblicalFestivityStore(store);
-  toast('Festividad eliminada');
-  backToBiblicalFestivityList();
-}
-
-function saveFestivityPassages(id,passageItems){
-  const store=biblicalFestivityStore();
-  const customIndex=store.custom.findIndex(item=>item.id===id);
-
-  if(customIndex>=0){
-    store.custom[customIndex]={
-      ...store.custom[customIndex],
-      passageItems,
-      updatedAt:new Date().toISOString()
-    };
-  }else{
-    store.edits[id]={
-      ...(store.edits[id]||{}),
-      passageItems,
-      updatedAt:new Date().toISOString()
-    };
+  function fileNameV3166(title){
+    var base = String(title || "lectura")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^a-zA-Z0-9\s_-]/g,"")
+      .trim().replace(/\s+/g,"_").replace(/_+/g,"_")
+      .slice(0,80);
+    return (base || "lectura") + ".html";
   }
 
-  saveBiblicalFestivityStore(store);
-}
+  function sectionMetaV3166(){
+    if(section === "prayers") return {label:"Oración", icon:"🙏", accent:"#8a6a3f"};
+    if(section === "notes") return {label:"Nota", icon:"📝", accent:"#55735d"};
+    if(section === "guides") return {label:"Guía", icon:"📜", accent:"#596f8f"};
+    if(section === "parables") return {label:"Parábola", icon:"🌱", accent:"#66805a"};
+    return null;
+  }
 
-function addBiblicalFestivityPassage(){
-  if(!currentBiblicalFestivityId)return;
-  openBiblicalPassageEditor('');
-}
+  function inlineFormatV3166(text){
+    var safe=escV3166(text);
+    safe=safe.replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>");
+    return safe;
+  }
 
-function editBiblicalFestivityPassage(passageId){
-  openBiblicalPassageEditor(passageId);
-}
+  function textToHtmlV3166(text){
+    var normalized=String(text||"").replace(/\r\n?/g,"\n").trim();
+    if(!normalized) return '<p class="empty">Sin contenido.</p>';
+    var chunks=normalized.split(/\n{2,}/);
+    return chunks.map(function(chunk){
+      var line=chunk.trim();
+      if(!line) return "";
+      var lines=line.split("\n");
+      if(lines.length===1 && /^#{1,3}\s+/.test(line)){
+        return '<h2>'+inlineFormatV3166(line.replace(/^#{1,3}\s+/,""))+'</h2>';
+      }
+      if(lines.length===1 && /^(📖|🙏|📝|🌿|✝️|🌱|💡|📜|❤️|🕊️|🌍|⭐|👉)\s*/.test(line) && line.length<120){
+        return '<h2>'+inlineFormatV3166(line)+'</h2>';
+      }
+      if(lines.every(function(x){return /^\s*[-•]\s+/.test(x)})){
+        return '<ul>'+lines.map(function(x){return '<li>'+inlineFormatV3166(x.replace(/^\s*[-•]\s+/,""))+'</li>';}).join("")+'</ul>';
+      }
+      return '<p>'+lines.map(inlineFormatV3166).join('<br>')+'</p>';
+    }).join("\n");
+  }
 
-function openBiblicalPassageEditor(passageId=''){
-  const f=findBiblicalFestivity(currentBiblicalFestivityId);
-  if(!f)return;
+  function contentToHtmlV3166(content){
+    var raw=String(content||"").replace(/\r\n?/g,"\n");
+    var re=/\[(desplegable|emergente)\s+titulo="([^"]*)"\]([\s\S]*?)\[\/\1\]/gi;
+    var out="", last=0, match;
+    while((match=re.exec(raw))){
+      var before=raw.slice(last,match.index).trim();
+      if(before) out += '<div class="prose">'+textToHtmlV3166(before)+'</div>';
+      var title=match[2]||"Apartado";
+      var body=match[3]||"";
+      out += '<section class="content-section"><div class="section-title">'+escV3166(title)+'</div><div class="section-body prose">'+textToHtmlV3166(body)+'</div></section>';
+      last=re.lastIndex;
+    }
+    var after=raw.slice(last).trim();
+    if(after) out += '<div class="prose">'+textToHtmlV3166(after)+'</div>';
+    return out || '<p class="empty">Sin contenido.</p>';
+  }
 
-  const passages=normalizeBiblicalFestivityPassages(f);
-  const existing=passages.find(p=>p.id===passageId);
-  const reference=prompt(
-    existing?'Editar referencia bíblica:':'Escribe la referencia bíblica:',
-    existing?.reference||''
-  );
-  if(reference===null)return;
+  function buildBeautifulHtmlV3166(item, meta){
+    var title=escV3166(item.title||"Sin título");
+    var content=contentToHtmlV3166(item.content||item.text||"");
+    var date=new Intl.DateTimeFormat("es-ES",{day:"numeric",month:"long",year:"numeric"}).format(new Date());
+    return '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light"><title>'+title+'</title><style>'+
+      ':root{--accent:'+meta.accent+';--ink:#29302c;--muted:#6f7871;--paper:#fffefb;--wash:#f4f1e9;--line:#ded8ca}*{box-sizing:border-box}html{background:var(--wash)}body{margin:0;color:var(--ink);background:radial-gradient(circle at 10% 0,#fff 0,transparent 34%),linear-gradient(180deg,#f7f4ed,#ece8de);font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}.page{max-width:780px;margin:0 auto;padding:28px 16px 42px}.sheet{overflow:hidden;background:var(--paper);border:1px solid rgba(120,110,90,.18);border-radius:24px;box-shadow:0 18px 55px rgba(63,55,40,.13)}.hero{padding:38px 30px 30px;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(245,241,231,.96));border-bottom:1px solid var(--line)}.icon{font-size:34px;line-height:1;margin-bottom:13px}.kind{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-size:clamp(27px,6vw,42px);line-height:1.16;margin:0;overflow-wrap:anywhere}.ornament{width:86px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.62}.content{padding:30px clamp(22px,6vw,52px) 42px}.prose{font-size:clamp(18px,4.4vw,21px);line-height:1.78}.prose p{margin:0 0 1.22em}.prose h2{font-size:1.08em;line-height:1.4;color:var(--accent);margin:1.7em 0 .7em}.prose ul{padding-left:1.25em;margin:0 0 1.3em}.prose li{margin:.42em 0}.content-section{margin:28px 0;border:1px solid var(--line);border-radius:18px;background:#fcfaf5;overflow:hidden;box-shadow:0 7px 22px rgba(73,63,44,.055)}.section-title{padding:15px 18px;font:700 17px/1.35 Arial,sans-serif;color:var(--accent);background:linear-gradient(90deg,rgba(255,255,255,.92),rgba(245,241,231,.88));border-bottom:1px solid var(--line)}.section-body{padding:20px 20px 5px}.empty{color:var(--muted);font-style:italic}.footer{text-align:center;padding:19px 24px 22px;border-top:1px solid var(--line);font:13px/1.5 Arial,sans-serif;color:var(--muted);background:#faf8f2}.footer strong{color:var(--accent)}@media(max-width:480px){.page{padding:0}.sheet{border:0;border-radius:0;min-height:100vh}.hero{padding:32px 21px 25px}.content{padding:25px 20px 34px}.content-section{margin:23px 0}.section-body{padding:18px 17px 3px}}@media print{html,body{background:#fff}.page{padding:0;max-width:none}.sheet{border:0;box-shadow:none}.footer{break-inside:avoid}.content-section{break-inside:avoid}}'+
+      '</style></head><body><main class="page"><article class="sheet"><header class="hero"><div class="icon">'+meta.icon+'</div><div class="kind">'+escV3166(meta.label)+'</div><h1>'+title+'</h1><div class="ornament"></div></header><div class="content">'+content+'</div><footer class="footer">Compartido con cariño · <strong>Oraciones</strong><br>'+escV3166(date)+'</footer></article></main></body></html>';
+  }
 
-  const cleanReference=reference.trim();
-  if(!cleanReference){
-    toast('La referencia no puede estar vacía');
+  window.shareBeautifulHTMLV3166=async function(){
+    var meta=sectionMetaV3166();
+    if(!meta){
+      if(typeof toast==="function") toast("Disponible en oraciones, notas, guías, parábolas y salmos");
+      return;
+    }
+    var item=typeof currentItem==="function"?currentItem():null;
+    if(!item) return;
+    var html=buildBeautifulHtmlV3166(item,meta);
+    var filename=fileNameV3166(item.title);
+    var file=new File([html],filename,{type:"text/html"});
+    try{
+      if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+        await navigator.share({title:item.title||meta.label,text:"He preparado esta "+meta.label.toLowerCase()+" para que puedas leerla cómodamente.",files:[file]});
+        if(typeof toast==="function") toast("Documento compartido");
+        return;
+      }
+      if(typeof downloadBlob==="function"){
+        downloadBlob(filename,new Blob([html],{type:"text/html;charset=utf-8"}));
+        if(typeof toast==="function") toast("HTML descargado para compartir");
+      }
+    }catch(err){
+      if(err && err.name==="AbortError") return;
+      try{
+        if(typeof downloadBlob==="function") downloadBlob(filename,new Blob([html],{type:"text/html;charset=utf-8"}));
+        if(typeof toast==="function") toast("No se pudo compartir; se ha descargado el HTML");
+      }catch(e){}
+    }
+  };
+
+  function syncButtonV3166(){
+    var b=document.getElementById("shareBeautifulBtnV3166");
+    if(!b) return;
+    b.style.display=(section==="prayers"||section==="notes"||section==="guides"||section==="parables"||section==="psalms")?"":"none";
+  }
+  var oldSyncTabsV3166=window.syncTabs||(typeof syncTabs!=="undefined"?syncTabs:null);
+  if(typeof oldSyncTabsV3166==="function"){
+    window.syncTabs=function(){var r=oldSyncTabsV3166.apply(this,arguments);syncButtonV3166();return r;};
+    try{syncTabs=window.syncTabs;}catch(e){}
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV3166); else setTimeout(syncButtonV3166,0);
+})();
+
+/* v3.1.70 - Organización manual: mantener visible el título movido */
+(function(){
+  if(window.__v3168TitleOrganizer) return;
+  window.__v3168TitleOrganizer = true;
+
+  var organizeModeV3168 = false;
+
+  function supportsTitleOrderV3168(){
+    try{ return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1; }
+    catch(e){ return false; }
+  }
+
+  function ensureOrganizeButtonV3168(){
+    var head = document.querySelector('#titlesView .titles-head-v72');
+    if(!head) return null;
+    var btn = document.getElementById('organizeTitlesBtnV3168');
+    if(!btn){
+      btn = document.createElement('button');
+      btn.id = 'organizeTitlesBtnV3168';
+      btn.type = 'button';
+      btn.className = 'btn soft organize-titles-btn-v3168';
+      btn.onclick = function(e){
+        if(e){ e.preventDefault(); e.stopPropagation(); }
+        organizeModeV3168 = !organizeModeV3168;
+        updateOrganizeButtonV3168();
+        if(typeof window.renderTitles === 'function') window.renderTitles();
+      };
+      var search = document.getElementById('titlesSearch');
+      if(search) head.insertBefore(btn, search);
+      else head.appendChild(btn);
+    }
+    return btn;
+  }
+
+  function updateOrganizeButtonV3168(){
+    var btn = ensureOrganizeButtonV3168();
+    if(!btn) return;
+    var show = supportsTitleOrderV3168();
+    btn.style.display = show ? '' : 'none';
+    btn.textContent = organizeModeV3168 ? 'Finalizar' : 'Ordenar';
+    btn.classList.toggle('active-organize-v3168', organizeModeV3168);
+    document.body.classList.toggle('organizing-titles-v3168', show && organizeModeV3168);
+  }
+
+  function displayCodeV3168(index){
+    try{ return typeof getDisplayCode === 'function' ? getDisplayCode(index, section) : String(index + 1); }
+    catch(e){ return String(index + 1); }
+  }
+
+  function titleTextV3168(item){
+    try{ return typeof displayItemTitle === 'function' ? displayItemTitle(item) : (item.title || item.reference || 'Sin título'); }
+    catch(e){ return item.title || item.reference || 'Sin título'; }
+  }
+
+  function moveTitleV3168(id, direction){
+    if(!supportsTitleOrderV3168()) return;
+
+    // Guardamos la posición visual exacta de la tarjeta antes de volver a pintar
+    // la lista. Así el elemento que se está moviendo permanece bajo la mirada
+    // y la pantalla no regresa al principio.
+    var selector = '#titlesList .title-row[data-title-id="'+String(id).replace(/"/g,'\\"')+'"]';
+    var previousRow = document.querySelector(selector);
+    var previousTop = previousRow ? previousRow.getBoundingClientRect().top : null;
+
+    var items = (typeof getItems === 'function' ? getItems() : []).slice();
+    var index = items.findIndex(function(item){ return item && item.id === id; });
+    var nextIndex = index + direction;
+    if(index < 0 || nextIndex < 0 || nextIndex >= items.length) return;
+
+    var temp = items[index];
+    items[index] = items[nextIndex];
+    items[nextIndex] = temp;
+    // Guardamos también el desplazamiento real antes de repintar. En esta
+    // pantalla el scroll pertenece al documento; renderList/renderReader
+    // lo devolvían al inicio, aunque después intentáramos seguir la tarjeta.
+    var scrollRoot = document.scrollingElement || document.documentElement;
+    var previousScrollTop = scrollRoot ? scrollRoot.scrollTop : (window.pageYOffset || 0);
+
+    if(typeof setItems === 'function') setItems(items);
+    if(typeof saveState === 'function') saveState();
+
+    // Solo hay que repintar la lista de títulos. La lista lateral y el lector
+    // se actualizarán normalmente al abrir un elemento; repintarlos aquí era
+    // la causa de que la vista saltara al principio.
+    if(typeof window.renderTitles === 'function') window.renderTitles();
+
+    if(scrollRoot) scrollRoot.scrollTop = previousScrollTop;
+    else window.scrollTo(0, previousScrollTop);
+
+    requestAnimationFrame(function(){
+      var row = document.querySelector(selector);
+      if(!row) return;
+      if(previousTop !== null){
+        var currentTop = row.getBoundingClientRect().top;
+        var correction = currentTop - previousTop;
+        if(Math.abs(correction) > 1){
+          if(scrollRoot) scrollRoot.scrollTop += correction;
+          else window.scrollBy(0, correction);
+        }
+      }else if(row.scrollIntoView){
+        row.scrollIntoView({block:'nearest'});
+      }
+    });
+    if(typeof toast === 'function') toast('Orden actualizado');
+  }
+
+  var previousRenderTitlesV3168 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
+  window.renderTitles = function(){
+    updateOrganizeButtonV3168();
+    if(!organizeModeV3168 || !supportsTitleOrderV3168()){
+      return typeof previousRenderTitlesV3168 === 'function' ? previousRenderTitlesV3168.apply(this, arguments) : undefined;
+    }
+
+    var box = document.getElementById('titlesList');
+    if(!box) return;
+    box.innerHTML = '';
+
+    var q = (document.getElementById('titlesSearch') && document.getElementById('titlesSearch').value || '').trim().toLowerCase();
+    var source = typeof getItems === 'function' ? getItems() : [];
+    var items = source.map(function(item, index){ return {item:item, index:index}; });
+    if(q){
+      items = items.filter(function(entry){ return titleTextV3168(entry.item).toLowerCase().indexOf(q) !== -1; });
+    }
+
+    if(!items.length){
+      box.innerHTML = '<div class="empty">No hay resultados.</div>';
+      return;
+    }
+
+    items.forEach(function(entry){
+      var item = entry.item;
+      var index = entry.index;
+      var row = document.createElement('div');
+      row.className = 'title-row title-row-organize-v3168';
+      row.setAttribute('data-title-id', item.id);
+
+      var code = document.createElement('div');
+      code.className = 'title-code';
+      code.textContent = displayCodeV3168(index);
+
+      var name = document.createElement('div');
+      name.className = 'title-name';
+      name.textContent = titleTextV3168(item);
+
+      var controls = document.createElement('div');
+      controls.className = 'title-order-controls-v3168';
+
+      var up = document.createElement('button');
+      up.type = 'button';
+      up.className = 'title-order-arrow-v3168';
+      up.textContent = '↑';
+      up.title = 'Subir';
+      up.setAttribute('aria-label', 'Subir título');
+      up.disabled = index === 0;
+      up.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV3168(item.id, -1); };
+
+      var down = document.createElement('button');
+      down.type = 'button';
+      down.className = 'title-order-arrow-v3168';
+      down.textContent = '↓';
+      down.title = 'Bajar';
+      down.setAttribute('aria-label', 'Bajar título');
+      down.disabled = index === source.length - 1;
+      down.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV3168(item.id, 1); };
+
+      controls.appendChild(up);
+      controls.appendChild(down);
+      row.appendChild(code);
+      row.appendChild(name);
+      row.appendChild(controls);
+      box.appendChild(row);
+    });
+  };
+  try{ renderTitles = window.renderTitles; }catch(e){}
+
+  var previousOpenTitlesV3168 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV3168 === 'function'){
+    window.openTitlesView = function(){
+      organizeModeV3168 = false;
+      var result = previousOpenTitlesV3168.apply(this, arguments);
+      updateOrganizeButtonV3168();
+      return result;
+    };
+    try{ openTitlesView = window.openTitlesView; }catch(e){}
+  }
+
+  var previousSyncTabsV3168 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof previousSyncTabsV3168 === 'function'){
+    window.syncTabs = function(){
+      var result = previousSyncTabsV3168.apply(this, arguments);
+      if(!supportsTitleOrderV3168()) organizeModeV3168 = false;
+      updateOrganizeButtonV3168();
+      return result;
+    };
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ ensureOrganizeButtonV3168(); updateOrganizeButtonV3168(); });
+  }else{
+    setTimeout(function(){ ensureOrganizeButtonV3168(); updateOrganizeButtonV3168(); }, 0);
+  }
+})();
+
+window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=="undefined"?renderTitles:null);
+
+/* v3.1.71 - Separadores visuales en Títulos */
+(function(){
+  var organizerActiveV3171 = false;
+  var supportedSectionsV3171 = ['prayers','notes','guides','parables','psalms'];
+
+  function supportedV3171(){ return supportedSectionsV3171.indexOf(section) !== -1; }
+  function ensureStoreV3171(){
+    if(!state.titleSeparatorsV3171 || typeof state.titleSeparatorsV3171 !== 'object') state.titleSeparatorsV3171 = {};
+    supportedSectionsV3171.forEach(function(s){
+      if(!state.titleSeparatorsV3171[s] || !Array.isArray(state.titleSeparatorsV3171[s].separators) || !Array.isArray(state.titleSeparatorsV3171[s].layout)){
+        state.titleSeparatorsV3171[s] = {separators:[], layout:[]};
+      }
+    });
+  }
+  function storeV3171(){ ensureStoreV3171(); return state.titleSeparatorsV3171[section]; }
+  function uidV3171(){ return 'sep_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+  function tokenItemV3171(id){ return 'i:'+id; }
+  function tokenSepV3171(id){ return 's:'+id; }
+
+  function normalizedSequenceV3171(){
+    var st = storeV3171();
+    var items = (typeof getItems === 'function' ? getItems() : []).slice();
+    var itemMap = {};
+    items.forEach(function(it){ if(it && it.id) itemMap[it.id] = it; });
+    var sepMap = {};
+    st.separators = st.separators.filter(function(sep){
+      if(!sep || !sep.id) return false;
+      sepMap[sep.id] = sep;
+      return true;
+    });
+    var seen = {};
+    var seq = [];
+    st.layout.forEach(function(tok){
+      if(typeof tok !== 'string' || seen[tok]) return;
+      if(tok.indexOf('i:')===0 && itemMap[tok.slice(2)]){ seen[tok]=1; seq.push({type:'item', value:itemMap[tok.slice(2)], token:tok}); }
+      else if(tok.indexOf('s:')===0 && sepMap[tok.slice(2)]){ seen[tok]=1; seq.push({type:'separator', value:sepMap[tok.slice(2)], token:tok}); }
+    });
+    items.forEach(function(it){ var tok=tokenItemV3171(it.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'item',value:it,token:tok}); } });
+    st.separators.forEach(function(sep){ var tok=tokenSepV3171(sep.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'separator',value:sep,token:tok}); } });
+    st.layout = seq.map(function(x){ return x.token; });
+    return seq;
+  }
+  function persistSequenceV3171(seq){
+    var st = storeV3171();
+    st.layout = seq.map(function(x){return x.token;});
+    var orderedItems = seq.filter(function(x){return x.type==='item';}).map(function(x){return x.value;});
+    if(typeof setItems === 'function') setItems(orderedItems);
+    if(typeof saveState === 'function') saveState();
+  }
+  function itemCodeV3171(item, seq){
+    var n=0;
+    for(var i=0;i<seq.length;i++){
+      if(seq[i].type==='item') n++;
+      if(seq[i].type==='item' && seq[i].value.id===item.id){
+        var p=section==='prayers'?'O':section==='notes'?'N':section==='guides'?'G':section==='psalms'?'S':'P';
+        return p+n;
+      }
+    }
+    return '';
+  }
+  function titleV3171(item){
+    try{return typeof displayItemTitle==='function'?displayItemTitle(item):(item.title||'Sin título');}
+    catch(e){return item.title||'Sin título';}
+  }
+  function ensureButtonsV3171(){
+    var head=document.querySelector('#titlesView .titles-head-v72');
+    if(!head) return;
+    var old=document.getElementById('organizeTitlesBtnV3168');
+    if(old){
+      old.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} organizerActiveV3171=!organizerActiveV3171; updateButtonsV3171(); window.renderTitles(); };
+    }
+    var btn=document.getElementById('addSeparatorBtnV3171');
+    if(!btn){
+      btn=document.createElement('button');
+      btn.id='addSeparatorBtnV3171'; btn.type='button'; btn.className='btn soft add-separator-btn-v3171'; btn.textContent='+ Separador';
+      btn.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} createSeparatorV3171(); };
+      var search=document.getElementById('titlesSearch');
+      if(search) head.insertBefore(btn,search); else head.appendChild(btn);
+    }
+    updateButtonsV3171();
+  }
+  function updateButtonsV3171(){
+    var show=supportedV3171();
+    var sep=document.getElementById('addSeparatorBtnV3171'); if(sep) sep.style.display=show?'':'none';
+    var org=document.getElementById('organizeTitlesBtnV3168');
+    if(org){ org.style.display=show?'':'none'; org.textContent=organizerActiveV3171?'Finalizar':'Ordenar'; org.classList.toggle('active-organize-v3168',organizerActiveV3171); }
+    document.body.classList.toggle('organizing-titles-v3168',show&&organizerActiveV3171);
+  }
+  function createSeparatorV3171(){
+    if(!supportedV3171()) return;
+    var title=prompt('Título del separador:','');
+    if(title===null) return;
+    title=title.trim();
+    if(!title) return alert('Escribe un título para el separador.');
+    var st=storeV3171();
+    var sep={id:uidV3171(),title:title,createdAt:Date.now()};
+    st.separators.push(sep);
+    st.layout.push(tokenSepV3171(sep.id));
+    saveState(); window.renderTitles();
+    if(typeof toast==='function') toast('Separador creado');
+  }
+  function renameSeparatorV3171(id){
+    var st=storeV3171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
+    var title=prompt('Título del separador:',sep.title||''); if(title===null)return; title=title.trim(); if(!title)return;
+    sep.title=title; saveState(); window.renderTitles(); if(typeof toast==='function')toast('Separador actualizado');
+  }
+  function deleteSeparatorV3171(id){
+    var st=storeV3171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
+    if(!confirm('¿Eliminar el separador "'+(sep.title||'')+'"?'))return;
+    st.separators=st.separators.filter(function(x){return x.id!==id;});
+    st.layout=st.layout.filter(function(t){return t!==tokenSepV3171(id);});
+    saveState(); window.renderTitles(); if(typeof toast==='function')toast('Separador eliminado');
+  }
+  function moveV3171(token,dir){
+    var seq=normalizedSequenceV3171(); var idx=seq.findIndex(function(x){return x.token===token;}); var ni=idx+dir;
+    if(idx<0||ni<0||ni>=seq.length)return;
+    var row=document.querySelector('#titlesList [data-layout-token="'+CSS.escape(token)+'"]');
+    var top=row?row.getBoundingClientRect().top:null;
+    var root=document.scrollingElement||document.documentElement; var scroll=root?root.scrollTop:(window.pageYOffset||0);
+    var tmp=seq[idx];seq[idx]=seq[ni];seq[ni]=tmp;persistSequenceV3171(seq);window.renderTitles();
+    if(root)root.scrollTop=scroll;
+    requestAnimationFrame(function(){var r=document.querySelector('#titlesList [data-layout-token="'+CSS.escape(token)+'"]');if(r&&top!==null){var d=r.getBoundingClientRect().top-top;if(Math.abs(d)>1)root.scrollTop+=d;}});
+    if(typeof toast==='function')toast('Orden actualizado');
+  }
+
+  window.renderTitles=function(){
+    ensureButtonsV3171();
+    if(!supportedV3171()){
+      var base=window.__renderTitlesBeforeV3171;
+      if(typeof base==='function') return base.apply(this,arguments);
+      return;
+    }
+    var box=document.getElementById('titlesList'); if(!box)return; box.innerHTML='';
+    var seq=normalizedSequenceV3171();
+    var separatorCountsV3173={};
+    var activeSeparatorIdV3173=null;
+    seq.forEach(function(entry){
+      if(entry.type==='separator'){
+        activeSeparatorIdV3173=entry.value.id;
+        separatorCountsV3173[activeSeparatorIdV3173]=0;
+      }else if(activeSeparatorIdV3173){
+        separatorCountsV3173[activeSeparatorIdV3173]++;
+      }
+    });
+    var q=((document.getElementById('titlesSearch')||{}).value||'').trim().toLowerCase();
+    var filtered=seq.filter(function(entry){
+      if(!q)return true;
+      if(entry.type==='separator')return (entry.value.title||'').toLowerCase().indexOf(q)!==-1;
+      var it=entry.value; return [titleV3171(it),it.content,it.reference,it.category].filter(Boolean).join(' ').toLowerCase().indexOf(q)!==-1;
+    });
+    if(!filtered.length){box.innerHTML='<div class="empty">No hay resultados.</div>';return;}
+    var current=typeof currentItem==='function'?currentItem():null;
+    filtered.forEach(function(entry){
+      if(entry.type==='separator'){
+        var sepRow=document.createElement('div'); sepRow.className='title-separator-v3171'; sepRow.setAttribute('data-layout-token',entry.token);
+        var label=document.createElement('div'); label.className='title-separator-label-v3171';
+        var sepTitle=String(entry.value.title||'');
+        var emojiMatch=sepTitle.match(/^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)\s*/u);
+        if(emojiMatch){
+          var emoji=document.createElement('span'); emoji.className='title-separator-emoji-v3172'; emoji.textContent=emojiMatch[1];
+          var text=document.createElement('span'); text.textContent=sepTitle.slice(emojiMatch[0].length);
+          label.appendChild(emoji); label.appendChild(document.createTextNode(' ')); label.appendChild(text);
+        }else label.textContent=sepTitle;
+        var count=document.createElement('span');
+        count.className='title-separator-count-v3173';
+        count.textContent=' ('+(separatorCountsV3173[entry.value.id]||0)+')';
+        label.appendChild(count);
+        sepRow.appendChild(label);
+        var actions=document.createElement('div'); actions.className='title-separator-actions-v3171';
+        if(organizerActiveV3171){
+          var idx=seq.findIndex(function(x){return x.token===entry.token;});
+          var up=document.createElement('button');up.type='button';up.className='title-order-arrow-v3168';up.textContent='↑';up.disabled=idx===0;up.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,-1);};
+          var down=document.createElement('button');down.type='button';down.className='title-order-arrow-v3168';down.textContent='↓';down.disabled=idx===seq.length-1;down.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,1);};
+          actions.appendChild(up);actions.appendChild(down);
+        }else{
+          var edit=document.createElement('button');edit.type='button';edit.className='separator-mini-action-v3171';edit.textContent='✎';edit.title='Cambiar título';edit.onclick=function(e){e.preventDefault();e.stopPropagation();renameSeparatorV3171(entry.value.id);};
+          var del=document.createElement('button');del.type='button';del.className='separator-mini-action-v3171';del.textContent='×';del.title='Eliminar';del.onclick=function(e){e.preventDefault();e.stopPropagation();deleteSeparatorV3171(entry.value.id);};
+          actions.appendChild(edit);actions.appendChild(del);
+        }
+        sepRow.appendChild(actions);box.appendChild(sepRow);return;
+      }
+      var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
+      var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
+      var name=document.createElement('div');name.className='title-name';
+      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV3177==='function'){
+        var catMetaV3177=window.psalmCategoryMetaV3177(item.category);
+        if(catMetaV3177 && (catMetaV3177.icon || catMetaV3177.label)){
+          var catPrefixV3181=document.createElement('span');
+          catPrefixV3181.className='psalm-category-prefix-v3181';
+
+          if(catMetaV3177.icon){
+            var catIconV3177=document.createElement('span');
+            catIconV3177.className='psalm-category-icon-v3177';
+            catIconV3177.textContent=catMetaV3177.icon;
+            catPrefixV3181.appendChild(catIconV3177);
+          }
+
+          if(catMetaV3177.label){
+            var catLabelV3181=document.createElement('span');
+            catLabelV3181.className='psalm-category-label-v3181';
+            catLabelV3181.textContent=catMetaV3177.label;
+            catPrefixV3181.appendChild(catLabelV3181);
+          }
+
+          var catSeparatorV3181=document.createElement('span');
+          catSeparatorV3181.className='psalm-category-separator-v3181';
+          catSeparatorV3181.textContent=' · ';
+          catPrefixV3181.appendChild(catSeparatorV3181);
+          name.appendChild(catPrefixV3181);
+        }
+      }
+      name.appendChild(document.createTextNode(titleV3171(item)));
+      row.appendChild(code);row.appendChild(name);
+      if(organizerActiveV3171){
+        var controls=document.createElement('div');controls.className='title-order-controls-v3168';var idx2=seq.findIndex(function(x){return x.token===entry.token;});
+        var u=document.createElement('button');u.type='button';u.className='title-order-arrow-v3168';u.textContent='↑';u.disabled=idx2===0;u.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,-1);};
+        var d=document.createElement('button');d.type='button';d.className='title-order-arrow-v3168';d.textContent='↓';d.disabled=idx2===seq.length-1;d.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,1);};
+        controls.appendChild(u);controls.appendChild(d);row.appendChild(controls);
+      }else{
+        row.onclick=function(){setCurrentId(item.id);renderList();renderReader();enterFullscreenReading();};
+      }
+      box.appendChild(row);
+    });
+  };
+  try{renderTitles=window.renderTitles;}catch(e){}
+
+  var oldOpen=window.openTitlesView||openTitlesView;
+  window.openTitlesView=function(){ organizerActiveV3171=false; var r=oldOpen.apply(this,arguments); ensureButtonsV3171(); window.renderTitles(); return r; };
+  try{openTitlesView=window.openTitlesView;}catch(e){}
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){ensureStoreV3171();ensureButtonsV3171();});
+  else setTimeout(function(){ensureStoreV3171();ensureButtonsV3171();},0);
+})();
+
+
+/* ===== v3.1.76 - Sección Salmos clonada desde Parábolas ===== */
+(function(){
+  if(window.__v3176PsalmsCloneInstalled) return;
+  window.__v3176PsalmsCloneInstalled=true;
+
+  function ensurePsalmsStateV3176(){
+    try{
+      if(!state) return;
+      if(!Array.isArray(state.psalms)) state.psalms=[];
+      if(!Array.isArray(state.trashPsalms)) state.trashPsalms=[];
+      if(!('currentPsalmId' in state)) state.currentPsalmId=null;
+      if(!state.currentPsalmId && state.psalms.length) state.currentPsalmId=state.psalms[0].id;
+    }catch(e){ console.error('ensurePsalmsStateV3176',e); }
+  }
+  window.ensurePsalmsStateV3176=ensurePsalmsStateV3176;
+
+  var oldBuildInitialStateV3176=window.buildInitialState||(typeof buildInitialState!=='undefined'?buildInitialState:null);
+  window.buildInitialState=function(){
+    var st=typeof oldBuildInitialStateV3176==='function'?oldBuildInitialStateV3176.apply(this,arguments):{};
+    if(!Array.isArray(st.psalms)) st.psalms=[];
+    if(!Array.isArray(st.trashPsalms)) st.trashPsalms=[];
+    if(!('currentPsalmId' in st)) st.currentPsalmId=null;
+    return st;
+  };
+  try{buildInitialState=window.buildInitialState;}catch(e){}
+
+  var oldNormalizeGuidesV3176=window.normalizeGuides||(typeof normalizeGuides!=='undefined'?normalizeGuides:null);
+  window.normalizeGuides=function(){
+    if(typeof oldNormalizeGuidesV3176==='function') oldNormalizeGuidesV3176.apply(this,arguments);
+    ensurePsalmsStateV3176();
+  };
+  try{normalizeGuides=window.normalizeGuides;}catch(e){}
+
+  var oldLabelV3176=window.sectionLabelV85;
+  window.sectionLabelV85=function(s){
+    if(s==='psalms') return {sing:'salmo',empty:'Nuevo salmo',code:'S',search:'Buscar salmo o código (ej. S23)'};
+    return typeof oldLabelV3176==='function'?oldLabelV3176(s):{sing:'elemento',empty:'Nuevo elemento',code:'',search:'Buscar...'};
+  };
+  try{sectionLabelV85=window.sectionLabelV85;}catch(e){}
+
+  window.getItems=function(){
+    ensurePsalmsStateV3176();
+    if(section==='prayers') return state.prayers;
+    if(section==='notes') return state.notes;
+    if(section==='guides') return state.guides;
+    if(section==='parables') return state.parables;
+    if(section==='psalms') return state.psalms;
+    return state.verses;
+  }; try{getItems=window.getItems;}catch(e){}
+
+  window.setItems=function(items){
+    ensurePsalmsStateV3176();
+    if(section==='prayers') state.prayers=items;
+    else if(section==='notes') state.notes=items;
+    else if(section==='guides') state.guides=items;
+    else if(section==='parables') state.parables=items;
+    else if(section==='psalms') state.psalms=items;
+    else state.verses=items;
+  }; try{setItems=window.setItems;}catch(e){}
+
+  window.getTrash=function(){
+    ensurePsalmsStateV3176();
+    if(section==='prayers') return state.trashPrayers;
+    if(section==='notes') return state.trashNotes;
+    if(section==='guides') return state.trashGuides;
+    if(section==='parables') return state.trashParables;
+    if(section==='psalms') return state.trashPsalms;
+    return state.trashVerses;
+  }; try{getTrash=window.getTrash;}catch(e){}
+
+  window.setTrash=function(items){
+    ensurePsalmsStateV3176();
+    if(section==='prayers') state.trashPrayers=items;
+    else if(section==='notes') state.trashNotes=items;
+    else if(section==='guides') state.trashGuides=items;
+    else if(section==='parables') state.trashParables=items;
+    else if(section==='psalms') state.trashPsalms=items;
+    else state.trashVerses=items;
+  }; try{setTrash=window.setTrash;}catch(e){}
+
+  window.currentItem=function(){
+    ensurePsalmsStateV3176();
+    var items=getItems();
+    var id=section==='prayers'?state.currentPrayerId:section==='notes'?state.currentNoteId:section==='guides'?state.currentGuideId:section==='parables'?state.currentParableId:section==='psalms'?state.currentPsalmId:state.currentVerseId;
+    var found=(items||[]).find(function(x){return x.id===id;});
+    if(found) return found;
+    var first=(items||[])[0]||null;
+    if(first){
+      if(section==='prayers') state.currentPrayerId=first.id;
+      else if(section==='notes') state.currentNoteId=first.id;
+      else if(section==='guides') state.currentGuideId=first.id;
+      else if(section==='parables') state.currentParableId=first.id;
+      else if(section==='psalms') state.currentPsalmId=first.id;
+      else state.currentVerseId=first.id;
+    }
+    return first;
+  }; try{currentItem=window.currentItem;}catch(e){}
+
+  window.setCurrentId=function(id){
+    ensurePsalmsStateV3176();
+    if(section==='prayers') state.currentPrayerId=id;
+    else if(section==='notes') state.currentNoteId=id;
+    else if(section==='guides') state.currentGuideId=id;
+    else if(section==='parables') state.currentParableId=id;
+    else if(section==='psalms') state.currentPsalmId=id;
+    else state.currentVerseId=id;
+    saveState();
+  }; try{setCurrentId=window.setCurrentId;}catch(e){}
+
+  var oldRecentKindLabelV3176=window.recentKindLabel;
+  window.recentKindLabel=function(item){
+    if(item&&item.section==='psalms') return '♫ Salmo';
+    return typeof oldRecentKindLabelV3176==='function'?oldRecentKindLabelV3176(item):'Elemento';
+  }; try{recentKindLabel=window.recentKindLabel;}catch(e){}
+
+  var oldSyncTabsV3176=window.syncTabs;
+  window.syncTabs=function(){
+    ensurePsalmsStateV3176();
+    if(typeof oldSyncTabsV3176==='function') oldSyncTabsV3176.apply(this,arguments);
+    var ps=document.getElementById('tabPsalms'); if(ps) ps.classList.toggle('active',section==='psalms');
+    var search=document.getElementById('search'); if(search&&section==='psalms') search.placeholder='Buscar salmo o código (ej. S23)';
+    var c=document.getElementById('counterInfo');
+    if(c) c.textContent='📖 '+(state.prayers||[]).length+' | 📝 '+(state.notes||[]).length+' | 📜 '+(state.guides||[]).length+' | 🌱 '+(state.parables||[]).length+' | ♫ '+(state.psalms||[]).length+' | ❤️ '+(state.verses||[]).length;
+  }; try{syncTabs=window.syncTabs;}catch(e){}
+
+  var oldRenderReaderV3176=window.renderReader;
+  window.renderReader=function(){
+    ensurePsalmsStateV3176();
+    if(typeof oldRenderReaderV3176==='function') oldRenderReaderV3176.apply(this,arguments);
+    try{
+      if(section==='psalms'&&!currentItem()){
+        var code=document.getElementById('readerCode'); if(code) code.textContent='';
+        var title=document.getElementById('readerTitle'); if(title) title.textContent='♫ Salmos';
+        var text=document.getElementById('readerText'); if(text) text.textContent='Pulsa ➕ Nueva para guardar un salmo.';
+      }
+      if(typeof updateMoveVerseButtonVisibility==='function') updateMoveVerseButtonVisibility();
+    }catch(e){console.error('renderReader psalms',e);}
+  }; try{renderReader=window.renderReader;}catch(e){}
+
+  var oldMoveToTrashV3176=window.moveToTrash;
+  window.moveToTrash=function(){
+    if(section!=='psalms') return typeof oldMoveToTrashV3176==='function'?oldMoveToTrashV3176.apply(this,arguments):undefined;
+    var item=currentItem(); if(!item) return;
+    var items=getItems();
+    if(items.length===1) return alert('Debe quedar al menos un elemento.');
+    if(!confirm('¿Mover a papelera este salmo?\n"'+(item.title||'Sin título')+'"')) return;
+    var trash=getTrash(); trash.unshift(Object.assign({},item,{deletedAt:Date.now()}));
+    var filtered=items.filter(function(x){return x.id!==item.id;}); setItems(filtered);
+    state.currentPsalmId=filtered[0]?filtered[0].id:null;
+    saveState(); syncTabs(); renderList(); renderReader(); applyReaderFont(); openReader(); toast('Movido a papelera');
+  }; try{moveToTrash=window.moveToTrash;}catch(e){}
+
+  var oldDiscardV3176=window.discardEditorChanges;
+  window.discardEditorChanges=function(){
+    if(section!=='psalms') return typeof oldDiscardV3176==='function'?oldDiscardV3176.apply(this,arguments):undefined;
+    if(!confirm('¿Descartar cambios?')) return;
+    if(autosaveTimer) clearTimeout(autosaveTimer);
+    var item=currentItem();
+    if(!item){isDirty=false;openReader();toast('Cambios descartados');return;}
+    var isNew=!!(item.isNewItem||item.title==='Nuevo salmo');
+    if(isNew){
+      var filtered=getItems().filter(function(x){return x.id!==item.id;}); setItems(filtered);
+      state.currentPsalmId=filtered[0]?filtered[0].id:null;
+      saveState(); renderList(); renderReader(); isDirty=false; openReader(); toast('Descartado'); return;
+    }
+    isDirty=false; renderReader(); openReader(); toast('Cambios descartados');
+  }; try{discardEditorChanges=window.discardEditorChanges;}catch(e){}
+
+  var oldBeautifulMetaV3176=window.beautifulSectionMetaV3166;
+  if(typeof oldBeautifulMetaV3176==='function'){
+    window.beautifulSectionMetaV3166=function(){
+      if(section==='psalms') return {label:'Salmo',icon:'♫',accent:'#66805a'};
+      return oldBeautifulMetaV3176.apply(this,arguments);
+    };
+    try{beautifulSectionMetaV3166=window.beautifulSectionMetaV3166;}catch(e){}
+  }
+
+  var oldOpenRecentEntryV3176=window.openRecentEntry;
+  window.openRecentEntry=function(type,idx){
+    try{
+      var h=typeof getRecentHistory==='function'?getRecentHistory():null;
+      var item=h&&h[type]&&h[type][idx];
+      if(item&&item.kind==='item'&&item.section==='psalms'&&item.id){
+        if(typeof closeRecentHistory==='function') closeRecentHistory();
+        section='psalms'; state.section='psalms'; state.currentPsalmId=item.id;
+        syncTabs(); renderList(); renderReader();
+        if(type==='edited'&&typeof openEditor==='function') openEditor(); else openReader();
+        return;
+      }
+    }catch(e){}
+    return typeof oldOpenRecentEntryV3176==='function'?oldOpenRecentEntryV3176.apply(this,arguments):undefined;
+  }; try{openRecentEntry=window.openRecentEntry;}catch(e){}
+
+  function initPsalmsV3176(){
+    ensurePsalmsStateV3176();
+    try{syncTabs();renderList();renderReader();}catch(e){console.error('initPsalmsV3176',e);}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initPsalmsV3176); else setTimeout(initPsalmsV3176,0);
+})();
+
+/* ===== v3.1.76.1 - Ajustes finales de Salmos y cuadrícula fija del inicio ===== */
+(function(){
+  if(window.__v31761PsalmsFinalFixes) return;
+  window.__v31761PsalmsFinalFixes = true;
+
+  function backToPsalmsToolbarV31761(){
+    try{
+      section = 'psalms';
+      if(state) state.section = 'psalms';
+      try{ document.body.dataset.section = 'psalms'; }catch(_e){}
+
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019','titles-only','titles-fullscreen-v72','categories-fullscreen-v73',
+        'list-only','backup-only','special-view-only','editing-focus','hide-reading-ui'
+      );
+
+      if(typeof saveState === 'function') saveState();
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof applyReaderFont === 'function') applyReaderFont();
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+    }catch(err){
+      console.error('backToPsalmsToolbarV31761', err);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+  window.backToPsalmsToolbarV31761 = backToPsalmsToolbarV31761;
+
+  var previousSyncTabsV31761 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  window.syncTabs = function(){
+    var result = typeof previousSyncTabsV31761 === 'function'
+      ? previousSyncTabsV31761.apply(this, arguments)
+      : undefined;
+    try{
+      var btnNew = document.getElementById('btnNew');
+      if(btnNew && typeof section !== 'undefined' && section === 'psalms'){
+        btnNew.textContent = '➕ Nuevo salmo';
+        btnNew.setAttribute('aria-label','Nuevo salmo');
+      }
+    }catch(e){}
+    return result;
+  };
+  try{ syncTabs = window.syncTabs; }catch(e){}
+
+  var previousLeaveEditorV31761 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
+  window.leaveEditor = function(){
+    if(typeof section !== 'undefined' && section === 'psalms'){
+      try{
+        if(typeof isDirty !== 'undefined' && isDirty){
+          if(typeof saveCurrent === 'function') return saveCurrent(false, true);
+        }
+      }catch(e){}
+      backToPsalmsToolbarV31761();
+      return;
+    }
+    return typeof previousLeaveEditorV31761 === 'function'
+      ? previousLeaveEditorV31761.apply(this, arguments)
+      : undefined;
+  };
+  try{ leaveEditor = window.leaveEditor; }catch(e){}
+
+  var previousDiscardV31761 = window.discardEditorChanges || (typeof discardEditorChanges !== 'undefined' ? discardEditorChanges : null);
+  window.discardEditorChanges = function(){
+    if(typeof section === 'undefined' || section !== 'psalms'){
+      return typeof previousDiscardV31761 === 'function'
+        ? previousDiscardV31761.apply(this, arguments)
+        : undefined;
+    }
+
+    if(!confirm('¿Descartar cambios?')) return;
+    try{ if(typeof autosaveTimer !== 'undefined' && autosaveTimer) clearTimeout(autosaveTimer); }catch(_e){}
+
+    try{
+      var item = typeof currentItem === 'function' ? currentItem() : null;
+      if(!item){
+        isDirty = false;
+        backToPsalmsToolbarV31761();
+        if(typeof toast === 'function') toast('Cambios descartados');
+        return;
+      }
+
+      var isNew = !!(item.isNewItem || item.title === 'Nuevo salmo');
+      if(isNew){
+        var items = typeof getItems === 'function' ? getItems() : [];
+        var filtered = (items || []).filter(function(x){ return x.id !== item.id; });
+        if(typeof setItems === 'function') setItems(filtered);
+        if(state) state.currentPsalmId = filtered[0] ? filtered[0].id : null;
+        if(typeof saveState === 'function') saveState();
+        if(typeof renderList === 'function') renderList();
+        if(typeof renderReader === 'function') renderReader();
+      }else{
+        if(typeof renderReader === 'function') renderReader();
+      }
+
+      isDirty = false;
+      backToPsalmsToolbarV31761();
+      if(typeof toast === 'function') toast(isNew ? 'Descartado' : 'Cambios descartados');
+    }catch(err){
+      console.error('discard psalms v3.1.76.1', err);
+      try{ isDirty = false; }catch(_e){}
+      backToPsalmsToolbarV31761();
+      if(typeof toast === 'function') toast('Cambios descartados');
+    }
+  };
+  try{ discardEditorChanges = window.discardEditorChanges; }catch(e){}
+
+  function refreshPsalmsUiV31761(){
+    try{ if(typeof syncTabs === 'function') syncTabs(); }catch(e){}
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', refreshPsalmsUiV31761);
+  }else{
+    setTimeout(refreshPsalmsUiV31761, 0);
+  }
+})();
+
+/* ===== v3.1.76.3 - Nuevo salmo real y limpieza de borradores heredados ===== */
+(function(){
+  if(window.__v31763PsalmCreationFix) return;
+  window.__v31763PsalmCreationFix = true;
+
+  function normalizePsalmDraftV31763(item){
+    try{
+      if(!item || typeof section === 'undefined' || section !== 'psalms') return item;
+      var legacy = item.title === 'Nueva referencia' || item.reference === 'Nueva referencia';
+      if(legacy){
+        item.title = 'Nuevo salmo';
+        if('reference' in item) delete item.reference;
+        item.isNewItem = true;
+        item.updatedAt = Date.now();
+        if(typeof saveState === 'function') saveState();
+      }
+    }catch(e){ console.error('normalizePsalmDraftV31763', e); }
+    return item;
+  }
+
+  var oldNewItemV31763 = window.newItem || (typeof newItem !== 'undefined' ? newItem : null);
+  window.newItem = function(){
+    if(typeof section === 'undefined' || section !== 'psalms'){
+      return typeof oldNewItemV31763 === 'function' ? oldNewItemV31763.apply(this, arguments) : undefined;
+    }
+    try{
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = typeof uid === 'function' ? uid() : String(Date.now());
+      var item = {id:id,title:'Nuevo salmo',content:'',updatedAt:Date.now(),favorite:false,isNewItem:true};
+      var items = typeof getItems === 'function' ? getItems() : [];
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items);
+      if(typeof setCurrentId === 'function') setCurrentId(id);
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(err){
+      console.error('new psalm v3.1.76.3', err);
+      alert('No se pudo crear el salmo.');
+    }
+  };
+  try{ newItem = window.newItem; }catch(e){}
+
+  var oldOpenEditorV31763 = window.openEditor || (typeof openEditor !== 'undefined' ? openEditor : null);
+  window.openEditor = function(){
+    if(typeof section !== 'undefined' && section === 'psalms'){
+      try{ normalizePsalmDraftV31763(typeof currentItem === 'function' ? currentItem() : null); }catch(e){}
+    }
+    return typeof oldOpenEditorV31763 === 'function' ? oldOpenEditorV31763.apply(this, arguments) : undefined;
+  };
+  try{ openEditor = window.openEditor; }catch(e){}
+
+  function repairExistingPsalmDraftsV31763(){
+    try{
+      if(typeof state === 'undefined' || !state || !Array.isArray(state.psalms)) return;
+      var changed=false;
+      state.psalms.forEach(function(item){
+        if(item && (item.title==='Nueva referencia' || item.reference==='Nueva referencia')){
+          item.title='Nuevo salmo';
+          if('reference' in item) delete item.reference;
+          item.isNewItem=true;
+          item.updatedAt=Date.now();
+          changed=true;
+        }
+      });
+      if(changed && typeof saveState === 'function') saveState();
+    }catch(e){ console.error('repairExistingPsalmDraftsV31763', e); }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', repairExistingPsalmDraftsV31763);
+  else setTimeout(repairExistingPsalmDraftsV31763,0);
+})();
+
+
+/* ===== v3.1.77 - Categorías opcionales para Salmos ===== */
+(function(){
+  if(window.__v3177PsalmCategoriesInstalled) return;
+  window.__v3177PsalmCategoriesInstalled=true;
+
+  var PSALM_CATEGORIES_V3177 = [
+    {id:'', icon:'', label:'Sin categoría'},
+    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
+    {id:'fe', icon:'✨', label:'Fe y esperanza'},
+    {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
+    {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
+    {id:'confianza', icon:'💚', label:'Confianza y entrega'},
+    {id:'amor', icon:'❤️', label:'Amor'},
+    {id:'proteccion', icon:'🫂', label:'Protección'},
+    {id:'fortaleza', icon:'💪🏾', label:'Fortaleza'},
+    {id:'sabiduria', icon:'📖', label:'Sabiduría'},
+    {id:'guia', icon:'🧭', label:'Guía y voluntad de Dios'},
+    {id:'espiritu', icon:'🔥', label:'Espíritu Santo'},
+    {id:'servicio', icon:'🤝', label:'Servicio y misericordia'},
+    {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
+    {id:'sanacion', icon:'🌿', label:'Sanación'},
+    {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
+    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
+    {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
+    {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
+    {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
+    {id:'intercesion', icon:'🌍', label:'Intercesión por el mundo'},
+    {id:'manana', icon:'🌅', label:'Mañana y nuevo día'},
+    {id:'noche', icon:'🌙', label:'Noche y descanso'}
+];
+  window.PSALM_CATEGORIES_V3177=PSALM_CATEGORIES_V3177;
+  window.psalmCategoryMetaV3177=function(id){
+    return PSALM_CATEGORIES_V3177.find(function(x){return x.id===String(id||'');}) || PSALM_CATEGORIES_V3177[0];
+  };
+
+  function ensurePsalmCategoryFieldV3177(){
+    try{
+      if(!state || !Array.isArray(state.psalms)) return;
+      state.psalms.forEach(function(item){
+        if(item && typeof item.category!=='string') item.category='';
+      });
+    }catch(e){ console.error('ensurePsalmCategoryFieldV3177',e); }
+  }
+
+  var CATEGORY_MIGRATION_V3179 = {
+    alabanza:'alabanza_adoracion',
+    adoracion:'alabanza_adoracion',
+    confianza:'confianza_entrega',
+    arrepentimiento:'arrepentimiento_perdon',
+    consuelo:'paz_consuelo',
+    esperanza:'fe_esperanza',
+    suplica:'fe_esperanza',
+    sabiduria:'sabiduria_ensenanza',
+    justicia:'justicia_juicio',
+    reinado:'reino_soberania',
+    creacion:'creacion_grandeza',
+    victoria:'fortaleza',
+    peregrinacion:'guia_voluntad'
+  };
+  function migrateSharedCategoriesV3179(){
+    try{
+      if(!state) return;
+      var changed=false;
+      ['psalms','prayers'].forEach(function(key){
+        var list=Array.isArray(state[key]) ? state[key] : [];
+        list.forEach(function(item){
+          if(!item) return;
+          var current=String(item.category||'');
+          if(CATEGORY_MIGRATION_V3179[current]){
+            item.category=CATEGORY_MIGRATION_V3179[current];
+            changed=true;
+          }
+        });
+      });
+      if(changed && typeof saveState==='function') saveState();
+    }catch(e){ console.error('migrateSharedCategoriesV3179',e); }
+  }
+
+  function buildPsalmCategoryEditorV3177(){
+    var existing=document.getElementById('editPsalmCategoryWrapV3177');
+    if(existing) return existing;
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+    var wrap=document.createElement('div');
+    wrap.id='editPsalmCategoryWrapV3177';
+    wrap.className='psalm-category-editor-v3177 hidden';
+    var label=document.createElement('label');
+    label.setAttribute('for','editPsalmCategoryV3177');
+    label.textContent='Categoría del salmo';
+    var select=document.createElement('select');
+    select.id='editPsalmCategoryV3177';
+    select.className='search psalm-category-select-v3177';
+    PSALM_CATEGORIES_V3177.forEach(function(cat){
+      var opt=document.createElement('option');
+      opt.value=cat.id;
+      opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
+      select.appendChild(opt);
+    });
+    select.addEventListener('change',function(){
+      try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    });
+    wrap.appendChild(label); wrap.appendChild(select);
+    title.parentNode.insertBefore(wrap,title.nextSibling);
+    return wrap;
+  }
+
+  var oldOpenEditorV3177=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    ensurePsalmCategoryFieldV3177();
+    var result=typeof oldOpenEditorV3177==='function'?oldOpenEditorV3177.apply(this,arguments):undefined;
+    var wrap=buildPsalmCategoryEditorV3177();
+    if(wrap){
+      var isPsalm=(typeof section!=='undefined' && section==='psalms');
+      wrap.classList.toggle('hidden',!isPsalm);
+      if(isPsalm){
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(select) select.value=(item&&item.category)||'';
+      }
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var oldSaveCurrentOriginalV3177=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    if(typeof section!=='undefined' && section==='psalms'){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(item) item.category=select ? (select.value||'') : (item.category||'');
+      }catch(e){ console.error('save psalm category',e); }
+    }
+    return typeof oldSaveCurrentOriginalV3177==='function'?oldSaveCurrentOriginalV3177.apply(this,arguments):undefined;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var oldNewItemV3177=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPsalm=(typeof section!=='undefined' && section==='psalms');
+    var result=typeof oldNewItemV3177==='function'?oldNewItemV3177.apply(this,arguments):undefined;
+    if(wasPsalm){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        if(item && typeof item.category!=='string') item.category='';
+        if(typeof saveState==='function') saveState();
+        var wrap=buildPsalmCategoryEditorV3177();
+        if(wrap) wrap.classList.remove('hidden');
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(select) select.value=(item&&item.category)||'';
+      }catch(e){ console.error('new psalm category',e); }
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  var oldRenderTitlesV3177=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  window.renderTitles=function(){
+    ensurePsalmCategoryFieldV3177();
+    return typeof oldRenderTitlesV3177==='function'?oldRenderTitlesV3177.apply(this,arguments):undefined;
+  };
+  try{renderTitles=window.renderTitles;}catch(e){}
+
+  function initV3177(){
+    ensurePsalmCategoryFieldV3177();
+    migrateSharedCategoriesV3179();
+    buildPsalmCategoryEditorV3177();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3177);
+  else setTimeout(initV3177,0);
+})();
+
+
+/* ===== v3.1.78 - Categorías opcionales para Oraciones ===== */
+(function(){
+  if(window.__v3178PrayerCategoriesInstalled) return;
+  window.__v3178PrayerCategoriesInstalled=true;
+
+  function categoriesV3178(){
+    return Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : [
+      {id:'',icon:'',label:'Sin categoría'}
+    ];
+  }
+
+  function ensurePrayerCategoryFieldV3178(){
+    try{
+      if(!state || !Array.isArray(state.prayers)) return;
+      state.prayers.forEach(function(item){
+        if(item && typeof item.category!=='string') item.category='';
+      });
+    }catch(e){ console.error('ensurePrayerCategoryFieldV3178',e); }
+  }
+
+  function buildPrayerCategoryEditorV3178(){
+    var existing=document.getElementById('editPrayerCategoryWrapV3178');
+    if(existing) return existing;
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+    var wrap=document.createElement('div');
+    wrap.id='editPrayerCategoryWrapV3178';
+    wrap.className='psalm-category-editor-v3177 hidden';
+    var label=document.createElement('label');
+    label.setAttribute('for','editPrayerCategoryV3178');
+    label.textContent='Categoría de la oración';
+    var select=document.createElement('select');
+    select.id='editPrayerCategoryV3178';
+    select.className='search psalm-category-select-v3177';
+    categoriesV3178().forEach(function(cat){
+      var opt=document.createElement('option');
+      opt.value=cat.id;
+      opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
+      select.appendChild(opt);
+    });
+    select.addEventListener('change',function(){
+      try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    });
+    wrap.appendChild(label);
+    wrap.appendChild(select);
+    var psalmWrap=document.getElementById('editPsalmCategoryWrapV3177');
+    if(psalmWrap && psalmWrap.parentNode===title.parentNode){
+      psalmWrap.parentNode.insertBefore(wrap,psalmWrap.nextSibling);
+    }else{
+      title.parentNode.insertBefore(wrap,title.nextSibling);
+    }
+    return wrap;
+  }
+
+  var oldOpenEditorV3178=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    ensurePrayerCategoryFieldV3178();
+    var result=typeof oldOpenEditorV3178==='function'?oldOpenEditorV3178.apply(this,arguments):undefined;
+    var wrap=buildPrayerCategoryEditorV3178();
+    if(wrap){
+      var isPrayer=(typeof section!=='undefined' && section==='prayers');
+      wrap.classList.toggle('hidden',!isPrayer);
+      if(isPrayer){
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(select) select.value=(item&&item.category)||'';
+      }
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var oldSaveCurrentOriginalV3178=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    if(typeof section!=='undefined' && section==='prayers'){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(item) item.category=select ? (select.value||'') : (item.category||'');
+      }catch(e){ console.error('save prayer category',e); }
+    }
+    return typeof oldSaveCurrentOriginalV3178==='function'?oldSaveCurrentOriginalV3178.apply(this,arguments):undefined;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var oldNewItemV3178=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPrayer=(typeof section!=='undefined' && section==='prayers');
+    var result=typeof oldNewItemV3178==='function'?oldNewItemV3178.apply(this,arguments):undefined;
+    if(wasPrayer){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        if(item && typeof item.category!=='string') item.category='';
+        if(typeof saveState==='function') saveState();
+        var wrap=buildPrayerCategoryEditorV3178();
+        if(wrap) wrap.classList.remove('hidden');
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(select) select.value=(item&&item.category)||'';
+      }catch(e){ console.error('new prayer category',e); }
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  var oldRenderTitlesV3178=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  window.renderTitles=function(){
+    ensurePrayerCategoryFieldV3178();
+    return typeof oldRenderTitlesV3178==='function'?oldRenderTitlesV3178.apply(this,arguments):undefined;
+  };
+  try{renderTitles=window.renderTitles;}catch(e){}
+
+  function initV3178(){
+    ensurePrayerCategoryFieldV3178();
+    buildPrayerCategoryEditorV3178();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3178);
+  else setTimeout(initV3178,0);
+})();
+
+/* ===== v3.1.80 - Selección múltiple de categorías para Oraciones ===== */
+(function(){
+  if(window.__v3180PrayerMultiCategoriesInstalled) return;
+  window.__v3180PrayerMultiCategoriesInstalled=true;
+
+  function categoryListV3180(){
+    return (Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : []).filter(function(cat){ return cat && cat.id; });
+  }
+
+  function normalizePrayerCategoriesV3180(item){
+    if(!item) return [];
+    var values=[];
+    if(Array.isArray(item.categories)) values=item.categories.slice();
+    else if(typeof item.category==='string' && item.category) values=[item.category];
+    var valid={};
+    categoryListV3180().forEach(function(cat){ valid[cat.id]=true; });
+    values=values.map(function(value){ return String(value||''); }).filter(function(value,index,array){ return valid[value] && array.indexOf(value)===index; });
+    item.categories=values;
+    /* Compatibilidad con versiones anteriores: conserva como principal la primera marcada. */
+    item.category=values[0]||'';
+    return values;
+  }
+
+  function ensurePrayerCategoriesV3180(){
+    try{
+      if(!state || !Array.isArray(state.prayers)) return;
+      var changed=false;
+      state.prayers.forEach(function(item){
+        if(!item) return;
+        var before=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
+        normalizePrayerCategoriesV3180(item);
+        var after=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
+        if(before!==after) changed=true;
+      });
+      if(changed && typeof saveState==='function') saveState();
+    }catch(e){ console.error('ensurePrayerCategoriesV3180',e); }
+  }
+
+  function buildPrayerMultiEditorV3180(){
+    var existing=document.getElementById('editPrayerCategoriesWrapV3180');
+    if(existing) return existing;
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+
+    var wrap=document.createElement('div');
+    wrap.id='editPrayerCategoriesWrapV3180';
+    wrap.className='prayer-categories-editor-v3180 hidden';
+
+    var header=document.createElement('div');
+    header.className='prayer-categories-header-v3180';
+    var label=document.createElement('strong');
+    label.textContent='Categorías de la oración';
+    var counter=document.createElement('span');
+    counter.id='prayerCategoryCountV3180';
+    counter.className='prayer-category-count-v3180';
+    header.appendChild(label);
+    header.appendChild(counter);
+
+    var help=document.createElement('div');
+    help.className='prayer-categories-help-v3180';
+    help.textContent='Puedes seleccionar una o varias categorías.';
+
+    var grid=document.createElement('div');
+    grid.id='editPrayerCategoriesV3180';
+    grid.className='prayer-categories-grid-v3180';
+
+    categoryListV3180().forEach(function(cat){
+      var option=document.createElement('label');
+      option.className='prayer-category-option-v3180';
+      var input=document.createElement('input');
+      input.type='checkbox';
+      input.value=cat.id;
+      input.dataset.categoryId=cat.id;
+      input.addEventListener('change',function(){
+        option.classList.toggle('selected',input.checked);
+        updateCountV3180();
+        try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+      });
+      var text=document.createElement('span');
+      text.textContent=cat.icon+' '+cat.label;
+      option.appendChild(input);
+      option.appendChild(text);
+      grid.appendChild(option);
+    });
+
+    wrap.appendChild(header);
+    wrap.appendChild(help);
+    wrap.appendChild(grid);
+    if(oldWrap && oldWrap.parentNode){
+      oldWrap.classList.add('hidden');
+      oldWrap.parentNode.insertBefore(wrap,oldWrap.nextSibling);
+    }else{
+      title.parentNode.insertBefore(wrap,title.nextSibling);
+    }
+    return wrap;
+  }
+
+  function checkedCategoriesV3180(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return [];
+    return Array.prototype.slice.call(grid.querySelectorAll('input[type="checkbox"]:checked')).map(function(input){ return input.value; });
+  }
+
+  function updateCountV3180(){
+    var count=checkedCategoriesV3180().length;
+    var counter=document.getElementById('prayerCategoryCountV3180');
+    if(counter) counter.textContent=count ? (count+(count===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+  }
+
+  function loadPrayerCategoriesV3180(item){
+    var selected=normalizePrayerCategoriesV3180(item||{});
+    var selectedMap={};
+    selected.forEach(function(id){ selectedMap[id]=true; });
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return;
+    Array.prototype.forEach.call(grid.querySelectorAll('input[type="checkbox"]'),function(input){
+      input.checked=!!selectedMap[input.value];
+      if(input.parentNode) input.parentNode.classList.toggle('selected',input.checked);
+    });
+    updateCountV3180();
+  }
+
+  function savePrayerCategoriesV3180(){
+    try{
+      if(typeof section==='undefined' || section!=='prayers') return;
+      var item=typeof currentItem==='function'?currentItem():null;
+      if(!item) return;
+      var values=checkedCategoriesV3180();
+      item.categories=values;
+      item.category=values[0]||'';
+    }catch(e){ console.error('savePrayerCategoriesV3180',e); }
+  }
+
+  var previousOpenEditorV3180=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    var result=typeof previousOpenEditorV3180==='function'?previousOpenEditorV3180.apply(this,arguments):undefined;
+    var wrap=buildPrayerMultiEditorV3180();
+    var isPrayer=(typeof section!=='undefined' && section==='prayers');
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
+    if(oldWrap) oldWrap.classList.add('hidden');
+    if(wrap){
+      wrap.classList.toggle('hidden',!isPrayer);
+      if(isPrayer) loadPrayerCategoriesV3180(typeof currentItem==='function'?currentItem():null);
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var previousSaveCurrentOriginalV3180=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    savePrayerCategoriesV3180();
+    /* Sincroniza el selector antiguo oculto para que su envoltorio no sobrescriba la categoría principal. */
+    if(typeof section!=='undefined' && section==='prayers'){
+      var legacy=document.getElementById('editPrayerCategoryV3178');
+      var values=checkedCategoriesV3180();
+      if(legacy) legacy.value=values[0]||'';
+    }
+    var result=typeof previousSaveCurrentOriginalV3180==='function'?previousSaveCurrentOriginalV3180.apply(this,arguments):undefined;
+    savePrayerCategoriesV3180();
+    return result;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var previousNewItemV3180=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPrayer=(typeof section!=='undefined' && section==='prayers');
+    var result=typeof previousNewItemV3180==='function'?previousNewItemV3180.apply(this,arguments):undefined;
+    if(wasPrayer){
+      var item=typeof currentItem==='function'?currentItem():null;
+      if(item){ item.categories=[]; item.category=''; }
+      var wrap=buildPrayerMultiEditorV3180();
+      if(wrap) wrap.classList.remove('hidden');
+      loadPrayerCategoriesV3180(item);
+      if(typeof saveState==='function') saveState();
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  function initV3180(){
+    ensurePrayerCategoriesV3180();
+    buildPrayerMultiEditorV3180();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3180);
+  else setTimeout(initV3180,0);
+})();
+
+/* ===== v3.1.81 - Nombre de categoría visible en títulos de Salmos ===== */
+(function(){
+  if(window.__v3181PsalmCategoryTitlesInstalled) return;
+  window.__v3181PsalmCategoryTitlesInstalled=true;
+
+  /* Reutilizable por la futura tarjeta de Salmo recomendado. */
+  window.formatPsalmRecommendationTitleV3181=function(item){
+    var title=(item && (item.title||item.reference)) || 'Salmo';
+    if(!item || !item.category || typeof window.psalmCategoryMetaV3177!=='function') return title;
+    var meta=window.psalmCategoryMetaV3177(item.category);
+    if(!meta) return title;
+    var prefix=[meta.icon||'',meta.label||''].filter(Boolean).join(' ');
+    return prefix ? (prefix+' · '+title) : title;
+  };
+})();
+
+
+/* ===== v3.1.83 - Corrección de Salmo relacionado al finalizar una oración ===== */
+(function(){
+  if(window.__v3182RelatedPsalmInstalled) return;
+  window.__v3182RelatedPsalmInstalled=true;
+
+  var RECENT_KEY='oraciones_recent_related_psalms_v3182';
+  var pendingTimer=null;
+
+  function readRecent(){
+    try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'[]')}catch(e){return []}
+  }
+  function writeRecent(ids){
+    try{localStorage.setItem(RECENT_KEY,JSON.stringify((ids||[]).slice(0,12)))}catch(e){}
+  }
+  function inferPrayerCategoriesV3114(item){
+    if(!item) return [];
+    var values=[];
+    if(Array.isArray(item.momentCategoriesV31102)) values=values.concat(item.momentCategoriesV31102);
+    if(Array.isArray(item.categories)) values=values.concat(item.categories);
+    if(item.category) values.push(item.category);
+    var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    var rules={
+      alabanza:['alaban','ador','gloria','santo es','grandeza'], gratitud:['gracias','agrade','bendicion'],
+      fe:['fe','esperanza','promesa'], salvacion:['salvacion','vida eterna','cristo','jesus','cruz'],
+      agradar:['agradar','obedec','santidad','consagr'], confianza:['confio','confianza','entrego','descanso en'],
+      amor:['amor','amar','corazon'], proteccion:['protege','proteccion','refugio','amparo','guarda'],
+      fortaleza:['fortaleza','fuerza','animo','victoria'], sabiduria:['sabiduria','entendimiento','ensenanza'],
+      guia:['guia','voluntad','camino','direccion'], espiritu:['espiritu santo','espiritu'],
+      servicio:['servir','servicio','misericordia','projimo'], familia:['familia','hijo','hija','esposa','esposo','hogar'],
+      sanacion:['sanacion','sana','salud','enfermedad','dolor'], paz:['paz','consuelo','calma'],
+      arrepentimiento:['arrepent','perdon','pecado'], lucha:['tentacion','lucha espiritual','enemigo','maligno'],
+      ansiedad:['ansiedad','preocupacion','angustia','miedo'], tristeza:['tristeza','desanimo','llanto','soledad'],
+      intercesion:['mundo','naciones','pueblos','interced'], manana:['manana','nuevo dia','amanecer'], noche:['noche','dormir','descanso']
+    };
+    Object.keys(rules).forEach(function(cat){if(rules[cat].some(function(k){return text.indexOf(k)>=0;})) values.push(cat);});
+    var aliases={esperanza:'fe',santidad:'agradar',arrepentimiento_perdon:'arrepentimiento',paz_consuelo:'paz',
+      confianza_entrega:'confianza',salvacion_vida_eterna:'salvacion',guia_voluntad:'guia',espiritu_santo:'espiritu',
+      familia_hogar:'familia',sanacion_salud:'sanacion',lucha_tentacion:'lucha',manana_nuevo_dia:'manana',noche_descanso:'noche'};
+    var seen={};
+    return values.map(function(x){var v=String(x||'').trim();return aliases[v]||v;}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
+  }
+  function prayerCategories(item){ return inferPrayerCategoriesV3114(item); }
+  function chooseRelatedPsalm(prayer){
+    try{
+      if(typeof state==='undefined' || !state || !Array.isArray(state.psalms) || !state.psalms.length) return null;
+      var cats=prayerCategories(prayer), recent=readRecent();
+      var available=cats.filter(function(cat){return state.psalms.some(function(p){return p&&String(p.category||'')===cat;});});
+      var pool=[];
+      if(available.length){
+        var chosenCategory=available[Math.floor(Math.random()*available.length)];
+        pool=state.psalms.filter(function(p){return p&&String(p.category||'')===chosenCategory&&recent.indexOf(p.id)<0;});
+        if(!pool.length) pool=state.psalms.filter(function(p){return p&&String(p.category||'')===chosenCategory;});
+      }
+      /* Si no hay una coincidencia exacta, siempre recomienda automáticamente un Salmo disponible. */
+      if(!pool.length) pool=state.psalms.filter(function(p){return p&&recent.indexOf(p.id)<0;});
+      if(!pool.length) pool=state.psalms.filter(Boolean);
+      return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
+    }catch(e){return null}
+  }
+  function openPsalm(id){
+    try{
+      var recent=readRecent().filter(function(x){return x!==id});
+      recent.unshift(id);
+      writeRecent(recent);
+      section='psalms';
+      state.section='psalms';
+      state.currentPsalmId=id;
+      if(typeof saveState==='function') saveState();
+      if(typeof syncTabs==='function') syncTabs();
+      if(typeof renderList==='function') renderList();
+      if(typeof renderReader==='function') renderReader();
+      setTimeout(function(){
+        try{
+          if(typeof enterFullscreenReading==='function') enterFullscreenReading();
+          else if(typeof openReader==='function') openReader();
+        }catch(e){try{if(typeof openReader==='function')openReader()}catch(_){} }
+      },120);
+    }catch(e){try{toast('No se pudo abrir el Salmo')}catch(_){} }
+  }
+  function augmentEndActions(){
+    try{
+      if(typeof section==='undefined' || section!=='prayers') return;
+      var box=document.querySelector('.reader-next');
+      if(!box || box.dataset.v3182PsalmReady==='1') return;
+      var prayer=typeof currentItem==='function'?currentItem():null;
+      var psalm=chooseRelatedPsalm(prayer);
+      var prayerButton=box.querySelector('[data-v59d-next]');
+      if(prayerButton) prayerButton.classList.add('reader-recommendation-button-v3182');
+      if(!psalm) return;
+      box.dataset.v3182PsalmReady='1';
+
+      var top=box.querySelector('[data-v59d-top]');
+      var label=document.createElement('div');
+      label.className='reader-psalm-label-v3182';
+      label.textContent='📖 También puede leer un Salmo relacionado';
+
+      var button=document.createElement('div');
+      button.className='reader-next-link reader-recommendation-button-v3182 reader-psalm-link-v3182';
+      button.setAttribute('role','button');
+      button.setAttribute('tabindex','0');
+      button.dataset.v3182Psalm=psalm.id;
+      button.textContent=typeof window.formatPsalmRecommendationTitleV3181==='function'
+        ? window.formatPsalmRecommendationTitleV3181(psalm)
+        : (psalm.title||'Salmo');
+
+      var insertBefore=top||null;
+      box.insertBefore(label,insertBefore);
+      box.insertBefore(button,insertBefore);
+
+      function activate(){openPsalm(button.dataset.v3182Psalm)}
+      button.addEventListener('click',activate);
+      button.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();activate()}
+      });
+    }catch(e){console.error('related psalm v3.1.83',e)}
+  }
+  function scheduleAugment(){
+    clearTimeout(pendingTimer);
+    pendingTimer=setTimeout(augmentEndActions,380);
+  }
+
+  var previousRenderReader=window.renderReader || (typeof renderReader!=='undefined'?renderReader:null);
+  if(typeof previousRenderReader==='function'){
+    window.renderReader=function(){
+      var result=previousRenderReader.apply(this,arguments);
+      scheduleAugment();
+      return result;
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+
+  var observer=new MutationObserver(function(){scheduleAugment()});
+  function init(){
+    try{observer.observe(document.body,{childList:true,subtree:true})}catch(e){}
+    scheduleAugment();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+
+/* ===== v3.1.90 - Ventanas pulidas, paleta lavanda y cruz propia ===== */
+(function(){
+  if(window.__v3188RecommendationModalInstalled) return;
+  window.__v3188RecommendationModalInstalled=true;
+
+  var VERSE_RECENT_KEY='oraciones_recent_related_verses_v3188';
+  var pendingTimerV3188=null;
+  var previousBodyOverflowV3188='';
+  var recommendationScrollPositionV3171=null;
+
+  var VERSE_CATEGORY_MAP_V3188={
+    alabanza_adoracion:['alabanza'], amor:['amor'], salvacion_vida_eterna:['salvacion','esperanza'],
+    consagracion_santidad:['santidad'], confianza_entrega:['fe','descanso','esperanza'],
+    arrepentimiento_perdon:['salvacion','santidad'], proteccion:['fe','fortaleza'],
+    paz_consuelo:['descanso','esperanza'], fortaleza:['fortaleza','fe'], fe_esperanza:['fe','esperanza'],
+    gratitud:['alabanza'], sabiduria_ensenanza:['sabiduria'], guia_voluntad:['sabiduria','fe'],
+    justicia_juicio:['juicio','santidad'], reino_soberania:['reino'], espiritu_santo:['espiritu'],
+    creacion_grandeza:['alabanza'], familia_hogar:['matrimonio','amor'],
+    projimo_servicio_misericordia:['amor','santidad'], sanacion_salud:['fortaleza','esperanza'],
+    lucha_tentacion:['fortaleza','fe','santidad'], manana_nuevo_dia:['esperanza','alabanza'],
+    noche_descanso:['descanso','fe'], iglesia_pueblo:['reino','espiritu'],
+    mision_evangelizacion:['salvacion','espiritu','reino'],
+    alabanza:['alabanza'], gratitud:['alabanza'], fe:['fe','esperanza'], salvacion:['salvacion','esperanza'],
+    agradar:['santidad','sabiduria'], confianza:['fe','descanso','esperanza'], proteccion:['fe','fortaleza'],
+    sabiduria:['sabiduria'], guia:['sabiduria','fe'], espiritu:['espiritu'], servicio:['amor','santidad'],
+    familia:['matrimonio','amor'], sanacion:['fortaleza','esperanza'], paz:['descanso','esperanza'],
+    arrepentimiento:['salvacion','santidad'], lucha:['fortaleza','fe','santidad'], ansiedad:['descanso','fe','esperanza'],
+    tristeza:['descanso','esperanza','amor'], intercesion:['amor','reino'], manana:['esperanza','alabanza'], noche:['descanso','fe']
+  };
+
+  function escapeV3188(value){
+    try{return escapeHtml(String(value==null?'':value));}
+    catch(e){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
+  }
+  function prayerCategoriesV3188(item){
+    if(!item) return [];
+    var list=[];
+    if(Array.isArray(item.momentCategoriesV31102)) list=list.concat(item.momentCategoriesV31102);
+    if(Array.isArray(item.categories)) list=list.concat(item.categories);
+    if(item.category) list.unshift(item.category);
+    var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    var rules={alabanza:['alaban','ador','gloria'],gratitud:['gracias','agrade'],fe:['fe','esperanza','promesa'],salvacion:['salvacion','vida eterna','cristo','jesus'],agradar:['agradar','obedec','santidad'],confianza:['confio','confianza','entrego'],amor:['amor','amar'],proteccion:['protege','refugio','amparo'],fortaleza:['fortaleza','fuerza','animo'],sabiduria:['sabiduria','entendimiento'],guia:['guia','voluntad','camino'],espiritu:['espiritu santo'],servicio:['servir','misericordia','projimo'],familia:['familia','hijo','hija','hogar'],sanacion:['sanacion','salud','dolor'],paz:['paz','consuelo','calma'],arrepentimiento:['arrepent','perdon','pecado'],lucha:['tentacion','enemigo','maligno'],ansiedad:['ansiedad','preocupacion','angustia','miedo'],tristeza:['tristeza','desanimo','llanto'],intercesion:['mundo','naciones','pueblos'],manana:['manana','amanecer'],noche:['noche','dormir','descanso']};
+    Object.keys(rules).forEach(function(cat){if(rules[cat].some(function(k){return text.indexOf(k)>=0;}))list.push(cat);});
+    var seen={};return list.map(function(x){return String(x||'').trim();}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
+  }
+  function readRecentV3188(){
+    try{return JSON.parse(localStorage.getItem(VERSE_RECENT_KEY)||'[]');}catch(e){return [];}
+  }
+  function writeRecentV3188(list){
+    try{localStorage.setItem(VERSE_RECENT_KEY,JSON.stringify((list||[]).slice(0,18)));}catch(e){}
+  }
+  function verseCategoryMetaV3188(id){
+    var label='📖 Sin categoría';
+    try{if(typeof verseCategoryLabel==='function') label=verseCategoryLabel(id)||label;}catch(e){}
+    var match=String(label).match(/^([^\p{L}\p{N}]+)\s*(.*)$/u);
+    return {icon:match&&match[1]?match[1].trim():'📖',label:match&&match[2]?match[2].trim():String(label)};
+  }
+  function chooseRelatedVerseV3188(prayer){
+    try{
+      if(!state || !Array.isArray(state.verses) || !state.verses.length) return null;
+      var target=[];
+      prayerCategoriesV3188(prayer).forEach(function(cat){
+        (VERSE_CATEGORY_MAP_V3188[cat]||[]).forEach(function(v){if(target.indexOf(v)<0)target.push(v);});
+      });
+      var recent=readRecentV3188();
+      var pool=target.length?state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0&&recent.indexOf(v.id)<0;}):[];
+      if(!pool.length&&target.length) pool=state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0;});
+      /* Si no hay coincidencia exacta, siempre recomienda automáticamente un versículo disponible. */
+      if(!pool.length) pool=state.verses.filter(function(v){return v&&recent.indexOf(v.id)<0;});
+      if(!pool.length) pool=state.verses.filter(Boolean);
+      return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
+    }catch(e){return null;}
+  }
+  function modalTextV3188(text){
+    var raw=String(text||'').replace(/\r\n?/g,'\n');
+    var formatted='';
+    try{
+      formatted=typeof highlightBibleReferencesV49==='function'
+        ? highlightBibleReferencesV49(raw)
+        : escapeV3188(raw);
+    }catch(e){formatted=escapeV3188(raw);}
+    /* Conserva exactamente los saltos y separaciones del texto original. */
+    return formatted.replace(/\n/g,'<br>');
+  }
+  function ensureModalV3188(){
+    var modal=document.getElementById('recommendationModalV3188');
+    if(modal) return modal;
+    modal=document.createElement('div');
+    modal.id='recommendationModalV3188';
+    modal.className='recommendation-modal-v3188 hidden';
+    modal.setAttribute('aria-hidden','true');
+    modal.innerHTML=
+      '<div class="recommendation-dialog-v3188" role="dialog" aria-modal="true" aria-labelledby="recommendationTitleV3188">'+
+        '<div class="recommendation-head-v3188">'+
+          '<div class="recommendation-heading-wrap-v3188">'+
+            '<div class="recommendation-cross-v3190" aria-hidden="true">✝</div>'+
+            '<div id="recommendationKindV3188" class="recommendation-kind-v3188"></div>'+
+            '<h2 id="recommendationTitleV3188" class="recommendation-title-v3188"></h2>'+
+            '<div id="recommendationCategoryV3188" class="recommendation-category-v3188"></div>'+
+          '</div>'+
+          '<button id="recommendationCloseXV3188" class="recommendation-close-x-v3188" type="button" aria-label="Cerrar">×</button>'+
+        '</div>'+
+        '<div id="recommendationContentV3188" class="recommendation-content-v3188"></div>'+
+        '<div class="recommendation-footer-v3188"><button id="recommendationCloseV3188" class="btn soft recommendation-close-v3188" type="button">Cerrar y volver a la oración</button></div>'+
+      '</div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click',function(e){if(e.target===modal) closeRecommendationModalV3188();});
+    modal.querySelector('#recommendationCloseXV3188').addEventListener('click',closeRecommendationModalV3188);
+    /* El botón inferior comparte estilos con otros botones de navegación.
+       Cerramos aquí el evento por completo para que ningún manejador global
+       actúe después de ocultar el modal y lleve el lector al inicio. */
+    modal.querySelector('#recommendationCloseV3188').addEventListener('click',function(e){
+      if(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();}
+      closeRecommendationModalV3188();
+    });
+    return modal;
+  }
+  function restoreRecommendationScrollV3171(){
+    var pos=recommendationScrollPositionV3171;
+    if(!pos) return;
+    try{window.scrollTo(pos.x,pos.y);}catch(e){try{window.scrollTo(0,pos.y);}catch(e2){}}
+    try{if(pos.reader)pos.reader.scrollTop=pos.readerTop;}catch(e){}
+  }
+  function closeRecommendationModalV3188(){
+    var modal=document.getElementById('recommendationModalV3188');
+    if(!modal) return;
+    /* Evita que Android intente recolocar en pantalla el botón enfocado
+       cuando su modal pasa a estar oculto. */
+    try{if(modal.contains(document.activeElement))document.activeElement.blur();}catch(e){}
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('recommendation-open-v3188');
+    document.body.style.overflow=previousBodyOverflowV3188;
+    restoreRecommendationScrollV3171();
+    requestAnimationFrame(function(){
+      restoreRecommendationScrollV3171();
+      requestAnimationFrame(restoreRecommendationScrollV3171);
+    });
+    /* Android/Chrome puede reajustar la ventana al terminar el evento táctil
+       del botón inferior; repetimos la restauración tras esos reajustes. */
+    setTimeout(restoreRecommendationScrollV3171,0);
+    setTimeout(restoreRecommendationScrollV3171,80);
+    setTimeout(restoreRecommendationScrollV3171,220);
+  }
+  window.closeRecommendationModalV3188=closeRecommendationModalV3188;
+
+  function openRecommendationModalV3188(kind,item){
+    if(!item) return;
+    var modal=ensureModalV3188();
+    var isPsalm=kind==='psalm';
+    var categoryMeta=isPsalm
+      ? (typeof window.psalmCategoryMetaV3177==='function'?window.psalmCategoryMetaV3177(item.category):{icon:'♫',label:''})
+      : verseCategoryMetaV3188(item.category);
+    var title=isPsalm?(item.title||item.reference||'Salmo'):(item.reference||item.title||'Versículo');
+    var content=isPsalm?(item.content||item.text||''):(item.text||item.content||'');
+    modal.classList.toggle('recommendation-psalm-v3189',isPsalm);
+    modal.classList.toggle('recommendation-verse-v3189',!isPsalm);
+    modal.querySelector('#recommendationKindV3188').textContent=isPsalm?'📖 Salmo relacionado':'✨ Versículo relacionado';
+    modal.querySelector('#recommendationTitleV3188').textContent=title;
+    modal.querySelector('#recommendationCategoryV3188').textContent=[categoryMeta.icon||'',categoryMeta.label||''].filter(Boolean).join(' ');
+    modal.querySelector('#recommendationContentV3188').innerHTML=modalTextV3188(content);
+    var rootV3171=document.scrollingElement||document.documentElement;
+    var readerV3171=document.getElementById('readerText');
+    recommendationScrollPositionV3171={
+      x:window.pageXOffset||rootV3171.scrollLeft||0,
+      y:window.pageYOffset||rootV3171.scrollTop||0,
+      reader:readerV3171,
+      readerTop:readerV3171?readerV3171.scrollTop:0
+    };
+    previousBodyOverflowV3188=document.body.style.overflow||'';
+    document.body.classList.add('recommendation-open-v3188');
+    document.body.style.overflow='hidden';
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden','false');
+    modal.querySelector('.recommendation-content-v3188').scrollTop=0;
+    setTimeout(function(){try{modal.querySelector('#recommendationCloseXV3188').focus();}catch(e){}},30);
+  }
+
+  function findPsalmV3188(id){
+    try{return (state.psalms||[]).find(function(p){return p&&String(p.id)===String(id);})||null;}catch(e){return null;}
+  }
+  function findVerseV3188(id){
+    try{return (state.verses||[]).find(function(v){return v&&String(v.id)===String(id);})||null;}catch(e){return null;}
+  }
+
+  /* Intercepta el botón ya existente antes de que cambie de sección. */
+  document.addEventListener('click',function(e){
+    var btn=e.target&&e.target.closest?e.target.closest('[data-v3182-psalm]'):null;
+    if(!btn) return;
+    e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+    var item=findPsalmV3188(btn.getAttribute('data-v3182-psalm'));
+    if(item) openRecommendationModalV3188('psalm',item);
+  },true);
+  document.addEventListener('keydown',function(e){
+    var btn=e.target&&e.target.closest?e.target.closest('[data-v3182-psalm]'):null;
+    if(btn&&(e.key==='Enter'||e.key===' ')){
+      e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+      var item=findPsalmV3188(btn.getAttribute('data-v3182-psalm'));
+      if(item) openRecommendationModalV3188('psalm',item);
+      return;
+    }
+    if(e.key==='Escape') closeRecommendationModalV3188();
+  },true);
+
+  function augmentVerseRecommendationV3188(){
+    try{
+      if(typeof section==='undefined'||section!=='prayers') return;
+      var box=document.querySelector('.reader-next');
+      if(!box||box.dataset.v3188VerseReady==='1') return;
+      var prayer=typeof currentItem==='function'?currentItem():null;
+      var verse=chooseRelatedVerseV3188(prayer);
+      if(!verse) return;
+      box.dataset.v3188VerseReady='1';
+      var top=box.querySelector('[data-v59d-top]');
+      var label=document.createElement('div');
+      label.className='reader-verse-label-v3188';
+      label.textContent='✨ También puede meditar un versículo relacionado';
+      var meta=verseCategoryMetaV3188(verse.category);
+      var button=document.createElement('div');
+      button.className='reader-next-link reader-recommendation-button-v3182 reader-verse-link-v3188';
+      button.setAttribute('role','button');button.setAttribute('tabindex','0');
+      button.dataset.v3188Verse=verse.id;
+      button.textContent=(meta.icon||'📖')+' '+(verse.reference||verse.title||'Versículo');
+      box.insertBefore(label,top||null);box.insertBefore(button,top||null);
+      function activate(){
+        var id=button.dataset.v3188Verse;
+        var recent=readRecentV3188().filter(function(x){return String(x)!==String(id);});
+        recent.unshift(id);writeRecentV3188(recent);
+        openRecommendationModalV3188('verse',findVerseV3188(id));
+      }
+      button.addEventListener('click',activate);
+      button.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+    }catch(e){console.error('verse recommendation v3.1.90',e);}
+  }
+  function scheduleV3188(){clearTimeout(pendingTimerV3188);pendingTimerV3188=setTimeout(augmentVerseRecommendationV3188,520);}
+  var previousRenderV3188=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
+  if(typeof previousRenderV3188==='function'){
+    window.renderReader=function(){var result=previousRenderV3188.apply(this,arguments);scheduleV3188();return result;};
+    try{renderReader=window.renderReader;}catch(e){}
+  }
+  var observerV3188=new MutationObserver(scheduleV3188);
+  function initV3188(){
+    ensureModalV3188();
+    try{observerV3188.observe(document.body,{childList:true,subtree:true});}catch(e){}
+    scheduleV3188();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3188); else initV3188();
+})();
+
+
+/* ===== v3.1.113 - Selector definitivo de categorías en Oraciones ===== */
+(function(){
+  if(window.__v3113PrayerCategorySelectorInstalled) return;
+  window.__v3113PrayerCategorySelectorInstalled=true;
+
+  var FINAL_PRAYER_CATEGORIES_V3113 = [
+    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
+    {id:'fe', icon:'✨', label:'Fe y esperanza'},
+    {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
+    {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
+    {id:'confianza', icon:'💚', label:'Confianza y entrega'},
+    {id:'amor', icon:'❤️', label:'Amor'},
+    {id:'proteccion', icon:'🫂', label:'Protección'},
+    {id:'fortaleza', icon:'💪🏾', label:'Fortaleza'},
+    {id:'sabiduria', icon:'📖', label:'Sabiduría'},
+    {id:'guia', icon:'🧭', label:'Guía y voluntad de Dios'},
+    {id:'espiritu', icon:'🔥', label:'Espíritu Santo'},
+    {id:'servicio', icon:'🤝🏾', label:'Servicio y misericordia'},
+    {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
+    {id:'sanacion', icon:'🌿', label:'Sanación'},
+    {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
+    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
+    {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
+    {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
+    {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
+    {id:'intercesion', icon:'🌍', label:'Intercesión por el mundo'},
+    {id:'manana', icon:'🌅', label:'Mañana y nuevo día'},
+    {id:'noche', icon:'🌙', label:'Noche y descanso'}
+  ];
+
+  function selectedIds(){
+    var item=(typeof currentItem==='function') ? currentItem() : null;
+    var values=item && Array.isArray(item.categories) ? item.categories.slice() : [];
+    if(item && item.category && values.indexOf(item.category)<0) values.unshift(item.category);
+    return values;
+  }
+
+  function rebuildPrayerCategoryGridV3113(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return;
+    var selected={};
+    selectedIds().forEach(function(id){ selected[String(id||'')]=true; });
+    grid.innerHTML='';
+    FINAL_PRAYER_CATEGORIES_V3113.forEach(function(cat){
+      var option=document.createElement('label');
+      option.className='prayer-category-option-v3180'+(selected[cat.id]?' selected':'');
+      var input=document.createElement('input');
+      input.type='checkbox';
+      input.value=cat.id;
+      input.dataset.categoryId=cat.id;
+      input.checked=!!selected[cat.id];
+      input.addEventListener('change',function(){
+        option.classList.toggle('selected',input.checked);
+        var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
+        var counter=document.getElementById('prayerCategoryCountV3180');
+        if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+        try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+      });
+      var text=document.createElement('span');
+      text.textContent=cat.icon+' '+cat.label;
+      option.appendChild(input);
+      option.appendChild(text);
+      grid.appendChild(option);
+    });
+    var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
+    var counter=document.getElementById('prayerCategoryCountV3180');
+    if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+  }
+
+  var previousOpenEditorV3113=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    var result=typeof previousOpenEditorV3113==='function' ? previousOpenEditorV3113.apply(this,arguments) : undefined;
+    if(typeof section!=='undefined' && section==='prayers') rebuildPrayerCategoryGridV3113();
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  function init(){
+    window.PSALM_CATEGORIES_V3177=[{id:'',icon:'',label:'Sin categoría'}].concat(FINAL_PRAYER_CATEGORIES_V3113);
+    rebuildPrayerCategoryGridV3113();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else setTimeout(init,0);
+})();
+
+/* ===== v3.1.116 - Momentos ordenados, contador y retirada segura de categorías antiguas ===== */
+(function(){
+  if(window.__v31116MomentCatalogCleanupInstalled)return;
+  window.__v31116MomentCatalogCleanupInstalled=true;
+
+  function currentMomentCountV31116(){
+    try{
+      var it=typeof currentItem==='function'?currentItem():null;
+      return it&&Array.isArray(it.momentCategoriesV31102)?it.momentCategoriesV31102.length:0;
+    }catch(e){return 0;}
+  }
+
+  function cleanupLegacyCategoriesV31116(){
+    try{
+      var prayer=document.getElementById('editPrayerCategoriesWrapV3180');
+      if(prayer&&!prayer.classList.contains('hidden'))prayer.classList.add('hidden');
+      var prayerOld=document.getElementById('editPrayerCategoryWrapV3178');
+      if(prayerOld&&!prayerOld.classList.contains('hidden'))prayerOld.classList.add('hidden');
+      var psalm=document.getElementById('editPsalmCategoryWrapV3177');
+      if(psalm&&!psalm.classList.contains('hidden'))psalm.classList.add('hidden');
+    }catch(e){console.error('cleanupLegacyCategoriesV31116',e);}
+  }
+
+  window.updateMomentCatalogButtonV31115=function(){
+    try{
+      cleanupLegacyCategoriesV31116();
+      var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV31102()"]');
+      if(!btn)return;
+      var allowed=(typeof section!=='undefined'&&['prayers','psalms','verses'].indexOf(section)>=0);
+      btn.classList.toggle('hidden',!allowed);
+      var nextText='🏷️ Momentos ('+currentMomentCountV31116()+')';
+      if(btn.textContent!==nextText)btn.textContent=nextText;
+    }catch(e){console.error('updateMomentCatalogButtonV31116',e);}
+  };
+
+  function refreshSoonV31116(){setTimeout(function(){window.updateMomentCatalogButtonV31115();},0);}
+
+  var oldOpenV31116=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
+  if(typeof oldOpenV31116==='function'){
+    window.openEditor=function(){
+      var result=oldOpenV31116.apply(this,arguments);
+      refreshSoonV31116();
+      return result;
+    };
+    try{openEditor=window.openEditor;}catch(e){}
+  }
+
+  var oldNewV31116=window.newItem||(typeof newItem!=='undefined'?newItem:null);
+  if(typeof oldNewV31116==='function'){
+    window.newItem=function(){
+      var result=oldNewV31116.apply(this,arguments);
+      refreshSoonV31116();
+      return result;
+    };
+    try{newItem=window.newItem;}catch(e){}
+  }
+
+  function initV31116(){
+    cleanupLegacyCategoriesV31116();
+    window.updateMomentCatalogButtonV31115();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV31116);
+  else setTimeout(initV31116,0);
+})();
+
+/* ===== V3.1.134 - Recomendaciones completas sin espera fija ===== */
+(function(){
+  if(window.__v31134ReadingComfortInstalled) return;
+  window.__v31134ReadingComfortInstalled=true;
+
+  window.toggleReadingUI=function(){
+    if(!document.body.classList.contains('fullscreen-reading')) return;
+    var willHide=!document.body.classList.contains('hide-reading-ui');
+    document.body.classList.toggle('hide-reading-ui');
+    if(!willHide) return;
+    window.setTimeout(function(){
+      try{
+        var identity=document.getElementById('readerIdentityV31103');
+        var identityVisible=identity && !identity.classList.contains('hidden');
+        var target=identityVisible ? identity : (document.getElementById('readerTitle') || document.getElementById('readerText'));
+        if(!target) return;
+        var rect=target.getBoundingClientRect();
+        window.scrollTo({top:Math.max(0,window.scrollY+rect.top-8),behavior:'smooth'});
+      }catch(e){console.warn('No se pudo ajustar el inicio de lectura',e);}
+    },80);
+  };
+  try{toggleReadingUI=window.toggleReadingUI;}catch(e){}
+
+  var arranging=false;
+  var waitToken=0;
+  var observer=null;
+
+  function recommendationCount(root){
+    return root ? root.querySelectorAll('[data-v59d-next],[data-v3182-psalm],[data-v3188-verse],.reader-psalm-link-v3182,.reader-verse-link-v3188').length : 0;
+  }
+
+  function updateToggle(toggle,count,open){
+    toggle.innerHTML='<span>🌿 Puede continuar con...'+(count?' ('+count+')':'')+'</span><span class="reader-recommendations-arrow-v31127" aria-hidden="true">'+(open?'▲':'▼')+'</span>';
+  }
+
+  function arrangeBox(box){
+    if(!box || !document.body.contains(box)) return;
+    var top=box.querySelector(':scope > [data-v59d-top]') || box.querySelector('[data-v59d-top]');
+    if(!top) return;
+
+    var content=box.querySelector(':scope > .reader-recommendations-content-v31127');
+    var toggle=box.querySelector(':scope > .reader-recommendations-toggle-v31127');
+    if(!content){
+      content=document.createElement('div');
+      content.className='reader-recommendations-content-v31127';
+      content.setAttribute('aria-hidden','true');
+      box.insertBefore(content,top);
+    }
+
+    Array.prototype.slice.call(box.children).forEach(function(child){
+      if(child===top || child===toggle || child===content) return;
+      content.appendChild(child);
+    });
+
+    var count=recommendationCount(content);
+    if(!count){
+      if(toggle) toggle.remove();
+      content.remove();
+      return;
+    }
+
+    if(!toggle){
+      toggle=document.createElement('button');
+      toggle.type='button';
+      toggle.className='reader-recommendations-toggle-v31127';
+      toggle.setAttribute('aria-expanded','false');
+      box.insertBefore(toggle,content);
+      toggle.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+        var open=toggle.getAttribute('aria-expanded')==='true';
+        toggle.setAttribute('aria-expanded',open?'false':'true');
+        content.setAttribute('aria-hidden',open?'true':'false');
+        box.classList.toggle('recommendations-open-v31127',!open);
+        updateToggle(toggle,recommendationCount(content),!open);
+      },true);
+      toggle.addEventListener('pointerdown',function(e){e.stopPropagation();},true);
+      toggle.addEventListener('touchstart',function(e){e.stopPropagation();},{capture:true,passive:true});
+    }
+    updateToggle(toggle,recommendationCount(content),toggle.getAttribute('aria-expanded')==='true');
+  }
+
+  function arrangeAll(){
+    if(arranging) return;
+    arranging=true;
+    try{document.querySelectorAll('.reader-next').forEach(arrangeBox);}
+    catch(e){console.error('No se pudieron plegar las recomendaciones',e);}
+    finally{arranging=false;}
+  }
+
+  /* La oración aparece primero; Salmo y versículo se añaden después (380/520 ms).
+     No se crea ni se mueve nada hasta comprobar que existen las tres opciones. */
+  function waitForCompleteRecommendations(){
+    var token=++waitToken;
+    var started=Date.now();
+    function check(){
+      if(token!==waitToken) return;
+      var box=document.querySelector('.reader-next');
+      if(!box){
+        if(Date.now()-started<1800) return window.setTimeout(check,40);
+        return;
+      }
+      var alreadyGrouped=box.querySelector(':scope > .reader-recommendations-content-v31127');
+      var count=recommendationCount(alreadyGrouped || box);
+      if(count>=3){
+        arrangeAll();
+        return;
+      }
+      /* Margen de seguridad: si una biblioteca no tiene Salmos o Versículos,
+         muestra las recomendaciones disponibles sin bloquear el final. */
+      if(Date.now()-started>=1800){
+        arrangeAll();
+        return;
+      }
+      window.setTimeout(check,40);
+    }
+    check();
+  }
+
+  function init(){
+    observer=new MutationObserver(function(mutations){
+      if(arranging) return;
+      var relevant=mutations.some(function(m){
+        return Array.prototype.some.call(m.addedNodes||[],function(n){
+          return n.nodeType===1 && (n.matches && (n.matches('.reader-next,[data-v3182-psalm],[data-v3188-verse],.reader-psalm-link-v3182,.reader-verse-link-v3188') || n.querySelector && n.querySelector('.reader-next,[data-v3182-psalm],[data-v3188-verse],.reader-psalm-link-v3182,.reader-verse-link-v3188')));
+        });
+      });
+      if(relevant) waitForCompleteRecommendations();
+    });
+    try{observer.observe(document.body,{childList:true,subtree:true});}catch(e){}
+    waitForCompleteRecommendations();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+
+  var previousRender=window.renderReader || (typeof renderReader!=='undefined'?renderReader:null);
+  if(typeof previousRender==='function' && !window.__v31134RenderWrapped){
+    window.__v31134RenderWrapped=true;
+    window.renderReader=function(){
+      var result=previousRender.apply(this,arguments);
+      waitForCompleteRecommendations();
+      return result;
+    };
+    try{renderReader=window.renderReader;}catch(e){}
+  }
+})();
+
+
+/* ===== V3.1.140 - Migración única de flechas antiguas en Notas ===== */
+(function(){
+  if(window.__v31140NoteArrowMigrationInstalled) return;
+  window.__v31140NoteArrowMigrationInstalled=true;
+
+  /* Clave nueva: permite ejecutar esta ampliación aunque la migración anterior de Notas ya se completara. */
+  var MIGRATION_KEY='oraciones_note_arrows_migration_v3140_definitiva';
+  var LEGACY_ARROW=/(?:👉|➡\uFE0F?)/g;
+
+  function hasLegacyArrow(text){
+    LEGACY_ARROW.lastIndex=0;
+    return LEGACY_ARROW.test(String(text||''));
+  }
+
+  function convertLegacyArrows(text){
+    LEGACY_ARROW.lastIndex=0;
+    return String(text||'').replace(LEGACY_ARROW,'→');
+  }
+
+  function collectAffected(){
+    var affected=[];
+    if(typeof state==='undefined' || !state) return affected;
+
+    function addItems(items,kind){
+      if(!Array.isArray(items)) return;
+      items.forEach(function(item){
+        if(item && hasLegacyArrow(item.content)) affected.push({item:item,kind:kind});
+      });
+    }
+
+    addItems(state.notes,'nota');
+    return affected;
+  }
+
+  function markHandled(value){
+    try{localStorage.setItem(MIGRATION_KEY,value);}catch(e){}
+  }
+
+  function runMigrationPrompt(){
+    try{
+      if(localStorage.getItem(MIGRATION_KEY)) return;
+    }catch(e){}
+
+    var affected=collectAffected();
+    if(!affected.length) return;
+
+    var noteCount=affected.filter(function(x){return x.kind==='nota';}).length;
+    var parts=[];
+    if(noteCount) parts.push(noteCount+' nota'+(noteCount===1?'':'s'));
+
+    var accept=window.confirm(
+      'Se han detectado flechas antiguas en '+parts.join(' y ')+'.\n\n'+
+      '¿Desea sustituir automáticamente 👉 y ➡️ por la flecha sencilla →?'
+    );
+
+    if(!accept){
+      markHandled('cancelled');
+      return;
+    }
+
+    var changedNotes=0;
+    affected.forEach(function(entry){
+      var item=entry.item;
+      var converted=convertLegacyArrows(item.content);
+      if(converted!==String(item.content||'')){
+        item.content=converted;
+        item.updatedAt=Date.now();
+        changedNotes++;
+      }
+    });
+
+    if(changedNotes){
+      try{if(typeof saveState==='function') saveState();}catch(e){console.error('No se pudo guardar la migración de flechas',e);}
+      try{
+        if(typeof section!=='undefined' && section==='notes'){
+          if(typeof renderList==='function') renderList();
+          if(typeof renderReader==='function') renderReader();
+        }
+      }catch(e){}
+    }
+
+    markHandled('updated');
+    var updatedParts=[];
+    if(changedNotes) updatedParts.push(changedNotes+' nota'+(changedNotes===1?'':'s'));
+    window.alert('✓ Se han actualizado correctamente '+updatedParts.join(' y ')+'.');
+  }
+
+  function init(){window.setTimeout(runMigrationPrompt,700);}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+
+
+/* ===== V3.1.141 - Migración única de 🔟 ===== */
+(function(){
+ if(window.__v31141TenMigrationInstalled)return;
+ window.__v31141TenMigrationInstalled=true;
+ var KEY='oraciones_note_ten_migration_v3141';
+ function fix(t){return String(t||'').replace(/🔟/g,'**10.**');}
+ function run(){
+  try{if(localStorage.getItem(KEY))return;}catch(e){}
+  if(typeof state==='undefined'||!state)return;
+  var items=[];
+  ['notes','guides'].forEach(function(k){
+    var arr=state[k];
+    if(Array.isArray(arr))arr.forEach(function(it){if(it&&String(it.content||'').indexOf('🔟')!==-1)items.push(it);});
+  });
+  if(!items.length)return;
+  if(!confirm('Se ha detectado la numeración 🔟 en algunas notas o guías.\n\n¿Desea actualizarla automáticamente al formato 10.?')){
+    try{localStorage.setItem(KEY,'cancelled');}catch(e){}
     return;
   }
+  items.forEach(function(it){it.content=fix(it.content); it.updatedAt=Date.now();});
+  try{if(typeof saveState==='function')saveState();}catch(e){}
+  try{localStorage.setItem(KEY,'updated');}catch(e){}
+  alert('✓ Numeración 10 actualizada.');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(run,500);});
+ else setTimeout(run,500);
+})();
 
-  const text=prompt(
-    'Escribe o edita el texto del pasaje:',
-    existing?.text||''
-  );
-  if(text===null)return;
+/* ===== V3.1.143 - Posición estable sin pequeño salto ===== */
+(function(){
+  if(window.__v31143ScrollStable) return;
+  window.__v31143ScrollStable = true;
 
-  if(existing){
-    existing.reference=cleanReference;
-    existing.text=text;
-  }else{
-    passages.push({
-      id:newBiblicalPassageId(),
-      reference:cleanReference,
-      text
+  function captureV31143(){
+    var root=document.scrollingElement || document.documentElement;
+    var reader=document.getElementById('readerText');
+    return {
+      x: window.pageXOffset || root.scrollLeft || 0,
+      y: window.pageYOffset || root.scrollTop || 0,
+      reader: reader,
+      readerTop: reader && reader.scrollHeight>reader.clientHeight ? reader.scrollTop : null,
+      rootAnchor: root.style.overflowAnchor,
+      bodyAnchor: document.body ? document.body.style.overflowAnchor : '',
+      readerAnchor: reader ? reader.style.overflowAnchor : ''
+    };
+  }
+
+  function lockAnchoringV31143(pos){
+    var root=document.scrollingElement || document.documentElement;
+    try{ root.style.overflowAnchor='none'; }catch(e){}
+    try{ if(document.body) document.body.style.overflowAnchor='none'; }catch(e){}
+    try{ if(pos && pos.reader) pos.reader.style.overflowAnchor='none'; }catch(e){}
+  }
+
+  function putBackV31143(pos){
+    if(!pos) return;
+    try{ window.scrollTo(pos.x,pos.y); }catch(e){ try{window.scrollTo(0,pos.y);}catch(e2){} }
+    try{ if(pos.reader && pos.readerTop!==null) pos.reader.scrollTop=pos.readerTop; }catch(e){}
+  }
+
+  function unlockAnchoringV31143(pos){
+    var root=document.scrollingElement || document.documentElement;
+    try{ root.style.overflowAnchor=pos.rootAnchor||''; }catch(e){}
+    try{ if(document.body) document.body.style.overflowAnchor=pos.bodyAnchor||''; }catch(e){}
+    try{ if(pos.reader) pos.reader.style.overflowAnchor=pos.readerAnchor||''; }catch(e){}
+  }
+
+  function settleV31143(pos){
+    // Se restaura en el mismo ciclo y una vez tras el recálculo de diseño.
+    // Se evita la cadena de temporizadores que producía el pequeño “bote”.
+    putBackV31143(pos);
+    requestAnimationFrame(function(){
+      putBackV31143(pos);
+      requestAnimationFrame(function(){
+        putBackV31143(pos);
+        unlockAnchoringV31143(pos);
+      });
     });
   }
 
-  saveFestivityPassages(currentBiblicalFestivityId,passages);
-  toast(existing?'Pasaje actualizado':'Pasaje añadido');
-  openBiblicalFestivityDetail(currentBiblicalFestivityId);
-}
+  document.addEventListener('click',function(ev){
+    var summary=ev.target && ev.target.closest ? ev.target.closest('.reader-collapse-block > summary') : null;
+    if(!summary) return;
+    var details=summary.parentElement;
+    if(!details || details.tagName!=='DETAILS') return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    var pos=captureV31143();
+    lockAnchoringV31143(pos);
+    details.open=!details.open;
+    settleV31143(pos);
+  },true);
 
-function deleteBiblicalFestivityPassage(passageId){
-  const f=findBiblicalFestivity(currentBiblicalFestivityId);
-  if(!f)return;
+  function wrapV31143(name){
+    var original=window[name];
+    if(typeof original!=='function' || original.__v31143Wrapped) return;
+    var wrapped=function(){
+      var pos=captureV31143();
+      lockAnchoringV31143(pos);
+      var result;
+      try{ result=original.apply(this,arguments); }
+      finally{ settleV31143(pos); }
+      return result;
+    };
+    wrapped.__v31143Wrapped=true;
+    window[name]=wrapped;
+    try{ eval(name+'=window["'+name+'"]'); }catch(e){}
+  }
 
-  const passages=normalizeBiblicalFestivityPassages(f);
-  const passage=passages.find(p=>p.id===passageId);
-  if(!passage)return;
+  wrapV31143('openReaderPopupBlockV908');
+  wrapV31143('closeReaderPopupBlockV908');
+  setTimeout(function(){
+    wrapV31143('openReaderPopupBlockV908');
+    wrapV31143('closeReaderPopupBlockV908');
+  },300);
+})();
 
-  if(!confirm(`¿Eliminar el pasaje "${passage.reference}"?`))return;
+/* ===== V3.1.144 - Emergentes: conservar posición desde pointerdown ===== */
+(function(){
+  if(window.__v31144PopupPointerScrollFix) return;
+  window.__v31144PopupPointerScrollFix = true;
 
-  saveFestivityPassages(
-    currentBiblicalFestivityId,
-    passages.filter(p=>p.id!==passageId)
-  );
-  toast('Pasaje eliminado');
-  openBiblicalFestivityDetail(currentBiblicalFestivityId);
-}
+  var pendingSnapshot = null;
+  var activeSnapshot = null;
+  var restoreTimers = [];
 
-function updateBiblicalCalendarAlert(){
-  const hasEvents=getBiblicalCalendarEvents(new Date()).length>0;
-  document.getElementById('moreFunctionsBtn')?.classList.toggle('has-module-alert',hasEvents);
-  document.getElementById('calendarModuleBtn')?.classList.toggle('has-module-alert',hasEvents);
-}
-loadBiblicalFestivities();
-setTimeout(updateBiblicalCalendarAlert,500);
-setInterval(updateBiblicalCalendarAlert,60000);
+  function scrollHost(){
+    var content=document.querySelector('.content');
+    if(content && content.scrollHeight>content.clientHeight) return content;
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function capture(){
+    var host=scrollHost();
+    var root=document.scrollingElement || document.documentElement;
+    return {
+      at:Date.now(),
+      host:host,
+      hostTop:host ? host.scrollTop : 0,
+      hostLeft:host ? host.scrollLeft : 0,
+      winX:window.pageXOffset || root.scrollLeft || 0,
+      winY:window.pageYOffset || root.scrollTop || 0,
+      hostOverflow:host && host.style ? host.style.overflow : '',
+      hostAnchor:host && host.style ? host.style.overflowAnchor : '',
+      rootAnchor:root.style.overflowAnchor || '',
+      bodyAnchor:document.body ? (document.body.style.overflowAnchor || '') : ''
+    };
+  }
+
+  function restore(pos){
+    if(!pos) return;
+    try{
+      if(pos.host){
+        pos.host.scrollLeft=pos.hostLeft;
+        pos.host.scrollTop=pos.hostTop;
+      }
+    }catch(e){}
+    try{window.scrollTo(pos.winX,pos.winY);}catch(e){}
+  }
+
+  function clearTimers(){
+    while(restoreTimers.length){
+      try{clearTimeout(restoreTimers.pop());}catch(e){}
+    }
+  }
+
+  function lock(pos){
+    if(!pos) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor='none';}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor='none';}catch(e){}
+    try{
+      if(pos.host && pos.host.style){
+        pos.host.style.overflowAnchor='none';
+        pos.host.style.overflow='hidden';
+      }
+    }catch(e){}
+  }
+
+  function unlock(pos){
+    if(!pos) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor=pos.rootAnchor;}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor=pos.bodyAnchor;}catch(e){}
+    try{
+      if(pos.host && pos.host.style){
+        pos.host.style.overflow=pos.hostOverflow;
+        pos.host.style.overflowAnchor=pos.hostAnchor;
+      }
+    }catch(e){}
+  }
+
+  function keepPosition(pos){
+    clearTimers();
+    restore(pos);
+    [0,16,50,120,250,500,800].forEach(function(ms){
+      restoreTimers.push(setTimeout(function(){restore(pos);},ms));
+    });
+  }
+
+  function preCapture(ev){
+    try{
+      var btn=ev.target && ev.target.closest ? ev.target.closest('.reader-popup-title') : null;
+      if(!btn) return;
+      pendingSnapshot=capture();
+    }catch(e){}
+  }
+  document.addEventListener('pointerdown',preCapture,true);
+  document.addEventListener('touchstart',preCapture,{capture:true,passive:true});
+  document.addEventListener('mousedown',preCapture,true);
+
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var pos=(pendingSnapshot && Date.now()-pendingSnapshot.at<1800) ? pendingSnapshot : capture();
+      pendingSnapshot=null;
+      activeSnapshot=pos;
+      lock(pos);
+
+      var text='';
+      try{text=getCurrentContentTextV865();}catch(e){text='';}
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){unlock(pos);activeSnapshot=null;alert('No se ha encontrado este bloque emergente.');return;}
+
+      var old=document.getElementById('readerPopupOverlayV908');
+      if(old) old.remove();
+
+      var wrap=document.createElement('div');
+      wrap.id='readerPopupOverlayV908';
+      wrap.className='reader-popup-overlay-v908';
+      wrap.onclick=function(ev){if(ev.target===wrap)window.closeReaderPopupBlockV908();};
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||'Emergente') : String(b.title||'Emergente');
+      var body=(typeof highlightBibleReferencesV49==='function') ? highlightBibleReferencesV49(b.body||'') : ((typeof escapeHtml==='function') ? escapeHtml(b.body||'') : String(b.body||''));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button><button class="btn primary" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+      keepPosition(pos);
+    }catch(e){
+      console.error('openReaderPopupBlockV31144',e);
+      if(activeSnapshot){unlock(activeSnapshot);restore(activeSnapshot);activeSnapshot=null;}
+    }
+  };
+
+  window.closeReaderPopupBlockV908=function(){
+    var pos=activeSnapshot;
+    clearTimers();
+    var el=document.getElementById('readerPopupOverlayV908');
+    if(el)el.remove();
+    if(pos){
+      unlock(pos);
+      restore(pos);
+      requestAnimationFrame(function(){restore(pos);requestAnimationFrame(function(){restore(pos);});});
+    }
+    activeSnapshot=null;
+  };
+
+  try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
+  try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
+})();
+
+/* ===== V3.1.153 - Emergente persistente con fondo inmóvil sin overflow:hidden ===== */
+(function(){
+  if(window.__v31148StablePopup) return;
+  window.__v31148StablePopup=true;
+
+  var pending=null;
+  var active=null;
+  var timers=[];
+  var overlay=null;
+  var currentIndex=-1;
+
+  function host(){
+    var content=document.querySelector('.content');
+    if(content && content.scrollHeight>content.clientHeight) return content;
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function snap(){
+    var h=host();
+    var root=document.scrollingElement || document.documentElement;
+    return {
+      at:Date.now(), host:h,
+      top:h ? h.scrollTop : 0,
+      left:h ? h.scrollLeft : 0,
+      x:window.pageXOffset || root.scrollLeft || 0,
+      y:window.pageYOffset || root.scrollTop || 0,
+      overflow:h && h.style ? h.style.overflow : '',
+      anchor:h && h.style ? h.style.overflowAnchor : '',
+      rootAnchor:root.style.overflowAnchor || '',
+      bodyAnchor:document.body ? (document.body.style.overflowAnchor || '') : ''
+    };
+  }
+
+  function cancelTimers(){
+    while(timers.length){ try{clearTimeout(timers.pop());}catch(e){} }
+  }
+
+  function differs(p){
+    if(!p) return false;
+    try{
+      if(p.host && (Math.abs(p.host.scrollTop-p.top)>1 || Math.abs(p.host.scrollLeft-p.left)>1)) return true;
+      var root=document.scrollingElement || document.documentElement;
+      var x=window.pageXOffset || root.scrollLeft || 0;
+      var y=window.pageYOffset || root.scrollTop || 0;
+      return Math.abs(x-p.x)>1 || Math.abs(y-p.y)>1;
+    }catch(e){ return true; }
+  }
+
+  function restoreOnlyIfNeeded(p){
+    if(!p || !differs(p)) return;
+    try{ if(p.host){p.host.scrollTop=p.top;p.host.scrollLeft=p.left;} }catch(e){}
+    try{window.scrollTo(p.x,p.y);}catch(e){}
+  }
+
+  function lock(p){
+    if(!p) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor='none';}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor='none';}catch(e){}
+    try{
+      if(p.host && p.host.style){
+        p.host.style.overflowAnchor='none';
+        /* V3.1.152: no tocar overflow del contenedor raíz. En Android,
+           overflow:hidden iniciaba un desplazamiento nativo diferido que
+           luego era corregido por el temporizador, produciendo el temblor. */
+      }
+    }catch(e){}
+  }
+
+  function unlock(p){
+    if(!p) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor=p.rootAnchor;}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor=p.bodyAnchor;}catch(e){}
+    try{
+      if(p.host && p.host.style){
+        p.host.style.overflow=p.overflow;
+        p.host.style.overflowAnchor=p.anchor;
+      }
+    }catch(e){}
+  }
+
+  function stabilize(p){
+    cancelTimers();
+    restoreOnlyIfNeeded(p);
+    requestAnimationFrame(function(){restoreOnlyIfNeeded(p);});
+    timers.push(setTimeout(function(){restoreOnlyIfNeeded(p);},90));
+    timers.push(setTimeout(function(){restoreOnlyIfNeeded(p);},260));
+  }
+
+  function ensureOverlay(){
+    if(overlay && overlay.isConnected) return overlay;
+    overlay=document.getElementById('readerPopupOverlayV908');
+    if(!overlay){
+      overlay=document.createElement('div');
+      overlay.id='readerPopupOverlayV908';
+      document.body.appendChild(overlay);
+    }
+    overlay.className='reader-popup-overlay-v908 v31148-persistent';
+    overlay.setAttribute('aria-hidden','true');
+    overlay.innerHTML='<div class="reader-popup-card-v908" role="dialog" aria-modal="true">'+
+      '<h3 class="v31148-popup-title"></h3>'+
+      '<div class="reader-popup-content-v908 v31148-popup-content"></div>'+
+      '<div class="reader-popup-actions-v913">'+
+      '<button class="btn soft v31148-edit" type="button">✏️ Editar</button>'+
+      '<button class="btn soft danger v31148-delete" type="button">🗑️ Eliminar</button>'+
+      '<button class="btn primary v31148-close" type="button">Cerrar</button>'+
+      '</div></div>';
+    overlay.addEventListener('click',function(ev){
+      if(ev.target===overlay || ev.target.closest('.v31148-close')) window.closeReaderPopupBlockV908();
+      else if(ev.target.closest('.v31148-edit')){
+        var i=currentIndex; window.closeReaderPopupBlockV908();
+        if(typeof window.editPopupBlockV908==='function') window.editPopupBlockV908(i);
+      }else if(ev.target.closest('.v31148-delete')){
+        var j=currentIndex; window.closeReaderPopupBlockV908();
+        if(typeof window.deletePopupBlockV908==='function') window.deletePopupBlockV908(j);
+      }
+    });
+    return overlay;
+  }
+
+  function preCapture(ev){
+    try{
+      if(ev.target && ev.target.closest && ev.target.closest('.reader-popup-title')) pending=snap();
+    }catch(e){}
+  }
+  document.addEventListener('pointerdown',preCapture,true);
+  document.addEventListener('touchstart',preCapture,{capture:true,passive:true});
+  document.addEventListener('mousedown',preCapture,true);
+
+  /* V3.1.153: bloquear únicamente los gestos que intentarían desplazar el
+     documento situado detrás del emergente. No se cambia overflow, position,
+     height ni scrollTop del fondo, por lo que su posición permanece intacta. */
+  var lastTouchY=null;
+
+  function popupVisible(){
+    return !!(overlay && overlay.classList.contains('v31148-visible'));
+  }
+
+  function popupScrollerFrom(target){
+    try{return target && target.closest ? target.closest('.v31148-popup-content') : null;}catch(e){return null;}
+  }
+
+  document.addEventListener('touchstart',function(ev){
+    if(!popupVisible()) return;
+    var t=ev.touches && ev.touches[0];
+    lastTouchY=t ? t.clientY : null;
+  },{capture:true,passive:true});
+
+  document.addEventListener('touchmove',function(ev){
+    if(!popupVisible()) return;
+    var t=ev.touches && ev.touches[0];
+    var scroller=popupScrollerFrom(ev.target);
+    if(!t || !scroller){
+      ev.preventDefault();
+      return;
+    }
+
+    var y=t.clientY;
+    var dy=(lastTouchY===null) ? 0 : y-lastTouchY;
+    lastTouchY=y;
+    var max=Math.max(0,scroller.scrollHeight-scroller.clientHeight);
+    var atTop=scroller.scrollTop<=0;
+    var atBottom=scroller.scrollTop>=max-1;
+
+    /* Permitir el desplazamiento interno del texto, pero cortar el gesto al
+       llegar a sus extremos para que no se encadene con la página de fondo. */
+    if(max<=1 || (dy>0 && atTop) || (dy<0 && atBottom)){
+      ev.preventDefault();
+    }
+  },{capture:true,passive:false});
+
+  document.addEventListener('touchend',function(){lastTouchY=null;},{capture:true,passive:true});
+  document.addEventListener('touchcancel',function(){lastTouchY=null;},{capture:true,passive:true});
+
+  document.addEventListener('wheel',function(ev){
+    if(!popupVisible()) return;
+    var scroller=popupScrollerFrom(ev.target);
+    if(!scroller){ev.preventDefault();return;}
+    var max=Math.max(0,scroller.scrollHeight-scroller.clientHeight);
+    if(max<=1 || (ev.deltaY<0 && scroller.scrollTop<=0) ||
+       (ev.deltaY>0 && scroller.scrollTop>=max-1)){
+      ev.preventDefault();
+    }
+  },{capture:true,passive:false});
+
+  function install(){
+    ensureOverlay();
+
+    window.openReaderPopupBlockV908=function(idx){
+      var p=(pending && Date.now()-pending.at<1800) ? pending : snap();
+      pending=null; active=p; currentIndex=idx; lock(p);
+      try{
+        var text='';
+        try{text=getCurrentContentTextV865();}catch(e){}
+        var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+        var b=blocks[idx];
+        if(!b){unlock(p);active=null;alert('No se ha encontrado este bloque emergente.');return;}
+        var el=ensureOverlay();
+        var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||'Emergente') : String(b.title||'Emergente');
+        var body=(typeof highlightBibleReferencesV49==='function') ? highlightBibleReferencesV49(b.body||'') : ((typeof escapeHtml==='function') ? escapeHtml(b.body||'') : String(b.body||''));
+        el.querySelector('.v31148-popup-title').innerHTML=title;
+        el.querySelector('.v31148-popup-content').innerHTML=body;
+        el.querySelector('.v31148-popup-content').scrollTop=0;
+        el.classList.add('v31148-visible');
+        el.setAttribute('aria-hidden','false');
+        stabilize(p);
+      }catch(e){
+        console.error('openReaderPopupBlockV31148',e);
+        unlock(p);restoreOnlyIfNeeded(p);active=null;
+      }
+    };
+
+    window.closeReaderPopupBlockV908=function(){
+      var p=active;
+      try{ if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); }catch(e){}
+      cancelTimers();
+      var el=ensureOverlay();
+      el.classList.remove('v31148-visible');
+      el.setAttribute('aria-hidden','true');
+      if(p){
+        unlock(p);
+        restoreOnlyIfNeeded(p);
+        requestAnimationFrame(function(){restoreOnlyIfNeeded(p);});
+      }
+      active=null;
+    };
+
+    try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
+    try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){setTimeout(install,380);},{once:true});
+  else setTimeout(install,380);
+})();
+
+/* ===== V3.1.167 - MODO RESCATE DE EMERGENTES GUARDADOS ===== */
+(function(){
+  'use strict';
+  function getCurrentTextSafe(){
+    try{
+      var item=(typeof currentItem==='function') ? currentItem() : null;
+      if(!item) return '';
+      return String(section==='verses' ? (item.text||item.content||'') : (item.content||''));
+    }catch(e){ return ''; }
+  }
+  function parseSafe(text){
+    var raw=String(text||''), blocks=[];
+    var re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/gi, m, guard=0;
+    while((m=re.exec(raw)) && guard++<500){
+      blocks.push({title:m[1]||'Emergente',body:m[2]||''});
+      if(re.lastIndex===m.index) re.lastIndex++;
+    }
+    return blocks;
+  }
+  function removeOverlay(){
+    var old=document.getElementById('readerPopupOverlayV908');
+    if(old && old.parentNode) old.parentNode.removeChild(old);
+  }
+  window.closeReaderPopupBlockV908=function(){ removeOverlay(); };
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var before=window.scrollY||document.documentElement.scrollTop||0;
+      var blocks=parseSafe(getCurrentTextSafe());
+      var b=blocks[Number(idx)];
+      if(!b){ alert('No se ha encontrado este bloque emergente.'); return; }
+      removeOverlay();
+      var overlay=document.createElement('div');
+      overlay.id='readerPopupOverlayV908';
+      overlay.className='reader-popup-overlay-v908 v31148-persistent v31167-rescue';
+      var card=document.createElement('div');
+      card.className='reader-popup-card-v908';
+      card.setAttribute('role','dialog');
+      card.setAttribute('aria-modal','true');
+      var h=document.createElement('h3');
+      h.textContent=String(b.title||'Emergente');
+      var content=document.createElement('div');
+      content.className='reader-popup-content-v908 v31148-popup-content';
+      content.style.whiteSpace='pre-wrap';
+      content.style.overflowWrap='anywhere';
+      content.textContent=String(b.body||'');
+      var actions=document.createElement('div');
+      actions.className='reader-popup-actions-v913';
+      var close=document.createElement('button');
+      close.className='btn primary'; close.type='button'; close.textContent='Cerrar';
+      close.addEventListener('click',window.closeReaderPopupBlockV908,{once:true});
+      actions.appendChild(close); card.appendChild(h); card.appendChild(content); card.appendChild(actions); overlay.appendChild(card);
+      overlay.addEventListener('click',function(ev){if(ev.target===overlay) window.closeReaderPopupBlockV908();});
+      document.body.appendChild(overlay);
+      overlay.classList.add('v31148-visible');
+      requestAnimationFrame(function(){
+        var now=window.scrollY||document.documentElement.scrollTop||0;
+        if(Math.abs(now-before)>0.5) window.scrollTo(0,before);
+      });
+    }catch(e){
+      console.error('V3.1.167 rescue popup',e);
+      alert('No se pudo abrir este emergente. Puede estar dañado, pero sus datos no se han borrado.');
+    }
+  };
+})();
+
+/* ===== V3.1.171 · Corrección de posición al cerrar recomendaciones ===== */
+
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
+(function(){
+  var filterV3177='all';
+  function escV3177(v){
+    return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
+  }
+  function plainV3177(v){
+    var d=document.createElement('div'); d.innerHTML=String(v==null?'':v); return (d.textContent||d.innerText||'').replace(/\s+/g,' ').trim();
+  }
+  function foldV3177(v){
+    return plainV3177(v).normalize ? plainV3177(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase() : plainV3177(v).toLowerCase();
+  }
+  function sourcesV3177(){
+    return [
+      {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
+      {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
+      {key:'verses',label:'❤️ Versículos',items:(state&&state.verses)||[],title:function(x){return x.reference||x.title||'Versículo';}},
+      {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}}
+    ];
+  }
+  window.openGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(!m)return;
+    filterV3177='all';
+    var buttons=document.querySelectorAll('#globalSearchFiltersV3177 button'); buttons.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});
+    m.classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    var input=document.getElementById('globalSearchInputV3177'); if(input){input.value='';setTimeout(function(){try{input.focus({preventScroll:true});}catch(e){input.focus();}},80);}
+    window.renderGlobalSearchV3177();
+  };
+  window.closeGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(m)m.classList.add('hidden');
+    document.body.style.overflow='';
+    try{document.activeElement.blur();}catch(e){}
+  };
+  window.clearGlobalSearchV3177=function(){var i=document.getElementById('globalSearchInputV3177');if(i){i.value='';i.focus();}window.renderGlobalSearchV3177();};
+  window.setGlobalSearchFilterV3177=function(f,btn){filterV3177=f||'all';document.querySelectorAll('#globalSearchFiltersV3177 button').forEach(function(b){b.classList.toggle('active',b===btn);});window.renderGlobalSearchV3177();};
+  window.renderGlobalSearchV3177=function(){
+    var input=document.getElementById('globalSearchInputV3177'), box=document.getElementById('globalSearchResultsV3177'), sum=document.getElementById('globalSearchSummaryV3177');
+    if(!input||!box||!sum)return;
+    var raw=input.value.trim(), q=foldV3177(raw); box.innerHTML='';
+    if(!q){sum.textContent='Escriba una palabra para buscar en todo su contenido.';box.innerHTML='<div class="global-search-empty-v3177">🔎 Puede buscar por título, referencia, categoría o cualquier palabra del contenido.</div>';return;}
+    var total=0, html='';
+    sourcesV3177().forEach(function(src){
+      if(filterV3177!=='all'&&filterV3177!==src.key)return;
+      var matches=[];
+      src.items.forEach(function(item,idx){
+        if(!item)return;
+        var title=src.title(item,idx), content=item.content||item.text||item.body||item.verse||'', hay=foldV3177([title,content,item.reference,item.category,(item.momentCategoriesV31102||[]).join(' ')].join(' '));
+        if(hay.indexOf(q)!==-1)matches.push({item:item,idx:idx,title:title,content:plainV3177(content)});
+      });
+      if(!matches.length)return;
+      total+=matches.length;
+      html+='<section class="global-search-group-v3177"><div class="global-search-group-title-v3177">'+src.label+' · '+matches.length+'</div>';
+      matches.slice(0,60).forEach(function(r){
+        var snippet=r.content||plainV3177(r.item.category||r.item.reference||'');
+        html+='<button class="global-search-result-v3177" type="button" onclick="openGlobalSearchResultV3177(\''+src.key+'\',\''+String(r.item.id).replace(/'/g,"\\'")+'\')"><div class="global-search-result-title-v3177">'+escV3177(r.title)+'</div>'+(snippet?'<div class="global-search-result-snippet-v3177">'+escV3177(snippet)+'</div>':'')+'</button>';
+      });
+      html+='</section>';
+    });
+    sum.textContent=total===1?'1 resultado encontrado':total+' resultados encontrados';
+    box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
+  };
+  window.returnFromGlobalSearchV3215=function(){
+    try{
+      /* Regreso exclusivo desde un resultado del buscador a la portada. */
+      document.body.classList.remove(
+        'editing-focus','reading-mobile','fullscreen-reading','hide-reading-ui',
+        'titles-fullscreen-v72','categories-fullscreen-v73','backup-only',
+        'special-view-only','list-only','titles-only','utility-fullscreen-v2189',
+        'verse-special-fullscreen-v74','verse-special-fullscreen-v751',
+        'sent-fullscreen-v76','sent-reader-v903','view-switching-v3189'
+      );
+      document.body.classList.add('home-active-v9019');
+
+      ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView',
+       'momentsHubV31102','momentPreviewV31102','routineHubV3192','routineEditorV3192','routineReaderV3192']
+      .forEach(function(viewId){
+        var view=document.getElementById(viewId);
+        if(view)view.classList.add('hidden');
+      });
+
+      var home=document.getElementById('homeView');
+      var card=document.getElementById('homeCardV9019');
+      if(home){
+        home.classList.remove('hidden');
+        home.style.removeProperty('display');
+        home.style.removeProperty('visibility');
+        home.style.removeProperty('opacity');
+      }
+      if(card){
+        card.classList.remove('hidden');
+        card.style.removeProperty('display');
+        card.style.removeProperty('visibility');
+        card.style.removeProperty('opacity');
+      }
+      if(typeof renderHomeV9019==='function')renderHomeV9019();
+
+      /* El botón recupera su funcionamiento habitual para próximas aperturas. */
+      var back=document.querySelector('#readerView .panel-head button:first-child');
+      if(back)back.setAttribute('onclick','smartBack()');
+      window.__openedFromGlobalSearchV3215=false;
+
+      function confirmHomeV3215(){
+        var h=document.getElementById('homeView');
+        var c=document.getElementById('homeCardV9019');
+        document.body.classList.add('home-active-v9019');
+        if(h){h.classList.remove('hidden');h.style.removeProperty('display');}
+        if(c){c.classList.remove('hidden');c.style.removeProperty('display');}
+      }
+      requestAnimationFrame(confirmHomeV3215);
+      setTimeout(confirmHomeV3215,60);
+      setTimeout(confirmHomeV3215,220);
+      try{window.scrollTo({top:0,behavior:'auto'});}catch(_e){window.scrollTo(0,0);}
+    }catch(e){
+      console.error('Volver desde buscador',e);
+      if(typeof showHomeV9019==='function')showHomeV9019();
+    }
+  };
+
+  window.openGlobalSearchResultV3177=function(sec,id){
+    window.closeGlobalSearchV3177();
+    window.__openedFromGlobalSearchV3215=true;
+    section=sec; state.section=sec;
+    if(sec==='prayers')state.currentPrayerId=id;
+    else if(sec==='notes')state.currentNoteId=id;
+    else if(sec==='psalms')state.currentPsalmId=id;
+    else if(sec==='verses')state.currentVerseId=id;
+    else if(sec==='parables')state.currentParableId=id;
+    else if(sec==='guides')state.currentGuideId=id;
+    try{
+      saveState();syncTabs();renderList();renderReader();openReader();
+      var back=document.querySelector('#readerView .panel-head button:first-child');
+      if(back)back.setAttribute('onclick','returnFromGlobalSearchV3215()');
+      setTimeout(function(){
+        try{enterFullscreenReading();}catch(e){}
+        var currentBack=document.querySelector('#readerView .panel-head button:first-child');
+        if(currentBack)currentBack.setAttribute('onclick','returnFromGlobalSearchV3215()');
+      },0);
+    }catch(e){console.error('Buscador general',e);}
+  };
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
+})();
+
+/* =========================================================
+   V2.189 · Backup y Papelera como pantallas independientes
+   - Oculta completamente la portada/botonera al abrirlas.
+   - Conserva y restaura la pantalla exacta desde la que se entró.
+   ========================================================= */
+(function(){
+  var utilityReturnV2189 = null;
+
+  function captureUtilityReturnV2189(){
+    var panels = {};
+    document.querySelectorAll('.content .panel').forEach(function(el){
+      if(el && el.id) panels[el.id] = el.classList.contains('hidden');
+    });
+    var buttons = {};
+    document.querySelectorAll('.topbar button').forEach(function(el, idx){
+      var key = el.id || ('__idx_' + idx);
+      buttons[key] = el.className;
+    });
+    return {
+      panels: panels,
+      buttons: buttons,
+      bodyClass: document.body.className,
+      scrollY: window.scrollY || document.documentElement.scrollTop || 0
+    };
+  }
+
+  function enterUtilityFullscreenV2189(){
+    document.body.classList.add('utility-fullscreen-v2189','special-view-only');
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+
+  window.closeUtilityScreenV2189 = function(){
+    var snapshot = utilityReturnV2189;
+    utilityReturnV2189 = null;
+
+    var backup = document.getElementById('backupView');
+    var trash = document.getElementById('trashView');
+    if(backup) backup.classList.add('hidden');
+    if(trash) trash.classList.add('hidden');
+
+    if(!snapshot){
+      document.body.classList.remove('utility-fullscreen-v2189','special-view-only','backup-only');
+      if(typeof showHomeV9019 === 'function') showHomeV9019();
+      return;
+    }
+
+    /* V3.1.212: el parche de transición oculta la tarjeta antes del click.
+       La clase home-active conserva la intención real de volver al inicio. */
+    if((snapshot.bodyClass || '').split(/\s+/).indexOf('home-active-v9019') !== -1){
+      document.body.classList.remove('utility-fullscreen-v2189','special-view-only','backup-only');
+      if(typeof showHomeV9019 === 'function') showHomeV9019();
+      return;
+    }
+
+    document.body.className = snapshot.bodyClass;
+    Object.keys(snapshot.panels || {}).forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.classList.toggle('hidden', !!snapshot.panels[id]);
+    });
+    var idx = 0;
+    document.querySelectorAll('.topbar button').forEach(function(el){
+      var key = el.id || ('__idx_' + idx);
+      if(Object.prototype.hasOwnProperty.call(snapshot.buttons || {}, key)){
+        el.className = snapshot.buttons[key];
+      }
+      idx++;
+    });
+    requestAnimationFrame(function(){
+      window.scrollTo({top:snapshot.scrollY || 0, behavior:'auto'});
+      setTimeout(function(){ window.scrollTo({top:snapshot.scrollY || 0, behavior:'auto'}); }, 40);
+    });
+  };
+
+  var originalOpenBackupV2189 = window.openBackup;
+  window.openBackup = function(){
+    if(!document.body.classList.contains('utility-fullscreen-v2189')){
+      utilityReturnV2189 = captureUtilityReturnV2189();
+    }
+    if(typeof originalOpenBackupV2189 === 'function') originalOpenBackupV2189.apply(this, arguments);
+    enterUtilityFullscreenV2189();
+  };
+  try{ openBackup = window.openBackup; }catch(e){}
+
+  var originalOpenTrashV2189 = window.openTrash;
+  window.openTrash = function(){
+    if(!document.body.classList.contains('utility-fullscreen-v2189')){
+      utilityReturnV2189 = captureUtilityReturnV2189();
+    }
+    if(typeof originalOpenTrashV2189 === 'function') originalOpenTrashV2189.apply(this, arguments);
+    document.body.classList.remove('backup-only');
+    enterUtilityFullscreenV2189();
+  };
+  try{ openTrash = window.openTrash; }catch(e){}
+})();
+
+/* ===== V3.1.189 — evita el pequeño salto al abrir algunas secciones ===== */
+(function(){
+  if(window.__v3189StableViewSwitch) return;
+  window.__v3189StableViewSwitch = true;
+
+  document.addEventListener('click', function(ev){
+    try{
+      if(!document.body.classList.contains('home-active-v9019')) return;
+      var btn = ev.target && ev.target.closest ? ev.target.closest('button') : null;
+      if(!btn) return;
+      var inMainNavigation = btn.matches('[data-view-btn], #tabPrayers, #tabNotes, #tabGuides, #tabVerses, #tabParables, #tabPsalms');
+      if(!inMainNavigation) return;
+      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore' || btn.id === 'btnGlobalSearchV3177') return;
+
+      document.body.classList.add('view-switching-v3189');
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            document.body.classList.remove('view-switching-v3189');
+          }, 90);
+        });
+      });
+    }catch(_e){}
+  }, true);
+})();
+
+
+/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
+(function(){
+  const ICONS={
+    '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
+    '✝':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'}
+  };
+  const RX=/(✝️|✝)/g;
+  const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
+  function makeIcon(token){
+    const cfg=ICONS[token];
+    if(!cfg)return document.createTextNode(token);
+    if(cfg.kind==='img'){
+      const img=document.createElement('img');
+      img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
+      return img;
+    }
+    const span=document.createElement('span'); span.className=cfg.cls; span.setAttribute('aria-label',cfg.label); return span;
+  }
+  function replaceNode(node){
+    const parent=node.parentElement;
+    if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193'))return;
+    const text=node.nodeValue||'';
+    if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
+    const frag=document.createDocumentFragment(); let last=0,m;
+    while((m=RX.exec(text))){
+      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+      frag.appendChild(makeIcon(m[0])); last=m.index+m[0].length;
+    }
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root)return;
+    if(root.nodeType===3){replaceNode(root);return;}
+    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[]; let n; while((n=walker.nextNode()))nodes.push(n);
+    nodes.forEach(replaceNode);
+  }
+  function start(){
+    scan(document.body);
+    const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(scan)));
+    obs.observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
+})();
+
+
+/* ===== V2.271 · Retirada definitiva de Guía y Parábolas ===== */
+(function(){
+  'use strict';
+  var retired={guides:true,parables:true};
+  function cleanRetiredState(){
+    try{
+      if(!window.state || typeof window.state!=='object') return;
+      delete window.state.guides; delete window.state.trashGuides; delete window.state.currentGuideId;
+      delete window.state.parables; delete window.state.trashParables; delete window.state.currentParableId;
+      if(retired[window.state.section]) window.state.section='prayers';
+      if(typeof window.section!=='undefined' && retired[window.section]) window.section='prayers';
+    }catch(e){}
+  }
+  cleanRetiredState();
+  var oldSwitch=window.switchSection||(typeof switchSection!=='undefined'?switchSection:null);
+  window.switchSection=function(s){ if(retired[s]) s='prayers'; return typeof oldSwitch==='function'?oldSwitch.call(this,s):undefined; };
+  try{switchSection=window.switchSection;}catch(e){}
+  var oldSwitchRead=window.switchSectionAndReadV90187||(typeof switchSectionAndReadV90187!=='undefined'?switchSectionAndReadV90187:null);
+  window.switchSectionAndReadV90187=function(s){ if(retired[s]) s='prayers'; return typeof oldSwitchRead==='function'?oldSwitchRead.call(this,s):undefined; };
+  try{switchSectionAndReadV90187=window.switchSectionAndReadV90187;}catch(e){}
+  function removeRetiredUi(){
+    ['tabGuides','tabParables'].forEach(function(id){var el=document.getElementById(id);if(el)el.remove();});
+    document.querySelectorAll('[data-filter="guides"],[data-filter="parables"]').forEach(function(el){el.remove();});
+    var input=document.getElementById('globalSearchInputV3177');
+    if(input) input.placeholder='Buscar oraciones, salmos, versículos y notas…';
+    cleanRetiredState();
+    if(typeof window.renderHomeCountersV3183==='function') window.renderHomeCountersV3183();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',removeRetiredUi); else removeRetiredUi();
+  setTimeout(removeRetiredUi,100); setTimeout(removeRetiredUi,700);
+})();
