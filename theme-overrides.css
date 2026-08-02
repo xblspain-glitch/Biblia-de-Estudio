@@ -304,3 +304,116 @@ body.light-mode #biblicalGuidesScreen .crud-editor-block-row .crud-block{
   color:var(--study87-gold-ink)!important;
   -webkit-text-fill-color:var(--study87-gold-ink)!important;
 }
+
+
+
+
+
+/* V2.8.35 · Botonera uniforme de Personajes, Parábolas y Guía */
+#biblicalCharactersScreen .biblical-characters-head-v2242 > button,
+#biblicalCharactersScreen .biblical-detail-toolbar-v16433 button,
+#biblicalParablesScreen .biblical-parables-head > button,
+#biblicalParablesScreen .parable-detail-top button,
+#biblicalGuidesScreen .biblical-guides-head > button,
+#biblicalGuidesScreen .guide-detail-top button{
+  appearance:none!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:48px!important;
+  margin:0!important;
+  padding:11px 18px!important;
+  border:1.5px solid #a98534!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,#303239 0%,#1b1d22 100%)!important;
+  color:#f8f1df!important;
+  -webkit-text-fill-color:#f8f1df!important;
+  font-family:Lora,serif!important;
+  font-weight:800!important;
+  font-size:clamp(16px,4.2vw,21px)!important;
+  line-height:1.1!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.55)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28)!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+#biblicalCharactersScreen .biblical-detail-toolbar-v16433,
+#biblicalParablesScreen .parable-detail-top,
+#biblicalGuidesScreen .guide-detail-top{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:14px!important;
+}
+#biblicalCharactersScreen .biblical-detail-nav-v288,
+#biblicalParablesScreen .detail-nav-actions,
+#biblicalGuidesScreen .detail-nav-actions,
+#biblicalCharactersScreen .detail-crud-actions,
+#biblicalParablesScreen .detail-crud-actions,
+#biblicalGuidesScreen .detail-crud-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  width:auto!important;
+  margin:0!important;
+}
+#biblicalCharactersScreen .crud-delete,
+#biblicalParablesScreen .crud-delete,
+#biblicalGuidesScreen .crud-delete{
+  border-color:#a85e61!important;
+}
+#biblicalCharactersScreen .biblical-characters-head-v2242 > button:active,
+#biblicalCharactersScreen .biblical-detail-toolbar-v16433 button:active,
+#biblicalParablesScreen .biblical-parables-head > button:active,
+#biblicalParablesScreen .parable-detail-top button:active,
+#biblicalGuidesScreen .biblical-guides-head > button:active,
+#biblicalGuidesScreen .guide-detail-top button:active{
+  background:linear-gradient(180deg,#fff0ad 0%,#dfb842 54%,#a87316 100%)!important;
+  border-color:#f2d576!important;
+  color:#211708!important;
+  -webkit-text-fill-color:#211708!important;
+  text-shadow:none!important;
+  transform:translateY(1px) scale(.98)!important;
+}
+body.light-mode #biblicalCharactersScreen .biblical-characters-head-v2242 > button,
+body.light-mode #biblicalCharactersScreen .biblical-detail-toolbar-v16433 button,
+body.light-mode #biblicalParablesScreen .biblical-parables-head > button,
+body.light-mode #biblicalParablesScreen .parable-detail-top button,
+body.light-mode #biblicalGuidesScreen .biblical-guides-head > button,
+body.light-mode #biblicalGuidesScreen .guide-detail-top button{
+  background:linear-gradient(180deg,#fffdf8 0%,#e9dfcf 100%)!important;
+  color:#2a2114!important;
+  -webkit-text-fill-color:#2a2114!important;
+  border-color:#a98534!important;
+  text-shadow:none!important;
+}
+@media(max-width:560px){
+  #biblicalCharactersScreen .biblical-detail-toolbar-v16433 button,
+  #biblicalParablesScreen .parable-detail-top button,
+  #biblicalGuidesScreen .guide-detail-top button{
+    min-height:46px!important;
+    padding:10px 15px!important;
+    font-size:17px!important;
+  }
+}
+
+/* V2.8.55 · Toast final override */
+body.light-mode #toast,
+body.light-mode .toast,
+body.light-mode .app-toast,
+body.light-mode .snackbar,
+.light-mode #toast,
+.light-mode .toast,
+.light-mode .app-toast,
+.light-mode .snackbar {
+  background:#fffaf0 !important;
+  color:#241b12 !important;
+  -webkit-text-fill-color:#241b12 !important;
+  border-color:#b88b2e !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}

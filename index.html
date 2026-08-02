@@ -1,475 +1,631 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V3</title>
-<meta name="theme-color" content="#111111">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V3">
-<link rel="manifest" href="manifest.json?v=v2-275-sin-modulos-estudio">
-<link rel="preload" as="image" href="icon-192.png">
-<link rel="preload" as="image" href="bg-morning.webp">
-<link rel="preload" as="image" href="bg-day.webp">
-<link rel="preload" as="image" href="bg-sunset.webp">
-<link rel="preload" as="image" href="bg-night.webp">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<link rel="preload" as="image" href="routine-morning-bible-v2216.webp">
-<link rel="preload" as="image" href="routine-night-bible-v2216.webp">
-<link rel="stylesheet" href="styles.css?v=v2-275-sin-modulos-estudio">
-<link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
-
-<style>
-.modal,.popup,.dialog,[role="dialog"],.overlay-content{contain:layout paint;will-change:opacity;transform:translateZ(0);backface-visibility:hidden}
-
-/* V3.1.188 · tamaño crítico desde el primer render para evitar destellos */
-.routine-progress-v3194 strong{display:flex;align-items:center;justify-content:center;gap:8px}
-@media(max-width:420px){
-}
-
-/* V3.1.193 · iconos ilustrados globales en textos, títulos y botones */
-.inline-faith-cross-v3193{display:inline-block;vertical-align:-.14em;width:1.05em;height:1.20em;margin:0 .08em;background:linear-gradient(180deg,#6d91ca,#416da9);-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 .05em .08em rgba(46,83,138,.24));pointer-events:none}
-button .inline-faith-cross-v3193{width:1em;height:1.12em}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f12">
+  <title>Mi Biblia de Estudio</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.2">
+  <link rel="manifest" href="manifest.webmanifest?v=3.1.2">
+<link rel="stylesheet" href="styles.css?v=3.1.2">
+  <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.2">
+  <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.2">
+  <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.2">
+  <link rel="stylesheet" href="theme-overrides.css?v=3.1.2">
 
 
-<style id="v3176-top-tabs-style">
-#tabPrayers.tab-prayers-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:6px 8px 8px!important;min-height:70px!important;line-height:1!important;text-align:center!important}
-#tabPrayers.tab-prayers-v3176 .prayer-cross-top-v3176{display:block!important;width:22px!important;height:24px!important;margin:0 auto!important;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%)!important;-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(255,255,255,.35)) drop-shadow(0 1px 2px rgba(73,103,156,.18))!important;flex:none!important}
-#tabPrayers.tab-prayers-v3176.active .prayer-cross-top-v3176{background:linear-gradient(180deg,#5f83c4 0%,#426aa8 100%)!important}
-#tabPrayers.tab-prayers-v3176 .prayer-label-top-v3176{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
-.top-tab-png-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
-.top-tab-png-v3176 .top-tab-png-icon-v3176{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.12))}
-.top-tab-png-v3176 span{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
-#tabNotes .top-tab-png-icon-v3176{width:29px!important;height:29px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,97,35,.18))!important;transform:translateY(-1px)!important}
-#tabVerses.tab-verses-heart-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
-#tabVerses.tab-verses-heart-v3176::before{content:"💚"!important;display:block!important;width:24px!important;height:24px!important;line-height:24px!important;font-size:20px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 3px rgba(0,0,0,.10))}
-#tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
-@media(max-width:420px){
-#tabPrayers.tab-prayers-v3176{gap:2px!important;padding:5px 6px 7px!important;min-height:66px!important}
-#tabPrayers.tab-prayers-v3176 .prayer-cross-top-v3176{width:20px!important;height:22px!important}
-#tabPrayers.tab-prayers-v3176 .prayer-label-top-v3176{font-size:.92em!important}
-.top-tab-png-v3176{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}
-.top-tab-png-v3176 .top-tab-png-icon-v3176{width:25px!important;height:25px!important}
-.top-tab-png-v3176 span{font-size:.92em!important}
-#tabNotes .top-tab-png-icon-v3176{width:27px!important;height:27px!important}
-#tabVerses.tab-verses-heart-v3176{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}
-#tabVerses.tab-verses-heart-v3176::before{width:23px!important;height:23px!important;line-height:23px!important;font-size:19px!important}
-#tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{font-size:.92em!important}
-}
-</style>
-<style>
-.home-daynight-icon-v3252{
-  width:34px;
-  height:34px;
-  object-fit:contain;
-  flex:0 0 34px;
-  display:inline-block;
-  vertical-align:middle;
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));
-}
-#btnDailyRoutinesV3192{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-}
-@media(max-width:600px){
-  .home-daynight-icon-v3252{width:29px;height:29px;flex-basis:29px}
-}
-@media(max-width:380px){
-  .home-daynight-icon-v3252{width:25px;height:25px;flex-basis:25px}
-}
-.home-own-icon-v3250{
-  width:32px;
-  height:32px;
-  object-fit:contain;
-  flex:0 0 32px;
-  display:inline-block;
-  vertical-align:middle;
-}
-#btnDaily{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-@media(max-width:600px){
-  .home-own-icon-v3250{width:27px;height:27px;flex-basis:27px}
-}
-@media(max-width:380px){
-  .home-own-icon-v3250{width:23px;height:23px;flex-basis:23px}
-}
-@media(max-width:420px){
-  
-}
-</style>
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
 </head>
 <body>
-
-<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V3">
-  <div class="ov2-card">
-    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V3" fetchpriority="high" decoding="async">
-    <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
-    <h1 class="ov2-title">Oraciones V3</h1>
-    <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
-    <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
-    <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
-    <div id="ov2Phrase" class="ov2-small">📖 Diseñada para la oración diaria</div>
-  </div>
-</div>
-<div id="installBanner" class="install-banner hidden">
-  <div class="install-title">Instalar app</div>
-  <div id="installHelp" class="install-sub">Puedes instalarla para abrirla como app real desde tu móvil.</div>
-  <div class="row">
-    <button class="btn primary" id="installBtn" type="button">Instalar</button>
-    <button class="btn soft" type="button" onclick="dismissInstall()">Ahora no</button>
-  </div>
-</div>
-
-<div class="topbar">
-  <div class="topbar-row">
-    <div class="segment">
-      <button id="tabPrayers" class="active tab-prayers-v3176 section-frame-blue-v245" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v3176" aria-hidden="true"></span><span class="prayer-label-top-v3176">Oraciones</span></button>
-      <button id="tabNotes" class="top-tab-png-v3176 section-frame-yellow-v245" type="button" onclick="switchSectionAndReadV90187('notes')"><img src="icon-notas-detallado-v2210.png" class="top-tab-png-icon-v3176" alt=""><span>Notas</span></button>
-      <button id="tabVerses" class="tab-verses-heart-v3176 section-frame-green-verses-v245" type="button" onclick="switchSection('verses')"><span class="tab-verses-label-v3176">Versículos</span></button>
+  <section id="homeScreen" class="home-screen">
+    <div class="home-hero">
+      <img id="timeHeaderImage" decoding="async" fetchpriority="high" src="cabecera-1.png?v=3.1.2" alt="Mi Biblia de Estudio Reina-Valera 1960, con Biblia abierta y cruz etíope">
     </div>
-    <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
-    <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button id="btnDaily" data-view-btn="daily" class="btn soft section-frame-lavender-v245" type="button" onclick="openDailyVerse()"><img class="home-own-icon-v3250" src="icon-versiculo-dia-v3250.png" alt="" aria-hidden="true"> <span>Versículo del día</span></button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft section-frame-blue-routines-v247" type="button" onclick="openDailyRoutinesV3192()"><img class="home-daynight-icon-v3252" src="icon-dia-noche-v3255.png" alt="" aria-hidden="true"><span>Día/Noche</span></button>
-    <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft section-frame-green-moments-v245" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
-    <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
-    <div class="home-fixed-row-v31763 home-fixed-row-two-v31763 home-study-row-v2265">
-<button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
-      <button id="btnMainMark" class="btn soft section-frame-pink-mark-v247" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+    <div class="home-welcome">
+      <h1>Bienvenido</h1>
+      <p>¿Qué desea hacer?</p>
     </div>
-        <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-    <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-    <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button id="btnMainCard" class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>
-    <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
-    <div class="home-fixed-row-v31763 home-fixed-row-four-v31763">
-      <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-      <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-      <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-      <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
-    </div>
-    <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        <div class="topbar-bottom-row-v66 counter-row-v853">
-      <div id="counterInfo" class="counter counter-v66"></div>
-    </div>
-    <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
-  </div>
-</div>
-
-<div class="main">
-  <aside class="sidebar"><div id="list" class="list"></div></aside>
-  <section class="content">
-
-    <div id="homeView" class="panel home-panel-v9019 hidden">
-      <div class="home-card-v9019" id="homeCardV9019">
-        <div class="home-kicker-v9019">🌿 Palabra para este momento</div>
-        <div class="home-date-v9019" id="homeDateV9019"></div>
-        <div class="home-ref-v9019" id="homeRefV9019">Romanos 8:28</div>
-        <div class="home-text-v9019" id="homeTextV9019"></div>
-        <div class="home-line-v9019"></div>
-        <div class="home-phrase-v9019" id="homePhraseV9019">🙏🏾 Que esta palabra fortalezca hoy tu corazón.</div>
-      </div>
-    </div>
-
-    <div id="momentsHubV31102" class="panel hidden moments-panel-v31102">
-      <div><button class="btn soft" type="button" onclick="closeMomentsV31102()">← Volver</button></div>
-      <div class="moments-title-v31102">🌿 Momentos</div>
-      <div class="moments-sub-v31102">Elija cómo se encuentra o qué necesita. La aplicación le propondrá una oración, un Salmo y un versículo relacionados.</div>
-      <div id="momentsGridV31102" class="moments-grid-v31102"></div>
-    </div>
-
-    <div id="momentPreviewV31102" class="panel hidden moments-panel-v31102">
-      <div><button class="btn soft" type="button" onclick="backMomentsHubV31102()">← Momentos</button></div>
-      <div id="momentPreviewTitleV31102" class="moments-title-v31102"></div>
-      <div id="momentPreviewSubV31102" class="moments-sub-v31102"></div>
-      <div class="moment-preview-actions-v31102">
-        <button id="momentRegenerateV31105" class="btn primary" type="button" onclick="regenerateMomentV31102()">💚 Otra propuesta al azar</button>
-      </div>
-      <div id="momentRouteV31102" class="moment-route-v31102"></div>
-      <div class="moment-start-wrap-v31102"><button id="momentStartV31102" class="btn primary" type="button" onclick="startMomentV31102()">▶ Comenzar momento</button></div>
-    </div>
-
-    <div id="routineHubV3192" class="panel hidden routine-panel-v3192">
-      <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="closeDailyRoutinesV3192()">← Volver</button></div>
-      <div class="routine-page-title-v3192">🌅🌙 Día/Noche</div>
-      <div class="routine-page-sub-v3192">Cree sus recorridos personales de oración para comenzar y terminar cada día.</div>
-      <div class="routine-hub-grid-v3192">
-        <button class="routine-hub-card-v3192 morning-v3192" type="button" onclick="openRoutineEditorV3192('morning')"><span class="routine-hub-image-slot-v2216"><img class="routine-hub-image-v2216" src="routine-morning-bible-v2216.webp" alt="Biblia al amanecer"></span><strong>Mañana</strong><small id="routineMorningCountV3192">Sin configurar</small></button>
-        <button class="routine-hub-card-v3192 sabbath-v31111" type="button" onclick="openRoutineEditorV3192('sabbath')"><span class="routine-hub-icon-v3192">🕯️</span><strong>Sabbath</strong><small id="routineSabbathCountV31111">Sin configurar</small></button>
-        <button class="routine-hub-card-v3192 night-v3192" type="button" onclick="openRoutineEditorV3192('night')"><span class="routine-hub-image-slot-v2216"><img class="routine-hub-image-v2216" src="routine-night-bible-v2216.webp" alt="Biblia bajo el cielo nocturno"></span><strong>Noche</strong><small id="routineNightCountV3192">Sin configurar</small></button>
-      </div>
-    </div>
-
-    <div id="routineEditorV3192" class="panel hidden routine-panel-v3192">
-      <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="backRoutineHubV3192()">← Día/Noche</button><button class="btn primary" type="button" onclick="openRoutineAddMenuV3192()">➕ Añadir</button><button id="routineStartBtnV3192" class="btn soft routine-start-v3192" type="button" onclick="startRoutineV3192()">▶ Iniciar rutina</button></div>
-      <div id="routineEditorTitleV3192" class="routine-page-title-v3192"></div><div id="routineEditorSubV3192" class="routine-page-sub-v3192"></div><div id="routineListV3192" class="routine-list-v3192"></div>
-    </div>
-
-    <div id="routineReaderV3192" class="panel hidden routine-reader-v3192">
-      <div class="routine-reader-top-v3192"><button class="btn soft" type="button" onclick="exitRoutineReadingV3192()">← Salir</button><span id="routineReaderPositionV3192"></span></div>
-      <div id="routineReaderRoutineV3192" class="routine-reader-routine-v3192"></div><div id="routineReaderKindV3192" class="routine-reader-kind-v3192"></div><div id="routineReaderTitleV3192" class="routine-reader-title-v3192"></div><div class="routine-reader-line-v3192"></div><div id="routineReaderTextV3192" class="routine-reader-text-v3192"></div>
-      <div class="routine-reader-nav-v3192"><button id="routinePrevV3192" class="btn soft" type="button" onclick="routinePrevV3192()">← Anterior</button><button id="routineNextV3192" class="btn primary" type="button" onclick="routineNextV3192()">Siguiente →</button></div>
-    </div>
-    <div id="readerView" class="panel">
-      <div class="panel-head">
-        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn primary new-blue" type="button" onclick="newItem()">➕ Nueva</button>
-        <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
-        <button data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-
-        <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-        <button data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-        <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-        <button id="btnReaderBlock" class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
-        <span class="toolbar-break-v68"></span>
-        <span class="font-combo-v27">
-          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
-          <span class="font-combo-separator-v31" aria-hidden="true"></span>
-          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(2)">A+</button>
+    <div class="home-actions">
+      <button id="homeContinue" class="home-card home-card-continue" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-seguir.jpg?v=3.1.2" alt=""></span>
+        <span><strong>Punto de libro</strong><small id="homeContinueRef">Todavía no hay un punto de libro guardado</small></span>
+      </button>
+      <button id="homeBooks" class="home-card home-card-books" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-libros.jpg?v=3.1.2" alt=""></span>
+        <span><strong>Libros</strong><small>Elige libro, capítulo y versículo</small></span>
+      </button>
+      <button id="homeSearch" class="home-card home-card-search" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-buscar.jpg?v=3.1.2" alt=""></span>
+        <span><strong>Buscador</strong><small>Busca palabras o referencias</small></span>
+      </button>
+      <button id="homeSaved" class="home-card home-card-saved" type="button">
+        <span class="home-icon"><img decoding="async" src="icon-guardados.jpg?v=3.1.2" alt=""></span>
+        <span><strong>Guardados</strong><small>Último punto de libro guardado y versículos</small></span>
+      </button>
+      <button id="homeDailyVerse" class="home-card home-card-daily" type="button">
+        <span class="home-icon daily-verse-icon"><img decoding="async" src="icon-versiculo-dia.jpg?v=3.1.2" alt=""></span>
+        <span class="home-daily-copy">
+          <strong>Versículo del día</strong>
+          <span class="home-daily-meta">
+            <span id="homeDailyVerseRef">Preparando el versículo de hoy…</span>
+          </span>
+          <small id="homeDailyVersePreview" class="home-daily-preview"></small>
         </span>
-        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
-        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
-        <span class="toolbar-break-v68"></span>
-        <button id="readerMarkBtn" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
-        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-
-        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
-        <button id="shareBeautifulBtnV3166" class="btn soft" type="button" onclick="shareBeautifulHTMLV3166()">✨ Compartir bonito</button>
-        <span class="toolbar-break-v68"></span>
-        <button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>
-        <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-
-      </div>
-      <div id="readerIdentityV31103" class="reader-identity-v31103" aria-hidden="true">
-        <span class="reader-identity-line-v31103"></span>
-        <span id="readerIdentityIconV31103" class="reader-identity-icon-v31103">✝</span>
-        <span id="readerIdentityLabelV31103" class="reader-identity-label-v31103">Oración</span>
-        <span class="reader-identity-line-v31103"></span>
-      </div>
-      <div id="readerCode" class="reader-code"></div>
-      <div id="readerDailyDate" class="reader-daily-date hidden"></div>
-      <div id="readerCategory" class="reader-daily-date hidden" style="display:none!important"></div>
-      <div id="readerTitle" class="reader-title"></div>
-      <div id="readerText" class="reader-text" onclick="toggleReadingUI()"></div>
+      </button>
     </div>
+    <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
+  </section>
 
-    <div id="editorView" class="panel hidden">
-      <div class="panel-head">
-        <button class="btn primary" type="button" onclick="saveCurrent(true,false)">💾 Guardar</button>
-        <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
-        <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
-        <button class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
-        <button id="momentCatalogEditorButtonV31116" class="btn soft" type="button" onclick="openMomentCatalogV31102()">🏷️ Momentos (0)</button>
-        <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
-        <div id="saveStatus" class="status">Sin cambios</div>
-      </div>
-      <input id="editTitle" class="title-input" placeholder="Título">
-
-      <select id="editCategory" class="search hidden" style="width:100%;border-radius:0;border:none;border-bottom:1px solid var(--line);font-size:18px">
-        <option value="salvacion">❤️ Salvación</option>
-        <option value="fe">🙏🏾 Fe</option>
-        <option value="esperanza">🕊️ Esperanza</option>
-        <option value="fortaleza">💪🏾 Fortaleza</option>
-        <option value="amor">❤️ Amor</option>
-        <option value="descanso">🌿 Descanso</option>
-        <option value="sabiduria">📚 Sabiduría</option>
-        <option value="alabanza">🙌🏾 Alabanza</option>
-        <option value="santidad">⚖️ Santidad</option>
-        <option value="reino">👑 Reino de Dios</option>
-        <option value="espiritu">🔥 Espíritu Santo</option>
-        <option value="segunda_venida">⏳ Segunda Venida</option>
-        <option value="juicio">⚖️ Juicio</option>
-        <option value="matrimonio">🤝 Matrimonio</option>
-      </select>
-
-      <textarea id="editText" class="text-input" placeholder="Escribe aquí..."></textarea>
+  <div id="readerScreen" class="reader-screen hidden">
+  <header class="topbar">
+    <button id="homeBtn" class="icon-btn" aria-label="Inicio">←</button>
+    <div class="title-wrap">
+      <button id="bookTitle" class="book-title">Génesis</button>
+      <button id="chapterTitle" class="chapter-title">1</button>
     </div>
+    <button id="themeToggleBtn" class="icon-btn theme-toggle-btn" aria-label="Activar modo blanco" title="Modo blanco">☀️</button>
+    <button id="searchBtn" class="icon-btn" aria-label="Buscar">⌕</button>
+    <button id="settingsBtn" class="icon-btn" aria-label="Ajustes">⋮</button>
+  </header>
 
-    <div id="backupView" class="panel hidden">
-      <div class="panel-head backup-head-v40">
-        <button class="btn soft" type="button" onclick="closeUtilityScreenV2189()">← Volver</button>
+  <main id="reader" class="reader" aria-live="polite"></main>
 
-        <div class="backup-title-v40">📤 EXPORTAR</div>
-        <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
-        <button class="btn soft" type="button" onclick="shareBackupJson()">📤 Compartir JSON</button>
-        <button class="btn soft" type="button" onclick="copyBackupJson()">📋 Copiar JSON</button>
-        <button class="btn soft" type="button" onclick="exportVersesOnly()">📤 Exportar versículos</button>
-        <button class="btn soft" type="button" onclick="exportAllZip()">📦 Exportar todo ZIP</button>
+  <nav class="chapter-nav">
+    <button id="prevChapter" aria-label="Capítulo anterior">‹</button>
+    <span id="chapterIndicator">Génesis 1</span>
+    <button id="nextChapter" aria-label="Capítulo siguiente">›</button>
+  </nav>
 
-        <div class="backup-title-v40">📥 IMPORTAR</div>
-        <button class="btn soft" type="button" onclick="importBackupFromText()">⬆ Importar texto</button>
-        <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
-        <button class="btn soft" type="button" onclick="openBackupFilePicker()">📥 Importar backup JSON</button>
-        <button class="btn soft" type="button" onclick="openVersesFilePicker()">❤️ Importar archivo de versículos</button>
-<div class="backup-title-v40">⚙️ AJUSTES DE MOMENTOS</div>
-        <button class="btn soft" type="button" onclick="recatalogMomentsV31121()">🔄 Recatalogar automáticamente Salmos y Versículos</button>
-
-        <div class="backup-title-v40">♻️ RECUPERACIÓN</div>
-        <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
+  <section id="selectionBar" class="selection-bar hidden" aria-label="Acciones del versículo">
+    <button id="actionsPanelToggle" class="actions-panel-toggle" type="button" aria-label="Mostrar u ocultar acciones" aria-expanded="false">‹</button>
+    <div class="actions-panel-inner">
+      <div class="selection-reference"><div id="selectionReference" class="selection-reference-title"></div><div id="selectionCount" class="selection-reference-count"></div></div>
+      <div class="actions-scroll">
+        <button class="action pastel-action action-copy" data-action="copy" aria-label="Copiar">COPIAR</button>
+        <button class="action pastel-action action-highlight" data-action="highlight" aria-label="Subrayar">SUBRAYAR</button>
+        <button class="action pastel-action action-reading-point" data-action="reading-point" aria-label="Ir al punto de libro">PUNTO DE LIBRO</button>
+        <button class="action pastel-action action-favorite" data-action="favorite" aria-label="Guardar punto de libro">GUARDAR PUNTO DE LIBRO</button>
+        <button class="action pastel-action action-explain" data-action="explain" aria-label="Explicación">EXPLICACIÓN</button>
+        <button class="action pastel-action action-dictionary" data-action="dictionary" aria-label="Diccionario">DICCIONARIO</button>
+        <button class="action pastel-action action-encyclopedia" data-action="encyclopedia" aria-label="Enciclopedia bíblica">ENCICLOPEDIA</button>
+        <button class="action pastel-action action-stats" data-action="stats" aria-label="Estadísticas">ESTADÍSTICAS</button>
+        <button id="moreFunctionsBtn" class="action pastel-action action-more" data-action="more" aria-label="Más funciones">MÁS</button>
       </div>
-      <div id="backupStatusV3149" class="backup-status-wrap-v3149"></div>
-      <div class="file-row">
-        <input id="jsonFileInput" class="file-input" type="file" accept=".json,application/json">
-        <input id="versesFileInput" class="file-input" type="file" accept=".json,application/json">
-        <div id="fileNameInfo" class="small-note" style="padding:10px 0 0 0;">También puedes pegar el JSON abajo e importar desde texto.</div>
-      </div>
-      <textarea id="backupText" class="backup-text" placeholder="Aquí aparecerá tu copia de seguridad. También puedes pegar aquí una copia para importar."></textarea>
-      <div class="small-note">El backup incluye oraciones, notas, las dos papeleras y además se guarda una copia automática local en cada cambio.</div>
-    </div>
-
-    
-
-    <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
-      <div class="panel-head categories-head-v73">
-        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
-        <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
-        <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
-        <button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>
-        <button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>
-        <button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button>
-        <button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button>
-        <button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
-        <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-        <input id="categorySearchV73" class="search categories-search-v73" placeholder="Buscar categoría" oninput="renderVerseCategories()">
-      </div>
-      <div id="verseCategoriesList" class="category-grid"></div>
-    </div>
-
-    <div id="titlesView" class="panel hidden titles-screen-v72">
-      <div class="panel-head titles-head-v72">
-        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <input id="titlesSearch" class="search titles-search-v72" placeholder="Buscar..." oninput="renderTitles()">
-      </div>
-      <div id="titlesList" class="title-list"></div>
-    </div>
-
-    <div id="trashView" class="panel hidden">
-      <div class="panel-head">
-        <button class="btn soft" type="button" onclick="closeUtilityScreenV2189()">← Volver</button>
-        <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
-        <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
-      </div>
-      <div id="trashList" class="trash-list"></div>
     </div>
   </section>
-</div>
-
-
-
-<div id="recentModal" class="recent-modal hidden">
-  <div class="recent-sheet">
-    <div class="recent-head">
-      <button class="btn soft" type="button" onclick="closeRecentHistory()">← Cerrar</button>
-      <button class="btn danger" type="button" onclick="clearRecentHistory()">🗑️ Limpiar</button>
-    </div>
-    <div class="recent-main-title">🕘 Recientes</div>
-    <div class="recent-sub">Últimos leídos, añadidos y editados.</div>
-    <div id="recentContent" class="recent-content"></div>
   </div>
-</div>
 
 
-<div id="routineAddModalV3192" class="routine-modal-v3192 hidden" role="dialog" aria-modal="true">
-  <div class="routine-modal-sheet-v3192">
-    <div id="routineAddTypeV3192"><div class="routine-modal-head-v3192"><button class="btn soft" type="button" onclick="closeRoutineAddV3192()">← Cerrar</button></div><div class="routine-modal-title-v3192">➕ Añadir a la rutina</div><div class="routine-type-grid-v3192"><button type="button" onclick="chooseRoutineTypeV3192('prayers')"><span>🙏🏾</span><strong>Oración</strong></button><button type="button" onclick="chooseRoutineTypeV3192('prayerChoice')"><span>🕯️</span><strong>Grupo de oraciones</strong></button><button type="button" onclick="chooseRoutineTypeV3192('randomPrayer')"><span>🌿</span><strong>Oración al azar</strong></button><button type="button" onclick="chooseRoutineTypeV3192('psalms')"><span>♫</span><strong>Salmo</strong></button><button type="button" onclick="chooseRoutineTypeV3192('verses')"><span>✨</span><strong>Versículo</strong></button></div></div>
-    <div id="routineAddChoicesV3192" class="hidden"><div class="routine-modal-head-v3192"><button class="btn soft" type="button" onclick="backRoutineTypeV3192()">← Tipo</button><button class="btn soft" type="button" onclick="closeRoutineAddV3192()">Cerrar</button></div><button id="routineChoiceTitleV3192" class="routine-choice-title-v3192" type="button"></button><div id="routineChoiceListV3192" class="routine-choice-list-v3192"></div></div>
-  </div>
-</div>
 
 
-<div id="momentChoiceModalV31102" class="moment-choice-modal-v31102 hidden">
-  <div class="moment-choice-sheet-v31102"><div class="moment-choice-cross-v31102">✝</div><h2 id="momentChoiceHeadingV31102">Elija una propuesta</h2><p style="text-align:center;color:var(--muted)">¿Cuál desea recibir en este momento?</p><div id="momentChoiceListV31102" class="moment-choice-list-v31102"></div></div>
-</div>
-<div id="momentCatalogModalV31102" class="moment-catalog-modal-v31102 hidden">
-  <div class="moment-catalog-sheet-v31102"><h2>🏷️ Catalogar para Momentos</h2><p style="text-align:center;color:var(--muted)">Puede marcar varias categorías. La aplicación utilizará este contenido automáticamente cuando corresponda.</p><div id="momentCatalogListV31102" class="moment-catalog-list-v31102"></div><div class="moment-catalog-actions-v31102"><button class="btn soft" type="button" onclick="closeMomentCatalogV31102()">Cancelar</button><button class="btn primary" type="button" onclick="saveMomentCatalogV31102()">✓ Guardar categorías</button></div></div>
-</div>
-
-<div id="globalSearchModalV3177" class="global-search-modal-v3177 hidden" role="dialog" aria-modal="true" aria-label="Buscar en toda la app">
-  <div class="global-search-sheet-v3177">
-    <div class="global-search-head-v3177">
-      <button class="btn soft" type="button" onclick="closeGlobalSearchV3177()">← Volver</button>
-      <div class="global-search-title-v3177">🔎 Buscar en toda la app</div>
+  <section id="moreFunctionsScreen" class="study-module-screen hidden" aria-label="Más funciones">
+    <div class="study-module-panel">
+      <div class="study-module-head">
+        <button class="btn soft" type="button" onclick="closeMoreFunctions()">← Volver</button>
+      </div>
+      <h1>Más</h1>
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+      <p class="study-module-sub">Herramientas adicionales para ampliar el estudio bíblico.</p>
+      <div class="more-functions-grid">
+        <button id="calendarModuleBtn" class="more-function-card" type="button" onclick="openBiblicalCalendar()">
+          <span class="more-function-title">Calendario</span>
+          <span class="more-function-description">Festividades cristianas y pasajes bíblicos relacionados.</span>
+        </button>
+      </div>
     </div>
-    <div class="global-search-box-v3177">
-      <input id="globalSearchInputV3177" type="search" autocomplete="off" placeholder="Buscar oraciones, salmos, versículos y notas…" oninput="renderGlobalSearchV3177()">
-      <button id="globalSearchClearV3177" type="button" onclick="clearGlobalSearchV3177()" aria-label="Borrar búsqueda">×</button>
-    </div>
-    <div class="global-search-filters-v3177" id="globalSearchFiltersV3177">
-      <button type="button" class="active" data-filter="all" onclick="setGlobalSearchFilterV3177('all',this)">Todo</button>
-      <button type="button" data-filter="prayers" onclick="setGlobalSearchFilterV3177('prayers',this)">✝️ Oraciones</button>
-      <button type="button" data-filter="psalms" onclick="setGlobalSearchFilterV3177('psalms',this)">♫ Salmos</button>
-      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">❤️ Versículos</button>
-      <button type="button" data-filter="notes" onclick="setGlobalSearchFilterV3177('notes',this)">📝 Notas</button>
-    </div>
-    <div id="globalSearchSummaryV3177" class="global-search-summary-v3177">Escriba una palabra para buscar en todo su contenido.</div>
-    <div id="globalSearchResultsV3177" class="global-search-results-v3177"></div>
-  </div>
-</div>
+  </section>
 
-<div id="cardStyleModalV2217" class="card-style-modal-v2217 hidden" role="dialog" aria-modal="true" aria-labelledby="cardStyleTitleV2217">
-  <div class="card-style-sheet-v2217">
-    <div class="card-style-head-v2217">
-      <h2 id="cardStyleTitleV2217">🖼️ Elegir estilo de tarjeta</h2>
-      <button class="card-style-close-v2217" type="button" onclick="closeCardStyleSelectorV2217()" aria-label="Cerrar">×</button>
+  <section id="biblicalCalendarScreen" class="study-module-screen hidden" aria-label="Calendario de festividades">
+    <div class="study-module-panel calendar-study-panel">
+      <div class="study-module-head calendar-toolbar">
+        <button class="btn soft" type="button" onclick="closeBiblicalCalendar()">← Volver</button>
+        <button class="btn soft" type="button" onclick="renderBiblicalCalendar(new Date())">Hoy</button>
+        <button class="btn soft" type="button" onclick="renderBiblicalCalendar(addBiblicalCalendarDays(new Date(),1))">Mañana</button>
+        <button class="btn soft" type="button" onclick="openBiblicalFestivityLibrary()">Festividades</button>
+      </div>
+      <div id="biblicalCalendarContent" class="biblical-calendar-wrap"></div>
     </div>
-    <p class="card-style-sub-v2217">Seleccione el diseño que desea compartir.</p>
-    <div class="card-style-grid-v2217">
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('classic')">
-        <img class="card-style-preview-v2217 classic-v2217" src="card-sabiduria-v2240.jpg?v=v2-241-ajuste-dinamico-referencia-fija" alt="Sabiduría">
-        <span><strong>Sabiduría</strong><small>Tarjeta temática</small></span>
+  </section>
+
+  <dialog id="biblicalFestivityDialog" class="sheet-dialog biblical-festivity-dialog">
+    <button class="dialog-close" type="button" onclick="closeBiblicalFestivityDialog()">×</button>
+
+    <div id="biblicalFestivityListView">
+      <div class="festivity-library-head">
+        <div>
+          <h2>Festividades cristianas</h2>
+          <p class="festivity-intro">Selecciona una festividad para consultar su explicación, notas y pasajes bíblicos.</p>
+        </div>
+        <button class="btn primary festivity-add-main" type="button" onclick="openBiblicalFestivityEditor()">Añadir festividad</button>
+      </div>
+      <input id="biblicalFestivitySearch" class="festivity-search" type="search" placeholder="Buscar festividad..." oninput="renderBiblicalFestivityLibrary()">
+      <div id="biblicalFestivityList" class="biblical-festivity-list"></div>
+    </div>
+
+    <div id="biblicalFestivityDetailView" class="hidden">
+      <button class="btn soft" type="button" onclick="backToBiblicalFestivityList()">← Festividades</button>
+      <div id="biblicalFestivityDetail"></div>
+    </div>
+
+    <div id="biblicalFestivityEditorView" class="hidden">
+      <button class="btn soft" type="button" onclick="cancelBiblicalFestivityEditor()">← Cancelar</button>
+      <div id="biblicalFestivityEditor"></div>
+    </div>
+  </dialog>
+
+
+  <section id="biblicalEncyclopediaScreen" class="encyclopedia-screen hidden" aria-label="Enciclopedia Bíblica">
+    <div class="encyclopedia-panel">
+      <div class="encyclopedia-head">
+        <button class="btn soft" type="button" onclick="closeBiblicalEncyclopedia()">← Volver</button>
+      </div>
+      <h1>Enciclopedia Bíblica</h1>
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+      <p class="encyclopedia-sub">Personajes, enseñanzas y recursos para profundizar en las Sagradas Escrituras.</p>
+      <div class="encyclopedia-grid">
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('characters')">
+          <strong>PERSONAJES</strong>
+        </button>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('guides')">
+          <strong>GUÍA</strong>
+        </button>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('parables')">
+          <strong>PARÁBOLAS</strong>
+        </button>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('prophecies')">
+          <strong>PROFECÍAS</strong>
+        </button>
+        <button type="button" class="encyclopedia-card" onclick="openEncyclopediaSection('places')">
+          <strong>LUGARES BÍBLICOS</strong>
+        </button>
+      </div>
+      <div class="encyclopedia-coming-line" aria-hidden="true"></div>
+      <p class="encyclopedia-coming">Una enciclopedia para conocer personas, enseñanzas, profecías y lugares de las Sagradas Escrituras.</p>
+    </div>
+  </section>
+
+  <section id="biblicalCharactersScreen" class="characters-screen hidden" aria-label="Personajes Bíblicos">
+    <div id="biblicalCharactersViewV2242" class="biblical-characters-panel-v2242">
+      <div class="biblical-characters-head-v2242">
+        <button class="section-main-dark-btn" style="appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;margin:0!important;padding:11px 20px!important;border:1.5px solid var(--study-btn-border,#a98534)!important;border-radius:18px!important;background:var(--study-btn-bg,linear-gradient(180deg,#303239 0%,#1b1d22 100%))!important;color:var(--study-btn-text,#f8f1df)!important;-webkit-text-fill-color:var(--study-btn-text,#f8f1df)!important;font-family:Lora,serif!important;font-weight:800!important;font-size:18px!important;line-height:1.1!important;text-shadow:var(--study-btn-shadow,0 1px 1px rgba(0,0,0,.55))!important;box-shadow:var(--study-btn-box-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28))!important;white-space:nowrap!important;cursor:pointer!important" type="button" onclick="returnFromEncyclopediaSection('characters')">← Volver</button>
+      </div>
+      <div id="biblicalCharactersHomeV2242">
+        <div id="biblicalCharactersCrudToolsV16436" class="module-crud-tools" style="display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;width:100%!important;margin:0 0 18px!important"><button type="button" class="crud-add section-main-dark-btn" style="appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;margin:0!important;padding:11px 20px!important;border:1.5px solid var(--study-btn-border,#a98534)!important;border-radius:18px!important;background:var(--study-btn-bg,linear-gradient(180deg,#303239 0%,#1b1d22 100%))!important;color:var(--study-btn-text,#f8f1df)!important;-webkit-text-fill-color:var(--study-btn-text,#f8f1df)!important;font-family:Lora,serif!important;font-weight:800!important;font-size:18px!important;line-height:1.1!important;text-shadow:var(--study-btn-shadow,0 1px 1px rgba(0,0,0,.55))!important;box-shadow:var(--study-btn-box-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28))!important;white-space:nowrap!important;cursor:pointer!important;width:100%!important" onclick="editBiblicalCharacterV16433()">＋ Añadir</button><button type="button" class="crud-trash section-main-dark-btn" style="appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;margin:0!important;padding:11px 20px!important;border:1.5px solid var(--study-btn-border,#a98534)!important;border-radius:18px!important;background:var(--study-btn-bg,linear-gradient(180deg,#303239 0%,#1b1d22 100%))!important;color:var(--study-btn-text,#f8f1df)!important;-webkit-text-fill-color:var(--study-btn-text,#f8f1df)!important;font-family:Lora,serif!important;font-weight:800!important;font-size:18px!important;line-height:1.1!important;text-shadow:var(--study-btn-shadow,0 1px 1px rgba(0,0,0,.55))!important;box-shadow:var(--study-btn-box-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28))!important;white-space:nowrap!important;cursor:pointer!important;width:100%!important" onclick="openBiblicalCharactersTrashV16433()">Papelera <span id="biblicalCharactersTrashCountV16436">0</span></button></div>
+        <h1 class="biblical-characters-title-v2242">Personajes Bíblicos</h1>
+        <p class="biblical-characters-sub-v2242">Recuerde quién fue cada personaje, por qué es importante y qué enseñanza nos deja.</p>
+        <label class="biblical-characters-search-v2242">
+          <span aria-hidden="true">🔎</span>
+          <input id="biblicalCharactersSearchV2242" type="search" autocomplete="off" placeholder="Buscar personaje, libro o categoría…" oninput="renderBiblicalCharactersV2242()">
+        </label>
+        <div id="biblicalCharactersCategoriesV2242" class="biblical-characters-categories-v2242"></div>
+        <div class="biblical-characters-list-head-v2242"><strong id="biblicalCharactersListTitleV2242">Todos los personajes</strong><span id="biblicalCharactersCountV2242"></span></div>
+        <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
+      </div>
+      <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
+    </div>
+  </section>
+
+
+  <section id="biblicalParablesScreen" class="parables-screen hidden" aria-label="Parábolas">
+    <div class="biblical-parables-panel">
+      <div class="biblical-parables-head"><button class="section-main-dark-btn" style="appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;margin:0!important;padding:11px 20px!important;border:1.5px solid var(--study-btn-border,#a98534)!important;border-radius:18px!important;background:var(--study-btn-bg,linear-gradient(180deg,#303239 0%,#1b1d22 100%))!important;color:var(--study-btn-text,#f8f1df)!important;-webkit-text-fill-color:var(--study-btn-text,#f8f1df)!important;font-family:Lora,serif!important;font-weight:800!important;font-size:18px!important;line-height:1.1!important;text-shadow:var(--study-btn-shadow,0 1px 1px rgba(0,0,0,.55))!important;box-shadow:var(--study-btn-box-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28))!important;white-space:nowrap!important;cursor:pointer!important" type="button" onclick="returnFromEncyclopediaSection('parables')">← Volver</button></div>
+      <div id="biblicalParablesHome">
+        <h1 class="biblical-parables-title">Parábolas</h1>
+        <p class="biblical-parables-sub">Las enseñanzas de Cristo explicadas de forma clara y ordenada.</p>
+        <label class="biblical-parables-search"><span aria-hidden="true">🔎</span><input id="biblicalParablesSearch" type="search" autocomplete="off" placeholder="Buscar parábola o palabra…" oninput="renderBiblicalParables()"></label>
+        <div class="biblical-parables-list-head"><strong>Todas las parábolas</strong><span id="biblicalParablesCount"></span></div>
+        <div id="biblicalParablesList" class="biblical-parables-list"></div>
+      </div>
+      <article id="biblicalParableDetail" class="biblical-parable-detail hidden"></article>
+    </div>
+  </section>
+
+  <section id="biblicalGuidesScreen" class="guides-screen hidden" aria-label="Guía">
+    <div class="biblical-guides-panel">
+      <div class="biblical-guides-head"><button class="section-main-dark-btn" style="appearance:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:48px!important;margin:0!important;padding:11px 20px!important;border:1.5px solid var(--study-btn-border,#a98534)!important;border-radius:18px!important;background:var(--study-btn-bg,linear-gradient(180deg,#303239 0%,#1b1d22 100%))!important;color:var(--study-btn-text,#f8f1df)!important;-webkit-text-fill-color:var(--study-btn-text,#f8f1df)!important;font-family:Lora,serif!important;font-weight:800!important;font-size:18px!important;line-height:1.1!important;text-shadow:var(--study-btn-shadow,0 1px 1px rgba(0,0,0,.55))!important;box-shadow:var(--study-btn-box-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 4px 12px rgba(0,0,0,.28))!important;white-space:nowrap!important;cursor:pointer!important" type="button" onclick="returnFromEncyclopediaSection('guides')">← Volver</button></div>
+      <div id="biblicalGuidesHome">
+        <h1 class="biblical-guides-title">Guía</h1>
+        <p class="biblical-guides-sub">Temas y estudios bíblicos organizados para consultar y ampliar.</p>
+        <label class="biblical-guides-search"><span aria-hidden="true">🔎</span><input id="biblicalGuidesSearch" type="search" autocomplete="off" placeholder="Buscar tema o palabra…" oninput="renderBiblicalGuides()"></label>
+        <div class="biblical-guides-list-head"><strong>Todos los temas</strong><span id="biblicalGuidesCount"></span></div>
+        <div id="biblicalGuidesList" class="biblical-guides-list"></div>
+      </div>
+      <article id="biblicalGuideDetail" class="biblical-guide-detail hidden"></article>
+    </div>
+  </section>
+
+
+  <section id="biblicalPlacesScreen" class="prophecies-screen biblical-places-screen hidden" aria-label="Lugares Bíblicos">
+    <div class="biblical-prophecies-panel">
+      <div class="biblical-prophecies-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('places')">← Volver</button></div>
+      <div id="biblicalPlacesHome">
+        <div class="module-crud-tools prophecy-crud-tools places-crud-tools">
+          <button type="button" class="crud-add" onclick="openBiblicalPlaceEditor()">＋ Añadir</button>
+          <button type="button" onclick="exportBiblicalPlaces()">Exportar</button>
+          <button type="button" onclick="document.getElementById('biblicalPlacesImportInput').click()">Importar</button>
+          <button type="button" class="places-map-open" onclick="openBiblicalPlacesMap()">Mapa bíblico</button><button type="button" onclick="openBiblicalPlacesStats()">Estadísticas</button>
+          <button type="button" class="crud-trash" onclick="openBiblicalPlacesTrash()">Papelera <span id="biblicalPlacesTrashCount">0</span></button>
+          <input id="biblicalPlacesImportInput" type="file" accept="application/json,.json" hidden onchange="importBiblicalPlaces(event)">
+        </div>
+        <h1 class="biblical-prophecies-title">Lugares Bíblicos</h1>
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+        <p class="biblical-prophecies-sub">Ciudades, regiones, montes, ríos y territorios que forman parte de la historia de las Sagradas Escrituras.</p>
+        <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPlacesSearch" type="search" autocomplete="off" placeholder="Buscar lugar, categoría, región o personaje…" oninput="renderBiblicalPlaces()"></label>
+        <div class="places-list-mode-tabs" aria-label="Filtrar lugares">
+          <button id="placesListAll" type="button" class="active" onclick="setBiblicalPlacesListMode('all')">Todos</button>
+          <button id="placesListMapped" type="button" onclick="setBiblicalPlacesListMode('mapped')">Con mapa</button>
+        </div>
+        <div class="biblical-prophecies-list-head"><strong id="biblicalPlacesListTitle">Todos los lugares</strong><span id="biblicalPlacesCount"></span></div>
+        <div id="biblicalPlacesList" class="biblical-prophecies-list"></div>
+      </div>
+      <section id="biblicalPlacesMap" class="biblical-places-map hidden" aria-label="Mapas de lugares bíblicos">
+        <div class="places-map-head">
+          <button class="btn soft" type="button" onclick="closeBiblicalPlacesMap()">← Lugares</button>
+          <div class="places-map-title"><h1>Mapas</h1><span id="placesMapCount"></span></div>
+        </div>
+        <div class="places-map-controls">
+          <label><span>Buscar</span><input id="placesMapSearch" type="search" placeholder="Jerusalén, Belén, Egipto…" oninput="renderBiblicalPlacesMap()"></label>
+          <label><span>Categoría</span><select id="placesMapCategory" onchange="renderBiblicalPlacesMap()"><option value="">Todas</option></select></label>
+          <div class="places-map-regions" aria-label="Regiones rápidas">
+            <button type="button" onclick="focusBiblicalMapRegion('holyland')">Tierra Santa</button>
+            <button type="button" onclick="focusBiblicalMapRegion('egypt')">Egipto</button>
+            <button type="button" onclick="focusBiblicalMapRegion('mesopotamia')">Mesopotamia</button>
+            <button type="button" onclick="focusBiblicalMapRegion('asia')">Asia Menor</button>
+            <button type="button" onclick="focusBiblicalMapRegion('greece')">Grecia e Italia</button>
+          </div>
+        </div>
+
+        <section class="places-dual-map-block">
+          <h2>Mapa moderno</h2>
+          <p>Cartografía actual para reconocer ciudades, carreteras y territorios modernos.</p>
+          <div class="places-real-map-wrap">
+            <div id="placesLeafletMapModern" class="places-leaflet-map places-leaflet-map-large" aria-label="Mapa moderno interactivo"></div>
+          </div>
+        </section>
+
+        <section class="places-dual-map-block">
+          <h2>Mapa bíblico</h2>
+          <p>Fondo limpio con los nombres bíblicos de las fichas de la aplicación.</p>
+          <div class="places-real-map-wrap">
+            <div id="placesLeafletMapBiblical" class="places-leaflet-map places-leaflet-map-large" aria-label="Mapa bíblico interactivo"></div>
+            <div id="placesMapLoading" class="places-map-loading">Cargando mapas…</div>
+          </div>
+        </section>
+
+        <aside id="placesMapCard" class="places-map-card hidden" aria-live="polite"></aside>
+        <p class="places-map-note">Los fondos cartográficos necesitan conexión a Internet; las fichas siguen disponibles sin conexión.</p>
+      </section>
+      <article id="biblicalPlaceDetail" class="biblical-prophecy-detail hidden"></article>
+    </div>
+  </section>
+
+  <dialog id="biblicalPlaceEditDialog" class="sheet-dialog prophecy-editor-dialog place-editor-dialog">
+    <div class="dialog-grip"></div>
+    <h2 id="placeEditDialogTitle">Añadir lugar bíblico</h2>
+    <input id="placeEditId" type="hidden">
+    <div class="prophecy-editor-grid">
+      <label><span>Nombre</span><input id="placeEditName" type="text" placeholder="Jerusalén"></label>
+      <label><span>Categoría</span><input id="placeEditCategory" type="text" placeholder="Ciudad, monte, río, región…"></label>
+      <label class="wide"><span>Región / país actual</span><input id="placeEditCurrentRegion" type="text" placeholder="Israel / Territorios Palestinos…"></label>
+      <label class="wide"><span>Primera aparición en la Biblia</span><input id="placeEditFirstAppearance" type="text" placeholder="Génesis 14:18"></label>
+      <label class="wide"><span>Descripción breve</span><textarea id="placeEditShortDescription" rows="3"></textarea></label>
+      <label class="wide"><span>Importancia bíblica</span><textarea id="placeEditBiblicalImportance" rows="5"></textarea></label>
+      <label class="wide"><span>Historia</span><textarea id="placeEditHistory" rows="6"></textarea></label>
+      <label class="wide"><span>Personajes relacionados</span><textarea id="placeEditRelatedPeople" rows="3" placeholder="Una persona por línea"></textarea></label>
+      <label class="wide"><span>Relación con Jesús</span><textarea id="placeEditJesusRelation" rows="4" placeholder="Déjelo vacío cuando no la tenga"></textarea></label>
+      <label class="wide"><span>Versículos principales</span><textarea id="placeEditMainVerses" rows="4" placeholder="Una referencia por línea"></textarea></label>
+      <label class="wide"><span>Curiosidades</span><textarea id="placeEditCuriosities" rows="4" placeholder="Una curiosidad por línea"></textarea></label>
+      <label><span>Latitud</span><input id="placeEditLatitude" type="number" step="any" placeholder="31.778"></label>
+      <label><span>Longitud</span><input id="placeEditLongitude" type="number" step="any" placeholder="35.235"></label>
+      <label class="wide"><span>Imagen</span><input id="placeEditImage" type="text" placeholder="Se incorporará más adelante" disabled></label>
+    </div>
+    <div class="modal-actions prophecy-editor-actions"><button type="button" onclick="document.getElementById('biblicalPlaceEditDialog').close()">Cancelar</button><button type="button" class="primary" onclick="saveBiblicalPlaceEditor()">Guardar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPlacesTrashDialog" class="sheet-dialog prophecy-trash-dialog">
+    <div class="dialog-grip"></div><h2>Papelera de Lugares Bíblicos</h2>
+    <div id="biblicalPlacesTrashList" class="prophecy-trash-list"></div>
+    <div class="modal-actions"><button id="emptyBiblicalPlacesTrash" type="button" class="danger" onclick="emptyBiblicalPlacesTrash()">Vaciar papelera</button><button type="button" onclick="document.getElementById('biblicalPlacesTrashDialog').close()">Cerrar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPlacesStatsDialog" class="sheet-dialog prophecy-trash-dialog places-stats-dialog">
+    <div class="dialog-grip"></div><h2>Estadísticas de Lugares Bíblicos</h2>
+    <div id="biblicalPlacesStatsContent" class="places-stats-content"></div>
+    <div class="modal-actions"><button type="button" onclick="document.getElementById('biblicalPlacesStatsDialog').close()">Cerrar</button></div>
+  </dialog>
+
+  <section id="biblicalPropheciesScreen" class="prophecies-screen hidden" aria-label="Profecías mesiánicas">
+    <div class="biblical-prophecies-panel">
+      <div class="biblical-prophecies-head"><button class="btn soft" type="button" onclick="returnFromEncyclopediaSection('prophecies')">← Volver</button></div>
+      <div id="biblicalPropheciesHome">
+        <div class="module-crud-tools prophecy-crud-tools"><button type="button" class="crud-add" onclick="openBiblicalProphecyEditor()">＋ Añadir</button><button type="button" class="crud-trash" onclick="openBiblicalPropheciesTrash()">Papelera <span id="biblicalPropheciesTrashCount">0</span></button></div>
+        <h1 class="biblical-prophecies-title">Profecías</h1>
+        <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=3.1.2" alt="" aria-hidden="true">
+        <p class="biblical-prophecies-sub">Profecías mesiánicas y su cumplimiento en nuestro Señor Jesucristo.</p>
+        <label class="biblical-prophecies-search"><span aria-hidden="true">🔎</span><input id="biblicalPropheciesSearch" type="search" autocomplete="off" placeholder="Buscar profecía, referencia o tema…" oninput="renderBiblicalProphecies()"></label>
+        <div class="biblical-prophecies-list-head"><strong id="biblicalPropheciesListTitle">Todas las profecías</strong><span id="biblicalPropheciesCount"></span></div>
+        <div id="biblicalPropheciesList" class="biblical-prophecies-list"></div>
+      </div>
+      <article id="biblicalProphecyDetail" class="biblical-prophecy-detail hidden"></article>
+    </div>
+  </section>
+
+  <dialog id="biblicalProphecyEditDialog" class="sheet-dialog prophecy-editor-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="prophecyEditDialogTitle">Añadir profecía</h2>
+    <input id="prophecyEditId" type="hidden">
+    <div class="prophecy-editor-grid">
+      <label><span>Título</span><input id="prophecyEditTitle" type="text" placeholder="El Mesías…"></label>
+      <label><span>Tema</span><input id="prophecyEditTheme" type="text" placeholder="Pasión, Ministerio, Reino…"></label>
+      <label><span>Referencia de la profecía</span><input id="prophecyEditProphecyRef" type="text" placeholder="Isaías 53:5"></label>
+      <label class="wide"><span>Texto completo de la profecía</span><textarea id="prophecyEditProphecy" rows="5"></textarea></label>
+      <label class="wide highlight-field"><span>Frases destacadas de la profecía</span><small>Una frase por línea. Debe aparecer exactamente en el texto.</small><textarea id="prophecyEditProphecyHighlights" rows="3" placeholder="herido fue por nuestras rebeliones"></textarea></label>
+      <label><span>Referencia del cumplimiento</span><input id="prophecyEditFulfillmentRef" type="text" placeholder="1 Pedro 2:24"></label>
+      <label class="wide"><span>Texto completo del cumplimiento</span><textarea id="prophecyEditFulfillment" rows="5"></textarea></label>
+      <label class="wide highlight-field"><span>Frases destacadas del cumplimiento</span><small>Una frase por línea. Debe aparecer exactamente en el texto.</small><textarea id="prophecyEditFulfillmentHighlights" rows="3"></textarea></label>
+      <label class="wide"><span>Explicación</span><textarea id="prophecyEditExplanation" rows="6"></textarea></label>
+      <label class="wide"><span>Importancia</span><textarea id="prophecyEditImportance" rows="4"></textarea></label>
+    </div>
+    <div class="modal-actions prophecy-editor-actions"><button type="button" onclick="document.getElementById('biblicalProphecyEditDialog').close()">Cancelar</button><button type="button" class="primary" onclick="saveBiblicalProphecyEditor()">Guardar</button></div>
+  </dialog>
+
+  <dialog id="biblicalPropheciesTrashDialog" class="sheet-dialog prophecy-trash-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Papelera de Profecías</h2>
+    <div id="biblicalPropheciesTrashList" class="prophecy-trash-list"></div>
+    <div class="modal-actions"><button id="emptyBiblicalPropheciesTrash" type="button" class="danger" onclick="emptyBiblicalPropheciesTrash()">Vaciar papelera</button><button type="button" onclick="document.getElementById('biblicalPropheciesTrashDialog').close()">Cerrar</button></div>
+  </dialog>
+
+  <div id="drawerBackdrop" class="backdrop hidden"></div>
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-head"><h2>Libros</h2><button id="closeDrawer">✕</button></div>
+    <div class="drawer-tabs"><button class="active" data-testament="all">Todos</button><button data-testament="A.T.">Antiguo</button><button data-testament="N.T.">Nuevo</button></div>
+    <div id="booksList" class="books-list"></div>
+  </aside>
+
+  <dialog id="chapterDialog" class="sheet-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="chapterDialogTitle">Capítulos</h2>
+    <div id="chaptersGrid" class="chapters-grid"></div>
+  </dialog>
+
+  <dialog id="explanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="explanationRef" class="modal-ref"></div>
+    <textarea id="explanationText" placeholder="Escribe o pega aquí tu explicación..."></textarea>
+    <div class="modal-actions">
+      <button id="editExplanationInline" type="button">Editar</button>
+      <button id="pasteExplanation" type="button">Pegar</button>
+      <button id="deleteExplanation" type="button" class="danger">Eliminar</button>
+      <button id="saveExplanation" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
+  <dialog id="viewExplanationDialog" class="sheet-dialog explanation-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Explicación</h2>
+    <div id="viewExplanationRef" class="modal-ref"></div>
+    <div id="viewExplanationText" class="explanation-content"></div>
+    <div class="modal-actions">
+      <button id="copyExplanation" type="button">Copiar</button>
+      <button id="editExplanation" type="button" class="primary">Editar</button>
+    </div>
+  </dialog>
+
+  <dialog id="highlightDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Subrayar</h2>
+    <div class="color-grid">
+      <button data-color="yellow" aria-label="Amarillo"></button>
+      <button data-color="green" aria-label="Verde"></button>
+      <button data-color="blue" aria-label="Azul"></button>
+      <button data-color="pink" aria-label="Rosa"></button>
+      <button data-color="orange" aria-label="Naranja"></button>
+      <button data-color="purple" aria-label="Morado"></button>
+      <button data-color="none" class="remove-highlight">Sin color</button>
+    </div>
+  </dialog>
+
+  <dialog id="searchDialog" class="sheet-dialog search-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Buscar en la Biblia</h2>
+    <div class="search-row"><input id="searchInput" type="search" placeholder="Palabra, frase o referencia"><button id="runSearch" type="button">Buscar</button></div>
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+
+  <dialog id="dictionaryDialog" class="sheet-dialog dictionary-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="dictionary-title-row"><div><h2>Diccionario bíblico</h2><p id="dictionaryCount">433 entradas · escribe para filtrar</p></div><div class="dictionary-title-actions"><button id="copyDictionaryWord" type="button" class="secondary" disabled>Copiar</button><button id="addDictionaryEntry" type="button" class="primary">Añadir</button></div></div>
+    <div class="search-row dictionary-search-row"><input id="dictionarySearch" type="search" placeholder="Escribe una palabra o significado"><button id="runDictionarySearch" type="button">Buscar</button></div>
+    <div id="dictionaryResults" class="dictionary-results"></div>
+  </dialog>
+
+  <dialog id="dictionaryEditDialog" class="sheet-dialog dictionary-edit-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2 id="dictionaryEditTitle">Añadir palabra</h2>
+    <input id="dictionaryEntryId" type="hidden">
+    <label>Palabra<input id="dictionaryTerm" type="text" autocomplete="off"></label>
+    <label>Categoría<input id="dictionaryCategory" type="text" autocomplete="off"></label>
+    <label class="dictionary-highlight-toggle"><input id="dictionaryHighlightEnabled" type="checkbox"> <span>Mostrar cápsula verde en el texto bíblico</span></label>
+    <p class="dictionary-highlight-help">Puedes activarla o desactivarla libremente. En las palabras nuevas aparecerá activada por defecto.</p>
+    <label>Explicación<textarea id="dictionaryExplanation" placeholder="Escribe el significado..."></textarea></label>
+    <div class="modal-actions">
+      <button id="deleteDictionaryEntry" type="button" class="danger">Eliminar</button>
+      <button id="saveDictionaryEntry" type="button" class="primary">Guardar</button>
+    </div>
+  </dialog>
+
+  <dialog id="savedDialog" class="sheet-dialog saved-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Guardados</h2>
+    <section class="reading-point-card">
+      <div class="saved-section-title">Último punto de libro guardado</div>
+      <p class="empty-saved">Aquí se recordará el punto actual o, si lo quitas, el último que tuviste.</p>
+      <div id="readingMarksList" class="reading-marks-list"></div>
+    </section>
+    <section>
+      <div class="saved-section-title">Versículos guardados</div>
+      <div id="savedVersesList" class="saved-verses-list"></div>
+    </section>
+  </dialog>
+
+  <dialog id="statsDialog" class="sheet-dialog stats-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Estadísticas</h2>
+    <p id="statsNow" class="stats-now"></p>
+    <div class="stats-grid stats-grid-simple">
+      <button type="button" class="stats-tile" data-stats-list="saved"><strong id="statsSavedTotal">0</strong><span>Guardados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile stats-reading-point" data-stats-list="reading"><strong id="statsReadingPointRef">Sin guardar</strong><span>Punto de libro</span><small>Ver historial</small></button>
+      <button type="button" class="stats-tile" data-stats-list="explanations"><strong id="statsExplanations">0</strong><span>Explicaciones</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile stats-dictionary-tile" data-stats-list="dictionary">
+        <strong id="statsDictionary">0</strong><span>Diccionario</span>
+        <div class="stats-dictionary-breakdown" aria-label="Desglose del diccionario">
+          <small><b id="statsDictionaryOriginal">0</b> originales</small>
+          <small><b id="statsDictionaryCustom">0</b> añadidas por ti</small>
+          <small><b id="statsDictionaryCapsules">0</b> con cápsula activa</small>
+        </div>
+        <small class="stats-dictionary-open">Ver palabras</small>
       </button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('jerusalem')">
-        <span class="card-style-preview-v2217 jerusalem-v2217"></span>
-        <span><strong>Vida eterna</strong><small>Tarjeta temática</small></span>
-      </button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('salvacion')"><span class="card-style-preview-v2217 salvacion-v2219"></span><span><strong>Alabanza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('oracion')"><span class="card-style-preview-v2217 oracion-v2219"></span><span><strong>Amor</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('espiritu-santo')"><span class="card-style-preview-v2217 espiritu-santo-v2219"></span><span><strong>Juicio</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('misericordia')"><span class="card-style-preview-v2217 misericordia-v2219"></span><span><strong>Esperanza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('alabanza')"><span class="card-style-preview-v2217 alabanza-v2219"></span><span><strong>Oración</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fortaleza')"><span class="card-style-preview-v2217 fortaleza-v2219"></span><span><strong>Descanso</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('amor')"><span class="card-style-preview-v2217 amor-v2219"></span><span><strong>Fortaleza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('esperanza')"><span class="card-style-preview-v2217 esperanza-v2219"></span><span><strong>Misericordia</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('juicio')"><span class="card-style-preview-v2217 juicio-v2219"></span><span><strong>Espíritu Santo</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fe')"><span class="card-style-preview-v2217 fe-v2219"></span><span><strong>Salvación</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('segunda-venida')"><span class="card-style-preview-v2217 segunda-venida-v2219"></span><span><strong>Segunda venida</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('reino-dios')"><span class="card-style-preview-v2217 reino-dios-v2230"></span><span><strong>Reino de Dios</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('santidad')"><span class="card-style-preview-v2217 santidad-v2230"></span><span><strong>Santidad</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('cristo-es-dios')"><span class="card-style-preview-v2217 cristo-es-dios-v2230"></span><span><strong>Cristo Jesús es Dios</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fe-nueva')"><span class="card-style-preview-v2217 fe-nueva-v3261"></span><span><strong>Fe</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('dios')"><span class="card-style-preview-v2217 dios-v3261"></span><span><strong>Dios</strong><small>Tarjeta temática</small></span></button>
+      <button type="button" class="stats-tile" data-stats-list="highlights"><strong id="statsHighlights">0</strong><span>Subrayados</span><small>Ver listado</small></button>
+      <button type="button" class="stats-tile" data-stats-list="titles"><strong id="statsTitlesTotal">0</strong><span>Títulos integrados</span><small>Ver listado</small></button>
     </div>
-    <button class="btn soft card-style-cancel-v2217" type="button" onclick="closeCardStyleSelectorV2217()">Cancelar</button>
-  </div>
-</div>
+  </dialog>
 
-<div id="toast" class="toast">Guardado</div>
+  <dialog id="statsListDialog" class="sheet-dialog stats-list-dialog">
+    <button id="closeStatsList" type="button" class="dialog-close" aria-label="Cerrar">✕</button>
+    <h2 id="statsListTitle">Listado</h2>
+    <div class="stats-list-tools">
+      <input id="statsListSearch" type="search" placeholder="Buscar en el listado" autocomplete="off">
+      <select id="statsListSort" aria-label="Ordenar listado">
+        <option value="recent">Más recientes</option>
+        <option value="az">A–Z</option>
+      </select>
+    </div>
+    <p id="statsListSummary" class="stats-list-summary"></p>
+    <div id="statsListResults" class="stats-list-results"></div>
+    <div class="stats-pagination">
+      <button id="statsPrevPage" type="button">◀ Anterior</button>
+      <span id="statsPageInfo">Página 1 de 1</span>
+      <button id="statsNextPage" type="button">Siguiente ▶</button>
+    </div>
+  </dialog>
 
+  <dialog id="dailyVerseDialog" class="sheet-dialog daily-verse-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
+    <article class="daily-verse-card">
+      <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
+      <blockquote id="dailyVerseText"></blockquote>
+      <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
+    </article>
+    <div class="daily-verse-actions">
+      <button id="copyDailyVerse" type="button" class="primary">Copiar</button>
+      <button id="saveDailyVerse" type="button">Guardar</button>
+      <button id="openDailyChapter" type="button">Abrir capítulo</button>
+    </div>
+    <p class="daily-verse-note">La categoría es orientativa y no se incluye al copiar.</p>
+  </dialog>
 
-<script src="welcome.js?v=v3-1-54-new-verse-category-choice"></script>
-<script src="config.js?v=v3-1-54-new-verse-category-choice"></script>
-<script src="utils.js?v=v3-1-54-new-verse-category-choice"></script>
-<script src="recent.js?v=v3-1-54-new-verse-category-choice"></script>
-<script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
-<script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
-<script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=276"></script>
-<script src="patches.js?v=v3-1-63-share-history-persist"></script>
-<script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
-<script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
-<script src="counters-v3183.js?v=276"></script>
+  <dialog id="settingsDialog" class="sheet-dialog compact-dialog">
+    <form method="dialog"><button class="dialog-close">✕</button></form>
+    <h2>Ajustes</h2>
+    <div class="font-size-setting">
+      <div class="font-size-heading">Tamaño de letra</div>
+      <div class="font-size-controls">
+        <button id="fontSizeMinus" type="button" class="font-size-step" aria-label="Reducir tamaño de letra">−</button>
+        <input id="fontSize" type="range" min="13" max="34" value="24" aria-label="Tamaño de letra">
+        <output id="fontSizeValue" for="fontSize" aria-live="polite">24</output>
+        <button id="fontSizePlus" type="button" class="font-size-step" aria-label="Aumentar tamaño de letra">+</button>
+      </div>
+    </div>
+    <label class="setting-row"><input id="keepAwake" type="checkbox"> Mantener pantalla encendida</label>
+    <label class="setting-row"><input id="dailyVerseNotifications" type="checkbox"> Notificación del versículo del día</label>
+    <button id="continueReading" type="button" class="wide-btn">Todavía no hay un punto de libro guardado</button>
+    <button id="showFavorites" type="button" class="wide-btn">Versículos guardados</button>
+    <button id="showExplanations" type="button" class="wide-btn">Mis explicaciones</button>
+    <button id="openDictionarySettings" type="button" class="wide-btn">Diccionario bíblico</button>
+    <div class="settings-section-title">Copia de seguridad</div>
+    <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
+    <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
+    <input id="backupFileInput" type="file" accept="application/json,.json" hidden>
+    <p class="backup-help">Incluye explicaciones, diccionario, personajes, parábolas, guía y sus papeleras, además de guardados, punto de lectura, subrayados, ajustes, títulos y auditorías.</p>
+    <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
+    <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
+    <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
+    <p id="titleHash" class="audit-hash hidden"></p>
+    <button id="exportTitles" type="button" class="wide-btn hidden">Exportar títulos JSON</button>
+    <button id="importTitles" type="button" class="wide-btn primary">Auditar Biblia instalada</button>
+    <p id="titlesStatus" class="titles-status">Comprueba los archivos de la Biblia que ya están en la aplicación. No sustituye ni descarga otra Biblia.</p>
+    <div class="audit-counters audit-counters-4" aria-label="Resultado de la auditoría">
+      <div><strong id="auditBookCount">0</strong><span>Libros</span></div>
+      <div><strong id="auditChapterCount">0</strong><span>Capítulos</span></div>
+      <div><strong id="auditVerseCount">0</strong><span>Versículos</span></div>
+      <div><strong id="auditTitleCount">0</strong><span>Títulos</span></div>
+    </div>
+    <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
+    <p id="auditHash" class="audit-hash hidden"></p>
+    <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="dictionary-data.js?v=3.1.2"></script>
+  <script src="biblical-characters-v2244-v2835.js?v=3.1.2"></script>
+  <script src="biblical-parables-v16436-v2835.js?v=3.1.2"></script>
+  <script src="biblical-guides-v16436-v2835.js?v=3.1.2"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="app.js?v=3.1.2"></script>
+
+<script>
+(function(){
+  if(!('serviceWorker' in navigator))return;
+
+  const targetVersion='3.1.2';
+  const reloadKey='biblia-sw-reloaded-'+targetVersion;
+
+  navigator.serviceWorker.register('./sw.js?v='+targetVersion,{updateViaCache:'none'})
+    .then(reg=>{
+      reg.update().catch(()=>{});
+
+      if(reg.waiting){
+        reg.waiting.postMessage({type:'BIBLIA_FORCE_ACTIVATE'});
+      }
+
+      reg.addEventListener('updatefound',()=>{
+        const worker=reg.installing;
+        if(!worker)return;
+        worker.addEventListener('statechange',()=>{
+          if(worker.state==='installed'&&navigator.serviceWorker.controller){
+            worker.postMessage({type:'BIBLIA_FORCE_ACTIVATE'});
+          }
+        });
+      });
+    })
+    .catch(()=>{});
+
+  navigator.serviceWorker.addEventListener('message',event=>{
+    if(event.data?.type!=='BIBLIA_UPDATE_READY')return;
+    if(event.data.version!==targetVersion)return;
+    if(sessionStorage.getItem(reloadKey))return;
+    sessionStorage.setItem(reloadKey,'1');
+    location.reload();
+  });
+
+  let refreshing=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(refreshing||sessionStorage.getItem(reloadKey))return;
+    refreshing=true;
+    sessionStorage.setItem(reloadKey,'1');
+    location.reload();
+  });
+})();
+</script>
+
 </body>
 </html>
-
