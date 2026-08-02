@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V3.1.1 · Toasts visibles en modo claro */
+/* V3.1.2 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V3.1.1 · Mapas estáticos premium en Lugares */
+/* V3.1.2 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V3.1.1 · Zoom táctil de mapas premium */
+/* V3.1.2 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V3.1.1 · Mapas rehechos y visor optimizado */
+/* V3.1.2 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.1.1 · Último patrón: mapas dedicados por lugar principal */
+/* V3.1.2 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.1.1 · Apertura robusta del visor de mapas */
+/* V3.1.2 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.1.1 · Confirmación visible y apertura en captura */
+/* V3.1.2 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V3.1.1 · Dos mapas grandes: bíblico y moderno */
+/* V3.1.2 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.1.1 · Apertura de fichas y búsqueda por relevancia */
+/* V3.1.2 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3205,7 +3205,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.1.1 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+/* V3.1.2 · Un acceso, dos mapas y grupo de lugares con coordenadas */
 .biblical-place-detail-return:empty{
   display:none!important;
 }
@@ -3291,7 +3291,7 @@ body.light-mode .places-dual-map-block>p,
 }
 
 
-/* V3.1.1 · Atlas bíblico con etiquetas progresivas */
+/* V3.1.2 · Atlas bíblico con etiquetas progresivas */
 .biblical-atlas-label-shell{
   background:transparent!important;
   border:0!important;
@@ -3367,7 +3367,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.1.1 · Retoque final de etiquetas del atlas */
+/* V3.1.2 · Retoque final de etiquetas del atlas */
 .biblical-atlas-region{
   color:rgba(101,76,43,.66)!important;
   -webkit-text-fill-color:rgba(101,76,43,.66)!important;
@@ -3388,7 +3388,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.1.1 · Selección individual visible sobre explicaciones */
+/* V3.1.2 · Selección individual visible sobre explicaciones */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3416,7 +3416,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.1.1 · Selección estable sin cambio de tamaño */
+/* V3.1.2 · Selección estable sin cambio de tamaño */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3428,7 +3428,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.1.1 · Listas de fichas legibles en modo claro */
+/* V3.1.2 · Listas de fichas legibles en modo claro */
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 .light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation li,
@@ -3442,7 +3442,7 @@ body.light-mode .biblical-places-screen .biblical-prophecy-explanation li::marke
 }
 
 
-/* V3.1.1 · Desglose del diccionario legible en modo claro */
+/* V3.1.2 · Desglose del diccionario legible en modo claro */
 body.light-mode .stats-dictionary-breakdown,
 .light-mode .stats-dictionary-breakdown{
   background:rgba(126,91,31,.10)!important;
@@ -3462,7 +3462,7 @@ body.light-mode .stats-dictionary-breakdown small b,
 }
 
 
-/* V3.1.1 · Párrafos conservados en explicaciones del diccionario */
+/* V3.1.2 · Párrafos conservados en explicaciones del diccionario */
 .dictionary-detail .dictionary-explanation,
 .dictionary-modal .dictionary-explanation,
 .dictionary-entry-detail .dictionary-explanation,
@@ -3481,7 +3481,7 @@ body.light-mode .stats-dictionary-breakdown small b,
 }
 
 
-/* V3.1.1 · Más y Calendario */
+/* V3.1.2 · Más y Calendario */
 .action-more,.more-function-card{position:relative}
 .action-more.has-module-alert::after,
 .more-function-card.has-module-alert::after{
@@ -3623,7 +3623,7 @@ body.light-mode .biblical-festivity-section textarea{background:#fff;color:#3029
 }
 
 
-/* V3.1.1 · Pantallas Más y Calendario visibles sobre el lector */
+/* V3.1.2 · Pantallas Más y Calendario visibles sobre el lector */
 body.study-module-open{
   overflow:hidden!important;
 }
@@ -3637,4 +3637,130 @@ body.study-module-open{
 }
 .study-module-screen.hidden{
   display:none!important;
+}
+
+
+/* V3.1.2 · Gestión completa de festividades y pasajes */
+.festivity-library-head,
+.biblical-festivity-detail-head,
+.festivity-section-title-row,
+.biblical-festivity-passage-head,
+.festivity-editor-footer{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.festivity-library-head>div,
+.biblical-festivity-detail-head>div:first-child{
+  min-width:0;
+  flex:1;
+}
+.festivity-add-main{flex:0 0 auto}
+.festivity-detail-actions,
+.festivity-inline-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.btn.danger{
+  border-color:#a85e5e!important;
+  color:#ffd6d6!important;
+  background:rgba(105,40,40,.22)!important;
+}
+.biblical-festivity-passage-list{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:14px;
+}
+.biblical-festivity-passage-card{
+  padding:15px;
+  border:1px solid rgba(196,154,57,.58);
+  border-radius:18px;
+  background:rgba(25,29,37,.72);
+}
+.biblical-festivity-passage-card h3{margin:2px 0;color:#f1d477}
+.biblical-festivity-passage-card p{
+  margin:13px 0 0;
+  white-space:pre-line;
+  line-height:1.55;
+  color:#efebe2;
+}
+.biblical-festivity-editor-head{
+  margin:16px 0 22px;
+  padding-bottom:15px;
+  border-bottom:1px solid rgba(196,154,57,.48);
+}
+.biblical-festivity-editor-head h2{margin:0 0 6px;color:#f1d477}
+.biblical-festivity-editor-head p{margin:0;color:#cfc9bd}
+.festivity-form-field{
+  display:block;
+  margin-bottom:18px;
+}
+.festivity-form-field>span{
+  display:block;
+  margin-bottom:7px;
+  font-weight:800;
+  color:#edd17a;
+}
+.festivity-form-field input,
+.festivity-form-field textarea{
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  padding:14px 15px;
+  border:1px solid #756238;
+  border-radius:16px;
+  background:#1d2027;
+  color:#fff;
+  font:inherit;
+  line-height:1.5;
+}
+.festivity-form-field textarea{
+  min-height:150px;
+  resize:vertical;
+}
+.festivity-editor-footer{
+  margin-top:23px;
+  padding-top:18px;
+  border-top:1px solid rgba(196,154,57,.42);
+}
+body.light-mode .biblical-festivity-passage-card{
+  background:#fffaf0;
+  border-color:#b58a32;
+}
+body.light-mode .biblical-festivity-passage-card p{color:#342d24}
+body.light-mode .biblical-festivity-passage-card h3,
+body.light-mode .biblical-festivity-editor-head h2,
+body.light-mode .festivity-form-field>span{color:#76520d}
+body.light-mode .biblical-festivity-editor-head p{color:#5d5345}
+body.light-mode .festivity-form-field input,
+body.light-mode .festivity-form-field textarea{
+  background:#fff;
+  color:#30291f;
+  border-color:#b58a32;
+}
+body.light-mode .btn.danger{
+  color:#7d2525!important;
+  background:#fff1f1!important;
+  border-color:#b66b6b!important;
+}
+@media(max-width:620px){
+  .festivity-library-head,
+  .biblical-festivity-detail-head,
+  .festivity-section-title-row,
+  .biblical-festivity-passage-head{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .festivity-detail-actions,
+  .festivity-inline-actions{
+    justify-content:flex-start;
+  }
+  .festivity-add-main,
+  .festivity-section-title-row .btn{
+    width:100%;
+  }
 }
