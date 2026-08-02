@@ -2781,7 +2781,7 @@ body.light-mode .reference-result{
   border-color:rgba(170,127,35,.46)!important;
 }
 
-/* V3.0.4 · Toasts visibles en modo claro */
+/* V3.1.0 · Toasts visibles en modo claro */
 body.light-mode #toast,
 body.light-mode .toast,
 body.light-mode .app-toast,
@@ -2826,7 +2826,7 @@ body:not(.light-mode) .snackbar {
 }
 
 
-/* V3.0.4 · Mapas estáticos premium en Lugares */
+/* V3.1.0 · Mapas estáticos premium en Lugares */
 .place-geography-premium{
   margin:24px 0;
   padding:18px;
@@ -2954,7 +2954,7 @@ body.light-mode .place-geography-copy p,
 }
 
 
-/* V3.0.4 · Zoom táctil de mapas premium */
+/* V3.1.0 · Zoom táctil de mapas premium */
 .premium-place-map-controls{
   display:flex;
   gap:10px;
@@ -3008,7 +3008,7 @@ body.light-mode .premium-place-map-controls button,
   -webkit-text-fill-color:#2a2117!important;
 }
 
-/* V3.0.4 · Mapas rehechos y visor optimizado */
+/* V3.1.0 · Mapas rehechos y visor optimizado */
 .premium-place-map-modal{
   padding:4px!important;
   align-items:center!important;
@@ -3075,7 +3075,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.4 · Último patrón: mapas dedicados por lugar principal */
+/* V3.1.0 · Último patrón: mapas dedicados por lugar principal */
 .place-geography-view-single{
   grid-template-columns:1fr!important;
 }
@@ -3084,7 +3084,7 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.4 · Apertura robusta del visor de mapas */
+/* V3.1.0 · Apertura robusta del visor de mapas */
 .premium-map-open{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3097,12 +3097,12 @@ body.light-mode .premium-place-map-controls button,
 }
 
 
-/* V3.0.4 · Confirmación visible y apertura en captura */
+/* V3.1.0 · Confirmación visible y apertura en captura */
 .premium-map-open-hint{margin:7px 0 0!important;text-align:center;color:#d7bf82!important;font-size:.82rem!important;font-style:italic}
 body.light-mode .premium-map-open-hint,.light-mode .premium-map-open-hint{color:#6a4a18!important}
 
 
-/* V3.0.4 · Dos mapas grandes: bíblico y moderno */
+/* V3.1.0 · Dos mapas grandes: bíblico y moderno */
 .place-map-choice-section{
   padding:20px!important;
 }
@@ -3194,7 +3194,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.0.4 · Apertura de fichas y búsqueda por relevancia */
+/* V3.1.0 · Apertura de fichas y búsqueda por relevancia */
 .biblical-place-card{
   touch-action:manipulation;
   -webkit-tap-highlight-color:rgba(184,139,46,.22);
@@ -3205,7 +3205,7 @@ body.light-mode .place-map-choice-action,
 }
 
 
-/* V3.0.4 · Un acceso, dos mapas y grupo de lugares con coordenadas */
+/* V3.1.0 · Un acceso, dos mapas y grupo de lugares con coordenadas */
 .biblical-place-detail-return:empty{
   display:none!important;
 }
@@ -3291,7 +3291,7 @@ body.light-mode .places-dual-map-block>p,
 }
 
 
-/* V3.0.4 · Atlas bíblico con etiquetas progresivas */
+/* V3.1.0 · Atlas bíblico con etiquetas progresivas */
 .biblical-atlas-label-shell{
   background:transparent!important;
   border:0!important;
@@ -3367,7 +3367,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.0.4 · Retoque final de etiquetas del atlas */
+/* V3.1.0 · Retoque final de etiquetas del atlas */
 .biblical-atlas-region{
   color:rgba(101,76,43,.66)!important;
   -webkit-text-fill-color:rgba(101,76,43,.66)!important;
@@ -3388,7 +3388,7 @@ body.dark-mode .biblical-atlas-local,
 }
 
 
-/* V3.0.4 · Selección individual visible sobre explicaciones */
+/* V3.1.0 · Selección individual visible sobre explicaciones */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3416,7 +3416,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.0.4 · Selección estable sin cambio de tamaño */
+/* V3.1.0 · Selección estable sin cambio de tamaño */
 .explanation-group .verse.selected,
 .explanation-group .verse.explained-verse.selected,
 .explanation-group .verse.explained-verse.saved-verse.selected{
@@ -3428,7 +3428,7 @@ body.light-mode .explanation-group .verse.selected,
 }
 
 
-/* V3.0.4 · Listas de fichas legibles en modo claro */
+/* V3.1.0 · Listas de fichas legibles en modo claro */
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 .light-mode .biblical-places-screen .biblical-prophecy-explanation ul,
 body.light-mode .biblical-places-screen .biblical-prophecy-explanation li,
@@ -3442,7 +3442,7 @@ body.light-mode .biblical-places-screen .biblical-prophecy-explanation li::marke
 }
 
 
-/* V3.0.4 · Desglose del diccionario legible en modo claro */
+/* V3.1.0 · Desglose del diccionario legible en modo claro */
 body.light-mode .stats-dictionary-breakdown,
 .light-mode .stats-dictionary-breakdown{
   background:rgba(126,91,31,.10)!important;
@@ -3462,7 +3462,7 @@ body.light-mode .stats-dictionary-breakdown small b,
 }
 
 
-/* V3.0.4 · Párrafos conservados en explicaciones del diccionario */
+/* V3.1.0 · Párrafos conservados en explicaciones del diccionario */
 .dictionary-detail .dictionary-explanation,
 .dictionary-modal .dictionary-explanation,
 .dictionary-entry-detail .dictionary-explanation,
@@ -3478,4 +3478,146 @@ body.light-mode .stats-dictionary-breakdown small b,
 #dictionaryDetail p[data-dictionary-explanation],
 #dictionaryModal p[data-dictionary-explanation]{
   white-space:pre-line!important;
+}
+
+
+/* V3.1.0 · Más y Calendario */
+.action-more,.more-function-card{position:relative}
+.action-more.has-module-alert::after,
+.more-function-card.has-module-alert::after{
+  content:"";
+  position:absolute;
+  top:8px;
+  right:10px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#f0c34e;
+  box-shadow:0 0 0 3px rgba(240,195,78,.20),0 0 10px rgba(240,195,78,.75);
+}
+.study-module-screen{
+  min-height:100dvh;
+  padding:30px 18px 100px;
+  background:var(--bg);
+  color:var(--text);
+}
+.study-module-panel{
+  width:min(900px,100%);
+  margin:0 auto;
+  padding:24px;
+  border:1px solid rgba(207,166,69,.65);
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(22,31,42,.98),rgba(14,22,31,.98));
+  box-shadow:0 18px 50px rgba(0,0,0,.26);
+}
+.study-module-head{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.study-module-panel>h1{
+  margin:4px 0 8px;
+  text-align:center;
+  color:#f3d67d;
+  font-size:42px;
+}
+.study-module-sub{text-align:center;color:#d7d4ce;font-size:20px;line-height:1.5}
+.more-functions-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:28px}
+.more-function-card{
+  width:100%;
+  text-align:left;
+  padding:22px;
+  border:1px solid rgba(215,173,69,.72);
+  border-radius:24px;
+  background:linear-gradient(145deg,#252933,#1b1e26);
+  color:#fff7df;
+}
+.more-function-title{display:block;font-weight:800;font-size:27px;margin-bottom:7px}
+.more-function-description{display:block;color:#d6d1c7;font-size:17px;line-height:1.45}
+
+.calendar-study-panel{padding:0;overflow:hidden}
+.calendar-toolbar{padding:18px 18px 0}
+.biblical-calendar-wrap{padding:18px;display:flex;flex-direction:column;gap:15px}
+.biblical-calendar-hero{
+  padding:22px;
+  border:1px solid rgba(215,173,69,.66);
+  border-radius:24px;
+  background:linear-gradient(135deg,rgba(52,77,105,.6),rgba(116,85,33,.28));
+}
+.biblical-calendar-hero h1{margin:0 0 8px;color:#f4d878;font-size:32px}
+.biblical-calendar-hero p{margin:0;color:#e4dfd4;font-size:18px;text-transform:capitalize}
+.biblical-calendar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.biblical-calendar-card{
+  padding:18px;
+  border:1px solid rgba(206,165,67,.50);
+  border-radius:22px;
+  background:rgba(27,34,44,.92);
+}
+.biblical-calendar-card h2{margin:0 0 12px;color:#f1d278;font-size:22px}
+.biblical-calendar-event{
+  display:block;width:100%;text-align:left;
+  padding:13px 0;border:0;border-top:1px solid rgba(207,166,69,.24);
+  background:none;color:#fff;cursor:pointer
+}
+.biblical-calendar-event strong{display:block;font-size:18px;margin-bottom:5px}
+.biblical-calendar-event span{display:block;color:#cfcbc2;line-height:1.4}
+.biblical-calendar-empty,.biblical-calendar-note{color:#c6c1b7;line-height:1.45}
+.biblical-festivity-dialog{width:min(94vw,760px);padding:24px}
+.festivity-intro{color:#cfcac0;line-height:1.5}
+.festivity-search{width:100%;padding:13px 15px;border:1px solid #766337;border-radius:15px;background:#20232a;color:#fff;margin:10px 0 16px}
+.biblical-festivity-list{display:flex;flex-direction:column;gap:10px;max-height:62vh;overflow:auto}
+.biblical-festivity-row{
+  width:100%;text-align:left;padding:15px;border:1px solid #6e5b31;border-radius:17px;
+  background:#20242c;color:#fff
+}
+.biblical-festivity-row strong{display:block;font-size:19px;color:#f2d77f;margin-bottom:5px}
+.biblical-festivity-row span{color:#c9c4b9}
+.biblical-festivity-detail-head{padding:16px 0;border-bottom:1px solid #64552f}
+.biblical-festivity-detail-head h2{margin:0 0 5px;color:#f3d67d;font-size:29px}
+.biblical-festivity-detail-head p{margin:0;color:#cfc8bb}
+.biblical-festivity-section{padding:17px 0;border-bottom:1px solid rgba(111,91,47,.55)}
+.biblical-festivity-section h3{color:#efd175;margin:0 0 9px}
+.biblical-festivity-section p{white-space:pre-line;line-height:1.55}
+.biblical-festivity-section textarea{
+  width:100%;min-height:170px;padding:14px;border:1px solid #756238;border-radius:16px;
+  background:#1d2027;color:#fff;line-height:1.55;resize:vertical
+}
+.biblical-festivity-passage{margin-top:14px}
+.biblical-festivity-passage textarea{min-height:240px}
+.biblical-festivity-save{margin:20px 0 4px;border:1px solid #c49a39!important;background:linear-gradient(#3a3b40,#28292e)!important;color:#fff1c8!important}
+
+body.light-mode .study-module-screen{background:#f6f0e3;color:#2f2921}
+body.light-mode .study-module-panel{
+  background:linear-gradient(180deg,#fffdf7,#f8f0df);
+  color:#30291f;border-color:#af8126
+}
+body.light-mode .study-module-panel>h1,
+body.light-mode .more-function-title,
+body.light-mode .biblical-calendar-hero h1,
+body.light-mode .biblical-calendar-card h2,
+body.light-mode .biblical-festivity-row strong,
+body.light-mode .biblical-festivity-detail-head h2,
+body.light-mode .biblical-festivity-section h3{color:#76520d}
+body.light-mode .study-module-sub,
+body.light-mode .more-function-description,
+body.light-mode .biblical-calendar-hero p,
+body.light-mode .biblical-calendar-event span,
+body.light-mode .biblical-calendar-empty,
+body.light-mode .biblical-calendar-note,
+body.light-mode .festivity-intro,
+body.light-mode .biblical-festivity-row span,
+body.light-mode .biblical-festivity-detail-head p{color:#5d5345}
+body.light-mode .more-function-card,
+body.light-mode .biblical-calendar-card,
+body.light-mode .biblical-festivity-row{
+  background:linear-gradient(180deg,#fffdf8,#f4ead7);
+  color:#30291f;border-color:#b58a32
+}
+body.light-mode .biblical-calendar-hero{background:linear-gradient(135deg,#fff8e8,#eee0bf)}
+body.light-mode .biblical-calendar-event{color:#30291f}
+body.light-mode .festivity-search,
+body.light-mode .biblical-festivity-section textarea{background:#fff;color:#30291f;border-color:#b58a32}
+@media(max-width:650px){
+  .study-module-screen{padding:16px 8px 90px}
+  .study-module-panel{padding:18px;border-radius:24px}
+  .calendar-study-panel{padding:0}
+  .biblical-calendar-grid{grid-template-columns:1fr}
+  .calendar-toolbar{padding:12px 12px 0}
+  .biblical-calendar-wrap{padding:12px}
 }
