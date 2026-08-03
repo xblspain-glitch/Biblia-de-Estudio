@@ -262,7 +262,7 @@ body.light-mode .icon-btn,body.light-mode .book-title{color:#171512}
 body.light-mode .chapter-title{background:#e4ded2;color:#171512}
 body.light-mode .chapter-nav{background:#f2eee5;border-top-color:#d6d0c3;color:#171512}
 body.light-mode .chapter-nav button{background:#ded8cd;color:#171512}
-body.light-mode .verse-number{color:#555168}
+body.light-mode .verse-number{color:#777168}
 body.light-mode .reader-book-title,body.light-mode .chapter-number{color:#27231e}
 body.light-mode .selection-bar{background:#f4f0e7;border-color:#d3cdc1;color:#171512}
 body.light-mode .actions-panel-inner{background:rgba(247,243,235,.98)!important;color:#171512!important}
@@ -546,7 +546,7 @@ body.light-mode .verse.saved-verse:not(.explained-verse).selected{
 @media(min-width:620px){.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
 /* Estadísticas integrado en el panel lateral de acciones */
-.action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #555b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
+.action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #777b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
 
 
 /* correcciones de contraste en modo claro */
@@ -588,7 +588,7 @@ body.light-mode .action.pastel-action.action-characters{background:linear-gradie
 
 body.light-mode .action.pastel-action.action-stats{
   background:linear-gradient(180deg,#eef0f5 0%,#cfd3dc 55%,#adb4c1 100%)!important;
-  border-color:#555b84!important;
+  border-color:#777b84!important;
 }
 body.light-mode .action.pastel-action.action-copy{
   background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%)!important;
@@ -855,7 +855,7 @@ body.light-mode .explanation-group:has(.verse.selected){
   margin-top:3px;
   color:#9fa3ac;
   font-size:9.5px;
-  font-weight:600;
+  font-weight:500;
   line-height:1.18;
 }
 .actions-scroll{
@@ -3855,78 +3855,38 @@ body.light-mode .btn.danger{
 }
 
 
-/* =========================================================
-   V3.1.5 · AJUSTES EN MODO CLARO — CONTRASTE REAL
-   Solo afecta al panel Ajustes en modo claro.
-   ========================================================= */
-html body.light-mode #settingsDialog{
-  color:#2d2922!important;
+/* V3.1.6 · Aro de progreso del capítulo */
+.chapter-title{
+  --chapter-reading-progress:0%;
+  position:relative;
+  width:38px!important;
+  min-width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  isolation:isolate;
 }
-html body.light-mode #settingsDialog .settings-section-title{
-  color:#5a3f00!important;
-  -webkit-text-fill-color:#5a3f00!important;
-  opacity:1!important;
+.chapter-title::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:50%;
+  pointer-events:none;
+  background:conic-gradient(from -90deg,#f8e39a 0%,#d3a52e var(--chapter-reading-progress),rgba(255,255,255,.16) var(--chapter-reading-progress),rgba(255,255,255,.16) 100%);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));
+  filter:drop-shadow(0 0 2px rgba(232,200,95,.28));
 }
-html body.light-mode #settingsDialog .backup-help,
-html body.light-mode #settingsDialog .titles-status{
-  color:#5f5a50!important;
-  -webkit-text-fill-color:#5f5a50!important;
-  opacity:1!important;
-  font-weight:500!important;
+.chapter-title.chapter-reading-complete::after{
+  background:conic-gradient(from -90deg,#fff5c9,#d3a52e 48%,#fff0a8 72%,#c8941e);
+  filter:drop-shadow(0 0 4px rgba(232,200,95,.52));
 }
-html body.light-mode #settingsDialog .audit-hash{
-  color:#615b52!important;
-  -webkit-text-fill-color:#615b52!important;
-  opacity:1!important;
-  font-weight:600!important;
+body.light-mode .chapter-title::after{
+  background:conic-gradient(from -90deg,#b27d0c 0%,#d0a126 var(--chapter-reading-progress),rgba(74,61,40,.18) var(--chapter-reading-progress),rgba(74,61,40,.18) 100%);
 }
-html body.light-mode #settingsDialog .audit-counters > div{
-  background:linear-gradient(180deg,#fbf7ff 0%,#eee5f8 100%)!important;
-  border-color:#b58bd5!important;
-}
-html body.light-mode #settingsDialog .audit-counters strong{
-  color:#6b3f91!important;
-  -webkit-text-fill-color:#6b3f91!important;
-  opacity:1!important;
-  text-shadow:none!important;
-}
-html body.light-mode #settingsDialog .audit-counters span{
-  color:#5f5665!important;
-  -webkit-text-fill-color:#5f5665!important;
-  opacity:1!important;
-  font-weight:600!important;
-}
-html body.light-mode #settingsDialog .audit-seal{
-  background:linear-gradient(180deg,#e9f9ed 0%,#d6f0dc 100%)!important;
-  border-color:#54aa70!important;
-  color:#1e6b39!important;
-  -webkit-text-fill-color:#1e6b39!important;
-  opacity:1!important;
-  text-shadow:none!important;
-  font-weight:800!important;
-}
-html body.light-mode #settingsDialog .backup-status-card{
-  background:#edf5e9!important;
-  border-color:#94b68e!important;
-  color:#2d2922!important;
-  -webkit-text-fill-color:#2d2922!important;
-  opacity:1!important;
-}
-html body.light-mode #settingsDialog .backup-status-card strong{
-  color:#2d6f34!important;
-  -webkit-text-fill-color:#2d6f34!important;
-  opacity:1!important;
-}
-html body.light-mode #settingsDialog .backup-status-card span{
-  color:#35312b!important;
-  -webkit-text-fill-color:#35312b!important;
-  opacity:1!important;
-}
-html body.light-mode #settingsDialog .backup-status-card.pending{
-  background:#fff0dd!important;
-  border-color:#df8a2d!important;
-}
-html body.light-mode #settingsDialog .backup-status-card.pending strong{
-  color:#9a4b00!important;
-  -webkit-text-fill-color:#9a4b00!important;
+body.light-mode .chapter-title.chapter-reading-complete::after{
+  background:conic-gradient(from -90deg,#8f6200,#d1a128 52%,#9b6a00);
 }

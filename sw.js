@@ -1,5 +1,5 @@
-const CACHE='biblia-estudio-v3.1.5';
-const CORE=['./','./index.html','./styles.css?v=3.1.5','./theme-overrides.css?v=3.1.5','./app.js?v=3.1.5','./manifest.webmanifest?v=3.1.5','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.1.5','./dictionary-data.js?v=3.1.5','./versiculos-del-dia.json?v=3.1.5','./separador_etiope_transparente_final.png?v=3.1.5','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.1.5','./biblical-characters-v2244-v2835.js?v=3.1.5','./biblical-characters-v2261.json?v=3.1.5','./biblical-parables-v16436.css?v=3.1.5','./biblical-parables-v16436-v2835.js?v=3.1.5','./biblical-parables.json?v=3.1.5','./biblical-guides-v16436.css?v=3.1.5','./biblical-guides-v16436-v2835.js?v=3.1.5','./biblical-guides.json?v=3.1.5','./biblical-prophecies.json?v=3.1.5','./biblical-places.json?v=3.1.5',
+const CACHE='biblia-estudio-v3.1.6';
+const CORE=['./','./index.html','./styles.css?v=3.1.6','./theme-overrides.css?v=3.1.6','./app.js?v=3.1.6','./manifest.webmanifest?v=3.1.6','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.1.6','./dictionary-data.js?v=3.1.6','./versiculos-del-dia.json?v=3.1.6','./separador_etiope_transparente_final.png?v=3.1.6','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.1.6','./biblical-characters-v2244-v2835.js?v=3.1.6','./biblical-characters-v2261.json?v=3.1.6','./biblical-parables-v16436.css?v=3.1.6','./biblical-parables-v16436-v2835.js?v=3.1.6','./biblical-parables.json?v=3.1.6','./biblical-guides-v16436.css?v=3.1.6','./biblical-guides-v16436-v2835.js?v=3.1.6','./biblical-guides.json?v=3.1.6','./biblical-prophecies.json?v=3.1.6','./biblical-places.json?v=3.1.6',
 ];
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
@@ -25,7 +25,7 @@ self.addEventListener('activate',event=>{
     for(const client of clients){
       client.postMessage({
         type:'BIBLIA_UPDATE_READY',
-        version:'3.1.5'
+        version:'3.1.6'
       });
     }
   })());
