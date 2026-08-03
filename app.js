@@ -215,7 +215,7 @@ function normalizeParableHeading(value){return String(value||'').normalize('NFD'
 function parableHeadingCapsule(link){return `<button type="button" class="parable-title-capsule" onclick="openBiblicalParableFromReader('${escapeHtml(link.id)}')">${escapeHtml(link.title)}</button>`}
 
 
-/* ===== V3.1.6 · Progreso de lectura por capítulo (fase 1) ===== */
+/* ===== V3.1.7 · Progreso de lectura por capítulo (fase 1) ===== */
 const CHAPTER_READING_PROGRESS_KEY_V316='biblia_chapter_reading_progress_v316';
 let chapterReadingProgressV316={};
 let chapterProgressFrameV316=0;
@@ -296,6 +296,60 @@ function initChapterReadingProgressV316(){
   const saved=chapterReadingProgressV316[key]||{read:0,total,completed:false};
   setChapterRingV316(saved.completed?total:saved.read,total,saved.completed);
   setTimeout(()=>updateChapterReadingProgressV316({initial:true}),80);
+}
+
+function currentChapterProgressV317(){
+  const key=chapterReadingKeyV316();
+  const total=Math.max(0,Number(state.verses?.length)||0);
+  const saved=chapterReadingProgressV316[key]||{read:0,total,completed:false};
+  const read=saved.completed?total:Math.max(0,Math.min(total,Number(saved.read)||0));
+  return {key,total,read,completed:Boolean(saved.completed&&total>0)};
+}
+
+function renderChapterProgressDialogV317(){
+  const book=state.books[state.bookIndex];
+  const progress=currentChapterProgressV317();
+  const reference=document.getElementById('chapterProgressReference');
+  const status=document.getElementById('chapterProgressState');
+  const count=document.getElementById('chapterProgressCount');
+  const reset=document.getElementById('resetChapterReadingProgress');
+  if(reference)reference.textContent=`${displayBook(book)} ${state.chapter}`;
+  if(status){
+    status.textContent=progress.completed?'Capítulo terminado':'En lectura';
+    status.classList.toggle('completed',progress.completed);
+  }
+  if(count)count.textContent=`${progress.read} de ${progress.total} versículos`;
+  if(reset)reset.disabled=progress.read===0&&!progress.completed;
+}
+
+function openChapterProgressDialogV317(){
+  renderChapterProgressDialogV317();
+  document.getElementById('chapterProgressDialog')?.showModal();
+}
+
+function resetChapterReadingProgressV317(){
+  const key=chapterReadingKeyV316();
+  if(!key)return;
+  const total=Math.max(0,Number(state.verses?.length)||0);
+  chapterReadingProgressV316[key]={read:0,total,completed:false,updatedAt:Date.now()};
+  saveChapterReadingProgressV316();
+  setChapterRingV316(0,total,false);
+  renderChapterProgressDialogV317();
+  toast('Lectura reiniciada');
+}
+
+function openChapterChooserV317(){
+  const b=state.books[state.bookIndex];
+  document.getElementById('chapterProgressDialog')?.close();
+  $('#chapterDialogTitle').textContent=displayBook(b);
+  $('#chaptersGrid').innerHTML='';
+  for(let i=1;i<=b.chapters;i++){
+    const x=document.createElement('button');
+    x.textContent=i;
+    x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};
+    $('#chaptersGrid').append(x);
+  }
+  $('#chapterDialog').showModal();
 }
 
 loadChapterReadingProgressV316();
@@ -928,7 +982,9 @@ $('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function 
   },{passive:true});
 })();
 $$('.drawer-tabs button').forEach(b=>b.onclick=()=>{$$('.drawer-tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderBooks(b.dataset.testament)});
-$('#chapterTitle').onclick=()=>{const b=state.books[state.bookIndex];$('#chapterDialogTitle').textContent=displayBook(b);$('#chaptersGrid').innerHTML='';for(let i=1;i<=b.chapters;i++){const x=document.createElement('button');x.textContent=i;x.onclick=async()=>{state.chapter=i;$('#chapterDialog').close();showReader();await loadChapter()};$('#chaptersGrid').append(x)}$('#chapterDialog').showModal()};
+$('#chapterTitle').onclick=openChapterProgressDialogV317;
+$('#resetChapterReadingProgress').onclick=resetChapterReadingProgressV317;
+$('#openChapterChooserFromProgress').onclick=openChapterChooserV317;
 $('#prevChapter').onclick=()=>moveChapter(-1);$('#nextChapter').onclick=()=>moveChapter(1);async function moveChapter(d){let b=state.books[state.bookIndex];let c=state.chapter+d;if(c<1&&state.bookIndex>0){state.bookIndex--;b=state.books[state.bookIndex];c=b.chapters}else if(c>b.chapters&&state.bookIndex<state.books.length-1){state.bookIndex++;c=1}else if(c<1||c>b.chapters)return;state.chapter=c;showReader();await loadChapter();scrollTo(0,0)}
 $('#searchBtn').onclick=openSearchDialog;
 $('#searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});

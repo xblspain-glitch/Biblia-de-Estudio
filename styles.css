@@ -3890,3 +3890,24 @@ body.light-mode .chapter-title::after{
 body.light-mode .chapter-title.chapter-reading-complete::after{
   background:conic-gradient(from -90deg,#8f6200,#d1a128 52%,#9b6a00);
 }
+
+
+/* V3.1.7 · Panel de progreso del capítulo */
+.chapter-progress-dialog{width:min(92vw,430px);padding:24px}
+.chapter-progress-dialog h2{margin:0 44px 18px 0}
+.chapter-progress-summary{border:1px solid #3c3f46;border-radius:17px;background:#1c1f24;padding:18px;text-align:center}
+.chapter-progress-reference{font-size:21px;font-weight:800;color:#f2df9b;margin-bottom:12px}
+.chapter-progress-state{display:inline-block;border:1px solid #77736b;border-radius:999px;padding:7px 14px;color:#dedbd3;font-weight:700;background:#292c32}
+.chapter-progress-state.completed{border-color:#d3a52e;color:#f6e4a4;background:rgba(211,165,46,.13)}
+.chapter-progress-count{margin-top:13px;color:#c9c6bf;font-weight:600}
+.chapter-progress-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.chapter-progress-actions button{border:0;border-radius:13px;padding:12px 10px;background:#30333a;color:#fff;font-weight:700}
+.chapter-progress-actions .danger{background:#3a2a2a;color:#ffb7b7}
+.chapter-progress-actions button:disabled{opacity:.42}
+body.light-mode .chapter-progress-summary{background:#f6f0e5;border-color:#c9bfae}
+body.light-mode .chapter-progress-reference{color:#6f4f00}
+body.light-mode .chapter-progress-state{background:#eee8dc;border-color:#a99e8c;color:#3c3831}
+body.light-mode .chapter-progress-state.completed{background:#f3ead0;border-color:#aa7b0b;color:#6f4f00}
+body.light-mode .chapter-progress-count{color:#554f46}
+body.light-mode .chapter-progress-actions button{background:#e9e1d4;color:#28231d}
+body.light-mode .chapter-progress-actions .danger{background:#f2dddd;color:#8b2525}
