@@ -262,7 +262,7 @@ body.light-mode .icon-btn,body.light-mode .book-title{color:#171512}
 body.light-mode .chapter-title{background:#e4ded2;color:#171512}
 body.light-mode .chapter-nav{background:#f2eee5;border-top-color:#d6d0c3;color:#171512}
 body.light-mode .chapter-nav button{background:#ded8cd;color:#171512}
-body.light-mode .verse-number{color:#777168}
+body.light-mode .verse-number{color:#555168}
 body.light-mode .reader-book-title,body.light-mode .chapter-number{color:#27231e}
 body.light-mode .selection-bar{background:#f4f0e7;border-color:#d3cdc1;color:#171512}
 body.light-mode .actions-panel-inner{background:rgba(247,243,235,.98)!important;color:#171512!important}
@@ -546,7 +546,7 @@ body.light-mode .verse.saved-verse:not(.explained-verse).selected{
 @media(min-width:620px){.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
 /* Estadísticas integrado en el panel lateral de acciones */
-.action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #777b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
+.action-stats{background:linear-gradient(180deg,#f2f2f4,#c8c9ce)!important;border:4px solid #555b84!important;color:#17191d!important;font-weight:800!important;min-width:118px!important}
 
 
 /* correcciones de contraste en modo claro */
@@ -588,7 +588,7 @@ body.light-mode .action.pastel-action.action-characters{background:linear-gradie
 
 body.light-mode .action.pastel-action.action-stats{
   background:linear-gradient(180deg,#eef0f5 0%,#cfd3dc 55%,#adb4c1 100%)!important;
-  border-color:#777b84!important;
+  border-color:#555b84!important;
 }
 body.light-mode .action.pastel-action.action-copy{
   background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%)!important;
@@ -855,7 +855,7 @@ body.light-mode .explanation-group:has(.verse.selected){
   margin-top:3px;
   color:#9fa3ac;
   font-size:9.5px;
-  font-weight:500;
+  font-weight:600;
   line-height:1.18;
 }
 .actions-scroll{
