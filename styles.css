@@ -4004,3 +4004,35 @@ body.light-mode .word-journey-month-stats strong{color:#30291f}
 body.light-mode .word-journey-progress,
 body.light-mode .word-journey-month-line{background:#e7dcc5}
 @media(min-width:620px){.word-journey-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+
+/* V3.1.11 · Aviso de festividad */
+body.festivity-notice-open-v3111{overflow:hidden}
+.festivity-notice-overlay-v3111{
+  position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;
+  padding:22px;background:rgba(5,6,10,.78);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)
+}
+.festivity-notice-card-v3111{
+  width:min(92vw,520px);max-height:84vh;overflow:auto;padding:24px 20px 20px;
+  border:1px solid rgba(210,169,69,.78);border-radius:24px;
+  background:linear-gradient(160deg,#24252b 0%,#111217 100%);color:#f6f0e6;
+  box-shadow:0 24px 70px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.07)
+}
+.festivity-notice-date-v3111{text-align:center;color:#cfb46d;font-size:.83rem;text-transform:capitalize}
+.festivity-notice-card-v3111 h2{margin:8px 0 18px;text-align:center;font-family:"Lora",serif;color:#f0d58b;font-size:1.35rem}
+.festivity-notice-events-v3111{display:grid;gap:11px}
+.festivity-notice-event-v3111{padding:14px;border:1px solid rgba(202,159,58,.36);border-radius:16px;background:rgba(255,255,255,.035)}
+.festivity-notice-event-v3111 strong{display:block;color:#f8e7b4;font-size:1rem}
+.festivity-notice-event-v3111 p{margin:6px 0;color:#eee7da;line-height:1.45}
+.festivity-notice-event-v3111 span{display:block;color:#bfb6a7;font-size:.76rem}
+.festivity-notice-actions-v3111{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.festivity-notice-actions-v3111 .btn{min-height:46px;margin:0}
+body.light-mode .festivity-notice-overlay-v3111{background:rgba(38,32,23,.54)}
+body.light-mode .festivity-notice-card-v3111{background:linear-gradient(160deg,#fffdf8,#f3ead8);color:#30291f;border-color:#b88b2a}
+body.light-mode .festivity-notice-date-v3111{color:#765000}
+body.light-mode .festivity-notice-card-v3111 h2{color:#6d4900}
+body.light-mode .festivity-notice-event-v3111{background:#fffaf0;border-color:#c8a14e}
+body.light-mode .festivity-notice-event-v3111 strong{color:#563900}
+body.light-mode .festivity-notice-event-v3111 p{color:#3a332a}
+body.light-mode .festivity-notice-event-v3111 span{color:#665d50}
+@media(max-width:420px){.festivity-notice-actions-v3111{grid-template-columns:1fr}}
