@@ -4036,3 +4036,77 @@ body.light-mode .festivity-notice-event-v3111 strong{color:#563900}
 body.light-mode .festivity-notice-event-v3111 p{color:#3a332a}
 body.light-mode .festivity-notice-event-v3111 span{color:#665d50}
 @media(max-width:420px){.festivity-notice-actions-v3111{grid-template-columns:1fr}}
+
+
+/* V3.1.14 · Ajustes legibles en modo claro */
+body.light-mode #settingsDialog{
+  color:#2f2a23!important;
+}
+body.light-mode #settingsDialog .settings-section-title{
+  color:#624300!important;
+  -webkit-text-fill-color:#624300!important;
+  opacity:1!important;
+}
+body.light-mode #settingsDialog .backup-help,
+body.light-mode #settingsDialog .titles-status{
+  color:#595248!important;
+  -webkit-text-fill-color:#595248!important;
+  opacity:1!important;
+  font-weight:500!important;
+}
+body.light-mode #settingsDialog .audit-hash{
+  color:#5e574e!important;
+  -webkit-text-fill-color:#5e574e!important;
+  opacity:1!important;
+  font-weight:600!important;
+}
+body.light-mode #settingsDialog .audit-counters>div{
+  background:linear-gradient(180deg,#fbf8ff 0%,#eee5f7 100%)!important;
+  border-color:#a981c9!important;
+}
+body.light-mode #settingsDialog .audit-counters strong{
+  color:#674088!important;
+  -webkit-text-fill-color:#674088!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+body.light-mode #settingsDialog .audit-counters span{
+  color:#504858!important;
+  -webkit-text-fill-color:#504858!important;
+  opacity:1!important;
+  font-weight:600!important;
+}
+body.light-mode #settingsDialog .audit-seal{
+  background:linear-gradient(180deg,#e8f7eb 0%,#d4edd9 100%)!important;
+  border-color:#4f9d66!important;
+  color:#215f35!important;
+  -webkit-text-fill-color:#215f35!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-weight:800!important;
+}
+body.light-mode #settingsDialog .backup-status-card{
+  background:#e8f1e4!important;
+  border-color:#7fa177!important;
+  color:#302c26!important;
+  -webkit-text-fill-color:#302c26!important;
+  opacity:1!important;
+}
+body.light-mode #settingsDialog .backup-status-card strong{
+  color:#286333!important;
+  -webkit-text-fill-color:#286333!important;
+  opacity:1!important;
+}
+body.light-mode #settingsDialog .backup-status-card span{
+  color:#39342d!important;
+  -webkit-text-fill-color:#39342d!important;
+  opacity:1!important;
+}
+body.light-mode #settingsDialog .backup-status-card.pending{
+  background:#fff0dc!important;
+  border-color:#cf7620!important;
+}
+body.light-mode #settingsDialog .backup-status-card.pending strong{
+  color:#944500!important;
+  -webkit-text-fill-color:#944500!important;
+}
