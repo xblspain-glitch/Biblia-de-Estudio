@@ -3911,3 +3911,15 @@ body.light-mode .chapter-progress-state.completed{background:#f3ead0;border-colo
 body.light-mode .chapter-progress-count{color:#554f46}
 body.light-mode .chapter-progress-actions button{background:#e9e1d4;color:#28231d}
 body.light-mode .chapter-progress-actions .danger{background:#f2dddd;color:#8b2525}
+
+
+/* V3.1.8 · Estadísticas de estudio del capítulo */
+.chapter-study-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px;text-align:left}
+.chapter-study-stats>div{display:flex;flex-direction:column;gap:4px;min-width:0;padding:11px 12px;border:1px solid #3c3f46;border-radius:12px;background:#25282e}
+.chapter-study-stats>div:nth-child(2),.chapter-study-stats>div:nth-child(3){grid-column:span 1}
+.chapter-study-stats span{font-size:12px;line-height:1.25;color:#aaa69d;font-weight:650}
+.chapter-study-stats strong{font-size:16px;line-height:1.2;color:#f0df9c;font-weight:800;overflow-wrap:anywhere}
+body.light-mode .chapter-study-stats>div{background:#eee7db;border-color:#c9bda9}
+body.light-mode .chapter-study-stats span{color:#5d564d}
+body.light-mode .chapter-study-stats strong{color:#6f4f00}
+@media(max-width:390px){.chapter-study-stats{grid-template-columns:1fr}.chapter-study-stats>div:nth-child(2),.chapter-study-stats>div:nth-child(3){grid-column:auto}}
