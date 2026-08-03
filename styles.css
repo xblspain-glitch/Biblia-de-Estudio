@@ -3913,7 +3913,7 @@ body.light-mode .chapter-progress-actions button{background:#e9e1d4;color:#28231
 body.light-mode .chapter-progress-actions .danger{background:#f2dddd;color:#8b2525}
 
 
-/* V3.1.8 · Estadísticas de estudio del capítulo */
+/* V3.1.9 · Estadísticas de estudio del capítulo */
 .chapter-study-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px;text-align:left}
 .chapter-study-stats>div{display:flex;flex-direction:column;gap:4px;min-width:0;padding:11px 12px;border:1px solid #3c3f46;border-radius:12px;background:#25282e}
 .chapter-study-stats>div:nth-child(2),.chapter-study-stats>div:nth-child(3){grid-column:span 1}
