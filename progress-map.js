@@ -1,7 +1,51 @@
-/* V3.1.18 · Mapa del progreso y sincronización (módulo independiente)
+/* V3.1.21 · Progreso real e historial manual independiente (módulo independiente)
    La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
+
+  const FULL_BIBLE_READINGS_KEY_V3119='biblia_full_bible_readings_v3119';
+  const MANUAL_BOOK_READINGS_KEY_V3121='biblia_manual_book_readings_v3121';
+
+  function getManualBookReadingsV3121(){
+    try{
+      const parsed=JSON.parse(localStorage.getItem(MANUAL_BOOK_READINGS_KEY_V3121)||'{}');
+      if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))return{};
+      const clean={};
+      for(const [key,value] of Object.entries(parsed)){
+        const n=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));
+        if(n>0)clean[key]=n;
+      }
+      return clean;
+    }catch(_){return{}}
+  }
+
+  function saveManualBookReadingV3121(bookKey,value){
+    const readings=getManualBookReadingsV3121();
+    const safe=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));
+    if(safe>0)readings[bookKey]=safe;
+    else delete readings[bookKey];
+    localStorage.setItem(MANUAL_BOOK_READINGS_KEY_V3121,JSON.stringify(readings));
+    return safe;
+  }
+
+  function manualBookReadingV3121(bookKey){
+    return Number(getManualBookReadingsV3121()[bookKey])||0;
+  }
+
+  function getFullBibleReadingsV3119(){
+    try{
+      const value=Number(localStorage.getItem(FULL_BIBLE_READINGS_KEY_V3119));
+      return Number.isFinite(value)&&value>0?Math.floor(value):0;
+    }catch(_){
+      return 0;
+    }
+  }
+
+  function saveFullBibleReadingsV3119(value){
+    const safe=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));
+    localStorage.setItem(FULL_BIBLE_READINGS_KEY_V3119,String(safe));
+    return safe;
+  }
 
   function escapeHtml(value){
     return String(value ?? '').replace(/[&<>"']/g, ch => ({
@@ -78,11 +122,14 @@
         <small>${statusLabel(info.status)}</small>
       </span>
       <span class="progress-map-book-count">${info.completed} de ${info.total} capítulos</span>
+      ${manualBookReadingV3121(book.key)>0?`<span class="progress-map-book-manual">Leído ${manualBookReadingV3121(book.key)} ${manualBookReadingV3121(book.key)===1?'vez':'veces'}</span>`:''}
       <span class="progress-map-book-bar" aria-hidden="true"><i style="width:${info.percent}%"></i></span>
       <span class="progress-map-book-detail" hidden>
         <span>${info.completed} completados</span>
         <span>${info.inProgress} en curso</span>
         <span>${info.pending} sin empezar</span>
+        <span class="progress-map-book-manual-detail">Lecturas personales registradas: <strong>${manualBookReadingV3121(book.key)}</strong></span>
+        <span class="progress-map-book-edit-wrap"><button class="progress-map-book-edit-btn" type="button" data-edit-book-readings="${escapeHtml(book.key)}">Editar lecturas</button></span>
       </span>
     </button>`;
   }
@@ -114,8 +161,16 @@
       section.id = 'progressMap66BooksV3115';
       section.className = 'word-journey-section progress-map-section';
     }
+    const fullBibleReadings=getFullBibleReadingsV3119();
     section.innerHTML = `<h2>Mapa del progreso</h2>
       <p class="progress-map-intro">Estado de los 66 libros según los capítulos que has recorrido.</p>
+      <div class="progress-map-full-bible">
+        <div>
+          <span>Biblia completa</span>
+          <strong>${fullBibleReadings} ${fullBibleReadings===1?'lectura registrada':'lecturas registradas'}</strong>
+        </div>
+        <button id="progressMapFullBibleBtnV3119" type="button">Registrar lecturas completas</button>
+      </div>
       <div class="progress-map-sync-row">
         <button id="progressMapSyncBtnV3116" class="progress-map-sync-btn" type="button">Sincronizar libros ya leídos</button>
         <small>Para incorporar libros terminados antes de activar el seguimiento por capítulos.</small>
@@ -141,8 +196,106 @@
       event.stopPropagation();
       openSyncDialog();
     });
+    section.querySelector('#progressMapFullBibleBtnV3119')?.addEventListener('click', event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      openFullBibleReadingsDialogV3119();
+    });
   }
 
+  function openFullBibleReadingsDialogV3119(){
+    document.getElementById('progressMapFullBibleDialogV3119')?.remove();
+    const current=getFullBibleReadingsV3119();
+    const overlay=document.createElement('div');
+    overlay.id='progressMapFullBibleDialogV3119';
+    overlay.className='progress-map-sync-overlay';
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.innerHTML=`<div class="progress-map-sync-dialog progress-map-full-bible-dialog">
+      <button class="progress-map-sync-close" type="button" aria-label="Cerrar">×</button>
+      <h3>Lecturas completas de la Biblia</h3>
+      <p>Indique cuántas veces ha leído la Biblia completa. Este historial personal se guardará en la copia de seguridad sin modificar el progreso de ningún capítulo.</p>
+      <label class="progress-map-full-bible-field">
+        <span>Lecturas completas registradas</span>
+        <input id="progressMapFullBibleInputV3119" type="number" min="0" max="99" step="1" value="${current}">
+      </label>
+      <p class="progress-map-full-bible-note">Este contador es independiente: no marcará libros, no borrará capítulos en curso y no creará fechas.</p>
+      <div class="progress-map-sync-footer">
+        <button type="button" class="progress-map-sync-cancel">Cancelar</button>
+        <button type="button" class="progress-map-sync-confirm">Guardar</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+
+    const close=()=>overlay.remove();
+    overlay.querySelector('.progress-map-sync-close')?.addEventListener('click',close);
+    overlay.querySelector('.progress-map-sync-cancel')?.addEventListener('click',close);
+    overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
+    overlay.querySelector('.progress-map-sync-confirm')?.addEventListener('click',()=>{
+      const input=overlay.querySelector('#progressMapFullBibleInputV3119');
+      const raw=Number(input?.value);
+      if(!Number.isFinite(raw)||raw<0||raw>99||!Number.isInteger(raw)){
+        alert('Introduzca un número entero entre 0 y 99.');
+        return;
+      }
+      const message=raw===1
+        ?'Se registrará 1 lectura completa de la Biblia. ¿Desea continuar?'
+        :`Se registrarán ${raw} lecturas completas de la Biblia. ¿Desea continuar?`;
+      if(!confirm(message))return;
+      const saved=saveFullBibleReadingsV3119(raw);
+      close();
+      render();
+      alert(saved===1?'Se ha registrado 1 lectura completa.':`Se han registrado ${saved} lecturas completas.`);
+    });
+    setTimeout(()=>overlay.querySelector('#progressMapFullBibleInputV3119')?.focus(),0);
+  }
+
+  window.openFullBibleReadingsDialogV3119=openFullBibleReadingsDialogV3119;
+
+
+  function openManualBookReadingsDialogV3121(bookKey){
+    const book=getBooks().find(item=>item.key===bookKey);
+    if(!book)return;
+    document.getElementById('progressMapManualBookDialogV3121')?.remove();
+    const current=manualBookReadingV3121(bookKey);
+    const overlay=document.createElement('div');
+    overlay.id='progressMapManualBookDialogV3121';
+    overlay.className='progress-map-sync-overlay';
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.innerHTML=`<div class="progress-map-sync-dialog progress-map-manual-book-dialog">
+      <button class="progress-map-sync-close" type="button" aria-label="Cerrar">×</button>
+      <h3>${escapeHtml(bookName(book))}</h3>
+      <p>Registre cuántas veces recuerda haber leído este libro completo. Este dato no cambia el estado de sus capítulos.</p>
+      <label class="progress-map-full-bible-field">
+        <span>Lecturas personales registradas</span>
+        <input id="progressMapManualBookInputV3121" type="number" min="0" max="99" step="1" value="${current}">
+      </label>
+      <p class="progress-map-full-bible-note">Puede usar 0 para eliminar únicamente este dato manual. Su progreso real permanecerá intacto.</p>
+      <div class="progress-map-sync-footer">
+        <button type="button" class="progress-map-sync-cancel">Cancelar</button>
+        <button type="button" class="progress-map-sync-confirm">Guardar</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const close=()=>overlay.remove();
+    overlay.querySelector('.progress-map-sync-close')?.addEventListener('click',close);
+    overlay.querySelector('.progress-map-sync-cancel')?.addEventListener('click',close);
+    overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
+    overlay.querySelector('.progress-map-sync-confirm')?.addEventListener('click',()=>{
+      const raw=Number(overlay.querySelector('#progressMapManualBookInputV3121')?.value);
+      if(!Number.isFinite(raw)||raw<0||raw>99||!Number.isInteger(raw)){
+        alert('Introduzca un número entero entre 0 y 99.');
+        return;
+      }
+      saveManualBookReadingV3121(bookKey,raw);
+      close();
+      render();
+    });
+    setTimeout(()=>overlay.querySelector('#progressMapManualBookInputV3121')?.focus(),0);
+  }
+
+  window.openManualBookReadingsDialogV3121=openManualBookReadingsDialogV3121;
 
   function existingCompletedBookKeys(){
     const books=getBooks();
@@ -248,8 +401,19 @@
   }
 
   document.addEventListener('click', event => {
+    if(event.target.closest?.('#progressMapFullBibleBtnV3119')){
+      openFullBibleReadingsDialogV3119();
+      return;
+    }
     if(event.target.closest?.('#progressMapSyncBtnV3116')){
       openSyncDialog();
+      return;
+    }
+    const editButton=event.target.closest?.('[data-edit-book-readings]');
+    if(editButton){
+      event.preventDefault();
+      event.stopPropagation();
+      openManualBookReadingsDialogV3121(editButton.dataset.editBookReadings);
       return;
     }
     const card = event.target.closest?.('[data-progress-book]');
