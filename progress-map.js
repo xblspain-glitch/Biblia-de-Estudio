@@ -1,4 +1,4 @@
-/* V3.1.17 · Mapa del progreso y sincronización (módulo independiente)
+/* V3.1.18 · Mapa del progreso y sincronización (módulo independiente)
    La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
