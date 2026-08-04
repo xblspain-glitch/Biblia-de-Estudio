@@ -1,4 +1,4 @@
-/* V3.1.24 · Progreso real e historial manual independiente (módulo independiente)
+/* V3.1.25 · Progreso real e historial manual independiente (módulo independiente)
    La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
@@ -210,6 +210,10 @@
       event.stopPropagation();
       openFullBibleReadingsDialogV3119();
     });
+
+    synchronizeExistingManualBookReadsV3125().then(changed=>{
+      if(changed)requestAnimationFrame(render);
+    }).catch(error=>console.error(error));
   }
 
   function openFullBibleReadingsDialogV3119(){
@@ -263,43 +267,98 @@
 
 
 
-  function markBookCompletedInCurrentProgressV3124(book, extraCurrentReads){
-    if(!book || extraCurrentReads <= 0) return;
+  async function markBookCompletedInCurrentProgressV3125(book,totalPersonalReads){
+    if(!book || totalPersonalReads <= 0)return false;
     try{
       const key='biblia_chapter_reading_progress_v316';
       const store=getProgressStore();
-      const chapters=Math.max(0,Number(book.chapters)||0);
+      const chaptersData=typeof getBookChapters==='function'
+        ? await getBookChapters(book) : [];
+      const chapters=Math.max(0,Number(book.chapters)||chaptersData.length||0);
+      let changed=false;
 
       for(let chapter=1;chapter<=chapters;chapter+=1){
         const chapterKey=`${book.key}:${chapter}`;
         const previous=store[chapterKey]&&typeof store[chapterKey]==='object'
           ? {...store[chapterKey]} : {};
+        const realTotal=Math.max(
+          1,
+          Array.isArray(chaptersData?.[chapter-1]) ? chaptersData[chapter-1].length : 0,
+          Number(previous.total)||0
+        );
 
-        const previousCount=Math.max(0,Number(previous.readCount)||0);
-        const wantedCount=Math.max(previousCount,extraCurrentReads);
-
-        store[chapterKey]={
+        const next={
           ...previous,
+          read:realTotal,
+          total:realTotal,
           completed:true,
-          readCount:wantedCount,
+          readCount:Math.max(Number(previous.readCount)||0,totalPersonalReads),
           importedHistorical:true,
           firstCompletedAt:Number(previous.firstCompletedAt)||0,
           lastCompletedAt:Number(previous.lastCompletedAt)||0,
           updatedAt:Number(previous.updatedAt)||Date.now()
         };
+
+        if(
+          Number(previous.read)!==next.read ||
+          Number(previous.total)!==next.total ||
+          previous.completed!==true ||
+          Number(previous.readCount||0)!==next.readCount
+        )changed=true;
+
+        store[chapterKey]=next;
       }
 
-      localStorage.setItem(key,JSON.stringify(store));
+      if(changed){
+        localStorage.setItem(key,JSON.stringify(store));
+        try{
+          if(typeof chapterReadingProgressV316!=='undefined'){
+            chapterReadingProgressV316=store;
+          }
+        }catch(_){}
+      }
+
       try{
-        if(typeof chapterReadingProgressV316!=='undefined'){
-          chapterReadingProgressV316=store;
+        const currentBook=state?.books?.[state.bookIndex];
+        if(currentBook?.key===book.key && typeof initChapterReadingProgressV316==='function'){
+          initChapterReadingProgressV316();
+          if(document.getElementById('chapterProgressDialog')?.open &&
+             typeof renderChapterProgressDialogV317==='function'){
+            renderChapterProgressDialogV317();
+          }
         }
       }catch(_){}
+
+      return changed;
     }catch(error){
-      console.error('No se pudo reflejar la lectura actual del libro',error);
+      console.error('No se pudo sincronizar el progreso completo del libro',error);
       throw error;
     }
   }
+
+  let automaticBookSyncRunningV3125=false;
+  async function synchronizeExistingManualBookReadsV3125(){
+    if(automaticBookSyncRunningV3125)return false;
+    automaticBookSyncRunningV3125=true;
+    try{
+      const baseline=getFullBibleReadingsV3119();
+      const readings=getManualBookReadingsV3121();
+      const books=getBooks();
+      let changed=false;
+
+      for(const book of books){
+        const personal=Math.max(baseline,Number(readings[book.key])||0);
+        if(personal>baseline){
+          const didChange=await markBookCompletedInCurrentProgressV3125(book,personal);
+          changed=changed||didChange;
+        }
+      }
+      return changed;
+    }finally{
+      automaticBookSyncRunningV3125=false;
+    }
+  }
+
 
   function openManualBookReadingsDialogV3121(bookKey){
     const book=getBooks().find(item=>item.key===bookKey);
@@ -331,7 +390,7 @@
     overlay.querySelector('.progress-map-sync-close')?.addEventListener('click',close);
     overlay.querySelector('.progress-map-sync-cancel')?.addEventListener('click',close);
     overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
-    overlay.querySelector('.progress-map-sync-confirm')?.addEventListener('click',()=>{
+    overlay.querySelector('.progress-map-sync-confirm')?.addEventListener('click',async()=>{
       const raw=Number(overlay.querySelector('#progressMapManualBookInputV3121')?.value);
       if(!Number.isFinite(raw)||raw<baseline||raw>99||!Number.isInteger(raw)){
         alert(`Introduzca un número entero entre ${baseline} y 99.`);
@@ -342,7 +401,7 @@
       saveManualBookReadingV3121(bookKey,raw===baseline?0:raw);
       if(raw>baseline){
         try{
-          markBookCompletedInCurrentProgressV3124(book,raw-baseline);
+          await markBookCompletedInCurrentProgressV3125(book,raw);
         }catch(_){
           alert('Se guardó el historial personal, pero no se pudo actualizar el progreso del libro.');
         }
