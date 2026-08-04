@@ -1,4 +1,4 @@
-/* V3.1.23 · Progreso real e historial manual independiente (módulo independiente)
+/* V3.1.24 · Progreso real e historial manual independiente (módulo independiente)
    La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
@@ -262,6 +262,45 @@
   window.openFullBibleReadingsDialogV3119=openFullBibleReadingsDialogV3119;
 
 
+
+  function markBookCompletedInCurrentProgressV3124(book, extraCurrentReads){
+    if(!book || extraCurrentReads <= 0) return;
+    try{
+      const key='biblia_chapter_reading_progress_v316';
+      const store=getProgressStore();
+      const chapters=Math.max(0,Number(book.chapters)||0);
+
+      for(let chapter=1;chapter<=chapters;chapter+=1){
+        const chapterKey=`${book.key}:${chapter}`;
+        const previous=store[chapterKey]&&typeof store[chapterKey]==='object'
+          ? {...store[chapterKey]} : {};
+
+        const previousCount=Math.max(0,Number(previous.readCount)||0);
+        const wantedCount=Math.max(previousCount,extraCurrentReads);
+
+        store[chapterKey]={
+          ...previous,
+          completed:true,
+          readCount:wantedCount,
+          importedHistorical:true,
+          firstCompletedAt:Number(previous.firstCompletedAt)||0,
+          lastCompletedAt:Number(previous.lastCompletedAt)||0,
+          updatedAt:Number(previous.updatedAt)||Date.now()
+        };
+      }
+
+      localStorage.setItem(key,JSON.stringify(store));
+      try{
+        if(typeof chapterReadingProgressV316!=='undefined'){
+          chapterReadingProgressV316=store;
+        }
+      }catch(_){}
+    }catch(error){
+      console.error('No se pudo reflejar la lectura actual del libro',error);
+      throw error;
+    }
+  }
+
   function openManualBookReadingsDialogV3121(bookKey){
     const book=getBooks().find(item=>item.key===bookKey);
     if(!book)return;
@@ -281,7 +320,7 @@
         <span>Lecturas personales registradas</span>
         <input id="progressMapManualBookInputV3121" type="number" min="${baseline}" max="99" step="1" value="${current}">
       </label>
-      <p class="progress-map-full-bible-note">Este dato no modifica capítulos, aros ni fechas. Para este libro no puede ser inferior a las ${baseline} lecturas completas de la Biblia registradas.</p>
+      <p class="progress-map-full-bible-note">Una lectura por encima de la base general marcará este libro como completado en el recorrido actual, con sus capítulos y aros completos. Para este libro no puede ser inferior a las ${baseline} lecturas completas de la Biblia registradas.</p>
       <div class="progress-map-sync-footer">
         <button type="button" class="progress-map-sync-cancel">Cancelar</button>
         <button type="button" class="progress-map-sync-confirm">Guardar</button>
@@ -298,8 +337,16 @@
         alert(`Introduzca un número entero entre ${baseline} y 99.`);
         return;
       }
-      /* Si coincide con la base de Biblia completa, no duplicamos el dato. */
+      /* Si coincide con la base de Biblia completa, no duplicamos el dato.
+         Cada lectura adicional representa un libro completado en el recorrido actual. */
       saveManualBookReadingV3121(bookKey,raw===baseline?0:raw);
+      if(raw>baseline){
+        try{
+          markBookCompletedInCurrentProgressV3124(book,raw-baseline);
+        }catch(_){
+          alert('Se guardó el historial personal, pero no se pudo actualizar el progreso del libro.');
+        }
+      }
       close();
       render();
     });
