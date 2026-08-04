@@ -1,4 +1,4 @@
-/* V3.1.25 · Progreso real e historial manual independiente (módulo independiente)
+/* V3.1.26 · Progreso real e historial manual independiente (módulo independiente)
    La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
@@ -162,6 +162,8 @@
     const completed = details.filter(item => item.status === 'completed').length;
     const inProgress = details.filter(item => item.status === 'in-progress').length;
     const notStarted = details.filter(item => item.status === 'not-started').length;
+    const completedChapters = details.reduce((sum,item)=>sum+item.completed,0);
+    const totalChapters = details.reduce((sum,item)=>sum+item.total,0);
 
     let section = content.querySelector('#progressMap66BooksV3115');
     const isNew = !section;
@@ -173,6 +175,19 @@
     const fullBibleReadings=getFullBibleReadingsV3119();
     section.innerHTML = `<h2>Mapa del progreso</h2>
       <p class="progress-map-intro">Estado de los 66 libros según los capítulos que has recorrido.</p>
+
+      <div class="progress-map-overview">
+        <div class="progress-map-overview-block">
+          <span>Historial personal</span>
+          <strong>Biblia completa: ${fullBibleReadings} ${fullBibleReadings===1?'lectura':'lecturas'}</strong>
+        </div>
+        <div class="progress-map-overview-block">
+          <span>Lectura actual</span>
+          <strong>${completed} de ${books.length} libros completados</strong>
+          <small>${completedChapters} de ${totalChapters} capítulos completados</small>
+        </div>
+      </div>
+
       <div class="progress-map-full-bible">
         <div>
           <span>Biblia completa</span>

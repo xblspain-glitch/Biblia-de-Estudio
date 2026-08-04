@@ -139,3 +139,48 @@ body.light-mode .progress-map-book-main:active{background:#f7f0df}
 @media(min-width:620px){
   .progress-map-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+
+/* V3.1.26 · Resumen final de historial personal y lectura actual */
+.progress-map-overview{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin:14px 0 16px
+}
+.progress-map-overview-block{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:15px 16px;
+  border:1px solid rgba(205,155,47,.38);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(181,127,19,.07))
+}
+.progress-map-overview-block span{
+  color:var(--muted);
+  font-size:.76rem
+}
+.progress-map-overview-block strong{
+  color:#f0d58b;
+  font-size:.98rem;
+  line-height:1.35
+}
+.progress-map-overview-block small{
+  color:var(--muted);
+  font-size:.76rem
+}
+body.light-mode .progress-map-overview-block{
+  background:linear-gradient(145deg,#fffdf8,#f7ecd4);
+  border-color:#c49a42
+}
+body.light-mode .progress-map-overview-block span,
+body.light-mode .progress-map-overview-block small{
+  color:#655c4f
+}
+body.light-mode .progress-map-overview-block strong{
+  color:#735000
+}
+@media(min-width:620px){
+  .progress-map-overview{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
