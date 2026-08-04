@@ -32,3 +32,32 @@ body.light-mode .progress-map-book.completed .progress-map-book-head small{color
 body.light-mode .progress-map-book-bar{background:#e4dac6}
 body.light-mode .progress-map-book-detail{border-top-color:#ded2bb}
 @media(min-width:680px){.progress-map-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+
+/* V3.1.16 · Sincronización manual de libros ya leídos */
+.progress-map-sync-row{display:grid;gap:7px;margin:0 0 14px}
+.progress-map-sync-row small{color:var(--muted);font-size:.72rem;line-height:1.4}
+.progress-map-sync-btn{justify-self:start;padding:9px 13px;border:1px solid rgba(205,155,47,.65);border-radius:12px;background:rgba(181,127,19,.11);color:#efd68e;font-weight:700;cursor:pointer}
+.progress-map-sync-overlay{position:fixed;inset:0;z-index:1500;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.66);backdrop-filter:blur(4px)}
+.progress-map-sync-dialog{position:relative;width:min(94vw,620px);max-height:88vh;display:flex;flex-direction:column;padding:22px;border:1px solid rgba(211,170,66,.72);border-radius:20px;background:#18140e;color:var(--text);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.progress-map-sync-dialog h3{margin:0 36px 8px 0;color:#f0d68d;font-family:"Lora",serif}
+.progress-map-sync-dialog>p{margin:0 0 14px;color:var(--muted);font-size:.86rem;line-height:1.5}
+.progress-map-sync-close{position:absolute;right:10px;top:8px;width:34px;height:34px;border:0;background:transparent;color:#d8cbaa;font-size:1.55rem;cursor:pointer}
+.progress-map-sync-actions-top{display:flex;gap:8px;margin-bottom:10px}
+.progress-map-sync-actions-top button,.progress-map-sync-footer button{padding:9px 12px;border:1px solid rgba(205,155,47,.46);border-radius:11px;background:rgba(255,255,255,.045);color:var(--text);cursor:pointer}
+.progress-map-sync-list{overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:3px 3px 10px}
+.progress-map-sync-item{display:flex;align-items:center;gap:9px;padding:10px;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.025);cursor:pointer}
+.progress-map-sync-item input{width:18px;height:18px;accent-color:#c99b37}
+.progress-map-sync-item span{display:grid;gap:2px;min-width:0}
+.progress-map-sync-item strong{font-size:.83rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress-map-sync-item small{font-size:.68rem;color:var(--muted)}
+.progress-map-sync-item.already-completed{opacity:.62;cursor:default}
+.progress-map-sync-footer{display:flex;justify-content:flex-end;gap:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.progress-map-sync-confirm{border-color:rgba(205,155,47,.8)!important;background:linear-gradient(135deg,#8f6010,#c49531)!important;color:#fff8df!important;font-weight:700}
+body.light-mode .progress-map-sync-btn{border-color:#a9791e;background:#f7ecd0;color:#704b00}
+body.light-mode .progress-map-sync-dialog{background:#fffdf8;color:#30291f;border-color:#b98b29}
+body.light-mode .progress-map-sync-dialog h3{color:#735000}
+body.light-mode .progress-map-sync-dialog>p,body.light-mode .progress-map-sync-item small{color:#655c4f}
+body.light-mode .progress-map-sync-close{color:#4b4134}
+body.light-mode .progress-map-sync-actions-top button,body.light-mode .progress-map-sync-footer button,body.light-mode .progress-map-sync-item{background:#fffaf0;border-color:#c9b06d;color:#30291f}
+@media(max-width:560px){.progress-map-sync-list{grid-template-columns:1fr}.progress-map-sync-footer{flex-direction:column-reverse}.progress-map-sync-footer button{width:100%}}
