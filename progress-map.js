@@ -1,5 +1,5 @@
-/* V3.1.16 · Mapa del progreso y sincronización (módulo independiente)
-   Solo lee state.books y chapterReadingProgressV316. No escribe datos. */
+/* V3.1.17 · Mapa del progreso y sincronización (módulo independiente)
+   La interfaz se actualiza sin reconstruirse continuamente. */
 (function(){
   'use strict';
 
@@ -98,8 +98,6 @@
     const content = document.getElementById('myWordJourneyContent');
     if(!content || !content.children.length) return;
 
-    content.querySelector('#progressMap66BooksV3115')?.remove();
-
     const books = getBooks();
     if(!books.length) return;
 
@@ -109,9 +107,13 @@
     const inProgress = details.filter(item => item.status === 'in-progress').length;
     const notStarted = details.filter(item => item.status === 'not-started').length;
 
-    const section = document.createElement('section');
-    section.id = 'progressMap66BooksV3115';
-    section.className = 'word-journey-section progress-map-section';
+    let section = content.querySelector('#progressMap66BooksV3115');
+    const isNew = !section;
+    if(!section){
+      section = document.createElement('section');
+      section.id = 'progressMap66BooksV3115';
+      section.className = 'word-journey-section progress-map-section';
+    }
     section.innerHTML = `<h2>Mapa del progreso</h2>
       <p class="progress-map-intro">Estado de los 66 libros según los capítulos que has recorrido.</p>
       <div class="progress-map-sync-row">
@@ -126,10 +128,19 @@
       ${createTestament('Antiguo Testamento', books.slice(0,39), store)}
       ${createTestament('Nuevo Testamento', books.slice(39), store)}`;
 
-    const sections = content.querySelectorAll(':scope > .word-journey-section');
-    const monthlySection = sections.length ? sections[sections.length - 1] : null;
-    if(monthlySection) content.insertBefore(section, monthlySection);
-    else content.appendChild(section);
+    if(isNew){
+      const sections = content.querySelectorAll(':scope > .word-journey-section');
+      const monthlySection = sections.length ? sections[sections.length - 1] : null;
+      if(monthlySection) content.insertBefore(section, monthlySection);
+      else content.appendChild(section);
+    }
+
+    /* Enlace directo: evita depender únicamente de la delegación global. */
+    section.querySelector('#progressMapSyncBtnV3116')?.addEventListener('click', event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      openSyncDialog();
+    });
   }
 
 
@@ -195,6 +206,8 @@
     });
   }
 
+  window.openProgressMapSyncDialogV3117=openSyncDialog;
+
   function synchronizeSelectedBooks(bookKeys){
     const books=getBooks();
     const store=getProgressStore();
@@ -251,7 +264,14 @@
   document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('myWordJourneyContent');
     if(!content) return;
-    new MutationObserver(scheduleRender).observe(content, {childList:true});
+
+    const observer = new MutationObserver(() => {
+      if(content.children.length && !content.querySelector('#progressMap66BooksV3115')){
+        scheduleRender();
+      }
+    });
+    observer.observe(content, {childList:true});
+
     document.getElementById('myWordJourneyBtn')?.addEventListener('click', scheduleRender);
   });
 })();
