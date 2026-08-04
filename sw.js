@@ -1,57 +1,54 @@
-const CACHE='biblia-estudio-v3.1.26-resumen-historial-lectura';
-const CORE=['./','./index.html','./styles.css?v=3.1.12','./theme-overrides.css?v=3.1.12','./app.js?v=3.1.12','./manifest.webmanifest?v=3.1.12','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.1.12','./dictionary-data.js?v=3.1.12','./versiculos-del-dia.json?v=3.1.12','./separador_etiope_transparente_final.png?v=3.1.12','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.1.12','./biblical-characters-v2244-v2835.js?v=3.1.12','./biblical-characters-v2261.json?v=3.1.12','./biblical-parables-v16436.css?v=3.1.12','./biblical-parables-v16436-v2835.js?v=3.1.12','./biblical-parables.json?v=3.1.12','./biblical-guides-v16436.css?v=3.1.12','./biblical-guides-v16436-v2835.js?v=3.1.12','./biblical-guides.json?v=3.1.12','./biblical-prophecies.json?v=3.1.12','./biblical-places.json?v=3.1.12',
-,'./1_pedro.json','./1_reyes.json','./2_samuel.json','./2_juan.json','./jonas.json','./malaquias.json','./numeros.json','./2_corintios.json','./josue.json','./esdras.json','./romanos.json','./job.json','./habacuc.json','./1_corintios.json','./jeremias.json','./1_timoteo.json','./hechos.json','./eclesiastes.json','./santiago.json','./levitico.json','./juan.json','./lamentaciones.json','./2_cronicas.json','./efesios.json','./3_juan.json','./ezequiel.json','./rut.json','./biblical-festivities.json','./lucas.json','./nahum.json','./hebreos.json','./daniel.json','./nehemias.json','./proverbios.json','./ester.json','./sofonias.json','./exodo.json','./joel.json','./amos.json','./1_samuel.json','./1_tesalonicenses.json','./hageo.json','./2_timoteo.json','./galatas.json','./colosenses.json','./salmos.json','./zacarias.json','./filipenses.json','./filemon.json','./tito.json','./1_juan.json','./isaias.json','./abdias.json','./cantares.json','./1_cronicas.json','./2_tesalonicenses.json','./judas.json','./apocalipsis.json','./miqueas.json','./jueces.json','./deuteronomio.json','./genesis.json','./2_reyes.json','./2_pedro.json','./oseas.json','./mateo.json','./marcos.json'
-];
+const CACHE='biblia-estudio-v3.1.28-offline-completo';
+const CORE=["./1_corintios.json","./1_cronicas.json","./1_juan.json","./1_pedro.json","./1_reyes.json","./1_samuel.json","./1_tesalonicenses.json","./1_timoteo.json","./2_corintios.json","./2_cronicas.json","./2_juan.json","./2_pedro.json","./2_reyes.json","./2_samuel.json","./2_tesalonicenses.json","./2_timoteo.json","./3_juan.json","./abdias.json","./amos.json","./apocalipsis.json","./app-icon.png","./app.js","./apple-touch-icon.png","./barra-amanecer.png","./barra-atardecer.png","./barra-dia.png","./barra-noche.png","./biblical-characters-v2244-v2835.js","./biblical-characters-v2244.css","./biblical-characters-v2261.json","./biblical-festivities.json","./biblical-guides-v16436-v2835.js","./biblical-guides-v16436.css","./biblical-guides.json","./biblical-parables-v16436-v2835.js","./biblical-parables-v16436.css","./biblical-parables.json","./biblical-places.json","./biblical-prophecies.json","./cabecera-1.png","./cabecera-2.png","./cabecera-3.png","./cabecera-4.png","./cantares.json","./colosenses.json","./daniel.json","./deuteronomio.json","./dictionary-data.js","./eclesiastes.json","./efesios.json","./esdras.json","./ester.json","./exodo.json","./ezequiel.json","./filemon.json","./filipenses.json","./galatas.json","./genesis.json","./habacuc.json","./hageo.json","./hebreos.json","./hechos.json","./icon-192.png","./icon-512.png","./icon-buscar.jpg","./icon-guardados.jpg","./icon-libros.jpg","./icon-seguir.jpg","./icon-versiculo-dia.jpg","./index.html","./index.json","./isaias.json","./jeremias.json","./job.json","./joel.json","./jonas.json","./josue.json","./juan.json","./judas.json","./jueces.json","./lamentaciones.json","./levitico.json","./Lora-Bold.woff2","./Lora-BoldItalic.woff2","./Lora-Italic.woff2","./Lora-Regular.woff2","./lucas.json","./malaquias.json","./manifest.webmanifest","./marcos.json","./mateo.json","./miqueas.json","./nahum.json","./nehemias.json","./numeros.json","./oseas.json","./progress-map.css","./progress-map.js","./proverbios.json","./romanos.json","./rut.json","./salmos.json","./santiago.json","./separador_etiope_transparente_final.png","./sofonias.json","./styles.css","./theme-overrides.css","./tito.json","./versiculos-del-dia.json","./zacarias.json"];
+
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     const cache=await caches.open(CACHE);
-    await cache.addAll(CORE);
+    for(const url of CORE){
+      const response=await fetch(url,{cache:'reload'});
+      if(!response.ok)throw new Error(`No se pudo precargar ${url}: ${response.status}`);
+      await cache.put(url,response);
+    }
     await self.skipWaiting();
   })());
 });
+
 self.addEventListener('activate',event=>{
   event.waitUntil((async()=>{
     const keys=await caches.keys();
-    await Promise.all(
-      keys
-        .filter(key=>key.startsWith('biblia-estudio-v')&&key!==CACHE_NAME)
-        .map(key=>caches.delete(key))
-    );
+    await Promise.all(keys.filter(key=>key.startsWith('biblia-estudio-v')&&key!==CACHE).map(key=>caches.delete(key)));
     await self.clients.claim();
-
-    const clients=await self.clients.matchAll({
-      type:'window',
-      includeUncontrolled:true
-    });
-    for(const client of clients){
-      client.postMessage({
-        type:'BIBLIA_UPDATE_READY',
-        version:'3.1.12'
-      });
+    const windows=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+    for(const client of windows){
+      client.postMessage({type:'BIBLIA_UPDATE_READY',version:'3.1.28'});
     }
   })());
 });
 
 self.addEventListener('message',event=>{
-  if(event.data?.type==='SKIP_WAITING')self.skipWaiting();
+  if(event.data?.type==='SKIP_WAITING'||event.data?.type==='BIBLIA_FORCE_ACTIVATE')self.skipWaiting();
 });
+
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
-  if(url.origin!==location.origin)return;
+  if(url.origin!==self.location.origin)return;
 
-  // La navegación busca primero una versión nueva y conserva index.html como respaldo offline.
   if(event.request.mode==='navigate'){
-    event.respondWith(fetch(event.request,{cache:'no-store'}).then(async response=>{
-      if(response?.ok)(await caches.open(CACHE)).put(response.clone());
-      return response;
-    }).catch(()=>caches.match()));
+    event.respondWith((async()=>{
+      try{
+        const response=await fetch(event.request);
+        if(response?.ok)(await caches.open(CACHE)).put('./index.html',response.clone());
+        return response;
+      }catch(_){
+        return (await caches.match('./index.html',{ignoreSearch:true})) || Response.error();
+      }
+    })());
     return;
   }
 
-  // Los recursos versionados y estáticos se sirven directamente desde caché.
   event.respondWith((async()=>{
-    const cached=await caches.match(event.request);
+    const cached=await caches.match(event.request,{ignoreSearch:true});
     if(cached)return cached;
     try{
       const response=await fetch(event.request);
@@ -67,14 +64,12 @@ self.addEventListener('notificationclick',event=>{
   event.notification.close();
   event.waitUntil((async()=>{
     const all=await clients.matchAll({type:'window',includeUncontrolled:true});
-    for(const client of all){if('focus'in client){client.postMessage({type:'OPEN_DAILY_VERSE'});return client.focus()}}
+    for(const client of all){
+      if('focus' in client){
+        client.postMessage({type:'OPEN_DAILY_VERSE'});
+        return client.focus();
+      }
+    }
     return clients.openWindow('./?dailyVerse=1');
   })());
-});
-
-
-self.addEventListener('message',event=>{
-  if(event.data?.type==='BIBLIA_FORCE_ACTIVATE'){
-    self.skipWaiting();
-  }
 });
