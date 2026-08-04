@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.15">
 
 
 
@@ -624,12 +625,13 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script src="app.js?v=3.1.14"></script>
+  <script src="progress-map.js?v=3.1.15"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.14';
+  const targetVersion='3.1.15';
   const reloadKey='biblia-sw-reloaded-'+targetVersion;
 
   navigator.serviceWorker.register('./sw.js?v='+targetVersion,{updateViaCache:'none'})
