@@ -1,10 +1,11 @@
 const CACHE='biblia-estudio-v3.1.26-resumen-historial-lectura';
 const CORE=['./','./index.html','./styles.css?v=3.1.12','./theme-overrides.css?v=3.1.12','./app.js?v=3.1.12','./manifest.webmanifest?v=3.1.12','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cabecera-1.png','./cabecera-2.png','./cabecera-3.png','./cabecera-4.png','./barra-amanecer.png','./barra-dia.png','./barra-atardecer.png','./barra-noche.png','./icon-seguir.jpg','./icon-libros.jpg','./icon-buscar.jpg','./icon-guardados.jpg','./icon-versiculo-dia.jpg','./index.json?v=3.1.12','./dictionary-data.js?v=3.1.12','./versiculos-del-dia.json?v=3.1.12','./separador_etiope_transparente_final.png?v=3.1.12','./Lora-Regular.woff2','./Lora-Bold.woff2','./Lora-Italic.woff2','./Lora-BoldItalic.woff2','./biblical-characters-v2244.css?v=3.1.12','./biblical-characters-v2244-v2835.js?v=3.1.12','./biblical-characters-v2261.json?v=3.1.12','./biblical-parables-v16436.css?v=3.1.12','./biblical-parables-v16436-v2835.js?v=3.1.12','./biblical-parables.json?v=3.1.12','./biblical-guides-v16436.css?v=3.1.12','./biblical-guides-v16436-v2835.js?v=3.1.12','./biblical-guides.json?v=3.1.12','./biblical-prophecies.json?v=3.1.12','./biblical-places.json?v=3.1.12',
+,'./1_pedro.json','./1_reyes.json','./2_samuel.json','./2_juan.json','./jonas.json','./malaquias.json','./numeros.json','./2_corintios.json','./josue.json','./esdras.json','./romanos.json','./job.json','./habacuc.json','./1_corintios.json','./jeremias.json','./1_timoteo.json','./hechos.json','./eclesiastes.json','./santiago.json','./levitico.json','./juan.json','./lamentaciones.json','./2_cronicas.json','./efesios.json','./3_juan.json','./ezequiel.json','./rut.json','./biblical-festivities.json','./lucas.json','./nahum.json','./hebreos.json','./daniel.json','./nehemias.json','./proverbios.json','./ester.json','./sofonias.json','./exodo.json','./joel.json','./amos.json','./1_samuel.json','./1_tesalonicenses.json','./hageo.json','./2_timoteo.json','./galatas.json','./colosenses.json','./salmos.json','./zacarias.json','./filipenses.json','./filemon.json','./tito.json','./1_juan.json','./isaias.json','./abdias.json','./cantares.json','./1_cronicas.json','./2_tesalonicenses.json','./judas.json','./apocalipsis.json','./miqueas.json','./jueces.json','./deuteronomio.json','./genesis.json','./2_reyes.json','./2_pedro.json','./oseas.json','./mateo.json','./marcos.json'
 ];
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
-    const cache=await caches.open(CACHE_NAME);
-    await cache.addAll(APP_SHELL);
+    const cache=await caches.open(CACHE);
+    await cache.addAll(CORE);
     await self.skipWaiting();
   })());
 });
