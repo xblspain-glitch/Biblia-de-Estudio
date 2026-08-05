@@ -4269,10 +4269,7 @@ body.light-mode .book-completion-cross,
 /* V3.1.35 · Cruz etíope real, compacta y centrada */
 .book-completion-dialog .book-completion-cross{
   display:block!important;
-  width:74px!important;
-  max-width:74px!important;
-  min-width:74px!important;
-  height:74px!important;
+  width:56px!important;max-width:56px!important;min-width:56px!important;height:56px!important;max-height:56px!important;min-height:56px!important;
   max-height:74px!important;
   min-height:74px!important;
   object-fit:contain!important;
