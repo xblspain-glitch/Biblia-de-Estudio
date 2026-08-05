@@ -4269,7 +4269,10 @@ body.light-mode .book-completion-cross,
 /* V3.1.35 · Cruz etíope real, compacta y centrada */
 .book-completion-dialog .book-completion-cross{
   display:block!important;
-  width:56px!important;max-width:56px!important;min-width:56px!important;height:56px!important;max-height:56px!important;min-height:56px!important;
+  width:74px!important;
+  max-width:74px!important;
+  min-width:74px!important;
+  height:74px!important;
   max-height:74px!important;
   min-height:74px!important;
   object-fit:contain!important;
@@ -4288,5 +4291,36 @@ body.light-mode .book-completion-cross,
     height:68px!important;
     max-height:68px!important;
     min-height:68px!important;
+  }
+}
+
+
+/* V3.1.37 · Mismo motivo etíope utilizado en toda la aplicación */
+.book-completion-dialog .book-completion-cross{
+  display:block!important;
+  width:min(82%,320px)!important;
+  max-width:320px!important;
+  min-width:0!important;
+  height:76px!important;
+  max-height:76px!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0 auto 14px!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  position:relative!important;
+  inset:auto!important;
+}
+@media(max-width:420px){
+  .book-completion-dialog .book-completion-cross{
+    width:min(86%,280px)!important;
+    max-width:280px!important;
+    height:68px!important;
+    max-height:68px!important;
   }
 }
