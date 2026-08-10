@@ -7,12 +7,12 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.14">
   <link rel="manifest" href="manifest.webmanifest?v=3.1.14">
-<link rel="stylesheet" href="styles.css?v=3.1.38">
+<link rel="stylesheet" href="styles.css?v=3.1.39">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
-  <link rel="stylesheet" href="progress-map.css?v=3.1.38">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.39">
 
 
 
@@ -613,9 +613,11 @@
       <span id="backupStatusText">No hay cambios pendientes de exportar.</span>
     </div>
     <button id="exportBackup" type="button" class="wide-btn backup-export">Exportar copia completa JSON</button>
+    <button id="saveDriveBackup" type="button" class="wide-btn backup-drive">Guardar copia en Google Drive</button>
+    <div id="driveBackupStatus" class="drive-backup-status" aria-live="polite">Destino: Mi unidad / Biblia de Estudio - Backups</div>
     <button id="importBackup" type="button" class="wide-btn backup-import">Importar copia JSON</button>
     <input id="backupFileInput" type="file" accept="application/json,.json" hidden>
-    <p class="backup-help">La copia completa incluye explicaciones, diccionario, personajes, parábolas, guías y sus papeleras, además de versículos guardados, puntos de lectura, subrayados, ajustes, títulos, festividades, pasajes editables y auditorías. Cuando realices un cambio, el botón Exportar y los tres puntos se marcarán en naranja hasta que hagas una nueva copia.</p>
+    <p class="backup-help">La copia completa incluye explicaciones, diccionario, personajes, parábolas, guías y sus papeleras, además de versículos guardados, puntos de lectura, subrayados, ajustes, títulos, festividades, pasajes editables y auditorías. Puede exportarla como JSON o guardarla directamente en Google Drive. La primera vez Google pedirá autorización y la app creará la carpeta «Biblia de Estudio - Backups» en Mi unidad.</p>
     <button id="installTitles" type="button" class="wide-btn primary">Instalar títulos en su orden correcto</button>
     <p id="titleLayerStatus" class="titles-status">La Biblia verificada no se modifica. Solo se añadirá una capa independiente de títulos.</p>
     <div id="titleSeal" class="audit-seal hidden">🏷️ Títulos verificados</div>
@@ -639,24 +641,50 @@
   <script src="biblical-characters-v2244-v2835.js?v=3.1.14"></script>
   <script src="biblical-parables-v16436-v2835.js?v=3.1.14"></script>
   <script src="biblical-guides-v16436-v2835.js?v=3.1.14"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="app.js?v=3.1.38"></script>
-  <script src="progress-map.js?v=3.1.38"></script>
+  <script src="app.js?v=3.1.39"></script>
+  <script src="progress-map.js?v=3.1.39"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.38';
-  const reloadKey='biblia-sw-reloaded-'+targetVersion;
+  const targetVersion='3.1.39';
+  let pendingWorker=null;
+  let updateAccepted=false;
+
+  function showUpdateNotice(worker){
+    if(!worker)return;
+    pendingWorker=worker;
+    document.getElementById('appUpdateNotice')?.classList.remove('hidden');
+  }
+
+  function hideUpdateNotice(){
+    document.getElementById('appUpdateNotice')?.classList.add('hidden');
+  }
+
+  function bindUpdateButtons(){
+    document.getElementById('appUpdateNow')?.addEventListener('click',()=>{
+      if(!pendingWorker)return;
+      updateAccepted=true;
+      const btn=document.getElementById('appUpdateNow');
+      if(btn){btn.disabled=true;btn.textContent='Actualizando…'}
+      pendingWorker.postMessage({type:'SKIP_WAITING'});
+    });
+    document.getElementById('appUpdateLater')?.addEventListener('click',hideUpdateNotice);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindUpdateButtons,{once:true});
+  else bindUpdateButtons();
 
   navigator.serviceWorker.register('./sw.js?v='+targetVersion,{updateViaCache:'none'})
     .then(reg=>{
       reg.update().catch(()=>{});
 
-      if(reg.waiting){
-        reg.waiting.postMessage({type:'BIBLIA_FORCE_ACTIVATE'});
+      if(reg.waiting&&navigator.serviceWorker.controller){
+        showUpdateNotice(reg.waiting);
       }
 
       reg.addEventListener('updatefound',()=>{
@@ -664,26 +692,15 @@
         if(!worker)return;
         worker.addEventListener('statechange',()=>{
           if(worker.state==='installed'&&navigator.serviceWorker.controller){
-            worker.postMessage({type:'BIBLIA_FORCE_ACTIVATE'});
+            showUpdateNotice(worker);
           }
         });
       });
     })
     .catch(()=>{});
 
-  navigator.serviceWorker.addEventListener('message',event=>{
-    if(event.data?.type!=='BIBLIA_UPDATE_READY')return;
-    if(event.data.version!==targetVersion)return;
-    if(sessionStorage.getItem(reloadKey))return;
-    sessionStorage.setItem(reloadKey,'1');
-    location.reload();
-  });
-
-  let refreshing=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(refreshing||sessionStorage.getItem(reloadKey))return;
-    refreshing=true;
-    sessionStorage.setItem(reloadKey,'1');
+    if(!updateAccepted)return;
     location.reload();
   });
 })();
@@ -789,6 +806,17 @@
     return result;
   };
 
+  window.markBibleBackupComplete = (isoValue) => {
+    internalUpdate = true;
+    try {
+      originalSetItem.call(localStorage, LAST_BACKUP_KEY, isoValue || new Date().toISOString());
+      originalSetItem.call(localStorage, DIRTY_KEY, '0');
+    } finally {
+      internalUpdate = false;
+    }
+    refreshBackupIndicator();
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     refreshBackupIndicator();
 
@@ -806,6 +834,18 @@
   });
 })();
 </script>
+
+
+<div id="appUpdateNotice" class="app-update-notice hidden" role="dialog" aria-live="polite" aria-labelledby="appUpdateTitle">
+  <div class="app-update-card">
+    <strong id="appUpdateTitle">Nueva versión disponible</strong>
+    <span>Hay una actualización de Biblia de Estudio preparada.</span>
+    <div class="app-update-actions">
+      <button id="appUpdateNow" type="button">Actualizar ahora</button>
+      <button id="appUpdateLater" type="button">Más tarde</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

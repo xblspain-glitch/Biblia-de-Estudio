@@ -4324,3 +4324,21 @@ body.light-mode .book-completion-cross,
     max-height:68px!important;
   }
 }
+
+
+/* V3.1.39 · copia directa en Drive y aviso de actualización */
+.backup-drive{font-weight:700}
+.drive-backup-status{margin:-3px 4px 12px;font-size:.86rem;line-height:1.35;opacity:.78;text-align:center}
+.drive-backup-status.error{color:#b3261e;opacity:1}
+.app-update-notice{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom));z-index:99999;display:flex;justify-content:center;padding:0 14px;pointer-events:none}
+.app-update-notice.hidden{display:none!important}
+.app-update-card{width:min(560px,100%);box-sizing:border-box;padding:16px 17px;border:1px solid rgba(169,133,52,.48);border-radius:18px;background:var(--panel,#fff);color:var(--text,#1e1e1e);box-shadow:0 10px 34px rgba(0,0,0,.26);pointer-events:auto;font-family:Lora,serif}
+.app-update-card strong{display:block;font-size:1rem;margin-bottom:5px}
+.app-update-card span{display:block;font-size:.9rem;line-height:1.35;opacity:.82}
+.app-update-actions{display:flex;gap:9px;margin-top:13px}
+.app-update-actions button{flex:1;min-height:42px;border-radius:14px;border:1px solid rgba(169,133,52,.55);font:inherit;font-weight:700;cursor:pointer}
+.app-update-actions button:first-child{background:#24262b;color:#fff}
+.app-update-actions button:last-child{background:transparent;color:inherit}
+.app-update-actions button:disabled{opacity:.65;cursor:default}
+body.dark .app-update-card,.dark .app-update-card{background:#1e2025;color:#f6f1e6;border-color:#8d7137}
+body.dark .app-update-actions button:last-child,.dark .app-update-actions button:last-child{color:#f6f1e6}
