@@ -628,7 +628,7 @@ body.light-mode .dict-word.word-pressing{
 .daily-verse-icon img{display:block;width:116%;height:116%;object-fit:cover;border-radius:14px;transform:scale(1.08);transform-origin:center}
 .home-enter-small{margin-top:14px}
 .daily-verse-dialog{max-width:610px}
-.daily-verse-ethiopian-ornament{display:block;width:min(190px,48vw);height:auto;max-height:58px;object-fit:contain;margin:-2px auto 5px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28));pointer-events:none;user-select:none}
+.daily-verse-ethiopian-ornament{display:block;width:min(160px,44vw);height:auto;max-height:49px;object-fit:contain;margin:10px auto 2px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.24));pointer-events:none;user-select:none}
 .daily-verse-heading{display:flex;align-items:center;gap:12px;margin:0 38px 16px 0}
 .daily-verse-heading>span{font-size:34px}
 .daily-verse-heading h2{margin:0}
@@ -650,7 +650,7 @@ body:not(.light-mode) .daily-verse-reference{color:#f4d77d}
 body:not(.light-mode) .daily-verse-actions button{background:#24252a;color:#f5f0e4;border-color:#6c624a}
 body:not(.light-mode) .daily-verse-actions .primary{background:linear-gradient(145deg,#8d6e22,#b68b2b);color:#fff9df;border-color:#d6ad42}
 @media(max-width:420px){.home-card{min-height:72px;padding:9px 13px;grid-template-columns:54px 1fr}.home-icon{width:54px;height:54px}.home-card strong{font-size:19px}.home-card small{font-size:12.5px}.daily-verse-actions{grid-template-columns:1fr}.daily-verse-actions button{min-height:42px}}
-@media(max-width:420px){.daily-verse-ethiopian-ornament{width:154px;max-height:47px;margin:-3px auto 4px}}
+@media(max-width:420px){.daily-verse-ethiopian-ornament{width:138px;max-height:42px;margin:9px auto 1px}}
 
 /* Selección inteligente del Versículo del día */
 .daily-verse-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
