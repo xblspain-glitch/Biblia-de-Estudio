@@ -32,8 +32,26 @@
     return Number(getManualBookReadingsV3121()[bookKey])||0;
   }
 
-  function effectiveBookReadingV3123(bookKey){
-    return Math.max(getFullBibleReadingsV3119(),manualBookReadingV3121(bookKey));
+  function automaticBookReadingV3146(bookKey,store){
+    const book=getBooks().find(item=>item.key===bookKey);
+    const total=Math.max(0,Number(book?.chapters)||0);
+    if(!book||!total)return 0;
+    const progress=store&&typeof store==='object'?store:getProgressStore();
+    let minimum=Infinity;
+    for(let chapter=1;chapter<=total;chapter+=1){
+      const item=progress[`${book.key}:${chapter}`];
+      if(!item?.completed)return 0;
+      minimum=Math.min(minimum,Math.max(0,Number(item.readCount)||1));
+    }
+    return Number.isFinite(minimum)?minimum:0;
+  }
+
+  function effectiveBookReadingV3123(bookKey,store){
+    return Math.max(
+      getFullBibleReadingsV3119(),
+      manualBookReadingV3121(bookKey),
+      automaticBookReadingV3146(bookKey,store)
+    );
   }
 
   function getFullBibleReadingsV3119(){
@@ -120,7 +138,7 @@
 
   function createCard(book, store){
     const info=calculateBook(book,store);
-    const personal=effectiveBookReadingV3123(book.key);
+    const personal=effectiveBookReadingV3123(book.key,store);
     return `<article class="progress-map-book ${info.status}" data-progress-book="${escapeHtml(book.key)}">
       <button class="progress-map-book-main" type="button" data-progress-toggle aria-expanded="false">
         <span class="progress-map-book-head">
