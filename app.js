@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.50';
+const APP_VERSION='3.1.51';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 // Los 2.077 títulos RVR1960 están incrustados en el código principal para evitar fallos de caché o carga externa.
@@ -1910,6 +1910,12 @@ function renderDictionary(query=''){
     ?visible.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')} · ${x.resaltar===true?'Cápsula verde':'Solo consulta'}</small>${x.equivalenciaActual?`<span class="dictionary-equivalence-preview">Equivalencia actual: ${escapeHtml(x.equivalenciaActual)}</span>`:''}<p class="dictionary-explanation" data-dictionary-explanation>${escapeHtml(x.explicacion)}</p></button>`).join('')+(q?'':'<p class="dictionary-live-help">Escribe en el buscador y las coincidencias aparecerán al instante.</p>')
     :`<div class="dictionary-empty"><p class="empty-saved">No se encontraron coincidencias para <strong>“${escapeHtml(cleanDictionaryWord(query))}”</strong>.</p><button id="addMissingDictionaryEntry" type="button" class="primary">Añadir palabra</button></div>`;
   const copyBtn=$('#copyDictionaryWord');if(copyBtn)copyBtn.disabled=!cleanDictionaryWord(query);
+  const equivalentBtn=$('#addDictionaryEquivalent');
+  if(equivalentBtn){
+    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===q)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
+    equivalentBtn.disabled=!match;
+    equivalentBtn.dataset.entryId=match?.id||'';
+  }
 }
 let dictionaryReadingPosition=null;
 let dictionaryTransitionToEditor=false;
@@ -1971,7 +1977,6 @@ function openDictionaryEditor(id='',prefill=''){
   $('#dictionaryTerm').value=entry?.termino||cleanDictionaryWord(prefill);
   $('#dictionaryCategory').value=entry?.categoria||'';
   $('#dictionaryExplanation').value=entry?.explicacion||'';
-  $('#dictionaryModernEquivalent').value=entry?.equivalenciaActual||'';
   // Las entradas existentes respetan su elección guardada; las nuevas nacen con cápsula activada.
   $('#dictionaryHighlightEnabled').checked=entry?entry.resaltar===true:true;
   $('#dictionaryEditTitle').textContent=entry?'Editar palabra':'Añadir palabra';
@@ -2014,7 +2019,7 @@ $('#dictionaryResults')?.addEventListener('click',e=>{
 bindKeyboardAwareDialog(DICTIONARY_DIALOG_LAYOUT);
 $('#dictionaryDialog')?.addEventListener('close',event=>{
   preserveDictionaryReadingPosition();
-  if(event.currentTarget?.returnValue==='open-editor'||dictionaryTransitionToEditor)return;
+  if(event.currentTarget?.returnValue==='open-editor'||event.currentTarget?.returnValue==='open-equivalent'||dictionaryTransitionToEditor)return;
   setTimeout(()=>{restoreDictionaryReadingPosition();dictionaryReadingPosition=null},140);
 });
 $('#dictionaryEditDialog')?.addEventListener('close',()=>{
@@ -2025,6 +2030,28 @@ $('#dictionaryEditDialog')?.addEventListener('close',()=>{
   requestAnimationFrame(()=>openDictionary(query));
 });
 $('#addDictionaryEntry')?.addEventListener('click',()=>openDictionaryEditor('',cleanDictionaryWord($('#dictionarySearch').value)));
+function openDictionaryEquivalentEditor(id){
+  const entry=getDictionaryEntries({sync:true}).find(item=>item.id===id);
+  if(!entry){toast('Busca primero una palabra del diccionario');return}
+  $('#dictionaryEquivalentEntryId').value=entry.id;
+  $('#dictionaryEquivalentOriginal').textContent=entry.termino;
+  $('#dictionaryModernEquivalent').value=entry.equivalenciaActual||'';
+  const listDialog=$('#dictionaryDialog'),dialog=$('#dictionaryEquivalentDialog');
+  const show=()=>{if(!dialog.open)dialog.showModal();setTimeout(()=>$('#dictionaryModernEquivalent')?.focus(),80)};
+  if(listDialog?.open){listDialog.close('open-equivalent');setTimeout(show,0)}else show();
+}
+$('#addDictionaryEquivalent')?.addEventListener('click',e=>openDictionaryEquivalentEditor(e.currentTarget.dataset.entryId||''));
+$('#saveDictionaryEquivalent')?.addEventListener('click',()=>{
+  const id=$('#dictionaryEquivalentEntryId').value,equivalenciaActual=$('#dictionaryModernEquivalent').value.trim();
+  if(!id||!equivalenciaActual){toast('Escribe la palabra equivalente');return}
+  const customIndex=(state.dictionaryCustom||[]).findIndex(item=>item.id===id);
+  if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],equivalenciaActual,updatedAt:Date.now()};
+  else state.dictionaryEdits[id]={...(state.dictionaryEdits[id]||{}),equivalenciaActual,updatedAt:Date.now()};
+  const readingPosition=dictionaryReadingPosition;
+  save();invalidateDictionaryHighlights();render();restoreDictionaryReadingPosition(readingPosition);requestAnimationFrame(()=>restoreDictionaryReadingPosition(readingPosition));
+  $('#dictionaryEquivalentDialog').close('saved');toast('Equivalencia guardada');
+});
+$('#dictionaryEquivalentDialog')?.addEventListener('close',()=>{const query=$('#dictionarySearch')?.value||'';setTimeout(()=>openDictionary(query),0)});
 $('#copyDictionaryWord')?.addEventListener('click',async()=>{
   const word=cleanDictionaryWord($('#dictionarySearch').value);
   if(!word){toast('Selecciona o escribe una palabra');return}
@@ -2042,15 +2069,15 @@ $('#copyDictionaryWord')?.addEventListener('click',async()=>{
 });
 $('#openDictionarySettings')?.addEventListener('click',()=>{$('#settingsDialog').close();openDictionary()});
 $('#saveDictionaryEntry')?.addEventListener('click',()=>{
-  const id=$('#dictionaryEntryId').value, termino=$('#dictionaryTerm').value.trim(), categoria=$('#dictionaryCategory').value.trim(), explicacion=$('#dictionaryExplanation').value.trim(), equivalenciaActual=$('#dictionaryModernEquivalent').value.trim(), resaltar=$('#dictionaryHighlightEnabled').checked;
+  const id=$('#dictionaryEntryId').value, termino=$('#dictionaryTerm').value.trim(), categoria=$('#dictionaryCategory').value.trim(), explicacion=$('#dictionaryExplanation').value.trim(), resaltar=$('#dictionaryHighlightEnabled').checked;
   if(!termino||!explicacion){toast('Escribe la palabra y su explicación');return}
   if(id){
     const customIndex=(state.dictionaryCustom||[]).findIndex(x=>x.id===id);
-    if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],termino,categoria,explicacion,equivalenciaActual,resaltar,updatedAt:Date.now()};
-    else state.dictionaryEdits[id]={termino,categoria,explicacion,equivalenciaActual,resaltar,updatedAt:Date.now()};
+    if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],termino,categoria,explicacion,resaltar,updatedAt:Date.now()};
+    else state.dictionaryEdits[id]={...(state.dictionaryEdits[id]||{}),termino,categoria,explicacion,resaltar,updatedAt:Date.now()};
   }else{
     const newId=`custom-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
-    state.dictionaryCustom.push({id:newId,termino,categoria,explicacion,equivalenciaActual,resaltar,builtin:false,createdAt:Date.now(),updatedAt:Date.now()});
+    state.dictionaryCustom.push({id:newId,termino,categoria,explicacion,resaltar,builtin:false,createdAt:Date.now(),updatedAt:Date.now()});
   }
   save();invalidateDictionaryHighlights();render();$('#dictionaryEditDialog').close();renderDictionary($('#dictionarySearch').value);toast(id?'Entrada actualizada':'Entrada añadida');
 });
