@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.51';
+const APP_VERSION='3.1.52';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 // Los 2.077 títulos RVR1960 están incrustados en el código principal para evitar fallos de caché o carga externa.
@@ -2043,13 +2043,18 @@ function openDictionaryEquivalentEditor(id){
 $('#addDictionaryEquivalent')?.addEventListener('click',e=>openDictionaryEquivalentEditor(e.currentTarget.dataset.entryId||''));
 $('#saveDictionaryEquivalent')?.addEventListener('click',()=>{
   const id=$('#dictionaryEquivalentEntryId').value,equivalenciaActual=$('#dictionaryModernEquivalent').value.trim();
-  if(!id||!equivalenciaActual){toast('Escribe la palabra equivalente');return}
+  if(!id){toast('No se encontró la palabra original');return}
   const customIndex=(state.dictionaryCustom||[]).findIndex(item=>item.id===id);
   if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],equivalenciaActual,updatedAt:Date.now()};
   else state.dictionaryEdits[id]={...(state.dictionaryEdits[id]||{}),equivalenciaActual,updatedAt:Date.now()};
+  if(!equivalenciaActual){
+    const choices=readDictionaryEquivalenceChoices();
+    for(const [occurrence,choice] of Object.entries(choices))if(choice?.entryId===id)delete choices[occurrence];
+    saveDictionaryEquivalenceChoices(choices);
+  }
   const readingPosition=dictionaryReadingPosition;
   save();invalidateDictionaryHighlights();render();restoreDictionaryReadingPosition(readingPosition);requestAnimationFrame(()=>restoreDictionaryReadingPosition(readingPosition));
-  $('#dictionaryEquivalentDialog').close('saved');toast('Equivalencia guardada');
+  $('#dictionaryEquivalentDialog').close('saved');toast(equivalenciaActual?'Equivalencia guardada':'Equivalencia eliminada');
 });
 $('#dictionaryEquivalentDialog')?.addEventListener('close',()=>{const query=$('#dictionarySearch')?.value||'';setTimeout(()=>openDictionary(query),0)});
 $('#copyDictionaryWord')?.addEventListener('click',async()=>{
