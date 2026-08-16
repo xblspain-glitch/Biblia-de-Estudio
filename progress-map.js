@@ -7,6 +7,7 @@
   const MANUAL_BOOK_READINGS_KEY_V3121='biblia_manual_book_readings_v3121';
   const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
   const BOOK_READING_OVERRIDES_KEY_V3154='biblia_book_reading_overrides_v3154';
+  let activeTestamentV3157='new';
 
   function getBookReadingOverridesV3154(){try{const value=JSON.parse(localStorage.getItem(BOOK_READING_OVERRIDES_KEY_V3154)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch(_){return{}}}
   function saveBookReadingOverrideV3154(bookKey,value){const overrides=getBookReadingOverridesV3154();overrides[bookKey]=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));localStorage.setItem(BOOK_READING_OVERRIDES_KEY_V3154,JSON.stringify(overrides))}
@@ -158,7 +159,7 @@
     const info=calculateBook(book,store);
     const personal=effectiveBookReadingV3123(book.key,store);
     return `<article class="progress-map-book ${info.status}" data-progress-book="${escapeHtml(book.key)}">
-      <button class="progress-map-book-main" type="button" data-progress-toggle aria-expanded="false">
+      <div class="progress-map-book-main">
         <span class="progress-map-book-head">
           <strong>${escapeHtml(bookName(book))}</strong>
           <small>${statusLabel(info.status)}</small>
@@ -166,23 +167,25 @@
         <span class="progress-map-book-count">${info.completed} de ${info.total} capítulos</span>
         <span class="progress-map-book-manual">Leído ${personal} ${personal===1?'vez':'veces'}</span>
         <span class="progress-map-book-bar" aria-hidden="true"><i style="width:${info.percent}%"></i></span>
-      </button>
-      <div class="progress-map-book-detail" hidden>
-        <span>${info.completed} completados</span>
-        <span>${info.inProgress} en curso</span>
-        <span>${info.pending} sin empezar</span>
-        <div class="progress-map-book-personal-row">
-          <span>Lecturas personales: <strong>${personal}</strong></span>
-          <button class="progress-map-book-edit-btn" type="button" data-edit-book-readings="${escapeHtml(book.key)}">Editar</button>
-        </div>
+      </div>
+      <div class="progress-map-book-compact-footer">
+        <span>${info.completed} completos · ${info.inProgress} en curso · ${info.pending} pendientes</span>
+        <button class="progress-map-book-edit-btn" type="button" data-edit-book-readings="${escapeHtml(book.key)}">Editar</button>
       </div>
     </article>`;
   }
 
-  function createTestament(title, books, store){
-    return `<section class="progress-map-testament">
-      <h3>${title}</h3>
+  function createBookGroup(title, books, store){
+    return `<details class="progress-map-book-group">
+      <summary><span>${title}</span><small>${books.length} ${books.length===1?'libro':'libros'}</small></summary>
       <div class="progress-map-grid">${books.map(book => createCard(book, store)).join('')}</div>
+    </details>`;
+  }
+
+  function createTestament(id, title, groups, store){
+    return `<section class="progress-map-testament${activeTestamentV3157===id?' is-active':''}" data-progress-testament-panel="${id}">
+      <h3>${title}</h3>
+      <div class="progress-map-groups">${groups.map(group => createBookGroup(group.title,group.books,store)).join('')}</div>
     </section>`;
   }
 
@@ -240,8 +243,24 @@
         <div><strong>${inProgress}</strong><span>En curso</span></div>
         <div><strong>${notStarted}</strong><span>Sin empezar</span></div>
       </div>
-      ${createTestament('Antiguo Testamento', books.slice(0,39), store)}
-      ${createTestament('Nuevo Testamento', books.slice(39), store)}`;
+      <div class="progress-map-testament-tabs" role="tablist" aria-label="Seleccionar testamento">
+        <button type="button" role="tab" data-progress-testament="old" aria-selected="${activeTestamentV3157==='old'}">Antiguo Testamento</button>
+        <button type="button" role="tab" data-progress-testament="new" aria-selected="${activeTestamentV3157==='new'}">Nuevo Testamento</button>
+      </div>
+      ${createTestament('old','Antiguo Testamento',[
+        {title:'Pentateuco',books:books.slice(0,5)},
+        {title:'Libros históricos',books:books.slice(5,17)},
+        {title:'Poéticos y sapienciales',books:books.slice(17,22)},
+        {title:'Profetas mayores',books:books.slice(22,27)},
+        {title:'Profetas menores',books:books.slice(27,39)}
+      ],store)}
+      ${createTestament('new','Nuevo Testamento',[
+        {title:'Evangelios',books:books.slice(39,43)},
+        {title:'Historia de la Iglesia',books:books.slice(43,44)},
+        {title:'Cartas de Pablo',books:books.slice(44,57)},
+        {title:'Cartas generales',books:books.slice(57,65)},
+        {title:'Profecía',books:books.slice(65,66)}
+      ],store)}`;
 
     if(isNew){
       const sections = content.querySelectorAll(':scope > .word-journey-section');
@@ -578,14 +597,16 @@
       openManualBookReadingsDialogV3121(editButton.dataset.editBookReadings);
       return;
     }
-    const toggle=event.target.closest?.('[data-progress-toggle]');
-    if(!toggle)return;
-    const card=toggle.closest('[data-progress-book]');
-    const detail=card?.querySelector('.progress-map-book-detail');
-    if(!detail)return;
-    const opening=detail.hidden;
-    detail.hidden=!opening;
-    toggle.setAttribute('aria-expanded',opening?'true':'false');
+    const testamentButton=event.target.closest?.('[data-progress-testament]');
+    if(!testamentButton)return;
+    activeTestamentV3157=testamentButton.dataset.progressTestament==='old'?'old':'new';
+    const section=testamentButton.closest('#progressMap66BooksV3115');
+    section?.querySelectorAll('[data-progress-testament]').forEach(button=>{
+      button.setAttribute('aria-selected',button.dataset.progressTestament===activeTestamentV3157?'true':'false');
+    });
+    section?.querySelectorAll('[data-progress-testament-panel]').forEach(panel=>{
+      panel.classList.toggle('is-active',panel.dataset.progressTestamentPanel===activeTestamentV3157);
+    });
   });
 
   document.addEventListener('DOMContentLoaded', () => {
