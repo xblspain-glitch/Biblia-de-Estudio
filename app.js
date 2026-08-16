@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.60';
+const APP_VERSION='3.1.61';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
@@ -3909,30 +3909,6 @@ function renderMyWordJourneyV3110(){
   const explanations=Object.keys(state.explanations||{}).length;
   const markedWords=wordJourneyMarkedWordsV3110();
 
-  const monthEntries=Object.entries(stats.months).sort(([a],[b])=>b.localeCompare(a));
-  const monthsHtml=monthEntries.length?monthEntries.map(([key,month])=>{
-    const bookNames=[...month.books].map(bookKey=>{
-      const book=(state.books||[]).find(item=>item.key===bookKey);
-      return book?displayBook(book):bookKey.replaceAll('_',' ');
-    });
-    const rereads=Math.max(0,month.readings-month.chapters);
-    return `<article class="word-journey-month">
-      <div class="word-journey-month-head">
-        <h2>${wordJourneyEscapeV3110(wordJourneyMonthLabelV3110(key))}</h2>
-        <span>${month.chapters} ${month.chapters===1?'capítulo terminado':'capítulos terminados'}</span>
-      </div>
-      <div class="word-journey-month-line"><span style="width:${Math.max(4,Math.min(100,month.chapters/Math.max(1,totalChapters)*1200))}%"></span></div>
-      <p><strong>Libros recorridos:</strong> ${wordJourneyEscapeV3110(bookNames.join(', ')||'—')}</p>
-      <div class="word-journey-month-stats">
-        <span>Finalizaciones: <strong>${month.readings}</strong></span>
-        <span>Relecturas: <strong>${rereads}</strong></span>
-        <span>Última finalización: <strong>${wordJourneyEscapeV3110(wordJourneyFormatDateV3110(month.last))}</strong></span>
-      </div>
-    </article>`;
-  }).join(''):`<div class="word-journey-empty">
-    Aún no hay capítulos terminados. Cuando completes uno, aparecerá aquí automáticamente.
-  </div>`;
-
   container.innerHTML=`
     <section class="word-journey-hero">
       <p>Has recorrido</p>
@@ -3955,11 +3931,6 @@ function renderMyWordJourneyV3110(){
         ${wordJourneyMetricV3110(explanations,'Explicaciones')}
         ${wordJourneyMetricV3110(markedWords,'Palabras marcadas')}
       </div>
-    </section>
-
-    <section class="word-journey-section">
-      <h2>Tu recorrido por meses</h2>
-      <div class="word-journey-months">${monthsHtml}</div>
     </section>`;
 }
 
