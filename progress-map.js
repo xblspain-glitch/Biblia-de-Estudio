@@ -5,6 +5,20 @@
 
   const FULL_BIBLE_READINGS_KEY_V3119='biblia_full_bible_readings_v3119';
   const MANUAL_BOOK_READINGS_KEY_V3121='biblia_manual_book_readings_v3121';
+  const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
+  const BOOK_READING_OVERRIDES_KEY_V3154='biblia_book_reading_overrides_v3154';
+
+  function getBookReadingOverridesV3154(){try{const value=JSON.parse(localStorage.getItem(BOOK_READING_OVERRIDES_KEY_V3154)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch(_){return{}}}
+  function saveBookReadingOverrideV3154(bookKey,value){const overrides=getBookReadingOverridesV3154();overrides[bookKey]=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));localStorage.setItem(BOOK_READING_OVERRIDES_KEY_V3154,JSON.stringify(overrides))}
+
+  function getBookReadingHistoryV3153(){
+    try{const value=JSON.parse(localStorage.getItem(BOOK_READING_HISTORY_KEY_V3153)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch(_){return{}}
+  }
+  function saveBookReadingHistoryV3153(bookKey,value){
+    const history=getBookReadingHistoryV3153(),safe=Math.max(0,Math.min(99,Math.floor(Number(value)||0)));
+    if(safe>0)history[bookKey]=safe;else delete history[bookKey];
+    localStorage.setItem(BOOK_READING_HISTORY_KEY_V3153,JSON.stringify(history));return safe;
+  }
 
   function getManualBookReadingsV3121(){
     try{
@@ -47,10 +61,14 @@
   }
 
   function effectiveBookReadingV3123(bookKey,store){
+    if(typeof window.bookReadCountV3155==='function')return window.bookReadCountV3155(bookKey);
+    const automatic=automaticBookReadingV3146(bookKey,store),overrides=getBookReadingOverridesV3154();
+    if(Object.prototype.hasOwnProperty.call(overrides,bookKey))return Math.max(Number(overrides[bookKey])||0,automatic);
     return Math.max(
       getFullBibleReadingsV3119(),
       manualBookReadingV3121(bookKey),
-      automaticBookReadingV3146(bookKey,store)
+      Number(getBookReadingHistoryV3153()[bookKey])||0,
+      automatic
     );
   }
 
@@ -244,9 +262,8 @@
       openFullBibleReadingsDialogV3119();
     });
 
-    synchronizeExistingManualBookReadsV3125().then(changed=>{
-      if(changed)requestAnimationFrame(render);
-    }).catch(error=>console.error(error));
+    // Desde V3.1.55 el mapa solo lee el contador histórico único del libro.
+    // Los datos antiguos se migran una vez y nunca vuelven a recalcularse al renderizar.
   }
 
   function openFullBibleReadingsDialogV3119(){
@@ -289,6 +306,7 @@
         :`Se registrarán ${raw} lecturas completas de la Biblia. ¿Desea continuar?`;
       if(!confirm(message))return;
       const saved=saveFullBibleReadingsV3119(raw);
+      if(typeof window.raiseBookReadCountV3155==='function')getBooks().forEach(book=>window.raiseBookReadCountV3155(book.key,saved));
       close();
       render();
       alert(saved===1?'Se ha registrado 1 lectura completa.':`Se han registrado ${saved} lecturas completas.`);
@@ -410,9 +428,9 @@
       <p>Indique cuántas veces ha leído este libro en total. La lectura completa de la Biblia ya aporta una base de ${baseline}.</p>
       <label class="progress-map-full-bible-field">
         <span>Lecturas personales registradas</span>
-        <input id="progressMapManualBookInputV3121" type="number" min="${baseline}" max="99" step="1" value="${current}">
+        <input id="progressMapManualBookInputV3121" type="number" min="0" max="99" step="1" value="${current}">
       </label>
-      <p class="progress-map-full-bible-note">Una lectura por encima de la base general marcará este libro como completado en el recorrido actual, con sus capítulos y aros completos. Para este libro no puede ser inferior a las ${baseline} lecturas completas de la Biblia registradas.</p>
+      <p class="progress-map-full-bible-note">También puede reducir el número para corregir un contador equivocado. Esta corrección solo afectará al historial de este libro.</p>
       <div class="progress-map-sync-footer">
         <button type="button" class="progress-map-sync-cancel">Cancelar</button>
         <button type="button" class="progress-map-sync-confirm">Guardar</button>
@@ -425,20 +443,13 @@
     overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
     overlay.querySelector('.progress-map-sync-confirm')?.addEventListener('click',async()=>{
       const raw=Number(overlay.querySelector('#progressMapManualBookInputV3121')?.value);
-      if(!Number.isFinite(raw)||raw<baseline||raw>99||!Number.isInteger(raw)){
-        alert(`Introduzca un número entero entre ${baseline} y 99.`);
+      if(!Number.isFinite(raw)||raw<0||raw>99||!Number.isInteger(raw)){
+        alert('Introduzca un número entero entre 0 y 99.');
         return;
       }
-      /* Si coincide con la base de Biblia completa, no duplicamos el dato.
-         Cada lectura adicional representa un libro completado en el recorrido actual. */
-      saveManualBookReadingV3121(bookKey,raw===baseline?0:raw);
-      if(raw>baseline){
-        try{
-          await markBookCompletedInCurrentProgressV3125(book,raw);
-        }catch(_){
-          alert('Se guardó el historial personal, pero no se pudo actualizar el progreso del libro.');
-        }
-      }
+      if(raw<current&&!confirm(`¿Corregir las lecturas de ${bookName(book)} de ${current} a ${raw}?\n\nSolo se modificará el contador de lectura de este libro.`))return;
+      saveManualBookReadingV3121(bookKey,0);saveBookReadingHistoryV3153(bookKey,0);
+      if(typeof window.correctBookReadCountV3155==='function')window.correctBookReadCountV3155(bookKey,raw);
       close();
       render();
     });
@@ -517,6 +528,7 @@
     for(const key of bookKeys){
       const book=books.find(item=>item.key===key);
       if(!book)continue;
+      if(typeof window.importCompletedBookReadV3155==='function')window.importCompletedBookReadV3155(book.key,1);
       const totalChapters=Math.max(0,Number(book.chapters)||0);
       for(let chapter=1;chapter<=totalChapters;chapter+=1){
         const progressKey=`${book.key}:${chapter}`;
