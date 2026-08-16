@@ -4157,6 +4157,7 @@ body.light-mode #settingsDialog .backup-status-card.pending strong{
 .book-completion-actions button{min-height:46px;padding:11px 16px;border-radius:14px;font:700 .94rem/1.2 system-ui,sans-serif;cursor:pointer}
 .book-completion-primary{border:1px solid #e0bd63;background:linear-gradient(180deg,#efd889,#c99d38);color:#211806}
 .book-completion-secondary{border:1px solid rgba(205,168,79,.52);background:#1a1b1f;color:#eadcae}
+.book-completion-reset{border:1px solid rgba(190,137,61,.68);background:linear-gradient(180deg,#30281e,#211d18);color:#e9c982}
 .book-completion-actions button:active{transform:translateY(1px)}
 body.light-mode .book-completion-dialog{background:#171717;color:#f6f0e3}
 @media(max-width:420px){.book-completion-page{padding:26px 18px 20px}.book-completion-rule{margin:19px auto}.book-completion-verse{padding:16px 14px 14px}}
