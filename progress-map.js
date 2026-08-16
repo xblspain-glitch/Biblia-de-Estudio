@@ -193,11 +193,12 @@
     const details = books.map(book => calculateBook(book, store));
     const fullBibleReadings=getFullBibleReadingsV3119();
     const currentReadingCompleted=books.map(book=>effectiveBookReadingV3123(book.key,store)>fullBibleReadings);
-    const completed=currentReadingCompleted.filter(Boolean).length;
-    const inProgress=details.filter((item,index)=>!currentReadingCompleted[index]&&item.status==='in-progress').length;
-    const notStarted=Math.max(0,books.length-completed-inProgress);
-    const completedChapters=details.reduce((sum,item,index)=>sum+(currentReadingCompleted[index]?item.total:item.completed),0);
-    const totalChapters = details.reduce((sum,item)=>sum+item.total,0);
+    const unified=typeof window.currentBibleReadingStatsV3160==='function'?window.currentBibleReadingStatsV3160():null;
+    const completed=unified?.booksCompleted??currentReadingCompleted.filter(Boolean).length;
+    const inProgress=unified?.booksInProgress??details.filter((item,index)=>!currentReadingCompleted[index]&&item.status==='in-progress').length;
+    const notStarted=unified?.booksNotStarted??Math.max(0,books.length-completed-inProgress);
+    const completedChapters=unified?.chaptersCompleted??details.reduce((sum,item,index)=>sum+(currentReadingCompleted[index]?item.total:item.completed),0);
+    const totalChapters=unified?.totalChapters??details.reduce((sum,item)=>sum+item.total,0);
 
     let section = content.querySelector('#progressMap66BooksV3115');
     const isNew = !section;

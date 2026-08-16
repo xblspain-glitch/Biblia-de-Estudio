@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.59';
+const APP_VERSION='3.1.60';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
@@ -408,6 +408,23 @@ function registerCompletedBookCycleV3155(book){
   return Math.max(0,Number(ledger[book.key])||0);
 }
 window.bookReadCountV3155=bookReadCountV3155;window.correctBookReadCountV3155=correctBookReadCountV3155;window.raiseBookReadCountV3155=raiseBookReadCountV3155;window.importCompletedBookReadV3155=importCompletedBookReadV3155;
+function currentBibleReadingStatsV3160(){
+  const books=Array.isArray(state.books)?state.books:[],progress=chapterReadingProgressV316&&typeof chapterReadingProgressV316==='object'?chapterReadingProgressV316:{};
+  const baseline=fullBibleReadingBaselineV3146();let booksCompleted=0,booksInProgress=0,chaptersCompleted=0,chaptersInProgress=0,totalChapters=0;
+  for(const book of books){
+    const chapters=Math.max(0,Number(book.chapters)||0);totalChapters+=chapters;
+    if(bookReadCountV3155(book.key)>baseline){booksCompleted+=1;chaptersCompleted+=chapters;continue}
+    let bookStarted=false;
+    for(let chapter=1;chapter<=chapters;chapter+=1){
+      const item=progress[`${book.key}:${chapter}`];
+      if(item?.completed){chaptersCompleted+=1;bookStarted=true}
+      else if((Number(item?.read)||0)>0){chaptersInProgress+=1;bookStarted=true}
+    }
+    if(bookStarted)booksInProgress+=1;
+  }
+  return{baseline,fullBibleReadings:baseline,booksCompleted,booksInProgress,booksNotStarted:Math.max(0,books.length-booksCompleted-booksInProgress),chaptersCompleted,chaptersInProgress,totalChapters,booksTotal:books.length};
+}
+window.currentBibleReadingStatsV3160=currentBibleReadingStatsV3160;
 function bookCompletionKindV3131(book){const key=String(book?.key||'').toLowerCase();if(key==='malaquias')return 'old-testament';if(key==='apocalipsis')return 'new-testament';return 'book'}
 function bookCompletionCopyV3131(book){const kind=bookCompletionKindV3131(book);if(kind==='old-testament')return{eyebrow:'Fin del Antiguo Testamento',title:'Antiguo Testamento completado',message:`Has finalizado ${displayBook(book)} y has llegado al cierre de los 39 libros del Antiguo Testamento.`};if(kind==='new-testament')return{eyebrow:'Fin del Nuevo Testamento',title:'Nuevo Testamento completado',message:`Has finalizado ${displayBook(book)} y has llegado al cierre de los 27 libros del Nuevo Testamento.`};return{eyebrow:'Libro completado',title:displayBook(book),message:'Has completado la lectura de este libro.'}}
 function closeBookCompletionDialogV3131(){const dialog=document.getElementById('bookCompletionDialogV3131');if(dialog?.open)dialog.close();bookCompletionDialogOpenV3131=false}
@@ -1542,9 +1559,8 @@ function renderStats(){
   updateDictionaryCounters();
   $('#statsHighlights').textContent=Object.keys(state.highlights||{}).length.toLocaleString('es-ES');
   loadChapterReadingProgressV316();
-  const completedChapters=Object.values(chapterReadingProgressV316||{}).filter(item=>item&&item.completed===true).length;
-  const totalChapters=(state.books||[]).reduce((sum,book)=>sum+(Number(book.chapters)||0),0)||1189;
-  $('#statsCompletedChapters').textContent=`${completedChapters.toLocaleString('es-ES')} / ${totalChapters.toLocaleString('es-ES')}`;
+  const readingStats=currentBibleReadingStatsV3160();
+  $('#statsCompletedChapters').textContent=`${readingStats.chaptersCompleted.toLocaleString('es-ES')} / ${readingStats.totalChapters.toLocaleString('es-ES')}`;
   updateHomeStatsSummary();
 }
 let statsClockTimer=0;
@@ -3862,11 +3878,13 @@ function wordJourneyStatsV3110(){
     months[monthKey].last=Math.max(months[monthKey].last,timestamp);
   }
 
+  const current=currentBibleReadingStatsV3160();
   return{
-    completed:completedEntries.length,
-    inProgress:inProgressEntries.length,
+    completed:current.chaptersCompleted,
+    inProgress:current.chaptersInProgress,
     rereads,
-    booksCompleted,
+    booksCompleted:current.booksCompleted,
+    fullBibleReadings:current.fullBibleReadings,
     months
   };
 }
@@ -3931,7 +3949,7 @@ function renderMyWordJourneyV3110(){
         ${wordJourneyMetricV3110(stats.booksCompleted,'Libros completados')}
         ${wordJourneyMetricV3110(stats.completed,'Capítulos completados')}
         ${wordJourneyMetricV3110(stats.inProgress,'Capítulos en curso')}
-        ${wordJourneyMetricV3110(stats.rereads,'Relecturas')}
+        ${wordJourneyMetricV3110(stats.fullBibleReadings,'Biblias completas')}
         ${wordJourneyMetricV3110(savedVerses,'Versículos guardados')}
         ${wordJourneyMetricV3110(highlights,'Subrayados')}
         ${wordJourneyMetricV3110(explanations,'Explicaciones')}
