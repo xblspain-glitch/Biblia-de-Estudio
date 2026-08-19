@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.66';
+const APP_VERSION='3.1.67';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -678,12 +678,33 @@ let dictionaryHighlightFormsCache=null,dictionaryHighlightEntriesCache=null;
 function invalidateDictionaryHighlights(){dictionaryHighlightFormsCache=null;dictionaryHighlightEntriesCache=null}
 function getDictionaryHighlightEntries(){
   if(dictionaryHighlightEntriesCache)return dictionaryHighlightEntriesCache;
+  const allEntries=getDictionaryEntries();
   const entries=new Map();
-  for(const entry of getDictionaryEntries()){
+  const exactEntries=new Map();
+  // Una entrada escrita exactamente para una forma concreta siempre manda
+  // sobre las variantes automáticas de singular o plural. Si existen dos
+  // entradas con el mismo término, se prioriza la personal y después la más
+  // recientemente editada.
+  for(const entry of allEntries){
+    const term=cleanDictionaryWord(entry?.termino||''),form=normalizeDictionaryText(term);
+    if(!form||/\s/.test(form))continue;
+    const previous=exactEntries.get(form);
+    if(!previous||(previous.builtin===true&&entry.builtin!==true)||(previous.builtin===entry.builtin&&Number(entry.updatedAt||0)>Number(previous.updatedAt||0)))exactEntries.set(form,entry);
+  }
+  // Registramos primero las coincidencias exactas que tienen cápsula activa.
+  // Las exactas desactivadas permanecen en exactEntries para bloquear que una
+  // variante de otra palabra vuelva a encenderlas accidentalmente.
+  for(const [form,entry] of exactEntries)if(entry?.resaltar===true)entries.set(form,entry);
+  for(const entry of allEntries){
     if(entry?.resaltar!==true)continue;
     const term=cleanDictionaryWord(entry?.termino||'');
     if(!term||/\s/.test(term))continue;
-    dictionaryWordForms(term).forEach(form=>{if(!entries.has(form))entries.set(form,entry)});
+    const exactForm=normalizeDictionaryText(term);
+    dictionaryWordForms(term).forEach(form=>{
+      const exactOwner=exactEntries.get(form);
+      if(exactOwner&&normalizeDictionaryText(cleanDictionaryWord(exactOwner.termino||''))===form&&exactOwner.id!==entry.id)return;
+      if(form!==exactForm&&!entries.has(form))entries.set(form,entry);
+    });
   }
   dictionaryHighlightEntriesCache=entries;
   return entries;
