@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.72';
+const APP_VERSION='3.1.73';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1035,7 +1035,7 @@ reader.addEventListener('click',e=>{
   const fragmentNote=e.target.closest('.fragment-clarification-note');
   if(fragmentNote){e.preventDefault();e.stopPropagation();fragmentNote.hidden=true;return}
   const fragment=e.target.closest('.fragment-clarification');
-  if(fragment){
+  if(fragment&&!e.target.closest('.dict-word.dict-known')){
     e.preventDefault();e.stopPropagation();
     const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;
     if(note)note.hidden=!note.hidden;
