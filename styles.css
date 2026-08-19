@@ -2590,12 +2590,6 @@ body.light-mode .dictionary-brief-note strong{color:#80470d}
 .fragment-list-card{padding:11px 12px;border:1px solid rgba(232,125,166,.45);border-radius:12px;background:rgba(190,72,118,.10)}
 .fragment-list-card strong,.fragment-list-card span{display:block}.fragment-list-card strong{color:#ffbdd5}.fragment-list-card span{margin-top:4px;color:#ded7dc;font:14px/1.4 system-ui}
 .fragment-list-actions{display:flex;gap:8px;margin-top:9px}.fragment-list-actions button{border:1px solid #8d6374;border-radius:10px;background:#30272d;color:#fff;padding:7px 11px}.fragment-list-actions .danger{color:#ffb5bd}
-html body .selection-bar .actions-scroll button.action.pastel-action.action-fragment,
-html body.light-mode .selection-bar .actions-scroll button.action.pastel-action.action-fragment,
-html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action.action-fragment{
-  background:linear-gradient(180deg,#f8d9e6 0%,#e9abc3 58%,#cf789c 100%)!important;
-  border-color:#d77fa2!important;color:#2c1720!important;-webkit-text-fill-color:#2c1720!important;text-shadow:none!important;
-}
 body.light-mode .fragment-clarification{background:rgba(229,111,157,.18);border-color:#cf7197}
 body.light-mode .fragment-clarification-note{background:linear-gradient(180deg,#fff0f6,#f4d5e2);border-color:#cb7598;color:#422331;box-shadow:0 4px 12px rgba(80,37,55,.14)}
 body.light-mode .fragment-clarification-note strong{color:#8d3157}
