@@ -1,5 +1,6 @@
 const DATA='./';
-const APP_VERSION='3.1.63';
+const APP_VERSION='3.1.65';
+document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
