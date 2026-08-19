@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.65';
+const APP_VERSION='3.1.66';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -715,9 +715,9 @@ function formatBibleText(s,verseNumber=null){
   return safe.replace(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+(?:['’’-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*)/g,(word)=>{
     const currentToken=tokenIndex++,entry=getDictionaryEntryForWord(word);
     if(!entry)return `<span class="dict-word" data-word="${word}">${word}</span>`;
-    const occurrenceKey=dictionaryOccurrenceKey(verseNumber,currentToken),equivalent=String(entry.equivalenciaActual||'').trim();
+    const occurrenceKey=dictionaryOccurrenceKey(verseNumber,currentToken),equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
     const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent);
-    return `<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${word}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}>${active?escapeHtml(equivalent):word}</span>`;
+    return `<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${word}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}>${active?escapeHtml(equivalent):word}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
   }).replace(/\n/g,'<br>');
 }
 function explanationNumsFromKey(k){return String(k||'').split(':')[2]?.split(',').map(Number).filter(Number.isFinite).sort((a,b)=>a-b)||[]}
@@ -969,15 +969,21 @@ reader.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word'))e.pr
 
 reader.addEventListener('click',e=>{
   if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
+  const openBriefNote=e.target.closest('.dictionary-brief-note');
+  if(openBriefNote){e.preventDefault();e.stopPropagation();openBriefNote.hidden=true;return}
   const dictionaryWord=e.target.closest('.dict-word.dict-known');
   if(dictionaryWord){
     e.preventDefault();e.stopPropagation();
-    const entry=getDictionaryEntries().find(item=>item.id===dictionaryWord.dataset.entryId),equivalent=String(entry?.equivalenciaActual||'').trim(),occurrenceKey=dictionaryWord.dataset.occurrenceKey||'';
-    if(!equivalent||!occurrenceKey)return;
-    const choices=readDictionaryEquivalenceChoices(),active=dictionaryWord.classList.contains('dict-equivalent');
-    if(active){delete choices[occurrenceKey];dictionaryWord.textContent=dictionaryWord.dataset.word||'';dictionaryWord.classList.remove('dict-equivalent')}
-    else{choices[occurrenceKey]={entryId:entry.id,original:dictionaryWord.dataset.word||''};dictionaryWord.textContent=equivalent;dictionaryWord.classList.add('dict-equivalent')}
-    saveDictionaryEquivalenceChoices(choices);return;
+    const entry=getDictionaryEntries().find(item=>item.id===dictionaryWord.dataset.entryId),equivalent=String(entry?.equivalenciaActual||'').trim(),brief=String(entry?.fraseAclaratoriaBreve||'').trim(),occurrenceKey=dictionaryWord.dataset.occurrenceKey||'',briefNote=dictionaryWord.nextElementSibling?.classList.contains('dictionary-brief-note')?dictionaryWord.nextElementSibling:null;
+    if(!equivalent&&!brief)return;
+    if(equivalent&&occurrenceKey){
+      const choices=readDictionaryEquivalenceChoices(),active=dictionaryWord.classList.contains('dict-equivalent');
+      if(active){delete choices[occurrenceKey];dictionaryWord.textContent=dictionaryWord.dataset.word||'';dictionaryWord.classList.remove('dict-equivalent');if(briefNote)briefNote.hidden=true}
+      else{choices[occurrenceKey]={entryId:entry.id,original:dictionaryWord.dataset.word||''};dictionaryWord.textContent=equivalent;dictionaryWord.classList.add('dict-equivalent');if(briefNote)briefNote.hidden=false}
+      saveDictionaryEquivalenceChoices(choices);return;
+    }
+    if(briefNote)briefNote.hidden=!briefNote.hidden;
+    return;
   }
   const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}
   const v=e.target.closest('.verse');if(!v)return;
@@ -1977,7 +1983,7 @@ function updateDictionaryCounters(){
   return counts.total;
 }
 function dictionarySearchScore(entry,query){
-  const q=normalizeDictionaryText(query), term=normalizeDictionaryText(entry.termino), allText=normalizeDictionaryText(`${entry.termino} ${entry.equivalenciaActual||''} ${entry.explicacion} ${entry.categoria}`);
+  const q=normalizeDictionaryText(query), term=normalizeDictionaryText(entry.termino), allText=normalizeDictionaryText(`${entry.termino} ${entry.equivalenciaActual||''} ${entry.fraseAclaratoriaBreve||''} ${entry.explicacion} ${entry.categoria}`);
   if(term===q)return 0;
   if(dictionaryMorphologyMatch(query,entry.termino))return 1;
   if(term.startsWith(q))return 2;
@@ -1995,7 +2001,7 @@ function renderDictionary(query=''){
     ?`${filtered.length.toLocaleString('es-ES')} coincidencia${filtered.length===1?'':'s'} de ${all.length.toLocaleString('es-ES')} entradas`
     :`${all.length.toLocaleString('es-ES')} entradas · escribe para filtrar`;
   $('#dictionaryResults').innerHTML=visible.length
-    ?visible.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')} · ${x.resaltar===true?'Cápsula verde':'Solo consulta'}</small>${x.equivalenciaActual?`<span class="dictionary-equivalence-preview">Equivalencia actual: ${escapeHtml(x.equivalenciaActual)}</span>`:''}<p class="dictionary-explanation" data-dictionary-explanation>${escapeHtml(x.explicacion)}</p></button>`).join('')+(q?'':'<p class="dictionary-live-help">Escribe en el buscador y las coincidencias aparecerán al instante.</p>')
+    ?visible.map(x=>`<button class="dictionary-card" type="button" data-id="${escapeHtml(x.id)}"><strong>${escapeHtml(x.termino)}</strong><small>${escapeHtml(x.categoria||'Sin categoría')} · ${x.resaltar===true?'Cápsula verde':'Solo consulta'}</small>${x.equivalenciaActual?`<span class="dictionary-equivalence-preview">Equivalencia actual: ${escapeHtml(x.equivalenciaActual)}</span>`:''}${x.fraseAclaratoriaBreve?`<span class="dictionary-brief-preview">Frase aclaratoria: ${escapeHtml(x.fraseAclaratoriaBreve)}</span>`:''}<p class="dictionary-explanation" data-dictionary-explanation>${escapeHtml(x.explicacion)}</p></button>`).join('')+(q?'':'<p class="dictionary-live-help">Escribe en el buscador y las coincidencias aparecerán al instante.</p>')
     :`<div class="dictionary-empty"><p class="empty-saved">No se encontraron coincidencias para <strong>“${escapeHtml(cleanDictionaryWord(query))}”</strong>.</p><button id="addMissingDictionaryEntry" type="button" class="primary">Añadir palabra</button></div>`;
   const copyBtn=$('#copyDictionaryWord');if(copyBtn)copyBtn.disabled=!cleanDictionaryWord(query);
   const equivalentBtn=$('#addDictionaryEquivalent');
@@ -2003,6 +2009,12 @@ function renderDictionary(query=''){
     const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===q)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
     equivalentBtn.disabled=!match;
     equivalentBtn.dataset.entryId=match?.id||'';
+  }
+  const briefBtn=$('#addDictionaryBriefPhrase');
+  if(briefBtn){
+    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===q)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
+    briefBtn.disabled=!match;
+    briefBtn.dataset.entryId=match?.id||'';
   }
 }
 let dictionaryReadingPosition=null;
@@ -2107,7 +2119,7 @@ $('#dictionaryResults')?.addEventListener('click',e=>{
 bindKeyboardAwareDialog(DICTIONARY_DIALOG_LAYOUT);
 $('#dictionaryDialog')?.addEventListener('close',event=>{
   preserveDictionaryReadingPosition();
-  if(event.currentTarget?.returnValue==='open-editor'||event.currentTarget?.returnValue==='open-equivalent'||dictionaryTransitionToEditor)return;
+  if(event.currentTarget?.returnValue==='open-editor'||event.currentTarget?.returnValue==='open-equivalent'||event.currentTarget?.returnValue==='open-brief-phrase'||dictionaryTransitionToEditor)return;
   setTimeout(()=>{restoreDictionaryReadingPosition();dictionaryReadingPosition=null},140);
 });
 $('#dictionaryEditDialog')?.addEventListener('close',()=>{
@@ -2145,6 +2157,28 @@ $('#saveDictionaryEquivalent')?.addEventListener('click',()=>{
   $('#dictionaryEquivalentDialog').close('saved');toast(equivalenciaActual?'Equivalencia guardada':'Equivalencia eliminada');
 });
 $('#dictionaryEquivalentDialog')?.addEventListener('close',()=>{const query=$('#dictionarySearch')?.value||'';setTimeout(()=>openDictionary(query),0)});
+function openDictionaryBriefPhraseEditor(id){
+  const entry=getDictionaryEntries({sync:true}).find(item=>item.id===id);
+  if(!entry){toast('Busca primero una palabra del diccionario');return}
+  $('#dictionaryBriefPhraseEntryId').value=entry.id;
+  $('#dictionaryBriefPhraseOriginal').textContent=entry.termino;
+  $('#dictionaryBriefPhraseText').value=entry.fraseAclaratoriaBreve||'';
+  const listDialog=$('#dictionaryDialog'),dialog=$('#dictionaryBriefPhraseDialog');
+  const show=()=>{if(!dialog.open)dialog.showModal();setTimeout(()=>$('#dictionaryBriefPhraseText')?.focus(),80)};
+  if(listDialog?.open){listDialog.close('open-brief-phrase');setTimeout(show,0)}else show();
+}
+$('#addDictionaryBriefPhrase')?.addEventListener('click',e=>openDictionaryBriefPhraseEditor(e.currentTarget.dataset.entryId||''));
+$('#saveDictionaryBriefPhrase')?.addEventListener('click',()=>{
+  const id=$('#dictionaryBriefPhraseEntryId').value,fraseAclaratoriaBreve=$('#dictionaryBriefPhraseText').value.trim();
+  if(!id){toast('No se encontró la palabra original');return}
+  const customIndex=(state.dictionaryCustom||[]).findIndex(item=>item.id===id);
+  if(customIndex>=0)state.dictionaryCustom[customIndex]={...state.dictionaryCustom[customIndex],fraseAclaratoriaBreve,updatedAt:Date.now()};
+  else state.dictionaryEdits[id]={...(state.dictionaryEdits[id]||{}),fraseAclaratoriaBreve,updatedAt:Date.now()};
+  const readingPosition=dictionaryReadingPosition;
+  save();invalidateDictionaryHighlights();render();restoreDictionaryReadingPosition(readingPosition);requestAnimationFrame(()=>restoreDictionaryReadingPosition(readingPosition));
+  $('#dictionaryBriefPhraseDialog').close('saved');toast(fraseAclaratoriaBreve?'Frase aclaratoria guardada':'Frase aclaratoria eliminada');
+});
+$('#dictionaryBriefPhraseDialog')?.addEventListener('close',()=>{const query=$('#dictionarySearch')?.value||'';setTimeout(()=>openDictionary(query),0)});
 $('#copyDictionaryWord')?.addEventListener('click',async()=>{
   const word=cleanDictionaryWord($('#dictionarySearch').value);
   if(!word){toast('Selecciona o escribe una palabra');return}
