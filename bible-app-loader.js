@@ -1,4 +1,4 @@
-const version='3.1.73';
+const version='3.1.74';
 
 function paintStoredReadingPointV3163(){
   try{
