@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.70';
+const APP_VERSION='3.1.71';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -28,6 +28,8 @@ if(localStorage.getItem(DICTIONARY_CUSTOM_CAPSULE_MIGRATION)!=='done'){
 
 // La primera pulsación abre la explicación; después el botón permite quitarla.
 let explanationArmedKey='';
+// Acceso temporal a una aclaración tocada, sin seleccionar visualmente el versículo completo.
+let activeFragmentAccess=null;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const reader=$('#reader'), selectionBar=$('#selectionBar');
 
@@ -238,7 +240,7 @@ async function init(){
   }).catch(()=>{});
 }}
 async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
-async function loadChapter(){state.selected.clear();explanationArmedKey='';const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
+async function loadChapter(){state.selected.clear();activeFragmentAccess=null;explanationArmedKey='';const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map(limpiarTextoBiblico);render();save();}
 const GUIDE_IDS_BY_BOOK={"genesis":"mq189k74e19kqg","exodo":"mq18o6kz6j00l1","levitico":"mq18v33xs30y2a","numeros":"mq191gs6wfr7b0","deuteronomio":"mq19944izsypxx","josue":"mq19allbrruzzq","jueces":"mq19cja4i82uk0","rut":"mq19f4iyn19frs","1_samuel":"mq19hgzemminaq","2_samuel":"mq19k1n2cmwrtw","1_reyes":"mq19m2pj0vje93","2_reyes":"mq19rn9zjie94t","1_cronicas":"mq19tyrqcnpfyc","2_cronicas":"mq19xo7wkefakx","esdras":"mq19zowb7ouvw3","nehemias":"mq1a0picjtwdyi","ester":"mq1a26lacf0t0y","job":"mq1a5q5hqlzgul","salmos":"mq1adgfxp65wj2","proverbios":"mq1affanpikj1b","eclesiastes":"mq1agt5sk4n8qd","cantares":"mq1ai7gx0mxfvh","isaias":"mq1am8nws0d8p5","jeremias":"mq1ank6awoktb7","lamentaciones":"mq1aot6b6iuca0","ezequiel":"mq1as40zua0x8e","daniel":"mq1au3yltarg9p","oseas":"mq1avh2b4aslc6","joel":"mq1awwdclvwpqy","amos":"mq1ay3kqrq70cf","abdias":"mq1az78rdhd3iz","jonas":"mq1b0u86dcb1tp","miqueas":"mq1b2csjab29u4","nahum":"mq1b3oiqiw1lbg","habacuc":"mq1b4xtxg55bve","sofonias":"mq1bzxxwort7ks","hageo":"mq1c1awtu7tbtt","zacarias":"mq1c32iq0wn78q","malaquias":"mq1c54dc2gsr85","mateo":"mq1c8viydm77as","marcos":"mq1c967vtkw0hb","lucas":"mq1ccma6v2eop5","juan":"mq1ceah81ddbyq","hechos":"mq1che3kfjzpeo","romanos":"mq1ym5piynlofg","1_corintios":"mq1yni6umroyqm","2_corintios":"mq1yoqrfbq56dm","galatas":"mq1yqf7qlkowoj","efesios":"mq1yrs7qkq4dor","filipenses":"mq1ystvdnxn00p","colosenses":"mq1ytr94r0qqgn","1_tesalonicenses":"mq1yvex403cbwh","2_tesalonicenses":"mq1yws442t8gm9","1_timoteo":"mq1yy54b2osc2r","2_timoteo":"mq1z07jmjmz8x6","tito":"mq2fm2l7bln423","filemon":"mq2fo8hdjxlpue","hebreos":"mq2fq3dsb0acnk","santiago":"mq2fvfyhzr2dex","1_pedro":"mq2fxng3z9oohu","2_pedro":"mq2fyvoolenx0v","1_juan":"mq2g4wy5859q7b","2_juan":"mq2g70sqvxgj5d","3_juan":"mq2g7yu5ryhv1p","judas":"mq2g9r3ggh1k6j","apocalipsis":"mq2gdg7jusjcxw"};
 function guideChapterCapsule(book){
   if(state.chapter!==1)return '';
@@ -743,6 +745,10 @@ function fragmentClarificationsForVerse(verseNumber){
   if(!book||verseNumber===null)return[];
   return Object.values(state.fragmentClarifications||{}).filter(item=>item&&item.bookKey===book.key&&Number(item.chapter)===Number(state.chapter)&&Number(item.verse)===Number(verseNumber)).sort((a,b)=>Number(a.startToken)-Number(b.startToken));
 }
+function hasActiveFragmentAccess(){
+  const book=state.books[state.bookIndex],access=activeFragmentAccess;
+  return Boolean(book&&access&&access.bookKey===book.key&&Number(access.chapter)===Number(state.chapter)&&Number.isFinite(Number(access.verse))&&state.fragmentClarifications?.[access.id]);
+}
 function formatBibleWordToken(word,verseNumber,tokenIndex,choices){
   const safeWord=escapeHtml(word),entry=getDictionaryEntryForWord(word);
   if(!entry)return `<span class="dict-word" data-word="${safeWord}">${safeWord}</span>`;
@@ -839,10 +845,10 @@ function updateSelection(){
     explainBtn.title=removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación');
   }
   if(fragmentBtn){
-    const enabled=state.selected.size===1;
+    const enabled=state.selected.size===1||(state.selected.size===0&&hasActiveFragmentAccess());
     fragmentBtn.disabled=!enabled;
     fragmentBtn.setAttribute('aria-disabled',enabled?'false':'true');
-    fragmentBtn.title=enabled?'Aclarar una parte de este versículo':'Selecciona un solo versículo';
+    fragmentBtn.title=enabled?'Abrir las aclaraciones de este versículo':'Selecciona un solo versículo o toca una aclaración rosada';
   }
 }
 const actionsPanelToggle=$('#actionsPanelToggle');
@@ -1037,7 +1043,7 @@ reader.addEventListener('click',e=>{
     if(Number.isFinite(verseNumber)){
       explanationArmedKey='';
       state.selected.clear();
-      state.selected.add(verseNumber);
+      activeFragmentAccess={id:fragment.dataset.fragmentId||'',bookKey:state.books[state.bookIndex].key,chapter:Number(state.chapter),verse:verseNumber};
       updateSelection();
       selectionBar.classList.add('open');
       actionsPanelToggle?.setAttribute('aria-expanded','true');
@@ -1063,6 +1069,7 @@ reader.addEventListener('click',e=>{
   const marker=e.target.closest('.explain-marker');if(marker){openViewExplanation(marker.dataset.exp);return}
   const v=e.target.closest('.verse');if(!v)return;
   const n=+v.dataset.v;
+  activeFragmentAccess=null;
   explanationArmedKey='';
   const wasSelected=state.selected.has(n);
   wasSelected?state.selected.delete(n):state.selected.add(n);
@@ -1076,7 +1083,7 @@ reader.addEventListener('click',e=>{
 document.addEventListener('click',e=>{const target=document.querySelector('.verse.reading-target');if(target&&!e.target.closest('.verse.reading-target'))target.classList.remove('reading-target')},true);
 $$('.action').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
 async function action(a){
-  if(a==='clear'){state.selected.clear();explanationArmedKey='';updateSelection()}
+  if(a==='clear'){state.selected.clear();activeFragmentAccess=null;explanationArmedKey='';updateSelection()}
   if(a==='reading-point')goToReadingPoint();
   if(a==='more')openMoreFunctions();
   if(a==='copy')copyVerses();
@@ -1195,7 +1202,7 @@ function renderFragmentClarificationList(){
   });
   [...list.querySelectorAll('[data-fragment-delete]')].forEach(button=>button.onclick=()=>{
     const item=state.fragmentClarifications[button.dataset.fragmentDelete];if(!item||!confirm(`¿Eliminar la aclaración de «${item.fragment}»?`))return;
-    delete state.fragmentClarifications[item.id];save();renderFragmentClarificationList();render();toast('Aclaración eliminada');
+    delete state.fragmentClarifications[item.id];if(activeFragmentAccess?.id===item.id)activeFragmentAccess=null;save();renderFragmentClarificationList();render();toast('Aclaración eliminada');
   });
 }
 function resetFragmentEditor(){
@@ -1203,8 +1210,10 @@ function resetFragmentEditor(){
   $('#fragmentClarificationText').value='';$('#cancelFragmentEdit').classList.add('hidden');updateFragmentPickerUI();
 }
 function openFragmentClarificationDialog(){
-  const nums=[...state.selected];if(nums.length!==1){toast('Selecciona un solo versículo');return}
-  const verse=nums[0],parsed=bibleWordTokens(state.verses[verse-1]);
+  const nums=[...state.selected];
+  const verse=nums.length===1?nums[0]:(nums.length===0&&hasActiveFragmentAccess()?Number(activeFragmentAccess.verse):null);
+  if(!verse){toast('Selecciona un solo versículo o toca una aclaración rosada');return}
+  const parsed=bibleWordTokens(state.verses[verse-1]);
   fragmentPickerState={verse,tokens:parsed.tokens,clean:parsed.clean,start:null,end:null,awaitingEnd:false,editId:''};
   $('#fragmentClarificationRef').textContent=currentReference([verse]);$('#fragmentClarificationText').value='';$('#cancelFragmentEdit').classList.add('hidden');
   renderFragmentWordPicker();renderFragmentClarificationList();$('#fragmentClarificationDialog').showModal();
@@ -1221,7 +1230,7 @@ $('#saveFragmentClarification')?.addEventListener('click',()=>{
   if(overlap){toast(`Ese tramo coincide con «${overlap.fragment}»`);return}
   const book=state.books[state.bookIndex],id=p.editId||`fragment-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
   state.fragmentClarifications[id]={id,bookKey:book.key,chapter:Number(state.chapter),verse:Number(p.verse),startToken:Number(p.start),endToken:Number(p.end),fragment,text,ref:currentReference([p.verse]),updated:Date.now()};
-  save();$('#fragmentClarificationDialog').close();state.selected.clear();render();updateSelection();toast(p.editId?'Aclaración actualizada':'Aclaración guardada');
+  save();$('#fragmentClarificationDialog').close();state.selected.clear();activeFragmentAccess=null;render();updateSelection();toast(p.editId?'Aclaración actualizada':'Aclaración guardada');
 });
 function renderBooks(filter='all'){
   const list=$('#booksList');

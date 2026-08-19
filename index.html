@@ -7,12 +7,12 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.14">
   <link rel="manifest" href="manifest.webmanifest?v=3.1.14">
-<link rel="stylesheet" href="styles.css?v=3.1.70">
+<link rel="stylesheet" href="styles.css?v=3.1.71">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
-  <link rel="stylesheet" href="progress-map.css?v=3.1.70">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.71">
 
 
 
@@ -136,7 +136,7 @@
         <button class="btn soft notes-new-button" type="button" onclick="openNoteEditor()">+ Nueva nota</button>
       </div>
       <h1>Bloc de notas</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.70" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.71" alt="" aria-hidden="true">
       <p class="study-module-sub">Tus apuntes personales, guardados en este dispositivo y en tus copias de seguridad.</p>
       <input id="notesSearchInput" class="notes-search-input" type="search" autocomplete="off" placeholder="Buscar en mis notas">
       <div id="notesModuleList" class="notes-module-list"></div>
@@ -649,7 +649,7 @@
     <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
     <article class="daily-verse-card">
       <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
-      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.70" alt="" aria-hidden="true">
+      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.71" alt="" aria-hidden="true">
       <blockquote id="dailyVerseText"></blockquote>
       <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
     </article>
@@ -706,7 +706,7 @@
     <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
     <p id="auditHash" class="audit-hash hidden"></p>
     <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
-    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.70</strong></p>
+    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.71</strong></p>
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
@@ -717,14 +717,14 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="bible-storage-idb.js?v=3.1.70"></script>
-  <script type="module" src="bible-app-loader.js?v=3.1.70"></script>
+  <script src="bible-storage-idb.js?v=3.1.71"></script>
+  <script type="module" src="bible-app-loader.js?v=3.1.71"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.70';
+  const targetVersion='3.1.71';
   let pendingWorker=null;
   let updateAccepted=false;
 
