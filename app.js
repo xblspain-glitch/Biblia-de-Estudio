@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.71';
+const APP_VERSION='3.1.72';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1045,8 +1045,6 @@ reader.addEventListener('click',e=>{
       state.selected.clear();
       activeFragmentAccess={id:fragment.dataset.fragmentId||'',bookKey:state.books[state.bookIndex].key,chapter:Number(state.chapter),verse:verseNumber};
       updateSelection();
-      selectionBar.classList.add('open');
-      actionsPanelToggle?.setAttribute('aria-expanded','true');
     }
     return;
   }
