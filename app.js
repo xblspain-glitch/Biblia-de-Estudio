@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.69';
+const APP_VERSION='3.1.70';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1033,6 +1033,15 @@ reader.addEventListener('click',e=>{
     e.preventDefault();e.stopPropagation();
     const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;
     if(note)note.hidden=!note.hidden;
+    const verseElement=fragment.closest('.verse'),verseNumber=Number(verseElement?.dataset.v);
+    if(Number.isFinite(verseNumber)){
+      explanationArmedKey='';
+      state.selected.clear();
+      state.selected.add(verseNumber);
+      updateSelection();
+      selectionBar.classList.add('open');
+      actionsPanelToggle?.setAttribute('aria-expanded','true');
+    }
     return;
   }
   const openBriefNote=e.target.closest('.dictionary-brief-note');
