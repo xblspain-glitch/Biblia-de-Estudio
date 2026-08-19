@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.62';
+const APP_VERSION='3.1.63';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
@@ -2853,6 +2853,14 @@ document.addEventListener('visibilitychange',()=>{
   if($('#statsDialog')?.open)startStatsClock();
   refreshDailyVerseReminder();
 });
+// Pinta el punto recuperado antes de las cargas de red del arranque.
+try{
+  const storedActivePointV3163=JSON.parse(localStorage.getItem('activeReadingPoint')||'null');
+  const storedLastPointV3163=JSON.parse(localStorage.getItem('lastReadingPoint')||'null');
+  if(storedActivePointV3163?.bookKey)state.activeReadingPoint=storedActivePointV3163;
+  if(storedLastPointV3163?.bookKey)state.lastReadingPoint=storedLastPointV3163;
+  updateReadingPointUI();
+}catch(error){console.warn('No se pudo pintar el punto de libro inicial',error)}
 init().catch(e=>{reader.innerHTML='<p>No se pudo cargar la Biblia.</p>';console.error(e)});
 
 

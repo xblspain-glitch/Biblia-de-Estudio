@@ -1,4 +1,21 @@
-const version='3.1.62';
+const version='3.1.63';
+
+function paintStoredReadingPointV3163(){
+  try{
+    const active=JSON.parse(localStorage.getItem('activeReadingPoint')||'null');
+    const previous=JSON.parse(localStorage.getItem('lastReadingPoint')||'null');
+    const point=active?.bookKey?active:(previous?.bookKey?previous:null);
+    if(!point)return;
+    const reference=String(point.ref||'').trim();
+    if(!reference)return;
+    const homeRef=document.getElementById('homeContinueRef');
+    if(homeRef)homeRef.textContent=reference;
+    const continueButton=document.getElementById('continueReading');
+    if(continueButton){continueButton.textContent='Ir a: '+reference;continueButton.disabled=false;}
+    const homeButton=document.getElementById('homeContinue');
+    if(homeButton)homeButton.disabled=false;
+  }catch(error){console.warn('No se pudo anticipar el punto de libro',error)}
+}
 
 function loadClassicScript(source){
   return new Promise((resolve,reject)=>{
@@ -12,6 +29,7 @@ function loadClassicScript(source){
 
 try{
   window.__BIBLE_STORAGE_BOOTSTRAP_V1__=await window.BibleStorageV1.bootstrap();
+  paintStoredReadingPointV3163();
   await loadClassicScript('app.js?v='+version);
   await loadClassicScript('progress-map.js?v='+version);
 }catch(error){
