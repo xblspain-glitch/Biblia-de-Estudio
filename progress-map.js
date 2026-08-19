@@ -592,7 +592,7 @@
     });
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initProgressMapV3162(){
     const content = document.getElementById('myWordJourneyContent');
     if(!content) return;
 
@@ -604,5 +604,7 @@
     observer.observe(content, {childList:true});
 
     document.getElementById('myWordJourneyBtn')?.addEventListener('click', scheduleRender);
-  });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initProgressMapV3162,{once:true});
+  else initProgressMapV3162();
 })();

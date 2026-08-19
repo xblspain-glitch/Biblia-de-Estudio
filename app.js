@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.61';
+const APP_VERSION='3.1.62';
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
 const BOOK_READING_HISTORY_KEY_V3153='biblia_book_reading_history_v3153';
@@ -2233,6 +2233,12 @@ function collectCompleteBackupStorage(){
     if(value!==null)data[key]=value;
   }
 
+  // Los grupos grandes viven en IndexedDB y se incluyen sin duplicarlos
+  // físicamente en localStorage.
+  for(const [key,value] of (window.BibleStorageV1?.entries?.()||[])){
+    if(isBackupStorageKey(key)&&typeof value==='string')data[key]=value;
+  }
+
   return data;
 }
 
@@ -2276,7 +2282,7 @@ function buildCompleteBackup(){
 
   return{
     app:'Mi Biblia de Estudio',
-    schema:3,
+    schema:4,
     appVersion:APP_VERSION,
     createdAt:new Date().toISOString(),
     backupType:'complete-local-data',
@@ -2322,6 +2328,7 @@ function buildCompleteBackup(){
       placesDeleted:places.deleted,
       placesTrash:places.trash
     },
+    storageBackend:'indexeddb',
     localStorage:data
   };
 }
@@ -2560,18 +2567,9 @@ $('#backupFileInput')?.addEventListener('change',async e=>{
 
     if(!confirm(message))return;
 
-    // Limpiar solo los datos pertenecientes a la aplicación.
-    const currentKeys=[];
-    for(let i=0;i<localStorage.length;i++){
-      const key=localStorage.key(i);
-      if(key&&isBackupStorageKey(key))currentKeys.push(key);
-    }
-    for(const key of currentKeys)localStorage.removeItem(key);
-
-    // Restaurar todos los módulos incluidos, también los añadidos en futuras versiones.
-    for(const [key,value] of incomingEntries){
-      localStorage.setItem(key,value);
-    }
+    // Sustituir y verificar atómicamente todos los grupos en IndexedDB.
+    await window.BibleStorageV1.replaceAll(incomingEntries);
+    await window.BibleStorageV1.flush();
 
     toast(`Copia completa restaurada: ${incomingEntries.length} grupos. Reiniciando…`);
     setTimeout(()=>location.reload(),850);
@@ -2863,7 +2861,7 @@ navigator.serviceWorker?.addEventListener('message',event=>{
 });
 
 /* V2.1.5 · Efecto visual del cambio de capítulo. */
-document.addEventListener('DOMContentLoaded',()=>{
+function initChapterTitleAnimationV215(){
  const el=document.getElementById('chapterTitle');
  if(!el) return;
  const obs=new MutationObserver(()=>{
@@ -2872,7 +2870,9 @@ document.addEventListener('DOMContentLoaded',()=>{
    el.classList.add('pop');
  });
  obs.observe(el,{childList:true,characterData:true,subtree:true});
-});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initChapterTitleAnimationV215,{once:true});
+else initChapterTitleAnimationV215();
 
 
 /* V2.2.2 · Enciclopedia Bíblica */
