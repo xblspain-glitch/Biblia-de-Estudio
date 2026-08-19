@@ -2553,6 +2553,55 @@ body.light-mode .dictionary-highlight-help{color:#526257}
 body.light-mode .dictionary-brief-note{background:linear-gradient(180deg,#fff4e4,#f3ddbd);border-color:#c9802c;color:#3f2b18;box-shadow:0 4px 12px rgba(76,48,18,.14)}
 body.light-mode .dictionary-brief-note strong{color:#80470d}
 
+/* V3.1.68 · Aclaraciones rosadas de fragmentos concretos. */
+.fragment-clarification{
+  border:1px solid rgba(232,125,166,.84);
+  border-radius:7px;
+  background:rgba(190,72,118,.20);
+  box-shadow:inset 0 -1px 0 rgba(255,170,203,.44);
+  cursor:pointer;
+  -webkit-box-decoration-break:clone;
+  box-decoration-break:clone;
+  padding:0 .08em;
+}
+.fragment-clarification-note{
+  display:block;width:min(100%,34rem);margin:.38rem 0 .48rem;padding:.58rem .78rem;
+  border:1px solid rgba(232,125,166,.86);border-radius:12px;
+  background:linear-gradient(180deg,rgba(76,37,55,.97),rgba(51,31,41,.97));
+  color:#fbeaf1;font:500 .72em/1.42 system-ui,sans-serif;text-align:left;
+  box-shadow:0 4px 14px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.fragment-clarification-note[hidden]{display:none!important}
+.fragment-clarification-note strong{color:#ffb7d2;font-weight:800}
+.fragment-clarification-dialog{width:min(95vw,720px);padding:24px}
+.fragment-clarification-help{margin:5px 0 15px;color:#c8c3ca;font:14px/1.45 system-ui}
+.fragment-word-picker{padding:14px;border:1px solid #55505a;border-radius:15px;background:#1d1f24;line-height:2.18;font-size:1.03rem}
+.fragment-picker-word{display:inline;border:1px solid transparent;border-radius:7px;background:transparent;color:#f5f2ee;padding:3px 4px;margin:1px;cursor:pointer}
+.fragment-picker-word.in-range{border-color:#df7ba2;background:rgba(190,72,118,.28);color:#fff}
+.fragment-picker-word.range-edge{box-shadow:0 0 0 2px rgba(255,177,207,.42)}
+.fragment-selection-preview{min-height:1.4em;margin:12px 2px;color:#f4b5cd;font:700 14px/1.4 system-ui}
+.fragment-copy-selection{display:block;width:100%;margin:0 0 13px;padding:10px 13px;border:1px solid #cb789a;border-radius:12px;background:linear-gradient(180deg,#513342,#372730);color:#ffd9e7;font:800 13px system-ui;letter-spacing:.02em}
+.fragment-copy-selection:disabled{opacity:.42}
+.fragment-clarification-label{display:block;color:#f3edf0;font:700 14px system-ui}
+.fragment-clarification-label textarea{display:block;width:100%;min-height:120px;margin-top:7px;padding:12px;border:1px solid #685260;border-radius:13px;background:#202228;color:#fff;font:16px/1.42 system-ui;resize:vertical}
+.fragment-existing-section{margin-top:18px;padding-top:14px;border-top:1px solid #454149}
+.fragment-existing-section h3{margin:0 0 10px;color:#f1c1d3;font-size:17px}
+.fragment-clarification-list{display:grid;gap:8px}
+.fragment-list-card{padding:11px 12px;border:1px solid rgba(232,125,166,.45);border-radius:12px;background:rgba(190,72,118,.10)}
+.fragment-list-card strong,.fragment-list-card span{display:block}.fragment-list-card strong{color:#ffbdd5}.fragment-list-card span{margin-top:4px;color:#ded7dc;font:14px/1.4 system-ui}
+.fragment-list-actions{display:flex;gap:8px;margin-top:9px}.fragment-list-actions button{border:1px solid #8d6374;border-radius:10px;background:#30272d;color:#fff;padding:7px 11px}.fragment-list-actions .danger{color:#ffb5bd}
+html body .selection-bar .actions-scroll button.action.pastel-action.action-fragment,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action.action-fragment,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action.action-fragment{
+  background:linear-gradient(180deg,#f8d9e6 0%,#e9abc3 58%,#cf789c 100%)!important;
+  border-color:#d77fa2!important;color:#2c1720!important;-webkit-text-fill-color:#2c1720!important;text-shadow:none!important;
+}
+body.light-mode .fragment-clarification{background:rgba(229,111,157,.18);border-color:#cf7197}
+body.light-mode .fragment-clarification-note{background:linear-gradient(180deg,#fff0f6,#f4d5e2);border-color:#cb7598;color:#422331;box-shadow:0 4px 12px rgba(80,37,55,.14)}
+body.light-mode .fragment-clarification-note strong{color:#8d3157}
+body.light-mode .fragment-word-picker{background:#fff;border-color:#c8b8c0}.light-mode .fragment-picker-word{color:#2a2025}.light-mode .fragment-clarification-help{color:#675c62}
+body.light-mode .fragment-clarification-label{color:#34252c}.light-mode .fragment-clarification-label textarea{background:#fff;color:#21181c}.light-mode .fragment-list-card span{color:#4d4046}
+
 
 /* V2.1.13 · Desglose dinámico del diccionario en Estadísticas */
 .stats-dictionary-tile{min-height:176px!important;justify-content:flex-start!important;gap:4px!important}
