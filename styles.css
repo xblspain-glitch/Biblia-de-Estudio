@@ -2568,7 +2568,7 @@ body.light-mode .dictionary-brief-note strong{color:#80470d}
   display:block;width:min(100%,34rem);margin:.38rem 0 .48rem;padding:.58rem .78rem;
   border:1px solid rgba(232,125,166,.86);border-radius:12px;
   background:linear-gradient(180deg,rgba(76,37,55,.97),rgba(51,31,41,.97));
-  color:#fbeaf1;font:500 .72em/1.42 system-ui,sans-serif;text-align:left;
+  color:#fbeaf1;font:500 .78em/1.42 system-ui,sans-serif;text-align:left;
   box-shadow:0 4px 14px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08);
 }
 .fragment-clarification-note[hidden]{display:none!important}
