@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.76';
+const APP_VERSION='3.1.77';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -851,12 +851,13 @@ function updateSelection(){
     const enabled=state.selected.size===1||(state.selected.size===0&&hasActiveFragmentAccess());
     const selectedVerse=state.selected.size===1?Number([...state.selected][0]):(hasActiveFragmentAccess()?Number(activeFragmentAccess.verse):null);
     const hasSavedClarifications=selectedVerse!==null&&fragmentClarificationsForVerse(selectedVerse).length>0;
+    const editingClarification=hasActiveFragmentAccess();
     fragmentBtn.disabled=!enabled;
-    fragmentBtn.textContent=hasSavedClarifications?'VER ACLARACIONES':'ACLARAR FRAGMENTO';
+    fragmentBtn.textContent=editingClarification?'EDITAR ACLARACIÓN':'AÑADIR ACLARACIÓN';
     fragmentBtn.classList.toggle('clarification-attention',hasSavedClarifications);
     fragmentBtn.setAttribute('aria-disabled',enabled?'false':'true');
-    fragmentBtn.setAttribute('aria-label',hasSavedClarifications?'Ver o editar aclaraciones del fragmento':'Aclarar fragmento');
-    fragmentBtn.title=enabled?'Abrir las aclaraciones de este versículo':'Selecciona un solo versículo o toca una aclaración rosada';
+    fragmentBtn.setAttribute('aria-label',editingClarification?'Editar aclaración':'Añadir aclaración');
+    fragmentBtn.title=enabled?(editingClarification?'Editar la aclaración seleccionada':'Añadir una aclaración a este versículo'):'Selecciona un solo versículo o toca una aclaración rosada';
   }
 }
 const actionsPanelToggle=$('#actionsPanelToggle');
