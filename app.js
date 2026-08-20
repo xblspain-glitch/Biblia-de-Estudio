@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.75';
+const APP_VERSION='3.1.76';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -826,12 +826,14 @@ function updateSelection(){
     if(favoriteBtn){
       favoriteBtn.dataset.mode=removeMode?'remove':'save';
       favoriteBtn.textContent=removeMode?'QUITAR PUNTO DE LIBRO':'GUARDAR PUNTO DE LIBRO';
+      favoriteBtn.classList.toggle('bookmark-current',removeMode);
       favoriteBtn.setAttribute('aria-label',removeMode?'Quitar punto de libro':'Guardar punto de libro');
       favoriteBtn.title=removeMode?'Quitar punto de libro':'Guardar punto de libro';
     }
   }else if(favoriteBtn){
     favoriteBtn.dataset.mode='save';
     favoriteBtn.textContent='GUARDAR PUNTO DE LIBRO';
+    favoriteBtn.classList.remove('bookmark-current');
     favoriteBtn.setAttribute('aria-label','Guardar punto de libro');
     favoriteBtn.title='Guardar punto de libro';
   }
@@ -847,8 +849,13 @@ function updateSelection(){
   }
   if(fragmentBtn){
     const enabled=state.selected.size===1||(state.selected.size===0&&hasActiveFragmentAccess());
+    const selectedVerse=state.selected.size===1?Number([...state.selected][0]):(hasActiveFragmentAccess()?Number(activeFragmentAccess.verse):null);
+    const hasSavedClarifications=selectedVerse!==null&&fragmentClarificationsForVerse(selectedVerse).length>0;
     fragmentBtn.disabled=!enabled;
+    fragmentBtn.textContent=hasSavedClarifications?'VER ACLARACIONES':'ACLARAR FRAGMENTO';
+    fragmentBtn.classList.toggle('clarification-attention',hasSavedClarifications);
     fragmentBtn.setAttribute('aria-disabled',enabled?'false':'true');
+    fragmentBtn.setAttribute('aria-label',hasSavedClarifications?'Ver o editar aclaraciones del fragmento':'Aclarar fragmento');
     fragmentBtn.title=enabled?'Abrir las aclaraciones de este versículo':'Selecciona un solo versículo o toca una aclaración rosada';
   }
 }
