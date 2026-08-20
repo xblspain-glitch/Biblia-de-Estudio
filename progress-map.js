@@ -73,6 +73,11 @@
     );
   }
 
+  function completedTestamentReadingsV3178(books,store){
+    if(!Array.isArray(books)||!books.length)return 0;
+    return Math.min(...books.map(book=>Math.max(0,Number(effectiveBookReadingV3123(book.key,store))||0)));
+  }
+
   function getFullBibleReadingsV3119(){
     try{
       const value=Number(localStorage.getItem(FULL_BIBLE_READINGS_KEY_V3119));
@@ -192,6 +197,8 @@
     const store = getProgressStore();
     const details = books.map(book => calculateBook(book, store));
     const fullBibleReadings=getFullBibleReadingsV3119();
+    const oldTestamentReadings=completedTestamentReadingsV3178(books.slice(0,39),store);
+    const newTestamentReadings=completedTestamentReadingsV3178(books.slice(39,66),store);
     const currentReadingCompleted=books.map(book=>effectiveBookReadingV3123(book.key,store)>fullBibleReadings);
     const unified=typeof window.currentBibleReadingStatsV3160==='function'?window.currentBibleReadingStatsV3160():null;
     const completed=unified?.booksCompleted??currentReadingCompleted.filter(Boolean).length;
@@ -214,6 +221,8 @@
         <div class="progress-map-overview-block">
           <span>Historial personal</span>
           <strong>Biblia completa: ${fullBibleReadings} ${fullBibleReadings===1?'lectura':'lecturas'}</strong>
+          <small>Antiguo Testamento: ${oldTestamentReadings} ${oldTestamentReadings===1?'lectura':'lecturas'}</small>
+          <small>Nuevo Testamento: ${newTestamentReadings} ${newTestamentReadings===1?'lectura':'lecturas'}</small>
         </div>
         <div class="progress-map-overview-block">
           <span>Lectura actual</span>
