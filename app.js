@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.74';
+const APP_VERSION='3.1.75';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -840,7 +840,8 @@ function updateSelection(){
   if(explainBtn){
     const removeMode=Boolean(selectedExplanation&&explanationArmedKey===selectedExplanation.key);
     explainBtn.dataset.mode=removeMode?'remove':(selectedExplanation?'view':'open');
-    explainBtn.textContent=removeMode?'QUITAR EXPLICACIÓN':'EXPLICACIÓN';
+    explainBtn.textContent=removeMode?'QUITAR EXPLICACIÓN':(selectedExplanation?'VER EXPLICACIÓN':'EXPLICACIÓN');
+    explainBtn.classList.toggle('explanation-attention',Boolean(selectedExplanation&&!removeMode));
     explainBtn.setAttribute('aria-label',removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación'));
     explainBtn.title=removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación');
   }

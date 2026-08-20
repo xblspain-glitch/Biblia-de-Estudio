@@ -2609,6 +2609,28 @@ body.light-mode .fragment-clarification-label{color:#34252c}.light-mode .fragmen
 /* V2.2.1 · Enciclopedia Bíblica integrada con la estética general */
 .action-encyclopedia{background:linear-gradient(180deg,#28292e 0%,#1d1e23 58%,#15161a 100%)!important;border-color:#9d7a2f!important;color:#f6f0e4!important}
 body.light-mode .action.pastel-action.action-encyclopedia{background:linear-gradient(180deg,#34353b 0%,#23242a 58%,#17181c 100%)!important;border-color:#9d7a2f!important;color:#fffaf0!important}
+
+/* Aviso intuitivo: la selección ya contiene una explicación guardada. */
+@keyframes explanationGoldHeartbeat{
+  0%,42%,100%{transform:scale(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.76),0 3px 10px rgba(190,132,20,.30),0 0 0 0 rgba(241,209,110,0)}
+  10%{transform:scale(1.045);box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 4px 13px rgba(190,132,20,.48),0 0 0 5px rgba(241,209,110,.28)}
+  20%{transform:scale(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.76),0 3px 10px rgba(190,132,20,.30),0 0 0 1px rgba(241,209,110,.08)}
+  28%{transform:scale(1.028);box-shadow:inset 0 1px 0 rgba(255,255,255,.84),0 4px 12px rgba(190,132,20,.42),0 0 0 4px rgba(241,209,110,.20)}
+}
+html body .selection-bar .actions-scroll button.action.pastel-action.action-explain.explanation-attention,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action.action-explain.explanation-attention,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action.action-explain.explanation-attention{
+  background:linear-gradient(180deg,var(--btn89-gold-top) 0%,var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom) 100%)!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  text-shadow:none!important;
+  animation:explanationGoldHeartbeat 1.8s ease-in-out infinite;
+  z-index:1;
+}
+@media (prefers-reduced-motion:reduce){
+  html body .selection-bar .actions-scroll button.action-explain.explanation-attention{animation:none!important}
+}
 .encyclopedia-screen{position:fixed;inset:0;z-index:1700;overflow:auto;background:#0d0e12;color:#f7f2e8}
 .encyclopedia-screen.hidden{display:none!important}
 .encyclopedia-panel{min-height:100%;max-width:760px;margin:0 auto;padding:22px 18px calc(46px + env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 18%,rgba(178,133,42,.07),transparent 33%),linear-gradient(180deg,#101116 0%,#0b0c10 100%)}
