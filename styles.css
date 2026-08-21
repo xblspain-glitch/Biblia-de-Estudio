@@ -280,6 +280,30 @@ body.light-mode .book-item{border-color:#ddd6ca}
 body.light-mode .drawer-tabs button{background:#e7e1d6;color:#322e28}
 body.light-mode .saved-verse{background:linear-gradient(180deg,rgba(245,205,73,.25),rgba(225,184,50,.12))}
 
+/* V3.1.82 · La explicación se distingue con claridad del libro */
+#explanationDialog,
+#viewExplanationDialog{
+  border:2px solid rgba(193,132,218,.82)!important;
+  background:linear-gradient(180deg,#17131a 0%,#111215 100%)!important;
+  box-shadow:0 0 0 1px rgba(224,181,241,.10),0 0 26px rgba(158,89,190,.24),0 24px 58px rgba(0,0,0,.66)!important;
+}
+#explanationDialog::backdrop,
+#viewExplanationDialog::backdrop{
+  background:rgba(0,0,0,.76)!important;
+  backdrop-filter:blur(2px);
+}
+body.light-mode #explanationDialog,
+body.light-mode #viewExplanationDialog{
+  border:2px solid rgba(161,105,184,.56)!important;
+  background:#fbf8f1!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.65),0 20px 50px rgba(48,34,43,.30)!important;
+}
+body.light-mode #explanationDialog::backdrop,
+body.light-mode #viewExplanationDialog::backdrop{
+  background:rgba(27,22,25,.66)!important;
+  backdrop-filter:blur(2px);
+}
+
 
 /* botones ilustrados del panel lateral */
 .action.image-action{
