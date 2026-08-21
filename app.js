@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.87';
+const APP_VERSION='3.1.88';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -770,7 +770,7 @@ function formatBibleText(s,verseNumber=null){
     if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}">`;
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices);
     const closing=ends.get(token.index);
-    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${escapeHtml(closing.text)}</span>`;
+    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}</span>`;
     cursor=token.end;
   }
   html+=escapeHtml(clean.slice(cursor)).replace(/\n/g,'<br>');
@@ -1041,6 +1041,8 @@ reader.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word'))e.pr
 
 reader.addEventListener('click',e=>{
   if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
+  const referenceCapsule=e.target.closest('.bible-reference-capsule');
+  if(referenceCapsule){e.preventDefault();e.stopPropagation();openBibleReference(referenceCapsule.dataset.bibleReference||referenceCapsule.textContent);return}
   const fragmentNote=e.target.closest('.fragment-clarification-note');
   if(fragmentNote){e.preventDefault();e.stopPropagation();fragmentNote.hidden=true;return}
   const fragment=e.target.closest('.fragment-clarification');
@@ -1160,7 +1162,60 @@ $('#saveExplanation').onclick=()=>{const k=$('#explanationDialog').dataset.key,t
 $('#editExplanationInline').onclick=()=>{const text=$('#explanationText');text.readOnly=false;text.focus();text.setSelectionRange(text.value.length,text.value.length);toast('Modo edición')};
 $('#pasteExplanation').onclick=async()=>{try{const text=$('#explanationText');text.readOnly=false;text.value=await navigator.clipboard.readText();text.focus()}catch{toast('No se pudo pegar')}};
 $('#deleteExplanation').onclick=()=>{if(confirm('¿Eliminar esta explicación?')){delete state.explanations[$('#explanationDialog').dataset.key];save();$('#explanationDialog').close();render();toast('Explicación eliminada')}};
-function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.textContent=x.text;content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
+function bibleReferenceBookLabels(){
+  const labels=new Set();
+  for(const book of state.books){
+    [book.shortTitle,book.abbr,displayBook(book),...bookSearchNames(book)].filter(Boolean).forEach(label=>labels.add(String(label).trim()));
+  }
+  return [...labels].filter(label=>label.length>1).sort((a,b)=>b.length-a.length);
+}
+function escapeRegExp(value){return String(value).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function bibleReferencePattern(){
+  const books=bibleReferenceBookLabels().map(escapeRegExp).join('|');
+  return books?new RegExp(`(^|[^\\p{L}\\p{N}])((?:${books})\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)`,'giu'):null;
+}
+function exactReferenceBook(bookLabel){
+  const wanted=canonicalBookText(bookLabel);
+  return state.books.find(book=>bookSearchNames(book).includes(wanted))||null;
+}
+function parseBibleReferenceLabel(label){
+  const match=String(label||'').trim().match(/^(.+?)\s+(\d{1,3})\s*:\s*(\d{1,3})(?:\s*[-–—]\s*(\d{1,3}))?$/u);
+  if(!match)return null;
+  const book=exactReferenceBook(match[1]),chapter=Number(match[2]),startVerse=Number(match[3]),endVerse=Number(match[4]||match[3]);
+  if(!book||chapter<1||chapter>Number(book.chapters)||startVerse<1||endVerse<startVerse)return null;
+  return{book,chapter,startVerse,endVerse,label:`${displayBook(book)} ${chapter}:${startVerse}${endVerse>startVerse?`–${endVerse}`:''}`};
+}
+function formatReferenceCapsules(text){
+  const source=String(text||''),pattern=bibleReferencePattern();
+  if(!pattern)return escapeHtml(source).replace(/\n/g,'<br>');
+  let html='',cursor=0,match;
+  while((match=pattern.exec(source))){
+    const prefix=match[1]||'',reference=match[2],referenceStart=match.index+prefix.length,parsed=parseBibleReferenceLabel(reference);
+    html+=escapeHtml(source.slice(cursor,referenceStart));
+    html+=parsed?`<button type="button" class="bible-reference-capsule" data-bible-reference="${escapeHtml(reference)}">${escapeHtml(reference)}</button>`:escapeHtml(reference);
+    cursor=referenceStart+reference.length;
+  }
+  return(html+escapeHtml(source.slice(cursor))).replace(/\n/g,'<br>');
+}
+async function openBibleReference(label){
+  const parsed=parseBibleReferenceLabel(label);if(!parsed){toast('No se encontró esa referencia');return}
+  const dialog=$('#bibleReferenceDialog'),title=$('#bibleReferenceTitle'),content=$('#bibleReferenceVerses');
+  title.textContent=parsed.label;content.innerHTML='<p class="bible-reference-loading">Cargando pasaje…</p>';
+  if(!dialog.open)dialog.showModal();
+  try{
+    const chapters=await getBookChapters(parsed.book),verses=chapters?.[parsed.chapter-1];
+    if(!Array.isArray(verses)||parsed.endVerse>verses.length)throw new Error('Referencia inexistente');
+    content.replaceChildren();
+    for(let verse=parsed.startVerse;verse<=parsed.endVerse;verse++){
+      const row=document.createElement('p'),number=document.createElement('strong'),text=document.createElement('span');
+      number.textContent=verse;text.textContent=limpiarTextoBiblico(verses[verse-1]);row.append(number,text);content.append(row);
+    }
+    content.scrollTop=0;
+  }catch(_){content.innerHTML='<p class="bible-reference-error">No se pudo abrir este pasaje.</p>'}
+}
+$('#viewExplanationText')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule)openBibleReference(capsule.dataset.bibleReference||capsule.textContent)});
+$('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule){e.preventDefault();e.stopPropagation();openBibleReference(capsule.dataset.bibleReference||capsule.textContent)}});
+function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
 $('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
 $('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
 
@@ -1201,7 +1256,7 @@ function renderFragmentWordPicker(){
 function currentVerseFragmentClarifications(verse=fragmentPickerState.verse){return fragmentClarificationsForVerse(verse)}
 function renderFragmentClarificationList(){
   const list=$('#fragmentClarificationList'),items=currentVerseFragmentClarifications();
-  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}</strong><span>${escapeHtml(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.id)}">Editar</button><button type="button" class="danger" data-fragment-delete="${escapeHtml(item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
+  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}</strong><span>${formatReferenceCapsules(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.id)}">Editar</button><button type="button" class="danger" data-fragment-delete="${escapeHtml(item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
   [...list.querySelectorAll('[data-fragment-edit]')].forEach(button=>button.onclick=()=>{
     const item=state.fragmentClarifications[button.dataset.fragmentEdit];if(!item)return;
     fragmentPickerState.start=Number(item.startToken);fragmentPickerState.end=Number(item.endToken);fragmentPickerState.awaitingEnd=false;fragmentPickerState.editId=item.id;

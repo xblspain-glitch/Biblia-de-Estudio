@@ -2639,6 +2639,27 @@ body.light-mode .fragment-clarification-note strong{color:#8d3157}
 body.light-mode .fragment-word-picker{background:#fff;border-color:#c8b8c0}.light-mode .fragment-picker-word{color:#2a2025}.light-mode .fragment-clarification-help{color:#675c62}
 body.light-mode .fragment-clarification-label{color:#34252c}.light-mode .fragment-clarification-label textarea{background:#fff;color:#21181c}.light-mode .fragment-list-card span{color:#4d4046}
 
+/* V3.1.88 · Referencias bíblicas pulsables en explicaciones y aclaraciones. */
+.bible-reference-capsule{
+  display:inline-flex;align-items:center;margin:.08em .12em;padding:.18em .58em;border:1px solid #70bfe8;border-radius:999px;
+  background:linear-gradient(180deg,rgba(71,160,211,.28),rgba(36,104,151,.24));color:#a9ddfa;
+  font:700 .92em/1.45 system-ui,sans-serif;white-space:nowrap;cursor:pointer;vertical-align:baseline;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 7px rgba(0,0,0,.18)
+}
+.bible-reference-capsule:active{transform:scale(.98);filter:brightness(1.12)}
+.bible-reference-dialog{width:min(94vw,680px);max-height:88vh;padding:24px;overflow:hidden}
+.bible-reference-dialog h2{margin-right:54px}
+.bible-reference-verses{max-height:65vh;overflow:auto;padding:5px 4px 10px}
+.bible-reference-verses p{display:grid;grid-template-columns:2.1em 1fr;gap:.55em;margin:0;padding:12px 5px;border-bottom:1px solid rgba(132,184,214,.18);font:18px/1.55 Georgia,"Times New Roman",serif}
+.bible-reference-verses p:last-child{border-bottom:0}
+.bible-reference-verses strong{color:#8fd2f5;font:800 14px/1.9 system-ui,sans-serif;text-align:right}
+.bible-reference-verses span{white-space:pre-wrap}
+.bible-reference-loading,.bible-reference-error{display:block!important;border:0!important;color:#c9cbd0!important;text-align:center!important;font:16px/1.5 system-ui!important}
+body.light-mode .bible-reference-capsule{border-color:#4b98bf;background:linear-gradient(180deg,#e5f5fd,#cfe9f6);color:#155b80;box-shadow:0 2px 6px rgba(32,86,113,.12)}
+body.light-mode .bible-reference-verses p{border-color:rgba(58,112,142,.18);color:#211b16}
+body.light-mode .bible-reference-verses strong{color:#276e94}
+@media(max-width:420px){.bible-reference-dialog{padding:20px 15px}.bible-reference-verses{max-height:68vh}.bible-reference-verses p{font-size:17px;padding:10px 2px}}
+
 
 /* V2.1.13 · Desglose dinámico del diccionario en Estadísticas */
 .stats-dictionary-tile{min-height:176px!important;justify-content:flex-start!important;gap:4px!important}
