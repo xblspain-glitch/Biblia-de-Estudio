@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.85';
+const APP_VERSION='3.1.86';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -770,7 +770,7 @@ function formatBibleText(s,verseNumber=null){
     if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}">`;
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices);
     const closing=ends.get(token.index);
-    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden><strong>${escapeHtml(closing.fragment)}:</strong> ${escapeHtml(closing.text)}</span>`;
+    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${escapeHtml(closing.text)}</span>`;
     cursor=token.end;
   }
   html+=escapeHtml(clean.slice(cursor)).replace(/\n/g,'<br>');
