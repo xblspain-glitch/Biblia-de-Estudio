@@ -310,6 +310,33 @@ body:has(#viewExplanationDialog[open]) #selectionBar{
   visibility:hidden!important;
 }
 
+/* V3.1.84 · Una sola barra de desplazamiento en la explicación */
+#viewExplanationDialog[open]{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden!important;
+}
+#viewExplanationDialog .explanation-content{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+}
+#viewExplanationDialog .modal-actions{
+  flex:0 0 auto;
+}
+html:has(#explanationDialog[open]),
+html:has(#viewExplanationDialog[open]),
+body:has(#explanationDialog[open]),
+body:has(#viewExplanationDialog[open]){
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+#explanationDialog::backdrop,
+#viewExplanationDialog::backdrop{
+  touch-action:none;
+  overscroll-behavior:contain;
+}
+
 
 /* botones ilustrados del panel lateral */
 .action.image-action{
