@@ -304,6 +304,12 @@ body.light-mode #viewExplanationDialog::backdrop{
   backdrop-filter:blur(2px);
 }
 
+/* V3.1.83 · La botonera no atraviesa visualmente la explicación */
+body:has(#explanationDialog[open]) #selectionBar,
+body:has(#viewExplanationDialog[open]) #selectionBar{
+  visibility:hidden!important;
+}
+
 
 /* botones ilustrados del panel lateral */
 .action.image-action{
