@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.91';
+const APP_VERSION='3.1.92';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -247,7 +247,7 @@ async function init(){
   }).catch(()=>{});
 }}
 async function getBookChapters(book){if(state.externalBible?.books?.[book.key])return state.externalBible.books[book.key];return fetch(freshUrl(book.key+'.json'),{cache:'no-store'}).then(r=>r.json())}
-async function loadChapter(){state.selected.clear();activeFragmentAccess=null;explanationArmedKey='';const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map((text,index)=>correctedVerseText(b.key,state.chapter,index+1,text));render();save();}
+async function loadChapter(){state.selected.clear();activeFragmentAccess=null;explanationArmedKey='';const b=state.books[state.bookIndex];const data=await getBookChapters(b);state.verses=(data[state.chapter-1]||[]).map((text,index)=>correctedVerseText(b.key,state.chapter,index+1,text));await Promise.allSettled([loadBiblicalCharactersV2252(),loadBiblicalPlaces()]);biblicalEntityLinkIndexDirty=true;render();save();}
 const GUIDE_IDS_BY_BOOK={"genesis":"mq189k74e19kqg","exodo":"mq18o6kz6j00l1","levitico":"mq18v33xs30y2a","numeros":"mq191gs6wfr7b0","deuteronomio":"mq19944izsypxx","josue":"mq19allbrruzzq","jueces":"mq19cja4i82uk0","rut":"mq19f4iyn19frs","1_samuel":"mq19hgzemminaq","2_samuel":"mq19k1n2cmwrtw","1_reyes":"mq19m2pj0vje93","2_reyes":"mq19rn9zjie94t","1_cronicas":"mq19tyrqcnpfyc","2_cronicas":"mq19xo7wkefakx","esdras":"mq19zowb7ouvw3","nehemias":"mq1a0picjtwdyi","ester":"mq1a26lacf0t0y","job":"mq1a5q5hqlzgul","salmos":"mq1adgfxp65wj2","proverbios":"mq1affanpikj1b","eclesiastes":"mq1agt5sk4n8qd","cantares":"mq1ai7gx0mxfvh","isaias":"mq1am8nws0d8p5","jeremias":"mq1ank6awoktb7","lamentaciones":"mq1aot6b6iuca0","ezequiel":"mq1as40zua0x8e","daniel":"mq1au3yltarg9p","oseas":"mq1avh2b4aslc6","joel":"mq1awwdclvwpqy","amos":"mq1ay3kqrq70cf","abdias":"mq1az78rdhd3iz","jonas":"mq1b0u86dcb1tp","miqueas":"mq1b2csjab29u4","nahum":"mq1b3oiqiw1lbg","habacuc":"mq1b4xtxg55bve","sofonias":"mq1bzxxwort7ks","hageo":"mq1c1awtu7tbtt","zacarias":"mq1c32iq0wn78q","malaquias":"mq1c54dc2gsr85","mateo":"mq1c8viydm77as","marcos":"mq1c967vtkw0hb","lucas":"mq1ccma6v2eop5","juan":"mq1ceah81ddbyq","hechos":"mq1che3kfjzpeo","romanos":"mq1ym5piynlofg","1_corintios":"mq1yni6umroyqm","2_corintios":"mq1yoqrfbq56dm","galatas":"mq1yqf7qlkowoj","efesios":"mq1yrs7qkq4dor","filipenses":"mq1ystvdnxn00p","colosenses":"mq1ytr94r0qqgn","1_tesalonicenses":"mq1yvex403cbwh","2_tesalonicenses":"mq1yws442t8gm9","1_timoteo":"mq1yy54b2osc2r","2_timoteo":"mq1z07jmjmz8x6","tito":"mq2fm2l7bln423","filemon":"mq2fo8hdjxlpue","hebreos":"mq2fq3dsb0acnk","santiago":"mq2fvfyhzr2dex","1_pedro":"mq2fxng3z9oohu","2_pedro":"mq2fyvoolenx0v","1_juan":"mq2g4wy5859q7b","2_juan":"mq2g70sqvxgj5d","3_juan":"mq2g7yu5ryhv1p","judas":"mq2g9r3ggh1k6j","apocalipsis":"mq2gdg7jusjcxw"};
 function guideChapterCapsule(book){
   if(state.chapter!==1)return '';
@@ -747,6 +747,63 @@ function bibleWordTokens(text){
   while((match=BIBLE_WORD_PATTERN.exec(clean)))tokens.push({word:match[0],start:match.index,end:match.index+match[0].length,index:tokens.length});
   return{clean,tokens};
 }
+let biblicalEntityLinkIndexDirty=true;
+let biblicalEntityLinkIndex=new Map();
+function primaryBiblicalCharacterTerms(name){
+  const raw=String(name||'').trim(),terms=new Set([raw]);
+  const primary=raw.split(',')[0].split('(')[0].trim();if(primary)terms.add(primary);
+  const parenthetical=raw.match(/\(([^)]+)\)/)?.[1]?.trim();if(parenthetical&&parenthetical.split(/\s+/).length<=3)terms.add(parenthetical);
+  return [...terms];
+}
+function rebuildBiblicalEntityLinkIndex(){
+  const phrases=new Map(),add=(term,entity)=>{
+    const words=bibleWordTokens(term).tokens.map(token=>normalizeBiblicalEntityText(token.word)).filter(Boolean),normalized=words.join(' ');
+    if(!normalized||normalized.length<3||!words.length)return;
+    if(!phrases.has(normalized))phrases.set(normalized,{words,entities:[]});
+    const list=phrases.get(normalized).entities,key=`${entity.type}:${entity.id}`;
+    if(!list.some(item=>`${item.type}:${item.id}`===key))list.push(entity);
+  };
+  for(const item of (Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[])){
+    for(const term of primaryBiblicalCharacterTerms(item.nombre))add(term,{type:'character',id:String(item.id),name:String(item.nombre||term)});
+  }
+  for(const item of (biblicalPlacesData||[]))add(item.name,{type:'place',id:String(item.id),name:String(item.name||'')});
+  const byFirst=new Map();
+  for(const value of phrases.values()){
+    const first=value.words[0];if(!byFirst.has(first))byFirst.set(first,[]);byFirst.get(first).push(value);
+  }
+  for(const values of byFirst.values())values.sort((a,b)=>b.words.length-a.words.length);
+  biblicalEntityLinkIndex=byFirst;biblicalEntityLinkIndexDirty=false;return byFirst;
+}
+function biblicalEntityMatches(tokens,clarifications=[]){
+  const index=biblicalEntityLinkIndexDirty?rebuildBiblicalEntityLinkIndex():biblicalEntityLinkIndex;
+  const normalized=tokens.map(token=>normalizeBiblicalEntityText(token.word)),clarificationAt=new Array(tokens.length).fill('');
+  for(const item of clarifications){const start=Number(item.startToken),end=Number(item.endToken);if(Number.isInteger(start)&&Number.isInteger(end))for(let i=Math.max(0,start);i<=Math.min(tokens.length-1,end);i++)clarificationAt[i]=String(item.id||'')}
+  const matches=[];
+  for(let start=0;start<tokens.length;start++){
+    const candidates=index.get(normalized[start])||[];let chosen=null;
+    for(const candidate of candidates){
+      const end=start+candidate.words.length-1;if(end>=tokens.length)continue;
+      if(candidate.words.length===1&&!/^[A-ZÁÉÍÓÚÜÑ]/.test(tokens[start].word))continue;
+      if(candidate.words.some((word,offset)=>normalized[start+offset]!==word))continue;
+      if(candidate.words.some((_,offset)=>Boolean(getDictionaryEntryForWord(tokens[start+offset].word))))continue;
+      if(candidate.words.some((_,offset)=>clarificationAt[start+offset]!==clarificationAt[start]))continue;
+      chosen={start,end,entities:candidate.entities};break;
+    }
+    if(!chosen)continue;
+    matches.push(chosen);start=chosen.end;
+  }
+  return matches;
+}
+function linkedBiblicalEntityCandidates(raw){
+  try{
+    const links=JSON.parse(raw||'[]'),characters=Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[];
+    return links.map(link=>{
+      if(link.type==='character'){const item=characters.find(x=>String(x.id)===String(link.id));return item?{type:'character',id:item.id,name:item.nombre,score:0}:null}
+      const item=(biblicalPlacesData||[]).find(x=>String(x.id)===String(link.id));return item?{type:'place',id:item.id,name:item.name,score:0}:null;
+    }).filter(Boolean);
+  }catch(_){return[]}
+}
+window.refreshBiblicalEntityLinks=()=>{biblicalEntityLinkIndexDirty=true;if(state.books.length&&state.verses.length)render()};
 function fragmentClarificationsForVerse(verseNumber){
   const book=state.books[state.bookIndex];
   if(!book||verseNumber===null)return[];
@@ -770,12 +827,17 @@ function formatBibleText(s,verseNumber=null){
     const start=Number(item.startToken),end=Number(item.endToken);
     if(Number.isInteger(start)&&Number.isInteger(end)&&start>=0&&end>=start&&end<tokens.length){starts.set(start,item);ends.set(end,item)}
   }
+  const entityStarts=new Map(),entityEnds=new Map();
+  for(const match of biblicalEntityMatches(tokens,clarifications)){entityStarts.set(match.start,match);entityEnds.set(match.end,match)}
   let html='',cursor=0;
   for(const token of tokens){
     html+=escapeHtml(clean.slice(cursor,token.start)).replace(/\n/g,'<br>');
     const opening=starts.get(token.index);
     if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}">`;
+    const entityOpening=entityStarts.get(token.index);
+    if(entityOpening){const kind=entityOpening.entities.some(x=>x.type==='character')?'character':'place',links=entityOpening.entities.map(x=>({type:x.type,id:x.id}));html+=`<span class="biblical-entity-link biblical-entity-link-${kind}" data-entity-links="${escapeHtml(JSON.stringify(links))}">`}
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices);
+    if(entityEnds.has(token.index))html+='</span>';
     const closing=ends.get(token.index);
     if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}</span>`;
     cursor=token.end;
@@ -1048,6 +1110,13 @@ reader.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word'))e.pr
 
 reader.addEventListener('click',e=>{
   if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
+  const entityLink=e.target.closest('.biblical-entity-link');
+  if(entityLink){
+    e.preventDefault();e.stopPropagation();
+    const candidates=linkedBiblicalEntityCandidates(entityLink.dataset.entityLinks),label=entityLink.textContent||'';
+    if(candidates.length===1)openRecognizedBiblicalEntity(candidates[0]);else if(candidates.length>1)showBiblicalEntityChooser(candidates,label);
+    return;
+  }
   const referenceCapsule=e.target.closest('.bible-reference-capsule');
   if(referenceCapsule){e.preventDefault();e.stopPropagation();openBibleReference(referenceCapsule.dataset.bibleReference||referenceCapsule.textContent);return}
   const fragmentNote=e.target.closest('.fragment-clarification-note');
@@ -3383,7 +3452,7 @@ const placeLines=value=>Array.isArray(value)?value.map(x=>String(x||'').trim()).
 function normalizePlaceText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function defaultPlacesCrud(){return{custom:[],edits:{},deleted:[],trash:[]}}
 function loadPlacesCrud(){try{const p=JSON.parse(localStorage.getItem(PLACES_CRUD_KEY)||'null');return{custom:Array.isArray(p?.custom)?p.custom:[],edits:p?.edits&&typeof p.edits==='object'&&!Array.isArray(p.edits)?p.edits:{},deleted:Array.isArray(p?.deleted)?p.deleted:[],trash:Array.isArray(p?.trash)?p.trash:[]}}catch(_){return defaultPlacesCrud()}}
-function savePlacesCrud(v){localStorage.setItem(PLACES_CRUD_KEY,JSON.stringify(v));updateBiblicalPlacesTrashCount()}
+function savePlacesCrud(v){localStorage.setItem(PLACES_CRUD_KEY,JSON.stringify(v));updateBiblicalPlacesTrashCount();setTimeout(()=>window.refreshBiblicalEntityLinks?.(),0)}
 function placeCleanItem(item={}){const lat=item.coordinates?.latitude??item.latitude??'',lng=item.coordinates?.longitude??item.longitude??'';return{id:String(item.id||`custom-place-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),name:String(item.name||'').trim(),category:String(item.category||'Lugar bíblico').trim(),currentRegion:String(item.currentRegion||item.region||'').trim(),firstAppearance:String(item.firstAppearance||'').trim(),shortDescription:String(item.shortDescription||item.description||'').trim(),biblicalImportance:String(item.biblicalImportance||item.importance||'').trim(),history:String(item.history||'').trim(),relatedPeople:placeLines(item.relatedPeople),jesusRelation:String(item.jesusRelation||'').trim(),mainVerses:placeLines(item.mainVerses),curiosities:placeLines(item.curiosities),coordinates:{latitude:lat===''?null:Number(lat),longitude:lng===''?null:Number(lng)},image:String(item.image||'').trim(),createdAt:Number(item.createdAt)||Date.now(),updatedAt:Number(item.updatedAt)||Date.now()}}
 function rebuildBiblicalPlacesData(){const crud=loadPlacesCrud(),deleted=new Set(crud.deleted.map(String));const base=biblicalPlacesBase.filter(x=>!deleted.has(String(x.id))).map(x=>placeCleanItem(crud.edits[x.id]?{...x,...crud.edits[x.id],id:x.id}:x));const custom=crud.custom.map(placeCleanItem).filter(x=>!deleted.has(String(x.id)));biblicalPlacesData=[...base,...custom].sort((a,b)=>a.name.localeCompare(b.name,'es'));updateBiblicalPlacesTrashCount();return biblicalPlacesData}
 async function loadBiblicalPlaces(){if(biblicalPlacesLoaded)return rebuildBiblicalPlacesData();try{const r=await fetch(freshUrl('biblical-places.json'));if(!r.ok)throw new Error('No se pudieron cargar Lugares Bíblicos');const raw=await r.json();biblicalPlacesBase=Array.isArray(raw)?raw.map(placeCleanItem):[]}catch(e){console.error(e);biblicalPlacesBase=[]}biblicalPlacesLoaded=true;return rebuildBiblicalPlacesData()}
