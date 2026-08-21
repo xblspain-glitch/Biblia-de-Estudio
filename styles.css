@@ -2865,6 +2865,20 @@ body.light-mode .biblical-entity-overlay{background:rgba(40,32,15,.42)}body.ligh
 body.light-mode .parable-title-capsule,.light-mode .parable-title-capsule{background:#dbe8fb;color:#203759;border-color:#7694bf}
 body.light-mode .parable-title-capsule-hint,.light-mode .parable-title-capsule-hint{color:#49698f}
 
+/* V3.1.90 · Corrección personal de versículos con respaldo JSON y Drive. */
+.verse-correction-dialog{width:min(95vw,720px);max-height:92vh;padding:24px}
+.verse-correction-help{margin:3px 0 16px;color:#c7c8cd;font:14px/1.48 system-ui,sans-serif}
+.verse-correction-label{display:block;color:#f2eee5;font:800 14px/1.4 system-ui,sans-serif}
+.verse-correction-label textarea{display:block;width:100%;min-height:230px;margin-top:8px;padding:14px;border:1px solid #6d747f;border-radius:15px;background:#1b1d22;color:#fff;font:18px/1.55 Georgia,"Times New Roman",serif;resize:vertical}
+.verse-correction-original-wrap{margin-top:14px;border:1px solid #454a52;border-radius:13px;background:#1d1f24;color:#d9dadd}
+.verse-correction-original-wrap summary{padding:11px 13px;cursor:pointer;font:700 14px system-ui,sans-serif}
+.verse-correction-original{padding:0 13px 13px;white-space:pre-wrap;font:16px/1.52 Georgia,"Times New Roman",serif}
+body.light-mode .verse-correction-help{color:#625d55}
+body.light-mode .verse-correction-label{color:#2a241d}
+body.light-mode .verse-correction-label textarea{background:#fff;color:#191613;border-color:#b8afa2}
+body.light-mode .verse-correction-original-wrap{background:#f4efe6;color:#332d26;border-color:#c9c0b3}
+@media(max-width:420px){.verse-correction-dialog{padding:20px 15px}.verse-correction-label textarea{min-height:260px}}
+
 /* V2.8.38 · Acceso a Guía desde capítulo 1 */
 .guide-chapter-entry{display:flex;justify-content:center;margin:.35rem 0 1rem}
 .guide-title-capsule{
