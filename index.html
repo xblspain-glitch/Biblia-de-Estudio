@@ -7,12 +7,12 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.14">
   <link rel="manifest" href="manifest.webmanifest?v=3.1.14">
-<link rel="stylesheet" href="styles.css?v=3.1.96">
+<link rel="stylesheet" href="styles.css?v=3.1.97">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
-  <link rel="stylesheet" href="progress-map.css?v=3.1.96">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.97">
 
 
 
@@ -126,6 +126,80 @@
           <span class="more-function-title">Bloc de notas</span>
           <span class="more-function-description">Guarda apuntes, correcciones y recordatorios personales.</span>
         </button>
+        <button id="functionsGuideBtn" class="more-function-card functions-guide-card" type="button" onclick="openFunctionsGuide()">
+          <span class="more-function-title">Guía de funciones</span>
+          <span class="more-function-description">Descubre el significado de las cápsulas, colores, marcas y herramientas.</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="functionsGuideScreen" class="study-module-screen hidden" aria-label="Guía de funciones de Mi Biblia de Estudio">
+    <div class="study-module-panel functions-guide-panel">
+      <div class="study-module-head"><button class="btn soft" type="button" onclick="closeFunctionsGuide()">← Volver</button></div>
+      <h1>Guía de funciones de Mi Biblia de Estudio</h1>
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.97" alt="" aria-hidden="true">
+      <p class="study-module-sub">Conoce el significado de las cápsulas, colores, marcas y herramientas disponibles durante la lectura.</p>
+      <div class="functions-guide-intro"><strong>Cómo usar esta guía</strong><p>Los elementos siguientes son ejemplos visuales. En el texto bíblico real podrás pulsarlos para abrir su contenido o cambiar su estado.</p></div>
+      <div class="functions-guide-sections">
+        <details class="functions-guide-section" open><summary>Palabras, equivalencias y aclaraciones breves</summary><div class="functions-guide-body">
+          <div class="functions-guide-example"><span class="guide-capsule guide-capsule-green">almud</span><span class="guide-arrow">→</span><span class="guide-capsule guide-capsule-orange">medida de capacidad</span></div>
+          <p><strong>Cápsula verde:</strong> muestra la palabra original del texto y señala que tiene una ficha de diccionario. Al pulsarla puedes consultar su definición.</p>
+          <p>Si la ficha contiene una palabra equivalente, puedes sustituir visualmente la original por esa equivalencia. La equivalencia aparece en una <strong>cápsula naranja</strong> para dejar claro que no es el texto bíblico original.</p>
+          <p>Al volver a pulsar la cápsula naranja se recupera la palabra original en verde. Este cambio solo afecta a la forma de verla; no modifica el texto bíblico.</p>
+          <div class="guide-brief-example"><span class="guide-capsule guide-capsule-green">denario</span><span>Moneda romana equivalente al salario habitual de una jornada.</span></div>
+          <p>Una ficha también puede incluir una <strong>frase aclaratoria breve</strong>. Al pulsar la palabra se muestra u oculta esa ayuda junto al texto.</p>
+          <p><strong>Pulsación prolongada:</strong> sobre una palabra sin cápsula permite buscarla y, si procede, crear o completar su ficha.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Personajes y lugares bíblicos</summary><div class="functions-guide-body">
+          <div class="functions-guide-example guide-text-example">Los discípulos de <span class="guide-person">Juan</span> fueron a <span class="guide-place">Jerusalén</span>.</div>
+          <p>Una <strong>línea dorada sutil</strong> identifica nombres que ya tienen ficha de personaje. Una <strong>línea azul</strong> identifica lugares con ficha.</p>
+          <p>Al pulsar el nombre se abre su ficha encima de la lectura. Si un nombre pertenece a varias personas —por ejemplo, Juan— la app utiliza el contexto del versículo. Cuando no puede decidir con seguridad, muestra las fichas posibles para que elijas.</p>
+          <p>Las fichas nuevas que marques para aparecer en el texto se incorporan automáticamente a este sistema.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Explicaciones, aclaraciones y referencias</summary><div class="functions-guide-body">
+          <div class="functions-guide-example guide-button-row"><span class="guide-action-button guide-action-active">EXPLICACIÓN</span><span class="guide-action-button">AÑADIR ACLARACIÓN</span></div>
+          <p>Al seleccionar uno o varios versículos, <strong>Explicación</strong> abre la explicación disponible o permite crearla. Cuando ya existe, el botón se vuelve dorado y late suavemente.</p>
+          <p><strong>Añadir aclaración</strong> sirve para explicar una palabra, expresión o fragmento concreto sin sustituirlo.</p>
+          <div class="functions-guide-example guide-text-example">«El pueblo asentado en <span class="guide-fragment">tinieblas</span> vio gran luz»</div>
+          <p>Los fragmentos con aclaración se distinguen mediante un marcado rosado. Al pulsarlos se muestra su nota.</p>
+          <div class="functions-guide-example"><span class="guide-reference">San Mateo 4:15–16</span></div>
+          <p>Las referencias bíblicas escritas dentro de explicaciones o aclaraciones se convierten en cápsulas. Al pulsarlas, los versículos se abren en una ventana superpuesta con una cruz para cerrarla, sin abandonar la lectura.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Parábolas y títulos con explicación</summary><div class="functions-guide-body">
+          <div class="functions-guide-example"><span class="guide-parable"><strong>LA PARÁBOLA DEL SEMBRADOR</strong><small>VER EXPLICACIÓN</small></span></div>
+          <p>Los títulos mostrados como cápsula incluyen una explicación de la parábola o enseñanza. La indicación <strong>«Ver explicación»</strong>, en letra más pequeña, avisa de que el título se puede pulsar.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Seleccionar versículos y usar la botonera</summary><div class="functions-guide-body">
+          <div class="functions-guide-example guide-verse-example"><sup>13</sup> Vosotros sois la sal de la tierra.</div>
+          <p>Pulsa un versículo para seleccionarlo y abrir la botonera lateral. Puedes añadir versículos consecutivos y realizar una acción sobre todo el fragmento seleccionado.</p>
+          <p>Desde la botonera puedes <strong>copiar, subrayar, marcar un punto de libro, guardar un punto de lectura, abrir o crear una explicación, consultar el diccionario, corregir el texto, añadir una aclaración, acceder a la enciclopedia y ver estadísticas</strong>.</p>
+          <p>La flecha lateral oculta o vuelve a mostrar la botonera para dejar más espacio a la lectura.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Subrayados, guardados y punto de lectura</summary><div class="functions-guide-body">
+          <div class="functions-guide-example guide-highlight-row"><span class="guide-highlight yellow"></span><span class="guide-highlight blue"></span><span class="guide-highlight green"></span><span class="guide-highlight pink"></span><span class="guide-highlight purple"></span><span class="guide-highlight orange"></span></div>
+          <p><strong>Subrayar</strong> permite aplicar distintos colores a los versículos seleccionados para organizar tu estudio. Puedes cambiar el color o retirar el subrayado.</p>
+          <p><strong>Punto de libro</strong> guarda el versículo para encontrarlo después. <strong>Guardar punto de lectura</strong> recuerda el lugar exacto por el que deseas continuar.</p>
+          <p>Los guardados, subrayados y demás datos personales aparecen también en las estadísticas y en <strong>Mi camino en la Palabra</strong>.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Correcciones personales del texto</summary><div class="functions-guide-body">
+          <div class="functions-guide-example guide-button-row"><span class="guide-action-button guide-corrected">TEXTO CORREGIDO</span></div>
+          <p><strong>Corregir texto</strong> permite reparar una errata desde la propia app. La corrección se guarda y se aplica al versículo.</p>
+          <p>Cuando el versículo ya tiene una corrección, el botón cambia a <strong>«Texto corregido»</strong>, se vuelve dorado y late suavemente. Desde la edición puedes revisar la corrección o restaurar el texto original.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Enciclopedia bíblica</summary><div class="functions-guide-body">
+          <p>Reúne las fichas de <strong>personajes, lugares, parábolas, guías y profecías</strong>. Puedes buscar, abrir y gestionar tus contenidos desde un mismo lugar.</p>
+          <p>Las fichas de personajes y lugares pueden vincularse con los nombres señalados dentro de los versículos. Los lugares pueden incluir información geográfica, mapas y datos relacionados.</p>
+          <p>Las fichas que eliminas pasan primero a la papelera, desde donde pueden recuperarse antes de borrarlas definitivamente.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Búsqueda, progreso y estadísticas</summary><div class="functions-guide-body">
+          <p><strong>Buscar</strong> localiza palabras o frases en la Biblia y conserva las búsquedas recientes para repetirlas rápidamente.</p>
+          <p>El progreso registra los capítulos completados. <strong>Estadísticas</strong> resume tu lectura y actividad de estudio; <strong>Mi camino en la Palabra</strong> organiza ese recorrido por capítulos y meses.</p>
+        </div></details>
+        <details class="functions-guide-section"><summary>Herramientas adicionales</summary><div class="functions-guide-body">
+          <p>En <strong>Más</strong> encontrarás también el <strong>Calendario</strong>, con festividades cristianas y pasajes relacionados, y el <strong>Bloc de notas</strong>, para guardar apuntes y recordatorios personales.</p>
+          <p>Los ajustes permiten adaptar la lectura, el aspecto y otras preferencias. Las copias de seguridad protegen tus datos personales de estudio para poder recuperarlos o trasladarlos.</p>
+        </div></details>
       </div>
     </div>
   </section>
@@ -137,7 +211,7 @@
         <button class="btn soft notes-new-button" type="button" onclick="openNoteEditor()">+ Nueva nota</button>
       </div>
       <h1>Bloc de notas</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.96" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.97" alt="" aria-hidden="true">
       <p class="study-module-sub">Tus apuntes personales, guardados en este dispositivo y en tus copias de seguridad.</p>
       <input id="notesSearchInput" class="notes-search-input" type="search" autocomplete="off" placeholder="Buscar en mis notas">
       <div id="notesModuleList" class="notes-module-list"></div>
@@ -670,7 +744,7 @@
     <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
     <article class="daily-verse-card">
       <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
-      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.96" alt="" aria-hidden="true">
+      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.97" alt="" aria-hidden="true">
       <blockquote id="dailyVerseText"></blockquote>
       <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
     </article>
@@ -727,25 +801,25 @@
     <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
     <p id="auditHash" class="audit-hash hidden"></p>
     <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
-    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.96</strong></p>
+    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.97</strong></p>
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=3.1.14"></script>
-  <script src="biblical-characters-v2244-v2835.js?v=3.1.96"></script>
+  <script src="biblical-characters-v2244-v2835.js?v=3.1.97"></script>
   <script src="biblical-parables-v16436-v2835.js?v=3.1.14"></script>
   <script src="biblical-guides-v16436-v2835.js?v=3.1.14"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="bible-storage-idb.js?v=3.1.96"></script>
-  <script type="module" src="bible-app-loader.js?v=3.1.96"></script>
+  <script src="bible-storage-idb.js?v=3.1.97"></script>
+  <script type="module" src="bible-app-loader.js?v=3.1.97"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.96';
+  const targetVersion='3.1.97';
   let pendingWorker=null;
   let updateAccepted=false;
 

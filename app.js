@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.96';
+const APP_VERSION='3.1.97';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -4364,6 +4364,15 @@ function openMoreFunctions(){
   showStudyModuleScreen('moreFunctionsScreen');
 }
 function closeMoreFunctions(){closeStudyModuleScreens()}
+function openFunctionsGuide(){showStudyModuleScreen('functionsGuideScreen')}
+function closeFunctionsGuide(){
+  document.getElementById('functionsGuideScreen')?.classList.add('hidden');
+  document.getElementById('moreFunctionsScreen')?.classList.remove('hidden');
+  document.body.classList.add('study-module-open');
+  window.scrollTo({top:0,behavior:'auto'});
+}
+window.openFunctionsGuide=openFunctionsGuide;
+window.closeFunctionsGuide=closeFunctionsGuide;
 function getPersonalNotes(){
   try{
     const notes=JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY)||'[]');
