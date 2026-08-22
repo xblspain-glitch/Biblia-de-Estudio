@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.94';
+const APP_VERSION='3.1.95';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -921,6 +921,7 @@ function updateSelection(){
     const selectedNums=[...state.selected];
     const hasSavedCorrection=selectedNums.length===1&&Boolean(state.verseCorrections?.[key(selectedNums[0])]);
     correctVerseBtn.classList.toggle('correction-attention',hasSavedCorrection);
+    correctVerseBtn.textContent=hasSavedCorrection?'TEXTO CORREGIDO':'CORREGIR TEXTO';
     correctVerseBtn.setAttribute('aria-label',hasSavedCorrection?'Versículo con corrección guardada':'Corregir texto');
     correctVerseBtn.title=hasSavedCorrection?'Este versículo tiene una corrección guardada':'Corregir texto';
   }
