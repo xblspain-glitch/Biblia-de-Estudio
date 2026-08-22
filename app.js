@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.97';
+const APP_VERSION='3.1.98';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -671,7 +671,8 @@ function render(){
     const h=state.highlights[k]?` highlight-${state.highlights[k]}`:'';
     const saved=k===latestPointKey?' saved-verse':'';
     const explained=group?' explained-verse':'';
-    body+=`<span class="verse${h}${saved}${explained}" data-v="${n}"${group?` data-exp-key="${escapeHtml(group.key)}"`:''}><sup class="verse-number">${n}</sup>${formatBibleText(t,n)}</span> `;
+    const corrected=Boolean(state.verseCorrections?.[k]);
+    body+=`<span class="verse${h}${saved}${explained}" data-v="${n}"${group?` data-exp-key="${escapeHtml(group.key)}"`:''}><sup class="verse-number${corrected?' verse-number-corrected':''}"${corrected?' title="Versículo con texto corregido" aria-label="Versículo corregido"':''}>${n}</sup>${formatBibleText(t,n)}</span> `;
     const nextGroup=groupByVerse.get(n+1)||null;
     if(openGroupKey&&nextGroup?.key!==openGroupKey){body+='</span>';openGroupKey=''}
   }
