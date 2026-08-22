@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.95';
+const APP_VERSION='3.1.96';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -752,6 +752,7 @@ let biblicalEntityLinkIndex=new Map();
 function primaryBiblicalCharacterTerms(name){
   const raw=String(name||'').trim(),terms=new Set([raw]);
   const primary=raw.split(',')[0].split('(')[0].trim();if(primary)terms.add(primary);
+  const first=bibleWordTokens(primary).tokens[0]?.word||'';if(first&&bibleWordTokens(primary).tokens.length>1)terms.add(first);
   const parenthetical=raw.match(/\(([^)]+)\)/)?.[1]?.trim();if(parenthetical&&parenthetical.split(/\s+/).length<=3)terms.add(parenthetical);
   return [...terms];
 }
@@ -802,6 +803,20 @@ function linkedBiblicalEntityCandidates(raw){
       const item=(biblicalPlacesData||[]).find(x=>String(x.id)===String(link.id));return item?{type:'place',id:item.id,name:item.name,score:0}:null;
     }).filter(Boolean);
   }catch(_){return[]}
+}
+function contextualBiblicalEntityCandidate(candidates,label,verseText){
+  if(candidates.length<2)return candidates[0]||null;
+  const needle=normalizeBiblicalEntityText(label),context=normalizeBiblicalEntityText(verseText),stop=new Set(['el','la','los','las','de','del','hijo','hija','hermano','hermana']);
+  const scored=candidates.map(candidate=>{
+    let score=0;
+    const name=normalizeBiblicalEntityText(candidate.name),extra=name.split(' ').filter(word=>word&&!stop.has(word)&&!needle.split(' ').includes(word));
+    for(const word of extra)if(new RegExp(`(^|\\s)${word}(?=\\s|$)`).test(context))score+=4;
+    if(candidate.id==='juan-bautista'&&/(discipulos de juan|juan el bautista|bautista|juan bautizaba|juan habia dicho)/.test(context))score+=12;
+    if(candidate.id==='juan-apóstol'&&/(jacobo y juan|pedro jacobo y juan|juan su hermano|hijos de zebedeo|hijo de zebedeo y juan)/.test(context))score+=12;
+    if(candidate.id==='juan-marcos'&&/(juan marcos|juan el que tenia por sobrenombre marcos|marcos por sobrenombre juan)/.test(context))score+=12;
+    return{candidate,score};
+  }).sort((a,b)=>b.score-a.score);
+  return scored[0].score>0&&scored[0].score>scored[1].score?scored[0].candidate:null;
 }
 window.refreshBiblicalEntityLinks=()=>{biblicalEntityLinkIndexDirty=true;if(state.books.length&&state.verses.length)render()};
 function fragmentClarificationsForVerse(verseNumber){
@@ -1123,7 +1138,8 @@ reader.addEventListener('click',e=>{
   if(entityLink){
     e.preventDefault();e.stopPropagation();
     const candidates=linkedBiblicalEntityCandidates(entityLink.dataset.entityLinks),label=entityLink.textContent||'';
-    if(candidates.length===1)openRecognizedBiblicalEntity(candidates[0]);else if(candidates.length>1)showBiblicalEntityChooser(candidates,label);
+    const contextual=contextualBiblicalEntityCandidate(candidates,label,entityLink.closest('.verse')?.innerText||'');
+    if(contextual)openRecognizedBiblicalEntity(contextual);else if(candidates.length>1)showBiblicalEntityChooser(candidates,label);
     return;
   }
   const referenceCapsule=e.target.closest('.bible-reference-capsule');
