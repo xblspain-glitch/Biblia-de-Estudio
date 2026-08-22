@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.93';
+const APP_VERSION='3.1.94';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -857,6 +857,7 @@ function updateSelection(){
   const favoriteBtn=document.querySelector('.action[data-action="favorite"]');
   const explainBtn=document.querySelector('.action[data-action="explain"]');
   const fragmentBtn=document.querySelector('.action[data-action="fragment"]');
+  const correctVerseBtn=document.querySelector('.action[data-action="correct-verse"]');
   const toggle=$('#actionsPanelToggle');
   const needsSelection=['highlight','favorite','explain','copy'];
   const hasSelection=state.selected.size>0;
@@ -915,6 +916,13 @@ function updateSelection(){
     explainBtn.classList.toggle('explanation-attention',Boolean(selectedExplanation&&!removeMode));
     explainBtn.setAttribute('aria-label',removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación'));
     explainBtn.title=removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación');
+  }
+  if(correctVerseBtn){
+    const selectedNums=[...state.selected];
+    const hasSavedCorrection=selectedNums.length===1&&Boolean(state.verseCorrections?.[key(selectedNums[0])]);
+    correctVerseBtn.classList.toggle('correction-attention',hasSavedCorrection);
+    correctVerseBtn.setAttribute('aria-label',hasSavedCorrection?'Versículo con corrección guardada':'Corregir texto');
+    correctVerseBtn.title=hasSavedCorrection?'Este versículo tiene una corrección guardada':'Corregir texto';
   }
   if(fragmentBtn){
     const enabled=state.selected.size===1||(state.selected.size===0&&hasActiveFragmentAccess());

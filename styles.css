@@ -2692,8 +2692,21 @@ html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-a
   animation:explanationGoldHeartbeat 1.8s ease-in-out infinite;
   z-index:1;
 }
+/* Aviso equivalente cuando el versículo seleccionado tiene una corrección guardada. */
+html body .selection-bar .actions-scroll button.action.pastel-action.action-correct-verse.correction-attention,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action.action-correct-verse.correction-attention,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action.action-correct-verse.correction-attention{
+  background:linear-gradient(180deg,var(--btn89-gold-top) 0%,var(--btn89-gold-mid) 48%,var(--btn89-gold-bottom) 100%)!important;
+  border-color:#f1d16e!important;
+  color:var(--btn89-gold-text)!important;
+  -webkit-text-fill-color:var(--btn89-gold-text)!important;
+  text-shadow:none!important;
+  animation:explanationGoldHeartbeat 1.8s ease-in-out infinite;
+  z-index:1;
+}
 @media (prefers-reduced-motion:reduce){
-  html body .selection-bar .actions-scroll button.action-explain.explanation-attention{animation:none!important}
+  html body .selection-bar .actions-scroll button.action-explain.explanation-attention,
+  html body .selection-bar .actions-scroll button.action-correct-verse.correction-attention{animation:none!important}
 }
 /* Indicadores visuales diferenciados para aclaraciones y punto de libro actual. */
 @keyframes clarificationGoldBreathing{
