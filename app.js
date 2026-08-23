@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.98';
+const APP_VERSION='3.1.99';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -750,6 +750,7 @@ function bibleWordTokens(text){
 }
 let biblicalEntityLinkIndexDirty=true;
 let biblicalEntityLinkIndex=new Map();
+function normalizeBiblicalEntityMatchText(value){return String(value||'').normalize('NFC').toLocaleLowerCase('es').replace(/[^a-z0-9áéíóúüñ\s-]/gi,' ').replace(/\s+/g,' ').trim()}
 function primaryBiblicalCharacterTerms(name){
   const raw=String(name||'').trim(),terms=new Set([raw]);
   const primary=raw.split(',')[0].split('(')[0].trim();if(primary)terms.add(primary);
@@ -759,7 +760,7 @@ function primaryBiblicalCharacterTerms(name){
 }
 function rebuildBiblicalEntityLinkIndex(){
   const phrases=new Map(),add=(term,entity)=>{
-    const words=bibleWordTokens(term).tokens.map(token=>normalizeBiblicalEntityText(token.word)).filter(Boolean),normalized=words.join(' ');
+    const words=bibleWordTokens(term).tokens.map(token=>normalizeBiblicalEntityMatchText(token.word)).filter(Boolean),normalized=words.join(' ');
     if(!normalized||normalized.length<3||!words.length)return;
     if(!phrases.has(normalized))phrases.set(normalized,{words,entities:[]});
     const list=phrases.get(normalized).entities,key=`${entity.type}:${entity.id}`;
@@ -778,7 +779,7 @@ function rebuildBiblicalEntityLinkIndex(){
 }
 function biblicalEntityMatches(tokens,clarifications=[]){
   const index=biblicalEntityLinkIndexDirty?rebuildBiblicalEntityLinkIndex():biblicalEntityLinkIndex;
-  const normalized=tokens.map(token=>normalizeBiblicalEntityText(token.word)),clarificationAt=new Array(tokens.length).fill('');
+  const normalized=tokens.map(token=>normalizeBiblicalEntityMatchText(token.word)),clarificationAt=new Array(tokens.length).fill('');
   for(const item of clarifications){const start=Number(item.startToken),end=Number(item.endToken);if(Number.isInteger(start)&&Number.isInteger(end))for(let i=Math.max(0,start);i<=Math.min(tokens.length-1,end);i++)clarificationAt[i]=String(item.id||'')}
   const matches=[];
   for(let start=0;start<tokens.length;start++){
@@ -823,7 +824,28 @@ window.refreshBiblicalEntityLinks=()=>{biblicalEntityLinkIndexDirty=true;if(stat
 function fragmentClarificationsForVerse(verseNumber){
   const book=state.books[state.bookIndex];
   if(!book||verseNumber===null)return[];
-  return Object.values(state.fragmentClarifications||{}).filter(item=>item&&item.bookKey===book.key&&Number(item.chapter)===Number(state.chapter)&&Number(item.verse)===Number(verseNumber)).sort((a,b)=>Number(a.startToken)-Number(b.startToken));
+  const all=Object.values(state.fragmentClarifications||{}).filter(item=>item&&typeof item==='object');
+  const local=all.filter(item=>item.bookKey===book.key&&Number(item.chapter)===Number(state.chapter)&&Number(item.verse)===Number(verseNumber));
+  const verseText=state.verses[Number(verseNumber)-1];
+  if(typeof verseText!=='string')return local.sort((a,b)=>Number(a.startToken)-Number(b.startToken));
+  const tokens=bibleWordTokens(verseText).tokens,occupied=new Set();
+  for(const item of local)for(let i=Number(item.startToken);i<=Number(item.endToken);i++)occupied.add(i);
+  const automatic=[];
+  for(const source of all.filter(item=>item.scope==='global')){
+    const phraseWords=bibleWordTokens(source.fragment||'').tokens.map(token=>normalizeBiblicalEntityMatchText(token.word)).filter(Boolean);
+    if(!phraseWords.length)continue;
+    const normalized=tokens.map(token=>normalizeBiblicalEntityMatchText(token.word));
+    for(let start=0;start<=tokens.length-phraseWords.length;start++){
+      const end=start+phraseWords.length-1;
+      if(phraseWords.some((word,offset)=>normalized[start+offset]!==word))continue;
+      if(Array.from({length:phraseWords.length},(_,offset)=>start+offset).some(i=>occupied.has(i)))continue;
+      const id=`${source.id}--${book.key}-${state.chapter}-${verseNumber}-${start}`;
+      automatic.push({...source,id,sourceId:source.id,bookKey:book.key,chapter:Number(state.chapter),verse:Number(verseNumber),startToken:start,endToken:end,ref:currentReference([Number(verseNumber)]),automatic:true});
+      for(let i=start;i<=end;i++)occupied.add(i);
+      start=end;
+    }
+  }
+  return [...local,...automatic].sort((a,b)=>Number(a.startToken)-Number(b.startToken));
 }
 function hasActiveFragmentAccess(){
   const book=state.books[state.bookIndex],access=activeFragmentAccess;
@@ -849,7 +871,7 @@ function formatBibleText(s,verseNumber=null){
   for(const token of tokens){
     html+=escapeHtml(clean.slice(cursor,token.start)).replace(/\n/g,'<br>');
     const opening=starts.get(token.index);
-    if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}">`;
+    if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}" data-fragment-source-id="${escapeHtml(opening.sourceId||opening.id)}">`;
     const entityOpening=entityStarts.get(token.index);
     if(entityOpening){const kind=entityOpening.entities.some(x=>x.type==='character')?'character':'place',links=entityOpening.entities.map(x=>({type:x.type,id:x.id}));html+=`<span class="biblical-entity-link biblical-entity-link-${kind}" data-entity-links="${escapeHtml(JSON.stringify(links))}">`}
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices);
@@ -1156,7 +1178,7 @@ reader.addEventListener('click',e=>{
     if(Number.isFinite(verseNumber)){
       explanationArmedKey='';
       state.selected.clear();
-      activeFragmentAccess={id:fragment.dataset.fragmentId||'',bookKey:state.books[state.bookIndex].key,chapter:Number(state.chapter),verse:verseNumber};
+      activeFragmentAccess={id:fragment.dataset.fragmentSourceId||fragment.dataset.fragmentId||'',bookKey:state.books[state.bookIndex].key,chapter:Number(state.chapter),verse:verseNumber};
       updateSelection();
     }
     return;
@@ -1392,20 +1414,21 @@ function renderFragmentWordPicker(){
 function currentVerseFragmentClarifications(verse=fragmentPickerState.verse){return fragmentClarificationsForVerse(verse)}
 function renderFragmentClarificationList(){
   const list=$('#fragmentClarificationList'),items=currentVerseFragmentClarifications();
-  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}</strong><span>${formatReferenceCapsules(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.id)}">Editar</button><button type="button" class="danger" data-fragment-delete="${escapeHtml(item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
+  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}${item.scope==='global'?' <em>· Todas las coincidencias</em>':''}</strong><span>${formatReferenceCapsules(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.sourceId||item.id)}" data-fragment-occurrence="${escapeHtml(item.id)}">Editar</button><button type="button" class="danger" data-fragment-delete="${escapeHtml(item.sourceId||item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
   [...list.querySelectorAll('[data-fragment-edit]')].forEach(button=>button.onclick=()=>{
-    const item=state.fragmentClarifications[button.dataset.fragmentEdit];if(!item)return;
-    fragmentPickerState.start=Number(item.startToken);fragmentPickerState.end=Number(item.endToken);fragmentPickerState.awaitingEnd=false;fragmentPickerState.editId=item.id;
-    $('#fragmentClarificationText').value=item.text||'';$('#cancelFragmentEdit').classList.remove('hidden');updateFragmentPickerUI();$('#fragmentClarificationText').focus();
+    const source=state.fragmentClarifications[button.dataset.fragmentEdit],occurrence=items.find(item=>item.id===button.dataset.fragmentOccurrence)||source;if(!source||!occurrence)return;
+    fragmentPickerState.start=Number(occurrence.startToken);fragmentPickerState.end=Number(occurrence.endToken);fragmentPickerState.awaitingEnd=false;fragmentPickerState.editId=source.id;
+    $('#fragmentClarificationText').value=source.text||'';const scope=document.querySelector(`input[name="fragmentClarificationScope"][value="${source.scope==='global'?'global':'local'}"]`);if(scope)scope.checked=true;
+    $('#cancelFragmentEdit').classList.remove('hidden');updateFragmentPickerUI();$('#fragmentClarificationText').focus();
   });
   [...list.querySelectorAll('[data-fragment-delete]')].forEach(button=>button.onclick=()=>{
-    const item=state.fragmentClarifications[button.dataset.fragmentDelete];if(!item||!confirm(`¿Eliminar la aclaración de «${item.fragment}»?`))return;
+    const item=state.fragmentClarifications[button.dataset.fragmentDelete];if(!item||!confirm(item.scope==='global'?`¿Eliminar «${item.fragment}» de todas sus apariciones?`:`¿Eliminar la aclaración de «${item.fragment}»?`))return;
     delete state.fragmentClarifications[item.id];if(activeFragmentAccess?.id===item.id)activeFragmentAccess=null;save();renderFragmentClarificationList();render();toast('Aclaración eliminada');
   });
 }
 function resetFragmentEditor(){
   fragmentPickerState.start=null;fragmentPickerState.end=null;fragmentPickerState.awaitingEnd=false;fragmentPickerState.editId='';
-  $('#fragmentClarificationText').value='';$('#cancelFragmentEdit').classList.add('hidden');updateFragmentPickerUI();
+  $('#fragmentClarificationText').value='';const localScope=document.querySelector('input[name="fragmentClarificationScope"][value="local"]');if(localScope)localScope.checked=true;$('#cancelFragmentEdit').classList.add('hidden');updateFragmentPickerUI();
 }
 function openFragmentClarificationDialog(){
   const nums=[...state.selected];
@@ -1413,7 +1436,7 @@ function openFragmentClarificationDialog(){
   if(!verse){toast('Selecciona un solo versículo o toca una aclaración rosada');return}
   const parsed=bibleWordTokens(state.verses[verse-1]);
   fragmentPickerState={verse,tokens:parsed.tokens,clean:parsed.clean,start:null,end:null,awaitingEnd:false,editId:''};
-  $('#fragmentClarificationRef').textContent=currentReference([verse]);$('#fragmentClarificationText').value='';$('#cancelFragmentEdit').classList.add('hidden');
+  $('#fragmentClarificationRef').textContent=currentReference([verse]);$('#fragmentClarificationText').value='';const localScope=document.querySelector('input[name="fragmentClarificationScope"][value="local"]');if(localScope)localScope.checked=true;$('#cancelFragmentEdit').classList.add('hidden');
   renderFragmentWordPicker();renderFragmentClarificationList();$('#fragmentClarificationDialog').showModal();
 }
 $('#cancelFragmentEdit')?.addEventListener('click',resetFragmentEditor);
@@ -1424,11 +1447,12 @@ $('#copyFragmentSelection')?.addEventListener('click',async()=>{
 $('#saveFragmentClarification')?.addEventListener('click',()=>{
   const p=fragmentPickerState,fragment=fragmentTextFromPicker(),text=$('#fragmentClarificationText').value.trim();
   if(!fragment){toast('Selecciona la primera y la última palabra');return}if(p.awaitingEnd){toast('Toca también la última palabra del fragmento');return}if(!text){toast('Escribe una explicación breve');return}
-  const overlap=currentVerseFragmentClarifications(p.verse).find(item=>item.id!==p.editId&&Number(item.startToken)<=p.end&&Number(item.endToken)>=p.start);
+  const overlap=currentVerseFragmentClarifications(p.verse).find(item=>(item.sourceId||item.id)!==p.editId&&Number(item.startToken)<=p.end&&Number(item.endToken)>=p.start);
   if(overlap){toast(`Ese tramo coincide con «${overlap.fragment}»`);return}
   const book=state.books[state.bookIndex],id=p.editId||`fragment-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
-  state.fragmentClarifications[id]={id,bookKey:book.key,chapter:Number(state.chapter),verse:Number(p.verse),startToken:Number(p.start),endToken:Number(p.end),fragment,text,ref:currentReference([p.verse]),updated:Date.now()};
-  save();$('#fragmentClarificationDialog').close();state.selected.clear();activeFragmentAccess=null;render();updateSelection();toast(p.editId?'Aclaración actualizada':'Aclaración guardada');
+  const scope=document.querySelector('input[name="fragmentClarificationScope"]:checked')?.value==='global'?'global':'local';
+  state.fragmentClarifications[id]={id,bookKey:book.key,chapter:Number(state.chapter),verse:Number(p.verse),startToken:Number(p.start),endToken:Number(p.end),fragment,text,scope,ref:currentReference([p.verse]),updated:Date.now()};
+  save();$('#fragmentClarificationDialog').close();state.selected.clear();activeFragmentAccess=null;render();updateSelection();toast(p.editId?'Aclaración actualizada':(scope==='global'?'Aclaración aplicada a todas las coincidencias':'Aclaración guardada'));
 });
 function renderBooks(filter='all'){
   const list=$('#booksList');
