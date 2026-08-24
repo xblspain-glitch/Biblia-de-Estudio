@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.101';
+const APP_VERSION='3.1.102';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1946,6 +1946,11 @@ function renderStats(){
   $('#statsExplanations').textContent=Object.keys(state.explanations||{}).length.toLocaleString('es-ES');
   updateDictionaryCounters();
   $('#statsHighlights').textContent=Object.keys(state.highlights||{}).length.toLocaleString('es-ES');
+  const corrections=Object.entries(state.verseCorrections||{}),correctionBooks=new Set(corrections.map(([key])=>statsKeyParts(key).bookKey));
+  const lastCorrection=corrections.map(([,value])=>Number(value?.updatedAt)||0).sort((a,b)=>b-a)[0]||0;
+  $('#statsCorrections').textContent=corrections.length.toLocaleString('es-ES');
+  $('#statsCorrectionBooks').textContent=correctionBooks.size.toLocaleString('es-ES');
+  $('#statsLastCorrection').textContent=lastCorrection?new Intl.DateTimeFormat('es-ES',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(lastCorrection)):'Sin correcciones';
   loadChapterReadingProgressV316();
   const readingStats=currentBibleReadingStatsV3160();
   $('#statsCompletedChapters').textContent=`${readingStats.chaptersCompleted.toLocaleString('es-ES')} / ${readingStats.totalChapters.toLocaleString('es-ES')}`;
@@ -1969,7 +1974,7 @@ function openStats(){
 }
 
 const statsListState={kind:'saved',page:1,pageSize:20,query:'',sort:'recent',items:[]};
-const STATS_LIST_LABELS={saved:'Guardados',reading:'Puntos de libro',explanations:'Explicaciones',dictionary:'Diccionario',highlights:'Subrayados',titles:'Títulos integrados'};
+const STATS_LIST_LABELS={saved:'Guardados',reading:'Puntos de libro',explanations:'Explicaciones',dictionary:'Diccionario',highlights:'Subrayados',corrections:'Correcciones del texto',titles:'Títulos integrados'};
 function statsBookName(bookKey){const b=state.books.find(x=>x.key===bookKey);return b?displayBook(b):String(bookKey||'').replaceAll('_',' ')}
 function statsKeyParts(k){const [bookKey,chapter,verse]=String(k||'').split(':');return{bookKey,chapter:Number(chapter)||1,verse:Number(verse)||1}}
 function statsVerseText(k){const el=document.querySelector(`.verse[data-key="${CSS.escape(String(k))}"]`);return el?.textContent?.trim()||''}
@@ -1984,6 +1989,7 @@ function getStatsListItems(kind){
   if(kind==='explanations')return Object.entries(state.explanations||{}).map(([key,x],i)=>({id:key,key,title:x.ref||key,text:x.text||'',date:Number(x.updated)||0,alpha:x.ref||key,index:i}));
   if(kind==='dictionary')return getDictionaryEntries().map((x,i)=>({id:x.id,title:x.termino||'Sin palabra',text:x.explicacion||'',tag:x.categoria||'Sin categoría',date:Number(x.updatedAt||x.createdAt)||0,alpha:x.termino||'',entry:x,index:i}));
   if(kind==='highlights')return Object.entries(state.highlights||{}).map(([key,color],i)=>{const p=statsKeyParts(key);const ref=`${statsBookName(p.bookKey)} ${p.chapter}:${p.verse}`;return{id:key,key,title:ref,text:state.favorites?.[key]?.text||statsVerseText(key)||'Abrir el versículo subrayado',tag:color,date:0,alpha:ref,index:i}});
+  if(kind==='corrections')return Object.entries(state.verseCorrections||{}).map(([key,value],i)=>{const p=statsKeyParts(key),saved=value&&typeof value==='object'?value:{text:String(value||'')},ref=saved.ref||`${statsBookName(p.bookKey)} ${p.chapter}:${p.verse}`,original=String(saved.original||'Texto original no disponible'),corrected=String(saved.text||'');return{id:key,key,title:ref,text:`Original: ${original}\nCorregido: ${corrected}`,tag:'Texto corregido',date:Number(saved.updatedAt)||0,alpha:`${statsBookName(p.bookKey)} ${String(p.chapter).padStart(3,'0')} ${String(p.verse).padStart(3,'0')}`,index:i,correction:true}});
   if(kind==='titles'){
     const out=[];Object.entries(BUILTIN_TITLES_EMBEDDED||{}).forEach(([bookKey,chapters])=>Object.entries(chapters||{}).forEach(([chapter,arr])=>(arr||[]).forEach((x,i)=>out.push({id:`${bookKey}:${chapter}:${x.versiculo}:${i}`,key:`${bookKey}:${chapter}:${x.versiculo}`,title:`${statsBookName(bookKey)} ${chapter}:${x.versiculo}`,text:x.titulo||'',date:0,alpha:`${statsBookName(bookKey)} ${String(chapter).padStart(3,'0')} ${String(x.versiculo).padStart(3,'0')} ${x.titulo||''}`,index:out.length}))));return out;
   }
@@ -1997,7 +2003,7 @@ function renderStatsList(){
   s.items=items;const pages=Math.max(1,Math.ceil(items.length/s.pageSize));s.page=Math.min(Math.max(1,s.page),pages);const start=(s.page-1)*s.pageSize,visible=items.slice(start,start+s.pageSize);
   $('#statsListSummary').textContent=`${items.length.toLocaleString('es-ES')} elemento${items.length===1?'':'s'} · ${s.sort==='az'?'orden alfabético':'más recientes primero'}`;
   $('#statsPageInfo').textContent=`Página ${s.page} de ${pages}`;$('#statsPrevPage').disabled=s.page<=1;$('#statsNextPage').disabled=s.page>=pages;
-  $('#statsListResults').innerHTML=visible.length?visible.map((x,i)=>`<button type="button" class="stats-list-item" data-list-index="${start+i}"><strong>${escapeHtml(x.title)}</strong>${x.date?`<time>${escapeHtml(formatSavedDate(x.date))}</time>`:(x.tag?`<span class="stats-item-tag">${escapeHtml(x.tag)}</span>`:'')}<p>${escapeHtml(x.text||'Abrir')}</p></button>`).join(''):'<div class="stats-empty">No hay elementos que mostrar.</div>';
+  $('#statsListResults').innerHTML=visible.length?visible.map((x,i)=>`<button type="button" class="stats-list-item${x.correction?' stats-correction-item':''}" data-list-index="${start+i}"><strong>${escapeHtml(x.title)}</strong>${x.date?`<time>${escapeHtml(formatSavedDate(x.date))}</time>`:(x.tag?`<span class="stats-item-tag">${escapeHtml(x.tag)}</span>`:'')}<p>${escapeHtml(x.text||'Abrir')}</p>${x.correction?'<small class="stats-correction-hint">Pulsa para ir al versículo, editarlo o restaurar el original</small>':''}</button>`).join(''):'<div class="stats-empty">No hay elementos que mostrar.</div>';
 }
 function openStatsList(kind){
   statsListState.kind=kind;statsListState.page=1;statsListState.query='';statsListState.sort=kind==='dictionary'||kind==='titles'?'az':'recent';
@@ -2009,7 +2015,7 @@ async function activateStatsListItem(item){
   if(kind==='reading')return goToReadingPoint(item.point);
   if(kind==='dictionary')return openDictionaryEditor(item.id);
   if(kind==='explanations')return openViewExplanation(item.key);
-  if(kind==='saved'||kind==='highlights'||kind==='titles')return navigateKey(item.key);
+  if(kind==='saved'||kind==='highlights'||kind==='corrections'||kind==='titles')return navigateKey(item.key);
 }
 $('#statsDialog')?.addEventListener('click',e=>{
   const journey=e.target.closest('[data-open-word-journey]');
@@ -4334,6 +4340,7 @@ function renderMyWordJourneyV3110(){
   const highlights=Object.keys(state.highlights||{}).length;
   const explanations=Object.keys(state.explanations||{}).length;
   const markedWords=wordJourneyMarkedWordsV3110();
+  const corrections=Object.keys(state.verseCorrections||{}).length;
 
   container.innerHTML=`
     <section class="word-journey-hero">
@@ -4355,6 +4362,7 @@ function renderMyWordJourneyV3110(){
         ${wordJourneyMetricV3110(savedVerses,'Versículos guardados')}
         ${wordJourneyMetricV3110(highlights,'Subrayados')}
         ${wordJourneyMetricV3110(explanations,'Explicaciones')}
+        ${wordJourneyMetricV3110(corrections,'Textos corregidos')}
         ${wordJourneyMetricV3110(markedWords,'Palabras marcadas')}
       </div>
     </section>`;
