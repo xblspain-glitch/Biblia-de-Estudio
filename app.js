@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.102';
+const APP_VERSION='3.1.103';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -651,6 +651,7 @@ function render(){
   const integratedChapter=BUILTIN_TITLES_EMBEDDED?.[b.key]?.[String(state.chapter)]||[];
   const activeChapter=state.titles?.[b.key]?.[String(state.chapter)]||[];
   const chapterTitles=[...integratedChapter,...activeChapter].reduce((m,x)=>{const v=Number(x?.versiculo),t=String(x?.titulo||'').trim();if(v>0&&t){m[v]||=[];if(!m[v].includes(t))m[v].push(t)}return m},{});
+  nearbyDictionaryRepeatedOccurrences=buildNearbyDictionaryRepeatedOccurrences(chapterTitles);
   const latestPoint=latestSavedPoint();
   const latestPointKey=latestPoint?`${latestPoint.bookKey}:${latestPoint.chapter}:${latestPoint.verse}`:'';
   const groups=chapterExplanationGroups();
@@ -739,6 +740,22 @@ function saveDictionaryEquivalenceChoices(value){localStorage.setItem(DICTIONARY
 function dictionaryOccurrenceKey(verseNumber,tokenIndex){
   const book=state.books[state.bookIndex];
   return book&&Number.isFinite(Number(verseNumber))?`${book.key}:${state.chapter}:${Number(verseNumber)}:${tokenIndex}`:'';
+}
+let nearbyDictionaryRepeatedOccurrences=new Set();
+function normalizeNearbyDictionaryWord(value){return String(value||'').normalize('NFC').toLocaleLowerCase('es').trim()}
+function buildNearbyDictionaryRepeatedOccurrences(chapterTitles={}){
+  const repeated=new Set(),lastSeen=new Map(),book=state.books[state.bookIndex];
+  if(!book)return repeated;
+  for(let verse=1;verse<=state.verses.length;verse++){
+    if((chapterTitles[verse]||[]).length||PARABLE_LINKS_BY_POSITION[`${book.key}:${state.chapter}:${verse}`])lastSeen.clear();
+    for(const token of bibleWordTokens(state.verses[verse-1]).tokens){
+      if(!getDictionaryEntryForWord(token.word))continue;
+      const form=normalizeNearbyDictionaryWord(token.word),previous=lastSeen.get(form);
+      if(previous&&verse-previous.verse<=2)repeated.add(dictionaryOccurrenceKey(verse,token.index));
+      lastSeen.set(form,{verse,tokenIndex:token.index});
+    }
+  }
+  return repeated;
 }
 const BIBLE_WORD_PATTERN=/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+(?:['’’-][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)*/g;
 function bibleWordTokens(text){
@@ -855,8 +872,8 @@ function formatBibleWordToken(word,verseNumber,tokenIndex,choices){
   const safeWord=escapeHtml(word),entry=getDictionaryEntryForWord(word);
   if(!entry)return `<span class="dict-word" data-word="${safeWord}">${safeWord}</span>`;
   const occurrenceKey=dictionaryOccurrenceKey(verseNumber,tokenIndex),equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
-  const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent);
-  return `<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
+  const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent),nearbyRepeated=!!(occurrenceKey&&nearbyDictionaryRepeatedOccurrences.has(occurrenceKey));
+  return `<span class="dict-word dict-known${nearbyRepeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}${nearbyRepeated?' title="Repetición cercana: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
 }
 function formatBibleText(s,verseNumber=null){
   const {clean,tokens}=bibleWordTokens(s),choices=verseNumber===null?{}:readDictionaryEquivalenceChoices();
