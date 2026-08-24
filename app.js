@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.103';
+const APP_VERSION='3.1.104';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -3266,6 +3266,79 @@ function actualizarEstadoTitulos(){
   download?.classList.remove('hidden');
 }
 setTimeout(actualizarEstadoTitulos,1200);
+
+// Auditoría general, siempre manual y de solo lectura.
+const studyAuditState={report:null,filter:'all'};
+const AUDIT_LABELS={error:'Error',warning:'Advertencia',info:'Recomendación',pass:'Correcto'};
+function auditLocation(key){
+  const [bookKey,chapter,verse]=String(key||'').split(':');
+  const book=state.books.find(item=>item.key===bookKey),max=EXPECTED_CHAPTER_VERSES[bookKey]?.[Number(chapter)-1];
+  return Boolean(book&&Number(chapter)>=1&&Number(chapter)<=book.chapters&&Number(verse)>=1&&Number(verse)<=max);
+}
+function auditItem(level,category,title,detail='',key=''){return{level,category,title,detail,key}}
+function renderStudyAudit(filter=studyAuditState.filter){
+  const report=studyAuditState.report;if(!report)return;studyAuditState.filter=filter;
+  const counts={error:0,warning:0,info:0,pass:0};report.items.forEach(item=>counts[item.level]++);
+  $('#studyAuditErrors').textContent=counts.error;$('#studyAuditWarnings').textContent=counts.warning;$('#studyAuditRecommendations').textContent=counts.info;$('#studyAuditPassed').textContent=counts.pass;
+  $('#studyAuditSummary').classList.remove('hidden');$('#studyAuditFilters').classList.remove('hidden');$('#downloadStudyAuditReport').classList.remove('hidden');
+  $$('#studyAuditFilters [data-audit-filter]').forEach(button=>button.classList.toggle('active',button.dataset.auditFilter===filter));
+  const visible=filter==='all'?report.items:report.items.filter(item=>item.level===filter),box=$('#studyAuditResults');
+  box.innerHTML=visible.length?visible.map((item,index)=>`<article class="study-audit-item ${item.level}"><div class="study-audit-item-head"><h3>${escapeHtml(item.title)}</h3><small>${escapeHtml(AUDIT_LABELS[item.level])} · ${escapeHtml(item.category)}</small></div>${item.detail?`<p>${escapeHtml(item.detail)}</p>`:''}${item.key&&auditLocation(item.key)?`<button type="button" data-audit-go="${escapeHtml(item.key)}">Ir al versículo</button>`:''}</article>`).join(''):'<p class="study-audit-empty">No hay resultados en este filtro.</p>';
+}
+function checkStudyCollections(items){
+  const corrections=Object.entries(state.verseCorrections||{}),badCorrections=corrections.filter(([key,value])=>!auditLocation(key)||!String(value?.text||'').trim());
+  badCorrections.forEach(([key])=>items.push(auditItem('error','Correcciones','Corrección incompleta o fuera de rango',key,key)));
+  items.push(auditItem(badCorrections.length?'warning':'pass','Correcciones',badCorrections.length?'Conviene revisar las correcciones indicadas':`${corrections.length} corrección(es) guardada(s) con referencia válida`,badCorrections.length?`${badCorrections.length} incidencia(s) encontrada(s).`:''));
+  const explanations=Object.entries(state.explanations||{}),badExplanations=[];
+  explanations.forEach(([key,value])=>{const parts=key.split(':'),nums=(parts[2]||'').split(',').map(Number);if(!String(value?.text||'').trim()||!nums.length||nums.some(n=>!auditLocation(`${parts[0]}:${parts[1]}:${n}`)))badExplanations.push([key,value])});
+  badExplanations.forEach(([key])=>items.push(auditItem('error','Explicaciones','Explicación vacía o con referencia inválida',key,key.split(',')[0])));
+  items.push(auditItem(badExplanations.length?'warning':'pass','Explicaciones',badExplanations.length?'Hay explicaciones que necesitan revisión':`${explanations.length} explicación(es) coherente(s)`,badExplanations.length?`${badExplanations.length} incidencia(s).`:''));
+  const clarifications=Object.values(state.fragmentClarifications||{}),badClarifications=clarifications.filter(x=>!x||!String(x.fragment||'').trim()||!String(x.text||'').trim()||(x.scope!=='global'&&!auditLocation(`${x.bookKey}:${x.chapter}:${x.verse}`)));
+  badClarifications.forEach(x=>items.push(auditItem('error','Aclaraciones','Aclaración incompleta o fuera de rango',String(x?.ref||x?.fragment||'Sin referencia'),x?.bookKey?`${x.bookKey}:${x.chapter}:${x.verse}`:'')));
+  items.push(auditItem(badClarifications.length?'warning':'pass','Aclaraciones',badClarifications.length?'Hay cápsulas rosas que necesitan revisión':`${clarifications.length} aclaración(es), incluidas las globales, con estructura válida`,badClarifications.length?`${badClarifications.length} incidencia(s).`:''));
+  const dictionary=getDictionaryEntries({sync:true}),seen=new Map(),duplicates=[];
+  dictionary.forEach(entry=>{const term=normalizeDictionaryText(entry.termino||'');if(!term||!String(entry.explicacion||'').trim())items.push(auditItem('warning','Diccionario','Ficha de diccionario incompleta',String(entry.termino||'Sin término')));if(term&&seen.has(term))duplicates.push(entry.termino);else if(term)seen.set(term,entry.id)});
+  if(duplicates.length)items.push(auditItem('warning','Diccionario','Términos duplicados normalizados',duplicates.slice(0,8).join(', ')+(duplicates.length>8?'…':'')));
+  else items.push(auditItem('pass','Diccionario',`${dictionary.length} ficha(s) sin términos duplicados`,''));
+  const personal=[['Guardados',state.favorites],['Subrayados',state.highlights]];
+  personal.forEach(([name,data])=>{const invalid=Object.keys(data||{}).filter(key=>!auditLocation(key));items.push(auditItem(invalid.length?'warning':'pass','Datos personales',invalid.length?`${name}: referencias que ya no son válidas`:`${name}: referencias válidas`,invalid.length?`${invalid.length} elemento(s).`:''))});
+}
+async function runStudyAudit(mode='quick'){
+  const quick=$('#runQuickStudyAudit'),full=$('#runFullStudyAudit'),progress=$('#studyAuditProgress');quick.disabled=true;full.disabled=true;
+  const report={version:APP_VERSION,mode,auditedAt:Date.now(),items:[]};progress.textContent=mode==='full'?'Comenzando la revisión completa…':'Revisando tus funciones y datos…';
+  try{
+    checkStudyCollections(report.items);
+    const badParablePositions=Object.keys(PARABLE_LINKS_BY_POSITION).filter(key=>!auditLocation(key));
+    if(badParablePositions.length)report.items.push(auditItem('error','Parábolas','Enlaces situados fuera de un versículo válido',badParablePositions.join(', ')));
+    else report.items.push(auditItem('pass','Parábolas',`${Object.keys(PARABLE_LINKS_BY_POSITION).length} enlace(s) ubicados en versículos válidos`,''));
+    const characters=Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[],characterIds=new Set(),duplicateCharacterIds=[];
+    characters.forEach(x=>{const id=String(x?.id||'');if(id&&characterIds.has(id))duplicateCharacterIds.push(id);characterIds.add(id)});
+    report.items.push(auditItem(duplicateCharacterIds.length?'error':'pass','Personajes',duplicateCharacterIds.length?'Hay identificadores de personaje duplicados':`${characters.length} ficha(s) cargada(s) sin identificadores duplicados`,duplicateCharacterIds.join(', ')));
+    const referenceTexts=[...Object.values(state.explanations||{}),...Object.values(state.fragmentClarifications||{})].map(x=>String(x?.text||''));let references=0;
+    referenceTexts.forEach(text=>{const pattern=bibleReferencePattern();if(pattern)while(pattern.exec(text))references++});
+    report.items.push(auditItem('pass','Referencias bíblicas',`${references} referencia(s) reconocible(s) en explicaciones y aclaraciones`,''));
+    if(mode==='full'){
+      progress.textContent='Revisando los 66 libros, capítulos, versículos y títulos…';
+      await auditarBibliaInstalada();const bible=state.lastLocalAudit;
+      if(bible?.verified)report.items.push(auditItem('pass','Texto bíblico','66 libros, 1.189 capítulos y 31.104 versículos verificados',`SHA-256: ${bible.sha256}`));
+      else report.items.push(auditItem('error','Texto bíblico','La comprobación técnica encontró incidencias',`${bible?.errors?.length||0} error(es) y ${bible?.warnings?.length||0} advertencia(s).`));
+      progress.textContent='Comprobando fichas de parábolas…';
+      try{const response=await fetch(freshUrl('biblical-parables.json'),{cache:'no-store'}),data=await response.json(),list=Array.isArray(data)?data:(data.parables||data.items||[]),ids=new Set(list.map(x=>String(x.id)));
+        const missing=Object.values(PARABLE_LINKS_BY_POSITION).filter(link=>!ids.has(String(link.id)));report.items.push(auditItem(missing.length?'warning':'pass','Parábolas',missing.length?'Hay enlaces cuya ficha no aparece en el archivo base':'Todos los enlaces de parábolas tienen ficha base',missing.length?missing.map(x=>x.title).join(', '):''));
+      }catch(error){report.items.push(auditItem('warning','Parábolas','No se pudo contrastar el archivo de fichas',error.message))}
+      try{const response=await fetch(freshUrl('biblical-places.json'),{cache:'no-store'}),data=await response.json(),list=Array.isArray(data)?data:(data.places||data.items||[]),ids=new Set(),duplicates=[];list.forEach(x=>{const id=String(x?.id||'');if(id&&ids.has(id))duplicates.push(id);ids.add(id)});report.items.push(auditItem(duplicates.length?'error':'pass','Lugares',duplicates.length?'Hay identificadores de lugar duplicados':`${list.length} ficha(s) base sin identificadores duplicados`,duplicates.join(', ')))}catch(error){report.items.push(auditItem('warning','Lugares','No se pudo contrastar el archivo de lugares',error.message))}
+      const lastBackup=localStorage.getItem('bibliaLastBackupAt')||localStorage.getItem(DRIVE_LAST_BACKUP_KEY);
+      report.items.push(auditItem(lastBackup?'pass':'info','Copias de seguridad',lastBackup?'Existe constancia de una copia de seguridad':'Conviene exportar una copia completa periódicamente',lastBackup?new Date(lastBackup).toLocaleString('es-ES'):''));
+    }else report.items.push(auditItem('info','Texto bíblico','La revisión rápida no recorre los 31.104 versículos','Usa «Revisión completa» cuando quieras verificar también los archivos bíblicos.'));
+    studyAuditState.report=report;localStorage.setItem('lastStudyAudit',JSON.stringify(report));renderStudyAudit('all');
+    const problems=report.items.filter(x=>x.level==='error').length,warnings=report.items.filter(x=>x.level==='warning').length;progress.textContent=`Auditoría terminada: ${problems} error(es) y ${warnings} advertencia(s). No se ha modificado ningún dato.`;
+  }catch(error){console.error(error);progress.textContent=`No se pudo completar la auditoría: ${error.message}`}
+  finally{quick.disabled=false;full.disabled=false}
+}
+$('#openStudyAudit')?.addEventListener('click',()=>{$('#settingsDialog').close();const dialog=$('#studyAuditDialog');if(!dialog.open)dialog.showModal();const saved=JSON.parse(localStorage.getItem('lastStudyAudit')||'null');if(saved){studyAuditState.report=saved;renderStudyAudit('all');$('#studyAuditProgress').textContent=`Última auditoría: ${new Date(saved.auditedAt).toLocaleString('es-ES')}. Puedes repetirla cuando quieras.`}});
+$('#runQuickStudyAudit')?.addEventListener('click',()=>runStudyAudit('quick'));$('#runFullStudyAudit')?.addEventListener('click',()=>runStudyAudit('full'));
+$('#studyAuditDialog')?.addEventListener('click',event=>{const filter=event.target.closest('[data-audit-filter]')?.dataset.auditFilter;if(filter)renderStudyAudit(filter);const key=event.target.closest('[data-audit-go]')?.dataset.auditGo;if(key){$('#studyAuditDialog').close();navigateKey(key)}});
+$('#downloadStudyAuditReport')?.addEventListener('click',()=>{const report=studyAuditState.report;if(!report)return;const lines=['AUDITORÍA DE MI BIBLIA DE ESTUDIO','',`Versión: ${report.version}`,`Fecha: ${new Date(report.auditedAt).toLocaleString('es-ES')}`,`Modo: ${report.mode==='full'?'Completo':'Rápido'}`,'','La auditoría es de solo lectura: no se modificó ningún dato.',''];report.items.forEach(x=>lines.push(`[${AUDIT_LABELS[x.level].toUpperCase()}] ${x.category} — ${x.title}${x.detail?`\n${x.detail}`:''}`,' '));const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`AUDITORIA_MI_BIBLIA_V${APP_VERSION}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 let toastTimer=0;
 function toast(message){
   const element=$('#toast');
