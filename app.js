@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.108';
+const APP_VERSION='3.1.109';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1152,11 +1152,26 @@ function showBiblicalEntitySearch(raw,occurrence){
   const paint=()=>{const q=normalizeBiblicalEntityText(input.value),matches=(q?all.filter(x=>normalizeBiblicalEntityText(x.name).includes(q)):all).slice(0,30);list.innerHTML=matches.length?matches.map((x,i)=>`<button type="button" data-choice-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button>`).join(''):'<p class="biblical-entity-no-results">No existe todavía una ficha con ese nombre.</p>';list.querySelectorAll('[data-choice-index]').forEach(button=>button.onclick=()=>{const entity=matches[Number(button.dataset.choiceIndex)];saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:entity.type,id:String(entity.id),direct:false});closeBiblicalEntityChooser();toast(`Vínculo cambiado a ${entity.name}`);openRecognizedBiblicalEntity(entity)})};
   input.addEventListener('input',paint);wrap.querySelector('.biblical-entity-close').onclick=closeBiblicalEntityChooser;wrap.querySelector('.biblical-entity-cancel').onclick=()=>showBiblicalEntityActionMenu(linkedBiblicalEntityCandidates(document.querySelector(`[data-entity-occurrence="${CSS.escape(occurrence)}"]`)?.dataset.entityLinks),raw,{occurrence});wrap.addEventListener('click',e=>{if(e.target===wrap)closeBiblicalEntityChooser()});paint();setTimeout(()=>input.focus(),80);
 }
+function biblicalEntityQuickInfo(entity){
+  if(!entity)return null;
+  if(entity.type==='character'){
+    const item=(Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[]).find(x=>String(x.id)===String(entity.id));
+    if(!item)return null;
+    return{type:'character',category:String(item.categoria||'Personaje bíblico').trim(),meta:'',description:String(item.contextoRapido||item.quienFue||'').trim()};
+  }
+  const item=(biblicalPlacesData||[]).find(x=>String(x.id)===String(entity.id));
+  if(!item)return null;
+  return{type:'place',category:String(item.category||'Lugar bíblico').trim(),meta:String(item.currentRegion||'').trim(),description:String(item.shortDescription||item.biblicalImportance||item.history||'').trim()};
+}
+function biblicalEntityQuickInfoHtml(entity){
+  const info=biblicalEntityQuickInfo(entity);if(!info||!info.description)return'';
+  return`<article class="biblical-entity-quick biblical-entity-quick-${info.type}"><div class="biblical-entity-quick-label"><span>${info.type==='character'?'👤':'📍'}</span><strong>${escapeHtml(info.category)}</strong>${info.meta?`<small>${escapeHtml(info.meta)}</small>`:''}</div><p>${escapeHtml(info.description)}</p></article>`;
+}
 function showBiblicalEntityActionMenu(candidates,raw,context={}){
   closeBiblicalEntityChooser();const occurrence=context.occurrence||'',stored=state.biblicalEntityChoices?.[occurrence],suggested=context.suggested||candidates[0]||null;
   const wrap=document.createElement('div');wrap.id='biblicalEntityChooser';wrap.className='biblical-entity-overlay';
   const proposed=suggested?`<button type="button" class="biblical-entity-choice" data-entity-open><span class="biblical-entity-icon">${suggested.type==='character'?'👤':'📍'}</span><span><strong>Abrir ficha: ${escapeHtml(suggested.name)}</strong><small>${suggested.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button><button type="button" class="biblical-entity-direct" data-entity-direct>✓ Abrir directamente esta ficha a partir de ahora</button>`:'';
-  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true"><div class="biblical-entity-head"><div><small>VÍNCULO BÍBLICO</small><h2>${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Qué quieres hacer con esta aparición?</p><div class="biblical-entity-list">${proposed}<button type="button" class="biblical-entity-choice" data-entity-change><span class="biblical-entity-icon">🔎</span><span><strong>Elegir otra ficha</strong><small>Buscar entre personajes y lugares</small></span><span class="biblical-entity-arrow">›</span></button><button type="button" class="biblical-entity-choice biblical-entity-remove" data-entity-remove><span class="biblical-entity-icon">⊘</span><span><strong>Quitar vínculo en este versículo</strong><small>No afecta a otras apariciones</small></span></button>${stored?'<button type="button" class="biblical-entity-reset" data-entity-reset>Restaurar detección automática</button>':''}</div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
+  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true"><div class="biblical-entity-head"><div><small>VÍNCULO BÍBLICO</small><h2>${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Qué quieres hacer con esta aparición?</p>${biblicalEntityQuickInfoHtml(suggested)}<div class="biblical-entity-list">${proposed}<button type="button" class="biblical-entity-choice" data-entity-change><span class="biblical-entity-icon">🔎</span><span><strong>Elegir otra ficha</strong><small>Buscar entre personajes y lugares</small></span><span class="biblical-entity-arrow">›</span></button><button type="button" class="biblical-entity-choice biblical-entity-remove" data-entity-remove><span class="biblical-entity-icon">⊘</span><span><strong>Quitar vínculo en este versículo</strong><small>No afecta a otras apariciones</small></span></button>${stored?'<button type="button" class="biblical-entity-reset" data-entity-reset>Restaurar detección automática</button>':''}</div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
   document.body.appendChild(wrap);wrap.querySelector('.biblical-entity-close').onclick=closeBiblicalEntityChooser;wrap.querySelector('.biblical-entity-cancel').onclick=closeBiblicalEntityChooser;wrap.addEventListener('click',e=>{if(e.target===wrap)closeBiblicalEntityChooser()});
   wrap.querySelector('[data-entity-open]')?.addEventListener('click',()=>openRecognizedBiblicalEntity(suggested));
   wrap.querySelector('[data-entity-direct]')?.addEventListener('click',()=>{saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:suggested.type,id:String(suggested.id),direct:true});closeBiblicalEntityChooser();toast('Esta ficha se abrirá directamente')});
