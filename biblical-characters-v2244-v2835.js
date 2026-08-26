@@ -45,12 +45,14 @@ const CAIFAS_CHARACTER_V3111={
 };
 
 function restoreCaifasCharacterV3111(){
-  if(localStorage.getItem(CAIFAS_RESTORE_KEY_V3111)==='1')return false;
   const exists=BIBLICAL_CHARACTERS_V2242.some(item=>String(item?.nombre||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()==='caifas');
   if(!exists)BIBLICAL_CHARACTERS_V2242.unshift({...CAIFAS_CHARACTER_V3111,mapa:[...CAIFAS_CHARACTER_V3111.mapa],lecturas:[...CAIFAS_CHARACTER_V3111.lecturas],cristoClaves:[...CAIFAS_CHARACTER_V3111.cristoClaves],relacionados:[]});
   if(!BIBLICAL_CHARACTER_CATEGORIES_V2242.includes(CAIFAS_CHARACTER_V3111.categoria))BIBLICAL_CHARACTER_CATEGORIES_V2242.push(CAIFAS_CHARACTER_V3111.categoria);
   localStorage.setItem(CAIFAS_RESTORE_KEY_V3111,'1');
-  if(!exists)saveBiblicalCharactersCrudV16433();
+  if(!exists){
+    saveBiblicalCharactersCrudV16433();
+    console.info('Ficha de Caifás restaurada y guardada correctamente.');
+  }
   return !exists;
 }
 
