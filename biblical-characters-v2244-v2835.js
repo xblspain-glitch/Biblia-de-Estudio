@@ -8,6 +8,51 @@ let biblicalCharactersLoadErrorV2252="";
 let biblicalCategoryV2242="Todos";
 const BIBLICAL_CHAR_STORAGE_V16433="biblia_personajes_crud_v16433";
 let biblicalCharactersTrashV16433=[];
+const CAIFAS_RESTORE_KEY_V3111='biblia_caifas_restored_v3111';
+const CAIFAS_CHARACTER_V3111={
+  id:'caifas',
+  nombre:'Caifás',
+  categoria:'Personajes del Nuevo Testamento / Autoridades religiosas',
+  contextoRapido:'Sumo sacerdote judío que presidió el proceso religioso contra Jesucristo.',
+  quienFue:'José, llamado Caifás, fue sumo sacerdote de Jerusalén durante el ministerio y la pasión de Jesús. Era yerno de Anás y una de las principales autoridades religiosas judías de aquel tiempo.',
+  importante:'Convocó junto con los principales sacerdotes y ancianos el consejo que buscaba prender y matar a Jesús. Después del arresto, Jesús fue llevado ante Caifás, donde se reunieron los escribas y ancianos. Antes de estos acontecimientos, Caifás había declarado que convenía que un hombre muriera por el pueblo; sin comprender plenamente el alcance de sus palabras, profetizó que Jesús moriría por la nación y para congregar en uno a los hijos de Dios dispersos.',
+  aprendizaje:'Una posición religiosa elevada no garantiza comprender ni obedecer la voluntad de Dios. Caifás actuó para conservar el orden y su autoridad, pero terminó participando en la condena de Jesucristo. Dios, sin aprobar su injusticia, hizo que incluso sus palabras anunciaran el propósito salvador de Cristo.',
+  apariciones:'Mateo 26:3-5,57-68; Juan 11:47-53; Juan 18:13-28; Hechos 4:6',
+  relacionCristo:'Caifás presidió el consejo religioso que acusó a Jesús y lo entregó para que fuera condenado. Su declaración de que convenía que un hombre muriera por el pueblo fue una profecía involuntaria acerca de la muerte redentora de Cristo, no solamente por la nación judía, sino también para reunir a los hijos de Dios dispersos.',
+  cronologia:'Siglo I; ejerció como sumo sacerdote aproximadamente entre los años 18 y 36 d. C.',
+  canon:'Fuente principal: Reina-Valera 1960 (Mateo 26; Juan 11; Juan 18; Hechos 4).',
+  frase:'El sumo sacerdote que profetizó sin comprender plenamente sus propias palabras.',
+  relacionados:[],
+  tipoCristo:'',
+  cristoClaves:[
+    'Presidió el proceso religioso contra Jesucristo.',
+    'Declaró que convenía que un hombre muriera por el pueblo.',
+    'Juan explica que sus palabras anunciaban la muerte de Cristo por la nación y por los hijos de Dios dispersos.'
+  ],
+  mapa:[
+    'Anás ── suegro de Caifás',
+    'Caifás ── sumo sacerdote y presidente del consejo',
+    'Concilio o Sanedrín ── principales sacerdotes, escribas y ancianos',
+    'Jesucristo ── acusado ante Caifás'
+  ],
+  lecturas:[
+    'Mateo 26:3-5 — El consejo se reúne en el patio de Caifás.',
+    'Mateo 26:57-68 — Jesús ante Caifás y el concilio.',
+    'Juan 11:47-53 — La profecía involuntaria de Caifás.',
+    'Juan 18:13-28 — Jesús es llevado ante Anás y Caifás.',
+    'Hechos 4:6 — Caifás entre las autoridades que interrogan a Pedro y Juan.'
+  ]
+};
+
+function restoreCaifasCharacterV3111(){
+  if(localStorage.getItem(CAIFAS_RESTORE_KEY_V3111)==='1')return false;
+  const exists=BIBLICAL_CHARACTERS_V2242.some(item=>String(item?.nombre||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()==='caifas');
+  if(!exists)BIBLICAL_CHARACTERS_V2242.unshift({...CAIFAS_CHARACTER_V3111,mapa:[...CAIFAS_CHARACTER_V3111.mapa],lecturas:[...CAIFAS_CHARACTER_V3111.lecturas],cristoClaves:[...CAIFAS_CHARACTER_V3111.cristoClaves],relacionados:[]});
+  if(!BIBLICAL_CHARACTER_CATEGORIES_V2242.includes(CAIFAS_CHARACTER_V3111.categoria))BIBLICAL_CHARACTER_CATEGORIES_V2242.push(CAIFAS_CHARACTER_V3111.categoria);
+  localStorage.setItem(CAIFAS_RESTORE_KEY_V3111,'1');
+  if(!exists)saveBiblicalCharactersCrudV16433();
+  return !exists;
+}
 
 async function loadBiblicalCharactersV2252(){
   if(biblicalCharactersLoadedV2252)return BIBLICAL_CHARACTERS_V2242;
@@ -26,6 +71,7 @@ async function loadBiblicalCharactersV2252(){
       biblicalCharactersTrashV16433=[];
       saveBiblicalCharactersCrudV16433();
     }
+    restoreCaifasCharacterV3111();
     window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
     biblicalCharactersLoadedV2252=true;
     biblicalCharactersLoadErrorV2252="";
@@ -41,7 +87,9 @@ async function loadBiblicalCharactersV2252(){
     throw error;
   }
 }
-void loadBiblicalCharactersV2252();
+// La carga se inicia desde app.js, después de que IndexedDB haya terminado de
+// preparar los datos personales. Evita que una actualización confunda una
+// espera de arranque con la ausencia de fichas guardadas.
 function normalizeBiblicalTextV2242(v){return String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 function escapeBiblicalHtmlV2242(v){return String(v||"").replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[c]})}
 let biblicalCharactersReturnScreenV16427="home";
