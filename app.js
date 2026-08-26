@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.109';
+const APP_VERSION='3.1.110';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1438,9 +1438,11 @@ function formatReferenceCapsules(text){
   }
   return(html+escapeHtml(source.slice(cursor))).replace(/\n/g,'<br>');
 }
+let activeBibleReference=null;
 async function openBibleReference(label){
   const parsed=parseBibleReferenceLabel(label);if(!parsed){toast('No se encontró esa referencia');return}
   const dialog=$('#bibleReferenceDialog'),title=$('#bibleReferenceTitle'),content=$('#bibleReferenceVerses');
+  activeBibleReference={...parsed,verses:[]};
   title.textContent=parsed.label;content.innerHTML='<p class="bible-reference-loading">Cargando pasaje…</p>';
   if(!dialog.open)dialog.showModal();
   try{
@@ -1449,11 +1451,33 @@ async function openBibleReference(label){
     content.replaceChildren();
     for(let verse=parsed.startVerse;verse<=parsed.endVerse;verse++){
       const row=document.createElement('p'),number=document.createElement('strong'),text=document.createElement('span');
-      number.textContent=verse;text.textContent=correctedVerseText(parsed.book.key,parsed.chapter,verse,verses[verse-1]);row.append(number,text);content.append(row);
+      const verseText=correctedVerseText(parsed.book.key,parsed.chapter,verse,verses[verse-1]);
+      activeBibleReference.verses.push({number:verse,text:limpiarTextoBiblico(verseText)});
+      number.textContent=verse;text.textContent=verseText;row.append(number,text);content.append(row);
     }
     content.scrollTop=0;
   }catch(_){content.innerHTML='<p class="bible-reference-error">No se pudo abrir este pasaje.</p>'}
 }
+$('#copyBibleReference')?.addEventListener('click',async()=>{
+  if(!activeBibleReference)return toast('No hay ninguna referencia abierta');
+  try{await navigator.clipboard.writeText(activeBibleReference.label);toast('Referencia copiada')}catch(_){toast('No se pudo copiar la referencia')}
+});
+$('#copyBibleReferenceVerses')?.addEventListener('click',async()=>{
+  const passage=activeBibleReference;if(!passage?.verses?.length)return toast('El pasaje todavía no está disponible');
+  const body=passage.verses.map(v=>`[${v.number}] ${v.text}`).join('\n');
+  try{await navigator.clipboard.writeText(`${passage.label} RVR1960\n${body}`);toast(passage.verses.length===1?'Versículo copiado':'Versículos copiados')}catch(_){toast('No se pudo copiar el pasaje')}
+});
+$('#goToBibleReference')?.addEventListener('click',async()=>{
+  const passage=activeBibleReference;if(!passage)return toast('No hay ninguna referencia abierta');
+  const bookIndex=state.books.findIndex(book=>book.key===passage.book.key);if(bookIndex<0)return toast('No se encontró el libro');
+  $('#bibleReferenceDialog')?.close();$('#viewExplanationDialog')?.close();$('#fragmentClarificationDialog')?.close();
+  state.bookIndex=bookIndex;state.chapter=passage.chapter;showReader();await loadChapter();
+  setTimeout(()=>{
+    const target=$(`.verse[data-v="${passage.startVerse}"]`);target?.scrollIntoView({block:'center'});
+    document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));
+    target?.classList.add('reading-target');
+  },100);
+});
 $('#viewExplanationText')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule)openBibleReference(capsule.dataset.bibleReference||capsule.textContent)});
 $('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule){e.preventDefault();e.stopPropagation();openBibleReference(capsule.dataset.bibleReference||capsule.textContent)}});
 function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}

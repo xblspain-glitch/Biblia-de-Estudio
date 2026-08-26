@@ -2658,16 +2658,21 @@ body.light-mode .fragment-scope-options{border-color:#c8b8c0}.light-mode .fragme
 .bible-reference-capsule:active{transform:scale(.98);filter:brightness(1.12)}
 .bible-reference-dialog{width:min(94vw,680px);max-height:88vh;padding:24px;overflow:hidden}
 .bible-reference-dialog h2{margin-right:54px}
-.bible-reference-verses{max-height:65vh;overflow:auto;padding:5px 4px 10px}
+.bible-reference-verses{max-height:50vh;overflow:auto;padding:5px 4px 10px}
 .bible-reference-verses p{display:grid;grid-template-columns:2.1em 1fr;gap:.55em;margin:0;padding:12px 5px;border-bottom:1px solid rgba(132,184,214,.18);font:18px/1.55 Georgia,"Times New Roman",serif}
 .bible-reference-verses p:last-child{border-bottom:0}
 .bible-reference-verses strong{color:#8fd2f5;font:800 14px/1.9 system-ui,sans-serif;text-align:right}
 .bible-reference-verses span{white-space:pre-wrap}
+.bible-reference-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.bible-reference-actions button{border:1px solid rgba(232,200,95,.72);border-radius:13px;padding:11px 10px;background:#292c32;color:white;font:700 14px/1.2 system-ui,sans-serif}
+.bible-reference-actions .primary{grid-column:1/-1;background:linear-gradient(180deg,rgba(232,200,95,.26),rgba(179,134,35,.16));color:#fff4cf}
 .bible-reference-loading,.bible-reference-error{display:block!important;border:0!important;color:#c9cbd0!important;text-align:center!important;font:16px/1.5 system-ui!important}
 body.light-mode .bible-reference-capsule{border-color:#4b98bf;background:linear-gradient(180deg,#e5f5fd,#cfe9f6);color:#155b80;box-shadow:0 2px 6px rgba(32,86,113,.12)}
 body.light-mode .bible-reference-verses p{border-color:rgba(58,112,142,.18);color:#211b16}
 body.light-mode .bible-reference-verses strong{color:#276e94}
-@media(max-width:420px){.bible-reference-dialog{padding:20px 15px}.bible-reference-verses{max-height:68vh}.bible-reference-verses p{font-size:17px;padding:10px 2px}}
+body.light-mode .bible-reference-actions button{background:#f1eee7;color:#211b16;border-color:#a98335}
+body.light-mode .bible-reference-actions .primary{background:linear-gradient(180deg,#f8e6a5,#e8c45e);color:#292013}
+@media(max-width:420px){.bible-reference-dialog{padding:20px 15px}.bible-reference-verses{max-height:52vh}.bible-reference-verses p{font-size:17px;padding:10px 2px}}
 
 
 /* V2.1.13 · Desglose dinámico del diccionario en Estadísticas */

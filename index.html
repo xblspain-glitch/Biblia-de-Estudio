@@ -7,12 +7,12 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.14">
   <link rel="manifest" href="manifest.webmanifest?v=3.1.14">
-<link rel="stylesheet" href="styles.css?v=3.1.109">
+<link rel="stylesheet" href="styles.css?v=3.1.110">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
-  <link rel="stylesheet" href="progress-map.css?v=3.1.109">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.110">
 
 
 
@@ -138,7 +138,7 @@
     <div class="study-module-panel functions-guide-panel">
       <div class="study-module-head"><button class="btn soft" type="button" onclick="closeFunctionsGuide()">← Volver</button></div>
       <h1>Guía de funciones de Mi Biblia de Estudio</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.109" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.110" alt="" aria-hidden="true">
       <p class="study-module-sub">Conoce el significado de las cápsulas, colores, marcas y herramientas disponibles durante la lectura.</p>
       <div class="functions-guide-intro"><strong>Cómo usar esta guía</strong><p>Los elementos siguientes son ejemplos visuales. En el texto bíblico real podrás pulsarlos para abrir su contenido o cambiar su estado.</p></div>
       <div class="functions-guide-sections">
@@ -216,7 +216,7 @@
         <button class="btn soft notes-new-button" type="button" onclick="openNoteEditor()">+ Nueva nota</button>
       </div>
       <h1>Bloc de notas</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.109" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.110" alt="" aria-hidden="true">
       <p class="study-module-sub">Tus apuntes personales, guardados en este dispositivo y en tus copias de seguridad.</p>
       <input id="notesSearchInput" class="notes-search-input" type="search" autocomplete="off" placeholder="Buscar en mis notas">
       <div id="notesModuleList" class="notes-module-list"></div>
@@ -561,6 +561,11 @@
     <h2>Pasaje bíblico</h2>
     <div id="bibleReferenceTitle" class="modal-ref"></div>
     <div id="bibleReferenceVerses" class="bible-reference-verses"></div>
+    <div class="bible-reference-actions" aria-label="Acciones del pasaje bíblico">
+      <button id="copyBibleReference" type="button">Copiar referencia</button>
+      <button id="copyBibleReferenceVerses" type="button">Copiar versículo con referencia</button>
+      <button id="goToBibleReference" type="button" class="primary">Ir al pasaje</button>
+    </div>
   </dialog>
 
   <dialog id="verseCorrectionDialog" class="sheet-dialog verse-correction-dialog">
@@ -762,7 +767,7 @@
     <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
     <article class="daily-verse-card">
       <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
-      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.109" alt="" aria-hidden="true">
+      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.110" alt="" aria-hidden="true">
       <blockquote id="dailyVerseText"></blockquote>
       <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
     </article>
@@ -822,7 +827,7 @@
     <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
     <p id="auditHash" class="audit-hash hidden"></p>
     <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
-    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.109</strong></p>
+    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.110</strong></p>
   </dialog>
 
   <dialog id="studyAuditDialog" class="sheet-dialog study-audit-dialog">
@@ -853,20 +858,20 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=3.1.14"></script>
-  <script src="biblical-characters-v2244-v2835.js?v=3.1.109"></script>
+  <script src="biblical-characters-v2244-v2835.js?v=3.1.110"></script>
   <script src="biblical-parables-v16436-v2835.js?v=3.1.14"></script>
   <script src="biblical-guides-v16436-v2835.js?v=3.1.14"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="bible-storage-idb.js?v=3.1.109"></script>
-  <script type="module" src="bible-app-loader.js?v=3.1.109"></script>
+  <script src="bible-storage-idb.js?v=3.1.110"></script>
+  <script type="module" src="bible-app-loader.js?v=3.1.110"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.109';
+  const targetVersion='3.1.110';
   let pendingWorker=null;
   let updateAccepted=false;
 
