@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.117';
+const APP_VERSION='3.1.118';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1437,9 +1437,8 @@ function formatExplanationDictionarySegment(text,explanationKey,context){
     html+=escapeHtml(source.slice(cursor,token.start)).replace(/\n/g,'<br>');
     const entry=getDictionaryEntryForWord(token.word);
     if(!entry){html+=escapeHtml(token.word);cursor=token.end;continue}
-    const safeWord=escapeHtml(token.word),form=normalizeDictionaryText(cleanDictionaryWord(token.word)),repeated=context.seen.has(form),occurrenceKey=`explanation-${encodeURIComponent(String(explanationKey||''))}-${token.index}`,equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim(),active=!!(choices[occurrenceKey]&&equivalent);
-    context.seen.add(form);
-    html+=`<span class="dict-word dict-known${repeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}"${repeated?' data-explanation-repeat="true" title="Palabra repetida: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${!repeated&&brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
+    const safeWord=escapeHtml(token.word),occurrenceKey=`explanation-${encodeURIComponent(String(explanationKey||''))}-${token.index}`,equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim(),active=!!(choices[occurrenceKey]&&equivalent);
+    html+=`<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
     cursor=token.end;
   }
   return html+escapeHtml(source.slice(cursor)).replace(/\n/g,'<br>');
