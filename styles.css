@@ -4668,7 +4668,7 @@ body.light-mode .guide-corrected-verse-number{color:#9a6810;text-shadow:0 0 5px 
   .light-mode .study-audit-item small{border-top-color:#d8d2c8}
 }
 
-/* V3.1.113 · Transiciones suaves de las ilustraciones de portada y navegación */
+/* V3.1.114 · Transiciones suaves, luminosas y con el borde dorado original */
 .home-hero{position:relative}
 .home-hero::after{
   content:"";
@@ -4677,28 +4677,28 @@ body.light-mode .guide-corrected-verse-number{color:#9a6810;text-shadow:0 0 5px 
   left:0;
   right:0;
   bottom:0;
-  height:28px;
+  height:22px;
   pointer-events:none;
-  background:linear-gradient(180deg,rgba(13,15,18,0) 0%,rgba(13,15,18,.18) 58%,rgba(13,15,18,.48) 100%);
+  background:linear-gradient(180deg,rgba(13,15,18,0) 0%,rgba(13,15,18,.08) 64%,rgba(13,15,18,.22) 100%);
 }
 body.light-mode .home-hero::after{
-  background:linear-gradient(180deg,rgba(247,243,235,0) 0%,rgba(247,243,235,.15) 58%,rgba(247,243,235,.42) 100%);
+  background:linear-gradient(180deg,rgba(247,243,235,0) 0%,rgba(247,243,235,.07) 64%,rgba(247,243,235,.20) 100%);
 }
 .chapter-nav{
-  border-top-color:rgba(222,166,67,.26);
-  box-shadow:0 -3px 12px rgba(0,0,0,.22);
+  border-top-color:rgba(222,166,67,.72);
+  box-shadow:0 -5px 18px rgba(0,0,0,.34);
 }
 .chapter-nav::before{
   background:
-    linear-gradient(180deg,rgba(13,15,18,.88) 0%,rgba(13,15,18,.46) 11px,rgba(13,15,18,.08) 29px,rgba(13,15,18,0) 42px),
+    linear-gradient(180deg,rgba(13,15,18,.26) 0%,rgba(13,15,18,.10) 8px,rgba(13,15,18,0) 22px),
     linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.16));
 }
 body.light-mode .chapter-nav{
-  border-top-color:rgba(184,132,45,.25)!important;
-  box-shadow:0 -3px 11px rgba(70,50,20,.13)!important;
+  border-top-color:rgba(184,132,45,.68)!important;
+  box-shadow:0 -4px 14px rgba(70,50,20,.22)!important;
 }
 body.light-mode .chapter-nav::before{
   background:
-    linear-gradient(180deg,rgba(242,238,229,.88) 0%,rgba(242,238,229,.46) 11px,rgba(242,238,229,.08) 29px,rgba(242,238,229,0) 42px),
+    linear-gradient(180deg,rgba(242,238,229,.24) 0%,rgba(242,238,229,.09) 8px,rgba(242,238,229,0) 22px),
     linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,248,230,.08))!important;
 }
