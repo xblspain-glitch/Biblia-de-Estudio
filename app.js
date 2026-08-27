@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.112';
+const APP_VERSION='3.1.115';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1426,17 +1426,35 @@ function parseBibleReferenceLabel(label){
   if(!book||chapter<1||chapter>Number(book.chapters)||startVerse<1||endVerse<startVerse)return null;
   return{book,chapter,startVerse,endVerse,label:`${displayBook(book)} ${chapter}:${startVerse}${endVerse>startVerse?`–${endVerse}`:''}`};
 }
-function formatReferenceCapsules(text){
-  const source=String(text||''),pattern=bibleReferencePattern();
-  if(!pattern)return escapeHtml(source).replace(/\n/g,'<br>');
+function formatExplanationDictionarySegment(text,explanationKey,counter){
+  const source=String(text||''),tokens=[];
+  BIBLE_WORD_PATTERN.lastIndex=0;
+  let wordMatch;
+  while((wordMatch=BIBLE_WORD_PATTERN.exec(source)))tokens.push({word:wordMatch[0],start:wordMatch.index,end:wordMatch.index+wordMatch[0].length,index:counter.value++});
+  const choices=readDictionaryEquivalenceChoices();
+  let html='',cursor=0;
+  for(const token of tokens){
+    html+=escapeHtml(source.slice(cursor,token.start)).replace(/\n/g,'<br>');
+    const entry=getDictionaryEntryForWord(token.word);
+    if(!entry){html+=escapeHtml(token.word);cursor=token.end;continue}
+    const safeWord=escapeHtml(token.word),occurrenceKey=`explanation-${encodeURIComponent(String(explanationKey||''))}-${token.index}`,equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim(),active=!!(choices[occurrenceKey]&&equivalent);
+    html+=`<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
+    cursor=token.end;
+  }
+  return html+escapeHtml(source.slice(cursor)).replace(/\n/g,'<br>');
+}
+function formatReferenceCapsules(text,explanationKey=''){
+  const source=String(text||''),pattern=bibleReferencePattern(),counter={value:0};
+  const formatPlain=segment=>explanationKey?formatExplanationDictionarySegment(segment,explanationKey,counter):escapeHtml(segment).replace(/\n/g,'<br>');
+  if(!pattern)return formatPlain(source);
   let html='',cursor=0,match;
   while((match=pattern.exec(source))){
     const prefix=match[1]||'',reference=match[2],referenceStart=match.index+prefix.length,parsed=parseBibleReferenceLabel(reference);
-    html+=escapeHtml(source.slice(cursor,referenceStart));
+    html+=formatPlain(source.slice(cursor,referenceStart));
     html+=parsed?`<button type="button" class="bible-reference-capsule" data-bible-reference="${escapeHtml(reference)}">${escapeHtml(reference)}</button>`:escapeHtml(reference);
     cursor=referenceStart+reference.length;
   }
-  return(html+escapeHtml(source.slice(cursor))).replace(/\n/g,'<br>');
+  return html+formatPlain(source.slice(cursor));
 }
 let activeBibleReference=null;
 async function openBibleReference(label){
@@ -1478,9 +1496,30 @@ $('#goToBibleReference')?.addEventListener('click',async()=>{
     target?.classList.add('reading-target');
   },100);
 });
-$('#viewExplanationText')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule)openBibleReference(capsule.dataset.bibleReference||capsule.textContent)});
+let explanationDictionarySuppressUntil=0,explanationDictionaryPressTimer=null,explanationDictionaryPressTarget=null,explanationDictionaryPressX=0,explanationDictionaryPressY=0;
+function cancelExplanationDictionaryPress(){if(explanationDictionaryPressTimer){clearTimeout(explanationDictionaryPressTimer);explanationDictionaryPressTimer=null}explanationDictionaryPressTarget?.classList.remove('word-pressing');explanationDictionaryPressTarget=null}
+$('#viewExplanationText')?.addEventListener('pointerdown',e=>{
+  const word=e.target.closest('.dict-word.dict-known');if(!word||e.pointerType==='mouse'&&e.button!==0)return;
+  cancelExplanationDictionaryPress();explanationDictionaryPressTarget=word;explanationDictionaryPressX=e.clientX;explanationDictionaryPressY=e.clientY;word.classList.add('word-pressing');
+  explanationDictionaryPressTimer=setTimeout(()=>{const query=word.dataset.word||word.textContent||'';explanationDictionarySuppressUntil=Date.now()+900;navigator.vibrate?.(35);cancelExplanationDictionaryPress();if(query)openDictionary(query)},650);
+},{passive:true});
+$('#viewExplanationText')?.addEventListener('pointermove',e=>{if(explanationDictionaryPressTarget&&Math.hypot(e.clientX-explanationDictionaryPressX,e.clientY-explanationDictionaryPressY)>12)cancelExplanationDictionaryPress()},{passive:true});
+$('#viewExplanationText')?.addEventListener('pointerup',cancelExplanationDictionaryPress,{passive:true});
+$('#viewExplanationText')?.addEventListener('pointercancel',cancelExplanationDictionaryPress,{passive:true});
+$('#viewExplanationText')?.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word.dict-known'))e.preventDefault()});
+$('#viewExplanationText')?.addEventListener('click',e=>{
+  if(Date.now()<explanationDictionarySuppressUntil){e.preventDefault();e.stopPropagation();return}
+  const capsule=e.target.closest('.bible-reference-capsule');if(capsule){openBibleReference(capsule.dataset.bibleReference||capsule.textContent);return}
+  const briefNote=e.target.closest('.dictionary-brief-note');if(briefNote){briefNote.hidden=true;return}
+  const word=e.target.closest('.dict-word.dict-known');if(!word)return;
+  e.preventDefault();e.stopPropagation();
+  const entry=getDictionaryEntries().find(item=>item.id===word.dataset.entryId),equivalent=String(entry?.equivalenciaActual||'').trim(),brief=String(entry?.fraseAclaratoriaBreve||'').trim(),occurrenceKey=word.dataset.occurrenceKey||'',note=word.nextElementSibling?.classList.contains('dictionary-brief-note')?word.nextElementSibling:null;
+  if(equivalent&&occurrenceKey){const choices=readDictionaryEquivalenceChoices(),active=word.classList.contains('dict-equivalent');if(active){delete choices[occurrenceKey];word.textContent=word.dataset.word||'';word.classList.remove('dict-equivalent');if(note)note.hidden=true}else{choices[occurrenceKey]={entryId:entry.id,original:word.dataset.word||''};word.textContent=equivalent;word.classList.add('dict-equivalent');if(note)note.hidden=false}saveDictionaryEquivalenceChoices(choices);return}
+  if(brief&&note){note.hidden=!note.hidden;return}
+  openDictionary(word.dataset.word||word.textContent||'');
+});
 $('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule){e.preventDefault();e.stopPropagation();openBibleReference(capsule.dataset.bibleReference||capsule.textContent)}});
-function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
+function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text,k);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
 $('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
 $('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
 
@@ -2520,6 +2559,7 @@ function captureDictionaryReadingPosition(){
   const scrollingElement=document.scrollingElement||document.documentElement;
   return {
     readerTop:reader?.scrollTop||0,
+    explanationTop:$('#viewExplanationText')?.scrollTop||0,
     pageLeft:scrollingElement?.scrollLeft||window.scrollX||0,
     pageTop:scrollingElement?.scrollTop||window.scrollY||0
   };
@@ -2527,6 +2567,7 @@ function captureDictionaryReadingPosition(){
 function restoreDictionaryReadingPosition(position=dictionaryReadingPosition){
   if(!position)return;
   if(reader)reader.scrollTop=position.readerTop;
+  const explanationContent=$('#viewExplanationText');if(explanationContent)explanationContent.scrollTop=position.explanationTop||0;
   const scrollingElement=document.scrollingElement||document.documentElement;
   if(scrollingElement){
     scrollingElement.scrollLeft=position.pageLeft;
