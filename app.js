@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.124';
+const APP_VERSION='3.1.121';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1728,26 +1728,7 @@ function renderBooks(filter='all'){
     list.append(wrap);
   });
 }
-function syncBooksPanelToggle(){
-  const toggle=$('#booksPanelToggle'),track=$('#booksPanelTrack'),drawer=$('#drawer');
-  if(!toggle||!track||!drawer)return;
-  const open=!drawer.classList.contains('hidden')&&!drawer.classList.contains('closing');
-  track.classList.toggle('open',open);
-  if(drawer.classList.contains('dragging'))track.style.width=`${Math.max(0,drawer.getBoundingClientRect().right)}px`;
-  else track.style.removeProperty('width');
-  toggle.classList.toggle('open',open);
-  toggle.setAttribute('aria-expanded',open?'true':'false');
-  toggle.setAttribute('aria-label',open?'Cerrar libros':'Abrir libros');
-  toggle.title=open?'Cerrar libros':'Abrir libros';
-}
-function toggleBooksDrawer(){
-  const drawer=$('#drawer');
-  if(!drawer.classList.contains('hidden')&&!drawer.classList.contains('closing'))closeDrawer();else openBooksDrawer();
-}
-$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;$('#booksPanelToggle').onclick=toggleBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');syncBooksPanelToggle();setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing');syncBooksPanelToggle()},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
-new MutationObserver(()=>requestAnimationFrame(syncBooksPanelToggle)).observe($('#drawer'),{attributes:true,attributeFilter:['class','style']});
-window.addEventListener('resize',syncBooksPanelToggle,{passive:true});
-requestAnimationFrame(syncBooksPanelToggle);
+$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing')},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
 (function activarGestosPanelLibros(){
   const drawer=$('#drawer');
   const backdrop=$('#drawerBackdrop');
