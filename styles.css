@@ -496,6 +496,7 @@ body.light-mode .verse.explained-verse{
 .action-reading-point{background:linear-gradient(180deg,#f4ecff 0%,#d9c8f2 55%,#bca4df 100%);border-color:#9a7bc8!important}
 .action-favorite{background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%);border-color:#e69a48!important}
 .action-explain{background:linear-gradient(180deg,#e9f9ec 0%,#c9ebce 55%,#a9d9b1 100%);border-color:#86c994!important}
+.action-remove-explanation{background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%);border-color:#e69a48!important;font-size:10.7px!important;line-height:1.02!important}
 .action-dictionary{background:linear-gradient(180deg,#fff9d9 0%,#f8e8a8 55%,#e8ce72 100%);border-color:#d4b64f!important}
 .action-characters{background:linear-gradient(180deg,#f3edff 0%,#d9c9f3 55%,#bda6e3 100%);border-color:#9b7fc9!important}
 .action-copy{background:linear-gradient(180deg,#ffe9e7 0%,#f7c4bf 55%,#e99e99 100%);border-color:#dc8580!important}
@@ -615,6 +616,10 @@ body.light-mode .action.pastel-action.action-highlight{
   border-color:#7bbce3!important;
 }
 body.light-mode .action.pastel-action.action-favorite{
+  background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%)!important;
+  border-color:#e69a48!important;
+}
+body.light-mode .action.pastel-action.action-remove-explanation{
   background:linear-gradient(180deg,#fff0dc 0%,#ffd29b 55%,#f2ad62 100%)!important;
   border-color:#e69a48!important;
 }
@@ -2744,8 +2749,17 @@ html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-a
   border-color:#f1d16e!important;
   box-shadow:inset 0 0 0 1px rgba(255,235,166,.46),0 0 0 2px rgba(241,209,110,.24),0 4px 13px rgba(190,132,20,.30)!important;
 }
+html body .selection-bar .actions-scroll button.action.pastel-action.action-remove-explanation.explanation-remove-attention,
+html body.light-mode .selection-bar .actions-scroll button.action.pastel-action.action-remove-explanation.explanation-remove-attention,
+html body:not(.light-mode) .selection-bar .actions-scroll button.action.pastel-action.action-remove-explanation.explanation-remove-attention{
+  border-width:2px!important;
+  border-color:#f1d16e!important;
+  box-shadow:inset 0 0 0 1px rgba(255,235,166,.46),0 0 0 2px rgba(241,209,110,.24),0 4px 13px rgba(190,132,20,.30)!important;
+  animation:clarificationGoldBreathing 2.4s ease-in-out infinite;
+}
 @media (prefers-reduced-motion:reduce){
-  html body .selection-bar .actions-scroll button.action-fragment.clarification-attention{animation:none!important}
+  html body .selection-bar .actions-scroll button.action-fragment.clarification-attention,
+  html body .selection-bar .actions-scroll button.action-remove-explanation.explanation-remove-attention{animation:none!important}
 }
 .encyclopedia-screen{position:fixed;inset:0;z-index:1700;overflow:auto;background:#0d0e12;color:#f7f2e8}
 .encyclopedia-screen.hidden{display:none!important}

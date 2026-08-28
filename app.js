@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.120';
+const APP_VERSION='3.1.121';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -938,10 +938,11 @@ function updateSelection(){
   const readingPointBtn=document.querySelector('.action[data-action="reading-point"]');
   const favoriteBtn=document.querySelector('.action[data-action="favorite"]');
   const explainBtn=document.querySelector('.action[data-action="explain"]');
+  const removeExplanationBtn=document.querySelector('.action[data-action="remove-explanation"]');
   const fragmentBtn=document.querySelector('.action[data-action="fragment"]');
   const correctVerseBtn=document.querySelector('.action[data-action="correct-verse"]');
   const toggle=$('#actionsPanelToggle');
-  const needsSelection=['highlight','favorite','explain','copy'];
+  const needsSelection=['highlight','favorite','explain','remove-explanation','copy'];
   const hasSelection=state.selected.size>0;
 
   // El panel lateral y su pestaña permanecen siempre disponibles.
@@ -990,14 +991,20 @@ function updateSelection(){
     favoriteBtn.title='Guardar punto de libro';
   }
   const selectedExplanation=hasSelection?findExplanationForSelection([...state.selected]):null;
-  if(!selectedExplanation||selectedExplanation.key!==explanationArmedKey)explanationArmedKey='';
+  explanationArmedKey='';
   if(explainBtn){
-    const removeMode=Boolean(selectedExplanation&&explanationArmedKey===selectedExplanation.key);
-    explainBtn.dataset.mode=removeMode?'remove':(selectedExplanation?'view':'open');
-    explainBtn.textContent=removeMode?'QUITAR EXPLICACIÓN':(selectedExplanation?'VER EXPLICACIÓN':'EXPLICACIÓN');
-    explainBtn.classList.toggle('explanation-attention',Boolean(selectedExplanation&&!removeMode));
-    explainBtn.setAttribute('aria-label',removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación'));
-    explainBtn.title=removeMode?'Quitar explicación del grupo':(selectedExplanation?'Leer explicación':'Añadir explicación');
+    explainBtn.dataset.mode=selectedExplanation?'view':'open';
+    explainBtn.textContent=selectedExplanation?'VER EXPLICACIÓN':'AÑADIR EXPLICACIÓN';
+    explainBtn.classList.toggle('explanation-attention',Boolean(selectedExplanation));
+    explainBtn.setAttribute('aria-label',selectedExplanation?'Leer explicación':'Añadir explicación');
+    explainBtn.title=selectedExplanation?'Leer explicación':'Añadir explicación';
+  }
+  if(removeExplanationBtn){
+    removeExplanationBtn.classList.toggle('hidden',!selectedExplanation);
+    removeExplanationBtn.classList.toggle('explanation-remove-attention',Boolean(selectedExplanation));
+    removeExplanationBtn.disabled=!selectedExplanation;
+    removeExplanationBtn.setAttribute('aria-disabled',selectedExplanation?'false':'true');
+    removeExplanationBtn.title=selectedExplanation?`Quitar la explicación de ${selectedExplanation.ref}`:'Selecciona un versículo con explicación';
   }
   if(correctVerseBtn){
     const selectedNums=[...state.selected];
@@ -1346,19 +1353,18 @@ async function action(a){
     const nums=[...state.selected].sort((a,b)=>a-b);
     const existing=findExplanationForSelection(nums);
     if(existing){
-      if(explanationArmedKey===existing.key){
-        if(confirm(`¿Quitar la explicación de ${existing.ref}?`)){
-          delete state.explanations[existing.key];explanationArmedKey='';save();state.selected.clear();render();updateSelection();toast('Explicación eliminada');
-        }
-      }else{
-        openViewExplanation(existing.key);
-        explanationArmedKey=existing.key;
-        updateSelection();
-      }
+      openViewExplanation(existing.key);
     }else{
       explanationArmedKey='';
       if(!isContinuousNums(nums)){toast('Selecciona versículos seguidos para crear una explicación');return}
       openEditExplanation(rangeKey(nums),currentReference(nums));
+    }
+  }
+  if(a==='remove-explanation'){
+    const existing=findExplanationForSelection([...state.selected]);
+    if(!existing){toast('Selecciona un versículo que tenga explicación');return}
+    if(confirm(`¿Quitar la explicación de ${existing.ref}?\n\nEl texto bíblico no se modificará.`)){
+      delete state.explanations[existing.key];explanationArmedKey='';save();state.selected.clear();render();updateSelection();toast('Explicación eliminada');
     }
   }
   if(a==='dictionary')openDictionary()
@@ -1405,11 +1411,10 @@ $('#restoreVerseOriginal')?.addEventListener('click',()=>{
   delete state.verseCorrections[context.correctionKey];applyVerseCorrectionToCurrentView(context.original);save();$('#verseCorrectionDialog').close();state.selected.clear();render();updateSelection();toast('Texto original restaurado');
 });
 $$('#highlightDialog [data-color]').forEach(b=>b.addEventListener('click',()=>{for(const n of state.selected){const k=key(n);b.dataset.color==='none'?delete state.highlights[k]:state.highlights[k]=b.dataset.color}save();state.selected.clear();$('#highlightDialog').close();render();updateSelection();toast('Subrayado actualizado')}));
-function openEditExplanation(k,ref){const old=state.explanations[k];const text=$('#explanationText');$('#explanationDialog').dataset.key=k;$('#explanationRef').textContent=ref;text.value=old?.text||'';text.readOnly=Boolean(old);$('#editExplanationInline').style.display=old?'inline-block':'none';$('#deleteExplanation').style.display=old?'inline-block':'none';$('#explanationDialog').showModal();text.scrollTop=0;requestAnimationFrame(()=>{text.scrollTop=0})}
+function openEditExplanation(k,ref){const old=state.explanations[k];const text=$('#explanationText');$('#explanationDialog').dataset.key=k;$('#explanationRef').textContent=ref;text.value=old?.text||'';text.readOnly=Boolean(old);$('#editExplanationInline').style.display=old?'inline-block':'none';$('#explanationDialog').showModal();text.scrollTop=0;requestAnimationFrame(()=>{text.scrollTop=0})}
 $('#saveExplanation').onclick=()=>{const k=$('#explanationDialog').dataset.key,text=$('#explanationText').value.trim();if(!text){toast('Escribe una explicación');return}state.explanations[k]={text,ref:$('#explanationRef').textContent,updated:Date.now()};save();$('#explanationDialog').close();state.selected.clear();render();toast('Explicación guardada')};
 $('#editExplanationInline').onclick=()=>{const text=$('#explanationText');text.readOnly=false;text.focus();text.setSelectionRange(text.value.length,text.value.length);toast('Modo edición')};
 $('#pasteExplanation').onclick=async()=>{try{const text=$('#explanationText');text.readOnly=false;text.value=await navigator.clipboard.readText();text.focus()}catch{toast('No se pudo pegar')}};
-$('#deleteExplanation').onclick=()=>{if(confirm('¿Eliminar esta explicación?')){delete state.explanations[$('#explanationDialog').dataset.key];save();$('#explanationDialog').close();render();toast('Explicación eliminada')}};
 function bibleReferenceBookLabels(){
   const labels=new Set();
   for(const book of state.books){
