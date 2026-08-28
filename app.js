@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.118';
+const APP_VERSION='3.1.119';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -794,10 +794,12 @@ function rebuildBiblicalEntityLinkIndex(){
   };
   for(const item of (Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[])){
     for(const term of primaryBiblicalCharacterTerms(item.nombre))add(term,{type:'character',id:String(item.id),name:String(item.nombre||term)});
+    for(const alias of (Array.isArray(item.aliases)?item.aliases:[]))add(alias,{type:'character',id:String(item.id),name:String(item.nombre||alias)});
   }
   for(const item of (biblicalPlacesData||[])){
     const entity={type:'place',id:String(item.id),name:String(item.name||'')};
     add(item.name,entity);
+    for(const alias of (item.aliases||[]))add(alias,entity);
     for(const alias of (BIBLICAL_PLACE_LINK_ALIASES[String(item.id)]||[]))add(alias,entity);
   }
   const byFirst=new Map();
@@ -1095,7 +1097,7 @@ const BIBLICAL_CHARACTER_ALIASES={
   'abraham':['abram'], 'sara':['sarai'], 'jacob':['israel'], 'josué':['oseas','hoshea'],
   'miriam':['maría hermana de moisés'], 'maría madre de jesús':['maría'], 'jesús':['cristo','jesucristo','mesías','mesias']
 };
-function entityAliasesForCharacter(p){const base=[p.nombre];const n=normalizeBiblicalEntityText(p.nombre);for(const [canonical,aliases] of Object.entries(BIBLICAL_CHARACTER_ALIASES)){if(n===normalizeBiblicalEntityText(canonical)||n.startsWith(normalizeBiblicalEntityText(canonical)+' '))base.push(...aliases)}return base}
+function entityAliasesForCharacter(p){const base=[p.nombre,...(Array.isArray(p.aliases)?p.aliases:[])];const n=normalizeBiblicalEntityText(p.nombre);for(const [canonical,aliases] of Object.entries(BIBLICAL_CHARACTER_ALIASES)){if(n===normalizeBiblicalEntityText(canonical)||n.startsWith(normalizeBiblicalEntityText(canonical)+' '))base.push(...aliases)}return [...new Set(base.filter(Boolean))]}
 function entityVersePlainText(wordElement){const verse=wordElement?.closest('.verse');return normalizeBiblicalEntityText(verse?.innerText||'')}
 function entityCandidatesForWord(raw,wordElement){
   const needle=normalizeBiblicalEntityText(raw),verseText=entityVersePlainText(wordElement),out=[];
@@ -1108,8 +1110,8 @@ function entityCandidatesForWord(raw,wordElement){
     if(score<99)out.push({type:'character',id:p.id,name:p.nombre,score});
   }
   for(const p of biblicalPlacesData||[]){
-    const n=normalizeBiblicalEntityText(p.name);let score=99;
-    if(n===needle)score=0;else if(n.split(' ').includes(needle)&&verseText.includes(n))score=1;else if(n.startsWith(needle+' ')&&verseText.includes(n))score=2;
+    const names=[p.name,...(p.aliases||[])].map(normalizeBiblicalEntityText).filter(Boolean);let score=99;
+    for(const n of names){if(n===needle)score=Math.min(score,0);else if(n.split(' ').includes(needle)&&verseText.includes(n))score=Math.min(score,1);else if(n.startsWith(needle+' ')&&verseText.includes(n))score=Math.min(score,2)}
     if(score<99)out.push({type:'place',id:p.id,name:p.name,score});
   }
   const seen=new Set();return out.sort((a,b)=>a.score-b.score||a.name.localeCompare(b.name,'es')).filter(x=>{const k=x.type+':'+x.id;if(seen.has(k))return false;seen.add(k);return true}).slice(0,8);
@@ -1140,8 +1142,8 @@ function saveBiblicalEntityChoice(occurrence,value){
   save();render();
 }
 function allBiblicalEntitiesForChoice(){
-  const characters=(Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[]).map(x=>({type:'character',id:x.id,name:x.nombre}));
-  const places=(biblicalPlacesData||[]).map(x=>({type:'place',id:x.id,name:x.name}));
+  const characters=(Array.isArray(window.BIBLICAL_CHARACTERS_V2242)?window.BIBLICAL_CHARACTERS_V2242:[]).map(x=>({type:'character',id:x.id,name:x.nombre,aliases:Array.isArray(x.aliases)?x.aliases:[]}));
+  const places=(biblicalPlacesData||[]).map(x=>({type:'place',id:x.id,name:x.name,aliases:Array.isArray(x.aliases)?x.aliases:[]}));
   return[...characters,...places].filter(x=>x.id&&x.name);
 }
 function showBiblicalEntitySearch(raw,occurrence){
@@ -1149,7 +1151,7 @@ function showBiblicalEntitySearch(raw,occurrence){
   const wrap=document.createElement('div');wrap.id='biblicalEntityChooser';wrap.className='biblical-entity-overlay';
   wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true"><div class="biblical-entity-head"><div><small>CAMBIAR VÍNCULO</small><h2>${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><label class="biblical-entity-search-label">Buscar personaje o lugar<input class="biblical-entity-search" type="search" autocomplete="off" placeholder="Escribe un nombre…"></label><div class="biblical-entity-list"></div><button type="button" class="biblical-entity-cancel">Volver</button></div>`;
   document.body.appendChild(wrap);const input=wrap.querySelector('.biblical-entity-search'),list=wrap.querySelector('.biblical-entity-list'),all=allBiblicalEntitiesForChoice();
-  const paint=()=>{const q=normalizeBiblicalEntityText(input.value),matches=(q?all.filter(x=>normalizeBiblicalEntityText(x.name).includes(q)):all).slice(0,30);list.innerHTML=matches.length?matches.map((x,i)=>`<button type="button" data-choice-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button>`).join(''):'<p class="biblical-entity-no-results">No existe todavía una ficha con ese nombre.</p>';list.querySelectorAll('[data-choice-index]').forEach(button=>button.onclick=()=>{const entity=matches[Number(button.dataset.choiceIndex)];saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:entity.type,id:String(entity.id),direct:false});closeBiblicalEntityChooser();toast(`Vínculo cambiado a ${entity.name}`);openRecognizedBiblicalEntity(entity)})};
+  const paint=()=>{const q=normalizeBiblicalEntityText(input.value),matches=(q?all.filter(x=>[x.name,...(x.aliases||[])].some(value=>normalizeBiblicalEntityText(value).includes(q))):all).slice(0,30);list.innerHTML=matches.length?matches.map((x,i)=>`<button type="button" data-choice-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}${x.aliases?.length?` · ${escapeHtml(x.aliases.join(', '))}`:''}</small></span><span class="biblical-entity-arrow">›</span></button>`).join(''):'<p class="biblical-entity-no-results">No existe todavía una ficha con ese nombre o alias.</p>';list.querySelectorAll('[data-choice-index]').forEach(button=>button.onclick=()=>{const entity=matches[Number(button.dataset.choiceIndex)];saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:entity.type,id:String(entity.id),direct:false});closeBiblicalEntityChooser();toast(`Vínculo cambiado a ${entity.name}`);openRecognizedBiblicalEntity(entity)})};
   input.addEventListener('input',paint);wrap.querySelector('.biblical-entity-close').onclick=closeBiblicalEntityChooser;wrap.querySelector('.biblical-entity-cancel').onclick=()=>showBiblicalEntityActionMenu(linkedBiblicalEntityCandidates(document.querySelector(`[data-entity-occurrence="${CSS.escape(occurrence)}"]`)?.dataset.entityLinks),raw,{occurrence});wrap.addEventListener('click',e=>{if(e.target===wrap)closeBiblicalEntityChooser()});paint();setTimeout(()=>input.focus(),80);
 }
 function biblicalEntityQuickInfo(entity){
@@ -3755,13 +3757,14 @@ function normalizePlaceText(value){return String(value||'').normalize('NFD').rep
 function defaultPlacesCrud(){return{custom:[],edits:{},deleted:[],trash:[]}}
 function loadPlacesCrud(){try{const p=JSON.parse(localStorage.getItem(PLACES_CRUD_KEY)||'null');return{custom:Array.isArray(p?.custom)?p.custom:[],edits:p?.edits&&typeof p.edits==='object'&&!Array.isArray(p.edits)?p.edits:{},deleted:Array.isArray(p?.deleted)?p.deleted:[],trash:Array.isArray(p?.trash)?p.trash:[]}}catch(_){return defaultPlacesCrud()}}
 function savePlacesCrud(v){localStorage.setItem(PLACES_CRUD_KEY,JSON.stringify(v));updateBiblicalPlacesTrashCount();setTimeout(()=>window.refreshBiblicalEntityLinks?.(),0)}
-function placeCleanItem(item={}){const lat=item.coordinates?.latitude??item.latitude??'',lng=item.coordinates?.longitude??item.longitude??'';return{id:String(item.id||`custom-place-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),name:String(item.name||'').trim(),category:String(item.category||'Lugar bíblico').trim(),currentRegion:String(item.currentRegion||item.region||'').trim(),firstAppearance:String(item.firstAppearance||'').trim(),shortDescription:String(item.shortDescription||item.description||'').trim(),biblicalImportance:String(item.biblicalImportance||item.importance||'').trim(),history:String(item.history||'').trim(),relatedPeople:placeLines(item.relatedPeople),jesusRelation:String(item.jesusRelation||'').trim(),mainVerses:placeLines(item.mainVerses),curiosities:placeLines(item.curiosities),coordinates:{latitude:lat===''?null:Number(lat),longitude:lng===''?null:Number(lng)},image:String(item.image||'').trim(),createdAt:Number(item.createdAt)||Date.now(),updatedAt:Number(item.updatedAt)||Date.now()}}
+function placeCleanItem(item={}){const lat=item.coordinates?.latitude??item.latitude??'',lng=item.coordinates?.longitude??item.longitude??'',id=String(item.id||`custom-place-${Date.now()}-${Math.random().toString(36).slice(2,8)}`),aliases=placeLines(item.aliases||item.alias);if(id==='capernaum'&&!aliases.some(x=>normalizePlaceText(x)==='capernaum'))aliases.push('Capernaum');return{id,name:String(item.name||'').trim(),aliases,category:String(item.category||'Lugar bíblico').trim(),currentRegion:String(item.currentRegion||item.region||'').trim(),firstAppearance:String(item.firstAppearance||'').trim(),shortDescription:String(item.shortDescription||item.description||'').trim(),biblicalImportance:String(item.biblicalImportance||item.importance||'').trim(),history:String(item.history||'').trim(),relatedPeople:placeLines(item.relatedPeople),jesusRelation:String(item.jesusRelation||'').trim(),mainVerses:placeLines(item.mainVerses),curiosities:placeLines(item.curiosities),coordinates:{latitude:lat===''?null:Number(lat),longitude:lng===''?null:Number(lng)},image:String(item.image||'').trim(),createdAt:Number(item.createdAt)||Date.now(),updatedAt:Number(item.updatedAt)||Date.now()}}
 function rebuildBiblicalPlacesData(){const crud=loadPlacesCrud(),deleted=new Set(crud.deleted.map(String));const base=biblicalPlacesBase.filter(x=>!deleted.has(String(x.id))).map(x=>placeCleanItem(crud.edits[x.id]?{...x,...crud.edits[x.id],id:x.id}:x));const custom=crud.custom.map(placeCleanItem).filter(x=>!deleted.has(String(x.id)));biblicalPlacesData=[...base,...custom].sort((a,b)=>a.name.localeCompare(b.name,'es'));updateBiblicalPlacesTrashCount();return biblicalPlacesData}
 async function loadBiblicalPlaces(){if(biblicalPlacesLoaded)return rebuildBiblicalPlacesData();try{const r=await fetch(freshUrl('biblical-places.json'));if(!r.ok)throw new Error('No se pudieron cargar Lugares Bíblicos');const raw=await r.json();biblicalPlacesBase=Array.isArray(raw)?raw.map(placeCleanItem):[]}catch(e){console.error(e);biblicalPlacesBase=[]}biblicalPlacesLoaded=true;const places=rebuildBiblicalPlacesData();biblicalEntityLinkIndexDirty=true;return places}
 async function openBiblicalPlaces(){document.getElementById('homeScreen')?.classList.add('hidden');document.getElementById('readerScreen')?.classList.add('hidden');document.getElementById('biblicalEncyclopediaScreen')?.classList.add('hidden');document.getElementById('biblicalPlacesScreen')?.classList.remove('hidden');document.getElementById('biblicalPlacesHome')?.classList.remove('hidden');document.getElementById('biblicalPlaceDetail')?.classList.add('hidden');activeBiblicalPlaceId='';await loadBiblicalPlaces();renderBiblicalPlaces();window.scrollTo({top:0,behavior:'smooth'})}
 function biblicalPlaceSearchScore(place,q){
   if(!q)return 0;
   const name=normalizePlaceText(place.name).trim();
+  const aliases=(place.aliases||[]).map(alias=>normalizePlaceText(alias).trim()).filter(Boolean);
   const region=normalizePlaceText(place.currentRegion).trim();
   const category=normalizePlaceText(place.category).trim();
   const first=normalizePlaceText(place.firstAppearance).trim();
@@ -3773,10 +3776,12 @@ function biblicalPlaceSearchScore(place,q){
   const curiosities=normalizePlaceText((place.curiosities||[]).join(' '));
 
   if(name===q)return 0;
+  if(aliases.includes(q))return 5;
   if(name.startsWith(q))return 10;
+  if(aliases.some(alias=>alias.startsWith(q)))return 15;
   const words=name.split(/\s+/);
   if(words.some(word=>word.startsWith(q)))return 20;
-  if(name.includes(q))return 30;
+  if(name.includes(q)||aliases.some(alias=>alias.includes(q)))return 30;
   if(region===q||category===q)return 40;
   if(region.startsWith(q)||category.startsWith(q))return 50;
   if(region.includes(q)||category.includes(q))return 60;
@@ -3871,6 +3876,7 @@ function openBiblicalPlaceDetail(id){
     <h1>${escapeHtml(x.name)}</h1>
     <img class="biblical-prophecies-divider" src="separador_etiope_transparente_final.png?v=${APP_VERSION}" alt="" aria-hidden="true">
     <p class="place-current-region">${escapeHtml(x.currentRegion)}</p>
+    ${optionalList('ALIAS Y VARIANTES',x.aliases)}
     ${optional('RELACIÓN CON JESÚS',x.jesusRelation,'biblical-prophecy-importance')}
     ${placeSection('DESCRIPCIÓN BREVE',placeParagraphs(x.shortDescription))}
     ${optional('IMPORTANCIA BÍBLICA',x.biblicalImportance,'biblical-prophecy-importance')}
@@ -4208,7 +4214,7 @@ function renderBiblicalPlacesMap(){
   const all=biblicalPlacesData.filter(biblicalMapHasCoords);
   const filtered=all.filter(x=>
     (!cat||x.category===cat)&&
-    (!q||normalizePlaceText([x.name,x.currentRegion,x.category,x.shortDescription].join(' ')).includes(q))
+    (!q||normalizePlaceText([x.name,...(x.aliases||[]),x.currentRegion,x.category,x.shortDescription].join(' ')).includes(q))
   );
 
   const count=document.getElementById('placesMapCount');
@@ -4331,8 +4337,8 @@ function showBiblicalPlaceOnMap(id){
   openBiblicalPlacesMap(id);
 }
 
-function openBiblicalPlaceEditor(id=''){const x=id?biblicalPlacesData.find(e=>e.id===id):null,d=document.getElementById('biblicalPlaceEditDialog');if(!d)return;const set=(n,v='')=>document.getElementById(n).value=v;set('placeEditId',x?.id);set('placeEditName',x?.name);set('placeEditCategory',x?.category);set('placeEditCurrentRegion',x?.currentRegion);set('placeEditFirstAppearance',x?.firstAppearance);set('placeEditShortDescription',x?.shortDescription);set('placeEditBiblicalImportance',x?.biblicalImportance);set('placeEditHistory',x?.history);set('placeEditRelatedPeople',(x?.relatedPeople||[]).join('\n'));set('placeEditJesusRelation',x?.jesusRelation);set('placeEditMainVerses',(x?.mainVerses||[]).join('\n'));set('placeEditCuriosities',(x?.curiosities||[]).join('\n'));set('placeEditLatitude',x?.coordinates?.latitude??'');set('placeEditLongitude',x?.coordinates?.longitude??'');document.getElementById('placeEditDialogTitle').textContent=x?'Editar lugar bíblico':'Añadir lugar bíblico';d.showModal();setTimeout(()=>document.getElementById('placeEditName')?.focus(),80)}
-function saveBiblicalPlaceEditor(){const val=n=>document.getElementById(n).value.trim(),id=val('placeEditId'),name=val('placeEditName');if(!name||!val('placeEditCategory')||!val('placeEditShortDescription')){toast('Completa el nombre, la categoría y la descripción breve');return}const previous=id?biblicalPlacesData.find(e=>e.id===id):null,item=placeCleanItem({...(previous||{}),id:id||undefined,name,category:val('placeEditCategory'),currentRegion:val('placeEditCurrentRegion'),firstAppearance:val('placeEditFirstAppearance'),shortDescription:val('placeEditShortDescription'),biblicalImportance:val('placeEditBiblicalImportance'),history:val('placeEditHistory'),relatedPeople:val('placeEditRelatedPeople'),jesusRelation:val('placeEditJesusRelation'),mainVerses:val('placeEditMainVerses'),curiosities:val('placeEditCuriosities'),latitude:val('placeEditLatitude'),longitude:val('placeEditLongitude'),createdAt:previous?.createdAt||Date.now(),updatedAt:Date.now()});const crud=loadPlacesCrud(),baseIds=new Set(biblicalPlacesBase.map(x=>String(x.id)));if(id&&baseIds.has(id))crud.edits[id]=item;else if(id){const at=crud.custom.findIndex(x=>String(x.id)===id);if(at>=0)crud.custom[at]=item;else crud.custom.push(item)}else crud.custom.push(item);savePlacesCrud(crud);rebuildBiblicalPlacesData();renderBiblicalPlaces();document.getElementById('biblicalPlaceEditDialog')?.close();if(id&&activeBiblicalPlaceId===id)openBiblicalPlaceDetail(id);toast(id?'Lugar actualizado':'Lugar añadido')}
+function openBiblicalPlaceEditor(id=''){const x=id?biblicalPlacesData.find(e=>e.id===id):null,d=document.getElementById('biblicalPlaceEditDialog');if(!d)return;const set=(n,v='')=>document.getElementById(n).value=v;set('placeEditId',x?.id);set('placeEditName',x?.name);set('placeEditAliases',(x?.aliases||[]).join('\n'));set('placeEditCategory',x?.category);set('placeEditCurrentRegion',x?.currentRegion);set('placeEditFirstAppearance',x?.firstAppearance);set('placeEditShortDescription',x?.shortDescription);set('placeEditBiblicalImportance',x?.biblicalImportance);set('placeEditHistory',x?.history);set('placeEditRelatedPeople',(x?.relatedPeople||[]).join('\n'));set('placeEditJesusRelation',x?.jesusRelation);set('placeEditMainVerses',(x?.mainVerses||[]).join('\n'));set('placeEditCuriosities',(x?.curiosities||[]).join('\n'));set('placeEditLatitude',x?.coordinates?.latitude??'');set('placeEditLongitude',x?.coordinates?.longitude??'');document.getElementById('placeEditDialogTitle').textContent=x?'Editar lugar bíblico':'Añadir lugar bíblico';d.showModal();setTimeout(()=>document.getElementById('placeEditName')?.focus(),80)}
+function saveBiblicalPlaceEditor(){const val=n=>document.getElementById(n).value.trim(),id=val('placeEditId'),name=val('placeEditName');if(!name||!val('placeEditCategory')||!val('placeEditShortDescription')){toast('Completa el nombre, la categoría y la descripción breve');return}const previous=id?biblicalPlacesData.find(e=>e.id===id):null,item=placeCleanItem({...(previous||{}),id:id||undefined,name,aliases:val('placeEditAliases'),category:val('placeEditCategory'),currentRegion:val('placeEditCurrentRegion'),firstAppearance:val('placeEditFirstAppearance'),shortDescription:val('placeEditShortDescription'),biblicalImportance:val('placeEditBiblicalImportance'),history:val('placeEditHistory'),relatedPeople:val('placeEditRelatedPeople'),jesusRelation:val('placeEditJesusRelation'),mainVerses:val('placeEditMainVerses'),curiosities:val('placeEditCuriosities'),latitude:val('placeEditLatitude'),longitude:val('placeEditLongitude'),createdAt:previous?.createdAt||Date.now(),updatedAt:Date.now()});const crud=loadPlacesCrud(),baseIds=new Set(biblicalPlacesBase.map(x=>String(x.id)));if(id&&baseIds.has(id))crud.edits[id]=item;else if(id){const at=crud.custom.findIndex(x=>String(x.id)===id);if(at>=0)crud.custom[at]=item;else crud.custom.push(item)}else crud.custom.push(item);savePlacesCrud(crud);rebuildBiblicalPlacesData();renderBiblicalPlaces();document.getElementById('biblicalPlaceEditDialog')?.close();if(id&&activeBiblicalPlaceId===id)openBiblicalPlaceDetail(id);toast(id?'Lugar actualizado':'Lugar añadido')}
 function deleteBiblicalPlace(id){const item=biblicalPlacesData.find(x=>x.id===id);if(!item||!confirm(`¿Enviar “${item.name}” a la papelera?`))return;const crud=loadPlacesCrud(),builtin=biblicalPlacesBase.some(x=>String(x.id)===String(id));crud.trash=crud.trash.filter(x=>String(x.id)!==String(id));crud.trash.unshift({...item,_origin:builtin?'builtin':'custom',deletedAt:Date.now()});if(builtin){if(!crud.deleted.includes(id))crud.deleted.push(id)}else crud.custom=crud.custom.filter(x=>String(x.id)!==String(id));savePlacesCrud(crud);rebuildBiblicalPlacesData();closeBiblicalPlaceDetail();renderBiblicalPlaces();toast('Lugar enviado a la papelera')}
 function updateBiblicalPlacesTrashCount(){const e=document.getElementById('biblicalPlacesTrashCount');if(e)e.textContent=String(loadPlacesCrud().trash.length)}
 function openBiblicalPlacesTrash(){renderBiblicalPlacesTrash();document.getElementById('biblicalPlacesTrashDialog')?.showModal()}
