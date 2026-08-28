@@ -2406,6 +2406,41 @@ html body .actions-panel-toggle:active{
   transform:translateY(-50%) scale(.94)!important;
 }
 
+/* Pestaña izquierda: acceso visible al cajón de libros ya existente. */
+.books-panel-toggle{
+  position:fixed;
+  z-index:38;
+  left:0;
+  top:43%;
+  transform:translateY(-50%);
+  width:20px;
+  height:38px;
+  margin:0;
+  padding:0;
+  border:1px solid #a88636;
+  border-left:0;
+  border-radius:0 10px 10px 0;
+  background:linear-gradient(180deg,#303238 0%,#202227 100%);
+  color:#e4bd58;
+  -webkit-text-fill-color:#e4bd58;
+  font:400 20px/1 system-ui,sans-serif;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),3px 0 9px rgba(0,0,0,.28);
+  opacity:1;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.books-panel-toggle:active{transform:translateY(-50%) scale(.94)}
+body.light-mode .books-panel-toggle{
+  background:linear-gradient(180deg,#fffdf8 0%,#eee9df 100%);
+  border-color:#c7ad70;
+  color:#b17b13;
+  -webkit-text-fill-color:#b17b13;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),3px 0 9px rgba(92,70,30,.12);
+}
+@media(max-width:420px){
+  .books-panel-toggle{width:18px;height:36px;border-radius:0 9px 9px 0;font-size:19px}
+}
+
 
 /* Pulido del Versículo del día y diccionario adaptado al teclado. */
 
