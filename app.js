@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.122';
+const APP_VERSION='3.1.123';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1728,7 +1728,28 @@ function renderBooks(filter='all'){
     list.append(wrap);
   });
 }
-$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;$('#booksPanelToggle').onclick=openBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing')},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
+function syncBooksPanelToggle(){
+  const toggle=$('#booksPanelToggle'),drawer=$('#drawer'),source=$('#actionsPanelToggle');
+  if(!toggle||!drawer||!source)return;
+  const open=!drawer.classList.contains('hidden')&&!drawer.classList.contains('closing');
+  const sourceRect=source.getBoundingClientRect();
+  toggle.style.top=`${sourceRect.top}px`;
+  toggle.style.width=`${sourceRect.width}px`;
+  toggle.style.height=`${sourceRect.height}px`;
+  toggle.style.left=open?`${Math.max(0,drawer.getBoundingClientRect().right)}px`:'0px';
+  toggle.classList.toggle('open',open);
+  toggle.setAttribute('aria-expanded',open?'true':'false');
+  toggle.setAttribute('aria-label',open?'Cerrar libros':'Abrir libros');
+  toggle.title=open?'Cerrar libros':'Abrir libros';
+}
+function toggleBooksDrawer(){
+  const drawer=$('#drawer');
+  if(!drawer.classList.contains('hidden')&&!drawer.classList.contains('closing'))closeDrawer();else openBooksDrawer();
+}
+$('#homeBtn').onclick=showHome;$('#bookTitle').onclick=openBooksDrawer;$('#booksPanelToggle').onclick=toggleBooksDrawer;function closeDrawer(){const drawer=$('#drawer');drawer.classList.remove('is-open');drawer.classList.add('closing');$('#drawerBackdrop').classList.add('hidden');syncBooksPanelToggle();setTimeout(()=>{drawer.classList.add('hidden');drawer.classList.remove('closing');syncBooksPanelToggle()},220)}$('#closeDrawer').onclick=closeDrawer;$('#drawerBackdrop').onclick=closeDrawer;
+new MutationObserver(()=>requestAnimationFrame(syncBooksPanelToggle)).observe($('#drawer'),{attributes:true,attributeFilter:['class','style']});
+window.addEventListener('resize',syncBooksPanelToggle,{passive:true});
+requestAnimationFrame(syncBooksPanelToggle);
 (function activarGestosPanelLibros(){
   const drawer=$('#drawer');
   const backdrop=$('#drawerBackdrop');

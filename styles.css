@@ -2409,10 +2409,10 @@ html body .actions-panel-toggle:active{
 /* Pestaña izquierda: acceso visible al cajón de libros ya existente. */
 .books-panel-toggle{
   position:fixed;
-  z-index:38;
+  z-index:41;
   left:0;
-  top:43%;
-  transform:translateY(-50%);
+  top:40%;
+  transform:none;
   width:20px;
   height:38px;
   margin:0;
@@ -2428,8 +2428,11 @@ html body .actions-panel-toggle:active{
   opacity:1;
   cursor:pointer;
   touch-action:manipulation;
+  transition:left .22s ease,transform .12s ease;
 }
-.books-panel-toggle:active{transform:translateY(-50%) scale(.94)}
+.books-panel-toggle.open{font-size:0}
+.books-panel-toggle.open::after{content:'‹';font-size:20px}
+.books-panel-toggle:active{transform:scale(.94)}
 body.light-mode .books-panel-toggle{
   background:linear-gradient(180deg,#fffdf8 0%,#eee9df 100%);
   border-color:#c7ad70;
@@ -2439,6 +2442,7 @@ body.light-mode .books-panel-toggle{
 }
 @media(max-width:420px){
   .books-panel-toggle{width:18px;height:36px;border-radius:0 9px 9px 0;font-size:19px}
+  .books-panel-toggle.open::after{font-size:19px}
 }
 
 
