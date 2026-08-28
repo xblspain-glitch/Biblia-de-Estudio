@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.123';
+const APP_VERSION='3.1.124';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1729,14 +1729,12 @@ function renderBooks(filter='all'){
   });
 }
 function syncBooksPanelToggle(){
-  const toggle=$('#booksPanelToggle'),drawer=$('#drawer'),source=$('#actionsPanelToggle');
-  if(!toggle||!drawer||!source)return;
+  const toggle=$('#booksPanelToggle'),track=$('#booksPanelTrack'),drawer=$('#drawer');
+  if(!toggle||!track||!drawer)return;
   const open=!drawer.classList.contains('hidden')&&!drawer.classList.contains('closing');
-  const sourceRect=source.getBoundingClientRect();
-  toggle.style.top=`${sourceRect.top}px`;
-  toggle.style.width=`${sourceRect.width}px`;
-  toggle.style.height=`${sourceRect.height}px`;
-  toggle.style.left=open?`${Math.max(0,drawer.getBoundingClientRect().right)}px`:'0px';
+  track.classList.toggle('open',open);
+  if(drawer.classList.contains('dragging'))track.style.width=`${Math.max(0,drawer.getBoundingClientRect().right)}px`;
+  else track.style.removeProperty('width');
   toggle.classList.toggle('open',open);
   toggle.setAttribute('aria-expanded',open?'true':'false');
   toggle.setAttribute('aria-label',open?'Cerrar libros':'Abrir libros');
