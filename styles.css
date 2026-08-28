@@ -2912,6 +2912,13 @@ body.light-mode .biblical-entity-quick{background:#fff8e8;border-color:#d9c07f;b
 .parable-title-capsule:active{transform:translateY(1px)}
 body.light-mode .parable-title-capsule,.light-mode .parable-title-capsule{background:#dbe8fb;color:#203759;border-color:#7694bf}
 body.light-mode .parable-title-capsule-hint,.light-mode .parable-title-capsule-hint{color:#49698f}
+.parable-end-marker{display:flex;justify-content:center;clear:both;margin:.7rem 0 .9rem}
+.parable-end-capsule{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.48rem;max-width:90%;padding:.38rem .9rem;border:1px solid rgba(143,174,224,.65);border-radius:999px;background:rgba(63,82,116,.72);color:#eef5ff;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);cursor:pointer;text-align:center}
+.parable-end-capsule span{font:700 .72rem/1.15 Lora,serif;letter-spacing:.035em}
+.parable-end-capsule small{color:rgba(223,238,255,.9);font:800 .58rem/1.1 system-ui,sans-serif;letter-spacing:.06em}
+.parable-end-capsule:active{transform:translateY(1px)}
+body.light-mode .parable-end-capsule,.light-mode .parable-end-capsule{background:#e8f0fc;color:#294361;border-color:#829bc1}
+body.light-mode .parable-end-capsule small,.light-mode .parable-end-capsule small{color:#527095}
 
 /* V3.1.90 · Corrección personal de versículos con respaldo JSON y Drive. */
 .verse-correction-dialog{width:min(95vw,720px);max-height:92vh;padding:24px}
