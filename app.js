@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.130';
+const APP_VERSION='3.1.131';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1496,6 +1496,7 @@ function currentExplanationReferenceOrigin(){
 function updateExplanationReturnCapsule(){
   const capsule=$('#explanationReturnCapsule'),label=$('#explanationReturnRef');if(!capsule)return;
   capsule.hidden=!pendingExplanationReturn;
+  document.body.classList.toggle('explanation-return-visible',!!pendingExplanationReturn);
   if(label)label.textContent=pendingExplanationReturn?.ref||'';
 }
 function clearExplanationReturn(){pendingExplanationReturn=null;updateExplanationReturnCapsule()}
