@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.128';
+const APP_VERSION='3.1.129';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1479,11 +1479,44 @@ function formatReferenceCapsules(text,explanationKey=''){
   }
   return html+formatPlain(source.slice(cursor));
 }
-let activeBibleReference=null;
+let activeBibleReference=null,pendingExplanationReturn=null,returningToExplanation=false;
+function currentExplanationReferenceOrigin(){
+  const dialog=$('#viewExplanationDialog'),key=dialog?.dataset.key||'',explanation=state.explanations?.[key];
+  if(!dialog?.open||!key||!explanation)return null;
+  const [bookKey,chapter,versePart='1']=key.split(':');
+  return{
+    explanationKey:key,
+    ref:String(explanation.ref||$('#viewExplanationRef')?.textContent||'Explicación'),
+    bookKey:bookKey||state.books[state.bookIndex]?.key||'',
+    chapter:Math.max(1,Number(chapter)||Number(state.chapter)||1),
+    verse:Math.max(1,Number(String(versePart).split(',')[0])||1),
+    explanationTop:$('#viewExplanationText')?.scrollTop||0
+  };
+}
+function updateExplanationReturnCapsule(){
+  const capsule=$('#explanationReturnCapsule'),label=$('#explanationReturnRef');if(!capsule)return;
+  capsule.hidden=!pendingExplanationReturn;
+  if(label)label.textContent=pendingExplanationReturn?.ref||'';
+}
+function clearExplanationReturn(){pendingExplanationReturn=null;updateExplanationReturnCapsule()}
+async function returnToPendingExplanation(){
+  const origin=pendingExplanationReturn;if(!origin||returningToExplanation)return;
+  const explanation=state.explanations?.[origin.explanationKey],bookIndex=state.books.findIndex(book=>book.key===origin.bookKey);
+  if(!explanation||bookIndex<0){clearExplanationReturn();toast('La explicación de origen ya no está disponible');return}
+  returningToExplanation=true;
+  try{
+    state.bookIndex=bookIndex;state.chapter=origin.chapter;showReader();await loadChapter();
+    const target=$(`.verse[data-v="${origin.verse}"]`);target?.scrollIntoView({block:'center'});
+    openViewExplanation(origin.explanationKey);
+    const restore=()=>{const content=$('#viewExplanationText');if(content)content.scrollTop=origin.explanationTop||0};
+    requestAnimationFrame(()=>{restore();requestAnimationFrame(restore)});setTimeout(restore,100);
+    clearExplanationReturn();
+  }finally{returningToExplanation=false}
+}
 async function openBibleReference(label){
   const parsed=parseBibleReferenceLabel(label);if(!parsed){toast('No se encontró esa referencia');return}
   const dialog=$('#bibleReferenceDialog'),title=$('#bibleReferenceTitle'),content=$('#bibleReferenceVerses');
-  activeBibleReference={...parsed,verses:[]};
+  activeBibleReference={...parsed,verses:[],explanationOrigin:currentExplanationReferenceOrigin()};
   title.textContent=parsed.label;content.innerHTML='<p class="bible-reference-loading">Cargando pasaje…</p>';
   if(!dialog.open)dialog.showModal();
   try{
@@ -1511,14 +1544,18 @@ $('#copyBibleReferenceVerses')?.addEventListener('click',async()=>{
 $('#goToBibleReference')?.addEventListener('click',async()=>{
   const passage=activeBibleReference;if(!passage)return toast('No hay ninguna referencia abierta');
   const bookIndex=state.books.findIndex(book=>book.key===passage.book.key);if(bookIndex<0)return toast('No se encontró el libro');
+  pendingExplanationReturn=passage.explanationOrigin||null;
   $('#bibleReferenceDialog')?.close();$('#viewExplanationDialog')?.close();$('#fragmentClarificationDialog')?.close();
   state.bookIndex=bookIndex;state.chapter=passage.chapter;showReader();await loadChapter();
+  updateExplanationReturnCapsule();
   setTimeout(()=>{
     const target=$(`.verse[data-v="${passage.startVerse}"]`);target?.scrollIntoView({block:'center'});
     document.querySelectorAll('.verse.reading-target').forEach(x=>x.classList.remove('reading-target'));
     target?.classList.add('reading-target');
   },100);
 });
+$('#returnToExplanation')?.addEventListener('click',returnToPendingExplanation);
+$('#dismissExplanationReturn')?.addEventListener('click',clearExplanationReturn);
 let explanationDictionarySuppressUntil=0,explanationDictionaryPressTimer=null,explanationDictionaryPressTarget=null,explanationDictionaryPressX=0,explanationDictionaryPressY=0;
 function cancelExplanationDictionaryPress(){if(explanationDictionaryPressTimer){clearTimeout(explanationDictionaryPressTimer);explanationDictionaryPressTimer=null}explanationDictionaryPressTarget?.classList.remove('word-pressing');explanationDictionaryPressTarget=null}
 $('#viewExplanationText')?.addEventListener('pointerdown',e=>{

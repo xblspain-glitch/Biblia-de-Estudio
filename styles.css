@@ -2684,6 +2684,46 @@ body.light-mode .fragment-scope-options{border-color:#c8b8c0}.light-mode .fragme
 .bible-reference-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
 .bible-reference-actions button{border:1px solid rgba(232,200,95,.72);border-radius:13px;padding:11px 10px;background:#292c32;color:white;font:700 14px/1.2 system-ui,sans-serif}
 .bible-reference-actions .primary{grid-column:1/-1;background:linear-gradient(180deg,rgba(232,200,95,.26),rgba(179,134,35,.16));color:#fff4cf}
+.explanation-return-capsule{
+  position:fixed;
+  left:50%;
+  bottom:calc(86px + var(--safe-bottom));
+  z-index:14;
+  width:min(90vw,430px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 42px;
+  align-items:stretch;
+  overflow:hidden;
+  border:1px solid rgba(105,184,226,.88);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(45,112,153,.97),rgba(28,76,108,.97));
+  box-shadow:0 7px 22px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.18);
+  transform:translateX(-50%);
+  font-family:system-ui,sans-serif;
+}
+.explanation-return-capsule[hidden]{display:none!important}
+.explanation-return-main{
+  min-width:0;
+  display:grid;
+  grid-template-columns:26px minmax(0,1fr);
+  align-items:center;
+  gap:7px;
+  border:0;
+  background:transparent;
+  color:#f4fbff;
+  padding:9px 8px 9px 13px;
+  text-align:left;
+}
+.explanation-return-main>span:first-child{font-size:24px;line-height:1;text-align:center}
+.explanation-return-main strong,.explanation-return-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.explanation-return-main strong{font-size:14px;line-height:1.2}
+.explanation-return-main small{margin-top:2px;color:#cbeaff;font-size:12px;line-height:1.2}
+.explanation-return-close{border:0;border-left:1px solid rgba(190,228,249,.3);background:rgba(8,35,52,.22);color:#e8f7ff;font:600 17px/1 system-ui,sans-serif}
+.explanation-return-main:active,.explanation-return-close:active{filter:brightness(1.14)}
+body.light-mode .explanation-return-capsule{border-color:#3f91ba;background:linear-gradient(180deg,#e2f5fd,#bcdff0);box-shadow:0 6px 18px rgba(33,75,96,.24),inset 0 1px 0 #fff}
+body.light-mode .explanation-return-main{color:#174f6c}
+body.light-mode .explanation-return-main small{color:#316f8e}
+body.light-mode .explanation-return-close{border-left-color:rgba(53,118,151,.28);background:rgba(255,255,255,.28);color:#245f7c}
 .bible-reference-loading,.bible-reference-error{display:block!important;border:0!important;color:#c9cbd0!important;text-align:center!important;font:16px/1.5 system-ui!important}
 body.light-mode .bible-reference-capsule{border-color:#4b98bf;background:linear-gradient(180deg,#e5f5fd,#cfe9f6);color:#155b80;box-shadow:0 2px 6px rgba(32,86,113,.12)}
 body.light-mode .bible-reference-verses p{border-color:rgba(58,112,142,.18);color:#211b16}
