@@ -1,4 +1,4 @@
-const version=window.BIBLE_APP_VERSION_V1||'3.1.130';
+const version=window.BIBLE_APP_VERSION_V1||'3.1.125';
 const startupScriptsV3119=['app.js?v='+version,'progress-map.js?v='+version];
 
 function paintStoredReadingPointV3163(){
