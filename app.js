@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.125';
+const APP_VERSION='3.1.126';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1142,11 +1142,16 @@ function showBiblicalEntityChooser(candidates,raw,context={}){
   const occurrence=context.occurrence||'';
   const wrap=document.createElement('div');wrap.id='biblicalEntityChooser';wrap.className='biblical-entity-overlay';
   const rows=candidates.map((x,i)=>`<button type="button" data-entity-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button>`).join('');
-  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true" aria-labelledby="biblicalEntityTitle"><div class="biblical-entity-head"><div><small>SELECCIÓN BÍBLICA</small><h2 id="biblicalEntityTitle">${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Quieres ir a su ficha?</p><div class="biblical-entity-list">${rows}</div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
+  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true" aria-labelledby="biblicalEntityTitle"><div class="biblical-entity-head"><div><small>SELECCIÓN BÍBLICA</small><h2 id="biblicalEntityTitle">${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Quieres ir a su ficha?</p><div class="biblical-entity-list">${rows}<button type="button" class="biblical-entity-choice biblical-entity-remove" data-entity-exclude><span class="biblical-entity-icon">⊘</span><span><strong>Excluir · No vincular ninguno</strong><small>Solo para esta aparición</small></span></button></div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
   document.body.appendChild(wrap);
   wrap.querySelector('.biblical-entity-close').addEventListener('click',closeBiblicalEntityChooser);
   wrap.querySelector('.biblical-entity-cancel').addEventListener('click',closeBiblicalEntityChooser);
   wrap.addEventListener('click',e=>{if(e.target===wrap)closeBiblicalEntityChooser()});
+  wrap.querySelector('[data-entity-exclude]').addEventListener('click',()=>{
+    if(occurrence)saveBiblicalEntityChoice(occurrence,{mode:'removed'});
+    closeBiblicalEntityChooser();
+    toast('No se vinculará esta aparición');
+  });
   wrap.querySelectorAll('[data-entity-index]').forEach(btn=>btn.addEventListener('click',()=>{
     const entity=candidates[Number(btn.dataset.entityIndex)];
     if(occurrence)saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:entity.type,id:String(entity.id),direct:false});

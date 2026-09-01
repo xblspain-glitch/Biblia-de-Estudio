@@ -1488,6 +1488,25 @@ body.light-mode .search-help{color:#625a4b}
   .search-dialog,.dictionary-dialog{padding:18px 14px}
   .search-dialog .search-row button,.dictionary-dialog .search-row button{padding-left:14px;padding-right:14px}
 }
+
+/* Flechas geométricas centradas en los controles de cambio de capítulo. */
+.chapter-nav button{
+  display:grid;
+  place-items:center;
+  padding:0;
+  font-size:0;
+  line-height:1;
+}
+.chapter-nav button::before{
+  content:'';
+  display:block;
+  width:12px;
+  height:12px;
+  border-right:4px solid currentColor;
+  border-bottom:4px solid currentColor;
+}
+#prevChapter::before{transform:rotate(135deg)}
+#nextChapter::before{transform:rotate(-45deg)}
 @media(prefers-reduced-motion:reduce){
   .search-dialog[open],.dictionary-dialog[open],.dictionary-edit-dialog[open]{animation:none}
   .search-result,.dictionary-card{transition:none}
