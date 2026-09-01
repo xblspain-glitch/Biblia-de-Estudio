@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.131';
+const APP_VERSION='3.1.132';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1460,7 +1460,12 @@ function formatExplanationDictionarySegment(text,explanationKey,context){
     html+=escapeHtml(source.slice(cursor,token.start)).replace(/\n/g,'<br>');
     const entry=getDictionaryEntryForWord(token.word);
     if(!entry){html+=escapeHtml(token.word);cursor=token.end;continue}
-    const safeWord=escapeHtml(token.word),occurrenceKey=`explanation-${encodeURIComponent(String(explanationKey||''))}-${token.index}`,equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim(),active=!!(choices[occurrenceKey]&&equivalent);
+    const safeWord=escapeHtml(token.word),occurrenceKey=`explanation-${encodeURIComponent(String(explanationKey||''))}-${token.index}`,equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
+    if(state.dictionaryExclusions?.[occurrenceKey]){
+      html+=`<span class="dict-word dict-excluded" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${safeWord}</span>`;
+      cursor=token.end;continue;
+    }
+    const active=!!(choices[occurrenceKey]&&equivalent);
     html+=`<span class="dict-word dict-known${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
     cursor=token.end;
   }
@@ -1570,14 +1575,14 @@ $('#dismissExplanationReturn')?.addEventListener('click',clearExplanationReturn)
 let explanationDictionarySuppressUntil=0,explanationDictionaryPressTimer=null,explanationDictionaryPressTarget=null,explanationDictionaryPressX=0,explanationDictionaryPressY=0;
 function cancelExplanationDictionaryPress(){if(explanationDictionaryPressTimer){clearTimeout(explanationDictionaryPressTimer);explanationDictionaryPressTimer=null}explanationDictionaryPressTarget?.classList.remove('word-pressing');explanationDictionaryPressTarget=null}
 $('#viewExplanationText')?.addEventListener('pointerdown',e=>{
-  const word=e.target.closest('.dict-word.dict-known');if(!word||e.pointerType==='mouse'&&e.button!==0)return;
+  const word=e.target.closest('.dict-word[data-entry-id]');if(!word||e.pointerType==='mouse'&&e.button!==0)return;
   cancelExplanationDictionaryPress();explanationDictionaryPressTarget=word;explanationDictionaryPressX=e.clientX;explanationDictionaryPressY=e.clientY;word.classList.add('word-pressing');
-  explanationDictionaryPressTimer=setTimeout(()=>{const query=word.dataset.word||word.textContent||'';explanationDictionarySuppressUntil=Date.now()+900;navigator.vibrate?.(35);cancelExplanationDictionaryPress();if(query)openDictionary(query)},650);
+  explanationDictionaryPressTimer=setTimeout(()=>{const query=word.dataset.word||word.textContent||'',occurrenceKey=word.dataset.occurrenceKey||'',entryId=word.dataset.entryId||getDictionaryEntryForWord(query)?.id||'';explanationDictionarySuppressUntil=Date.now()+900;navigator.vibrate?.(35);cancelExplanationDictionaryPress();if(query)openDictionary(query,occurrenceKey?{occurrenceKey,entryId,word:query}:null)},650);
 },{passive:true});
 $('#viewExplanationText')?.addEventListener('pointermove',e=>{if(explanationDictionaryPressTarget&&Math.hypot(e.clientX-explanationDictionaryPressX,e.clientY-explanationDictionaryPressY)>12)cancelExplanationDictionaryPress()},{passive:true});
 $('#viewExplanationText')?.addEventListener('pointerup',cancelExplanationDictionaryPress,{passive:true});
 $('#viewExplanationText')?.addEventListener('pointercancel',cancelExplanationDictionaryPress,{passive:true});
-$('#viewExplanationText')?.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word.dict-known'))e.preventDefault()});
+$('#viewExplanationText')?.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word[data-entry-id]'))e.preventDefault()});
 $('#viewExplanationText')?.addEventListener('click',e=>{
   if(Date.now()<explanationDictionarySuppressUntil){e.preventDefault();e.stopPropagation();return}
   const capsule=e.target.closest('.bible-reference-capsule');if(capsule){openBibleReference(capsule.dataset.bibleReference||capsule.textContent);return}
@@ -1587,7 +1592,7 @@ $('#viewExplanationText')?.addEventListener('click',e=>{
   const entry=getDictionaryEntries().find(item=>item.id===word.dataset.entryId),equivalent=String(entry?.equivalenciaActual||'').trim(),brief=String(entry?.fraseAclaratoriaBreve||'').trim(),occurrenceKey=word.dataset.occurrenceKey||'',note=word.nextElementSibling?.classList.contains('dictionary-brief-note')?word.nextElementSibling:null;
   if(equivalent&&occurrenceKey){const choices=readDictionaryEquivalenceChoices(),active=word.classList.contains('dict-equivalent');if(active){delete choices[occurrenceKey];word.textContent=word.dataset.word||'';word.classList.remove('dict-equivalent');if(note)note.hidden=true}else{choices[occurrenceKey]={entryId:entry.id,original:word.dataset.word||''};word.textContent=equivalent;word.classList.add('dict-equivalent');if(note)note.hidden=false}saveDictionaryEquivalenceChoices(choices);return}
   if(brief&&note){note.hidden=!note.hidden;return}
-  openDictionary(word.dataset.word||word.textContent||'');
+  {const query=word.dataset.word||word.textContent||'',occurrenceKey=word.dataset.occurrenceKey||'',entryId=word.dataset.entryId||getDictionaryEntryForWord(query)?.id||'';openDictionary(query,occurrenceKey?{occurrenceKey,entryId,word:query}:null)}
 });
 $('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule){e.preventDefault();e.stopPropagation();openBibleReference(capsule.dataset.bibleReference||capsule.textContent)}});
 function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text,k);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
@@ -2821,7 +2826,12 @@ $('#saveDictionaryOccurrence')?.addEventListener('click',()=>{
   const context=dictionaryOccurrenceContext;if(!context?.occurrenceKey)return;
   if(context.pendingExcluded)state.dictionaryExclusions[context.occurrenceKey]={entryId:context.entryId||'',word:context.word||'',updatedAt:Date.now()};
   else delete state.dictionaryExclusions[context.occurrenceKey];
-  const excluded=context.pendingExcluded,position=dictionaryReadingPosition;save();render();$('#dictionaryDialog').close('occurrence-saved');restoreDictionaryReadingPosition(position);requestAnimationFrame(()=>restoreDictionaryReadingPosition(position));toast(excluded?'Aparición excluida del diccionario':'Aparición restaurada');
+  const excluded=context.pendingExcluded,position=dictionaryReadingPosition;save();render();
+  if(context.occurrenceKey.startsWith('explanation-')){
+    const dialog=$('#viewExplanationDialog'),key=dialog?.dataset.key||'',explanation=state.explanations?.[key],content=$('#viewExplanationText'),top=content?.scrollTop||0;
+    if(dialog?.open&&explanation&&content){content.innerHTML=formatReferenceCapsules(explanation.text,key);content.scrollTop=top;requestAnimationFrame(()=>{content.scrollTop=top})}
+  }
+  $('#dictionaryDialog').close('occurrence-saved');restoreDictionaryReadingPosition(position);requestAnimationFrame(()=>restoreDictionaryReadingPosition(position));toast(excluded?'Aparición excluida del diccionario':'Aparición restaurada');
 });
 $('#openDictionarySettings')?.addEventListener('click',()=>{$('#settingsDialog').close();openDictionary()});
 $('#saveDictionaryEntry')?.addEventListener('click',()=>{
@@ -3499,6 +3509,11 @@ function auditLocation(key){
   const book=state.books.find(item=>item.key===bookKey),max=EXPECTED_CHAPTER_VERSES[bookKey]?.[Number(chapter)-1];
   return Boolean(book&&Number(chapter)>=1&&Number(chapter)<=book.chapters&&Number(verse)>=1&&Number(verse)<=max);
 }
+function auditDictionaryExclusionLocation(key){
+  if(auditLocation(key))return true;
+  const match=String(key||'').match(/^explanation-(.+)-(\d+)$/);if(!match)return false;
+  try{return Boolean(state.explanations?.[decodeURIComponent(match[1])])}catch(_){return false}
+}
 function auditItem(level,category,title,detail='',key=''){return{level,category,title,detail,key}}
 function renderStudyAudit(filter=studyAuditState.filter){
   const report=studyAuditState.report;if(!report)return;studyAuditState.filter=filter;
@@ -3524,7 +3539,7 @@ function checkStudyCollections(items){
   dictionary.forEach(entry=>{const term=normalizeDictionaryText(entry.termino||'');if(!term||!String(entry.explicacion||'').trim())items.push(auditItem('warning','Diccionario','Ficha de diccionario incompleta',String(entry.termino||'Sin término')));if(term&&seen.has(term))duplicates.push(entry.termino);else if(term)seen.set(term,entry.id)});
   if(duplicates.length)items.push(auditItem('warning','Diccionario','Términos duplicados normalizados',duplicates.slice(0,8).join(', ')+(duplicates.length>8?'…':'')));
   else items.push(auditItem('pass','Diccionario',`${dictionary.length} ficha(s) sin términos duplicados`,''));
-  const exclusions=Object.keys(state.dictionaryExclusions||{}),badExclusions=exclusions.filter(key=>!auditLocation(key));
+  const exclusions=Object.keys(state.dictionaryExclusions||{}),badExclusions=exclusions.filter(key=>!auditDictionaryExclusionLocation(key));
   if(badExclusions.length)items.push(auditItem('warning','Diccionario','Exclusiones con una referencia que ya no es válida',`${badExclusions.length} aparición(es).`));
   else if(exclusions.length)items.push(auditItem('pass','Diccionario',`${exclusions.length} exclusión(es) por aparición correctamente guardada(s)`,''));
   const personal=[['Guardados',state.favorites],['Subrayados',state.highlights]];
