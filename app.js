@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.137';
+const APP_VERSION='3.1.138';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1274,7 +1274,7 @@ reader.addEventListener('click',e=>{
     return;
   }
   const referenceCapsule=e.target.closest('.bible-reference-capsule');
-  if(referenceCapsule){e.preventDefault();e.stopPropagation();openBibleReference(referenceCapsule.dataset.bibleReference||referenceCapsule.textContent);return}
+  if(referenceCapsule){e.preventDefault();e.stopPropagation();const clarificationNote=referenceCapsule.closest('.fragment-clarification-note');openBibleReference(referenceCapsule.dataset.bibleReference||referenceCapsule.textContent,currentClarificationReferenceOrigin(clarificationNote));return}
   const fragmentNote=e.target.closest('.fragment-clarification-note');
   if(fragmentNote){e.preventDefault();e.stopPropagation();fragmentNote.hidden=true;return}
   const fragment=e.target.closest('.fragment-clarification');
@@ -1490,6 +1490,7 @@ function currentExplanationReferenceOrigin(){
   if(!dialog?.open||!key||!explanation)return null;
   const [bookKey,chapter,versePart='1']=key.split(':');
   return{
+    type:'explanation',
     explanationKey:key,
     ref:String(explanation.ref||$('#viewExplanationRef')?.textContent||'Explicación'),
     bookKey:bookKey||state.books[state.bookIndex]?.key||'',
@@ -1498,31 +1499,57 @@ function currentExplanationReferenceOrigin(){
     explanationTop:$('#viewExplanationText')?.scrollTop||0
   };
 }
+function currentClarificationReferenceOrigin(note){
+  const verseElement=note?.closest('.verse'),verse=Number(verseElement?.dataset.v),fragment=note?.previousElementSibling;
+  if(!note||!Number.isFinite(verse)||!fragment?.classList.contains('fragment-clarification'))return null;
+  const occurrenceId=note.dataset.fragmentNoteId||fragment.dataset.fragmentId||'',sourceId=fragment.dataset.fragmentSourceId||occurrenceId;
+  const item=fragmentClarificationsForVerse(verse).find(entry=>entry.id===occurrenceId||(entry.sourceId||entry.id)===sourceId);
+  return{
+    type:'clarification',
+    occurrenceId,
+    sourceId,
+    ref:String(item?.ref||currentReference([verse])),
+    bookKey:state.books[state.bookIndex]?.key||'',
+    chapter:Number(state.chapter)||1,
+    verse,
+    readingPosition:captureDictionaryReadingPosition()
+  };
+}
 function updateExplanationReturnCapsule(){
-  const capsule=$('#explanationReturnCapsule'),label=$('#explanationReturnRef');if(!capsule)return;
+  const capsule=$('#explanationReturnCapsule'),label=$('#explanationReturnRef'),title=$('#explanationReturnTitle');if(!capsule)return;
   capsule.hidden=!pendingExplanationReturn;
   document.body.classList.toggle('explanation-return-visible',!!pendingExplanationReturn);
+  if(title)title.textContent=pendingExplanationReturn?.type==='clarification'?'Volver a la aclaración':'Volver a la explicación';
   if(label)label.textContent=pendingExplanationReturn?.ref||'';
 }
 function clearExplanationReturn(){pendingExplanationReturn=null;updateExplanationReturnCapsule()}
 async function returnToPendingExplanation(){
   const origin=pendingExplanationReturn;if(!origin||returningToExplanation)return;
-  const explanation=state.explanations?.[origin.explanationKey],bookIndex=state.books.findIndex(book=>book.key===origin.bookKey);
-  if(!explanation||bookIndex<0){clearExplanationReturn();toast('La explicación de origen ya no está disponible');return}
+  const bookIndex=state.books.findIndex(book=>book.key===origin.bookKey),explanation=origin.type==='clarification'?null:state.explanations?.[origin.explanationKey];
+  if(bookIndex<0||(origin.type!=='clarification'&&!explanation)){clearExplanationReturn();toast(origin.type==='clarification'?'La aclaración de origen ya no está disponible':'La explicación de origen ya no está disponible');return}
   returningToExplanation=true;
   try{
     state.bookIndex=bookIndex;state.chapter=origin.chapter;showReader();await loadChapter();
     const target=$(`.verse[data-v="${origin.verse}"]`);target?.scrollIntoView({block:'center'});
-    openViewExplanation(origin.explanationKey);
-    const restore=()=>{const content=$('#viewExplanationText');if(content)content.scrollTop=origin.explanationTop||0};
-    requestAnimationFrame(()=>{restore();requestAnimationFrame(restore)});setTimeout(restore,100);
+    if(origin.type==='clarification'){
+      const notes=[...(target?.querySelectorAll('.fragment-clarification-note')||[])],note=notes.find(element=>element.dataset.fragmentNoteId===origin.occurrenceId)||notes.find(element=>element.previousElementSibling?.dataset.fragmentSourceId===origin.sourceId);
+      if(!note){clearExplanationReturn();toast('La aclaración de origen ya no está disponible');return}
+      note.hidden=false;
+      const fragment=note.previousElementSibling;if(fragment?.classList.contains('fragment-clarification'))activeFragmentAccess={id:origin.sourceId||fragment.dataset.fragmentSourceId||fragment.dataset.fragmentId||'',bookKey:origin.bookKey,chapter:Number(origin.chapter),verse:Number(origin.verse)};
+      const restore=()=>{restoreDictionaryReadingPosition(origin.readingPosition);note.hidden=false};
+      requestAnimationFrame(()=>{restore();requestAnimationFrame(restore)});setTimeout(restore,100);
+    }else{
+      openViewExplanation(origin.explanationKey);
+      const restore=()=>{const content=$('#viewExplanationText');if(content)content.scrollTop=origin.explanationTop||0};
+      requestAnimationFrame(()=>{restore();requestAnimationFrame(restore)});setTimeout(restore,100);
+    }
     clearExplanationReturn();
   }finally{returningToExplanation=false}
 }
-async function openBibleReference(label){
+async function openBibleReference(label,originOverride=null){
   const parsed=parseBibleReferenceLabel(label);if(!parsed){toast('No se encontró esa referencia');return}
   const dialog=$('#bibleReferenceDialog'),title=$('#bibleReferenceTitle'),content=$('#bibleReferenceVerses');
-  activeBibleReference={...parsed,verses:[],explanationOrigin:currentExplanationReferenceOrigin()};
+  activeBibleReference={...parsed,verses:[],returnOrigin:originOverride||currentExplanationReferenceOrigin()};
   title.textContent=parsed.label;content.innerHTML='<p class="bible-reference-loading">Cargando pasaje…</p>';
   if(!dialog.open)dialog.showModal();
   try{
@@ -1553,7 +1580,7 @@ $('#goToBibleReference')?.addEventListener('click',async()=>{
   const bookIndex=state.books.findIndex(book=>book.key===destination.bookKey);if(bookIndex<0)return toast('No se encontró el libro');
   const goButton=$('#goToBibleReference');referenceNavigationInProgress=true;if(goButton)goButton.disabled=true;
   try{
-    pendingExplanationReturn=passage.explanationOrigin||null;
+    pendingExplanationReturn=passage.returnOrigin||passage.explanationOrigin||null;
     skipNextExplanationCloseRestore=Boolean($('#viewExplanationDialog')?.open);
     for(const selector of ['#bibleReferenceDialog','#viewExplanationDialog','#fragmentClarificationDialog']){
       const dialog=$(selector);if(dialog?.open)dialog.close();
