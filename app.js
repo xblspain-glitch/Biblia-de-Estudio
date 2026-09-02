@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.135';
+const APP_VERSION='3.1.136';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1598,6 +1598,7 @@ $('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.ta
 function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text,k);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
 $('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
 $('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
+$('#closeExplanationBottom').onclick=()=>$('#viewExplanationDialog').close();
 
 let fragmentPickerState={verse:null,tokens:[],clean:'',start:null,end:null,awaitingEnd:false,editId:''};
 function fragmentTextFromPicker(){

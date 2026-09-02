@@ -2733,6 +2733,32 @@ body.light-mode .bible-reference-actions button{background:#f1eee7;color:#211b16
 body.light-mode .bible-reference-actions .primary{background:linear-gradient(180deg,#f8e6a5,#e8c45e);color:#292013}
 @media(max-width:420px){.bible-reference-dialog{padding:20px 15px}.bible-reference-verses{max-height:52vh}.bible-reference-verses p{font-size:17px;padding:10px 2px}}
 
+/* V3.1.136 · Tarjeta de explicación más compacta e integrada */
+#viewExplanationDialog{position:relative;padding-top:22px}
+#viewExplanationDialog>form:first-child{position:absolute;top:17px;right:18px;z-index:2}
+#viewExplanationDialog>h2{margin:3px 62px 13px 0;font-size:30px;line-height:1.15}
+#viewExplanationDialog .explanation-ref-chip{
+  align-self:flex-start;display:inline-flex;align-items:center;width:auto;max-width:calc(100% - 8px);margin:0 0 12px;padding:6px 12px;
+  border:1px solid rgba(105,190,232,.76);border-radius:999px;background:linear-gradient(180deg,rgba(63,146,194,.24),rgba(34,91,128,.20));
+  color:#a9ddfa;font-size:15px;line-height:1.2;box-shadow:inset 0 1px 0 rgba(255,255,255,.10)
+}
+#viewExplanationDialog .explanation-header-divider{flex:0 0 auto;width:100%;height:1px;margin:0 0 13px;background:linear-gradient(90deg,transparent,rgba(224,184,82,.72) 18%,rgba(192,126,218,.78) 50%,rgba(224,184,82,.72) 82%,transparent)}
+#viewExplanationDialog .explanation-content{
+  border:1px solid rgba(195,138,218,.18);background:linear-gradient(180deg,rgba(26,24,29,.96),rgba(15,17,20,.98));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);padding:18px 20px;line-height:1.53;scrollbar-width:thin;scrollbar-color:#a56fc0 rgba(255,255,255,.055)
+}
+#viewExplanationDialog .explanation-content::-webkit-scrollbar{width:7px}
+#viewExplanationDialog .explanation-content::-webkit-scrollbar-track{background:rgba(255,255,255,.045);border-radius:999px}
+#viewExplanationDialog .explanation-content::-webkit-scrollbar-thumb{border-radius:999px;background:linear-gradient(180deg,#c58bdc,#b88b43)}
+#viewExplanationDialog .modal-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+#viewExplanationDialog .modal-actions button{width:100%;min-width:0}
+body.light-mode #viewExplanationDialog .explanation-ref-chip{border-color:#5599bc;background:linear-gradient(180deg,#e5f5fd,#cfe8f4);color:#185d80;box-shadow:inset 0 1px 0 #fff}
+body.light-mode #viewExplanationDialog .explanation-header-divider{background:linear-gradient(90deg,transparent,#b48c32 18%,#a66bbb 50%,#b48c32 82%,transparent)}
+body.light-mode #viewExplanationDialog .explanation-content{border-color:rgba(151,103,172,.24);background:linear-gradient(180deg,#f6f1e8,#eee8dd);box-shadow:inset 0 1px 0 #fff;scrollbar-color:#9a68af rgba(75,61,45,.08)}
+body.light-mode #viewExplanationDialog .explanation-content::-webkit-scrollbar-track{background:rgba(75,61,45,.07)}
+body.light-mode #viewExplanationDialog .explanation-content::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#a86fbc,#b38a38)}
+@media(max-width:420px){#viewExplanationDialog{padding-top:18px}#viewExplanationDialog>form:first-child{top:13px;right:13px}#viewExplanationDialog>h2{margin-top:4px;margin-bottom:11px;font-size:27px}#viewExplanationDialog .explanation-content{padding:16px 14px}#viewExplanationDialog .modal-actions{gap:7px}#viewExplanationDialog .modal-actions button{padding-left:7px;padding-right:7px}}
+
 
 /* V2.1.13 · Desglose dinámico del diccionario en Estadísticas */
 .stats-dictionary-tile{min-height:176px!important;justify-content:flex-start!important;gap:4px!important}
