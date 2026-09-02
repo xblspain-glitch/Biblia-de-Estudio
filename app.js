@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.136';
+const APP_VERSION='3.1.137';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1484,7 +1484,7 @@ function formatReferenceCapsules(text,explanationKey=''){
   }
   return html+formatPlain(source.slice(cursor));
 }
-let activeBibleReference=null,pendingExplanationReturn=null,returningToExplanation=false,referenceNavigationInProgress=false;
+let activeBibleReference=null,pendingExplanationReturn=null,returningToExplanation=false,referenceNavigationInProgress=false,explanationViewReadingPosition=null,skipNextExplanationCloseRestore=false;
 function currentExplanationReferenceOrigin(){
   const dialog=$('#viewExplanationDialog'),key=dialog?.dataset.key||'',explanation=state.explanations?.[key];
   if(!dialog?.open||!key||!explanation)return null;
@@ -1554,6 +1554,7 @@ $('#goToBibleReference')?.addEventListener('click',async()=>{
   const goButton=$('#goToBibleReference');referenceNavigationInProgress=true;if(goButton)goButton.disabled=true;
   try{
     pendingExplanationReturn=passage.explanationOrigin||null;
+    skipNextExplanationCloseRestore=Boolean($('#viewExplanationDialog')?.open);
     for(const selector of ['#bibleReferenceDialog','#viewExplanationDialog','#fragmentClarificationDialog']){
       const dialog=$(selector);if(dialog?.open)dialog.close();
     }
@@ -1595,10 +1596,11 @@ $('#viewExplanationText')?.addEventListener('click',e=>{
   {const query=word.dataset.word||word.textContent||'',occurrenceKey=word.dataset.occurrenceKey||'',entryId=word.dataset.entryId||getDictionaryEntryForWord(query)?.id||'';openDictionary(query,occurrenceKey?{occurrenceKey,entryId,word:query}:null)}
 });
 $('#fragmentClarificationList')?.addEventListener('click',e=>{const capsule=e.target.closest('.bible-reference-capsule');if(capsule){e.preventDefault();e.stopPropagation();openBibleReference(capsule.dataset.bibleReference||capsule.textContent)}});
-function openViewExplanation(k){const x=state.explanations[k];if(!x)return;const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text,k);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
+function openViewExplanation(k){const x=state.explanations[k];if(!x)return;explanationViewReadingPosition=captureDictionaryReadingPosition();const content=$('#viewExplanationText');$('#viewExplanationDialog').dataset.key=k;$('#viewExplanationRef').textContent=x.ref;content.innerHTML=formatReferenceCapsules(x.text,k);content.scrollTop=0;$('#viewExplanationDialog').showModal();content.scrollTop=0;requestAnimationFrame(()=>{content.scrollTop=0})}
 $('#editExplanation').onclick=()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];$('#viewExplanationDialog').close();openEditExplanation(k,x.ref)};
 $('#copyExplanation').onclick=async()=>{const k=$('#viewExplanationDialog').dataset.key,x=state.explanations[k];await navigator.clipboard.writeText(`${x.ref}\n${x.text}`);toast('Explicación copiada')};
 $('#closeExplanationBottom').onclick=()=>$('#viewExplanationDialog').close();
+$('#viewExplanationDialog').addEventListener('close',()=>{if(skipNextExplanationCloseRestore){skipNextExplanationCloseRestore=false;return}const position=explanationViewReadingPosition;if(!position||referenceNavigationInProgress)return;const restore=()=>restoreDictionaryReadingPosition(position);restore();requestAnimationFrame(()=>{restore();requestAnimationFrame(restore)});setTimeout(restore,120)});
 
 let fragmentPickerState={verse:null,tokens:[],clean:'',start:null,end:null,awaitingEnd:false,editId:''};
 function fragmentTextFromPicker(){
