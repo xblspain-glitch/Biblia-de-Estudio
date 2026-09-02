@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.133';
+const APP_VERSION='3.1.134';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -2017,6 +2017,7 @@ async function runSearch(){
   }
   const results=[...bookResults,...verseResults];
   box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t,null,{bookKey:state.books[r.bi]?.key||'',chapter:r.c,verse:r.v,verseText:r.t})}</div>`).join(''):'<p>Sin resultados.</p>';
+  box.querySelectorAll('.dict-word.dict-known').forEach(word=>word.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();openDictionary(word.dataset.word||word.textContent||'',null)}));
   box.querySelectorAll('.fragment-clarification').forEach(fragment=>fragment.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;if(note)note.hidden=!note.hidden}));
   box.querySelectorAll('.fragment-clarification-note').forEach(note=>note.addEventListener('click',event=>{const reference=event.target.closest('.bible-reference-capsule');event.preventDefault();event.stopPropagation();if(reference)openBibleReference(reference.dataset.bibleReference||reference.textContent);else note.hidden=true}));
   $$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]));
