@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.132';
+const APP_VERSION='3.1.133';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -858,12 +858,12 @@ function contextualBiblicalEntityCandidate(candidates,label,verseText){
   return scored[0].score>0&&scored[0].score>scored[1].score?scored[0].candidate:null;
 }
 window.refreshBiblicalEntityLinks=()=>{biblicalEntityLinkIndexDirty=true;if(state.books.length&&state.verses.length)render()};
-function fragmentClarificationsForVerse(verseNumber){
-  const book=state.books[state.bookIndex];
+function fragmentClarificationsForVerse(verseNumber,location=null){
+  const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex];
   if(!book||verseNumber===null)return[];
+  const chapter=Number(location?.chapter??state.chapter),verseText=location?.verseText??state.verses[Number(verseNumber)-1];
   const all=Object.values(state.fragmentClarifications||{}).filter(item=>item&&typeof item==='object');
-  const local=all.filter(item=>item.bookKey===book.key&&Number(item.chapter)===Number(state.chapter)&&Number(item.verse)===Number(verseNumber));
-  const verseText=state.verses[Number(verseNumber)-1];
+  const local=all.filter(item=>item.bookKey===book.key&&Number(item.chapter)===chapter&&Number(item.verse)===Number(verseNumber));
   if(typeof verseText!=='string')return local.sort((a,b)=>Number(a.startToken)-Number(b.startToken));
   const tokens=bibleWordTokens(verseText).tokens,occupied=new Set();
   for(const item of local)for(let i=Number(item.startToken);i<=Number(item.endToken);i++)occupied.add(i);
@@ -876,8 +876,8 @@ function fragmentClarificationsForVerse(verseNumber){
       const end=start+phraseWords.length-1;
       if(phraseWords.some((word,offset)=>normalized[start+offset]!==word))continue;
       if(Array.from({length:phraseWords.length},(_,offset)=>start+offset).some(i=>occupied.has(i)))continue;
-      const id=`${source.id}--${book.key}-${state.chapter}-${verseNumber}-${start}`;
-      automatic.push({...source,id,sourceId:source.id,bookKey:book.key,chapter:Number(state.chapter),verse:Number(verseNumber),startToken:start,endToken:end,ref:currentReference([Number(verseNumber)]),automatic:true});
+      const id=`${source.id}--${book.key}-${chapter}-${verseNumber}-${start}`;
+      automatic.push({...source,id,sourceId:source.id,bookKey:book.key,chapter,verse:Number(verseNumber),startToken:start,endToken:end,ref:`${displayBook(book)} ${chapter}:${Number(verseNumber)}`,automatic:true});
       for(let i=start;i<=end;i++)occupied.add(i);
       start=end;
     }
@@ -896,9 +896,9 @@ function formatBibleWordToken(word,verseNumber,tokenIndex,choices){
   const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent),nearbyRepeated=!!(occurrenceKey&&nearbyDictionaryRepeatedOccurrences.has(occurrenceKey));
   return `<span class="dict-word dict-known${nearbyRepeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}${nearbyRepeated?' title="Repetición cercana: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
 }
-function formatBibleText(s,verseNumber=null){
+function formatBibleText(s,verseNumber=null,location=null){
   const {clean,tokens}=bibleWordTokens(s),choices=verseNumber===null?{}:readDictionaryEquivalenceChoices();
-  const clarifications=fragmentClarificationsForVerse(verseNumber),starts=new Map(),ends=new Map();
+  const clarificationVerse=location?.verse??verseNumber,clarifications=fragmentClarificationsForVerse(clarificationVerse,location),starts=new Map(),ends=new Map();
   for(const item of clarifications){
     const start=Number(item.startToken),end=Number(item.endToken);
     if(Number.isInteger(start)&&Number.isInteger(end)&&start>=0&&end>=start&&end<tokens.length){starts.set(start,item);ends.set(end,item)}
@@ -912,7 +912,7 @@ function formatBibleText(s,verseNumber=null){
     if(opening)html+=`<span class="fragment-clarification" data-fragment-id="${escapeHtml(opening.id)}" data-fragment-source-id="${escapeHtml(opening.sourceId||opening.id)}">`;
     const entityOpening=entityStarts.get(token.index);
     if(entityOpening){
-      const book=state.books[state.bookIndex],occurrence=`${book?.key||''}:${state.chapter}:${verseNumber}:${entityOpening.start}-${entityOpening.end}`,choice=state.biblicalEntityChoices?.[occurrence];
+      const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex],chapter=Number(location?.chapter??state.chapter),entityVerse=location?.verse??verseNumber,occurrence=`${book?.key||''}:${chapter}:${entityVerse}:${entityOpening.start}-${entityOpening.end}`,choice=state.biblicalEntityChoices?.[occurrence];
       let entities=entityOpening.entities;
       if(choice?.mode==='chosen')entities=[{type:choice.type,id:choice.id}];
       const kind=entities.some(x=>x.type==='character')?'character':'place',links=entities.map(x=>({type:x.type,id:x.id})),removed=choice?.mode==='removed';
@@ -2016,7 +2016,9 @@ async function runSearch(){
     }
   }
   const results=[...bookResults,...verseResults];
-  box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t)}</div>`).join(''):'<p>Sin resultados.</p>';
+  box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t,null,{bookKey:state.books[r.bi]?.key||'',chapter:r.c,verse:r.v,verseText:r.t})}</div>`).join(''):'<p>Sin resultados.</p>';
+  box.querySelectorAll('.fragment-clarification').forEach(fragment=>fragment.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;if(note)note.hidden=!note.hidden}));
+  box.querySelectorAll('.fragment-clarification-note').forEach(note=>note.addEventListener('click',event=>{const reference=event.target.closest('.bible-reference-capsule');event.preventDefault();event.stopPropagation();if(reference)openBibleReference(reference.dataset.bibleReference||reference.textContent);else note.hidden=true}));
   $$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]));
 }
 $('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();const fontSizeInput=$('#fontSize'),fontSizeValue=$('#fontSizeValue');function applyFontSize(value){const min=Number(fontSizeInput.min),max=Number(fontSizeInput.max),size=Math.min(max,Math.max(min,Number(value)||24));fontSizeInput.value=size;fontSizeValue.textContent=size;document.documentElement.style.setProperty('--font-size',size+'px');localStorage.setItem('fontSize',size)}fontSizeInput.oninput=e=>applyFontSize(e.target.value);$('#fontSizeMinus').onclick=()=>applyFontSize(Number(fontSizeInput.value)-1);$('#fontSizePlus').onclick=()=>applyFontSize(Number(fontSizeInput.value)+1);applyFontSize(localStorage.getItem('fontSize')||fontSizeInput.value)
