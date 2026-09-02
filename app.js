@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.134';
+const APP_VERSION='3.1.135';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -748,9 +748,9 @@ function readDictionaryEquivalenceChoices(){
   try{const value=JSON.parse(localStorage.getItem(DICTIONARY_EQUIVALENCE_CHOICES_KEY)||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch(_){return{}}
 }
 function saveDictionaryEquivalenceChoices(value){localStorage.setItem(DICTIONARY_EQUIVALENCE_CHOICES_KEY,JSON.stringify(value||{}))}
-function dictionaryOccurrenceKey(verseNumber,tokenIndex){
-  const book=state.books[state.bookIndex];
-  return book&&Number.isFinite(Number(verseNumber))?`${book.key}:${state.chapter}:${Number(verseNumber)}:${tokenIndex}`:'';
+function dictionaryOccurrenceKey(verseNumber,tokenIndex,location=null){
+  const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex],chapter=Number(location?.chapter??state.chapter);
+  return book&&Number.isFinite(Number(verseNumber))?`${book.key}:${chapter}:${Number(verseNumber)}:${tokenIndex}`:'';
 }
 let nearbyDictionaryRepeatedOccurrences=new Set();
 function normalizeNearbyDictionaryWord(value){return String(value||'').normalize('NFC').toLocaleLowerCase('es').trim()}
@@ -888,10 +888,10 @@ function hasActiveFragmentAccess(){
   const book=state.books[state.bookIndex],access=activeFragmentAccess;
   return Boolean(book&&access&&access.bookKey===book.key&&Number(access.chapter)===Number(state.chapter)&&Number.isFinite(Number(access.verse))&&state.fragmentClarifications?.[access.id]);
 }
-function formatBibleWordToken(word,verseNumber,tokenIndex,choices){
+function formatBibleWordToken(word,verseNumber,tokenIndex,choices,location=null){
   const safeWord=escapeHtml(word),entry=getDictionaryEntryForWord(word);
   if(!entry)return `<span class="dict-word" data-word="${safeWord}">${safeWord}</span>`;
-  const occurrenceKey=dictionaryOccurrenceKey(verseNumber,tokenIndex),equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
+  const occurrenceKey=dictionaryOccurrenceKey(verseNumber,tokenIndex,location),equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
   if(occurrenceKey&&state.dictionaryExclusions?.[occurrenceKey])return `<span class="dict-word dict-excluded" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${safeWord}</span>`;
   const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent),nearbyRepeated=!!(occurrenceKey&&nearbyDictionaryRepeatedOccurrences.has(occurrenceKey));
   return `<span class="dict-word dict-known${nearbyRepeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}${nearbyRepeated?' title="Repetición cercana: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
@@ -918,7 +918,7 @@ function formatBibleText(s,verseNumber=null,location=null){
       const kind=entities.some(x=>x.type==='character')?'character':'place',links=entities.map(x=>({type:x.type,id:x.id})),removed=choice?.mode==='removed';
       html+=`<span class="biblical-entity-link biblical-entity-link-${kind}${removed?' biblical-entity-link-removed':''}" data-entity-links="${escapeHtml(JSON.stringify(links))}" data-entity-occurrence="${escapeHtml(occurrence)}"${choice?.direct?' data-entity-direct="1"':''}>`;
     }
-    html+=formatBibleWordToken(token.word,verseNumber,token.index,choices);
+    html+=formatBibleWordToken(token.word,verseNumber,token.index,choices,location);
     if(entityEnds.has(token.index))html+='</span>';
     const closing=ends.get(token.index);
     if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}</span>`;
@@ -2016,8 +2016,18 @@ async function runSearch(){
     }
   }
   const results=[...bookResults,...verseResults];
-  box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t,null,{bookKey:state.books[r.bi]?.key||'',chapter:r.c,verse:r.v,verseText:r.t})}</div>`).join(''):'<p>Sin resultados.</p>';
-  box.querySelectorAll('.dict-word.dict-known').forEach(word=>word.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();openDictionary(word.dataset.word||word.textContent||'',null)}));
+  box.innerHTML=results.length?results.map((r,i)=>r.type==='book'?`<div class="search-result book-search-result" data-i="${i}"><strong>${escapeHtml(r.ref)}</strong><span>Abrir libro · ${r.chapters} capítulos</span></div>`:`<div class="search-result" data-i="${i}"><strong>${r.ref}</strong>${formatBibleText(r.t,r.v,{bookKey:state.books[r.bi]?.key||'',chapter:r.c,verse:r.v,verseText:r.t})}</div>`).join(''):'<p>Sin resultados.</p>';
+  let searchDictionarySuppressUntil=0;
+  box.querySelectorAll('.dict-word.dict-known').forEach(word=>{
+    let pressTimer=null,startX=0,startY=0;
+    const cancelPress=()=>{if(pressTimer){clearTimeout(pressTimer);pressTimer=null}word.classList.remove('word-pressing')};
+    word.addEventListener('pointerdown',event=>{if(event.pointerType==='mouse'&&event.button!==0)return;cancelPress();startX=event.clientX;startY=event.clientY;word.classList.add('word-pressing');pressTimer=setTimeout(()=>{const query=word.dataset.word||word.textContent||'',occurrenceKey=word.dataset.occurrenceKey||'',entryId=word.dataset.entryId||getDictionaryEntryForWord(query)?.id||'';searchDictionarySuppressUntil=Date.now()+900;navigator.vibrate?.(35);cancelPress();openDictionary(query,occurrenceKey?{occurrenceKey,entryId,word:query}:null)},650)});
+    word.addEventListener('pointermove',event=>{if(pressTimer&&Math.hypot(event.clientX-startX,event.clientY-startY)>12)cancelPress()});
+    word.addEventListener('pointerup',cancelPress);word.addEventListener('pointercancel',cancelPress);
+    word.addEventListener('contextmenu',event=>event.preventDefault());
+    word.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(Date.now()<searchDictionarySuppressUntil)return;const entry=getDictionaryEntries().find(item=>item.id===word.dataset.entryId),equivalent=String(entry?.equivalenciaActual||'').trim(),brief=String(entry?.fraseAclaratoriaBreve||'').trim(),occurrenceKey=word.dataset.occurrenceKey||'',note=word.nextElementSibling?.classList.contains('dictionary-brief-note')?word.nextElementSibling:null;if(equivalent&&occurrenceKey){const choices=readDictionaryEquivalenceChoices(),active=word.classList.contains('dict-equivalent');if(active){delete choices[occurrenceKey];word.textContent=word.dataset.word||'';word.classList.remove('dict-equivalent');if(note)note.hidden=true}else{choices[occurrenceKey]={entryId:entry.id,original:word.dataset.word||''};word.textContent=equivalent;word.classList.add('dict-equivalent');if(note)note.hidden=false}saveDictionaryEquivalenceChoices(choices);return}if(brief&&note){note.hidden=!note.hidden;return}openDictionary(word.dataset.word||word.textContent||'',occurrenceKey?{occurrenceKey,entryId:word.dataset.entryId||'',word:word.dataset.word||''}:null)});
+  });
+  box.querySelectorAll('.dictionary-brief-note').forEach(note=>note.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();note.hidden=true}));
   box.querySelectorAll('.fragment-clarification').forEach(fragment=>fragment.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;if(note)note.hidden=!note.hidden}));
   box.querySelectorAll('.fragment-clarification-note').forEach(note=>note.addEventListener('click',event=>{const reference=event.target.closest('.bible-reference-capsule');event.preventDefault();event.stopPropagation();if(reference)openBibleReference(reference.dataset.bibleReference||reference.textContent);else note.hidden=true}));
   $$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]));
