@@ -845,7 +845,7 @@ body.light-mode .explanation-group{
   display:inline-block!important;
   max-width:100%;
   padding:3px 5px!important;
-  margin:1px 0;
+  margin:3px 0;
   border-radius:10px!important;
   background:linear-gradient(180deg,rgba(205,170,239,.15),rgba(165,112,215,.11))!important;
   border:1px solid rgba(211,174,244,.72);
@@ -3780,6 +3780,13 @@ body.dark-mode .biblical-atlas-local,
 body.light-mode .explanation-group:has(.verse.selected){
   background:linear-gradient(180deg,rgba(209,178,239,.22),rgba(177,127,219,.14))!important;
   border-color:rgba(153,101,200,.58)!important;
+}
+.explanation-group .verse-number{
+  color:#9d99a6!important;
+  opacity:.95;
+}
+body.light-mode .explanation-group .verse-number{
+  color:#706679!important;
 }
 body.light-mode .explanation-group .verse.selected,
 .light-mode .explanation-group .verse.selected{
