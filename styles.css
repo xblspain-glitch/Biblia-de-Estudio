@@ -847,7 +847,7 @@ body.light-mode .explanation-group{
   padding:3px 5px!important;
   margin:1px 0;
   border-radius:10px!important;
-  background:linear-gradient(180deg,rgba(205,170,239,.25),rgba(165,112,215,.20))!important;
+  background:linear-gradient(180deg,rgba(205,170,239,.15),rgba(165,112,215,.11))!important;
   border:1px solid rgba(211,174,244,.72);
   outline:0!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(142,91,190,.10)!important;
@@ -869,16 +869,16 @@ body.light-mode .explanation-group{
   box-decoration-break:slice!important;
 }
 .explanation-group:has(.verse.selected){
-  background:linear-gradient(180deg,rgba(190,158,224,.42),rgba(151,104,194,.34))!important;
+  background:linear-gradient(180deg,rgba(190,158,224,.24),rgba(151,104,194,.18))!important;
   border-color:rgba(220,188,248,.92);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 0 0 2px rgba(151,104,194,.18)!important;
 }
 body.light-mode .explanation-group{
-  background:linear-gradient(180deg,rgba(209,178,239,.34),rgba(177,127,219,.25))!important;
+  background:linear-gradient(180deg,rgba(209,178,239,.22),rgba(177,127,219,.14))!important;
   border-color:rgba(153,101,200,.58);
 }
 body.light-mode .explanation-group:has(.verse.selected){
-  background:linear-gradient(180deg,rgba(198,159,232,.52),rgba(169,116,213,.40))!important;
+  background:linear-gradient(180deg,rgba(198,159,232,.32),rgba(169,116,213,.23))!important;
 }
 
 
@@ -3773,9 +3773,13 @@ body.dark-mode .biblical-atlas-local,
   box-decoration-break:clone!important;
 }
 .explanation-group:has(.verse.selected){
-  background:linear-gradient(180deg,rgba(205,170,239,.25),rgba(165,112,215,.20))!important;
+  background:linear-gradient(180deg,rgba(205,170,239,.15),rgba(165,112,215,.11))!important;
   border-color:rgba(211,174,244,.72)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(142,91,190,.10)!important;
+}
+body.light-mode .explanation-group:has(.verse.selected){
+  background:linear-gradient(180deg,rgba(209,178,239,.22),rgba(177,127,219,.14))!important;
+  border-color:rgba(153,101,200,.58)!important;
 }
 body.light-mode .explanation-group .verse.selected,
 .light-mode .explanation-group .verse.selected{
