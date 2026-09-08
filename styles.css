@@ -1141,6 +1141,9 @@ body.dark .chapter-nav.night span{background:rgba(0,0,0,.30);}
 .stats-grid .stats-tile small{display:block;margin-top:7px;color:#a997c7;font:700 10px/1.2 system-ui;text-transform:uppercase;letter-spacing:.04em}
 .stats-list-dialog{width:min(95vw,760px);height:min(88vh,820px);padding:22px;overflow:hidden;display:none;grid-template-rows:auto auto auto auto minmax(0,1fr) auto}
 .stats-list-dialog[open]{display:grid}
+.stats-list-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.stats-list-nav .dialog-close{float:none;flex:0 0 auto}
+.stats-list-back{min-height:38px;border-radius:999px!important;padding:8px 15px!important;font:750 13px/1 system-ui!important}
 .stats-list-dialog h2{margin:0 54px 15px 0}
 .stats-list-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;margin-bottom:8px}
 .stats-list-tools input,.stats-list-tools select{min-width:0;border:1px solid #51545d;border-radius:12px;background:#202329;color:#fff;padding:11px 12px;font:14px system-ui}
