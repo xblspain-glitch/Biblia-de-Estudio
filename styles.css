@@ -4454,6 +4454,16 @@ body.light-mode .festivity-notice-event-v3111 span{color:#665d50}
 body.light-mode .calendar-group-v3145>h2{color:#76500d;border-color:#c8a14e}body.light-mode .calendar-organizer-card-v3145{background:linear-gradient(155deg,#fffdf8,#f3ead8);color:#30291f}body.light-mode .calendar-organizer-card-v3145 h2,body.light-mode .calendar-fieldset-v3145 legend{color:#76500d}body.light-mode .calendar-organizer-card-v3145>p{color:#625747}body.light-mode .calendar-organizer-row-v3145,body.light-mode .calendar-check-v3145{background:#fffaf0;border-color:#cfb36f}body.light-mode .calendar-organizer-row-v3145 button,body.light-mode .calendar-rule-row-v3145 input,body.light-mode .festivity-form-field select{background:#fff;color:#30291f;border-color:#b58a32}body.light-mode .festivity-calendar-tags-v3145 span{background:#fff7df;color:#6d4900;border-color:#b88b2a}
 @media(max-width:520px){.calendar-check-grid-v3145{grid-template-columns:1fr}.calendar-rule-row-v3145{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar-organizer-actions-v3145{grid-template-columns:1fr}.calendar-toolbar{flex-wrap:wrap}}
 
+/* V3.1.146 · Tarjetas de calendario accesibles */
+.calendar-card-link-v3146{cursor:pointer;display:flex;flex-direction:column;min-height:160px;transition:border-color .18s ease,transform .18s ease,background .18s ease}
+.calendar-card-link-v3146:active{transform:scale(.992)}
+.calendar-card-link-v3146:focus-visible{outline:3px solid rgba(241,210,120,.5);outline-offset:3px}
+.calendar-card-open-v3146{display:flex;align-items:center;gap:5px;margin-top:auto;padding-top:16px;color:#f1d278;font-size:.92rem;font-weight:800}
+.calendar-card-open-v3146 small{color:#aaa397;font-size:.78rem;font-weight:500}.calendar-card-open-v3146 b{margin-left:auto;font-size:1.45rem;line-height:1}
+.calendar-empty-list-v3146{padding:24px 16px;text-align:center;border:1px dashed rgba(202,161,68,.45);border-radius:17px;color:#c9c2b6}.calendar-empty-list-v3146 p{margin:5px 0;line-height:1.45}
+body.light-mode .calendar-card-open-v3146{color:#76520d}body.light-mode .calendar-card-open-v3146 small{color:#716758}body.light-mode .calendar-empty-list-v3146{color:#5d5345;border-color:#b58a32}
+@media(hover:hover){.calendar-card-link-v3146:hover{border-color:rgba(230,190,89,.88);background:rgba(34,42,54,.98)}body.light-mode .calendar-card-link-v3146:hover{background:#fffaf0}}
+
 
 /* V3.1.14 · Ajustes legibles en modo claro */
 body.light-mode #settingsDialog{

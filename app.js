@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.145';
+const APP_VERSION='3.1.146';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -5548,7 +5548,7 @@ setTimeout(updateBiblicalCalendarAlert,500);
 /* V3.1.14: el aviso de festividad se muestra después de pulsar Entrar. */
 setInterval(updateBiblicalCalendarAlert,60000);
 
-/* V3.1.145 · Calendario cristiano personalizable y celebraciones compartidas */
+/* V3.1.146 · Calendario cristiano personalizable y celebraciones compartidas */
 const CALENDAR_PREFS_KEY_V3145='biblia_calendario_secciones_v3145';
 const CALENDAR_TRADITIONS_V3145={
   personal:'Mi calendario',iglesia:'Mi iglesia',evangelico:'Evangélico',protestante:'Protestante',
@@ -5713,3 +5713,91 @@ openBiblicalFestivityDetail=async function(id){
 };
 
 openBiblicalCalendar=async function(){await loadBiblicalFestivities();showStudyModuleScreen('biblicalCalendarScreen');renderBiblicalCalendar(new Date());updateBiblicalCalendarAlert()};
+
+/* V3.1.146 · Cada tarjeta abre su calendario completo */
+let biblicalFestivityCalendarFilterV3146='';
+
+function festivitiesForCalendarV3146(key){
+  return getAllBiblicalFestivities().filter(item=>festivityCalendarSettingsV3145(item).traditions.includes(key));
+}
+
+function renderCalendarCardV3146(events,key,label){
+  const matches=events.filter(event=>event.trad===key);
+  const total=festivitiesForCalendarV3146(key).length;
+  let html=`<section class="biblical-calendar-card calendar-card-link-v3146" role="button" tabindex="0" aria-label="Abrir calendario ${escapeHtml(label)}" onclick="openBiblicalFestivityCalendarV3146('${key}')" onkeydown="if(event.target===this&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openBiblicalFestivityCalendarV3146('${key}')}" ><h2>${escapeHtml(label)}</h2>`;
+  if(!matches.length)html+='<p class="biblical-calendar-empty">Sin festividad especial.</p>';
+  for(const event of matches){
+    html+=`<button class="biblical-calendar-event" type="button" onclick="event.stopPropagation();openBiblicalFestivityFromCalendarV3146('${event.id||''}','${key}')">
+      <strong>${escapeHtml(event.title)}</strong><span>${escapeHtml(event.desc||'')}</span>
+    </button>`;
+  }
+  html+=`<span class="calendar-card-open-v3146">Ver calendario <small>· ${total} ${total===1?'celebración':'celebraciones'}</small><b aria-hidden="true">›</b></span>`;
+  return html+'</section>';
+}
+
+renderBiblicalCalendar=function(date){
+  biblicalCalendarDate=new Date(date);
+  const box=document.getElementById('biblicalCalendarContent');if(!box)return;
+  const events=getBiblicalCalendarEvents(biblicalCalendarDate),prefs=calendarPrefsV3145();
+  const when=sameBiblicalCalendarDay(biblicalCalendarDate,new Date())?'Hoy':'Fecha';
+  const sections=calendarSectionsV3145().map(section=>{
+    if(prefs.hidden.includes(section.id))return'';
+    return `<section class="calendar-group-v3145"><h2>${escapeHtml(section.label)}</h2><div class="biblical-calendar-grid">${section.items.map(key=>renderCalendarCardV3146(events,key,CALENDAR_TRADITIONS_V3145[key])).join('')}</div></section>`;
+  }).join('');
+  box.innerHTML=`<header class="biblical-calendar-hero"><h1>Mi calendario cristiano</h1><p>${when} · ${escapeHtml(formatBiblicalCalendarDate(biblicalCalendarDate))}</p></header>${sections}<p class="biblical-calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Puedes añadir celebraciones propias y decidir en qué calendarios aparecen.</p>`;
+};
+
+function configureFestivityLibraryForCalendarV3146(key=''){
+  biblicalFestivityCalendarFilterV3146=CALENDAR_TRADITIONS_V3145[key]?key:'';
+  const label=CALENDAR_TRADITIONS_V3145[biblicalFestivityCalendarFilterV3146]||'';
+  const view=document.getElementById('biblicalFestivityListView');
+  const title=view?.querySelector('.festivity-library-head h2');
+  const intro=view?.querySelector('.festivity-intro');
+  const add=view?.querySelector('.festivity-add-main');
+  if(title)title.textContent=label?`Calendario ${label}`:'Celebraciones cristianas';
+  if(intro)intro.textContent=label?`Consulta y añade las celebraciones de ${label}.`:'Selecciona una celebración para consultar su explicación, notas y pasajes bíblicos.';
+  if(add){
+    add.textContent=label?'Añadir aquí':'Añadir celebración';
+    add.onclick=label?()=>openBiblicalFestivityEditorForCalendarV3146(key):()=>openBiblicalFestivityEditor();
+  }
+}
+
+async function openBiblicalFestivityCalendarV3146(key){
+  await loadBiblicalFestivities();
+  configureFestivityLibraryForCalendarV3146(key);
+  const search=document.getElementById('biblicalFestivitySearch');if(search)search.value='';
+  backToBiblicalFestivityList();
+  document.getElementById('biblicalFestivityDialog')?.showModal();
+}
+
+function openBiblicalFestivityFromCalendarV3146(id,key){
+  configureFestivityLibraryForCalendarV3146(key);
+  openBiblicalFestivityDetail(id);
+}
+
+const openBiblicalFestivityLibraryBeforeV3146=openBiblicalFestivityLibrary;
+openBiblicalFestivityLibrary=async function(){
+  configureFestivityLibraryForCalendarV3146('');
+  const search=document.getElementById('biblicalFestivitySearch');if(search)search.value='';
+  return openBiblicalFestivityLibraryBeforeV3146();
+};
+
+renderBiblicalFestivityLibrary=async function(){
+  await loadBiblicalFestivities();
+  const box=document.getElementById('biblicalFestivityList');if(!box)return;
+  const q=normalizeText(document.getElementById('biblicalFestivitySearch')?.value||'');
+  const rows=getAllBiblicalFestivities().filter(item=>{
+    const inCalendar=!biblicalFestivityCalendarFilterV3146||festivityCalendarSettingsV3145(item).traditions.includes(biblicalFestivityCalendarFilterV3146);
+    return inCalendar&&(!q||normalizeText(`${item.title} ${item.date} ${item.summary} ${item.meaning}`).includes(q));
+  });
+  box.innerHTML=rows.map(item=>`<button class="biblical-festivity-row" type="button" onclick="openBiblicalFestivityDetail('${item.id}')"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.date||'Sin fecha indicada')}${item.custom?' · Personalizada':''}</span></button>`).join('')||`<div class="calendar-empty-list-v3146"><p>No hay celebraciones añadidas${biblicalFestivityCalendarFilterV3146?' en este calendario':''}.</p>${biblicalFestivityCalendarFilterV3146?'<p>Pulsa «Añadir aquí» para crear la primera.</p>':''}</div>`;
+};
+
+function openBiblicalFestivityEditorForCalendarV3146(key){
+  openBiblicalFestivityEditor();
+  document.querySelectorAll('input[name="festivityTraditionV3145"]').forEach(input=>{input.checked=input.value===key});
+}
+
+window.openBiblicalFestivityCalendarV3146=openBiblicalFestivityCalendarV3146;
+window.openBiblicalFestivityFromCalendarV3146=openBiblicalFestivityFromCalendarV3146;
+window.openBiblicalFestivityEditorForCalendarV3146=openBiblicalFestivityEditorForCalendarV3146;
