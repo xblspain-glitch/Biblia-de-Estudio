@@ -4439,6 +4439,21 @@ body.light-mode .festivity-notice-event-v3111 p{color:#3a332a}
 body.light-mode .festivity-notice-event-v3111 span{color:#665d50}
 @media(max-width:420px){.festivity-notice-actions-v3111{grid-template-columns:1fr}}
 
+/* V3.1.145 · Calendario cristiano personalizable */
+.calendar-group-v3145{margin:22px 0 30px}.calendar-group-v3145>h2{margin:0 0 12px;padding:0 4px 9px;border-bottom:1px solid rgba(202,161,68,.42);color:#efd27d;font:700 1.28rem/1.25 Lora,serif}
+.calendar-organizer-overlay-v3145{position:fixed;inset:0;z-index:15000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.72)}
+.calendar-organizer-card-v3145{width:min(520px,100%);max-height:90vh;overflow:auto;padding:22px;border:1px solid #aa873e;border-radius:24px;background:linear-gradient(155deg,#20242c,#14171d);color:#f7f1e5;box-shadow:0 24px 70px rgba(0,0,0,.48)}
+.calendar-organizer-card-v3145 h2{margin:0;color:#f1d477}.calendar-organizer-card-v3145>p{color:#cbc3b5}
+.calendar-organizer-list-v3145{display:grid;gap:10px;margin:18px 0}.calendar-organizer-row-v3145{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 13px;border:1px solid rgba(202,161,68,.38);border-radius:14px;background:rgba(255,255,255,.035)}
+.calendar-organizer-row-v3145 label{display:flex;align-items:center;gap:9px;font-weight:700}.calendar-organizer-row-v3145 span{display:flex;gap:6px}.calendar-organizer-row-v3145 button{width:38px;height:38px;border:1px solid #806b42;border-radius:10px;background:#292d35;color:#f1d477;font-size:1.1rem}.calendar-organizer-row-v3145 button:disabled{opacity:.3}
+.calendar-organizer-actions-v3145{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.calendar-fieldset-v3145{margin:0 0 18px;padding:14px;border:1px solid #756238;border-radius:16px}.calendar-fieldset-v3145 legend{padding:0 7px;color:#edd17a;font-weight:800}
+.calendar-check-grid-v3145{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.calendar-check-v3145{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid rgba(202,161,68,.3);border-radius:12px;background:rgba(255,255,255,.025)}
+.calendar-rule-row-v3145{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:-4px 0 18px}.calendar-rule-row-v3145 label{color:#d9cdaF;font-size:.9rem}.calendar-rule-row-v3145 input,.festivity-form-field select{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px;border:1px solid #756238;border-radius:13px;background:#1d2027;color:#fff;font:inherit}
+.festivity-calendar-tags-v3145{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 17px}.festivity-calendar-tags-v3145 span{padding:6px 10px;border:1px solid rgba(202,161,68,.55);border-radius:999px;background:rgba(202,161,68,.1);color:#f0d684;font-size:.78rem;font-weight:750}
+body.light-mode .calendar-group-v3145>h2{color:#76500d;border-color:#c8a14e}body.light-mode .calendar-organizer-card-v3145{background:linear-gradient(155deg,#fffdf8,#f3ead8);color:#30291f}body.light-mode .calendar-organizer-card-v3145 h2,body.light-mode .calendar-fieldset-v3145 legend{color:#76500d}body.light-mode .calendar-organizer-card-v3145>p{color:#625747}body.light-mode .calendar-organizer-row-v3145,body.light-mode .calendar-check-v3145{background:#fffaf0;border-color:#cfb36f}body.light-mode .calendar-organizer-row-v3145 button,body.light-mode .calendar-rule-row-v3145 input,body.light-mode .festivity-form-field select{background:#fff;color:#30291f;border-color:#b58a32}body.light-mode .festivity-calendar-tags-v3145 span{background:#fff7df;color:#6d4900;border-color:#b88b2a}
+@media(max-width:520px){.calendar-check-grid-v3145{grid-template-columns:1fr}.calendar-rule-row-v3145{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar-organizer-actions-v3145{grid-template-columns:1fr}.calendar-toolbar{flex-wrap:wrap}}
+
 
 /* V3.1.14 · Ajustes legibles en modo claro */
 body.light-mode #settingsDialog{

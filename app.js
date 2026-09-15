@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.144';
+const APP_VERSION='3.1.145';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -4905,8 +4905,9 @@ function buildBiblicalCalendarYear(y){
   const map={},west=westernEasterDate(y),east=orthodoxEasterDate(y);
   addBiblicalFixedEvent(map,y,1,6,'catolica','Epifanía','Manifestación de Cristo a las naciones.','epifania_teofania');
   addBiblicalFixedEvent(map,y,1,6,'protestante','Epifanía','Manifestación de Cristo a las naciones.','epifania_teofania');
-  addBiblicalFixedEvent(map,y,1,7,'ortodoxa','Navidad ortodoxa','Celebración de la Natividad de Cristo.','navidad');
-  addBiblicalFixedEvent(map,y,1,19,'etiope','Timkat','Celebración etíope de la Teofanía y del bautismo de Cristo.','epifania_teofania');
+  addBiblicalFixedEvent(map,y,1,7,'ortodoxa','Navidad ortodoxa','Celebración de la Natividad de Cristo.','genna');
+  addBiblicalFixedEvent(map,y,1,7,'etiope','Genna','Navidad etíope y celebración de la Natividad de Cristo.','genna');
+  addBiblicalFixedEvent(map,y,1,19,'etiope','Timkat','Celebración etíope de la Teofanía y del bautismo de Cristo.','timkat');
   addBiblicalFixedEvent(map,y,3,25,'catolica','Anunciación','El anuncio del ángel Gabriel a María.','anunciacion');
   addBiblicalFixedEvent(map,y,3,25,'ortodoxa','Anunciación','El anuncio del ángel Gabriel a María.','anunciacion');
   addBiblicalFixedEvent(map,y,6,24,'catolica','Natividad de San Juan Bautista','Nacimiento del precursor de Cristo.','juan_bautista_natividad');
@@ -4920,19 +4921,25 @@ function buildBiblicalCalendarYear(y){
   addBiblicalFixedEvent(map,y,11,30,'catolica','San Andrés','Memoria del apóstol Andrés.','san_andres');
   addBiblicalFixedEvent(map,y,12,25,'catolica','Navidad','Nacimiento de Jesucristo.','navidad');
   addBiblicalFixedEvent(map,y,12,25,'protestante','Navidad','Nacimiento de Jesucristo.','navidad');
+  addBiblicalFixedEvent(map,y,12,25,'evangelico','Navidad','Nacimiento de Jesucristo.','navidad');
   addBiblicalFixedEvent(map,y,12,27,'catolica','San Juan Evangelista','Memoria del apóstol y evangelista Juan.','san_juan_evangelista');
 
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-46),'catolica','Miércoles de Ceniza','Comienzo de la Cuaresma occidental.','miercoles_ceniza');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-7),'catolica','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-7),'protestante','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
+  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-7),'evangelico','Domingo de Ramos','Entrada de Cristo en Jerusalén.','domingo_ramos');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-2),'catolica','Viernes Santo','Pasión y muerte de Cristo.','viernes_santo');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-2),'protestante','Viernes Santo','La cruz de Jesucristo.','viernes_santo');
+  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,-2),'evangelico','Viernes Santo','La cruz de Jesucristo.','viernes_santo');
   addBiblicalCalendarEvent(map,west,'catolica','Pascua de Resurrección','Cristo ha resucitado.','resurreccion');
   addBiblicalCalendarEvent(map,west,'protestante','Pascua de Resurrección','Cristo ha resucitado.','resurreccion');
+  addBiblicalCalendarEvent(map,west,'evangelico','Domingo de Resurrección','Cristo ha resucitado.','resurreccion');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,39),'catolica','Ascensión del Señor','Cristo asciende al Padre.','ascension');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,39),'protestante','Ascensión del Señor','Cristo asciende al Padre.','ascension');
+  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,39),'evangelico','Ascensión del Señor','Cristo asciende al Padre.','ascension');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,49),'catolica','Pentecostés','Venida del Espíritu Santo sobre la Iglesia.','pentecostes');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,49),'protestante','Pentecostés','Venida del Espíritu Santo.','pentecostes');
+  addBiblicalCalendarEvent(map,addBiblicalCalendarDays(west,49),'evangelico','Pentecostés','Venida del Espíritu Santo.','pentecostes');
 
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-55),'etiope','Gran Ayuno','Preparación hacia Fasika.','gran_ayuno');
   addBiblicalCalendarEvent(map,addBiblicalCalendarDays(east,-48),'ortodoxa','Gran Cuaresma','Preparación hacia la Santa Pascua.','gran_cuaresma');
@@ -4996,7 +5003,7 @@ async function loadBiblicalFestivities(){
   return biblicalFestivitiesData;
 }
 function emptyBiblicalFestivityStore(){
-  return{schema:2,custom:[],edits:{},deleted:[]};
+  return{schema:3,custom:[],edits:{},deleted:[]};
 }
 
 function biblicalFestivityStore(){
@@ -5021,7 +5028,7 @@ function biblicalFestivityStore(){
     }
 
     return{
-      schema:2,
+      schema:3,
       custom:Array.isArray(raw.custom)?raw.custom:[],
       edits:raw.edits&&typeof raw.edits==='object'?raw.edits:{},
       deleted:Array.isArray(raw.deleted)?raw.deleted:[]
@@ -5033,7 +5040,7 @@ function biblicalFestivityStore(){
 
 function saveBiblicalFestivityStore(store){
   localStorage.setItem('biblia_festividades_v310',JSON.stringify({
-    schema:2,
+    schema:3,
     custom:Array.isArray(store?.custom)?store.custom:[],
     edits:store?.edits&&typeof store.edits==='object'?store.edits:{},
     deleted:Array.isArray(store?.deleted)?store.deleted:[]
@@ -5540,3 +5547,169 @@ loadBiblicalFestivities();
 setTimeout(updateBiblicalCalendarAlert,500);
 /* V3.1.14: el aviso de festividad se muestra después de pulsar Entrar. */
 setInterval(updateBiblicalCalendarAlert,60000);
+
+/* V3.1.145 · Calendario cristiano personalizable y celebraciones compartidas */
+const CALENDAR_PREFS_KEY_V3145='biblia_calendario_secciones_v3145';
+const CALENDAR_TRADITIONS_V3145={
+  personal:'Mi calendario',iglesia:'Mi iglesia',evangelico:'Evangélico',protestante:'Protestante',
+  etiope:'Ortodoxo etíope',ortodoxa:'Ortodoxo',catolica:'Católico'
+};
+const CALENDAR_SECTION_DEFAULTS_V3145=[
+  {id:'personal',label:'Personal',items:['personal','iglesia']},
+  {id:'protestante',label:'Protestante y evangélico',items:['evangelico','protestante']},
+  {id:'ortodoxo',label:'Ortodoxo',items:['etiope','ortodoxa']},
+  {id:'catolico',label:'Católico',items:['catolica']}
+];
+
+function calendarPrefsV3145(){
+  let saved=null;
+  try{saved=JSON.parse(localStorage.getItem(CALENDAR_PREFS_KEY_V3145)||'null')}catch(_){}
+  const ids=CALENDAR_SECTION_DEFAULTS_V3145.map(x=>x.id),order=Array.isArray(saved?.order)?saved.order.filter(x=>ids.includes(x)):[];
+  ids.forEach(id=>{if(!order.includes(id))order.push(id)});
+  return{order,hidden:Array.isArray(saved?.hidden)?saved.hidden.filter(x=>ids.includes(x)):[]};
+}
+function saveCalendarPrefsV3145(prefs){
+  localStorage.setItem(CALENDAR_PREFS_KEY_V3145,JSON.stringify(prefs));
+}
+function calendarSectionsV3145(){
+  const prefs=calendarPrefsV3145();
+  return prefs.order.map(id=>CALENDAR_SECTION_DEFAULTS_V3145.find(x=>x.id===id)).filter(Boolean);
+}
+function inferredFestivityTraditionsV3145(id){
+  const found=new Set();
+  const year=new Date().getFullYear();
+  [year-1,year,year+1].forEach(y=>Object.values(buildBiblicalCalendarYear(y)).flat().forEach(event=>{
+    if(event.id===id&&event.trad)found.add(event.trad);
+  }));
+  return [...found];
+}
+function festivityCalendarSettingsV3145(item){
+  const raw=item?.calendarSettings;
+  if(raw&&typeof raw==='object')return{
+    mode:String(raw.mode||'none'),traditions:Array.isArray(raw.traditions)?raw.traditions.filter(x=>CALENDAR_TRADITIONS_V3145[x]):[],
+    day:Number(raw.day)||0,month:Number(raw.month)||0,year:Number(raw.year)||0,offset:Number(raw.offset)||0
+  };
+  const inferred=inferredFestivityTraditionsV3145(item?.id);
+  return{mode:inferred.length?'original':'none',traditions:inferred,day:0,month:0,year:0,offset:0};
+}
+function eventDateMatchesV3145(date,settings){
+  if(settings.mode==='fixed')return date.getMonth()+1===settings.month&&date.getDate()===settings.day;
+  if(settings.mode==='once')return date.getFullYear()===settings.year&&date.getMonth()+1===settings.month&&date.getDate()===settings.day;
+  if(settings.mode==='western'||settings.mode==='orthodox'){
+    const base=settings.mode==='western'?westernEasterDate(date.getFullYear()):orthodoxEasterDate(date.getFullYear());
+    return sameBiblicalCalendarDay(date,addBiblicalCalendarDays(base,settings.offset));
+  }
+  return false;
+}
+const getBiblicalCalendarEventsBeforeV3145=getBiblicalCalendarEvents;
+getBiblicalCalendarEvents=function(date){
+  let base=getBiblicalCalendarEventsBeforeV3145(date).map(x=>({...x}));
+  const all=getAllBiblicalFestivities();
+  const byId=new Map(all.map(x=>[x.id,x]));
+  const explicitOriginal=new Map();
+  all.forEach(item=>{const s=festivityCalendarSettingsV3145(item);if(item.calendarSettings&&s.mode==='original')explicitOriginal.set(item.id,s)});
+  if(explicitOriginal.size){
+    const grouped=new Map();base.forEach(e=>{if(!grouped.has(e.id))grouped.set(e.id,[]);grouped.get(e.id).push(e)});
+    base=base.filter(e=>!explicitOriginal.has(e.id)||explicitOriginal.get(e.id).traditions.includes(e.trad));
+    explicitOriginal.forEach((settings,id)=>{
+      const examples=grouped.get(id)||[],sample=examples[0],present=new Set(base.filter(e=>e.id===id).map(e=>e.trad));
+      if(sample)settings.traditions.forEach(trad=>{if(!present.has(trad))base.push({...sample,trad})});
+    });
+  }
+  const scheduledIds=new Set(all.filter(x=>x.calendarSettings&&festivityCalendarSettingsV3145(x).mode!=='original'&&festivityCalendarSettingsV3145(x).mode!=='none').map(x=>x.id));
+  if(scheduledIds.size)base=base.filter(e=>!scheduledIds.has(e.id));
+  all.forEach(item=>{
+    const settings=festivityCalendarSettingsV3145(item);
+    if(!item.calendarSettings||settings.mode==='none'||settings.mode==='original'||!settings.traditions.length)return;
+    if(!eventDateMatchesV3145(date,settings))return;
+    settings.traditions.forEach(trad=>base.push({trad,title:item.title,desc:item.summary||item.meaning||'',id:item.id}));
+  });
+  return base;
+};
+
+biblicalFestivityNoticeTraditionV3111=function(key){return CALENDAR_TRADITIONS_V3145[key]||key||''};
+
+renderBiblicalCalendar=function(date){
+  biblicalCalendarDate=new Date(date);
+  const box=document.getElementById('biblicalCalendarContent');if(!box)return;
+  const events=getBiblicalCalendarEvents(biblicalCalendarDate),prefs=calendarPrefsV3145();
+  const when=sameBiblicalCalendarDay(biblicalCalendarDate,new Date())?'Hoy':'Fecha';
+  const sections=calendarSectionsV3145().map(section=>{
+    if(prefs.hidden.includes(section.id))return'';
+    return `<section class="calendar-group-v3145"><h2>${escapeHtml(section.label)}</h2><div class="biblical-calendar-grid">${section.items.map(key=>renderBiblicalCalendarTradition(events,key,CALENDAR_TRADITIONS_V3145[key])).join('')}</div></section>`;
+  }).join('');
+  box.innerHTML=`<header class="biblical-calendar-hero"><h1>Mi calendario cristiano</h1><p>${when} · ${escapeHtml(formatBiblicalCalendarDate(biblicalCalendarDate))}</p></header>${sections}<p class="biblical-calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Puedes añadir celebraciones propias y decidir en qué calendarios aparecen.</p>`;
+};
+
+function openBiblicalCalendarOrganizerV3145(){
+  document.getElementById('calendarOrganizerV3145')?.remove();
+  const prefs=calendarPrefsV3145(),wrap=document.createElement('div');
+  wrap.id='calendarOrganizerV3145';wrap.className='calendar-organizer-overlay-v3145';
+  wrap.innerHTML=`<div class="calendar-organizer-card-v3145"><h2>Organizar calendario</h2><p>Muestra, oculta y ordena las secciones.</p><div class="calendar-organizer-list-v3145">${calendarSectionsV3145().map((s,i)=>`<div class="calendar-organizer-row-v3145" data-section="${s.id}"><label><input type="checkbox" ${prefs.hidden.includes(s.id)?'':'checked'}> ${escapeHtml(s.label)}</label><span><button type="button" data-move="up" ${i===0?'disabled':''}>↑</button><button type="button" data-move="down" ${i===prefs.order.length-1?'disabled':''}>↓</button></span></div>`).join('')}</div><div class="calendar-organizer-actions-v3145"><button class="btn soft" type="button" data-close>Cancelar</button><button class="btn primary" type="button" data-save>Guardar</button></div></div>`;
+  wrap.onclick=e=>{if(e.target===wrap||e.target.closest('[data-close]'))wrap.remove()};
+  const refreshMoves=()=>{const rows=[...wrap.querySelectorAll('.calendar-organizer-row-v3145')];rows.forEach((row,i)=>{row.querySelector('[data-move="up"]').disabled=i===0;row.querySelector('[data-move="down"]').disabled=i===rows.length-1})};
+  wrap.querySelectorAll('[data-move]').forEach(btn=>btn.onclick=()=>{
+    const row=btn.closest('.calendar-organizer-row-v3145'),other=btn.dataset.move==='up'?row.previousElementSibling:row.nextElementSibling;
+    if(other){row.parentNode.insertBefore(btn.dataset.move==='up'?row:other,btn.dataset.move==='up'?other:row);refreshMoves()}
+  });
+  wrap.querySelector('[data-save]').onclick=()=>{
+    const rows=[...wrap.querySelectorAll('.calendar-organizer-row-v3145')];
+    saveCalendarPrefsV3145({order:rows.map(x=>x.dataset.section),hidden:rows.filter(x=>!x.querySelector('input').checked).map(x=>x.dataset.section)});
+    wrap.remove();renderBiblicalCalendar(biblicalCalendarDate);toast('Calendario organizado');
+  };
+  document.body.appendChild(wrap);
+}
+window.openBiblicalCalendarOrganizerV3145=openBiblicalCalendarOrganizerV3145;
+
+function calendarTraditionChecksV3145(selected){
+  return Object.entries(CALENDAR_TRADITIONS_V3145).map(([id,label])=>`<label class="calendar-check-v3145"><input type="checkbox" name="festivityTraditionV3145" value="${id}" ${selected.includes(id)?'checked':''}><span>${escapeHtml(label)}</span></label>`).join('');
+}
+function updateCalendarRuleFieldsV3145(){
+  const mode=document.getElementById('festivityCalendarModeV3145')?.value||'none';
+  document.querySelectorAll('[data-calendar-modes-v3145]').forEach(el=>el.classList.toggle('hidden',!el.dataset.calendarModesV3145.split(' ').includes(mode)));
+}
+openBiblicalFestivityEditor=function(id=''){
+  const existing=id?findBiblicalFestivity(id):null;currentBiblicalFestivityId=existing?.id||null;setBiblicalFestivityDialogView('editor');
+  const f=existing||{id:newBiblicalFestivityId(),title:'',date:'',summary:'',meaning:'',notes:'',passageItems:[],custom:true,calendarSettings:{mode:'fixed',traditions:['personal'],day:0,month:0,year:0,offset:0}};
+  const settings=festivityCalendarSettingsV3145(f),box=document.getElementById('biblicalFestivityEditor');
+  box.dataset.festivityId=f.id;box.dataset.isNew=existing?'0':'1';
+  box.innerHTML=`<header class="biblical-festivity-editor-head"><h2>${existing?'Editar celebración':'Añadir celebración'}</h2><p>Completa la información y decide dónde y cuándo aparecerá.</p></header>
+    <label class="festivity-form-field"><span>Nombre de la celebración</span><input id="festivityEditorTitle" type="text" value="${escapeHtml(f.title||'')}" placeholder="Ej.: Aniversario de mi bautismo"></label>
+    <label class="festivity-form-field"><span>Fecha o periodo visible</span><input id="festivityEditorDate" type="text" value="${escapeHtml(f.date||'')}" placeholder="Ej.: 14 de septiembre"></label>
+    <fieldset class="calendar-fieldset-v3145"><legend>Calendarios donde aparece</legend><div class="calendar-check-grid-v3145">${calendarTraditionChecksV3145(settings.traditions)}</div></fieldset>
+    <label class="festivity-form-field"><span>Cómo se calcula la fecha</span><select id="festivityCalendarModeV3145" onchange="updateCalendarRuleFieldsV3145()">${existing?`<option value="original" ${settings.mode==='original'?'selected':''}>Conservar calendario original</option>`:''}<option value="fixed" ${settings.mode==='fixed'?'selected':''}>Fecha fija cada año</option><option value="once" ${settings.mode==='once'?'selected':''}>Fecha única</option><option value="western" ${settings.mode==='western'?'selected':''}>Según Pascua occidental</option><option value="orthodox" ${settings.mode==='orthodox'?'selected':''}>Según Pascua ortodoxa</option><option value="none" ${settings.mode==='none'?'selected':''}>No mostrar en el calendario</option></select></label>
+    <div class="calendar-rule-row-v3145" data-calendar-modes-v3145="fixed once"><label>Día<input id="festivityCalendarDayV3145" type="number" min="1" max="31" value="${settings.day||''}"></label><label>Mes<input id="festivityCalendarMonthV3145" type="number" min="1" max="12" value="${settings.month||''}"></label><label data-calendar-modes-v3145="once">Año<input id="festivityCalendarYearV3145" type="number" min="1900" max="2200" value="${settings.year||new Date().getFullYear()}"></label></div>
+    <label class="festivity-form-field" data-calendar-modes-v3145="western orthodox"><span>Días respecto a la Pascua (0 = Domingo de Resurrección)</span><input id="festivityCalendarOffsetV3145" type="number" value="${settings.offset||0}"></label>
+    <label class="festivity-form-field"><span>Explicación</span><textarea id="festivityEditorSummary" placeholder="Explica brevemente qué se celebra.">${escapeHtml(f.summary||'')}</textarea></label>
+    <label class="festivity-form-field"><span>Significado bíblico</span><textarea id="festivityEditorMeaning" placeholder="Describe su significado espiritual y bíblico.">${escapeHtml(f.meaning||'')}</textarea></label>
+    <label class="festivity-form-field"><span>Notas</span><textarea id="festivityEditorNotes" placeholder="Añade tus notas personales.">${escapeHtml(f.notes||'')}</textarea></label>
+    <div class="festivity-editor-footer"><button class="btn soft" type="button" onclick="cancelBiblicalFestivityEditor()">Cancelar</button><button class="btn primary" type="button" onclick="saveBiblicalFestivityEditor()">Guardar celebración</button></div>`;
+  updateCalendarRuleFieldsV3145();
+};
+readBiblicalFestivityEditor=function(){
+  const box=document.getElementById('biblicalFestivityEditor'),mode=document.getElementById('festivityCalendarModeV3145')?.value||'none';
+  return{id:box?.dataset.festivityId||newBiblicalFestivityId(),isNew:box?.dataset.isNew==='1',title:document.getElementById('festivityEditorTitle')?.value.trim()||'',date:document.getElementById('festivityEditorDate')?.value.trim()||'',summary:document.getElementById('festivityEditorSummary')?.value.trim()||'',meaning:document.getElementById('festivityEditorMeaning')?.value.trim()||'',notes:document.getElementById('festivityEditorNotes')?.value||'',calendarSettings:{mode,traditions:[...document.querySelectorAll('input[name="festivityTraditionV3145"]:checked')].map(x=>x.value),day:Number(document.getElementById('festivityCalendarDayV3145')?.value)||0,month:Number(document.getElementById('festivityCalendarMonthV3145')?.value)||0,year:Number(document.getElementById('festivityCalendarYearV3145')?.value)||0,offset:Number(document.getElementById('festivityCalendarOffsetV3145')?.value)||0}};
+};
+const saveBiblicalFestivityEditorBeforeV3145=saveBiblicalFestivityEditor;
+saveBiblicalFestivityEditor=function(){
+  const values=readBiblicalFestivityEditor(),s=values.calendarSettings;
+  if(!values.title)return saveBiblicalFestivityEditorBeforeV3145();
+  if(s.mode!=='none'&&!s.traditions.length){toast('Selecciona al menos un calendario');return}
+  if((s.mode==='fixed'||s.mode==='once')&&(!(s.day>=1&&s.day<=31)||!(s.month>=1&&s.month<=12))){toast('Indica un día y un mes válidos');return}
+  if(s.mode==='once'&&!(s.year>=1900&&s.year<=2200)){toast('Indica un año válido');return}
+  saveBiblicalFestivityEditorBeforeV3145();
+  renderBiblicalCalendar(biblicalCalendarDate);
+};
+window.updateCalendarRuleFieldsV3145=updateCalendarRuleFieldsV3145;
+
+const openBiblicalFestivityDetailBeforeV3145=openBiblicalFestivityDetail;
+openBiblicalFestivityDetail=async function(id){
+  await openBiblicalFestivityDetailBeforeV3145(id);
+  const f=findBiblicalFestivity(id),box=document.getElementById('biblicalFestivityDetail');if(!f||!box)return;
+  const settings=festivityCalendarSettingsV3145(f),labels=settings.traditions.map(x=>CALENDAR_TRADITIONS_V3145[x]).filter(Boolean);
+  if(!labels.length)return;
+  const header=box.querySelector('.biblical-festivity-detail-head');
+  header?.insertAdjacentHTML('afterend',`<div class="festivity-calendar-tags-v3145">${labels.map(x=>`<span>${escapeHtml(x)}</span>`).join('')}</div>`);
+};
+
+openBiblicalCalendar=async function(){await loadBiblicalFestivities();showStudyModuleScreen('biblicalCalendarScreen');renderBiblicalCalendar(new Date());updateBiblicalCalendarAlert()};
