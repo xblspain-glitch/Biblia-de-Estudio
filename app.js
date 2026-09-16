@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.148';
+const APP_VERSION='3.1.149';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -5550,7 +5550,7 @@ setTimeout(updateBiblicalCalendarAlert,500);
 /* V3.1.14: el aviso de festividad se muestra después de pulsar Entrar. */
 setInterval(updateBiblicalCalendarAlert,60000);
 
-/* V3.1.148 · Calendario cristiano personalizable y celebraciones compartidas */
+/* V3.1.149 · Calendario cristiano personalizable y celebraciones compartidas */
 const CALENDAR_PREFS_KEY_V3145='biblia_calendario_secciones_v3145';
 const CALENDAR_TRADITIONS_V3145={
   personal:'Mi calendario',iglesia:'Mi iglesia',evangelico:'Evangélico',protestante:'Protestante',
@@ -5716,7 +5716,7 @@ openBiblicalFestivityDetail=async function(id){
 
 openBiblicalCalendar=async function(){await loadBiblicalFestivities();showStudyModuleScreen('biblicalCalendarScreen');renderBiblicalCalendar(new Date());updateBiblicalCalendarAlert()};
 
-/* V3.1.148 · Cada tarjeta abre su calendario completo */
+/* V3.1.149 · Cada tarjeta abre su calendario completo */
 let biblicalFestivityCalendarFilterV3146='';
 
 function festivitiesForCalendarV3146(key){
