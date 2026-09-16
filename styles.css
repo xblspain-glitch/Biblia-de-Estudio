@@ -4464,6 +4464,10 @@ body.light-mode .calendar-group-v3145>h2{color:#76500d;border-color:#c8a14e}body
 body.light-mode .calendar-card-open-v3146{color:#76520d}body.light-mode .calendar-card-open-v3146 small{color:#716758}body.light-mode .calendar-empty-list-v3146{color:#5d5345;border-color:#b58a32}
 @media(hover:hover){.calendar-card-link-v3146:hover{border-color:rgba(230,190,89,.88);background:rgba(34,42,54,.98)}body.light-mode .calendar-card-link-v3146:hover{background:#fffaf0}}
 
+/* V3.1.148 · Número de libros en los filtros */
+.book-filter-count-v3148{display:inline-flex;align-items:center;justify-content:center;min-width:25px;margin-left:5px;padding:2px 6px;border-radius:999px;background:rgba(255,255,255,.09);color:#b9b9bc;font-size:.72em;font-weight:700;vertical-align:middle}
+.drawer-tabs button.active .book-filter-count-v3148{background:rgba(33,24,4,.14);color:inherit}
+
 
 /* V3.1.14 · Ajustes legibles en modo claro */
 body.light-mode #settingsDialog{
