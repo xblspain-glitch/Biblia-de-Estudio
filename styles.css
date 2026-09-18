@@ -2663,6 +2663,7 @@ body.light-mode .dictionary-brief-note strong{color:#80470d}
 }
 .fragment-clarification-note[hidden]{display:none!important}
 .fragment-clarification-note strong{color:#ffb7d2;font-weight:800}
+.fragment-inline-exclude{display:block;margin:10px 0 0 auto;padding:7px 11px;border:1px solid #d982a5;border-radius:10px;background:#3b2730;color:#ffd5e4;font:800 12px/1.2 system-ui;cursor:pointer}.fragment-inline-exclude:active{transform:scale(.97);filter:brightness(1.12)}
 .fragment-clarification-dialog{width:min(95vw,720px);padding:24px}
 .fragment-clarification-help{margin:5px 0 15px;color:#c8c3ca;font:14px/1.45 system-ui}
 .fragment-word-picker{padding:14px;border:1px solid #55505a;border-radius:15px;background:#1d1f24;line-height:2.18;font-size:1.03rem}
@@ -2681,11 +2682,14 @@ body.light-mode .dictionary-brief-note strong{color:#80470d}
 .fragment-list-card{padding:11px 12px;border:1px solid rgba(232,125,166,.45);border-radius:12px;background:rgba(190,72,118,.10)}
 .fragment-list-card strong,.fragment-list-card span{display:block}.fragment-list-card strong{color:#ffbdd5}.fragment-list-card span{margin-top:4px;color:#ded7dc;font:14px/1.4 system-ui}
 .fragment-list-actions{display:flex;gap:8px;margin-top:9px}.fragment-list-actions button{border:1px solid #8d6374;border-radius:10px;background:#30272d;color:#fff;padding:7px 11px}.fragment-list-actions .danger{color:#ffb5bd}
+.fragment-list-actions .fragment-exclude-here{border-color:#c27b92;color:#ffd2e0}.fragment-list-actions .fragment-exclude-here.active{border-color:#71a879;background:#294333;color:#d9f7df}.fragment-list-card-excluded{border-style:dashed;opacity:.86}.fragment-list-card-excluded>span{text-decoration:line-through;text-decoration-thickness:1px}
 body.light-mode .fragment-clarification{background:rgba(229,111,157,.18);border-color:#cf7197}
 body.light-mode .fragment-clarification-note{background:linear-gradient(180deg,#fff0f6,#f4d5e2);border-color:#cb7598;color:#422331;box-shadow:0 4px 12px rgba(80,37,55,.14)}
 body.light-mode .fragment-clarification-note strong{color:#8d3157}
+body.light-mode .fragment-inline-exclude{background:#fff7fa;color:#81324f;border-color:#c96f93}
 body.light-mode .fragment-word-picker{background:#fff;border-color:#c8b8c0}.light-mode .fragment-picker-word{color:#2a2025}.light-mode .fragment-clarification-help{color:#675c62}
 body.light-mode .fragment-clarification-label{color:#34252c}.light-mode .fragment-clarification-label textarea{background:#fff;color:#21181c}.light-mode .fragment-list-card span{color:#4d4046}
+body.light-mode .fragment-list-actions .fragment-exclude-here{background:#fff2f6;color:#7f3150;border-color:#c87898}body.light-mode .fragment-list-actions .fragment-exclude-here.active{background:#e3f3e5;color:#285c30;border-color:#70a879}
 body.light-mode .fragment-scope-options{border-color:#c8b8c0}.light-mode .fragment-scope-options legend{color:#853d5b}.light-mode .fragment-scope-options label{background:#fff1f6}.light-mode .fragment-scope-options strong{color:#35252c}.light-mode .fragment-scope-options small{color:#6c5e64}
 
 /* V3.1.88 · Referencias bíblicas pulsables en explicaciones y aclaraciones. */

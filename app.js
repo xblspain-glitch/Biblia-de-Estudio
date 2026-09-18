@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.150';
+const APP_VERSION='3.1.151';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -8,6 +8,7 @@ const BOOK_READING_OVERRIDES_KEY_V3154='biblia_book_reading_overrides_v3154';
 const BOOK_READING_LEDGER_KEY_V3155='biblia_book_reading_ledger_v3155';
 const BOOK_READING_CYCLES_KEY_V3155='biblia_book_reading_cycles_v3155';
 const FRAGMENT_CLARIFICATIONS_KEY_V3168='biblia_fragment_clarifications_v3168';
+const FRAGMENT_CLARIFICATION_EXCLUSIONS_KEY_V3151='biblia_fragment_clarification_exclusions_v3151';
 const VERSE_CORRECTIONS_KEY_V3190='biblia_verse_corrections_v3190';
 const BIBLICAL_ENTITY_CHOICES_KEY_V31106='biblia_entity_link_choices_v31106';
 const DICTIONARY_EXCLUSIONS_KEY_V31107='biblia_dictionary_occurrence_exclusions_v31107';
@@ -19,6 +20,7 @@ const storedReadingPoints=JSON.parse(localStorage.getItem('readingPoints')||'[]'
 const state={books:[],bookIndex:0,chapter:1,verses:[],titles:{},selected:new Set(),highlights:JSON.parse(localStorage.getItem('highlights')||'{}'),favorites:JSON.parse(localStorage.getItem('favorites')||'{}'),explanations:JSON.parse(localStorage.getItem('explanations')||'{}'),fragmentClarifications:JSON.parse(localStorage.getItem(FRAGMENT_CLARIFICATIONS_KEY_V3168)||'{}'),verseCorrections:JSON.parse(localStorage.getItem(VERSE_CORRECTIONS_KEY_V3190)||'{}'),readingPoints:Array.isArray(storedReadingPoints)?storedReadingPoints.map((p,i)=>({...p,id:String(p.id||`${Date.now()}-${i}-${Math.random().toString(36).slice(2)}`)})):[],importedTitles:JSON.parse(localStorage.getItem('importedTitles')||'{}'),externalBible:null,baseTitles:{},dictionaryBase:[],dictionaryCustom:JSON.parse(localStorage.getItem('dictionaryCustom')||'[]'),dictionaryEdits:JSON.parse(localStorage.getItem('dictionaryEdits')||'{}'),dictionaryDeleted:JSON.parse(localStorage.getItem('dictionaryDeleted')||'[]'),activeReadingPoint:JSON.parse(localStorage.getItem('activeReadingPoint')||'null'),lastReadingPoint:JSON.parse(localStorage.getItem('lastReadingPoint')||'null')};
 state.biblicalEntityChoices=JSON.parse(localStorage.getItem(BIBLICAL_ENTITY_CHOICES_KEY_V31106)||'{}');
 state.dictionaryExclusions=JSON.parse(localStorage.getItem(DICTIONARY_EXCLUSIONS_KEY_V31107)||'{}');
+state.fragmentClarificationExclusions=JSON.parse(localStorage.getItem(FRAGMENT_CLARIFICATION_EXCLUSIONS_KEY_V3151)||'{}');
 // Migración única V2.1.11: las entradas personales creadas antes de esta versión
 // se activan una sola vez para que aparezcan con cápsula verde. Después, cada
 // entrada conserva libremente la elección que el usuario haga en el editor.
@@ -165,6 +167,7 @@ function save(){
     favorites:state.favorites,
     explanations:state.explanations,
     [FRAGMENT_CLARIFICATIONS_KEY_V3168]:state.fragmentClarifications||{},
+    [FRAGMENT_CLARIFICATION_EXCLUSIONS_KEY_V3151]:state.fragmentClarificationExclusions||{},
     [VERSE_CORRECTIONS_KEY_V3190]:state.verseCorrections||{},
     [BIBLICAL_ENTITY_CHOICES_KEY_V31106]:state.biblicalEntityChoices||{},
     [DICTIONARY_EXCLUSIONS_KEY_V31107]:state.dictionaryExclusions||{},
@@ -858,7 +861,18 @@ function contextualBiblicalEntityCandidate(candidates,label,verseText){
   return scored[0].score>0&&scored[0].score>scored[1].score?scored[0].candidate:null;
 }
 window.refreshBiblicalEntityLinks=()=>{biblicalEntityLinkIndexDirty=true;if(state.books.length&&state.verses.length)render()};
-function fragmentClarificationsForVerse(verseNumber,location=null){
+function fragmentClarificationOccurrenceKey(sourceId,bookKey,chapter,verse,startToken){return `${sourceId}:${bookKey}:${Number(chapter)}:${Number(verse)}:${Number(startToken)}`}
+function toggleFragmentClarificationExclusion(occurrenceKey){
+  if(!occurrenceKey)return null;
+  const wasExcluded=Boolean(state.fragmentClarificationExclusions?.[occurrenceKey]);
+  if(wasExcluded)delete state.fragmentClarificationExclusions[occurrenceKey];
+  else state.fragmentClarificationExclusions[occurrenceKey]={updatedAt:Date.now()};
+  activeFragmentAccess=null;save();render();
+  if($('#fragmentClarificationDialog')?.open)renderFragmentClarificationList();
+  toast(wasExcluded?'Aclaración restaurada en este lugar':'Aclaración excluida en este lugar');
+  return !wasExcluded;
+}
+function fragmentClarificationsForVerse(verseNumber,location=null,{includeExcluded=false}={}){
   const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex];
   if(!book||verseNumber===null)return[];
   const chapter=Number(location?.chapter??state.chapter),verseText=location?.verseText??state.verses[Number(verseNumber)-1];
@@ -876,8 +890,8 @@ function fragmentClarificationsForVerse(verseNumber,location=null){
       const end=start+phraseWords.length-1;
       if(phraseWords.some((word,offset)=>normalized[start+offset]!==word))continue;
       if(Array.from({length:phraseWords.length},(_,offset)=>start+offset).some(i=>occupied.has(i)))continue;
-      const id=`${source.id}--${book.key}-${chapter}-${verseNumber}-${start}`;
-      automatic.push({...source,id,sourceId:source.id,bookKey:book.key,chapter,verse:Number(verseNumber),startToken:start,endToken:end,ref:`${displayBook(book)} ${chapter}:${Number(verseNumber)}`,automatic:true});
+      const id=`${source.id}--${book.key}-${chapter}-${verseNumber}-${start}`,occurrenceKey=fragmentClarificationOccurrenceKey(source.id,book.key,chapter,verseNumber,start),excluded=Boolean(state.fragmentClarificationExclusions?.[occurrenceKey]);
+      if(!excluded||includeExcluded)automatic.push({...source,id,sourceId:source.id,bookKey:book.key,chapter,verse:Number(verseNumber),startToken:start,endToken:end,ref:`${displayBook(book)} ${chapter}:${Number(verseNumber)}`,automatic:true,occurrenceKey,excluded});
       for(let i=start;i<=end;i++)occupied.add(i);
       start=end;
     }
@@ -921,7 +935,7 @@ function formatBibleText(s,verseNumber=null,location=null){
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices,location);
     if(entityEnds.has(token.index))html+='</span>';
     const closing=ends.get(token.index);
-    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}</span>`;
+    if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}${closing.automatic?`<button type="button" class="fragment-inline-exclude" data-fragment-exclude-inline="${escapeHtml(closing.occurrenceKey)}">Excluir aquí</button>`:''}</span>`;
     cursor=token.end;
   }
   html+=escapeHtml(clean.slice(cursor)).replace(/\n/g,'<br>');
@@ -1263,6 +1277,8 @@ reader.addEventListener('contextmenu',e=>{if(e.target.closest('.dict-word'))e.pr
 
 reader.addEventListener('click',e=>{
   if(Date.now()<wordPressSuppressUntil){e.preventDefault();e.stopPropagation();return}
+  const fragmentExclude=e.target.closest('[data-fragment-exclude-inline]');
+  if(fragmentExclude){e.preventDefault();e.stopPropagation();toggleFragmentClarificationExclusion(fragmentExclude.dataset.fragmentExcludeInline);return}
   const entityLink=e.target.closest('.biblical-entity-link');
   if(entityLink){
     e.preventDefault();e.stopPropagation();
@@ -1663,10 +1679,10 @@ function renderFragmentWordPicker(){
   box.append(document.createTextNode(p.clean.slice(cursor)));
   updateFragmentPickerUI();
 }
-function currentVerseFragmentClarifications(verse=fragmentPickerState.verse){return fragmentClarificationsForVerse(verse)}
+function currentVerseFragmentClarifications(verse=fragmentPickerState.verse){return fragmentClarificationsForVerse(verse,null,{includeExcluded:true})}
 function renderFragmentClarificationList(){
   const list=$('#fragmentClarificationList'),items=currentVerseFragmentClarifications();
-  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}${item.scope==='global'?' <em>· Todas las coincidencias</em>':''}</strong><span>${formatReferenceCapsules(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.sourceId||item.id)}" data-fragment-occurrence="${escapeHtml(item.id)}">Editar</button><button type="button" class="danger" data-fragment-delete="${escapeHtml(item.sourceId||item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
+  list.innerHTML=items.length?items.map(item=>`<article class="fragment-list-card${item.excluded?' fragment-list-card-excluded':''}" data-fragment-id="${escapeHtml(item.id)}"><strong>${escapeHtml(item.fragment)}${item.scope==='global'?' <em>· Todas las coincidencias</em>':''}${item.excluded?' <em>· Excluida aquí</em>':''}</strong><span>${formatReferenceCapsules(item.text)}</span><div class="fragment-list-actions"><button type="button" data-fragment-edit="${escapeHtml(item.sourceId||item.id)}" data-fragment-occurrence="${escapeHtml(item.id)}">Editar</button>${item.automatic?`<button type="button" class="fragment-exclude-here${item.excluded?' active':''}" data-fragment-exclude="${escapeHtml(item.occurrenceKey)}">${item.excluded?'Restaurar aquí':'Excluir aquí'}</button>`:''}<button type="button" class="danger" data-fragment-delete="${escapeHtml(item.sourceId||item.id)}">Eliminar</button></div></article>`).join(''):'<p class="fragment-empty">Todavía no hay aclaraciones en este versículo.</p>';
   [...list.querySelectorAll('[data-fragment-edit]')].forEach(button=>button.onclick=()=>{
     const source=state.fragmentClarifications[button.dataset.fragmentEdit],occurrence=items.find(item=>item.id===button.dataset.fragmentOccurrence)||source;if(!source||!occurrence)return;
     fragmentPickerState.start=Number(occurrence.startToken);fragmentPickerState.end=Number(occurrence.endToken);fragmentPickerState.awaitingEnd=false;fragmentPickerState.editId=source.id;
@@ -1676,6 +1692,10 @@ function renderFragmentClarificationList(){
   [...list.querySelectorAll('[data-fragment-delete]')].forEach(button=>button.onclick=()=>{
     const item=state.fragmentClarifications[button.dataset.fragmentDelete];if(!item||!confirm(item.scope==='global'?`¿Eliminar «${item.fragment}» de todas sus apariciones?`:`¿Eliminar la aclaración de «${item.fragment}»?`))return;
     delete state.fragmentClarifications[item.id];if(activeFragmentAccess?.id===item.id)activeFragmentAccess=null;save();renderFragmentClarificationList();render();toast('Aclaración eliminada');
+  });
+  [...list.querySelectorAll('[data-fragment-exclude]')].forEach(button=>button.onclick=()=>{
+    const occurrenceKey=button.dataset.fragmentExclude;if(!occurrenceKey)return;
+    toggleFragmentClarificationExclusion(occurrenceKey);
   });
 }
 function resetFragmentEditor(){
@@ -1699,7 +1719,7 @@ $('#copyFragmentSelection')?.addEventListener('click',async()=>{
 $('#saveFragmentClarification')?.addEventListener('click',()=>{
   const p=fragmentPickerState,fragment=fragmentTextFromPicker(),text=$('#fragmentClarificationText').value.trim();
   if(!fragment){toast('Selecciona la primera y la última palabra');return}if(p.awaitingEnd){toast('Toca también la última palabra del fragmento');return}if(!text){toast('Escribe una explicación breve');return}
-  const overlap=currentVerseFragmentClarifications(p.verse).find(item=>(item.sourceId||item.id)!==p.editId&&Number(item.startToken)<=p.end&&Number(item.endToken)>=p.start);
+  const overlap=currentVerseFragmentClarifications(p.verse).find(item=>!item.excluded&&(item.sourceId||item.id)!==p.editId&&Number(item.startToken)<=p.end&&Number(item.endToken)>=p.start);
   if(overlap){toast(`Ese tramo coincide con «${overlap.fragment}»`);return}
   const book=state.books[state.bookIndex],id=p.editId||`fragment-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
   const scope=document.querySelector('input[name="fragmentClarificationScope"]:checked')?.value==='global'?'global':'local';
@@ -2059,7 +2079,7 @@ async function runSearch(){
   });
   box.querySelectorAll('.dictionary-brief-note').forEach(note=>note.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();note.hidden=true}));
   box.querySelectorAll('.fragment-clarification').forEach(fragment=>fragment.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const note=fragment.nextElementSibling?.classList.contains('fragment-clarification-note')?fragment.nextElementSibling:null;if(note)note.hidden=!note.hidden}));
-  box.querySelectorAll('.fragment-clarification-note').forEach(note=>note.addEventListener('click',event=>{const reference=event.target.closest('.bible-reference-capsule');event.preventDefault();event.stopPropagation();if(reference)openBibleReference(reference.dataset.bibleReference||reference.textContent);else note.hidden=true}));
+  box.querySelectorAll('.fragment-clarification-note').forEach(note=>note.addEventListener('click',event=>{const reference=event.target.closest('.bible-reference-capsule'),exclude=event.target.closest('[data-fragment-exclude-inline]');event.preventDefault();event.stopPropagation();if(reference)openBibleReference(reference.dataset.bibleReference||reference.textContent);else if(exclude){toggleFragmentClarificationExclusion(exclude.dataset.fragmentExcludeInline);note.previousElementSibling?.remove();note.remove()}else note.hidden=true}));
   $$('.search-result').forEach(el=>el.onclick=()=>openSearchResult(results[+el.dataset.i]));
 }
 $('#settingsBtn').onclick=()=>$('#settingsDialog').showModal();const fontSizeInput=$('#fontSize'),fontSizeValue=$('#fontSizeValue');function applyFontSize(value){const min=Number(fontSizeInput.min),max=Number(fontSizeInput.max),size=Math.min(max,Math.max(min,Number(value)||24));fontSizeInput.value=size;fontSizeValue.textContent=size;document.documentElement.style.setProperty('--font-size',size+'px');localStorage.setItem('fontSize',size)}fontSizeInput.oninput=e=>applyFontSize(e.target.value);$('#fontSizeMinus').onclick=()=>applyFontSize(Number(fontSizeInput.value)-1);$('#fontSizePlus').onclick=()=>applyFontSize(Number(fontSizeInput.value)+1);applyFontSize(localStorage.getItem('fontSize')||fontSizeInput.value)
@@ -2900,7 +2920,7 @@ $('#deleteDictionaryEntry')?.addEventListener('click',()=>{
 
 const BACKUP_KEYS=[
   // Lectura y estudio
-  'highlights','favorites','explanations',FRAGMENT_CLARIFICATIONS_KEY_V3168,VERSE_CORRECTIONS_KEY_V3190,BIBLICAL_ENTITY_CHOICES_KEY_V31106,'last','readingPoints','readingPoint','activeReadingPoint','lastReadingPoint',
+  'highlights','favorites','explanations',FRAGMENT_CLARIFICATIONS_KEY_V3168,FRAGMENT_CLARIFICATION_EXCLUSIONS_KEY_V3151,VERSE_CORRECTIONS_KEY_V3190,BIBLICAL_ENTITY_CHOICES_KEY_V31106,'last','readingPoints','readingPoint','activeReadingPoint','lastReadingPoint',
   // Progreso, capítulos terminados, fechas y número de lecturas
   CHAPTER_READING_PROGRESS_KEY_V316,BOOK_READING_HISTORY_KEY_V3153,BOOK_READING_OVERRIDES_KEY_V3154,BOOK_READING_LEDGER_KEY_V3155,BOOK_READING_CYCLES_KEY_V3155,
   // Diccionario completo del usuario
