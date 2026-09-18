@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.149';
+const APP_VERSION='3.1.150';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -2544,7 +2544,10 @@ function mergeTitles(base,extra){
 
 
 
-function normalizeDictionaryText(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}
+// La clave del diccionario conserva las tildes: «halló» y «hallo» son
+// entradas distintas. Solo el buscador usa una versión sin diacríticos.
+function normalizeDictionaryText(value){return String(value||'').normalize('NFC').toLocaleLowerCase('es').trim()}
+function normalizeDictionarySearchText(value){return normalizeDictionaryText(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
 function cleanDictionaryWord(value){return String(value||'').trim().replace(/^[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/g,'')}
 function dictionaryWordForms(value){
   const original=cleanDictionaryWord(value), normalized=normalizeDictionaryText(original);
@@ -2635,7 +2638,7 @@ function updateDictionaryCounters(){
   return counts.total;
 }
 function dictionarySearchScore(entry,query){
-  const q=normalizeDictionaryText(query), term=normalizeDictionaryText(entry.termino), allText=normalizeDictionaryText(`${entry.termino} ${entry.equivalenciaActual||''} ${entry.fraseAclaratoriaBreve||''} ${entry.explicacion} ${entry.categoria}`);
+  const q=normalizeDictionarySearchText(query), term=normalizeDictionarySearchText(entry.termino), allText=normalizeDictionarySearchText(`${entry.termino} ${entry.equivalenciaActual||''} ${entry.fraseAclaratoriaBreve||''} ${entry.explicacion} ${entry.categoria}`);
   if(term===q)return 0;
   if(dictionaryMorphologyMatch(query,entry.termino))return 1;
   if(term.startsWith(q))return 2;
@@ -2644,7 +2647,7 @@ function dictionarySearchScore(entry,query){
   return 99;
 }
 function renderDictionary(query=''){
-  const q=normalizeDictionaryText(query), all=getDictionaryEntries({sync:true});
+  const q=normalizeDictionarySearchText(query), exactKey=normalizeDictionaryText(cleanDictionaryWord(query)), all=getDictionaryEntries({sync:true});
   const filtered=q
     ?all.map(x=>({entry:x,score:dictionarySearchScore(x,query)})).filter(x=>x.score<99).sort((a,b)=>a.score-b.score||String(a.entry.termino).localeCompare(String(b.entry.termino),'es',{sensitivity:'base'})).map(x=>x.entry)
     :all;
@@ -2658,13 +2661,13 @@ function renderDictionary(query=''){
   const copyBtn=$('#copyDictionaryWord');if(copyBtn)copyBtn.disabled=!cleanDictionaryWord(query);
   const equivalentBtn=$('#addDictionaryEquivalent');
   if(equivalentBtn){
-    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===q)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
+    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===exactKey)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
     equivalentBtn.disabled=!match;
     equivalentBtn.dataset.entryId=match?.id||'';
   }
   const briefBtn=$('#addDictionaryBriefPhrase');
   if(briefBtn){
-    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===q)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
+    const match=q?all.find(entry=>normalizeDictionaryText(entry.termino)===exactKey)||all.find(entry=>dictionaryMorphologyMatch(query,entry.termino)):null;
     briefBtn.disabled=!match;
     briefBtn.dataset.entryId=match?.id||'';
   }
