@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.152';
+const APP_VERSION='3.1.153';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -212,13 +212,9 @@ function formatNums(nums){nums=[...new Set(nums)].sort((a,b)=>a-b);if(!nums.leng
 function currentReference(nums=[...state.selected],upper=false){const b=displayBook(state.books[state.bookIndex]);const r=`${b} ${state.chapter}:${formatNums(nums)}`;return upper?r.toUpperCase():r}
 async function init(){
   restoreDailyVerseHomeCache();
-  // Limpieza única de las cachés antiguas de esta aplicación. No afecta a localStorage.
-  if('caches' in window){
-    try{
-      const cacheNames=await caches.keys();
-      await Promise.all(cacheNames.filter(name=>name.startsWith(CACHE_PREFIX)&&name!==`${CACHE_PREFIX}v${APP_VERSION}`).map(name=>caches.delete(name)));
-    }catch(error){console.warn('No se pudieron limpiar las cachés antiguas',error)}
-  }
+  // La limpieza de versiones antiguas pertenece exclusivamente al service worker.
+  // Borrar cachés desde la página podía eliminar la versión activa e impedir
+  // que la Biblia volviera a abrirse sin conexión.
   state.books=await fetch(freshUrl('index.json'),{cache:'no-store'}).then(r=>r.json());
   // Congela una sola vez el historial heredado antes de que la lectura actual cambie.
   ensureBookReadingLedgerV3155();
