@@ -170,6 +170,29 @@ html,body{overscroll-behavior-y:auto}
 .home-enter-small:active{transform:scale(.97)}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
 
+/* V3.1.152 · Introducción independiente anterior a Génesis. */
+.about-bible-screen{min-height:100vh;background:var(--bg);color:var(--text);padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
+.about-bible-topbar{position:sticky;top:0;z-index:20;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:rgba(13,15,18,.97);border-bottom:1px solid #292b31}
+.about-bible-topbar button{border:1px solid rgba(222,187,92,.62);border-radius:14px;background:#22252b;color:#f4e7bf;padding:9px 14px;font:700 15px system-ui;cursor:pointer}
+.about-bible-page{width:min(100%,760px);margin:0 auto;padding:42px 26px 24px;font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.65}
+.about-bible-eyebrow{margin:0 0 9px!important;text-align:center;color:#d8b95e;font:700 13px/1.2 system-ui;letter-spacing:.14em}
+.about-bible-page h1{margin:0;text-align:center;color:#f1d77d;font-size:clamp(29px,8vw,43px);line-height:1.12;letter-spacing:.015em}
+.about-bible-rule{width:86px;height:3px;margin:22px auto 31px;border-radius:999px;background:linear-gradient(90deg,#8f6a20,#f0d477,#8f6a20)}
+.about-bible-page>p{margin:0 0 24px}
+.about-bible-page blockquote{margin:38px 0 34px;padding:24px 20px;border:1px solid rgba(222,187,92,.55);border-radius:20px;background:linear-gradient(180deg,rgba(226,194,101,.10),rgba(226,194,101,.04));text-align:center}
+.about-bible-page blockquote p{margin:0 0 9px;font-size:1.08em;font-style:italic}
+.about-bible-page blockquote cite{color:#d9bd6a;font:700 15px system-ui;font-style:normal}
+.about-bible-start{display:flex;width:100%;align-items:center;justify-content:space-between;gap:14px;border:2px solid #c69b32;border-radius:18px;background:linear-gradient(180deg,#f8df85,#c99622);color:#241b0b;padding:15px 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 7px 18px rgba(0,0,0,.24);cursor:pointer}
+.about-bible-start strong{font:800 17px system-ui}.about-bible-start span{font:700 15px system-ui}
+.about-bible-start:active{transform:scale(.985)}
+body.light-mode .about-bible-screen{background:#f7f3e9;color:#211f1b}
+body.light-mode .about-bible-topbar{background:rgba(247,243,233,.97);border-bottom-color:#d8d0c1}
+body.light-mode .about-bible-topbar button{background:#fffaf0;color:#6c501b}
+body.light-mode .about-bible-page h1{color:#7a5720}
+body.light-mode .about-bible-eyebrow,body.light-mode .about-bible-page blockquote cite{color:#806023}
+body.light-mode .about-bible-page blockquote{background:linear-gradient(180deg,rgba(220,181,75,.13),rgba(220,181,75,.05))}
+@media(max-width:420px){.about-bible-page{padding:34px 22px 18px;font-size:18px;line-height:1.62}.about-bible-page>p{margin-bottom:21px}.about-bible-page blockquote{margin-top:32px}}
+
 
 /* Diccionario bíblico integrado */
 .dictionary-dialog{width:min(96vw,780px);max-height:94vh;padding:22px}

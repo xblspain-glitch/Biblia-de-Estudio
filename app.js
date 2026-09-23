@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.151';
+const APP_VERSION='3.1.152';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -61,6 +61,7 @@ function showHome(){
   // Así Punto de libro aparece incluso en el primer arranque de una versión nueva.
   syncFavoritesFromStorage();
   $('#homeScreen').classList.remove('hidden');
+  $('#aboutBibleScreen')?.classList.add('hidden');
   $('#readerScreen').classList.add('hidden');
   state.selected.clear();
   updateSelection();
@@ -69,8 +70,22 @@ function showHome(){
 }
 function showReader(){
   $('#homeScreen').classList.add('hidden');
+  $('#aboutBibleScreen')?.classList.add('hidden');
   $('#readerScreen').classList.remove('hidden');
   scrollTo(0,0);
+}
+function showAboutBible(){
+  $('#homeScreen').classList.add('hidden');
+  $('#readerScreen').classList.add('hidden');
+  $('#aboutBibleScreen')?.classList.remove('hidden');
+  scrollTo(0,0);
+}
+async function startBibleFromIntroduction(){
+  state.bookIndex=0;
+  state.chapter=1;
+  showReader();
+  await loadChapter();
+  setTimeout(showBiblicalFestivityNoticeV3111,350);
 }
 function openBooksDrawer(){
   // Reconstruir siempre la pestaña Todos al abrir evita un panel vacío durante el primer arranque.
@@ -2514,11 +2529,9 @@ $('#settingsBtn')?.addEventListener('click',()=>requestAnimationFrame(syncDailyN
 
 function wireHomeActions(){
   $('#homeContinue')?.addEventListener('click',()=>goToReadingPoint());
-  $('#homeEnter')?.addEventListener('click',async()=>{
-  showReader();
-  await loadChapter();
-  setTimeout(showBiblicalFestivityNoticeV3111,350);
-});
+  $('#homeEnter')?.addEventListener('click',showAboutBible);
+  $('#aboutBibleBack')?.addEventListener('click',showHome);
+  $('#aboutBibleStart')?.addEventListener('click',startBibleFromIntroduction);
   $('#homeBooks')?.addEventListener('click',()=>{prepareBooksDrawer();openBooksDrawer()});
   $('#homeSearch')?.addEventListener('click',openSearchDialog);
   $('#homeSaved')?.addEventListener('click',()=>{renderSavedDialog();$('#savedDialog').showModal()});

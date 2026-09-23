@@ -7,12 +7,12 @@
   <title>Mi Biblia de Estudio</title>
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3.1.14">
   <link rel="manifest" href="manifest.webmanifest?v=3.1.14">
-<link rel="stylesheet" href="styles.css?v=3.1.151">
+<link rel="stylesheet" href="styles.css?v=3.1.152">
   <link rel="stylesheet" href="biblical-characters-v2244.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-parables-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="biblical-guides-v16436.css?v=3.1.14">
   <link rel="stylesheet" href="theme-overrides.css?v=3.1.14">
-  <link rel="stylesheet" href="progress-map.css?v=3.1.151">
+  <link rel="stylesheet" href="progress-map.css?v=3.1.152">
 
 
 
@@ -59,6 +59,43 @@
       </button>
     </div>
     <button id="homeEnter" class="home-enter-small" type="button">Entrar</button>
+  </section>
+
+  <section id="aboutBibleScreen" class="about-bible-screen hidden" aria-labelledby="aboutBibleTitle">
+    <header class="about-bible-topbar">
+      <button id="aboutBibleBack" type="button" aria-label="Volver a la portada">← Volver</button>
+    </header>
+    <article class="about-bible-page">
+      <p class="about-bible-eyebrow">REINA-VALERA 1960</p>
+      <h1 id="aboutBibleTitle">ACERCA DE ESTA BIBLIA</h1>
+      <div class="about-bible-rule" aria-hidden="true"></div>
+
+      <p>La Biblia que contiene esta aplicación es la Reina-Valera 1960, una de las versiones de las Sagradas Escrituras más conocidas, leídas y apreciadas entre los cristianos de habla española.</p>
+
+      <p>Los libros del Antiguo Testamento fueron escritos principalmente en hebreo, con algunas partes en arameo. Los libros del Nuevo Testamento fueron escritos en griego. La traducción bíblica procura transmitir en otra lengua el mensaje contenido en estos textos, conservando con la mayor fidelidad posible su sentido.</p>
+
+      <p>La tradición de la Reina-Valera comenzó con el trabajo de Casiodoro de Reina, quien tradujo la Biblia completa al castellano tomando como base las lenguas bíblicas originales y sirviéndose también de los conocimientos, traducciones y recursos disponibles en su tiempo. Su traducción fue publicada en 1569 y recibió popularmente el nombre de «Biblia del Oso», debido a la ilustración de un oso que aparecía en su portada.</p>
+
+      <p>Posteriormente, Cipriano de Valera revisó cuidadosamente esta traducción. Su edición, publicada en 1602, corrigió y mejoró diversos aspectos del texto. De la unión de ambos nombres y de la continuidad de sus trabajos procede la denominación con la que hoy conocemos esta traducción: Reina-Valera.</p>
+
+      <p>Con el paso de los siglos se realizaron distintas revisiones para actualizar la ortografía y determinadas expresiones, procurando conservar la fidelidad del texto y el carácter de la traducción histórica.</p>
+
+      <p>En 1960 se publicó una nueva revisión, fruto del trabajo de un comité constituido por líderes de iglesias evangélicas de distintos países de habla española y respaldado por las Sociedades Bíblicas. Con la colaboración de numerosos consultores y teniendo en cuenta las aportaciones de pastores y creyentes, se revisó cuidadosamente el castellano de la Reina-Valera para adaptarlo a los usos contemporáneos del idioma, procurando conservar su estilo y significado. Esta revisión es la conocida como Reina-Valera 1960 o RVR1960.</p>
+
+      <p>Por tanto, el año 1960 no señala el comienzo de una nueva traducción, sino una revisión de la tradición bíblica en castellano iniciada por Casiodoro de Reina en 1569 y continuada por Cipriano de Valera en 1602.</p>
+
+      <p>La Reina-Valera 1960 conserva un lenguaje solemne y reconocible, profundamente arraigado en la vida, la enseñanza y la adoración de numerosas comunidades cristianas. Esta aplicación presenta su texto acompañado de herramientas de lectura y estudio destinadas a facilitar su comprensión, sin sustituir ni alterar el mensaje de las Sagradas Escrituras.</p>
+
+      <blockquote>
+        <p>«La palabra del Dios nuestro permanece para siempre».</p>
+        <cite>Isaías 40:8</cite>
+      </blockquote>
+
+      <button id="aboutBibleStart" class="about-bible-start" type="button">
+        <strong>Comenzar la lectura</strong>
+        <span>Génesis 1&nbsp; ›</span>
+      </button>
+    </article>
   </section>
 
   <div id="readerScreen" class="reader-screen hidden">
@@ -147,7 +184,7 @@
     <div class="study-module-panel functions-guide-panel">
       <div class="study-module-head"><button class="btn soft" type="button" onclick="closeFunctionsGuide()">← Volver</button></div>
       <h1>Guía de funciones de Mi Biblia de Estudio</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.151" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.152" alt="" aria-hidden="true">
       <p class="study-module-sub">Conoce el significado de las cápsulas, colores, marcas y herramientas disponibles durante la lectura.</p>
       <div class="functions-guide-intro"><strong>Cómo usar esta guía</strong><p>Los elementos siguientes son ejemplos visuales. En el texto bíblico real podrás pulsarlos para abrir su contenido o cambiar su estado.</p></div>
       <div class="functions-guide-sections">
@@ -226,7 +263,7 @@
         <button class="btn soft notes-new-button" type="button" onclick="openNoteEditor()">+ Nueva nota</button>
       </div>
       <h1>Bloc de notas</h1>
-      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.151" alt="" aria-hidden="true">
+      <img class="encyclopedia-divider" src="separador_etiope_transparente_final.png?v=3.1.152" alt="" aria-hidden="true">
       <p class="study-module-sub">Tus apuntes personales, guardados en este dispositivo y en tus copias de seguridad.</p>
       <input id="notesSearchInput" class="notes-search-input" type="search" autocomplete="off" placeholder="Buscar en mis notas">
       <div id="notesModuleList" class="notes-module-list"></div>
@@ -783,7 +820,7 @@
     <div class="daily-verse-heading"><div><h2>Versículo del día</h2><p id="dailyVerseDate"></p></div></div>
     <article class="daily-verse-card">
       <div class="daily-verse-meta"><div id="dailyVerseCategory" class="daily-verse-category">Enseñanza</div><div id="dailyVerseNumber" class="daily-verse-number">Versículo del día #0001</div></div>
-      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.151" alt="" aria-hidden="true">
+      <img class="daily-verse-ethiopian-ornament" src="separador_etiope_transparente_final.png?v=3.1.152" alt="" aria-hidden="true">
       <blockquote id="dailyVerseText"></blockquote>
       <strong id="dailyVerseReference" class="daily-verse-reference"></strong><p id="dailyVerseReflection" class="daily-verse-reflection"></p>
     </article>
@@ -840,7 +877,7 @@
     <div id="auditSeal" class="audit-seal hidden">🛡️ Biblia verificada</div>
     <p id="auditHash" class="audit-hash hidden"></p>
     <button id="downloadAuditReport" type="button" class="wide-btn hidden">Descargar informe de auditoría</button>
-    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.151</strong></p>
+    <p class="app-version-info" aria-label="Versión instalada">Mi Biblia de Estudio · versión <strong id="appVersionNumber">3.1.152</strong></p>
   </dialog>
 
   <dialog id="studyAuditDialog" class="sheet-dialog study-audit-dialog">
@@ -871,20 +908,20 @@
 
   <div id="toast" class="toast hidden"></div>
   <script src="dictionary-data.js?v=3.1.14"></script>
-  <script src="biblical-characters-v2244-v2835.js?v=3.1.151"></script>
+  <script src="biblical-characters-v2244-v2835.js?v=3.1.152"></script>
   <script src="biblical-parables-v16436-v2835.js?v=3.1.14"></script>
   <script src="biblical-guides-v16436-v2835.js?v=3.1.14"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="bible-storage-idb-safe-v3119.js?v=3.1.151"></script>
-  <script type="module" src="bible-app-loader-safe-v3119.js?v=3.1.151"></script>
+  <script src="bible-storage-idb-safe-v3119.js?v=3.1.152"></script>
+  <script type="module" src="bible-app-loader-safe-v3119.js?v=3.1.152"></script>
 
 <script>
 (function(){
   if(!('serviceWorker' in navigator))return;
 
-  const targetVersion='3.1.151';
+  const targetVersion='3.1.152';
   let pendingWorker=null;
   let updateAccepted=false;
 
