@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.155';
+const APP_VERSION='3.1.156';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -913,13 +913,14 @@ function hasActiveFragmentAccess(){
   const book=state.books[state.bookIndex],access=activeFragmentAccess;
   return Boolean(book&&access&&access.bookKey===book.key&&Number(access.chapter)===Number(state.chapter)&&Number.isFinite(Number(access.verse))&&state.fragmentClarifications?.[access.id]);
 }
-function formatBibleWordToken(word,verseNumber,tokenIndex,choices,location=null){
+function formatBibleWordToken(word,verseNumber,tokenIndex,choices,location=null,entityOccurrence=''){
   const safeWord=escapeHtml(word),entry=getDictionaryEntryForWord(word);
-  if(!entry)return `<span class="dict-word" data-word="${safeWord}">${safeWord}</span>`;
+  const entityOccurrenceAttr=entityOccurrence?` data-entity-occurrence="${escapeHtml(entityOccurrence)}"`:'';
+  if(!entry)return `<span class="dict-word" data-word="${safeWord}"${entityOccurrenceAttr}>${safeWord}</span>`;
   const occurrenceKey=dictionaryOccurrenceKey(verseNumber,tokenIndex,location),equivalent=String(entry.equivalenciaActual||'').trim(),brief=String(entry.fraseAclaratoriaBreve||'').trim();
-  if(occurrenceKey&&state.dictionaryExclusions?.[occurrenceKey])return `<span class="dict-word dict-excluded" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}">${safeWord}</span>`;
+  if(occurrenceKey&&state.dictionaryExclusions?.[occurrenceKey])return `<span class="dict-word dict-excluded" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}" data-occurrence-key="${escapeHtml(occurrenceKey)}"${entityOccurrenceAttr}>${safeWord}</span>`;
   const active=!!(occurrenceKey&&choices[occurrenceKey]&&equivalent),nearbyRepeated=!!(occurrenceKey&&nearbyDictionaryRepeatedOccurrences.has(occurrenceKey));
-  return `<span class="dict-word dict-known${nearbyRepeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}${nearbyRepeated?' title="Repetición cercana: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
+  return `<span class="dict-word dict-known${nearbyRepeated?' dict-nearby-repeat':''}${active?' dict-equivalent':''}" data-word="${safeWord}" data-entry-id="${escapeHtml(entry.id)}"${occurrenceKey?` data-occurrence-key="${escapeHtml(occurrenceKey)}"`:''}${entityOccurrenceAttr}${nearbyRepeated?' title="Repetición cercana: pulsa para consultar el diccionario"':''}>${active?escapeHtml(equivalent):safeWord}</span>${brief?`<span class="dictionary-brief-note" hidden><strong>${escapeHtml(entry.termino)}:</strong> ${escapeHtml(brief)}</span>`:''}`;
 }
 function formatBibleText(s,verseNumber=null,location=null){
   const {clean,tokens}=bibleWordTokens(s),choices=verseNumber===null?{}:readDictionaryEquivalenceChoices();
@@ -931,7 +932,7 @@ function formatBibleText(s,verseNumber=null,location=null){
   const entityStarts=new Map(),entityEnds=new Map();
   for(const match of biblicalEntityMatches(tokens,clarifications)){entityStarts.set(match.start,match);entityEnds.set(match.end,match)}
   const suppressedEntityEnds=new Set();
-  let html='',cursor=0;
+  let html='',cursor=0,currentEntityOccurrence='';
   for(const token of tokens){
     html+=escapeHtml(clean.slice(cursor,token.start)).replace(/\n/g,'<br>');
     const opening=starts.get(token.index);
@@ -939,6 +940,7 @@ function formatBibleText(s,verseNumber=null,location=null){
     const entityOpening=entityStarts.get(token.index);
     if(entityOpening){
       const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex],chapter=Number(location?.chapter??state.chapter),entityVerse=location?.verse??verseNumber,occurrence=`${book?.key||''}:${chapter}:${entityVerse}:${entityOpening.start}-${entityOpening.end}`,choice=state.biblicalEntityChoices?.[occurrence];
+      currentEntityOccurrence=occurrence;
       let entities=entityOpening.entities;
       if(choice?.mode==='chosen')entities=[{type:choice.type,id:choice.id}];
       const removed=choice?.mode==='removed';
@@ -948,8 +950,11 @@ function formatBibleText(s,verseNumber=null,location=null){
         html+=`<span class="biblical-entity-link biblical-entity-link-${kind}" data-entity-links="${escapeHtml(JSON.stringify(links))}" data-entity-occurrence="${escapeHtml(occurrence)}"${choice?.direct?' data-entity-direct="1"':''}>`;
       }
     }
-    html+=formatBibleWordToken(token.word,verseNumber,token.index,choices,location);
-    if(entityEnds.has(token.index)&&!suppressedEntityEnds.has(token.index))html+='</span>';
+    html+=formatBibleWordToken(token.word,verseNumber,token.index,choices,location,currentEntityOccurrence);
+    if(entityEnds.has(token.index)){
+      if(!suppressedEntityEnds.has(token.index))html+='</span>';
+      currentEntityOccurrence='';
+    }
     const closing=ends.get(token.index);
     if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}${closing.automatic?`<button type="button" class="fragment-inline-exclude" data-fragment-exclude-inline="${escapeHtml(closing.occurrenceKey)}">Excluir aquí</button>`:''}</span>`;
     cursor=token.end;
@@ -1172,7 +1177,7 @@ function showBiblicalEntityChooser(candidates,raw,context={}){
   const occurrence=context.occurrence||'';
   const wrap=document.createElement('div');wrap.id='biblicalEntityChooser';wrap.className='biblical-entity-overlay';
   const rows=candidates.map((x,i)=>`<button type="button" data-entity-index="${i}" class="biblical-entity-choice"><span class="biblical-entity-icon">${x.type==='character'?'👤':'📍'}</span><span><strong>${escapeHtml(x.name)}</strong><small>${x.type==='character'?'Personaje bíblico':'Lugar bíblico'}</small></span><span class="biblical-entity-arrow">›</span></button>`).join('');
-  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true" aria-labelledby="biblicalEntityTitle"><div class="biblical-entity-head"><div><small>SELECCIÓN BÍBLICA</small><h2 id="biblicalEntityTitle">${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Quieres ir a su ficha?</p><div class="biblical-entity-list">${rows}<button type="button" class="biblical-entity-choice biblical-entity-remove" data-entity-exclude><span class="biblical-entity-icon">⊘</span><span><strong>Excluir · No vincular ninguno</strong><small>Solo para esta aparición</small></span></button></div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
+  wrap.innerHTML=`<div class="biblical-entity-dialog" role="dialog" aria-modal="true" aria-labelledby="biblicalEntityTitle"><div class="biblical-entity-head"><div><small>SELECCIÓN BÍBLICA</small><h2 id="biblicalEntityTitle">${escapeHtml(raw)}</h2></div><button type="button" class="biblical-entity-close" aria-label="Cerrar">✕</button></div><p class="biblical-entity-question">¿Quieres ir a su ficha?</p><div class="biblical-entity-list">${rows}${occurrence?'<button type="button" class="biblical-entity-choice" data-entity-link-manually><span class="biblical-entity-icon">🔎</span><span><strong>Vincular a personaje o lugar</strong><small>Buscar y elegir la ficha correcta</small></span><span class="biblical-entity-arrow">›</span></button>':''}<button type="button" class="biblical-entity-choice biblical-entity-remove" data-entity-exclude><span class="biblical-entity-icon">⊘</span><span><strong>Excluir · No vincular ninguno</strong><small>Solo para esta aparición</small></span></button></div><button type="button" class="biblical-entity-cancel">Seguir leyendo</button></div>`;
   document.body.appendChild(wrap);
   wrap.querySelector('.biblical-entity-close').addEventListener('click',closeBiblicalEntityChooser);
   wrap.querySelector('.biblical-entity-cancel').addEventListener('click',closeBiblicalEntityChooser);
@@ -1187,6 +1192,7 @@ function showBiblicalEntityChooser(candidates,raw,context={}){
     if(occurrence)saveBiblicalEntityChoice(occurrence,{mode:'chosen',type:entity.type,id:String(entity.id),direct:false});
     openRecognizedBiblicalEntity(entity);
   }));
+  wrap.querySelector('[data-entity-link-manually]')?.addEventListener('click',()=>showBiblicalEntitySearch(raw,occurrence));
 }
 function saveBiblicalEntityChoice(occurrence,value){
   if(!occurrence)return;
@@ -1256,7 +1262,7 @@ async function openRecognizedBiblicalEntity(entity){
 async function recognizeBiblicalEntityOrDictionary(raw,wordElement){
   try{await Promise.allSettled([loadBiblicalCharactersV2252(),loadBiblicalPlaces()])}catch(_){ }
   const candidates=entityCandidatesForWord(raw,wordElement);
-  const occurrence=wordElement?.closest('.biblical-entity-link')?.dataset.entityOccurrence||'';
+  const occurrence=wordElement?.closest('.biblical-entity-link')?.dataset.entityOccurrence||wordElement?.dataset.entityOccurrence||'';
   if(candidates.length){showBiblicalEntityChooser(candidates,raw,{occurrence});return true}
   return false;
 }
