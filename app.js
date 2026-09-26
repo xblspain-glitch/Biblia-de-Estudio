@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.154';
+const APP_VERSION='3.1.155';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -1256,7 +1256,8 @@ async function openRecognizedBiblicalEntity(entity){
 async function recognizeBiblicalEntityOrDictionary(raw,wordElement){
   try{await Promise.allSettled([loadBiblicalCharactersV2252(),loadBiblicalPlaces()])}catch(_){ }
   const candidates=entityCandidatesForWord(raw,wordElement);
-  if(candidates.length){showBiblicalEntityChooser(candidates,raw);return true}
+  const occurrence=wordElement?.closest('.biblical-entity-link')?.dataset.entityOccurrence||'';
+  if(candidates.length){showBiblicalEntityChooser(candidates,raw,{occurrence});return true}
   return false;
 }
 
