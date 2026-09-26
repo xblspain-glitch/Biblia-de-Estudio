@@ -170,7 +170,7 @@ html,body{overscroll-behavior-y:auto}
 .home-enter-small:active{transform:scale(.97)}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
 
-/* V3.1.153 · Introducción independiente anterior a Génesis. */
+/* V3.1.154 · Introducción independiente anterior a Génesis. */
 .about-bible-screen{min-height:100vh;background:var(--bg);color:var(--text);padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
 .about-bible-topbar{position:sticky;top:0;z-index:20;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:rgba(13,15,18,.97);border-bottom:1px solid #292b31}
 .about-bible-topbar button{border:1px solid rgba(222,187,92,.62);border-radius:14px;background:#22252b;color:#f4e7bf;padding:9px 14px;font:700 15px system-ui;cursor:pointer}

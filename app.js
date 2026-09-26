@@ -1,5 +1,5 @@
 const DATA='./';
-const APP_VERSION='3.1.153';
+const APP_VERSION='3.1.154';
 document.getElementById('appVersionNumber')?.replaceChildren(APP_VERSION);
 const CACHE_PREFIX='biblia-estudio-';
 const DICTIONARY_EQUIVALENCE_CHOICES_KEY='biblia_dictionary_equivalence_choices_v3150';
@@ -930,6 +930,7 @@ function formatBibleText(s,verseNumber=null,location=null){
   }
   const entityStarts=new Map(),entityEnds=new Map();
   for(const match of biblicalEntityMatches(tokens,clarifications)){entityStarts.set(match.start,match);entityEnds.set(match.end,match)}
+  const suppressedEntityEnds=new Set();
   let html='',cursor=0;
   for(const token of tokens){
     html+=escapeHtml(clean.slice(cursor,token.start)).replace(/\n/g,'<br>');
@@ -940,11 +941,15 @@ function formatBibleText(s,verseNumber=null,location=null){
       const book=location?.bookKey?state.books.find(item=>item.key===location.bookKey):state.books[state.bookIndex],chapter=Number(location?.chapter??state.chapter),entityVerse=location?.verse??verseNumber,occurrence=`${book?.key||''}:${chapter}:${entityVerse}:${entityOpening.start}-${entityOpening.end}`,choice=state.biblicalEntityChoices?.[occurrence];
       let entities=entityOpening.entities;
       if(choice?.mode==='chosen')entities=[{type:choice.type,id:choice.id}];
-      const kind=entities.some(x=>x.type==='character')?'character':'place',links=entities.map(x=>({type:x.type,id:x.id})),removed=choice?.mode==='removed';
-      html+=`<span class="biblical-entity-link biblical-entity-link-${kind}${removed?' biblical-entity-link-removed':''}" data-entity-links="${escapeHtml(JSON.stringify(links))}" data-entity-occurrence="${escapeHtml(occurrence)}"${choice?.direct?' data-entity-direct="1"':''}>`;
+      const removed=choice?.mode==='removed';
+      if(removed)suppressedEntityEnds.add(entityOpening.end);
+      else{
+        const kind=entities.some(x=>x.type==='character')?'character':'place',links=entities.map(x=>({type:x.type,id:x.id}));
+        html+=`<span class="biblical-entity-link biblical-entity-link-${kind}" data-entity-links="${escapeHtml(JSON.stringify(links))}" data-entity-occurrence="${escapeHtml(occurrence)}"${choice?.direct?' data-entity-direct="1"':''}>`;
+      }
     }
     html+=formatBibleWordToken(token.word,verseNumber,token.index,choices,location);
-    if(entityEnds.has(token.index))html+='</span>';
+    if(entityEnds.has(token.index)&&!suppressedEntityEnds.has(token.index))html+='</span>';
     const closing=ends.get(token.index);
     if(closing)html+=`</span><span class="fragment-clarification-note" data-fragment-note-id="${escapeHtml(closing.id)}" hidden>${formatReferenceCapsules(closing.text)}${closing.automatic?`<button type="button" class="fragment-inline-exclude" data-fragment-exclude-inline="${escapeHtml(closing.occurrenceKey)}">Excluir aquí</button>`:''}</span>`;
     cursor=token.end;
