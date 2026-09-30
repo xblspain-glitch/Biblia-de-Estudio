@@ -170,7 +170,7 @@ html,body{overscroll-behavior-y:auto}
 .home-enter-small:active{transform:scale(.97)}
 @media(max-width:420px){.home-enter-small{margin-top:18px;padding:9px 25px;font-size:15px}}
 
-/* V3.1.157 · Introducción independiente anterior a Génesis. */
+/* V3.1.158 · Introducción independiente anterior a Génesis. */
 .about-bible-screen{min-height:100vh;background:var(--bg);color:var(--text);padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
 .about-bible-topbar{position:sticky;top:0;z-index:20;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;background:rgba(13,15,18,.97);border-bottom:1px solid #292b31}
 .about-bible-topbar button{border:1px solid rgba(222,187,92,.62);border-radius:14px;background:#22252b;color:#f4e7bf;padding:9px 14px;font:700 15px system-ui;cursor:pointer}
@@ -2642,6 +2642,27 @@ body.light-mode .dictionary-equivalent-dialog input[type="text"]{background:#fff
 body.light-mode .dictionary-title-actions .dictionary-equivalent-action{background:linear-gradient(180deg,#fff1d8,#eec98f);color:#71430d}
 body.light-mode .dictionary-title-actions .dictionary-brief-action{background:linear-gradient(180deg,#fff5e5,#edcf9f);color:#71430d}
 body.light-mode .dictionary-title-actions .dictionary-exclude-action{background:#fff2ef;color:#7b302a;border-color:#c87972}body.light-mode .dictionary-title-actions .dictionary-exclude-action.active{background:#a7433c;color:#fff;border-color:#7e2e28}body.light-mode .dictionary-title-actions .dictionary-global-exclude-action{background:#fff5f3;color:#743a35;border-color:#c58a84}body.light-mode .dictionary-title-actions .dictionary-global-exclude-action.active{background:#e7f2dd;color:#365126;border-color:#8aae70}body.light-mode .dictionary-title-actions .dictionary-occurrence-save{background:linear-gradient(180deg,#f3d77d,#c99c31);color:#2d2108}
+
+/* V3.1.158 · Cápsulas lilas más descansadas sobre el fondo oscuro. */
+body:not(.light-mode) .verse.explained-verse{
+  background:linear-gradient(180deg,rgba(178,139,215,.11),rgba(132,87,174,.075));
+  outline-color:rgba(196,157,230,.52);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(120,76,161,.05);
+}
+body:not(.light-mode) .verse.explained-verse.saved-verse{
+  background:linear-gradient(180deg,rgba(178,139,215,.12),rgba(132,87,174,.08));
+  outline-color:rgba(196,157,230,.55);
+}
+body:not(.light-mode) .explanation-group{
+  background:linear-gradient(180deg,rgba(178,139,215,.075),rgba(132,87,174,.05))!important;
+  border-color:rgba(196,157,230,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.065),0 0 0 1px rgba(120,76,161,.045)!important;
+}
+body:not(.light-mode) .explanation-group:has(.verse.selected){
+  background:linear-gradient(180deg,rgba(178,139,215,.14),rgba(132,87,174,.10))!important;
+  border-color:rgba(207,172,238,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 0 1px rgba(132,87,174,.09)!important;
+}
 body.light-mode .dictionary-highlight-toggle{background:rgba(112,205,133,.15);border-color:rgba(57,145,77,.45)}
 body.light-mode .dictionary-highlight-toggle span{color:#17391f}
 body.light-mode .dictionary-highlight-help{color:#526257}
